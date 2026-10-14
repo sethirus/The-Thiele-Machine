@@ -121,7 +121,7 @@ III     The logic                                                               
 11 Records over any base: the latch                                                                     149
    11.1 A cup and a die . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 149
    11.2 What “base-driven” has to mean . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 150
-   11.3 Both rules do work: the toggle and the clock . . . . . . . . . . . . . . . . . . . . . . . 154
+   11.3 Both rules do work: the toggle and the timestamp . . . . . . . . . . . . . . . . . . . . 154
    11.4 Is there only one such machine? No. One structure, two free choices. . . . . . . . . . 158
 
 
@@ -2208,7 +2208,7 @@ the record, and a record that stays up once it’s up. A record that, from a cle
 a passing check of a claim, then a commitment to that same claim with nothing it’s about changed
 in between, then a certificate, with the checker proved to mean what it says: the claims and what
 they mean come from a language fixed first, and the proof is that the checker’s yes makes the claim
-true in that language’s sense. An exact toll: one mark for each of those three acts and nothing for
+true in that language’s sense. Exact prices: one mark for each of those three acts and nothing for
 anything else. And a claim whose check, commit and certificate raise the record from a loaded
 start exactly when the claim holds there, with the claim holding at some loaded starts and failing at
 others. Every clock-style machine fails the definition, because it charges for computing, whatever
@@ -2302,80 +2302,83 @@ Rise-only pricing charges at least one mark on every step that raises the readin
 other step; its tightest bill, one mark per raise and nothing else, is the exact schedule. Instruction-exact
 pricing charges every instruction a fixed listed price. On the small machine of Part IV that’s one
 mark each for CHECK, COMMIT and CERTIFY and nothing for the rest, and the definition of
-Thiele-complete calls it the exact toll. CHECK and COMMIT raise no flag, so the small machine is
+Thiele-complete calls it exact prices, not a toll, because it charges acts that raise nothing. CHECK
 
 
 
                                                     40
-The Thiele Machine                                                                               Devon Thiele
+The Thiele Machine                                                                              Devon Thiele
 
 
 
-instruction-exact without being rise-only, and no rule is broken by that. Simulation-exact accounting
-is a host whose ledger equals its guest’s ledger at every point where the two runs match, as the
-universal program U’s does. A machine can meet any one of the three and fail the others.
+and COMMIT raise no flag, so the small machine is instruction-exact without being rise-only, and
+no rule is broken by that. Simulation-exact accounting is a host whose ledger equals its guest’s ledger
+at every point where the two runs match, as the universal program U’s does. A machine can meet
+any one of the three and fail the others.
 The right-hand column uses words the book only builds later (the latch, the fibre, the universal
 program, the integer check, the matrix test), so read it as a list of places to go. You aren’t meant to
 follow it yet.
 
-Prior work                   What this book leans on                 What this development adds
-Landauer 1961; Bennett       erasure and merging cost; a             the ledger form of a counting core
-1973, 1982, 2003; Zermelo    measurement need not merge, and         that’s classical (recurrence’s finite
-1896; Bocchieri and          the demon pays when it wipes its        cousin, folklore for permutation
-Loinger 1957; Pin 1992;      notes; recurrence (a step that loses    automata) and already priced in
-Brodsky and Pippenger        nothing, on finitely many states,       entropy for automata: the price as a
-2002; Ouldridge and          comes back around); machines whose      named rule on a ledger, a certification
-Wolpert 2023; Murashita,     moves all reshuffle states recognise    toll derived from finitely many
-Funo and Ueda 2014           only group languages; a language        yes-states, permanence and that rule,
-                             whose smallest automaton has to         with merge-or-revoke, the squeeze
-                             merge states costs entropy to           and entropy forms, and each
-                             recognise; absolute-irreversibility     premise’s counterexample built
-                             bounds require forward and reverse
-                             path probabilities
-Maroney 2009; Sagawa         thermodynamic bounds that depend        the certificate-specific entropy bound
-and Ueda 2009; Sagawa        on the actual spread over states; the   with its support and permanence
-2014                         entropy-loss bound is zero for a        premises out in the open; heat still
-                             point-mass input; further work          needs the Landauer premise, and no
-                             bounds depend on control, reliability   new physical law is proved
-                             and input distribution
-Shannon 1948; Hartley        entropy and log-of-count bounds         the same squeeze bound in counted
-1928                                                                 states and, from an even spread, in
-                                                                     bits, for a permanent flip
-Tarjan 1985; Lyapunov        the potential method, already           the toll as that method with the flag
-1892; Nipkow;                mechanized                              as potential
+Prior work                  What this book leans on                 What this development adds
+Landauer 1961; Bennett      erasure and merging cost; a             the ledger form of a counting core
+1973, 1982, 2003; Zermelo   measurement need not merge, and         that’s classical (recurrence’s finite
+1896; Bocchieri and         the demon pays when it wipes its        cousin, folklore for permutation
+Loinger 1957; Pin 1992;     notes; recurrence (a step that loses    automata) and already priced in
+Brodsky and Pippenger       nothing, on finitely many states,       entropy for automata: the price as a
+2002; Ouldridge and         comes back around); machines whose      named rule on a ledger, a certification
+Wolpert 2023; Murashita,    moves all reshuffle states recognise    toll derived from finitely many
+Funo and Ueda 2014          only group languages; a language        yes-states, permanence and that rule,
+                            whose smallest automaton has to         with merge-or-revoke, the squeeze
+                            merge states costs entropy to           and entropy forms, and each
+                            recognise; absolute-irreversibility     premise’s counterexample built
+                            bounds require forward and reverse
+                            path probabilities
+Maroney 2009; Sagawa        thermodynamic bounds that depend        the certificate-specific entropy bound
+and Ueda 2009; Sagawa       on the actual spread over states; the   with its support and permanence
+2014                        entropy-loss bound is zero for a        premises out in the open; heat still
+                            point-mass input; further work          needs the Landauer premise, and no
+                            bounds depend on control, reliability   new physical law is proved
+                            and input distribution
+Shannon 1948; Hartley       entropy and log-of-count bounds         the same squeeze bound in counted
+1928                                                                states and, from an even spread, in
+                                                                    bits, for a permanent flip
+Tarjan 1985; Lyapunov       the potential method, already           the toll as that method with the flag
+1892; Nipkow;               mechanized                              as potential
 Charguéraud and Pottier
-Katsumata 2014; Orchard,     cost carried as a grade that composes   a run’s cost as a writer cost and as a
-Liepelt and Eades 2019;      with the computation                    grade fixed before the run; the
-Danner and Licata                                                    counter rides in the state, put there by
-                                                                     the step rule, and it is their writer
-                                                                     exactly, while their type systems and
-                                                                     before-the-run checking of grades are
-                                                                     not embedded, by design
-Lamport 1978; Floyd 1967;    one-way counters give order and         the receipt’s three properties (it only
-Turing 1949                  termination                             climbs, it equals the sum of the
-                                                                     charges, it’s the only such total)
-                                                                     stated and proved for any machine
-                                                                     with a counter and a price list fixed in
-                                                                     advance
-Moore 1956; Kalman 1960;     what a window loses; when an            the fibre fact with a price in place of a
-Cousot 1977; Codd 1970;      observer can work out a hidden          decoder; the small machine’s named
-Sampath and coauthors        event, and when a secret state stays    collision, and the window every
-1995; Saboori and            hidden                                  Thiele-complete machine is blind
-Hadjicostis 2007                                                     through
-Smith 2009 (quantitative     how much an observer learns about a     none for leakage: the collisions rule
-information flow)            secret from what it sees                out exact decoding through named
-                                                                     windows, which isn’t zero leakage,
-                                                                     and no leakage measure is supplied
-Gettier 1963; Necula 1997;   entitlement is not truth;               entitlement as object, relation, paid
-Cook 1971                    proof-carrying checks                   event, with a counted bound
+Katsumata 2014; Orchard,    cost carried as a grade that composes   a run’s cost as a writer cost and as a
+Liepelt and Eades 2019;     with the computation                    grade fixed before the run; the
+Danner and Licata                                                   counter rides in the state, put there by
+                                                                    the step rule, and it is their writer
+                                                                    exactly, while their type systems and
+                                                                    before-the-run checking of grades are
+                                                                    not embedded, by design
+Lamport 1978; Floyd 1967;   one-way counters give order and         the receipt’s three properties (it only
+Turing 1949                 termination                             climbs, it equals the sum of the
+                                                                    charges, it’s the only such total)
+                                                                    stated and proved for any machine
+                                                                    with a counter and a price list fixed in
+                                                                    advance
+Moore 1956; Kalman 1960;    what a window loses; when an            the fibre fact with a price in place of a
+Cousot 1977; Codd 1970;     observer can work out a hidden          decoder; the small machine’s named
+Sampath and coauthors       event, and when a secret state stays    collision, and the window every
+1995; Saboori and           hidden                                  Thiele-complete machine is blind
+Hadjicostis 2007                                                    through
+Smith 2009 (quantitative    how much an observer learns about a     none for leakage: the collisions rule
+information flow)           secret from what it sees                out exact decoding through named
+                                                                    windows, which isn’t zero leakage,
+                                                                    and no leakage measure is supplied
 
 
-                                                     41
+
+
+                                                   41
 The Thiele Machine                                                                            Devon Thiele
 
 
 
 Prior work                   What this book leans on                What this development adds
+Gettier 1963; Necula 1997;   entitlement is not truth;              entitlement as object, relation, paid
+Cook 1971                    proof-carrying checks                  event, with a counted bound
 Dwork and Naor 1992;         make establishing something cost, in   a comparison, with no claim that the
 Back 2002 (Hashcash, first   a way anyone can check cheaply         two are the same: proof of work
 proposed 1997)                                                      checks a found value against a
@@ -7708,14 +7711,14 @@ transcripts is sound and complete for “the ledger reads 3.”
 
 Proof. Observation 17.26(2) gives a loaded state and two runs from it that end with the same
 window, one with the record up and one with it down, and, from one clean loaded state, two runs
-with the same window, one whose ledger rose by at least 3 and one made of free base moves that
-leaves the ledger where it started (that observation’s proof builds it). Both end states explain the
-same bare transcript. A verifier complete for the claim accepts that transcript, since a state where
-the claim holds explains it; a verifier sound for the claim then makes the claim true of every state
-that explains it, including the one where it’s false. That’s (1), and (2) is the same with the ledger: the
-paid run’s end state satisfies the claim, and the free run’s doesn’t. For (3) the two runs are written
-out in the statement: three moves land on line 4 in both runs with both counters at 0, and the same
-two-state argument applies.
+with the same window, one whose ledger rose by at least 3 and one made of base moves at no
+marks that leaves the ledger where it started (that observation’s proof builds it). Both end states
+explain the same bare transcript. A verifier complete for the claim accepts that transcript, since a
+state where the claim holds explains it; a verifier sound for the claim then makes the claim true of
+every state that explains it, including the one where it’s false. That’s (1), and (2) is the same with
+the ledger: the paid run’s end state satisfies the claim, and the free run’s doesn’t. For (3) the two
+runs are written out in the statement: three moves land on line 4 in both runs with both counters at
+0, and the same two-state argument applies.
 
 Put with the three escapes, the whole picture holds for every Thiele-complete machine and for
 the small machine: the bare-transcript verifier doesn’t exist; the collision survives into any richer
@@ -9036,7 +9039,7 @@ and it gives: I never say where the merged state goes. Hepp’s chain had to be 
 had to put his in an environment. Mine just goes, and the toll writes a unit in a counter. That’s fine
 in a model of computation, and it’s exactly where this stops being physics.
 
-11.3 Both rules do work: the toggle and the clock
+11.3 Both rules do work: the toggle and the timestamp
 A theorem with two hypotheses should have two counterexamples, one for each hypothesis
 dropped, and it does, and they’re the two ways a record goes wrong in the world.
 Drop permanence. Take a base that just counts, and a record that flips at every step: on, off, on,
@@ -9184,13 +9187,13 @@ one trial and zero in the other. The next cup values disagree although everythin
 agrees. That is the failure of being driven by the base. If the tally always starts synchronized with
 the list position, the position can predict the cup; the distinction matters below.
 The two examples do exactly what I said they do: the toggle is driven, isn’t permanent and isn’t a
-latch; the clock is permanent and isn’t driven. That each also keeps the other rules (the ledger is the
-step count, the first switch-on costs one, a run reaches it) is true by inspection.
-Permanent but undriven is a clock, driven but impermanent is a toggle, and a record is the thing
-that’s both. Undriven, for the clock, means that along the runs that actually happen the base state
-doesn’t fix when the record turns; Lemma 11.7 below says why that’s the condition, and what
-(R1) as written adds to it. That’s the whole discrimination, and I think it’s the most useful single
-sentence in this book for looking at systems other than the one I build, which is why it’s here.
+latch; the timestamp is permanent and isn’t driven. That each also keeps the other rules (the ledger
+is the step count, the first switch-on costs one, a run reaches it) is true by inspection.
+Permanent but undriven is a timestamp, driven but impermanent is a toggle, and a record is the
+thing that’s both. Undriven, for the timestamp, means that along the runs that actually happen the
+base state doesn’t fix when the record turns; Lemma 11.7 below says why that’s the condition, and
+what (R1) as written adds to it. That’s the whole discrimination, and I think it’s the most useful
+single sentence in this book for looking at systems other than the one I build, which is why it’s here.
 The pair lemma and the two counterexamples, exactly. The base for both counterexamples is the
 counter: states are whole numbers, the step adds one, every state is a starting state, and nothing
 halts. Two more bits of shorthand: ¬r is r flipped, and a statement in square brackets, like [k = 5],
@@ -9212,50 +9215,50 @@ is not permanent; and it factors as the latch of no event.
 Proof. At (0, on) the next record is off, which breaks permanence; and any latch gives on ∨ h(0) = on
 there.
 
-Lemma 11.6 (The clock). Let the clock have states (b, k, r ), step (b, k, r ) 7→ (b + 1, k + 1, r ∨ [k = 5]),
-every state starting, record r, ledger b, cover (b, k, r ) 7→ b onto the counter. It is permanent and not driven
-by the computation.
+Lemma 11.6 (The timestamp). Let the timestamp have states (b, k, r ), step (b, k, r ) 7→ (b + 1, k + 1, r ∨
+[k = 5]), every state starting, record r, ledger b, cover (b, k, r ) 7→ b onto the counter. It is permanent and
+not driven by the computation.
 
 Proof. Permanence: on ∨ x is on. Not driven: the states (0, 5, off) and (0, 0, off) have the same base
 state and the same record, and their next records are on and off, so no f of the base state and the
 record can give both.
 
-“Driven” is a condition on every state. The clock makes every state a starting state, so the two states
-the proof compares are both ones a run can begin at, even though a clock started at (0, 0, off) would
+“Driven” is a condition on every state. The timestamp makes every state a starting state, so the two
+states the proof compares are both ones a run can begin at, even though a timestamp started at
 
 
                                                        157
-The Thiele Machine                                                                                  Devon Thiele
+The Thiele Machine                                                                                Devon Thiele
 
 
 
-never reach (0, 5, off).
-That last sentence does more work than it looks, so here it is as a lemma. Start the same clock in
-sync, at (b, b, off) only. On every state its runs reach, the hidden count equals the base, and the clock
-is exactly the latch of [b = 5]. (R1) still rejects it, because (R1) asks about every state, and (0, 5, off)
-is a state, though no run from a synchronised start reaches it. So (R1) as written separates the clock
-from a latch partly by how the cover is drawn and through states nobody visits. The separation
-I mean is the one on reachable states: the clock with every state a start fails (R1) even when only
-states some run reaches are counted, since two starting states sit over the same base state with the
-same record and disagree about the next one. And the latch theorem holds in that reachable form
-too.
+(0, 0, off) would never reach (0, 5, off).
+That last sentence does more work than it looks, so here it is as a lemma. Start the same timestamp
+in sync, at (b, b, off) only. On every state its runs reach, the hidden count equals the base, and the
+timestamp is exactly the latch of [b = 5]. (R1) still rejects it, because (R1) asks about every state, and
+(0, 5, off) is a state, though no run from a synchronised start reaches it. So (R1) as written separates
+the timestamp from a latch partly by how the cover is drawn and through states nobody visits. The
+separation I mean is the one on reachable states: the timestamp with every state a start fails (R1)
+even when only states some run reaches are counted, since two starting states sit over the same
+base state with the same record and disagree about the next one. And the latch theorem holds in
+that reachable form too.
 
-Lemma 11.7 (The clock, on the states runs reach). Say M’s record is driven on reachable states when
-(R1) holds for every state reached from a starting state in some number of steps. (1) If M’s record is driven
-on reachable states and permanent, then on every reachable state M steps as the latch of some event. (2)
-The clock of Lemma 11.6 isn’t driven on reachable states. (3) The clock started in sync, with starting states
-(b, b, off) and the same step, record, ledger and cover, is permanent, isn’t driven by the computation, is driven
-on reachable states, and on every reachable state steps as the latch of [b = 5].
+Lemma 11.7 (The timestamp, on the states runs reach). Say M’s record is driven on reachable states
+when (R1) holds for every state reached from a starting state in some number of steps. (1) If M’s record
+is driven on reachable states and permanent, then on every reachable state M steps as the latch of some
+event. (2) The timestamp of Lemma 11.6 isn’t driven on reachable states. (3) The timestamp started in sync,
+with starting states (b, b, off) and the same step, record, ledger and cover, is permanent, isn’t driven by the
+computation, is driven on reachable states, and on every reachable state steps as the latch of [b = 5].
 
 Proof. (1) is the proof of Observation 11.1, run on reachable states only. (2) The states (0, 5, off) and
 (0, 0, off) are starting states, reached in no steps, and the proof of Lemma 11.6 applies to them. (3)
 From (b, b, off) every step adds one to both counts, so a reachable state has k = b and its next record
 is r ∨ [b = 5]. Over every state, (R1) fails at the same pair as in Lemma 11.6.
 
-So “permanent but undriven is a clock” is a sentence about the clock with every state a start, over
-the cover that hides its count, and it holds there in the strong form: undriven on the very states its
-runs pass through. A clock started in step with its base is a latch on the runs it has, and (R1) throws
-it out only because (R1) also looks at states those runs never reach.
+So “permanent but undriven is a timestamp” is a sentence about the timestamp with every state
+a start, over the cover that hides its count, and it holds there in the strong form: undriven on the
+very states its runs pass through. A timestamp started in step with its base is a latch on the runs it
+has, and (R1) throws it out only because (R1) also looks at states those runs never reach.
 
 11.4 Is there only one such machine? No. One structure, two free choices.
 Here’s a sentence I have to take apart: “there’s only one way to carry a record.” Three different
@@ -9283,7 +9286,7 @@ choice. The walk above is the whole argument, and it works over an arbitrary bas
 surcharge that depends on the current state: the billed machine is base-driven, has the same latch
 
 
-                                                      158
+                                                     158
 The Thiele Machine                                                                                   Devon Thiele
 
 
@@ -12781,9 +12784,9 @@ as the language gives it, holds of that state; a set of clean states; a ledger, 
 state; and a kind for each move: a base move, CHECK of a claim, COMMIT of a claim, or CERTIFY.
 The machine is Thiele-complete over the language when some interface over it meets four clauses,
 and Thiele-complete when some interface, with claims, meanings and “unchanged” of its own, meets
-them. (a) Universal base. Each two-counter instruction’s move is a base move; from every live
-state it acts on the window exactly as the instruction acts on a configuration, and the state stays
-live; each loaded state shows (1, a, b), is live and is clean; no base move changes the record; and a
+them. (a) Universal base. Each two-counter instruction’s move is a base move; from every live state
+it acts on the window exactly as the instruction acts on a configuration, and the state stays live;
+each loaded state shows (1, a, b), is live and is clean; no base move changes the record; and a record
 
 
                                                    217
@@ -12791,14 +12794,14 @@ live; each loaded state shows (1, a, b), is live and is clean; no base move chan
 
 
 
-record that’s up stays up under every move. (b) Earned record. Clean states have the record down.
-Every run from a clean state that ends with the record up contains a CHECK of some claim c that
-passes, then a COMMIT of c with the thing c is about unchanged at every state in between, then
-a CERTIFY, with the record down just before that CERTIFY and up just after it. A passing check
-means its claim’s meaning holds of the state it checked, and a meaning that holds keeps holding
-while the thing it’s about is unchanged. (c) Exact toll. Base moves cost 0, each CHECK, COMMIT
-and CERTIFY costs exactly 1, and each move adds its cost to the ledger. (d) Non-vacuity. Some claim
-c has a CHECK, a COMMIT and a CERTIFY such that those three moves alone, from a loaded state,
+that’s up stays up under every move. (b) Earned record. Clean states have the record down. Every
+run from a clean state that ends with the record up contains a CHECK of some claim c that passes,
+then a COMMIT of c with the thing c is about unchanged at every state in between, then a CERTIFY,
+with the record down just before that CERTIFY and up just after it. A passing check means its
+claim’s meaning holds of the state it checked, and a meaning that holds keeps holding while the
+thing it’s about is unchanged. (c) Exact prices. Base moves cost 0, each CHECK, COMMIT and
+CERTIFY costs exactly 1, and each move adds its cost to the ledger. (d) Non-vacuity. Some claim c
+has a CHECK, a COMMIT and a CERTIFY such that those three moves alone, from a loaded state,
 raise the record exactly when c’s meaning holds there; and c holds at some loaded state and fails at
 another. A Thiele machine is weakly Thiele-complete when some interface gives it a universal base
 and nothing more is asked: each two-counter instruction’s move acts on the window exactly as the
@@ -12865,7 +12868,7 @@ down to zero, so they need about as many steps as the threshold for what CHECK d
 Theorem 17.50 gives the precise lower bound and the matching ladder. So the record makes nothing
 faster, and CHECK, a primitive test, can.
 One word needs pinning before the theorems, using the three names set at the front of the book. In
-clause (c), the exact toll is instruction-exact pricing: each of the three acts, CHECK and COMMIT
+clause (c), exact prices means instruction-exact pricing: each of the three acts, CHECK and COMMIT
 included, costs exactly one, so the ledger counts the acts that make a claim. Back in Section 7, one
 result is about rise-only pricing in its tightest bill, the exact schedule: one mark on the step that raises
 the flag and nothing on any other step. Measured against the flag alone, the small machine isn’t
@@ -12906,7 +12909,7 @@ Proof. (1) Take the plain interface the language-first one becomes. (2) The chec
 
 
                                                       219
-The Thiele Machine                                                                                  Devon Thiele
+The Thiele Machine                                                                                   Devon Thiele
 
 
 
@@ -12944,9 +12947,9 @@ ing costs no marks, and a clock charges marks for computing. The other clauses e
 and that’s worth checking, because a definition with a clause nothing needs is a definition hiding
 something.
 
-Theorem 17.22 (Each clause does work). (1) Take a two-counter base priced 0 with a ledger beside it,
-and one extra move TICK that costs 1 and raises a flag. It obeys the toll, and read with TICK as CERTIFY
-it meets the universal base clause and the exact toll clause; it is not Thiele-complete, and more generally no
+Theorem 17.22 (Each clause does work). (1) Take a two-counter base priced 0 with a ledger beside it, and
+one extra move TICK that costs 1 and raises a flag. It obeys the toll, and read with TICK as CERTIFY it
+meets the universal base clause and the exact prices clause; it is not Thiele-complete, and more generally no
 machine with a move that puts the record up from every state is. (2) Take a two-counter base priced 0 and a
 record that never rises. It obeys the toll and meets clauses (a), (b) and (c); it is not Thiele-complete, and more
 generally no machine whose record never rises is.
@@ -17729,77 +17732,81 @@ the partition form              numbers, and no probabilities enter
 
 
                                                         299
-The Thiele Machine                                                                                    Devon Thiele
+The Thiele Machine                                                                                  Devon Thiele
 
 
 
-Claim                          Kind                                     Home
-The eight-start member,        proved; the 16 is the machine’s fact     Section 17.17, Proposition 17.48,
-and a search through n         table                                    Theorem 17.49
+Claim                        Kind                                     Home
+The eight-start member,      proved; the 16 is the machine’s fact     Section 17.17, Proposition 17.48,
+and a search through n       table                                    Theorem 17.49
 bits with up to 16
 questions
-The covering hypothesis        proved, by a counterexample on the       Section 17.17
-can’t be dropped               small machine
-The time tax: no free          proved, for programs of INC and          Section 17.17, Theorem 17.50
-program of fewer than m        DEC
+The covering hypothesis      proved, by a counterexample on the       Section 17.17
+can’t be dropped             small machine
+The time tax: no free        proved, for programs of INC and          Section 17.17, Theorem 17.50
+program of fewer than m      DEC
 moves decides A ≥ m
 from its final line and B,
 one paid move decides it,
 and three paid moves
 certify it
-The lists, tree and fibres     not claimed, except in the worked        Section 17.17
-are read off the run           members
-Entitlement is truth, or       not claimed                              Section 9
+The lists, tree and fibres   not claimed, except in the worked        Section 17.17
+are read off the run         members
+Entitlement is truth, or     not claimed                              Section 9
 permission
-The count prices why           not claimed; it prices the size of the   Section 9
-candidates were dropped        drop
-Certified insight event,       definition                               Section 10, Definition 10.1
+The count prices why         not claimed; it prices the size of the   Section 9
+candidates were dropped      drop
+Certified insight event,     definition                               Section 10, Definition 10.1
 raw observation
-The toll prices only the       fact read off the definitions            Section 10, Remark 10.1
+The toll prices only the     fact read off the definitions            Section 10, Remark 10.1
 crossing, flat in depth
-Sorting moves by whether       choice                                   Section 10
+Sorting moves by whether     choice                                   Section 10
 the reading moves
-Nothing makes the              fact read off the definitions            Section 10, Remark 10.2
+Nothing makes the            fact read off the definitions            Section 10, Remark 10.2
 crossing wait for a check
-A paid flag proves its         not claimed                              Section 10
+A paid flag proves its       not claimed                              Section 10
 claim true
 
 
 
-Claim                          Kind                                     Home
-Base, cover, base-driven       definition                               Section 11, Definition 11.1,
-record, latch                                                           Definition 11.2
-Over any base, a               proved, by unfolding                     Section 11, Observation 11.1
+Claim                        Kind                                     Home
+Base, cover, base-driven     definition                               Section 11, Definition 11.1,
+record, latch                                                         Definition 11.2
+Over any base, a             proved, by unfolding                     Section 11, Observation 11.1
 base-driven record is a
 latch
-Every reachable latch is a     proved                                   Section 11, Theorem 11.2
+Every reachable latch is a   proved                                   Section 11, Theorem 11.2
 base-driven record
-A finite reversible            proved; an unbounded-history             Section 11, Theorem 11.3
-machine cannot raise a         extension can, by paying room
+A finite reversible          proved; an unbounded-history             Section 11, Theorem 11.3
+machine cannot raise a       extension can, by paying room
 permanent reading
-Two records are two            proved                                   Section 11, Lemma 11.4
+Two records are two          proved                                   Section 11, Lemma 11.4
 latches
-The toggle: driven, can        proved                                   Section 11, Lemma 11.5
+The toggle: driven, can      proved                                   Section 11, Lemma 11.5
 switch off, no latch
-The clock: permanent,          proved                                   Section 11, Lemma 11.6
+The timestamp, a record      proved                                   Section 11, Lemma 11.6
+switched on by a hidden
+clock: permanent,
 undriven
-The clock is undriven on       proved                                   Section 11, Lemma 11.7
-the states its runs reach,
-while the clock started in
-sync is a latch there and is
-rejected only by (R1) over
-every state
-Base-driven records agree      proved                                   Section 11
-up to the schedule
 
 
 
-                                                       300
+
+                                                     300
 The Thiele Machine                                                                                  Devon Thiele
 
 
 
 Claim                        Kind                                      Home
+The timestamp is             proved                                    Section 11, Lemma 11.7
+undriven on the states its
+runs reach, while the
+timestamp started in sync
+is a latch there and is
+rejected only by (R1) over
+every state
+Base-driven records agree    proved                                    Section 11
+up to the schedule
 The event is a free choice   proved, the converse applied twice        Section 11, Corollary 11.8
 The schedule doesn’t fix     proved, with the branching latch          Section 11, Theorem 11.9
 the probabilities            refuted
@@ -17846,82 +17853,71 @@ halting for L                                                          Theorem 1
 Undecidable means            not claimed                               Section 14
 unknowable; the wall
 separates Turing degrees
-Casper setting; one          definition (transcribed; the gas          Section 15, Definition 15.1,
-storage slot; a gas          schedule’s charge premise stipulated)     Definition 15.2, Definition 15.3
-schedule
-Accountable safety           proved (premises: quorum                  Section 15, Theorem 15.1
-                             intersection, one parent)
-The quorum premise can       proved                                    Section 15, Theorem 15.2
-hold; on a one-validator
-chain one vote finalizes
-genesis and nobody is
-slashed
 
 
 
 
                                                     301
-The Thiele Machine                                                                             Devon Thiele
+The Thiele Machine                                                                               Devon Thiele
 
 
 
-Claim                         Kind                                  Home
-A persistent write to a       proved, on the transcription          Section 15, Theorem 15.3
+Claim                         Kind                                    Home
+Casper setting; one           definition (transcribed; the gas        Section 15, Definition 15.1,
+storage slot; a gas           schedule’s charge premise stipulated)   Definition 15.2, Definition 15.3
+schedule
+Accountable safety            proved (premises: quorum                Section 15, Theorem 15.1
+                              intersection, one parent)
+The quorum premise can        proved                                  Section 15, Theorem 15.2
+hold; on a one-validator
+chain one vote finalizes
+genesis and nobody is
+slashed
+A persistent write to a       proved, on the transcription            Section 15, Theorem 15.3
 fresh slot nets at least
 20000
-Gas is exact exactly when     proved (premise: the stipulated       Section 15, Theorem 15.4
+Gas is exact exactly when     proved (premise: the stipulated         Section 15, Theorem 15.4
 commits pay one               charge predicate)
-A permanent write on a        proved                                Section 15, Theorem 15.5
+A permanent write on a        proved                                  Section 15, Theorem 15.5
 finite machine merges,
 and the merge lands on
 the record’s yes side
-Platform and quote;           definition                            Section 15, Definition 15.4,
-inclusion check; bounds                                             Definition 15.5, Definition 15.6
+Platform and quote;           definition                              Section 15, Definition 15.4,
+inclusion check; bounds                                               Definition 15.5, Definition 15.6
 fragment
-The quote can’t attest        proved                                Section 15, Theorem 15.6
+The quote can’t attest        proved                                  Section 15, Theorem 15.6
 what it never measured
 
 
 
-Claim                         Kind                                  Home
-The RFC’s inclusion           proved (symbolic hash)                Section 15, Theorem 15.7
+Claim                         Kind                                    Home
+The RFC’s inclusion           proved (symbolic hash)                  Section 15, Theorem 15.7
 examples pass
-The proof-carrying            proved                                Section 15, Theorem 15.8
+The proof-carrying            proved                                  Section 15, Theorem 15.8
 checker is the verification
 condition
-A transcription is the real   not claimed                           Section 15
+A transcription is the real   not claimed                             Section 15
 system
-A toll is a better design     not claimed                           Section 15
+A toll is a better design     not claimed                             Section 15
 than a wall
-Ecosystem, proliferation,     definition                            Section 16, Definition 16.1,
-pointer; copied and relied                                          Definition 16.2, Definition 16.3
+Ecosystem, proliferation,     definition                              Section 16, Definition 16.1,
+pointer; copied and relied                                            Definition 16.2, Definition 16.3
 on, independent carriers;
 observation game
-Independent copies on         proved                                Section 16, Theorem 16.1
+Independent copies on         proved                                  Section 16, Theorem 16.1
 every state: the event is
 equivalent at any two
 states
-In a replicated header, gas   proved                                Section 16, Theorem 16.2
+In a replicated header, gas   proved                                  Section 16, Theorem 16.2
 used is copied as finality
 is, and only finality is
 relied on
-Certification is the event    thesis                                Section 16, Thesis 16.3
+Certification is the event    thesis                                  Section 16, Thesis 16.3
 whose records are copied
 and relied on by parties
 who didn’t produce them
-In the toy, “certified” is    proved                                Section 16, Theorem 16.4
+In the toy, “certified” is    proved                                  Section 16, Theorem 16.4
 the unique pointer
-The survey; the swap          proved                                Section 16, Theorem 16.5
-shows the verdict follows
-the observer maps
-One blind observer stops      proved                                Section 16, Theorem 16.6
-proliferation
-Agreement doesn’t buy         proved                                Section 16, Theorem 16.7
-permanence; durable
-views do
-The formal objects prove      not claimed; “independent” is         Section 16
-the thesis                    defined, “deployed” and “faithfully
-                              model” are defined nowhere
 
 
 
@@ -17932,6 +17928,17 @@ the thesis                    defined, “deployed” and “faithfully
 
 
 Claim                         Kind                                   Home
+The survey; the swap          proved                                 Section 16, Theorem 16.5
+shows the verdict follows
+the observer maps
+One blind observer stops      proved                                 Section 16, Theorem 16.6
+proliferation
+Agreement doesn’t buy         proved                                 Section 16, Theorem 16.7
+permanence; durable
+views do
+The formal objects prove      not claimed; “independent” is          Section 16
+the thesis                    defined, “deployed” and “faithfully
+                              model” are defined nowhere
 The floor raised to a         proved (premises: the witness starts   Appendix B, Theorem B.1
 threshold                     at zero, grows by at most the cost,
                               and meets the threshold)
@@ -17977,35 +17984,34 @@ No stored fact is forged on   proved on the small machine, under     Section 17,
 a clean-start trace           the stated premises
 Bounded table keeps facts     proved on the small machine, under     Section 17, Theorem 17.13
 and traps when full           the stated premises
-Equal computational           proved on the small machine, under     Section 17, Theorem 17.14
-windows can hide              the stated premises
-different records
-The window cannot             proved on the small machine, under     Section 17, Theorem 17.15
-recover the ledger, flag or   the stated premises
-commitment permission
-From a clean start, a run     proved on the small machine, under     Section 17, Observation 17.16
-ending with the flag up       the stated premises, by unfolding
-adds at least three to the
-ledger
-
 
 
 
                                                     303
-The Thiele Machine                                                                                      Devon Thiele
+The Thiele Machine                                                                                    Devon Thiele
 
 
 
-Claim                           Kind                                      Home
-That minimum of three is        proved on the small machine, under        Section 17, Theorem 17.17
-reached by a run whose          the stated premises
+Claim                         Kind                                      Home
+Equal computational           proved on the small machine, under        Section 17, Theorem 17.14
+windows can hide              the stated premises
+different records
+The window cannot             proved on the small machine, under        Section 17, Theorem 17.15
+recover the ledger, flag or   the stated premises
+commitment permission
+From a clean start, a run     proved on the small machine, under        Section 17, Observation 17.16
+ending with the flag up       the stated premises, by unfolding
+adds at least three to the
+ledger
+That minimum of three is      proved on the small machine, under        Section 17, Theorem 17.17
+reached by a run whose        the stated premises
 check could have failed,
 and when that check fails
 the program is refused
 forever
-The step refuses trivial        not claimed; “is at least 0” passes       Section 17
-checks                          every value and certifies for three too
-From a clean start,             proved on the generic machine             Section 17
+The step refuses trivial      not claimed; “is at least 0” passes       Section 17
+checks                        every value and certifies for three too
+From a clean start,           proved on the generic machine             Section 17
 provenance, checker
 soundness, no forging and
 the floor of three hold for
@@ -18015,30 +18021,40 @@ and a checker proved to
 mean what it says, a
 sorted list read out of a
 counter included
-With the flag up from a         proved on the small machine               Section 17
+With the flag up from a       proved on the small machine               Section 17
 clean start, the channel
 names a fact an earlier
 passing COMMIT
 committed, and a later
 commit can replace it
-The guarantees hold             not claimed; they are about programs      Section 17, Section 25
-against whoever sets the        from a clean start, one step at a time
+The guarantees hold           not claimed; they are about programs      Section 17, Section 25
+against whoever sets the      from a clean start, one step at a time
 start, a reset, or a second
 writer that doesn’t bump
 versions
-Thiele-complete means a         definition                                Section 17, Definition 17.7
+Thiele-complete means a       definition                                Section 17, Definition 17.7
 universal base that costs
 no marks and can’t touch
 the record, a record that
 stays up once it’s up, an
 earned record with a
 checker proved to mean
-its claims, an exact toll of
+its claims, exact prices of
 one mark per check,
 commit and certificate,
 and a claim whose check
 can fail
-Every Thiele-complete           proved, for every machine and every       Section 17, Theorem 17.19
+
+
+
+
+                                                     304
+The Thiele Machine                                                                                 Devon Thiele
+
+
+
+Claim                           Kind                                   Home
+Every Thiele-complete           proved, for every machine and every    Section 17, Theorem 17.19
 machine obeys the toll,         interface meeting the definition
 runs every two-counter
 program, counts its record
@@ -18050,17 +18066,7 @@ has a check that fails and a
 run that certifies, and
 from a clean state raises its
 record only by a CERTIFY
-
-
-
-
-                                                       304
-The Thiele Machine                                                                                Devon Thiele
-
-
-
-Claim                          Kind                                   Home
-A clock (every move            proved, by unfolding                   Section 17, Observation 17.21
+A clock (every move             proved, by unfolding                   Section 17, Observation 17.21
 charged, any reading or
 any latch as the record)
 obeys the toll with a
@@ -18070,13 +18076,13 @@ not Thiele-complete; nor
 is any machine whose
 every move costs
 something
-Each clause does work: a       proved                                 Section 17, Theorem 17.22
+Each clause does work: a        proved                                 Section 17, Theorem 17.22
 paid latch meets the base
 and toll clauses and fails,
 and a silent machine
 meets three clauses and
 fails
-The four clauses of            proved                                 Section 17, Theorem 17.23
+The four clauses of             proved                                 Section 17, Theorem 17.23
 Thiele-complete are
 independent: for each, a
 weakly Thiele-complete
@@ -18084,15 +18090,15 @@ machine meets the other
 three, fails it, and is
 Thiele-complete through
 no interface
-Thiele-complete at any         proved                                 Section 17, Theorem 17.24
+Thiele-complete at any          proved                                 Section 17, Theorem 17.24
 unit: with record moves at
 one fixed price c ≥ 1 the
 class is the unit class with
 its prices multiplied by c,
 and the clock fails at every
 unit
-The small machine, the         proved on the small machine and on     Section 17, Theorem 17.25
-same machine over any          the generic machine
+The small machine, the          proved on the small machine and on     Section 17, Theorem 17.25
+same machine over any           the generic machine
 property language with
 an exact equality test, a
 proved checker and some
@@ -18101,24 +18107,23 @@ number and false of
 another, and the
 sorted-list machine are
 Thiele-complete
-Every Thiele-complete          proved, for every machine and every    Section 17, Observation 17.26
-machine hides its record       interface meeting the definition, by
-and its ledger from its        unfolding
+Every Thiele-complete           proved, for every machine and every    Section 17, Observation 17.26
+machine hides its record        interface meeting the definition, by
+and its ledger from its         unfolding
 base window
-No fixed host program          proved, for any host property          Section 17.13, Theorem 17.27
-can keep the guest’s facts     language and any translation into a
-on an exact copy of a          finite list of host properties
-guest counter
 
 
 
-
-                                                      305
+                                                       305
 The Thiele Machine                                                                               Devon Thiele
 
 
 
 Claim                           Kind                                    Home
+No fixed host program           proved, for any host property           Section 17.13, Theorem 17.27
+can keep the guest’s facts      language and any translation into a
+on an exact copy of a           finite list of host properties
+guest counter
 One fixed program U, in         proved on the host machine              Section 17.13, Theorem 17.28,
 the small machine’s own                                                 Theorem 17.29
 instruction kinds and with
@@ -18172,20 +18177,24 @@ committed and certified
 the same claim
 The simpler host is a           proved on the small machine             Section 17.15, Theorem 17.39
 certification system
-The simpler host’s ledger       not claimed; a guest step with budget   Section 17.15, Theorem 17.37
-equals the guest’s              b costs b whatever the guest
-                                instruction cost, so its ledger only
-                                covers the guest’s; U’s is exact
 
 
 
                                                        306
-The Thiele Machine                                                                           Devon Thiele
+The Thiele Machine                                                                             Devon Thiele
 
 
 
-Claim                         Kind                                  Home
-One fixed program UP , U      proved on the priced host             Section 17.14, Theorem 17.33
+Claim                         Kind                                    Home
+The simpler host’s ledger     not claimed; a guest step with budget   Section 17.15, Theorem 17.37
+equals the guest’s            b costs b whatever the guest
+                              instruction cost, so its ledger only
+                              covers the guest’s; U’s is exact
+
+
+
+Claim                         Kind                                    Home
+One fixed program UP , U      proved on the priced host               Section 17.14, Theorem 17.33
 with one paid move
 added, runs every
 computably presented
@@ -18198,45 +18207,41 @@ guest’s reading has been
 yes, and the host’s ledger
 the guest’s plus a
 surcharge
-UP ’s raised flag stands on   proved on the priced host             Section 17.14, Theorem 17.33
+UP ’s raised flag stands on   proved on the priced host               Section 17.14, Theorem 17.33
 its own check, commit
 and certificate on a slot
 whose claim is the guest’s
 own reading of a state
 where it said yes
-The surcharge is at most      proved                                Section 17.14, Theorem 17.34
+The surcharge is at most      proved                                  Section 17.14, Theorem 17.34
 two when the reading
 starts at no, and zero
 when the first raising
 move costs at least three
-No program on the host        proved, for every program from a      Section 17.14, Theorem 17.34
+No program on the host        proved, for every program from a        Section 17.14, Theorem 17.34
 machine, run from a clean     clean start, by unfolding
 start, exactly matches a
 guest certified with its
 whole ledger below three
-The priced host is            proved                                Section 17.14
+The priced host is            proved                                  Section 17.14
 Thiele-complete, with the
 paid move read as a check
 that never passes
-A demonstration machine       proved; never run                     Section 17.14
+A demonstration machine       proved; never run                       Section 17.14
 (one move of price three,
 reading “at least three”)
 runs on UP , with the
 host’s ledger exactly 3n at
 the host time matching
 move n
-A machine whose reading       not claimed; outside the class        Section 17.14
+A machine whose reading       not claimed; outside the class          Section 17.14
 no program decides, or
 whose next move no
 program computes, runs
 on UP
-A guest’s reading that        not claimed; the host’s flag is the   Section 17.14
+A guest’s reading that        not claimed; the host’s flag is the     Section 17.14
 goes back to no is carried    latch of the reading
 as no
-A counter beside a Turing     proved                                Section 17.16, Theorem 17.40
-machine changes nothing
-A Turing machine can’t        not claimed                           Section 17.16
-price a reading
 
 
 
@@ -18247,6 +18252,10 @@ price a reading
 
 
 Claim                          Kind                                      Home
+A counter beside a Turing      proved                                    Section 17.16, Theorem 17.40
+machine changes nothing
+A Turing machine can’t         not claimed                               Section 17.16
+price a reading
 Rice’s theorem on the host     proved; undecidable in the reduction      Section 17.18, Theorem 17.51
 machine, for properties        sense of Theorem 17.4
 that depend on
@@ -19802,10 +19811,10 @@ separated access limitation from authentication in programming languages, and Ke
 Greg Morrisett and Fred Schneider (2006) classified which policies execution monitors, program
 rewriters and static analysis can each enforce, and they differ; Wai Wong (1995), on a neighbouring
 track, recorded and checked HOL proofs so a theorem could carry its derivation. Mine: a definition
-of Thiele-complete with four clauses (a universal base that costs no marks and can’t touch the record
-and a record that stays up once it’s up, an earned record, an exact toll on the three record acts, and
-some claim whose check can fail), the proofs that every clock-style machine and a paid latch and
-a silent machine fail it while the small machine, the same machine over any property language
+of Thiele-complete with four clauses (a universal base that costs no marks and can’t touch the
+record and a record that stays up once it’s up, an earned record, exact prices on the three record acts,
+and some claim whose check can fail), the proofs that every clock-style machine and a paid latch
+and a silent machine fail it while the small machine, the same machine over any property language
 with an exact equality test, a proved checker and a property that holds of one number and fails
 of another, and the universal program’s host meet it, that the four clauses are independent, each
 failed by some weakly Thiele-complete machine that meets the other three (Theorem 17.23), and the
@@ -19816,7 +19825,7 @@ definition is the only reasonable one, or that LCF kernels, reference monitors a
 code are all Thiele-complete machines in disguise; Hamlen, Morrisett and Schneider’s sorting says
 
 
-                                                 333
+                                                  333
 The Thiele Machine                                                                         Devon Thiele
 
 

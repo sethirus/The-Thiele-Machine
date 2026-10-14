@@ -350,7 +350,7 @@ A machine is Thiele-complete when its moves can be read as base moves and three 
 \begin{enumerate}[(a)]
   \item \emph{Universal base.} Every two-counter instruction has a base move that, from every live state, acts on a window of the state exactly as the instruction acts on a two-counter configuration and leaves the state live; every two-counter start has a clean live state showing it (its loaded start), base moves never change the record, and the record once up stays up.
   \item \emph{Earned record.} A clean start has the record down. Every run from a clean start that ends with the record up contains a passing CHECK of some claim, then a COMMIT of the same claim with the thing it is about unchanged in between, then the CERTIFY that raises the record. A passing check means its claim holds, and a claim that holds keeps holding while the thing it is about is unchanged.
-  \item \emph{Exact toll.} Base moves cost $0$, each record move costs exactly $1$, and the ledger grows by the cost of each move.
+  \item \emph{Exact prices.} Base moves cost $0$, each record move costs exactly $1$, and the ledger grows by the cost of each move.
   \item \emph{Non-vacuity.} Some claim is true at some loaded start and false at another, and the bare chain CHECK, COMMIT, CERTIFY on it raises the record from a loaded start exactly when the claim holds there.
 \end{enumerate}
 Coq: \texttt{thiele\_complete} in \texttt{minimal/ThieleComplete.v}.

@@ -81,7 +81,7 @@ at least one and its base is universal. Thiele-complete asks for four clauses
 touch the record, and a record that stays up once it is up; a record that,
 from a clean start, rises only after a passing check of a claim, a commitment
 to that same claim with nothing it is about changed in between, and a
-certificate, with the checker proved to mean what it says; an exact toll, one
+certificate, with the checker proved to mean what it says; exact prices, one
 mark for each of those three acts and nothing for anything else; and a claim
 whose check, commit and certificate raise the record on some loaded starts and
 leave it down on others.

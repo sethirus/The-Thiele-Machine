@@ -2048,7 +2048,7 @@ only after a
 passing check of a claim, then a commitment to that same claim with nothing it's about changed in
 between, then a certificate, with the checker proved to mean what it says: the claims and what
 they mean come from a language fixed first, and the proof is that the checker's yes makes the
-claim true in that language's sense. An exact toll: one
+claim true in that language's sense. Exact prices: one
 mark for each of those three acts and nothing for anything else. And a claim whose check, commit and certificate
 raise the record from a loaded start exactly when the claim holds there, with the claim holding
 at some loaded starts and failing at others. Every clock-style machine fails the definition, because it charges for computing, whatever its
@@ -2142,7 +2142,7 @@ name. \emph{Rise-only pricing} charges at least one mark on every step that rais
 nothing on any other step; its tightest bill, one mark per raise and nothing else, is the
 \emph{exact schedule}. \emph{Instruction-exact pricing} charges every instruction a fixed listed
 price. On the small machine of Part IV that's one mark each for CHECK, COMMIT and CERTIFY and
-nothing for the rest, and the definition of Thiele-complete calls it the \emph{exact toll}. CHECK
+nothing for the rest, and the definition of Thiele-complete calls it \emph{exact prices}, not a toll, because it charges acts that raise nothing. CHECK
 and COMMIT raise no flag, so the small machine is instruction-exact without being rise-only, and
 no rule is broken by that. \emph{Simulation-exact accounting} is a host whose ledger equals its
 guest's ledger at every point where the two runs match, as the universal program $U$'s does. A
@@ -7548,7 +7548,7 @@ same window, and no function on bare transcripts is sound and complete for ``the
 \begin{proof}
 Observation~\ref{thm:u34-tc-window}(2) gives a loaded state and two runs from it that end with the
 same window, one with the record up and one with it down, and, from one clean loaded state, two runs with the same window, one whose ledger rose by at least 3 and
-one made of free base moves that leaves the ledger where it started (that observation's proof builds it).
+one made of base moves at no marks that leaves the ledger where it started (that observation's proof builds it).
 Both end states explain the same bare transcript. A verifier
 complete for the claim accepts that transcript, since a state where the claim holds explains it;
 a verifier sound for the claim then makes the claim true of every state that explains it,
@@ -8954,7 +8954,7 @@ merged state goes. Hepp's chain had to be infinite. Halliwell had to put his in 
 Mine just goes, and the toll writes a unit in a counter. That's fine in a model of computation,
 and it's exactly where this stops being physics.
 
-\subsection{Both rules do work: the toggle and the clock}
+\subsection{Both rules do work: the toggle and the timestamp}
 
 A theorem with two hypotheses should have two counterexamples, one for each hypothesis
 dropped, and it does, and they're the two ways a record goes wrong in the world.
@@ -9090,12 +9090,12 @@ of being driven by the base. If the tally always starts synchronized with the
 list position, the position can predict the cup; the distinction matters below.
 
 The two examples do exactly what I said they do: the toggle is driven, isn't
-permanent and isn't a latch; the clock is permanent and isn't driven. That each also keeps the other rules (the
+permanent and isn't a latch; the timestamp is permanent and isn't driven. That each also keeps the other rules (the
 ledger is the step count, the first switch-on costs one, a run reaches it) is true by
 inspection.
 
-Permanent but undriven is a clock, driven but impermanent is a toggle, and a record is
-the thing that's both. Undriven, for the clock, means that along the runs that actually happen the
+Permanent but undriven is a timestamp, driven but impermanent is a toggle, and a record is
+the thing that's both. Undriven, for the timestamp, means that along the runs that actually happen the
 base state doesn't fix when the record turns; Lemma~\ref{lem:u11-clock-sync} below says why that's
 the condition, and what (R1) as written adds to it. That's the whole discrimination, and I think it's the most useful
 single sentence in this book for looking at systems other than the one I build, which is
@@ -9133,8 +9133,8 @@ At $(0, \mathrm{on})$ the next record is off, which breaks permanence; and any l
 $\mathrm{on} \lor h(0) = \mathrm{on}$ there.
 \end{proof}
 
-\begin{lemma}[The clock]\label{lem:u11-clock}
-Let the clock have states $(b, k, r)$, step $(b, k, r) \mapsto (b + 1, k + 1, r \lor [k = 5])$,
+\begin{lemma}[The timestamp]\label{lem:u11-clock}
+Let the timestamp have states $(b, k, r)$, step $(b, k, r) \mapsto (b + 1, k + 1, r \lor [k = 5])$,
 every state starting, record $r$, ledger $b$, cover $(b, k, r) \mapsto b$ onto the counter. It
 is permanent and not driven by the computation.
 \end{lemma}
@@ -9146,24 +9146,24 @@ on and off, so no $f$ of the base state and the record can give both.
 \end{proof}
 
 ``Driven'' is a condition on every
-state. The clock makes every state a starting state, so the two states the proof compares are
-both ones a run can begin at, even though a clock started at $(0, 0, \mathrm{off})$ would never reach $(0, 5, \mathrm{off})$.
+state. The timestamp makes every state a starting state, so the two states the proof compares are
+both ones a run can begin at, even though a timestamp started at $(0, 0, \mathrm{off})$ would never reach $(0, 5, \mathrm{off})$.
 
-That last sentence does more work than it looks, so here it is as a lemma. Start the same clock
+That last sentence does more work than it looks, so here it is as a lemma. Start the same timestamp
 in sync, at $(b, b, \mathrm{off})$ only. On every state its runs reach, the hidden count equals
-the base, and the clock is exactly the latch of $[b = 5]$. (R1) still rejects it, because (R1)
+the base, and the timestamp is exactly the latch of $[b = 5]$. (R1) still rejects it, because (R1)
 asks about every state, and $(0, 5, \mathrm{off})$ is a state, though no run from a synchronised
-start reaches it. So (R1) as written separates the clock from a latch partly by how the cover is
+start reaches it. So (R1) as written separates the timestamp from a latch partly by how the cover is
 drawn and through states nobody visits. The separation I mean is the one on reachable states:
-the clock with every state a start fails (R1) even when only states some run reaches are
+the timestamp with every state a start fails (R1) even when only states some run reaches are
 counted, since two starting states sit over the same base state with the same record and
 disagree about the next one. And the latch theorem holds in that reachable form too.
 
-\begin{lemma}[The clock, on the states runs reach]\label{lem:u11-clock-sync}
+\begin{lemma}[The timestamp, on the states runs reach]\label{lem:u11-clock-sync}
 Say $M$'s record is \emph{driven on reachable states} when (R1) holds for every state reached
 from a starting state in some number of steps. (1) If $M$'s record is driven on reachable states
-and permanent, then on every reachable state $M$ steps as the latch of some event. (2) The clock
-of Lemma~\ref{lem:u11-clock} isn't driven on reachable states. (3) The clock started in sync, with
+and permanent, then on every reachable state $M$ steps as the latch of some event. (2) The timestamp
+of Lemma~\ref{lem:u11-clock} isn't driven on reachable states. (3) The timestamp started in sync, with
 starting states $(b, b, \mathrm{off})$ and the same step, record, ledger and cover, is permanent,
 isn't driven by the computation, is driven on reachable states, and on every reachable state
 steps as the latch of $[b = 5]$.
@@ -9177,9 +9177,9 @@ one to both counts, so a reachable state has $k = b$ and its next record is $r \
 every state, (R1) fails at the same pair as in Lemma~\ref{lem:u11-clock}.
 \end{proof}
 
-So ``permanent but undriven is a clock'' is a sentence about the clock with every state a start,
+So ``permanent but undriven is a timestamp'' is a sentence about the timestamp with every state a start,
 over the cover that hides its count, and it holds there in the strong form: undriven on the very
-states its runs pass through. A clock started in step with its base is a latch on the runs it
+states its runs pass through. A timestamp started in step with its base is a latch on the runs it
 has, and (R1) throws it out only because (R1) also looks at states those runs never reach.
 
 \subsection{Is there only one such machine? No. One structure, two free choices.}
@@ -12993,7 +12993,7 @@ with the thing $c$ is about unchanged at every state in between, then a CERTIFY,
 down just before that CERTIFY and up just after it. A passing check means its claim's meaning
 holds of the state it checked, and a meaning that holds keeps holding while the thing it's
 about is unchanged.
-(c) \emph{Exact toll.} Base moves cost 0, each CHECK, COMMIT and CERTIFY costs exactly 1, and
+(c) \emph{Exact prices.} Base moves cost 0, each CHECK, COMMIT and CERTIFY costs exactly 1, and
 each move adds its cost to the ledger.
 (d) \emph{Non-vacuity.} Some claim $c$ has a CHECK, a COMMIT and a CERTIFY such that those three
 moves alone, from a loaded state, raise the record exactly when $c$'s meaning holds there; and
@@ -13064,7 +13064,7 @@ The two counters alone look at $A$ only through the zero test of DEC, and starte
 and CHECK, a primitive test, can.
 
 One word needs pinning before the theorems, using the three names set at the front of the book.
-In clause (c), the \emph{exact toll} is instruction-exact pricing: each of the three acts, CHECK
+In clause (c), \emph{exact prices} means instruction-exact pricing: each of the three acts, CHECK
 and COMMIT included, costs exactly one, so the ledger counts the acts that make a claim. Back in
 Section~\ref{sec:counter}, one result is about
 rise-only pricing in its tightest bill, the \emph{exact schedule}: one mark on the step that
@@ -13158,7 +13158,7 @@ definition hiding something.
 \begin{theorem}[Each clause does work]\label{thm:u34-tc-clauses}
 (1) Take a two-counter base priced 0 with a ledger beside it, and one extra move TICK that costs 1
 and raises a flag. It obeys the toll, and read with TICK as CERTIFY it meets the universal base
-clause and the exact toll clause; it is not Thiele-complete, and more generally no machine with a
+clause and the exact prices clause; it is not Thiele-complete, and more generally no machine with a
 move that puts the record up from every state is. (2) Take a two-counter base priced 0 and a record
 that never rises. It obeys the toll and meets clauses (a), (b) and (c); it is not
 Thiele-complete, and more generally no machine whose record never rises is.
@@ -17905,8 +17905,8 @@ Every reachable latch is a base-driven record & proved & Section~\ref{sec:latch}
 A finite reversible machine cannot raise a permanent reading & proved; an unbounded-history extension can, by paying room & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-reversible} \\
 Two records are two latches & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-pair} \\
 The toggle: driven, can switch off, no latch & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-toggle} \\
-The clock: permanent, undriven & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock} \\
-The clock is undriven on the states its runs reach, while the clock started in sync is a latch there and is rejected only by (R1) over every state & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock-sync} \\
+The timestamp, a record switched on by a hidden clock: permanent, undriven & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock} \\
+The timestamp is undriven on the states its runs reach, while the timestamp started in sync is a latch there and is rejected only by (R1) over every state & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock-sync} \\
 Base-driven records agree up to the schedule & proved  & Section~\ref{sec:latch} \\
 The event is a free choice & proved, the converse applied twice  & Section~\ref{sec:latch}, Corollary~\ref{cor:u11-event-free} \\
 The schedule doesn't fix the probabilities & proved, with the branching latch refuted & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-probabilistic} \\
@@ -18010,7 +18010,7 @@ The step refuses trivial checks & not claimed; ``is at least 0'' passes every va
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to mean what it says, a sorted list read out of a counter included & proved on the generic machine  & Section~\ref{sec:smallest} \\
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine  & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
-Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
+Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, exact prices of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a two-counter machine running inside it and is not Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
@@ -19424,7 +19424,7 @@ enforce, and they differ; Wai Wong (1995), on a neighbouring track, recorded
 and checked HOL proofs so a theorem could carry its derivation. Mine: a definition of
 Thiele-complete with four clauses (a universal base that costs no marks and can't touch the record and a record that stays up once it's
 up, an earned
-record, an exact toll on the three record acts, and some claim whose check can fail), the proofs that every
+record, exact prices on the three record acts, and some claim whose check can fail), the proofs that every
 clock-style machine and a paid latch and a silent machine fail it while the small machine, the
 same machine over any property language with an exact equality test, a proved checker and a property that holds of one number and fails of another, and the universal program's host meet it,
 that the four clauses are independent, each failed by some weakly Thiele-complete machine that
