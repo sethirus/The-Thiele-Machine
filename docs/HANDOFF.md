@@ -24,8 +24,8 @@ Devon Thiele; every word of the book is his; the rules below are his.
 
 ## What the release carries
 
-- Three currencies, led with in Part II: anything kept and not taken back is paid in heat, room,
-  or time; `minimal/HeatOrRoom.v` (the run form and the exact retention bound).
+- The bill, led with in Part II: in any real device every step that happens gives off heat (time
+  sets how much); anything kept is paid on top, in a merge (heat floor) or in room; `minimal/HeatOrRoom.v` (the run form and the exact retention bound).
 - The section "What a chair is" in Part II: the step law, the write as a merge, recurrence for
   reversible machines, the noisy chairs (both directions, collision weight and Shannon entropy),
   the quantum chairs, time's bill, and the laboratory instances. Kernel files:

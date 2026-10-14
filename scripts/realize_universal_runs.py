@@ -31,8 +31,8 @@ head. The codes of the instructions are INC A 1, INC B 3, HALT 4, DEC A 1 14,
 CHECK PZero A 24, COMMIT PZero A 48, CERTIFY 32, PAY 64. A guest with a record
 instruction therefore has a program code of at least 2^24, and CHECK PZero A
 alone is a run of about 4 * 10^8 host steps (a few minutes). CERTIFY alone
-(2^32) is about 5 * 10^10 host steps, seventeen hours at the measured rate;
-COMMIT (2^48), PAY (2^64) and the chain CHECK, COMMIT, CERTIFY (about 2^100) are
+(2^32) is about 5 * 10^10 host steps, about twenty-two hours at the measured rate;
+COMMIT (2^48), PAY (2^64) and the chain CHECK, COMMIT, CERTIFY (about 2^106) are
 beyond any machine. The cases below are the ones that finish.
 """
 

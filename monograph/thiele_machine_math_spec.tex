@@ -167,7 +167,7 @@ On a finite state space with a permanent certificate, if every non-injective ins
 Coq: \texttt{a2\_from\_merging\_price\_and\_permanence}; the trace form is \texttt{permanent\_certification\_trace\_floor}, and an honest erasure account gives the same bill (\texttt{honest\_erasure\_accounting\_implies\_a2}).
 \end{theorem}
 
-Each premise is needed. Unbounded history escapes (\texttt{unbounded\_history\_escapes}), a revocable certificate escapes (\texttt{revocable\_certificate\_escapes}), and an unpriced merge escapes (\texttt{free\_merge\_escapes}).
+Each premise is needed. Unbounded history walks past finiteness by paying in room, a fresh state every step (\texttt{unbounded\_history\_escapes}); a revocable certificate keeps nothing (\texttt{revocable\_certificate\_escapes}); and an unpriced merge is a price list that skips the merge (\texttt{free\_merge\_escapes}). On any state space, a raise that merges nothing sends the certified states one-to-one into a proper part of themselves, so it needs infinitely many of them.
 
 \begin{theorem}[The size of the bill] \textbf{(S)}
 On a finite state space with a permanent certificate, with $m$ certified states and $k$ uncertified states that one instruction switches on, the instruction collapses at least $k$ states (\texttt{permanent\_flips\_collapse\_at\_least}). Priced one unit per halving of the number of distinct states, its cost $c$ satisfies $m + k \le 2^c m$, so, when $m \ge 1$, $c \ge \log_2((m+k)/m)$; in rounded-up logarithms, $\lceil\log_2(m+k)\rceil \le c + \lceil\log_2 m\rceil$.
@@ -205,8 +205,8 @@ Coq: \texttt{step\_law}, \texttt{merge\_is\_collision}, \texttt{revisit\_means\_
 Coq: \texttt{partial\_raises\_without\_merge}, \texttt{totalised\_halt\_is\_merge}.
 \end{theorem}
 
-\begin{theorem}[The write of a cell, and its escapes] \textbf{(S)}
-On the states blank, zero, one with reading ``definite,'' the write of a 0 is permanent, raises the reading from blank, and merges blank with zero. A fourth state remembering that the cell was blank does not escape: the write on four states still merges two distinct states. On the natural numbers the write ``add one'' is injective and never returns to 0; on the integers ``add one'' is a bijection, raises ``at least one'' from 0, keeps it, and after $k > 0$ steps is away from its start.
+\begin{theorem}[The write of a cell, and the room it takes to avoid the merge] \textbf{(S)}
+On the states blank, zero, one with reading ``definite,'' the write of a 0 is permanent, raises the reading from blank, and merges blank with zero. A fourth state remembering that the cell was blank does not avoid the merge: the write on four states still merges two distinct states. Only endless room avoids it, a fresh state every step: On the natural numbers the write ``add one'' is injective and never returns to 0; on the integers ``add one'' is a bijection, raises ``at least one'' from 0, keeps it, and after $k > 0$ steps is away from its start.
 Coq: \texttt{write\_is\_permanent}, \texttt{write\_raises}, \texttt{write\_is\_a\_merge}, \texttt{four\_state\_escape\_fails}, \texttt{tape\_write\_injective}, \texttt{tape\_write\_never\_returns}, \texttt{shift\_bijective}, \texttt{shift\_raises\_and\_keeps}, \texttt{shift\_never\_returns}.
 \end{theorem}
 

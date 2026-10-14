@@ -252,9 +252,11 @@ A2 holds.      Coq:   a2_from_merging_price_and_permanence; the trace form is
 permanent_certification_trace_floor, and an honest erasure account gives the same bill
 (honest_erasure_accounting_implies_a2).
 
-   Each premise is needed. Unbounded history escapes (unbounded_history_escapes), a re-
-vocable certificate escapes (revocable_certificate_escapes), and an unpriced merge escapes
-(free_merge_escapes).
+    Each premise is needed. Unbounded history walks past finiteness by paying in room, a
+fresh state every step (unbounded_history_escapes); a revocable certificate keeps nothing
+(revocable_certificate_escapes); and an unpriced merge is a price list that skips the merge
+(free_merge_escapes). On any state space, a raise that merges nothing sends the certified
+states one-to-one into a proper part of themselves, so it needs infinitely many of them.
 
 Theorem 4.3 (The size of the bill). (S) On a finite state space with a permanent certifi-
 cate, with m certified states and k uncertified states that one instruction switches on, the
@@ -270,16 +272,19 @@ For every m ≥ 1 and c, a grid machine with m certified states and one move of 
 (nec_f_squeeze_tight). Its rounded-logarithm form is strictly weaker: m = 3, k = 1 and cost
 0 meet the rounded form and fail m + k ≤ 2c m (nec_f_rounded_log_form_weaker).
 
-Theorem 4.4 (Which flips are forced). (S) When instructions have decidable equality, over all
+
+
+                                                7
+Theorem 4.4 (Which flips are forced). (S) When instructions have decidable equality, over all
 schedules that price merges, an instruction is forced to have positive price if and only if it merges
 two states (forced_priced_iff_merges). An instruction that switches a reading on either
-
-                                                 7
-merges or switches it off somewhere else (flip_merges_or_revokes). So every permanent-
+merges or switches it off somewhere else (flip_merges_or_revokes). So every permanent-
 record write is forced, and the only free flips are revocable ones.
+
 Theorem 4.5 (Refutation). (R) “The forced events are exactly the permanent-record
 writes” is false: a three-state instruction flips, revokes, and merges at once. Coq:
 forced_price_without_permanent_record.
+
 Theorem 4.6 (Heat or room: the dichotomy). (S) On any state space, let a reading be per-
 manent under a step f , and take a run x0 , f (x0 ), f (f (x0 )), . . . in which the reading goes from
 false at step r to true at step r + 1. If no two states among the run’s first n steps merge under
@@ -289,6 +294,7 @@ that switches the reading on at s, the iterates of s are pairwise distinct and n
 free list contains them all: a permanent flip either merges or visits a fresh state every time.
 Coq: run_merges_or_fresh, run_bounded_by_room; permanent_flip_iterates_distinct,
 permanent_flip_no_finite_list.
+
 Theorem 4.7 (Retention bound, and its exactness). (S) Let a finite implementation F : X → X
 of a reset carry an abstraction q that sends every image of F to a fixed abstract state q0 , with a
 representative of q0 and representatives of N − 1 further, pairwise distinct abstract states, and let
@@ -299,34 +305,40 @@ its last state to the fixed one, has exactly 1 + (T + 1)(N − 1) states, is clo
 the reset and representative premises, is injective through T repetitions, and merges on the next.
 Coq: retention_bound, retention_horizon; tight_exact, tight_closed, tight_retain,
 tight_merges_next.
+
 Theorem 4.8 (The step law). (S) For any step f on any type with decidable equality and
 any start, every step of the run is exactly one of: fresh (the new state equals no earlier state
 of the run), a merge (it equals an earlier state xj with j ≥ 1 and the state before xj differs
 from the current state, so two distinct states share an f -image), or a revisit from the same
 state, after which the run is periodic and every later state is one already visited. Coq: step_law,
 merge_is_collision, revisit_means_loop.
+
 Theorem 4.9 (Refutation: the halting hole). (R) “Every raise of a permanent reading on
 finitely many states is a merge” is false for partial steps: on two states, a 7→ b with b having no
 successor raises the reading with no shared image. Totalising the halt (b 7→ b) makes the raise a
 merge. Coq: partial_raises_without_merge, totalised_halt_is_merge.
-Theorem 4.10 (The write of a cell, and its escapes). (S) On the states blank, zero,
-one with reading “definite,” the write of a 0 is permanent, raises the reading from
-blank, and merges blank with zero. A fourth state remembering that the cell was blank
-does not escape: the write on four states still merges two distinct states. On the nat-
+
+Theorem 4.10 (The write of a cell, and the room it takes to avoid the merge). (S)
+On the states blank, zero, one with reading “definite,” the write of a 0 is permanent,
+raises the reading from blank, and merges blank with zero. A fourth state remembering
+that the cell was blank does not avoid the merge: the write on four states still merges
+two distinct states. Only endless room avoids it, a fresh state every step: On the nat-
 ural numbers the write “add one” is injective and never returns to 0; on the integers
 “add one” is a bijection, raises “at least one” from 0, keeps it, and after k > 0 steps
 is away from its start. Coq: write_is_permanent, write_raises, write_is_a_merge,
 four_state_escape_fails,         tape_write_injective,       tape_write_never_returns,
 shift_bijective, shift_raises_and_keeps, shift_never_returns.
-Theorem 4.11 (No state space codes all its own readings; the regress has a price). (S) For
+
+
+                                                  8
+Theorem 4.11 (No state space codes all its own readings; the regress has a price). (S) For
 any type X and any coding X → (X → bool), some reading X → bool is coded by no state
 (Cantor). With the entitlement count, a record that narrows N candidates to one costs at least
 ⌈log2 N ⌉ marks, and for every m there is a candidate count whose rounded-up logarithm is
 at least m. Coq: no_space_holds_its_own_readings, regress_price_unbounded; the count
 itself is ent_cs_run_entitlement.
 
-                                                  8
-Theorem 4.12 (Nondeterministic merge). (S) Let a step relation on a finite duplicate-free list
+Theorem 4.12 (Nondeterministic merge). (S) Let a step relation on a finite duplicate-free list
 of states have a duplicate-free set Y of yes-states that is closed and total (every yes-state has a
 chosen successor in Y ), and let some state outside Y relate to a state of Y . Then some state of
 Y has two distinct predecessors. Coq: nondet_merge.
@@ -381,7 +393,10 @@ step that cannot be run backwards requires a minimal heat generation; the premis
 as mean heat at least kB T ln 2 per bit of entropy the step removes, for the chosen physical
 memory and its input distribution, as an average over that preparation rather than a bound
 on each trial), the instruction has mean heat, when kB T ≥ 0, at least kB T ln((m + k)/m)
-from the uniform distribution (permanent_flip_heat_floor), and, when kB T > 0, posi-
+
+
+                                                 9
+from the uniform distribution (permanent_flip_heat_floor), and, when kB T > 0, posi-
 tive heat from any distribution that leaves every certified state and the flipping one possible
 (permanent_flip_full_support_heat_positive). For a state known in advance, the premise
 is equivalent to heat ≥ 0, so it supplies no positive lower bound; it does not prove zero device
@@ -389,8 +404,7 @@ heat, and the ledger toll still charges its mark on a known run, since merge pri
 instruction whatever input was prepared (known_state_flip_forces_no_heat).
 
 
-                                                 9
-4.2     An eight-state instance
+4.2     An eight-state instance
 Example 4.1. Four program slots and a certification flag make eight states. An advance step is
 injective (fnext_injective); the certify step and every jump merge states (fcertify_merges,
 fjump_merges). The cost rule prices exactly the merges, so A2 holds there as a theorem
