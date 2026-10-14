@@ -46,7 +46,7 @@ jobs:
       - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         # The vendored L modules (L tactics, GenEncode, MuRec, the
@@ -145,7 +145,7 @@ jobs:
       - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         # The vendored L modules (L tactics, GenEncode, MuRec, the
@@ -280,7 +280,7 @@ jobs:
       - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         # The vendored L modules (L tactics, GenEncode, MuRec, the
@@ -322,7 +322,7 @@ jobs:
         # skip, when they are missing.
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib libzarith-ocaml-dev
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib libzarith-ocaml-dev
 
       - name: Set up MetaCoq Template
         # The vendored L modules (L tactics, GenEncode, MuRec, the

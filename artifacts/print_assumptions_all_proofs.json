@@ -1,33 +1,33 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-11T06:33:48.879353+00:00",
+  "generated": "2026-10-14T09:29:20.807973+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "59afe7ccb7d651aedc8e98a557931e46ee10d511706d4a0d4956a922737baefd",
-  "probe_digest": "f62344999401e2e260f69ccf7ef615c3f9b365f56fba065d9bbd06d91b39ef4c",
+  "corpus_digest": "c75220e2ce21e12f44b01e44acb0bebf7bc2d2fa0e90c6496b1a32923a50279a",
+  "probe_digest": "27c4022f79956f1480265849b72068647558411bf76da61101e771acebd402a7",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "3cca8a5a0fc5b6a1474d743ed00e4dc2886e4e1f6e18bdaa3fc2a7b6633a45f9",
-  "files_probed": 341,
-  "addressable_theorems_probed": 5997,
-  "blocks_parsed": 5997,
+  "raw_output_sha256": "ac556e10a43738ad0ce6bf464a85337889eec4927f85090b5b6399560088b969",
+  "files_probed": 351,
+  "addressable_theorems_probed": 6140,
+  "blocks_parsed": 6140,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 5997,
-    "closed_under_global_context": 5198,
-    "depend_on_axioms": 799,
+    "theorems_probed": 6140,
+    "closed_under_global_context": 5320,
+    "depend_on_axioms": 820,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 175,
-    "functional_extensionality_users": 763,
-    "real_completeness_axiom_users": 785,
+    "excluded_middle_users": 187,
+    "functional_extensionality_users": 784,
+    "real_completeness_axiom_users": 806,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 785,
-      "FunctionalExtensionality.functional_extensionality_dep": 763,
-      "ClassicalDedekindReals.sig_not_dec": 273,
-      "Classical_Prop.classic": 175
+      "ClassicalDedekindReals.sig_forall_dec": 806,
+      "FunctionalExtensionality.functional_extensionality_dep": 784,
+      "ClassicalDedekindReals.sig_not_dec": 285,
+      "Classical_Prop.classic": 187
     }
   },
   "user_or_third_party_axiom_findings": [],
@@ -206,7 +206,19 @@
     "Kernel.RelaxationEntropy.re_stretch_ratio",
     "Kernel.RelaxationStretchContinuous.rsc_S_decay",
     "Kernel.RelaxationStretchContinuous.rsc_mean_stretch_time",
-    "Kernel.RelaxationStretchContinuous.rsc_stretch_identity"
+    "Kernel.RelaxationStretchContinuous.rsc_stretch_identity",
+    "Minimal.BrownianComputer.heat_at_any_speed",
+    "Minimal.BrownianComputer.no_heat_at_rest",
+    "Minimal.BrownianComputer.ln_le_minus1",
+    "Minimal.BrownianComputer.ln_ratio_ge_v",
+    "Minimal.BrownianComputer.heat_time_floor",
+    "Minimal.GibbsGap.ln_le_minus1",
+    "Minimal.GibbsGap.ln_lt_minus1",
+    "Minimal.GibbsGap.term_ge",
+    "Minimal.GibbsGap.term_gt",
+    "Minimal.GibbsGap.gibbs_nonneg",
+    "Minimal.GibbsGap.gibbs_strict",
+    "Minimal.GibbsGap.relent_is_entropy_gap"
   ],
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
@@ -222,10 +234,13 @@
       ]
     },
     "Minimal": {
-      "theorems": 1638,
-      "closed": 1624,
-      "with_axioms": 14,
+      "theorems": 1781,
+      "closed": 1746,
+      "with_axioms": 35,
       "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
@@ -1931,6 +1946,17 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/BrownianComputer.v": {
+      "theorems": 7,
+      "closed": 0,
+      "with_axioms": 7,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
     "minimal/CompressionSmall2.v": {
       "theorems": 23,
       "closed": 23,
@@ -2008,6 +2034,35 @@
     "minimal/FragmentSmall.v": {
       "theorems": 27,
       "closed": 27,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/GibbsGap.v": {
+      "theorems": 15,
+      "closed": 1,
+      "with_axioms": 14,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "minimal/HaltingHole.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/HeatOrRoom.v": {
+      "theorems": 44,
+      "closed": 44,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/KeptDistinction.v": {
+      "theorems": 12,
+      "closed": 12,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2145,6 +2200,18 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/NoisyChairs.v": {
+      "theorems": 27,
+      "closed": 27,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NondetChairs.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/PartitionReading.v": {
       "theorems": 18,
       "closed": 18,
@@ -2169,9 +2236,21 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/QuantumChairs.v": {
+      "theorems": 22,
+      "closed": 22,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/RecordMerge.v": {
       "theorems": 14,
       "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Recurrence.v": {
+      "theorems": 5,
+      "closed": 5,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2220,6 +2299,12 @@
     "minimal/SmallConsensus.v": {
       "theorems": 12,
       "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/StepLaw.v": {
+      "theorems": 5,
+      "closed": 5,
       "with_axioms": 0,
       "axiom_set": []
     },

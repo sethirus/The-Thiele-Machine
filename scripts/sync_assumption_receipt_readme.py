@@ -10,12 +10,27 @@ from pathlib import Path
 import re
 
 
+# The monograph once stated the receipt counts in these sentences. The audited
+# book no longer does; when a pattern is absent the sync leaves the book alone.
+OPTIONAL_PATTERNS = {
+    r"full-corpus probe covers [\d,]+ named theorems across [\d,]+ files: "
+    r"[\d,]+ close under the global Coq context outright, and [\d,]+ use only "
+    r"Coq standard-library assumptions",
+    r"Zero project-local axioms appear in any of the [\d,]+ dependency trees",
+    r"from the assumption audit \([\d,]+ theorems in [\d,]+ files\)",
+    r"SHA-256 [0-9a-f]{32}\n\s+[0-9a-f]{32}",
+    r"corpus digest [0-9a-f]{32}\n\s+[0-9a-f]{32}",
+}
+
+
 def formatted(value: int) -> str:
     return f"{value:,}"
 
 
 def replace_exact(text: str, pattern: str, replacement: str, count: int) -> str:
     updated, actual = re.subn(pattern, replacement, text)
+    if count == 1 and actual == 0 and pattern in OPTIONAL_PATTERNS:
+        return text
     if actual != count:
         raise ValueError(
             f"receipt pattern matched {actual} times, expected {count}: {pattern}"

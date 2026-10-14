@@ -38,7 +38,7 @@ help:
 # Install dependencies
 install_deps:
 	@echo "Installing dependencies..."
-	@sudo apt-get update -qq && sudo apt-get install -y -qq coq coinor-csdp
+	@sudo apt-get update -qq && sudo apt-get install -y -qq coq coinor-csdp libcoq-mathcomp-field
 	@pip install -r requirements.txt --quiet
 	@echo "✓ Dependencies installed"
 

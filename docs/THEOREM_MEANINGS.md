@@ -45,6 +45,16 @@ An explicitly qualified citation keeps its own module identity.
 - `permanent_at_flip_is_not_injective`: The same, needing permanence only for the one instruction that flips.
 - `a2_from_merging_price_and_permanence`: On a finite state space with permanent certification, if every non-injective instruction costs at least one, then every certifying step costs at least one.
 - `permanent_certification_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
+- `permanent_flip_iterates_distinct`: On any state space, if a move never merges two states and a reading the move never turns off goes from no to yes at a state `s`, then the iterates of `s` under the move are pairwise distinct.
+- `permanent_flip_no_finite_list`: Under the same premises, no finite duplicate-free list contains every state.
+- `run_merges_or_fresh`: For any step `f`, a reading `f` never turns off, and a run from `x0` in which the reading goes from no at step `r` to yes at step `r + 1`: if no two states among the run's first `n` steps merge under `f`, then those states are pairwise distinct.
+- `run_bounded_by_room`: Under the same premises, if a duplicate-free list contains every state, a run whose first `n` steps never merge has `n` below the list's length.
+- `retention_bound`: For a finite implementation of a reset, with representatives of the reset state and of `N - 1` further distinct abstract states, whose move is injective on the states reached from the representatives in fewer than `T` applications, the state space has at least `1 + (T+1)(N-1)` elements.
+- `retention_horizon`: Under the same premises, with at least one non-reset representative, either `T = 0` or `T` is at most `(|X|-1)/(N-1) - 1`.
+- `tight_exact`: The path construction with `n` non-reset representatives and horizon `T` has exactly `1 + (T+1)n` states, the value of the retention bound.
+- `tight_closed`: That construction's state list is closed under its move.
+- `tight_retain`: On that construction, the move is injective on the states reached from the representatives in fewer than `T` applications.
+- `tight_merges_next`: On that construction with at least one non-reset representative, after `T` applications the first path's state differs from the fixed state while their images under the move coincide.
 - `permanent_flips_collapse_at_least`: On a finite state space with permanent certification, a step that switches `k` distinct uncertified states on, beside all the certified states, has at least `k` fewer distinct images than inputs.
 - `honest_erasure_accounting_implies_a2`: In a trusted erasure-accounting system on a finite state space with permanent certification, if the erasure flag reports every merge, every certifying step costs at least one.
 - `commit_without_erasure_system_is_not_honest`: The zero-cost commit-without-erasure system does not report its own merge.
@@ -1380,3 +1390,39 @@ An explicitly qualified citation keeps its own module identity.
 - `small_chsh_tol_program_bound`: The same relaxed score bound holds for the tally checked in any stored program run from a start that ends certified.
 - `small_chsh_tol_certified_floor`: Every tolerance-machine trace from a clean start ending certified costs at least three as a CertificationSystem trace.
 - `small_chsh_tol_noisy_certifies`: The tally (86,14), (85,15), (86,14), (14,86) certifies through the actual instruction chain at tolerance 1/10.
+
+## What a chair is
+
+- `step_law`: For any step on any type with decidable equality and any start, every step of the run is fresh (its new state equals no earlier state), or a merge (it equals an earlier state reached from a different state, so two distinct states share an image), or a revisit from the same state as before.
+- `merge_is_collision`: A merge in the sense of the step law exhibits two distinct states with the same image under the step.
+- `revisit_means_loop`: Once a run returns to a state it visited at position j, every later state of the run is one it visited at some position at most n, the position of the return.
+- `partial_raises_without_merge`: On two states with a partial step, a steps to b, b has no successor, the reading is false on a and true on b, and no two states share a successor.
+- `totalised_halt_is_merge`: Totalising that step with the halted state stepping to itself makes a and b, which differ, share the image b.
+- `write_is_permanent`: On the states blank, zero and one, the write of a 0 keeps a definite cell definite.
+- `write_raises`: The write of a 0 takes the blank cell, which reads not definite, to a cell that reads definite.
+- `write_is_a_merge`: Blank and zero both step to zero under the write, and blank differs from zero.
+- `four_state_escape_fails`: With a fourth state that remembers the cell was blank, the write still sends blank and that fourth state to the same state, and they differ.
+- `tape_write_injective`: On an endless tape, writing one more cell sends different tapes to different tapes.
+- `tape_write_never_returns`: On an endless tape, writing one more cell never returns to the empty tape.
+- `shift_bijective`: Stepping one cell along the integers is one-to-one and onto.
+- `shift_raises_and_keeps`: The reading "at least one" is false at 0, true after one step from 0, and stays true under the step.
+- `shift_never_returns`: After any positive number of steps along the integers, the state differs from the start.
+- `no_space_holds_its_own_readings`: For any type and any coding of its states as yes/no readings on it, some reading is coded by no state.
+- `regress_price_unbounded`: For every m there is a count N whose rounded-up base-two logarithm is at least m.
+- `nondet_merge`: With a step relation, a duplicate-free closed set of yes-states each having a chosen successor inside the set, and a no-state related to a yes-state, some yes-state has two distinct predecessors.
+- `returns_to_start`: An injective step on a finite duplicate-free list containing every state brings the run from any start back to the start after a positive number of steps.
+- `reversible_keeps_nothing`: Under such a step, a reading that is false at the start and never goes from true to false is false at every step of the run.
+- `noisy_chairs`: For a nonnegative kernel whose rows and columns each sum to one, and a closed set of states, every entry from a state outside the set into a state inside it is zero.
+- `raise_breaks_uniform`: If a nonnegative row-stochastic kernel with a closed set has a positive entry from outside the set into it, some column sum of the kernel differs from one.
+- `colsums_total`: For a nonnegative row-stochastic kernel on n states, the column sums add to n.
+- `raise_concentrates`: If a list of rationals sums to its own length and some member differs from one, the sum of the squares strictly exceeds the length.
+- `uniform_floor`: If every member of a list of rationals equals one, the sum of the squares equals the length.
+- `raise_concentrates_uniform`: A nonnegative row-stochastic kernel on n states with a closed set and a positive entry into it from outside has column sums whose squares add to strictly more than n.
+- `no_merge_no_concentration`: For a nonnegative kernel whose rows and columns each sum to one, the sum of the squares of a spread after one step is at most the sum of the squares before.
+- `gibbs_nonneg`: For a strictly positive spread on N states summing to one, the sum over states of the probability times the natural logarithm of N times the probability is nonnegative.
+- `gibbs_strict`: That sum is strictly positive as soon as some probability differs from 1/N.
+- `relent_is_entropy_gap`: That sum equals the natural logarithm of N minus the Shannon entropy of the spread.
+- `quantum_chairs`: For an n by n matrix U over the algebraic numbers with conjugate transpose times U equal to the identity, and a Hermitian idempotent P with (1 minus P) U P equal to zero, P U (1 minus P) is zero.
+- `heat_at_any_speed`: For a forward probability p strictly between 0 and 1 and not one half, the biased walk's entropy production per tick, (2p minus 1) times the natural logarithm of p over (1 minus p), is strictly positive.
+- `no_heat_at_rest`: At p equal to one half that entropy production is zero.
+- `heat_time_floor`: For a speed v strictly between 0 and 1 and a nonnegative distance N, N times the logarithm of (1 plus v) over (1 minus v), times N over v, is at least N squared.

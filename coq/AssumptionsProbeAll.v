@@ -278,6 +278,7 @@ Require Minimal.AxDgBlock.
 Require Minimal.BitSearch2.
 Require Minimal.BitSearchMember2.
 Require Minimal.BitSearchObserved2.
+Require Minimal.BrownianComputer.
 Require Minimal.CompressionSmall2.
 Require Minimal.ConsensusSeparation.
 Require Minimal.CoveringNeeded2.
@@ -291,6 +292,10 @@ Require Minimal.EarnedPriced.
 Require Minimal.EntitlementMore2.
 Require Minimal.EntitlementSmall.
 Require Minimal.FragmentSmall.
+Require Minimal.GibbsGap.
+Require Minimal.HaltingHole.
+Require Minimal.HeatOrRoom.
+Require Minimal.KeptDistinction.
 Require Minimal.LiftConverse.
 Require Minimal.LiftCore.
 Require Minimal.LiftMacro.
@@ -313,11 +318,15 @@ Require Minimal.NecTPartition.
 Require Minimal.NecTToll.
 Require Minimal.NecTUnclean.
 Require Minimal.NecTVerifier.
+Require Minimal.NoisyChairs.
+Require Minimal.NondetChairs.
 Require Minimal.PartitionReading.
 Require Minimal.PayFree.
 Require Minimal.Presented.
 Require Minimal.PricedComplete.
+Require Minimal.QuantumChairs.
 Require Minimal.RecordMerge.
+Require Minimal.Recurrence.
 Require Minimal.SmCodes.
 Require Minimal.SmHostBlocks.
 Require Minimal.SmInterp.
@@ -326,6 +335,7 @@ Require Minimal.SmLoops2.
 Require Minimal.SmLoops3.
 Require Minimal.SmTally.
 Require Minimal.SmallConsensus.
+Require Minimal.StepLaw.
 Require Minimal.Tc2Am.
 Require Minimal.Tc2Chain.
 Require Minimal.Tc2Collision.
@@ -5023,6 +5033,14 @@ Print Assumptions Minimal.BitSearchObserved2.ent2_suffix_class.
 Print Assumptions Minimal.BitSearchObserved2.ent2_search_partition.
 Print Assumptions Minimal.BitSearchObserved2.ent2_search_partition_bits.
 Print Assumptions Minimal.BitSearchObserved2.ent2_search_observed.
+(* === Minimal.BrownianComputer : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.BrownianComputer.ratio_gt_1.
+Print Assumptions Minimal.BrownianComputer.ratio_lt_1.
+Print Assumptions Minimal.BrownianComputer.heat_at_any_speed.
+Print Assumptions Minimal.BrownianComputer.no_heat_at_rest.
+Print Assumptions Minimal.BrownianComputer.ln_le_minus1.
+Print Assumptions Minimal.BrownianComputer.ln_ratio_ge_v.
+Print Assumptions Minimal.BrownianComputer.heat_time_floor.
 (* === Minimal.CompressionSmall2 : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.CompressionSmall2.ent2_nodup_app_disjoint.
 Print Assumptions Minimal.CompressionSmall2.ent2_flips_compression_bound.
@@ -5576,6 +5594,83 @@ Print Assumptions Minimal.FragmentSmall.frag_small_certify_merges.
 Print Assumptions Minimal.FragmentSmall.frag_small_certifying_step_priced_merge.
 Print Assumptions Minimal.FragmentSmall.frag_small_dec_free_merge.
 Print Assumptions Minimal.FragmentSmall.frag_small_not_merge_priced.
+(* === Minimal.GibbsGap : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.GibbsGap.Rsum_map_plus.
+Print Assumptions Minimal.GibbsGap.Rsum_map_scale.
+Print Assumptions Minimal.GibbsGap.Rsum_le.
+Print Assumptions Minimal.GibbsGap.Rsum_lt.
+Print Assumptions Minimal.GibbsGap.Rsum_map_const.
+Print Assumptions Minimal.GibbsGap.ln_le_minus1.
+Print Assumptions Minimal.GibbsGap.ln_lt_minus1.
+Print Assumptions Minimal.GibbsGap.N_pos.
+Print Assumptions Minimal.GibbsGap.term_ge.
+Print Assumptions Minimal.GibbsGap.term_gt.
+Print Assumptions Minimal.GibbsGap.map_id_list.
+Print Assumptions Minimal.GibbsGap.base_sum.
+Print Assumptions Minimal.GibbsGap.gibbs_nonneg.
+Print Assumptions Minimal.GibbsGap.gibbs_strict.
+Print Assumptions Minimal.GibbsGap.relent_is_entropy_gap.
+(* === Minimal.HaltingHole : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.HaltingHole.partial_raises_without_merge.
+Print Assumptions Minimal.HaltingHole.totalised_halt_is_merge.
+(* === Minimal.HeatOrRoom : 44 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.HeatOrRoom.nodup_app_disjoint.
+Print Assumptions Minimal.HeatOrRoom.nodup_flat_map.
+Print Assumptions Minimal.HeatOrRoom.nodup_map_inj_on.
+Print Assumptions Minimal.HeatOrRoom.nodup_map_of_inj_on.
+Print Assumptions Minimal.HeatOrRoom.length_flat_map_const.
+Print Assumptions Minimal.HeatOrRoom.iterF_add.
+Print Assumptions Minimal.HeatOrRoom.iter_pos_yes.
+Print Assumptions Minimal.HeatOrRoom.cancel_iter.
+Print Assumptions Minimal.HeatOrRoom.permanent_flip_iterates_distinct.
+Print Assumptions Minimal.HeatOrRoom.permanent_flip_no_finite_list.
+Print Assumptions Minimal.HeatOrRoom.run_yes_after.
+Print Assumptions Minimal.HeatOrRoom.run_no_before.
+Print Assumptions Minimal.HeatOrRoom.run_cancel.
+Print Assumptions Minimal.HeatOrRoom.run_merges_or_fresh.
+Print Assumptions Minimal.HeatOrRoom.run_bounded_by_room.
+Print Assumptions Minimal.HeatOrRoom.iter_pos_q0.
+Print Assumptions Minimal.HeatOrRoom.cancel.
+Print Assumptions Minimal.HeatOrRoom.nodes_separate.
+Print Assumptions Minimal.HeatOrRoom.in_traj.
+Print Assumptions Minimal.HeatOrRoom.traj_length.
+Print Assumptions Minimal.HeatOrRoom.traj_nodup.
+Print Assumptions Minimal.HeatOrRoom.traj_disjoint.
+Print Assumptions Minimal.HeatOrRoom.others_nodup.
+Print Assumptions Minimal.HeatOrRoom.nodes_nodup.
+Print Assumptions Minimal.HeatOrRoom.nodes_length.
+Print Assumptions Minimal.HeatOrRoom.extra_not_node.
+Print Assumptions Minimal.HeatOrRoom.retention_bound.
+Print Assumptions Minimal.HeatOrRoom.retention_horizon.
+Print Assumptions Minimal.HeatOrRoom.tight_reset.
+Print Assumptions Minimal.HeatOrRoom.tight_x0_q0.
+Print Assumptions Minimal.HeatOrRoom.tight_others_not_q0.
+Print Assumptions Minimal.HeatOrRoom.tight_others_distinct.
+Print Assumptions Minimal.HeatOrRoom.tight_length.
+Print Assumptions Minimal.HeatOrRoom.tight_length_others.
+Print Assumptions Minimal.HeatOrRoom.in_path.
+Print Assumptions Minimal.HeatOrRoom.tight_nodup.
+Print Assumptions Minimal.HeatOrRoom.tight_closed.
+Print Assumptions Minimal.HeatOrRoom.tight_reps_in.
+Print Assumptions Minimal.HeatOrRoom.iter_node.
+Print Assumptions Minimal.HeatOrRoom.iter_Z.
+Print Assumptions Minimal.HeatOrRoom.reached_shape.
+Print Assumptions Minimal.HeatOrRoom.tight_retain.
+Print Assumptions Minimal.HeatOrRoom.tight_merges_next.
+Print Assumptions Minimal.HeatOrRoom.tight_exact.
+(* === Minimal.KeptDistinction : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.KeptDistinction.write_is_permanent.
+Print Assumptions Minimal.KeptDistinction.write_raises.
+Print Assumptions Minimal.KeptDistinction.write_is_a_merge.
+Print Assumptions Minimal.KeptDistinction.four_state_escape_fails.
+Print Assumptions Minimal.KeptDistinction.tape_write_injective.
+Print Assumptions Minimal.KeptDistinction.tape_write_never_returns.
+Print Assumptions Minimal.KeptDistinction.no_space_holds_its_own_readings.
+Print Assumptions Minimal.KeptDistinction.regress_price_unbounded.
+Print Assumptions Minimal.KeptDistinction.shift_bijective.
+Print Assumptions Minimal.KeptDistinction.shift_raises_and_keeps.
+Print Assumptions Minimal.KeptDistinction.iter_shift_val.
+Print Assumptions Minimal.KeptDistinction.shift_never_returns.
 (* === Minimal.LiftConverse : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.LiftConverse.lift_reduct_universal.
 Print Assumptions Minimal.LiftConverse.lift_projection.
@@ -5906,6 +6001,39 @@ Print Assumptions Minimal.NecTVerifier.nec_t_ver_collision_free_implies_exists.
 Print Assumptions Minimal.NecTVerifier.nec_t_ver_exists_iff_collision_free.
 Print Assumptions Minimal.NecTVerifier.nec_t_clock_has_bare_verifier.
 Print Assumptions Minimal.NecTVerifier.nec_t_weak_does_not_suffice.
+(* === Minimal.NoisyChairs : 27 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NoisyChairs.Qsum_map_plus.
+Print Assumptions Minimal.NoisyChairs.Qsum_map_ext.
+Print Assumptions Minimal.NoisyChairs.Qsum_swap.
+Print Assumptions Minimal.NoisyChairs.Qsum_nonneg.
+Print Assumptions Minimal.NoisyChairs.Qsum_zero_each.
+Print Assumptions Minimal.NoisyChairs.Qsum_map_zero.
+Print Assumptions Minimal.NoisyChairs.Qsum_map_scale.
+Print Assumptions Minimal.NoisyChairs.len_cons.
+Print Assumptions Minimal.NoisyChairs.Qsum_pos_of_member.
+Print Assumptions Minimal.NoisyChairs.Qsq_nonneg.
+Print Assumptions Minimal.NoisyChairs.Qsq_pos.
+Print Assumptions Minimal.NoisyChairs.Qsum_le.
+Print Assumptions Minimal.NoisyChairs.total_into.
+Print Assumptions Minimal.NoisyChairs.split_rows.
+Print Assumptions Minimal.NoisyChairs.inside_rows.
+Print Assumptions Minimal.NoisyChairs.into_nonneg.
+Print Assumptions Minimal.NoisyChairs.no_entry_from_outside.
+Print Assumptions Minimal.NoisyChairs.noisy_chairs.
+Print Assumptions Minimal.NoisyChairs.colsums_total.
+Print Assumptions Minimal.NoisyChairs.raise_breaks_uniform.
+Print Assumptions Minimal.NoisyChairs.expand.
+Print Assumptions Minimal.NoisyChairs.raise_concentrates.
+Print Assumptions Minimal.NoisyChairs.uniform_floor.
+Print Assumptions Minimal.NoisyChairs.variance_identity.
+Print Assumptions Minimal.NoisyChairs.column_jensen.
+Print Assumptions Minimal.NoisyChairs.no_merge_no_concentration.
+Print Assumptions Minimal.NoisyChairs.raise_concentrates_uniform.
+(* === Minimal.NondetChairs : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NondetChairs.g_in.
+Print Assumptions Minimal.NondetChairs.g_R.
+Print Assumptions Minimal.NondetChairs.map_collision.
+Print Assumptions Minimal.NondetChairs.nondet_merge.
 (* === Minimal.PartitionReading : 18 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.PartitionReading.pr_grouping_partition.
 Print Assumptions Minimal.PartitionReading.same_part_sym.
@@ -5979,6 +6107,29 @@ Print Assumptions Minimal.PricedComplete.priced_sorted_thiele_complete.
 Print Assumptions Minimal.PricedComplete.priced_core_thiele_complete.
 Print Assumptions Minimal.PricedComplete.priced_sorted_thiele_complete_over.
 Print Assumptions Minimal.PricedComplete.priced_core_thiele_complete_over.
+(* === Minimal.QuantumChairs : 22 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.QuantumChairs.adjM.
+Print Assumptions Minimal.QuantumChairs.adjD.
+Print Assumptions Minimal.QuantumChairs.adjN.
+Print Assumptions Minimal.QuantumChairs.adj1.
+Print Assumptions Minimal.QuantumChairs.adjB.
+Print Assumptions Minimal.QuantumChairs.PQ.
+Print Assumptions Minimal.QuantumChairs.QP.
+Print Assumptions Minimal.QuantumChairs.QQ.
+Print Assumptions Minimal.QuantumChairs.adjQ.
+Print Assumptions Minimal.QuantumChairs.PQ1.
+Print Assumptions Minimal.QuantumChairs.UP_eq.
+Print Assumptions Minimal.QuantumChairs.adjV_direct.
+Print Assumptions Minimal.QuantumChairs.adjV.
+Print Assumptions Minimal.QuantumChairs.adjV_V.
+Print Assumptions Minimal.QuantumChairs.adjV_Q.
+Print Assumptions Minimal.QuantumChairs.Q_V.
+Print Assumptions Minimal.QuantumChairs.V_Q.
+Print Assumptions Minimal.QuantumChairs.Q_adjV.
+Print Assumptions Minimal.QuantumChairs.left_inv.
+Print Assumptions Minimal.QuantumChairs.right_inv.
+Print Assumptions Minimal.QuantumChairs.V_adjV.
+Print Assumptions Minimal.QuantumChairs.quantum_chairs.
 (* === Minimal.RecordMerge : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.RecordMerge.rm_fact_eqb_refl.
 Print Assumptions Minimal.RecordMerge.rm_commit_lands.
@@ -5994,6 +6145,12 @@ Print Assumptions Minimal.RecordMerge.rm_base_moves_no_record_merge.
 Print Assumptions Minimal.RecordMerge.rm_small_record_priced.
 Print Assumptions Minimal.RecordMerge.rm_toll_from_record_price.
 Print Assumptions Minimal.RecordMerge.rm_record_price_and_exact_toll.
+(* === Minimal.Recurrence : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Recurrence.NoDup_snoc.
+Print Assumptions Minimal.Recurrence.nodup_or_collision.
+Print Assumptions Minimal.Recurrence.some_revisit.
+Print Assumptions Minimal.Recurrence.returns_to_start.
+Print Assumptions Minimal.Recurrence.reversible_keeps_nothing.
 (* === Minimal.SmCodes : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.SmCodes.sm_hb_correct.
 Print Assumptions Minimal.SmCodes.sm_hb_unique.
@@ -6140,6 +6297,12 @@ Print Assumptions Minimal.SmallConsensus.sc_step_other.
 Print Assumptions Minimal.SmallConsensus.sc_step_progress.
 Print Assumptions Minimal.SmallConsensus.sc_run_progress.
 Print Assumptions Minimal.SmallConsensus.sc_wait_free.
+(* === Minimal.StepLaw : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.StepLaw.run_add.
+Print Assumptions Minimal.StepLaw.revisit_periodic.
+Print Assumptions Minimal.StepLaw.step_law.
+Print Assumptions Minimal.StepLaw.merge_is_collision.
+Print Assumptions Minimal.StepLaw.revisit_means_loop.
 (* === Minimal.Tc2Am : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Tc2Am.am_run_add.
 Print Assumptions Minimal.Tc2Am.am_run_S_l.
