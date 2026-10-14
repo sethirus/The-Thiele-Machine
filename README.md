@@ -9,8 +9,8 @@
 
 That is how I see this work.
 Take a blank cell and write a 0 in it, and keep it a 0. Something is now the case that wasn't. That moment, nothing becoming something, is never free, and the book is about its bill.
-I think computation has structure that a description of what it reads and writes leaves out.
-Every computer is charged for time and space. There is a third charge: what it keeps and cannot take back. In any real device every step that happens gives off some heat, less the slower it goes but never none; keeping something costs more on top, a merge, which carries a heat floor no slowness removes, or room never given back, which dodges only the floor. The book proves the counting; the heat is physics, taken as a named premise.
+A machine has to tell a blank from a 0 from a 1, or nothing happens: a machine with one state changes nothing. So every machine is made of kept distinctions; structure is the state itself. The smallest such machine is the cell: three states, one move (write a 0), one reading that stays (the cell is definite), and writing the 0 merges blank with 0, so it pays. That cell already has every part of the Thiele Machine, and every computer carries one at every write. That's what "found" means. What I added is the meter: a count, in the step, of what keeping costs.
+Time counts steps and space counts cells, and both are counts of something made of distinctions; the bill for keeping them is the count nobody kept. In any real device every step that happens gives off some heat, less the slower it goes but never none; keeping something costs more on top, a merge, which carries a heat floor no slowness removes, or room never given back, which dodges only the floor. The book proves the counting; the heat is physics, taken as a named premise.
 
 **What the Thiele Machine is.**
 It is an abstract model of computation.
@@ -19,7 +19,7 @@ It is not a device.
 It is not a CPU.
 It is not an instruction set, a VM, a graph, or category theory.
 The model is small: states, moves, a step, a price on each move, and a yes-or-no reading, with one rule, the toll: a step that turns the reading from no to yes costs at least one mark. A ledger that only climbs, and a window saying what an observer sees, come in when a result needs them.
-The event it accounts for, a computation establishing something, happens on any computer, whether anybody keeps track of it or not.
+The event it accounts for, a distinction coming to be and staying, happens on any computer, whether anybody keeps track of it or not. Certification, a record that a claim was checked, is the sharpest case the book works out, not the point.
 Turing's model has no place for the record of that event and doesn't enforce one.
 A Turing machine can be programmed to keep the record, and then it obeys the toll (the rule that a step which switches the record on has to pay) and is a Thiele machine; but when it carries another program's record as data on its tape, nothing in its own step enforces it.
 A physical heat floor needs the input distribution and explicit thermodynamic premises. The adopted form of Landauer's principle bounds mean heat by the uncertainty actually removed, so its floor is owed only when the merged states were really possible; the abstract ledger is a separate price rule.
@@ -96,7 +96,7 @@ Most review environments, laptops and LLM sandboxes alike have none, and the arg
 There is a tier for that: Python's standard library and nothing else.
 
 ```bash
-python3 scripts/break_it.py    # tries to break every Part II result on every machine up to six states; each premise dropped must break it
+python3 scripts/break_it.py    # tries to break every Part I result on every machine up to six states; each premise dropped must break it
 python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against the cost floor; exits 0
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
@@ -497,7 +497,7 @@ make proof-undeniable
 | Document | Role |
 |---|---|
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph (413 pages): the point (a blank cell becoming a 0, and why that is never free), the picture, the bill, the logic (the abstract model only), then the machine (the small machine, the universal machine, every model, building from parts, running it, the CHSH check, and the counter against physics), then how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the CHSH derivation, the construction of the quoting operation, computing with counters, the universal program in blocks, a methodology note, and the sources. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph (412 pages), in the order of its point: the opening (a blank cell becoming a 0, why that is never free, why every machine already carries it, what structure is made of, and established as the sharpest case); Part I, the bill (what a chair is, the toll, why it isn't arbitrary, learning borrows and committing pays); Part II, what structure is made of (structure, the counter, windows, entitlement, insight, the latch, the whole direction, the shadow, the diagonal); Part III, established (what established means, the smallest honest machine, how far it reaches, five real systems, the pointer thesis, the counter against physics); Part IV, checking it (how to break it, the claim ledger, scope, conclusion) and an afterword, how I got here. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the universal machines, every model, building from parts, running it, the CHSH check and its derivation, the construction of the quoting operation, computing with counters, the universal program in blocks, a methodology note, and the sources. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [docs/THEOREM_MEANINGS.md](docs/THEOREM_MEANINGS.md) | What each theorem the README, the specification, the disclosure and `THIELE_MACHINE.txt` cite says, in plain words. |
 | [docs/RESULTS.md](docs/RESULTS.md) | The settled questions and their exact statements. |
