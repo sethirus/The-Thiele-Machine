@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 351,
-  "total_addressable": 6142,
+  "files_probed": 398,
+  "total_addressable": 6650,
   "total_unaddressable": 0,
   "extras_addressable_via_instantiation": [],
   "files": [
@@ -2937,6 +2937,70 @@
           "local_name": "two_point_shadow_cannot_price_exactly",
           "kind": "Theorem",
           "full_name": "Kernel.AxWindow.two_point_shadow_cannot_price_exactly"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/ClockHost.v",
+      "qualified_module": "Kernel.ClockHost",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "body_even",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.body_even"
+        },
+        {
+          "local_name": "body_odd",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.body_odd"
+        },
+        {
+          "local_name": "fact_in_existsb",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.fact_in_existsb"
+        },
+        {
+          "local_name": "step_exec",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.step_exec"
+        },
+        {
+          "local_name": "clock_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.clock_step"
+        },
+        {
+          "local_name": "clock_init",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.clock_init"
+        },
+        {
+          "local_name": "clock_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.clock_run"
+        },
+        {
+          "local_name": "clock_halted",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.clock_halted"
+        },
+        {
+          "local_name": "clock_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.clock_live"
+        },
+        {
+          "local_name": "thiele_complete_host_clock",
+          "kind": "Theorem",
+          "full_name": "Kernel.ClockHost.thiele_complete_host_clock"
+        },
+        {
+          "local_name": "clock_kinds",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClockHost.clock_kinds"
         }
       ],
       "unaddressable": []
@@ -7208,6 +7272,25 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/LatchConst.v",
+      "qualified_module": "Kernel.LatchConst",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "const_latch_honest",
+          "kind": "Theorem",
+          "full_name": "Kernel.LatchConst.const_latch_honest"
+        },
+        {
+          "local_name": "const_latch_no_distinction",
+          "kind": "Theorem",
+          "full_name": "Kernel.LatchConst.const_latch_no_distinction"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/LiftAxis.v",
       "qualified_module": "Kernel.LiftAxis",
       "addressable_count": 24,
@@ -10557,6 +10640,1047 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/NeutralHostUP.v",
+      "qualified_module": "Kernel.NeutralHostUP",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "up_hosts_unit_raise_guest",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralHostUP.up_hosts_unit_raise_guest"
+        },
+        {
+          "local_name": "nc_unit_raise",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralHostUP.nc_unit_raise"
+        },
+        {
+          "local_name": "up_hosts_nc_guest",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralHostUP.up_hosts_nc_guest"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivBase.v",
+      "qualified_module": "Kernel.NeutralUnivBase",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "err_back",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivBase.err_back"
+        },
+        {
+          "local_name": "one",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivBase.one"
+        },
+        {
+          "local_name": "rh_base_determined",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivBase.rh_base_determined"
+        },
+        {
+          "local_name": "live_or_stop_gen",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivBase.live_or_stop_gen"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivCanon.v",
+      "qualified_module": "Kernel.NeutralUnivCanon",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ctoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.ctoll"
+        },
+        {
+          "local_name": "cnh_counter_blind",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.cnh_counter_blind"
+        },
+        {
+          "local_name": "cnh_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCanon.cnh_nc"
+        },
+        {
+          "local_name": "cnh_host_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCanon.cnh_host_nc"
+        },
+        {
+          "local_name": "lockstep_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCanon.lockstep_universal"
+        },
+        {
+          "local_name": "down_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.down_step"
+        },
+        {
+          "local_name": "down_lockstep",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.down_lockstep"
+        },
+        {
+          "local_name": "down_gr_any",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.down_gr_any"
+        },
+        {
+          "local_name": "down_gl_any",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.down_gl_any"
+        },
+        {
+          "local_name": "down_line_raise",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.down_line_raise"
+        },
+        {
+          "local_name": "ctpl_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCanon.ctpl_clean"
+        },
+        {
+          "local_name": "down_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCanon.down_universal"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivCert.v",
+      "qualified_module": "Kernel.NeutralUnivCert",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "hr_trace",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCert.hr_trace"
+        },
+        {
+          "local_name": "nu_with_iff",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCert.nu_with_iff"
+        },
+        {
+          "local_name": "chain_at_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivCert.chain_at_iff"
+        },
+        {
+          "local_name": "cu_iff_nu_plus_certification",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCert.cu_iff_nu_plus_certification"
+        },
+        {
+          "local_name": "earned_part_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivCert.earned_part_free"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivDef.v",
+      "qualified_module": "Kernel.NeutralUnivDef",
+      "addressable_count": 18,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "neutral_universal_weakens",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.neutral_universal_weakens"
+        },
+        {
+          "local_name": "hr_flag_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.hr_flag_mono"
+        },
+        {
+          "local_name": "hl_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.hl_mono"
+        },
+        {
+          "local_name": "flag_rises_between",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.flag_rises_between"
+        },
+        {
+          "local_name": "toll_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.toll_floor"
+        },
+        {
+          "local_name": "glat_read",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.glat_read"
+        },
+        {
+          "local_name": "live_down",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.live_down"
+        },
+        {
+          "local_name": "locate",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.locate"
+        },
+        {
+          "local_name": "f_grows",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.f_grows"
+        },
+        {
+          "local_name": "naive_rise_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.naive_rise_free"
+        },
+        {
+          "local_name": "naive_rise_converse",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.naive_rise_converse"
+        },
+        {
+          "local_name": "fone",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.fone"
+        },
+        {
+          "local_name": "nr_determined",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.nr_determined"
+        },
+        {
+          "local_name": "surcharge_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.surcharge_floor"
+        },
+        {
+          "local_name": "surcharge_floor_one",
+          "kind": "Corollary",
+          "full_name": "Kernel.NeutralUnivDef.surcharge_floor_one"
+        },
+        {
+          "local_name": "pay_needed",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.pay_needed"
+        },
+        {
+          "local_name": "chains_to_fun",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivDef.chains_to_fun"
+        },
+        {
+          "local_name": "live_before_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivDef.live_before_dec"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivFloor.v",
+      "qualified_module": "Kernel.NeutralUnivFloor",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "hl_trace",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivFloor.hl_trace"
+        },
+        {
+          "local_name": "tc_host_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivFloor.tc_host_floor"
+        },
+        {
+          "local_name": "tc_surcharge",
+          "kind": "Corollary",
+          "full_name": "Kernel.NeutralUnivFloor.tc_surcharge"
+        },
+        {
+          "local_name": "cdown0",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivFloor.cdown0"
+        },
+        {
+          "local_name": "tc_cdown_two",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivFloor.tc_cdown_two"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivGstep.v",
+      "qualified_module": "Kernel.NeutralUnivGstep",
+      "addressable_count": 7,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "small_guests_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivGstep.small_guests_nc"
+        },
+        {
+          "local_name": "small_perm",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivGstep.small_perm"
+        },
+        {
+          "local_name": "cheat_perm",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivGstep.cheat_perm"
+        },
+        {
+          "local_name": "gstep_meets_N1_N2",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivGstep.gstep_meets_N1_N2"
+        },
+        {
+          "local_name": "gstep_meets_naive",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivGstep.gstep_meets_naive"
+        },
+        {
+          "local_name": "cheat_untrapped_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivGstep.cheat_untrapped_live"
+        },
+        {
+          "local_name": "gstep_not_reg",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivGstep.gstep_not_reg"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivInOrderLink.v",
+      "qualified_module": "Kernel.NeutralUnivInOrderLink",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "gen_to_chains",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivInOrderLink.gen_to_chains"
+        },
+        {
+          "local_name": "gen_via_chains",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivInOrderLink.gen_via_chains"
+        },
+        {
+          "local_name": "gen_direct",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivInOrderLink.gen_direct"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivMarkElim.v",
+      "qualified_module": "Kernel.NeutralUnivMarkElim",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "next_at",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMarkElim.next_at"
+        },
+        {
+          "local_name": "mark_elim",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivMarkElim.mark_elim"
+        },
+        {
+          "local_name": "mark_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMarkElim.mark_one"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivMirror.v",
+      "qualified_module": "Kernel.NeutralUnivMirror",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "Cy_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMirror.Cy_stop"
+        },
+        {
+          "local_name": "Cy_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMirror.Cy_live"
+        },
+        {
+          "local_name": "Py_nomark",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMirror.Py_nomark"
+        },
+        {
+          "local_name": "honest_y",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivMirror.honest_y"
+        },
+        {
+          "local_name": "oracle_y",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivMirror.oracle_y"
+        },
+        {
+          "local_name": "mtoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMirror.mtoll"
+        },
+        {
+          "local_name": "mh_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivMirror.mh_nc"
+        },
+        {
+          "local_name": "mh_host_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivMirror.mh_host_nc"
+        },
+        {
+          "local_name": "mtpl_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMirror.mtpl_clean"
+        },
+        {
+          "local_name": "Pm_not_line",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivMirror.Pm_not_line"
+        },
+        {
+          "local_name": "mirror_y",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivMirror.mirror_y"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivNeed.v",
+      "qualified_module": "Kernel.NeutralUnivNeed",
+      "addressable_count": 28,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "C1_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.C1_stop"
+        },
+        {
+          "local_name": "C1_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.C1_live"
+        },
+        {
+          "local_name": "C1_stop_only",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.C1_stop_only"
+        },
+        {
+          "local_name": "Ploop_nomark",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.Ploop_nomark"
+        },
+        {
+          "local_name": "Ploop_runs",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.Ploop_runs"
+        },
+        {
+          "local_name": "need_N1",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_N1"
+        },
+        {
+          "local_name": "Prev_nomark",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.Prev_nomark"
+        },
+        {
+          "local_name": "Prev_halt",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.Prev_halt"
+        },
+        {
+          "local_name": "rmatch_late",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.rmatch_late"
+        },
+        {
+          "local_name": "need_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_order"
+        },
+        {
+          "local_name": "need_decode",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_decode"
+        },
+        {
+          "local_name": "need_record",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_record"
+        },
+        {
+          "local_name": "need_ledger",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_ledger"
+        },
+        {
+          "local_name": "Cup_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.Cup_stop"
+        },
+        {
+          "local_name": "Cup_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.Cup_live"
+        },
+        {
+          "local_name": "need_clean",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_clean"
+        },
+        {
+          "local_name": "up_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.up_floor"
+        },
+        {
+          "local_name": "up_attained",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.up_attained"
+        },
+        {
+          "local_name": "ttoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.ttoll"
+        },
+        {
+          "local_name": "cnt_record_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.cnt_record_run"
+        },
+        {
+          "local_name": "cnt_not_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.cnt_not_nc"
+        },
+        {
+          "local_name": "cnt_hr",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.cnt_hr"
+        },
+        {
+          "local_name": "need_N0",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_N0"
+        },
+        {
+          "local_name": "gex_flag",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.gex_flag"
+        },
+        {
+          "local_name": "xtoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivNeed.xtoll"
+        },
+        {
+          "local_name": "hx_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.hx_nc"
+        },
+        {
+          "local_name": "hx_not_reg",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.hx_not_reg"
+        },
+        {
+          "local_name": "need_N4",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivNeed.need_N4"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivPay.v",
+      "qualified_module": "Kernel.NeutralUnivPay",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "pay_line",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivPay.pay_line"
+        },
+        {
+          "local_name": "cnh_only_pay",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivPay.cnh_only_pay"
+        },
+        {
+          "local_name": "upd_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivPay.upd_eq"
+        },
+        {
+          "local_name": "upd_neq",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivPay.upd_neq"
+        },
+        {
+          "local_name": "step_at",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivPay.step_at"
+        },
+        {
+          "local_name": "commit_pay_loop",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivPay.commit_pay_loop"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivPhantom.v",
+      "qualified_module": "Kernel.NeutralUnivPhantom",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ptoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivPhantom.ptoll"
+        },
+        {
+          "local_name": "phantom",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivPhantom.phantom"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivRobust.v",
+      "qualified_module": "Kernel.NeutralUnivRobust",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "xtoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.xtoll"
+        },
+        {
+          "local_name": "xh_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivRobust.xh_nc"
+        },
+        {
+          "local_name": "xh_host_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivRobust.xh_host_nc"
+        },
+        {
+          "local_name": "xh_lift",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.xh_lift"
+        },
+        {
+          "local_name": "xh_line_raise_XC",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.xh_line_raise_XC"
+        },
+        {
+          "local_name": "xtpl_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.xtpl_clean"
+        },
+        {
+          "local_name": "shadow_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivRobust.shadow_universal"
+        },
+        {
+          "local_name": "shadow_idle",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivRobust.shadow_idle"
+        },
+        {
+          "local_name": "mir_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.mir_step"
+        },
+        {
+          "local_name": "mir_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.mir_run"
+        },
+        {
+          "local_name": "Cxy_gr_any",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.Cxy_gr_any"
+        },
+        {
+          "local_name": "Cxy_gl_any",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivRobust.Cxy_gl_any"
+        },
+        {
+          "local_name": "mirror2_meets_rest",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivRobust.mirror2_meets_rest"
+        },
+        {
+          "local_name": "mirror2_not_line",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivRobust.mirror2_not_line"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivShadow.v",
+      "qualified_module": "Kernel.NeutralUnivShadow",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "U_N_nomark",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivShadow.U_N_nomark"
+        },
+        {
+          "local_name": "next_agree",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivShadow.next_agree"
+        },
+        {
+          "local_name": "step_agree",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivShadow.step_agree"
+        },
+        {
+          "local_name": "shadow_lockstep",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivShadow.shadow_lockstep"
+        },
+        {
+          "local_name": "err_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivShadow.err_mono"
+        },
+        {
+          "local_name": "cg_yhalt_err",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivShadow.cg_yhalt_err"
+        },
+        {
+          "local_name": "UP_never_traps",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivShadow.UP_never_traps"
+        },
+        {
+          "local_name": "start_rel",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivShadow.start_rel"
+        },
+        {
+          "local_name": "UN_neutral_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivShadow.UN_neutral_universal"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivSmuggle.v",
+      "qualified_module": "Kernel.NeutralUnivSmuggle",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "sinv_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivSmuggle.sinv_step"
+        },
+        {
+          "local_name": "smuggle_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivSmuggle.smuggle_run"
+        },
+        {
+          "local_name": "smuggle_start",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivSmuggle.smuggle_start"
+        },
+        {
+          "local_name": "smuggle_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivSmuggle.smuggle_universal"
+        },
+        {
+          "local_name": "smuggle_blind",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivSmuggle.smuggle_blind"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivTools.v",
+      "qualified_module": "Kernel.NeutralUnivTools",
+      "addressable_count": 7,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "cnh_perm",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivTools.cnh_perm"
+        },
+        {
+          "local_name": "cnh_line_raise_nomark",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivTools.cnh_line_raise_nomark"
+        },
+        {
+          "local_name": "cnh_mark_not_line",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivTools.cnh_mark_not_line"
+        },
+        {
+          "local_name": "not_counter",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivTools.not_counter"
+        },
+        {
+          "local_name": "not_counter2",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivTools.not_counter2"
+        },
+        {
+          "local_name": "live_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivTools.live_bound"
+        },
+        {
+          "local_name": "grun_stop_stays",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivTools.grun_stop_stays"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivU.v",
+      "qualified_module": "Kernel.NeutralUnivU",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "U_host_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivU.U_host_nc"
+        },
+        {
+          "local_name": "U_line_raise",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivU.U_line_raise"
+        },
+        {
+          "local_name": "U_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivU.U_clean"
+        },
+        {
+          "local_name": "U_halt",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivU.U_halt"
+        },
+        {
+          "local_name": "hchainU",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivU.hchainU"
+        },
+        {
+          "local_name": "DU_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivU.DU_dec"
+        },
+        {
+          "local_name": "LU_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivU.LU_dec"
+        },
+        {
+          "local_name": "uchains",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivU.uchains"
+        },
+        {
+          "local_name": "U_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivU.U_order"
+        },
+        {
+          "local_name": "U_in_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivU.U_in_order"
+        },
+        {
+          "local_name": "U_neutral_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivU.U_neutral_universal"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NeutralUnivUP.v",
+      "qualified_module": "Kernel.NeutralUnivUP",
+      "addressable_count": 21,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "UP_hr",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.UP_hr"
+        },
+        {
+          "local_name": "UP_hl",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.UP_hl"
+        },
+        {
+          "local_name": "pgr",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.pgr"
+        },
+        {
+          "local_name": "pgl",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.pgl"
+        },
+        {
+          "local_name": "glatch_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.glatch_iff"
+        },
+        {
+          "local_name": "pglat",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.pglat"
+        },
+        {
+          "local_name": "UP_host_nc",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.UP_host_nc"
+        },
+        {
+          "local_name": "UP_line_raise",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.UP_line_raise"
+        },
+        {
+          "local_name": "multi_line_raise",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.multi_line_raise"
+        },
+        {
+          "local_name": "UP_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.UP_clean"
+        },
+        {
+          "local_name": "UP_load",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.UP_load"
+        },
+        {
+          "local_name": "UP_halt",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.UP_halt"
+        },
+        {
+          "local_name": "hchain",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.hchain"
+        },
+        {
+          "local_name": "ychain",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.ychain"
+        },
+        {
+          "local_name": "cg_point_code",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.cg_point_code"
+        },
+        {
+          "local_name": "Dp_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.Dp_dec"
+        },
+        {
+          "local_name": "Lp_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.Lp_dec"
+        },
+        {
+          "local_name": "pchains",
+          "kind": "Lemma",
+          "full_name": "Kernel.NeutralUnivUP.pchains"
+        },
+        {
+          "local_name": "UP_presented_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.UP_presented_order"
+        },
+        {
+          "local_name": "UP_in_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.UP_in_order"
+        },
+        {
+          "local_name": "UP_neutral_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.NeutralUnivUP.UP_neutral_universal"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/Presentation.v",
       "qualified_module": "Kernel.Presentation",
       "addressable_count": 7,
@@ -11690,13 +12814,28 @@
     {
       "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
       "qualified_module": "Kernel.RecordAxisDiscrimination",
-      "addressable_count": 4,
+      "addressable_count": 7,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "latch_core_honest",
           "kind": "Theorem",
           "full_name": "Kernel.RecordAxisDiscrimination.latch_core_honest"
+        },
+        {
+          "local_name": "latch_run_shape",
+          "kind": "Lemma",
+          "full_name": "Kernel.RecordAxisDiscrimination.latch_run_shape"
+        },
+        {
+          "local_name": "latch_constant_up",
+          "kind": "Theorem",
+          "full_name": "Kernel.RecordAxisDiscrimination.latch_constant_up"
+        },
+        {
+          "local_name": "latch_distinguishes",
+          "kind": "Theorem",
+          "full_name": "Kernel.RecordAxisDiscrimination.latch_distinguishes"
         },
         {
           "local_name": "history_latch_injective",
@@ -14717,6 +15856,1268 @@
           "local_name": "tc_Q_diverges",
           "kind": "Lemma",
           "full_name": "Kernel.TcRiceMM.tc_Q_diverges"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachCheatPNotReg.v",
+      "qualified_module": "Kernel.UMachCheatPNotReg",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "paid_toll",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPNotReg.paid_toll"
+        },
+        {
+          "local_name": "free_toll",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPNotReg.free_toll"
+        },
+        {
+          "local_name": "bcode",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPNotReg.bcode"
+        },
+        {
+          "local_name": "ucode",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPNotReg.ucode"
+        },
+        {
+          "local_name": "pcheat_not_reg_host",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatPNotReg.pcheat_not_reg_host"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachCheatPresented.v",
+      "qualified_module": "Kernel.UMachCheatPresented",
+      "addressable_count": 13,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "live_or_stop_gen",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.live_or_stop_gen"
+        },
+        {
+          "local_name": "glatch_read",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.glatch_read"
+        },
+        {
+          "local_name": "pcheat_toll",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatPresented.pcheat_toll"
+        },
+        {
+          "local_name": "hr_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.hr_cons"
+        },
+        {
+          "local_name": "hl_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.hl_cons"
+        },
+        {
+          "local_name": "pay_loop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.pay_loop"
+        },
+        {
+          "local_name": "round",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.round"
+        },
+        {
+          "local_name": "start_block",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.start_block"
+        },
+        {
+          "local_name": "points",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.points"
+        },
+        {
+          "local_name": "fpt_ge",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatPresented.fpt_ge"
+        },
+        {
+          "local_name": "pcheat_is_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatPresented.pcheat_is_universal"
+        },
+        {
+          "local_name": "pcheat_exact_when_no_at_start",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatPresented.pcheat_exact_when_no_at_start"
+        },
+        {
+          "local_name": "one_is_forced",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatPresented.one_is_forced"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachCheatSmall.v",
+      "qualified_module": "Kernel.UMachCheatSmall",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "cheat_toll",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatSmall.cheat_toll"
+        },
+        {
+          "local_name": "cert_exec_cost0",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.cert_exec_cost0"
+        },
+        {
+          "local_name": "ex_peek",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.ex_peek"
+        },
+        {
+          "local_name": "ex_peek_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.ex_peek_stop"
+        },
+        {
+          "local_name": "ex_g0",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.ex_g0"
+        },
+        {
+          "local_name": "ex_g1",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.ex_g1"
+        },
+        {
+          "local_name": "ex_br",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.ex_br"
+        },
+        {
+          "local_name": "hr_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.hr_cons"
+        },
+        {
+          "local_name": "hl_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.hl_cons"
+        },
+        {
+          "local_name": "round",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.round"
+        },
+        {
+          "local_name": "glat_cert",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.glat_cert"
+        },
+        {
+          "local_name": "live_or_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.live_or_stop"
+        },
+        {
+          "local_name": "points",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachCheatSmall.points"
+        },
+        {
+          "local_name": "cheat_is_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachCheatSmall.cheat_is_universal"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachDef.v",
+      "qualified_module": "Kernel.UMachDef",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "gr_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.gr_stop"
+        },
+        {
+          "local_name": "gl_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.gl_stop"
+        },
+        {
+          "local_name": "gr_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.gr_add"
+        },
+        {
+          "local_name": "gl_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.gl_add"
+        },
+        {
+          "local_name": "gr_succ",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.gr_succ"
+        },
+        {
+          "local_name": "gl_succ",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.gl_succ"
+        },
+        {
+          "local_name": "hr_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.hr_stop"
+        },
+        {
+          "local_name": "hl_stop",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.hl_stop"
+        },
+        {
+          "local_name": "hr_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.hr_add"
+        },
+        {
+          "local_name": "hl_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.hl_add"
+        },
+        {
+          "local_name": "hr_succ",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.hr_succ"
+        },
+        {
+          "local_name": "hr_stopped_stays",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachDef.hr_stopped_stays"
+        },
+        {
+          "local_name": "clause3_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachDef.clause3_free"
+        },
+        {
+          "local_name": "strong_weak",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachDef.strong_weak"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachHybrid.v",
+      "qualified_module": "Kernel.UMachHybrid",
+      "addressable_count": 39,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "grows_refl",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.grows_refl"
+        },
+        {
+          "local_name": "grows_trans",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.grows_trans"
+        },
+        {
+          "local_name": "grows_wr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.grows_wr"
+        },
+        {
+          "local_name": "grows_goto",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.grows_goto"
+        },
+        {
+          "local_name": "estep_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.estep_facts"
+        },
+        {
+          "local_name": "estep_chan",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.estep_chan"
+        },
+        {
+          "local_name": "estep_grows_regs",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.estep_grows_regs"
+        },
+        {
+          "local_name": "estep_cert",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.estep_cert"
+        },
+        {
+          "local_name": "run_snoc",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.run_snoc"
+        },
+        {
+          "local_name": "run_vers_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.run_vers_mono"
+        },
+        {
+          "local_name": "run_same_val",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.run_same_val"
+        },
+        {
+          "local_name": "cert_first",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.cert_first"
+        },
+        {
+          "local_name": "chan_origin",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.chan_origin"
+        },
+        {
+          "local_name": "fact_origin",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.fact_origin"
+        },
+        {
+          "local_name": "ehost_sim",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.ehost_sim"
+        },
+        {
+          "local_name": "commit_in_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.commit_in_facts"
+        },
+        {
+          "local_name": "ext_chain",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.ext_chain"
+        },
+        {
+          "local_name": "ext_thiele_complete_with",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.ext_thiele_complete_with"
+        },
+        {
+          "local_name": "ext_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.ext_thiele_complete"
+        },
+        {
+          "local_name": "ext_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.ext_thiele_complete_over"
+        },
+        {
+          "local_name": "etoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.etoll"
+        },
+        {
+          "local_name": "fetch_rep",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.fetch_rep"
+        },
+        {
+          "local_name": "fetch_rep_none",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.fetch_rep_none"
+        },
+        {
+          "local_name": "live_berr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.live_berr"
+        },
+        {
+          "local_name": "same_bpc",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.same_bpc"
+        },
+        {
+          "local_name": "kind0",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.kind0"
+        },
+        {
+          "local_name": "I0_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.I0_live"
+        },
+        {
+          "local_name": "DJ_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.DJ_live"
+        },
+        {
+          "local_name": "I0_route",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.I0_route"
+        },
+        {
+          "local_name": "nonS_same_pc",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.nonS_same_pc"
+        },
+        {
+          "local_name": "tie",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.tie"
+        },
+        {
+          "local_name": "ext_not_reg_host",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.ext_not_reg_host"
+        },
+        {
+          "local_name": "grows_nudge1",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.grows_nudge1"
+        },
+        {
+          "local_name": "grows_nudge_all",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.grows_nudge_all"
+        },
+        {
+          "local_name": "hgrows",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.hgrows"
+        },
+        {
+          "local_name": "hybrid_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.hybrid_thiele_complete"
+        },
+        {
+          "local_name": "hybrid_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.hybrid_thiele_complete_over"
+        },
+        {
+          "local_name": "hybrid_flips",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachHybrid.hybrid_flips"
+        },
+        {
+          "local_name": "hybrid_not_reg_host",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachHybrid.hybrid_not_reg_host"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachInOrderGen.v",
+      "qualified_module": "Kernel.UMachInOrderGen",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "Q0_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.Q0_dec"
+        },
+        {
+          "local_name": "QS_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.QS_dec"
+        },
+        {
+          "local_name": "Q0_ex",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.Q0_ex"
+        },
+        {
+          "local_name": "QS_ex",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.QS_ex"
+        },
+        {
+          "local_name": "Inv0",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.Inv0"
+        },
+        {
+          "local_name": "f_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.f_S"
+        },
+        {
+          "local_name": "f_D",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderGen.f_D"
+        },
+        {
+          "local_name": "in_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInOrderGen.in_order"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachInOrderU.v",
+      "qualified_module": "Kernel.UMachInOrderU",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "live_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.live_dec"
+        },
+        {
+          "local_name": "live_prev",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.live_prev"
+        },
+        {
+          "local_name": "Du_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.Du_dec"
+        },
+        {
+          "local_name": "live_not_halted",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.live_not_halted"
+        },
+        {
+          "local_name": "Ru_D",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.Ru_D"
+        },
+        {
+          "local_name": "Ru_0",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.Ru_0"
+        },
+        {
+          "local_name": "Ru_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.Ru_S"
+        },
+        {
+          "local_name": "U_in_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInOrderU.U_in_order"
+        },
+        {
+          "local_name": "U_clause1",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.U_clause1"
+        },
+        {
+          "local_name": "U_ledger_at",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderU.U_ledger_at"
+        },
+        {
+          "local_name": "U_meets_strong",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInOrderU.U_meets_strong"
+        },
+        {
+          "local_name": "U_meets_strong_full",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInOrderU.U_meets_strong_full"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachInOrderUP.v",
+      "qualified_module": "Kernel.UMachInOrderUP",
+      "addressable_count": 13,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ystep",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.ystep"
+        },
+        {
+          "local_name": "ypoint_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.ypoint_live"
+        },
+        {
+          "local_name": "before_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.before_live"
+        },
+        {
+          "local_name": "host_steps",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.host_steps"
+        },
+        {
+          "local_name": "codeq_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.codeq_iff"
+        },
+        {
+          "local_name": "Dp_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.Dp_dec"
+        },
+        {
+          "local_name": "Lp_next",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.Lp_next"
+        },
+        {
+          "local_name": "Lp_all",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.Lp_all"
+        },
+        {
+          "local_name": "Rp_D",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.Rp_D"
+        },
+        {
+          "local_name": "Rp_0",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.Rp_0"
+        },
+        {
+          "local_name": "Rp_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInOrderUP.Rp_S"
+        },
+        {
+          "local_name": "UP_in_order",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInOrderUP.UP_in_order"
+        },
+        {
+          "local_name": "UP_meets_strong",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInOrderUP.UP_meets_strong"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachInert.v",
+      "qualified_module": "Kernel.UMachInert",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "err_stays",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInert.err_stays"
+        },
+        {
+          "local_name": "step_untrapped_before",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInert.step_untrapped_before"
+        },
+        {
+          "local_name": "one_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInert.one_step"
+        },
+        {
+          "local_name": "checker_blind",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInert.checker_blind"
+        },
+        {
+          "local_name": "perr_stays",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInert.perr_stays"
+        },
+        {
+          "local_name": "pstep_untrapped_before",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInert.pstep_untrapped_before"
+        },
+        {
+          "local_name": "pone_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachInert.pone_step"
+        },
+        {
+          "local_name": "pchecker_blind",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachInert.pchecker_blind"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachMeetsU.v",
+      "qualified_module": "Kernel.UMachMeetsU",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "U_hr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsU.U_hr"
+        },
+        {
+          "local_name": "U_hl",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsU.U_hl"
+        },
+        {
+          "local_name": "small_gr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsU.small_gr"
+        },
+        {
+          "local_name": "small_gl_gen",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsU.small_gl_gen"
+        },
+        {
+          "local_name": "small_gl",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsU.small_gl"
+        },
+        {
+          "local_name": "U_meets_weak",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachMeetsU.U_meets_weak"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachMeetsUP.v",
+      "qualified_module": "Kernel.UMachMeetsUP",
+      "addressable_count": 7,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "UP_hr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsUP.UP_hr"
+        },
+        {
+          "local_name": "UP_hl",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsUP.UP_hl"
+        },
+        {
+          "local_name": "pgr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsUP.pgr"
+        },
+        {
+          "local_name": "pgl",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsUP.pgl"
+        },
+        {
+          "local_name": "glatch_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsUP.glatch_iff"
+        },
+        {
+          "local_name": "pglat",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMeetsUP.pglat"
+        },
+        {
+          "local_name": "UP_meets_weak",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachMeetsUP.UP_meets_weak"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachMirror.v",
+      "qualified_module": "Kernel.UMachMirror",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mirror_toll",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachMirror.mirror_toll"
+        },
+        {
+          "local_name": "htr_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.htr_add"
+        },
+        {
+          "local_name": "hr_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.hr_cons"
+        },
+        {
+          "local_name": "hl_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.hl_cons"
+        },
+        {
+          "local_name": "htr_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.htr_cons"
+        },
+        {
+          "local_name": "next_not_halt",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.next_not_halt"
+        },
+        {
+          "local_name": "cert_noncertify",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.cert_noncertify"
+        },
+        {
+          "local_name": "round",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.round"
+        },
+        {
+          "local_name": "grun_small",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.grun_small"
+        },
+        {
+          "local_name": "trace_succ",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.trace_succ"
+        },
+        {
+          "local_name": "mpoints",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachMirror.mpoints"
+        },
+        {
+          "local_name": "mirror_is_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachMirror.mirror_is_universal"
+        },
+        {
+          "local_name": "mirror_earned",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachMirror.mirror_earned"
+        },
+        {
+          "local_name": "mirror_not_reg_host",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachMirror.mirror_not_reg_host"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachRegHost.v",
+      "qualified_module": "Kernel.UMachRegHost",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "err_back",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachRegHost.err_back"
+        },
+        {
+          "local_name": "one",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachRegHost.one"
+        },
+        {
+          "local_name": "rh_base_determined",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachRegHost.rh_base_determined"
+        },
+        {
+          "local_name": "cheat_untrapped_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachRegHost.cheat_untrapped_live"
+        },
+        {
+          "local_name": "cheat_not_reg_host",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachRegHost.cheat_not_reg_host"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachShadowU.v",
+      "qualified_module": "Kernel.UMachShadowU",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ptoll",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachShadowU.ptoll"
+        },
+        {
+          "local_name": "prod_hr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachShadowU.prod_hr"
+        },
+        {
+          "local_name": "prod_hl",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachShadowU.prod_hl"
+        },
+        {
+          "local_name": "prod_universal",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachShadowU.prod_universal"
+        },
+        {
+          "local_name": "shadow_meets",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachShadowU.shadow_meets"
+        },
+        {
+          "local_name": "shadow_clean",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachShadowU.shadow_clean"
+        },
+        {
+          "local_name": "shadow_trace",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachShadowU.shadow_trace"
+        },
+        {
+          "local_name": "shadow_steps",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachShadowU.shadow_steps"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachStrengthened.v",
+      "qualified_module": "Kernel.UMachStrengthened",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "U_checker_free",
+          "kind": "Corollary",
+          "full_name": "Kernel.UMachStrengthened.U_checker_free"
+        },
+        {
+          "local_name": "UP_checker_free",
+          "kind": "Corollary",
+          "full_name": "Kernel.UMachStrengthened.UP_checker_free"
+        },
+        {
+          "local_name": "U_load_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachStrengthened.U_load_clean"
+        },
+        {
+          "local_name": "UP_load_clean",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachStrengthened.UP_load_clean"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachTCcheck.v",
+      "qualified_module": "Kernel.UMachTCcheck",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "tc_three_paid",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTCcheck.tc_three_paid"
+        },
+        {
+          "local_name": "cheat_not_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTCcheck.cheat_not_thiele_complete"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachTrivialUP.v",
+      "qualified_module": "Kernel.UMachTrivialUP",
+      "addressable_count": 23,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "CV_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.CV_true"
+        },
+        {
+          "local_name": "U_P_avoids",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.U_P_avoids"
+        },
+        {
+          "local_name": "fetch_avoids",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.fetch_avoids"
+        },
+        {
+          "local_name": "fetch_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.fetch_map"
+        },
+        {
+          "local_name": "next_V",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.next_V"
+        },
+        {
+          "local_name": "upd_ne",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.upd_ne"
+        },
+        {
+          "local_name": "Rlc_write",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.Rlc_write"
+        },
+        {
+          "local_name": "Rlc_goto",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.Rlc_goto"
+        },
+        {
+          "local_name": "step_lock",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.step_lock"
+        },
+        {
+          "local_name": "cost_retarget",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.cost_retarget"
+        },
+        {
+          "local_name": "lockstep",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.lockstep"
+        },
+        {
+          "local_name": "guest_noerr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.guest_noerr"
+        },
+        {
+          "local_name": "UP_noerr",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.UP_noerr"
+        },
+        {
+          "local_name": "pu_hregs_TR",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.pu_hregs_TR"
+        },
+        {
+          "local_name": "load_rel",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.load_rel"
+        },
+        {
+          "local_name": "V_lock",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.V_lock"
+        },
+        {
+          "local_name": "V_meets_strong",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.V_meets_strong"
+        },
+        {
+          "local_name": "V_meets_d",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.V_meets_d"
+        },
+        {
+          "local_name": "V_record_on_TR",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.V_record_on_TR"
+        },
+        {
+          "local_name": "trace_from_prog",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachTrivialUP.trace_from_prog"
+        },
+        {
+          "local_name": "V_TR_const",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.V_TR_const"
+        },
+        {
+          "local_name": "V_flag_chain",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.V_flag_chain"
+        },
+        {
+          "local_name": "V_flag_rises",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachTrivialUP.V_flag_rises"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/UMachVersionsObs.v",
+      "qualified_module": "Kernel.UMachVersionsObs",
+      "addressable_count": 25,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "vbounded_start",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.vbounded_start"
+        },
+        {
+          "local_name": "ver_write",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.ver_write"
+        },
+        {
+          "local_name": "fobs_write",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.fobs_write"
+        },
+        {
+          "local_name": "map_fobs_write",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.map_fobs_write"
+        },
+        {
+          "local_name": "exists_claim",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.exists_claim"
+        },
+        {
+          "local_name": "vb_write",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.vb_write"
+        },
+        {
+          "local_name": "vb_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.vb_step"
+        },
+        {
+          "local_name": "len_map_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.len_map_eq"
+        },
+        {
+          "local_name": "fobs_same",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.fobs_same"
+        },
+        {
+          "local_name": "gobs_core",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.gobs_core"
+        },
+        {
+          "local_name": "core_obs_write",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.core_obs_write"
+        },
+        {
+          "local_name": "map_fobs_same",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.map_fobs_same"
+        },
+        {
+          "local_name": "opt_fobs_same",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.opt_fobs_same"
+        },
+        {
+          "local_name": "obs_goto",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.obs_goto"
+        },
+        {
+          "local_name": "obs_trap",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.obs_trap"
+        },
+        {
+          "local_name": "obs_record",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.obs_record"
+        },
+        {
+          "local_name": "obs_commit",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.obs_commit"
+        },
+        {
+          "local_name": "obs_step",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachVersionsObs.obs_step"
+        },
+        {
+          "local_name": "obs_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachVersionsObs.obs_run"
+        },
+        {
+          "local_name": "obs_run_prog",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachVersionsObs.obs_run_prog"
+        },
+        {
+          "local_name": "bank_slot",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.bank_slot"
+        },
+        {
+          "local_name": "rec_obs",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.rec_obs"
+        },
+        {
+          "local_name": "U_obs_at_rel",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachVersionsObs.U_obs_at_rel"
+        },
+        {
+          "local_name": "GObs_dec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UMachVersionsObs.GObs_dec"
+        },
+        {
+          "local_name": "U_meets_strong_obs",
+          "kind": "Theorem",
+          "full_name": "Kernel.UMachVersionsObs.U_meets_strong_obs"
         }
       ],
       "unaddressable": []
@@ -29584,6 +31985,440 @@
       "unaddressable": []
     },
     {
+      "file": "minimal/NeutralChain.v",
+      "qualified_module": "Minimal.NeutralChain",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "tc_record_implies_event",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralChain.tc_record_implies_event"
+        },
+        {
+          "local_name": "small_event_without_record",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralChain.small_event_without_record"
+        },
+        {
+          "local_name": "hidden_run_bit",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralChain.hidden_run_bit"
+        },
+        {
+          "local_name": "hidden_event_nonconstant",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralChain.hidden_event_nonconstant"
+        },
+        {
+          "local_name": "hidden_lift_no_distinction",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralChain.hidden_lift_no_distinction"
+        },
+        {
+          "local_name": "permanent_latch_is_record",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralChain.permanent_latch_is_record"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/NeutralComplete.v",
+      "qualified_module": "Minimal.NeutralComplete",
+      "addressable_count": 48,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "every_permanent_record_is_a_latch",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.every_permanent_record_is_a_latch"
+        },
+        {
+          "local_name": "every_record_latches_itself",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.every_record_latches_itself"
+        },
+        {
+          "local_name": "nledger_counts",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nledger_counts"
+        },
+        {
+          "local_name": "nc_raise_is_mark",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_raise_is_mark"
+        },
+        {
+          "local_name": "nc_is_weak",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_is_weak"
+        },
+        {
+          "local_name": "nc_floor_one",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_floor_one"
+        },
+        {
+          "local_name": "nc_costs",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_costs"
+        },
+        {
+          "local_name": "nc_some_run_raises",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_some_run_raises"
+        },
+        {
+          "local_name": "nc_reduct_universal",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_reduct_universal"
+        },
+        {
+          "local_name": "core_base_run_window",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.core_base_run_window"
+        },
+        {
+          "local_name": "core_base_run_record",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.core_base_run_record"
+        },
+        {
+          "local_name": "core_reach",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.core_reach"
+        },
+        {
+          "local_name": "core_hides_record",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.core_hides_record"
+        },
+        {
+          "local_name": "core_no_record_oracle",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.core_no_record_oracle"
+        },
+        {
+          "local_name": "core_base_run_ledger",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.core_base_run_ledger"
+        },
+        {
+          "local_name": "core_hides_ledger",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.core_hides_ledger"
+        },
+        {
+          "local_name": "nc_hides_record",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_hides_record"
+        },
+        {
+          "local_name": "nc_hides_ledger",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_hides_ledger"
+        },
+        {
+          "local_name": "nc_no_oracles",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_no_oracles"
+        },
+        {
+          "local_name": "price_is_record_move",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.price_is_record_move"
+        },
+        {
+          "local_name": "tc_to_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.tc_to_nc"
+        },
+        {
+          "local_name": "thiele_complete_neutral",
+          "kind": "Corollary",
+          "full_name": "Minimal.NeutralComplete.thiele_complete_neutral"
+        },
+        {
+          "local_name": "tc_iff_nc_plus_certification",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.tc_iff_nc_plus_certification"
+        },
+        {
+          "local_name": "tc_record_iff_chain",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.tc_record_iff_chain"
+        },
+        {
+          "local_name": "nbases_map",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nbases_map"
+        },
+        {
+          "local_name": "nlift_run_base",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nlift_run_base"
+        },
+        {
+          "local_name": "nlift_run_record",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nlift_run_record"
+        },
+        {
+          "local_name": "nlift_base_clause",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nlift_base_clause"
+        },
+        {
+          "local_name": "nlift_start_clause",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nlift_start_clause"
+        },
+        {
+          "local_name": "nlift_price_clause",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.nlift_price_clause"
+        },
+        {
+          "local_name": "nlift_distinction_iff",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nlift_distinction_iff"
+        },
+        {
+          "local_name": "nlift_neutral_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nlift_neutral_complete"
+        },
+        {
+          "local_name": "nlift_floor_tight",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nlift_floor_tight"
+        },
+        {
+          "local_name": "nlift_projection",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nlift_projection"
+        },
+        {
+          "local_name": "every_base_lifts_neutrally",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.every_base_lifts_neutrally"
+        },
+        {
+          "local_name": "paid_test_neutral_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.paid_test_neutral_complete"
+        },
+        {
+          "local_name": "paid_test_has_tick",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.paid_test_has_tick"
+        },
+        {
+          "local_name": "run_silent_cm",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.run_silent_cm"
+        },
+        {
+          "local_name": "record_moves_cost",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.record_moves_cost"
+        },
+        {
+          "local_name": "paid_test_not_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.paid_test_not_thiele_complete"
+        },
+        {
+          "local_name": "nc_strictly_weaker",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.nc_strictly_weaker"
+        },
+        {
+          "local_name": "all_paid_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.all_paid_not_nc"
+        },
+        {
+          "local_name": "clock_not_nc",
+          "kind": "Corollary",
+          "full_name": "Minimal.NeutralComplete.clock_not_nc"
+        },
+        {
+          "local_name": "latch_clock_not_nc",
+          "kind": "Corollary",
+          "full_name": "Minimal.NeutralComplete.latch_clock_not_nc"
+        },
+        {
+          "local_name": "paid_latch_record_run",
+          "kind": "Lemma",
+          "full_name": "Minimal.NeutralComplete.paid_latch_record_run"
+        },
+        {
+          "local_name": "paid_latch_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.paid_latch_not_nc"
+        },
+        {
+          "local_name": "silent_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.silent_not_nc"
+        },
+        {
+          "local_name": "latch_raise_merges",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralComplete.latch_raise_merges"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/NeutralHost.v",
+      "qualified_module": "Minimal.NeutralHost",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nc_raise_costs_one",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralHost.nc_raise_costs_one"
+        },
+        {
+          "local_name": "unit_raise_surcharge_two",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralHost.unit_raise_surcharge_two"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/NeutralMacro.v",
+      "qualified_module": "Minimal.NeutralMacro",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "sim_base_lifts_neutrally",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMacro.sim_base_lifts_neutrally"
+        },
+        {
+          "local_name": "fl_macro_lifts_neutrally",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMacro.fl_macro_lifts_neutrally"
+        },
+        {
+          "local_name": "small_unconditional_certificate",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMacro.small_unconditional_certificate"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/NeutralMerge.v",
+      "qualified_module": "Minimal.NeutralMerge",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nlift_raise_is_record_merge",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMerge.nlift_raise_is_record_merge"
+        },
+        {
+          "local_name": "nlift_base_no_record_merge",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMerge.nlift_base_no_record_merge"
+        },
+        {
+          "local_name": "nlift_record_priced",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMerge.nlift_record_priced"
+        },
+        {
+          "local_name": "nlift_toll_from_record_price",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMerge.nlift_toll_from_record_price"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/NeutralMore.v",
+      "qualified_module": "Minimal.NeutralMore",
+      "addressable_count": 13,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "drop_meets_BCD",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.drop_meets_BCD"
+        },
+        {
+          "local_name": "drop_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.drop_not_nc"
+        },
+        {
+          "local_name": "frozen_meets_ACD",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.frozen_meets_ACD"
+        },
+        {
+          "local_name": "frozen_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.frozen_not_nc"
+        },
+        {
+          "local_name": "paid_all_meets_ABD",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.paid_all_meets_ABD"
+        },
+        {
+          "local_name": "paid_all_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.paid_all_not_nc"
+        },
+        {
+          "local_name": "silent_meets_ABC",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.silent_meets_ABC"
+        },
+        {
+          "local_name": "nc_free_not_finitely_branching",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.nc_free_not_finitely_branching"
+        },
+        {
+          "local_name": "tc_free_not_finitely_branching",
+          "kind": "Corollary",
+          "full_name": "Minimal.NeutralMore.tc_free_not_finitely_branching"
+        },
+        {
+          "local_name": "nlift_finitely_branching_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.nlift_finitely_branching_not_nc"
+        },
+        {
+          "local_name": "nlift_stateless_not_nc",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.nlift_stateless_not_nc"
+        },
+        {
+          "local_name": "nc_every_window_printed",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.nc_every_window_printed"
+        },
+        {
+          "local_name": "paid_test_gap_one",
+          "kind": "Theorem",
+          "full_name": "Minimal.NeutralMore.paid_test_gap_one"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "minimal/NoisyChairs.v",
       "qualified_module": "Minimal.NoisyChairs",
       "addressable_count": 27,
@@ -29851,6 +32686,65 @@
           "local_name": "pr_reading_costs_three",
           "kind": "Theorem",
           "full_name": "Minimal.PartitionReading.pr_reading_costs_three"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/PayAny.v",
+      "qualified_module": "Minimal.PayAny",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "erase_app",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayAny.erase_app"
+        },
+        {
+          "local_name": "erase_mid",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayAny.erase_mid"
+        },
+        {
+          "local_name": "prun_fst",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayAny.prun_fst"
+        },
+        {
+          "local_name": "erase_split",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayAny.erase_split"
+        },
+        {
+          "local_name": "pay_thiele_complete_with",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayAny.pay_thiele_complete_with"
+        },
+        {
+          "local_name": "pay_inert",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayAny.pay_inert"
+        },
+        {
+          "local_name": "pay_clock",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayAny.pay_clock"
+        },
+        {
+          "local_name": "pay_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayAny.pay_thiele_complete"
+        },
+        {
+          "local_name": "pay_any_filing",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayAny.pay_any_filing"
+        },
+        {
+          "local_name": "pay_as_check_commit_or_certify",
+          "kind": "Corollary",
+          "full_name": "Minimal.PayAny.pay_as_check_commit_or_certify"
         }
       ],
       "unaddressable": []
@@ -31171,6 +34065,75 @@
           "local_name": "later_steps_repeat",
           "kind": "Theorem",
           "full_name": "Minimal.StepLaw.later_steps_repeat"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/TCDeps.v",
+      "qualified_module": "Minimal.TCDeps",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "clauses_split",
+          "kind": "Lemma",
+          "full_name": "Minimal.TCDeps.clauses_split"
+        },
+        {
+          "local_name": "dep_toll",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_toll"
+        },
+        {
+          "local_name": "dep_three_moves",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_three_moves"
+        },
+        {
+          "local_name": "dep_three_ledger",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_three_ledger"
+        },
+        {
+          "local_name": "dep_committed",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_committed"
+        },
+        {
+          "local_name": "dep_check_can_fail",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_check_can_fail"
+        },
+        {
+          "local_name": "dep_some_run",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_some_run"
+        },
+        {
+          "local_name": "dep_only_certify",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_only_certify"
+        },
+        {
+          "local_name": "dep_raise_not_base",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_raise_not_base"
+        },
+        {
+          "local_name": "dep_free_move",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_free_move"
+        },
+        {
+          "local_name": "dep_one_move",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_one_move"
+        },
+        {
+          "local_name": "dep_every_window",
+          "kind": "Theorem",
+          "full_name": "Minimal.TCDeps.dep_every_window"
         }
       ],
       "unaddressable": []

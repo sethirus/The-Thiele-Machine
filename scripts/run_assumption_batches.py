@@ -9,6 +9,8 @@ queries, the Coq version, and the load-path flags. A later run reuses every
 answer whose key still matches and reruns only the rest. Libraries that do
 run are checked several to a coqtop session, up to the batch size, so shared
 dependencies load once; each library's answers are cut back out by count.
+Libraries that cannot be loaded in one session (each consistent, the two
+together not) are rerun one per session.
 
 Queries whose library cannot be resolved to exactly one compiled file run
 with the full probe prefix and are never cached. Combined output is
@@ -301,6 +303,17 @@ def main() -> None:
                       f"{-result.returncode} (attempt {attempt + 1}), retrying", flush=True)
                 time.sleep(min(2 ** attempt, 30))
                 continue
+            if len(chunk) > 1 and (result.returncode or ERROR.search(result.stdout)
+                                   or ERROR.search(result.stderr)):
+                # Two libraries that are each consistent can fail to load
+                # together (a universe constraint from one contradicting one
+                # from the other). Each library then runs in its own session,
+                # where any error still rejects the run.
+                print(f"[assumption-batch] {label} failed together; running each alone",
+                      flush=True)
+                for unit in chunk:
+                    execute([unit])
+                return
             if result.returncode:
                 raise RuntimeError(f"Coq exited {result.returncode} for {label}")
             output = validate_output(result.stdout, result.stderr, len(chunk_queries))

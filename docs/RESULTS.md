@@ -1,7 +1,8 @@
 # Results
 
 This file states the settled results about the small machine, Thiele
-completeness, the universal machine, the record axis and the events it can
+completeness over any event and with certification, the universal machine
+and its definition, the record axis and the events it can
 carry, recursion and undecidability, pricing and physics, and the real systems
 the repository models. Further settled results are stated, with their premises
 and declarations, in the mathematical specification
@@ -75,6 +76,70 @@ each.
   `generic_no_forging`, `generic_nfi_floor`, `generic_certified_run_min_cost`,
   `earned_generic_cs_sound`, `sorted_cs_sound`, `sorted_cs_demo_certifies`,
   `sorted_cs_demo_refused`.
+
+## Thiele completeness over any event
+
+The monograph calls the notion of this section Thiele-complete, and calls the
+notion of the next section certified Thiele-complete. This file keeps the Coq
+names: neutral-complete is `neutral_complete` (minimal/NeutralComplete.v), and
+Thiele-complete is `thiele_complete` (minimal/ThieleComplete.v).
+
+A machine is neutral-complete when some interface gives it four clauses, with
+no claim, no checker and no certificate: a universal base (a two-counter
+machine runs inside it) whose moves cannot touch the record, with a record
+that stays up once it is up; a record that is down at every loaded start;
+exact prices, nothing for a base move and one mark for every other move, with
+the ledger adding the price of each move; and distinction, one fixed run that
+raises the record from one loaded start and not from another. The event the
+record registers is not fixed in advance; any event that some run tells apart
+will do.
+
+- **Proved.** In every neutral-complete machine a move that raises the record
+  is not a base move, so the machine obeys the toll and has a universal base.
+  From any state with the record down, a run that ends with it up contains a
+  mark and raises the ledger by at least one. Coq: `nc_raise_is_mark`,
+  `nc_is_weak`, `nc_floor_one`.
+- **Proved.** Every neutral-complete machine hides its record and its ledger
+  from its own window. From one loaded start, two runs end at the same window,
+  one with the record up and one with it down, and two runs end at the same
+  window with ledgers at least one mark apart. No function of the window gives
+  the record, and none gives the ledger, at the end of every run from every
+  loaded start. Every window is shown, record down and ledger unchanged, one
+  free base move after some loaded start. Coq: `nc_hides_record`,
+  `nc_hides_ledger`, `nc_no_oracles`, `nc_every_window_printed`.
+- **Proved.** Every universal base lifts to a neutral-complete machine: add
+  marks, each costing one and latching an event of the base state into the
+  record. With the event "counter A is at least 1" the lift of any universal
+  base is neutral-complete. For any family of events, the lift meets the
+  distinction clause exactly when some fixed list of base moves leads two
+  loaded starts to states that one of the events tells apart, and then it is
+  neutral-complete. Coq: `every_base_lifts_neutrally`,
+  `nlift_neutral_complete`, `nlift_distinction_iff`.
+- **Proved.** A latch on an event that holds everywhere distinguishes nothing:
+  its record is up after one step from every start. A latch tells two starts
+  apart when its event holds along one run and not along the other.
+  The distinction clause is what rules out a record that registers nothing.
+  Coq: `latch_constant_up`, `latch_distinguishes`.
+- **Proved.** Every Thiele-complete machine is neutral-complete. Thiele
+  completeness through an interface is exactly neutral completeness through
+  the same interface with its claims forgotten, plus three clauses: loaded
+  starts are clean, the record rises only on an earned chain of a check, a
+  commit and a certificate with a sound checker, and some claim's check can
+  pass at one loaded start and fail at another. Coq:
+  `thiele_complete_neutral`, `tc_iff_nc_plus_certification`.
+- **Refuted.** Neutral completeness implies Thiele completeness. The paid
+  test, a two-counter machine whose moves cost nothing plus a mark that
+  registers "A is 0" and a mark that raises the record from every state, is
+  neutral-complete and is not Thiele-complete; no Thiele-complete machine has
+  a move that raises the record from every state. Coq: `nc_strictly_weaker`,
+  `paid_test_has_tick`.
+- **Proved.** Machines that fail one clause are not neutral-complete: every
+  clock (the two-counter machine with every move costing one, under any
+  reading of its configuration as the record), the silent machine (whose
+  record never rises), the paid test with one more free move that lowers the
+  record, a machine whose record no move changes while loaded starts disagree
+  on it, and the paid test with every move priced one. Coq: `clock_not_nc`,
+  `silent_not_nc`, `drop_not_nc`, `frozen_not_nc`, `paid_all_not_nc`.
 
 ## Thiele completeness
 
@@ -150,6 +215,95 @@ starts and failing at others.
   Coq: `universal_ledger_exact`.
 - **Proved.** The machine U runs on is Thiele-complete.
   Coq: `universal_thiele_complete`.
+
+## The universal machine, defined
+
+The definition `neutral_universal` (coq/kernel/foundation/NeutralUnivDef.v)
+is the universal Thiele machine of the monograph; a certified universal
+Thiele machine adds certification on top. It fixes a class of guests, a host,
+an observation of each guest's state and a bound K, and asks for one program,
+a reading of the host's state as a line, registers and a trap, a set of
+raising lines, a load template, a coding of each guest into registers and a
+decode from registers, such that (N0) the host is neutral-complete with its
+counter moves as exactly its base moves; (N1) the run halts exactly when the
+guest's run stops, at a state that matches the guest's last; (N2) the run
+passes, at strictly increasing times, through host states that decode to the
+guest's states, with the host's record equal to the guest's latched record
+and the host's ledger equal to the guest's plus at most K; (N3) every record
+move the program executes either traps or raises the record exactly when its
+line is a raising line, from every untrapped state; (N4) the host is a
+register host: INC, DEC and HALT on registers at price 0, record moves at
+price 1 that leave the registers alone and go to the next line or trap, and
+the next move fixed by the line and the trap; (N5) each guest is loaded with
+the record down, no trap, a fixed line and the guest written into the
+registers, and the decode reads only registers. The plain definition of
+coq/kernel/foundation/UMachDef.v keeps (N1), (N2) and the host's own raise
+and drops the rest.
+
+- **Proved.** U is a neutral universal machine with surcharge 0 for every
+  program of the small machine from every clean start. U_P is one with
+  surcharge at most 3 for every computably presented machine. U_P's program
+  read on a host with registers, INC, DEC, HALT, a mark, TICK and PAY and
+  nothing else (CHECK, COMMIT and PAY read as PAY, CERTIFY as TICK) is one
+  with surcharge at most 3 for the same class. Each matches its guests at
+  strictly increasing times. Coq: `U_neutral_universal`,
+  `UP_neutral_universal`, `UN_neutral_universal`, `U_in_order`,
+  `UP_in_order`.
+- **Proved.** The surcharge on a guest that raises its record for one mark is
+  the price of certification. No Thiele-complete host with clean loads runs
+  the countdown guest (count register 0 down, then mark) with a surcharge
+  bound below 2, even with the order dropped, while the host with
+  registers, TICK and PAY runs the whole countdown class with surcharge 0. On
+  a guest whose record is up at its start, every host with a clean load pays
+  at least one by the first matching time, and one is attained. Coq:
+  `tc_cdown_two`, `down_universal`, `up_floor`, `up_attained`.
+- **Proved.** Each clause stops a cheat. The host with a built-in guest step
+  is no register host under any reading of its state. A host whose mark reads
+  a register, and one whose record move reads a hidden copy of the guest's
+  datum, meet every other clause and fail the raise by line; so does a host
+  whose record move carries out a hidden copy's own mark. A host with a free
+  move that fetches, decodes and executes the guest's next instruction meets
+  everything else and is no register host. Coq: `gstep_not_reg`, `oracle_y`,
+  `mirror_y`, `mirror2_not_line`, `need_N4`.
+- **Proved.** The decode clause, as `neutral_universal` states it, lets the
+  decode carry the guest: on a class of guests that never halt and never
+  mark, a host loaded with all registers zero for every guest meets the
+  definition with surcharge 0, its decode adding the guest in. Coq:
+  `smuggle_universal`.
+- **Proved.** Under the raise by line and the register-host clause, the line,
+  the registers, the record and the ledger of a run before any trap depend
+  only on the line, the registers and the record it starts from, whatever
+  else the state holds. A host that carries a hidden copy of the guest,
+  stepped by its counter moves, shows exactly the run of the host without it.
+  Coq: `nr_determined`, `shadow_idle`.
+- **Proved.** A guest that has paid while its record is down makes a host
+  with a permanent record run a record move after which the record is still
+  down, which is what PAY does. On U's host, which has no PAY, a four-line
+  loop of COMMITs on an untouched claim pays the value of a register in marks,
+  without raising the record or trapping. Coq: `pay_needed`,
+  `commit_pay_loop`.
+- **Proved.** The certified universal machine is the neutral one plus
+  certification: its definition holds exactly when the neutral definition
+  holds through the interface with its claims forgotten, the host's loads are
+  clean for the full interface, the earned-record and non-vacuity clauses
+  hold, and every rise of the host's record stands on an earned chain whose
+  claim is tied to the guest. The earned part of that last clause already
+  follows from Thiele completeness and clean loads. Coq:
+  `cu_iff_nu_plus_certification`, `earned_part_free`.
+- **Proved.** Thiele completeness of the host and an earned record do not by
+  themselves stop a host that steps the guest with a built-in move: U's host
+  with three free moves that fetch, decode and execute a guest instruction is
+  Thiele-complete, and the host whose paid moves carry out the guest's own
+  CHECK, COMMIT and CERTIFY has, whenever its flag is up at a matching time,
+  its own check, commit and certificate on a guest check, commit and
+  certificate that passed. The register-host clause is what excludes them.
+  Coq: `hybrid_thiele_complete`, `mirror_earned`.
+- **Proved.** The host machine of U, which has no PAY, is Thiele-complete and
+  runs every two-counter program as a clock: after two set-up steps and two
+  host steps per program step, registers 0 and 1 hold the program's counters,
+  the trap and the flag are down, the ledger is one plus the number of
+  program steps, and the host has halted exactly when the program has
+  stopped. Coq: `thiele_complete_host_clock`.
 
 ## The record axis
 

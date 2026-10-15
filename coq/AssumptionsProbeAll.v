@@ -32,6 +32,7 @@ Require Kernel.AxSmall.
 Require Kernel.AxTwoPoint.
 Require Kernel.AxUniversal.
 Require Kernel.AxWindow.
+Require Kernel.ClockHost.
 Require Kernel.CmpBlocks.
 Require Kernel.CmpCompile.
 Require Kernel.CmpExpr.
@@ -77,6 +78,7 @@ Require Kernel.GrowingRecordCore.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
 Require Kernel.LRecursion.
+Require Kernel.LatchConst.
 Require Kernel.LiftAxis.
 Require Kernel.LiftExec.
 Require Kernel.LiftHeadline.
@@ -123,6 +125,25 @@ Require Kernel.NecWLatch.
 Require Kernel.NecWModels.
 Require Kernel.NecWPointer.
 Require Kernel.NecWWindow.
+Require Kernel.NeutralHostUP.
+Require Kernel.NeutralUnivBase.
+Require Kernel.NeutralUnivCanon.
+Require Kernel.NeutralUnivCert.
+Require Kernel.NeutralUnivDef.
+Require Kernel.NeutralUnivFloor.
+Require Kernel.NeutralUnivGstep.
+Require Kernel.NeutralUnivInOrderLink.
+Require Kernel.NeutralUnivMarkElim.
+Require Kernel.NeutralUnivMirror.
+Require Kernel.NeutralUnivNeed.
+Require Kernel.NeutralUnivPay.
+Require Kernel.NeutralUnivPhantom.
+Require Kernel.NeutralUnivRobust.
+Require Kernel.NeutralUnivShadow.
+Require Kernel.NeutralUnivSmuggle.
+Require Kernel.NeutralUnivTools.
+Require Kernel.NeutralUnivU.
+Require Kernel.NeutralUnivUP.
 Require Kernel.Presentation.
 Require Kernel.PresentedDemo.
 Require Kernel.PresentedUniversal.
@@ -181,6 +202,24 @@ Require Kernel.TcPlain.
 Require Kernel.TcPrefix.
 Require Kernel.TcRice.
 Require Kernel.TcRiceMM.
+Require Kernel.UMachCheatPNotReg.
+Require Kernel.UMachCheatPresented.
+Require Kernel.UMachCheatSmall.
+Require Kernel.UMachDef.
+Require Kernel.UMachHybrid.
+Require Kernel.UMachInOrderGen.
+Require Kernel.UMachInOrderU.
+Require Kernel.UMachInOrderUP.
+Require Kernel.UMachInert.
+Require Kernel.UMachMeetsU.
+Require Kernel.UMachMeetsUP.
+Require Kernel.UMachMirror.
+Require Kernel.UMachRegHost.
+Require Kernel.UMachShadowU.
+Require Kernel.UMachStrengthened.
+Require Kernel.UMachTCcheck.
+Require Kernel.UMachTrivialUP.
+Require Kernel.UMachVersionsObs.
 Require Kernel.UniversalBlocks.
 Require Kernel.UniversalBridge.
 Require Kernel.UniversalInterpreterLinks.
@@ -318,9 +357,16 @@ Require Minimal.NecTPartition.
 Require Minimal.NecTToll.
 Require Minimal.NecTUnclean.
 Require Minimal.NecTVerifier.
+Require Minimal.NeutralChain.
+Require Minimal.NeutralComplete.
+Require Minimal.NeutralHost.
+Require Minimal.NeutralMacro.
+Require Minimal.NeutralMerge.
+Require Minimal.NeutralMore.
 Require Minimal.NoisyChairs.
 Require Minimal.NondetChairs.
 Require Minimal.PartitionReading.
+Require Minimal.PayAny.
 Require Minimal.PayFree.
 Require Minimal.Presented.
 Require Minimal.PricedComplete.
@@ -336,6 +382,7 @@ Require Minimal.SmLoops3.
 Require Minimal.SmTally.
 Require Minimal.SmallConsensus.
 Require Minimal.StepLaw.
+Require Minimal.TCDeps.
 Require Minimal.Tc2Am.
 Require Minimal.Tc2Chain.
 Require Minimal.Tc2Collision.
@@ -919,6 +966,18 @@ Print Assumptions Kernel.AxWindow.ax_overcharge_tight.
 Print Assumptions Kernel.AxWindow.ax_exact_without_position.
 Print Assumptions Kernel.AxWindow.ax_threshold_window_blind.
 Print Assumptions Kernel.AxWindow.two_point_shadow_cannot_price_exactly.
+(* === Kernel.ClockHost : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ClockHost.body_even.
+Print Assumptions Kernel.ClockHost.body_odd.
+Print Assumptions Kernel.ClockHost.fact_in_existsb.
+Print Assumptions Kernel.ClockHost.step_exec.
+Print Assumptions Kernel.ClockHost.clock_step.
+Print Assumptions Kernel.ClockHost.clock_init.
+Print Assumptions Kernel.ClockHost.clock_run.
+Print Assumptions Kernel.ClockHost.clock_halted.
+Print Assumptions Kernel.ClockHost.clock_live.
+Print Assumptions Kernel.ClockHost.thiele_complete_host_clock.
+Print Assumptions Kernel.ClockHost.clock_kinds.
 (* === Kernel.CmpBlocks : 39 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CmpBlocks.cmp_get_env.
 Print Assumptions Kernel.CmpBlocks.cmp_set_env.
@@ -1733,6 +1792,9 @@ Print Assumptions Kernel.LRecursion.Omega_step.
 Print Assumptions Kernel.LRecursion.Omega_diverges.
 Print Assumptions Kernel.LRecursion.halts_extensional.
 Print Assumptions Kernel.LRecursion.L_halting_undecidable.
+(* === Kernel.LatchConst : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LatchConst.const_latch_honest.
+Print Assumptions Kernel.LatchConst.const_latch_no_distinction.
 (* === Kernel.LiftAxis : 24 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.LiftAxis.lift_lax_run_fst.
 Print Assumptions Kernel.LiftAxis.lift_lax_next_cases.
@@ -2366,6 +2428,199 @@ Print Assumptions Kernel.NecWWindow.nec_w_response_escape_iff.
 Print Assumptions Kernel.NecWWindow.nec_w_response_needs_transcript.
 Print Assumptions Kernel.NecWWindow.nec_w_verifier_iff_no_collision.
 Print Assumptions Kernel.NecWWindow.nec_w_factoring_verifier_iff_no_collision.
+(* === Kernel.NeutralHostUP : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralHostUP.up_hosts_unit_raise_guest.
+Print Assumptions Kernel.NeutralHostUP.nc_unit_raise.
+Print Assumptions Kernel.NeutralHostUP.up_hosts_nc_guest.
+(* === Kernel.NeutralUnivBase : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivBase.err_back.
+Print Assumptions Kernel.NeutralUnivBase.one.
+Print Assumptions Kernel.NeutralUnivBase.rh_base_determined.
+Print Assumptions Kernel.NeutralUnivBase.live_or_stop_gen.
+(* === Kernel.NeutralUnivCanon : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivCanon.ctoll.
+Print Assumptions Kernel.NeutralUnivCanon.cnh_counter_blind.
+Print Assumptions Kernel.NeutralUnivCanon.cnh_nc.
+Print Assumptions Kernel.NeutralUnivCanon.cnh_host_nc.
+Print Assumptions Kernel.NeutralUnivCanon.lockstep_universal.
+Print Assumptions Kernel.NeutralUnivCanon.down_step.
+Print Assumptions Kernel.NeutralUnivCanon.down_lockstep.
+Print Assumptions Kernel.NeutralUnivCanon.down_gr_any.
+Print Assumptions Kernel.NeutralUnivCanon.down_gl_any.
+Print Assumptions Kernel.NeutralUnivCanon.down_line_raise.
+Print Assumptions Kernel.NeutralUnivCanon.ctpl_clean.
+Print Assumptions Kernel.NeutralUnivCanon.down_universal.
+(* === Kernel.NeutralUnivCert : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivCert.hr_trace.
+Print Assumptions Kernel.NeutralUnivCert.nu_with_iff.
+Print Assumptions Kernel.NeutralUnivCert.chain_at_iff.
+Print Assumptions Kernel.NeutralUnivCert.cu_iff_nu_plus_certification.
+Print Assumptions Kernel.NeutralUnivCert.earned_part_free.
+(* === Kernel.NeutralUnivDef : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivDef.neutral_universal_weakens.
+Print Assumptions Kernel.NeutralUnivDef.hr_flag_mono.
+Print Assumptions Kernel.NeutralUnivDef.hl_mono.
+Print Assumptions Kernel.NeutralUnivDef.flag_rises_between.
+Print Assumptions Kernel.NeutralUnivDef.toll_floor.
+Print Assumptions Kernel.NeutralUnivDef.glat_read.
+Print Assumptions Kernel.NeutralUnivDef.live_down.
+Print Assumptions Kernel.NeutralUnivDef.locate.
+Print Assumptions Kernel.NeutralUnivDef.f_grows.
+Print Assumptions Kernel.NeutralUnivDef.naive_rise_free.
+Print Assumptions Kernel.NeutralUnivDef.naive_rise_converse.
+Print Assumptions Kernel.NeutralUnivDef.fone.
+Print Assumptions Kernel.NeutralUnivDef.nr_determined.
+Print Assumptions Kernel.NeutralUnivDef.surcharge_floor.
+Print Assumptions Kernel.NeutralUnivDef.surcharge_floor_one.
+Print Assumptions Kernel.NeutralUnivDef.pay_needed.
+Print Assumptions Kernel.NeutralUnivDef.chains_to_fun.
+Print Assumptions Kernel.NeutralUnivDef.live_before_dec.
+(* === Kernel.NeutralUnivFloor : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivFloor.hl_trace.
+Print Assumptions Kernel.NeutralUnivFloor.tc_host_floor.
+Print Assumptions Kernel.NeutralUnivFloor.tc_surcharge.
+Print Assumptions Kernel.NeutralUnivFloor.cdown0.
+Print Assumptions Kernel.NeutralUnivFloor.tc_cdown_two.
+(* === Kernel.NeutralUnivGstep : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivGstep.small_guests_nc.
+Print Assumptions Kernel.NeutralUnivGstep.small_perm.
+Print Assumptions Kernel.NeutralUnivGstep.cheat_perm.
+Print Assumptions Kernel.NeutralUnivGstep.gstep_meets_N1_N2.
+Print Assumptions Kernel.NeutralUnivGstep.gstep_meets_naive.
+Print Assumptions Kernel.NeutralUnivGstep.cheat_untrapped_live.
+Print Assumptions Kernel.NeutralUnivGstep.gstep_not_reg.
+(* === Kernel.NeutralUnivInOrderLink : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivInOrderLink.gen_to_chains.
+Print Assumptions Kernel.NeutralUnivInOrderLink.gen_via_chains.
+Print Assumptions Kernel.NeutralUnivInOrderLink.gen_direct.
+(* === Kernel.NeutralUnivMarkElim : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivMarkElim.next_at.
+Print Assumptions Kernel.NeutralUnivMarkElim.mark_elim.
+Print Assumptions Kernel.NeutralUnivMarkElim.mark_one.
+(* === Kernel.NeutralUnivMirror : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivMirror.Cy_stop.
+Print Assumptions Kernel.NeutralUnivMirror.Cy_live.
+Print Assumptions Kernel.NeutralUnivMirror.Py_nomark.
+Print Assumptions Kernel.NeutralUnivMirror.honest_y.
+Print Assumptions Kernel.NeutralUnivMirror.oracle_y.
+Print Assumptions Kernel.NeutralUnivMirror.mtoll.
+Print Assumptions Kernel.NeutralUnivMirror.mh_nc.
+Print Assumptions Kernel.NeutralUnivMirror.mh_host_nc.
+Print Assumptions Kernel.NeutralUnivMirror.mtpl_clean.
+Print Assumptions Kernel.NeutralUnivMirror.Pm_not_line.
+Print Assumptions Kernel.NeutralUnivMirror.mirror_y.
+(* === Kernel.NeutralUnivNeed : 28 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivNeed.C1_stop.
+Print Assumptions Kernel.NeutralUnivNeed.C1_live.
+Print Assumptions Kernel.NeutralUnivNeed.C1_stop_only.
+Print Assumptions Kernel.NeutralUnivNeed.Ploop_nomark.
+Print Assumptions Kernel.NeutralUnivNeed.Ploop_runs.
+Print Assumptions Kernel.NeutralUnivNeed.need_N1.
+Print Assumptions Kernel.NeutralUnivNeed.Prev_nomark.
+Print Assumptions Kernel.NeutralUnivNeed.Prev_halt.
+Print Assumptions Kernel.NeutralUnivNeed.rmatch_late.
+Print Assumptions Kernel.NeutralUnivNeed.need_order.
+Print Assumptions Kernel.NeutralUnivNeed.need_decode.
+Print Assumptions Kernel.NeutralUnivNeed.need_record.
+Print Assumptions Kernel.NeutralUnivNeed.need_ledger.
+Print Assumptions Kernel.NeutralUnivNeed.Cup_stop.
+Print Assumptions Kernel.NeutralUnivNeed.Cup_live.
+Print Assumptions Kernel.NeutralUnivNeed.need_clean.
+Print Assumptions Kernel.NeutralUnivNeed.up_floor.
+Print Assumptions Kernel.NeutralUnivNeed.up_attained.
+Print Assumptions Kernel.NeutralUnivNeed.ttoll.
+Print Assumptions Kernel.NeutralUnivNeed.cnt_record_run.
+Print Assumptions Kernel.NeutralUnivNeed.cnt_not_nc.
+Print Assumptions Kernel.NeutralUnivNeed.cnt_hr.
+Print Assumptions Kernel.NeutralUnivNeed.need_N0.
+Print Assumptions Kernel.NeutralUnivNeed.gex_flag.
+Print Assumptions Kernel.NeutralUnivNeed.xtoll.
+Print Assumptions Kernel.NeutralUnivNeed.hx_nc.
+Print Assumptions Kernel.NeutralUnivNeed.hx_not_reg.
+Print Assumptions Kernel.NeutralUnivNeed.need_N4.
+(* === Kernel.NeutralUnivPay : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivPay.pay_line.
+Print Assumptions Kernel.NeutralUnivPay.cnh_only_pay.
+Print Assumptions Kernel.NeutralUnivPay.upd_eq.
+Print Assumptions Kernel.NeutralUnivPay.upd_neq.
+Print Assumptions Kernel.NeutralUnivPay.step_at.
+Print Assumptions Kernel.NeutralUnivPay.commit_pay_loop.
+(* === Kernel.NeutralUnivPhantom : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivPhantom.ptoll.
+Print Assumptions Kernel.NeutralUnivPhantom.phantom.
+(* === Kernel.NeutralUnivRobust : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivRobust.xtoll.
+Print Assumptions Kernel.NeutralUnivRobust.xh_nc.
+Print Assumptions Kernel.NeutralUnivRobust.xh_host_nc.
+Print Assumptions Kernel.NeutralUnivRobust.xh_lift.
+Print Assumptions Kernel.NeutralUnivRobust.xh_line_raise_XC.
+Print Assumptions Kernel.NeutralUnivRobust.xtpl_clean.
+Print Assumptions Kernel.NeutralUnivRobust.shadow_universal.
+Print Assumptions Kernel.NeutralUnivRobust.shadow_idle.
+Print Assumptions Kernel.NeutralUnivRobust.mir_step.
+Print Assumptions Kernel.NeutralUnivRobust.mir_run.
+Print Assumptions Kernel.NeutralUnivRobust.Cxy_gr_any.
+Print Assumptions Kernel.NeutralUnivRobust.Cxy_gl_any.
+Print Assumptions Kernel.NeutralUnivRobust.mirror2_meets_rest.
+Print Assumptions Kernel.NeutralUnivRobust.mirror2_not_line.
+(* === Kernel.NeutralUnivShadow : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivShadow.U_N_nomark.
+Print Assumptions Kernel.NeutralUnivShadow.next_agree.
+Print Assumptions Kernel.NeutralUnivShadow.step_agree.
+Print Assumptions Kernel.NeutralUnivShadow.shadow_lockstep.
+Print Assumptions Kernel.NeutralUnivShadow.err_mono.
+Print Assumptions Kernel.NeutralUnivShadow.cg_yhalt_err.
+Print Assumptions Kernel.NeutralUnivShadow.UP_never_traps.
+Print Assumptions Kernel.NeutralUnivShadow.start_rel.
+Print Assumptions Kernel.NeutralUnivShadow.UN_neutral_universal.
+(* === Kernel.NeutralUnivSmuggle : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivSmuggle.sinv_step.
+Print Assumptions Kernel.NeutralUnivSmuggle.smuggle_run.
+Print Assumptions Kernel.NeutralUnivSmuggle.smuggle_start.
+Print Assumptions Kernel.NeutralUnivSmuggle.smuggle_universal.
+Print Assumptions Kernel.NeutralUnivSmuggle.smuggle_blind.
+(* === Kernel.NeutralUnivTools : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivTools.cnh_perm.
+Print Assumptions Kernel.NeutralUnivTools.cnh_line_raise_nomark.
+Print Assumptions Kernel.NeutralUnivTools.cnh_mark_not_line.
+Print Assumptions Kernel.NeutralUnivTools.not_counter.
+Print Assumptions Kernel.NeutralUnivTools.not_counter2.
+Print Assumptions Kernel.NeutralUnivTools.live_bound.
+Print Assumptions Kernel.NeutralUnivTools.grun_stop_stays.
+(* === Kernel.NeutralUnivU : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivU.U_host_nc.
+Print Assumptions Kernel.NeutralUnivU.U_line_raise.
+Print Assumptions Kernel.NeutralUnivU.U_clean.
+Print Assumptions Kernel.NeutralUnivU.U_halt.
+Print Assumptions Kernel.NeutralUnivU.hchainU.
+Print Assumptions Kernel.NeutralUnivU.DU_dec.
+Print Assumptions Kernel.NeutralUnivU.LU_dec.
+Print Assumptions Kernel.NeutralUnivU.uchains.
+Print Assumptions Kernel.NeutralUnivU.U_order.
+Print Assumptions Kernel.NeutralUnivU.U_in_order.
+Print Assumptions Kernel.NeutralUnivU.U_neutral_universal.
+(* === Kernel.NeutralUnivUP : 21 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeutralUnivUP.UP_hr.
+Print Assumptions Kernel.NeutralUnivUP.UP_hl.
+Print Assumptions Kernel.NeutralUnivUP.pgr.
+Print Assumptions Kernel.NeutralUnivUP.pgl.
+Print Assumptions Kernel.NeutralUnivUP.glatch_iff.
+Print Assumptions Kernel.NeutralUnivUP.pglat.
+Print Assumptions Kernel.NeutralUnivUP.UP_host_nc.
+Print Assumptions Kernel.NeutralUnivUP.UP_line_raise.
+Print Assumptions Kernel.NeutralUnivUP.multi_line_raise.
+Print Assumptions Kernel.NeutralUnivUP.UP_clean.
+Print Assumptions Kernel.NeutralUnivUP.UP_load.
+Print Assumptions Kernel.NeutralUnivUP.UP_halt.
+Print Assumptions Kernel.NeutralUnivUP.hchain.
+Print Assumptions Kernel.NeutralUnivUP.ychain.
+Print Assumptions Kernel.NeutralUnivUP.cg_point_code.
+Print Assumptions Kernel.NeutralUnivUP.Dp_dec.
+Print Assumptions Kernel.NeutralUnivUP.Lp_dec.
+Print Assumptions Kernel.NeutralUnivUP.pchains.
+Print Assumptions Kernel.NeutralUnivUP.UP_presented_order.
+Print Assumptions Kernel.NeutralUnivUP.UP_in_order.
+Print Assumptions Kernel.NeutralUnivUP.UP_neutral_universal.
 (* === Kernel.Presentation : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Presentation.cg_read_val_code.
 Print Assumptions Kernel.Presentation.cg_read_val_junk.
@@ -2581,8 +2836,11 @@ Print Assumptions Kernel.RealizePriced.rlz_phost_run_prog_with_eq.
 (* === Kernel.RealizePrograms : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.RealizePrograms.rlz_host_program_is.
 Print Assumptions Kernel.RealizePrograms.rlz_phost_program_is.
-(* === Kernel.RecordAxisDiscrimination : 4 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.RecordAxisDiscrimination : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.RecordAxisDiscrimination.latch_core_honest.
+Print Assumptions Kernel.RecordAxisDiscrimination.latch_run_shape.
+Print Assumptions Kernel.RecordAxisDiscrimination.latch_constant_up.
+Print Assumptions Kernel.RecordAxisDiscrimination.latch_distinguishes.
 Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_injective.
 Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_honest.
 Print Assumptions Kernel.RecordAxisDiscrimination.finite_reversible_cannot_write.
@@ -3147,6 +3405,244 @@ Print Assumptions Kernel.TcRiceMM.tc_code_tovec.
 Print Assumptions Kernel.TcRiceMM.tc_simul_iff.
 Print Assumptions Kernel.TcRiceMM.tc_Q_halts.
 Print Assumptions Kernel.TcRiceMM.tc_Q_diverges.
+(* === Kernel.UMachCheatPNotReg : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachCheatPNotReg.paid_toll.
+Print Assumptions Kernel.UMachCheatPNotReg.free_toll.
+Print Assumptions Kernel.UMachCheatPNotReg.bcode.
+Print Assumptions Kernel.UMachCheatPNotReg.ucode.
+Print Assumptions Kernel.UMachCheatPNotReg.pcheat_not_reg_host.
+(* === Kernel.UMachCheatPresented : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachCheatPresented.live_or_stop_gen.
+Print Assumptions Kernel.UMachCheatPresented.glatch_read.
+Print Assumptions Kernel.UMachCheatPresented.pcheat_toll.
+Print Assumptions Kernel.UMachCheatPresented.hr_cons.
+Print Assumptions Kernel.UMachCheatPresented.hl_cons.
+Print Assumptions Kernel.UMachCheatPresented.pay_loop.
+Print Assumptions Kernel.UMachCheatPresented.round.
+Print Assumptions Kernel.UMachCheatPresented.start_block.
+Print Assumptions Kernel.UMachCheatPresented.points.
+Print Assumptions Kernel.UMachCheatPresented.fpt_ge.
+Print Assumptions Kernel.UMachCheatPresented.pcheat_is_universal.
+Print Assumptions Kernel.UMachCheatPresented.pcheat_exact_when_no_at_start.
+Print Assumptions Kernel.UMachCheatPresented.one_is_forced.
+(* === Kernel.UMachCheatSmall : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachCheatSmall.cheat_toll.
+Print Assumptions Kernel.UMachCheatSmall.cert_exec_cost0.
+Print Assumptions Kernel.UMachCheatSmall.ex_peek.
+Print Assumptions Kernel.UMachCheatSmall.ex_peek_stop.
+Print Assumptions Kernel.UMachCheatSmall.ex_g0.
+Print Assumptions Kernel.UMachCheatSmall.ex_g1.
+Print Assumptions Kernel.UMachCheatSmall.ex_br.
+Print Assumptions Kernel.UMachCheatSmall.hr_cons.
+Print Assumptions Kernel.UMachCheatSmall.hl_cons.
+Print Assumptions Kernel.UMachCheatSmall.round.
+Print Assumptions Kernel.UMachCheatSmall.glat_cert.
+Print Assumptions Kernel.UMachCheatSmall.live_or_stop.
+Print Assumptions Kernel.UMachCheatSmall.points.
+Print Assumptions Kernel.UMachCheatSmall.cheat_is_universal.
+(* === Kernel.UMachDef : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachDef.gr_stop.
+Print Assumptions Kernel.UMachDef.gl_stop.
+Print Assumptions Kernel.UMachDef.gr_add.
+Print Assumptions Kernel.UMachDef.gl_add.
+Print Assumptions Kernel.UMachDef.gr_succ.
+Print Assumptions Kernel.UMachDef.gl_succ.
+Print Assumptions Kernel.UMachDef.hr_stop.
+Print Assumptions Kernel.UMachDef.hl_stop.
+Print Assumptions Kernel.UMachDef.hr_add.
+Print Assumptions Kernel.UMachDef.hl_add.
+Print Assumptions Kernel.UMachDef.hr_succ.
+Print Assumptions Kernel.UMachDef.hr_stopped_stays.
+Print Assumptions Kernel.UMachDef.clause3_free.
+Print Assumptions Kernel.UMachDef.strong_weak.
+(* === Kernel.UMachHybrid : 39 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachHybrid.grows_refl.
+Print Assumptions Kernel.UMachHybrid.grows_trans.
+Print Assumptions Kernel.UMachHybrid.grows_wr.
+Print Assumptions Kernel.UMachHybrid.grows_goto.
+Print Assumptions Kernel.UMachHybrid.estep_facts.
+Print Assumptions Kernel.UMachHybrid.estep_chan.
+Print Assumptions Kernel.UMachHybrid.estep_grows_regs.
+Print Assumptions Kernel.UMachHybrid.estep_cert.
+Print Assumptions Kernel.UMachHybrid.run_snoc.
+Print Assumptions Kernel.UMachHybrid.run_vers_mono.
+Print Assumptions Kernel.UMachHybrid.run_same_val.
+Print Assumptions Kernel.UMachHybrid.cert_first.
+Print Assumptions Kernel.UMachHybrid.chan_origin.
+Print Assumptions Kernel.UMachHybrid.fact_origin.
+Print Assumptions Kernel.UMachHybrid.ehost_sim.
+Print Assumptions Kernel.UMachHybrid.commit_in_facts.
+Print Assumptions Kernel.UMachHybrid.ext_chain.
+Print Assumptions Kernel.UMachHybrid.ext_thiele_complete_with.
+Print Assumptions Kernel.UMachHybrid.ext_thiele_complete.
+Print Assumptions Kernel.UMachHybrid.ext_thiele_complete_over.
+Print Assumptions Kernel.UMachHybrid.etoll.
+Print Assumptions Kernel.UMachHybrid.fetch_rep.
+Print Assumptions Kernel.UMachHybrid.fetch_rep_none.
+Print Assumptions Kernel.UMachHybrid.live_berr.
+Print Assumptions Kernel.UMachHybrid.same_bpc.
+Print Assumptions Kernel.UMachHybrid.kind0.
+Print Assumptions Kernel.UMachHybrid.I0_live.
+Print Assumptions Kernel.UMachHybrid.DJ_live.
+Print Assumptions Kernel.UMachHybrid.I0_route.
+Print Assumptions Kernel.UMachHybrid.nonS_same_pc.
+Print Assumptions Kernel.UMachHybrid.tie.
+Print Assumptions Kernel.UMachHybrid.ext_not_reg_host.
+Print Assumptions Kernel.UMachHybrid.grows_nudge1.
+Print Assumptions Kernel.UMachHybrid.grows_nudge_all.
+Print Assumptions Kernel.UMachHybrid.hgrows.
+Print Assumptions Kernel.UMachHybrid.hybrid_thiele_complete.
+Print Assumptions Kernel.UMachHybrid.hybrid_thiele_complete_over.
+Print Assumptions Kernel.UMachHybrid.hybrid_flips.
+Print Assumptions Kernel.UMachHybrid.hybrid_not_reg_host.
+(* === Kernel.UMachInOrderGen : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachInOrderGen.Q0_dec.
+Print Assumptions Kernel.UMachInOrderGen.QS_dec.
+Print Assumptions Kernel.UMachInOrderGen.Q0_ex.
+Print Assumptions Kernel.UMachInOrderGen.QS_ex.
+Print Assumptions Kernel.UMachInOrderGen.Inv0.
+Print Assumptions Kernel.UMachInOrderGen.f_S.
+Print Assumptions Kernel.UMachInOrderGen.f_D.
+Print Assumptions Kernel.UMachInOrderGen.in_order.
+(* === Kernel.UMachInOrderU : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachInOrderU.live_dec.
+Print Assumptions Kernel.UMachInOrderU.live_prev.
+Print Assumptions Kernel.UMachInOrderU.Du_dec.
+Print Assumptions Kernel.UMachInOrderU.live_not_halted.
+Print Assumptions Kernel.UMachInOrderU.Ru_D.
+Print Assumptions Kernel.UMachInOrderU.Ru_0.
+Print Assumptions Kernel.UMachInOrderU.Ru_S.
+Print Assumptions Kernel.UMachInOrderU.U_in_order.
+Print Assumptions Kernel.UMachInOrderU.U_clause1.
+Print Assumptions Kernel.UMachInOrderU.U_ledger_at.
+Print Assumptions Kernel.UMachInOrderU.U_meets_strong.
+Print Assumptions Kernel.UMachInOrderU.U_meets_strong_full.
+(* === Kernel.UMachInOrderUP : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachInOrderUP.ystep.
+Print Assumptions Kernel.UMachInOrderUP.ypoint_live.
+Print Assumptions Kernel.UMachInOrderUP.before_live.
+Print Assumptions Kernel.UMachInOrderUP.host_steps.
+Print Assumptions Kernel.UMachInOrderUP.codeq_iff.
+Print Assumptions Kernel.UMachInOrderUP.Dp_dec.
+Print Assumptions Kernel.UMachInOrderUP.Lp_next.
+Print Assumptions Kernel.UMachInOrderUP.Lp_all.
+Print Assumptions Kernel.UMachInOrderUP.Rp_D.
+Print Assumptions Kernel.UMachInOrderUP.Rp_0.
+Print Assumptions Kernel.UMachInOrderUP.Rp_S.
+Print Assumptions Kernel.UMachInOrderUP.UP_in_order.
+Print Assumptions Kernel.UMachInOrderUP.UP_meets_strong.
+(* === Kernel.UMachInert : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachInert.err_stays.
+Print Assumptions Kernel.UMachInert.step_untrapped_before.
+Print Assumptions Kernel.UMachInert.one_step.
+Print Assumptions Kernel.UMachInert.checker_blind.
+Print Assumptions Kernel.UMachInert.perr_stays.
+Print Assumptions Kernel.UMachInert.pstep_untrapped_before.
+Print Assumptions Kernel.UMachInert.pone_step.
+Print Assumptions Kernel.UMachInert.pchecker_blind.
+(* === Kernel.UMachMeetsU : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachMeetsU.U_hr.
+Print Assumptions Kernel.UMachMeetsU.U_hl.
+Print Assumptions Kernel.UMachMeetsU.small_gr.
+Print Assumptions Kernel.UMachMeetsU.small_gl_gen.
+Print Assumptions Kernel.UMachMeetsU.small_gl.
+Print Assumptions Kernel.UMachMeetsU.U_meets_weak.
+(* === Kernel.UMachMeetsUP : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachMeetsUP.UP_hr.
+Print Assumptions Kernel.UMachMeetsUP.UP_hl.
+Print Assumptions Kernel.UMachMeetsUP.pgr.
+Print Assumptions Kernel.UMachMeetsUP.pgl.
+Print Assumptions Kernel.UMachMeetsUP.glatch_iff.
+Print Assumptions Kernel.UMachMeetsUP.pglat.
+Print Assumptions Kernel.UMachMeetsUP.UP_meets_weak.
+(* === Kernel.UMachMirror : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachMirror.mirror_toll.
+Print Assumptions Kernel.UMachMirror.htr_add.
+Print Assumptions Kernel.UMachMirror.hr_cons.
+Print Assumptions Kernel.UMachMirror.hl_cons.
+Print Assumptions Kernel.UMachMirror.htr_cons.
+Print Assumptions Kernel.UMachMirror.next_not_halt.
+Print Assumptions Kernel.UMachMirror.cert_noncertify.
+Print Assumptions Kernel.UMachMirror.round.
+Print Assumptions Kernel.UMachMirror.grun_small.
+Print Assumptions Kernel.UMachMirror.trace_succ.
+Print Assumptions Kernel.UMachMirror.mpoints.
+Print Assumptions Kernel.UMachMirror.mirror_is_universal.
+Print Assumptions Kernel.UMachMirror.mirror_earned.
+Print Assumptions Kernel.UMachMirror.mirror_not_reg_host.
+(* === Kernel.UMachRegHost : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachRegHost.err_back.
+Print Assumptions Kernel.UMachRegHost.one.
+Print Assumptions Kernel.UMachRegHost.rh_base_determined.
+Print Assumptions Kernel.UMachRegHost.cheat_untrapped_live.
+Print Assumptions Kernel.UMachRegHost.cheat_not_reg_host.
+(* === Kernel.UMachShadowU : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachShadowU.ptoll.
+Print Assumptions Kernel.UMachShadowU.prod_hr.
+Print Assumptions Kernel.UMachShadowU.prod_hl.
+Print Assumptions Kernel.UMachShadowU.prod_universal.
+Print Assumptions Kernel.UMachShadowU.shadow_meets.
+Print Assumptions Kernel.UMachShadowU.shadow_clean.
+Print Assumptions Kernel.UMachShadowU.shadow_trace.
+Print Assumptions Kernel.UMachShadowU.shadow_steps.
+(* === Kernel.UMachStrengthened : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachStrengthened.U_checker_free.
+Print Assumptions Kernel.UMachStrengthened.UP_checker_free.
+Print Assumptions Kernel.UMachStrengthened.U_load_clean.
+Print Assumptions Kernel.UMachStrengthened.UP_load_clean.
+(* === Kernel.UMachTCcheck : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachTCcheck.tc_three_paid.
+Print Assumptions Kernel.UMachTCcheck.cheat_not_thiele_complete.
+(* === Kernel.UMachTrivialUP : 23 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachTrivialUP.CV_true.
+Print Assumptions Kernel.UMachTrivialUP.U_P_avoids.
+Print Assumptions Kernel.UMachTrivialUP.fetch_avoids.
+Print Assumptions Kernel.UMachTrivialUP.fetch_map.
+Print Assumptions Kernel.UMachTrivialUP.next_V.
+Print Assumptions Kernel.UMachTrivialUP.upd_ne.
+Print Assumptions Kernel.UMachTrivialUP.Rlc_write.
+Print Assumptions Kernel.UMachTrivialUP.Rlc_goto.
+Print Assumptions Kernel.UMachTrivialUP.step_lock.
+Print Assumptions Kernel.UMachTrivialUP.cost_retarget.
+Print Assumptions Kernel.UMachTrivialUP.lockstep.
+Print Assumptions Kernel.UMachTrivialUP.guest_noerr.
+Print Assumptions Kernel.UMachTrivialUP.UP_noerr.
+Print Assumptions Kernel.UMachTrivialUP.pu_hregs_TR.
+Print Assumptions Kernel.UMachTrivialUP.load_rel.
+Print Assumptions Kernel.UMachTrivialUP.V_lock.
+Print Assumptions Kernel.UMachTrivialUP.V_meets_strong.
+Print Assumptions Kernel.UMachTrivialUP.V_meets_d.
+Print Assumptions Kernel.UMachTrivialUP.V_record_on_TR.
+Print Assumptions Kernel.UMachTrivialUP.trace_from_prog.
+Print Assumptions Kernel.UMachTrivialUP.V_TR_const.
+Print Assumptions Kernel.UMachTrivialUP.V_flag_chain.
+Print Assumptions Kernel.UMachTrivialUP.V_flag_rises.
+(* === Kernel.UMachVersionsObs : 25 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachVersionsObs.vbounded_start.
+Print Assumptions Kernel.UMachVersionsObs.ver_write.
+Print Assumptions Kernel.UMachVersionsObs.fobs_write.
+Print Assumptions Kernel.UMachVersionsObs.map_fobs_write.
+Print Assumptions Kernel.UMachVersionsObs.exists_claim.
+Print Assumptions Kernel.UMachVersionsObs.vb_write.
+Print Assumptions Kernel.UMachVersionsObs.vb_step.
+Print Assumptions Kernel.UMachVersionsObs.len_map_eq.
+Print Assumptions Kernel.UMachVersionsObs.fobs_same.
+Print Assumptions Kernel.UMachVersionsObs.gobs_core.
+Print Assumptions Kernel.UMachVersionsObs.core_obs_write.
+Print Assumptions Kernel.UMachVersionsObs.map_fobs_same.
+Print Assumptions Kernel.UMachVersionsObs.opt_fobs_same.
+Print Assumptions Kernel.UMachVersionsObs.obs_goto.
+Print Assumptions Kernel.UMachVersionsObs.obs_trap.
+Print Assumptions Kernel.UMachVersionsObs.obs_record.
+Print Assumptions Kernel.UMachVersionsObs.obs_commit.
+Print Assumptions Kernel.UMachVersionsObs.obs_step.
+Print Assumptions Kernel.UMachVersionsObs.obs_run.
+Print Assumptions Kernel.UMachVersionsObs.obs_run_prog.
+Print Assumptions Kernel.UMachVersionsObs.bank_slot.
+Print Assumptions Kernel.UMachVersionsObs.rec_obs.
+Print Assumptions Kernel.UMachVersionsObs.U_obs_at_rel.
+Print Assumptions Kernel.UMachVersionsObs.GObs_dec.
+Print Assumptions Kernel.UMachVersionsObs.U_meets_strong_obs.
 (* === Kernel.UniversalBlocks : 68 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalBlocks.sc_app_l.
 Print Assumptions Kernel.UniversalBlocks.sc_app_r.
@@ -6001,6 +6497,88 @@ Print Assumptions Minimal.NecTVerifier.nec_t_ver_collision_free_implies_exists.
 Print Assumptions Minimal.NecTVerifier.nec_t_ver_exists_iff_collision_free.
 Print Assumptions Minimal.NecTVerifier.nec_t_clock_has_bare_verifier.
 Print Assumptions Minimal.NecTVerifier.nec_t_weak_does_not_suffice.
+(* === Minimal.NeutralChain : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NeutralChain.tc_record_implies_event.
+Print Assumptions Minimal.NeutralChain.small_event_without_record.
+Print Assumptions Minimal.NeutralChain.hidden_run_bit.
+Print Assumptions Minimal.NeutralChain.hidden_event_nonconstant.
+Print Assumptions Minimal.NeutralChain.hidden_lift_no_distinction.
+Print Assumptions Minimal.NeutralChain.permanent_latch_is_record.
+(* === Minimal.NeutralComplete : 48 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NeutralComplete.every_permanent_record_is_a_latch.
+Print Assumptions Minimal.NeutralComplete.every_record_latches_itself.
+Print Assumptions Minimal.NeutralComplete.nledger_counts.
+Print Assumptions Minimal.NeutralComplete.nc_raise_is_mark.
+Print Assumptions Minimal.NeutralComplete.nc_is_weak.
+Print Assumptions Minimal.NeutralComplete.nc_floor_one.
+Print Assumptions Minimal.NeutralComplete.nc_costs.
+Print Assumptions Minimal.NeutralComplete.nc_some_run_raises.
+Print Assumptions Minimal.NeutralComplete.nc_reduct_universal.
+Print Assumptions Minimal.NeutralComplete.core_base_run_window.
+Print Assumptions Minimal.NeutralComplete.core_base_run_record.
+Print Assumptions Minimal.NeutralComplete.core_reach.
+Print Assumptions Minimal.NeutralComplete.core_hides_record.
+Print Assumptions Minimal.NeutralComplete.core_no_record_oracle.
+Print Assumptions Minimal.NeutralComplete.core_base_run_ledger.
+Print Assumptions Minimal.NeutralComplete.core_hides_ledger.
+Print Assumptions Minimal.NeutralComplete.nc_hides_record.
+Print Assumptions Minimal.NeutralComplete.nc_hides_ledger.
+Print Assumptions Minimal.NeutralComplete.nc_no_oracles.
+Print Assumptions Minimal.NeutralComplete.price_is_record_move.
+Print Assumptions Minimal.NeutralComplete.tc_to_nc.
+Print Assumptions Minimal.NeutralComplete.thiele_complete_neutral.
+Print Assumptions Minimal.NeutralComplete.tc_iff_nc_plus_certification.
+Print Assumptions Minimal.NeutralComplete.tc_record_iff_chain.
+Print Assumptions Minimal.NeutralComplete.nbases_map.
+Print Assumptions Minimal.NeutralComplete.nlift_run_base.
+Print Assumptions Minimal.NeutralComplete.nlift_run_record.
+Print Assumptions Minimal.NeutralComplete.nlift_base_clause.
+Print Assumptions Minimal.NeutralComplete.nlift_start_clause.
+Print Assumptions Minimal.NeutralComplete.nlift_price_clause.
+Print Assumptions Minimal.NeutralComplete.nlift_distinction_iff.
+Print Assumptions Minimal.NeutralComplete.nlift_neutral_complete.
+Print Assumptions Minimal.NeutralComplete.nlift_floor_tight.
+Print Assumptions Minimal.NeutralComplete.nlift_projection.
+Print Assumptions Minimal.NeutralComplete.every_base_lifts_neutrally.
+Print Assumptions Minimal.NeutralComplete.paid_test_neutral_complete.
+Print Assumptions Minimal.NeutralComplete.paid_test_has_tick.
+Print Assumptions Minimal.NeutralComplete.run_silent_cm.
+Print Assumptions Minimal.NeutralComplete.record_moves_cost.
+Print Assumptions Minimal.NeutralComplete.paid_test_not_thiele_complete.
+Print Assumptions Minimal.NeutralComplete.nc_strictly_weaker.
+Print Assumptions Minimal.NeutralComplete.all_paid_not_nc.
+Print Assumptions Minimal.NeutralComplete.clock_not_nc.
+Print Assumptions Minimal.NeutralComplete.latch_clock_not_nc.
+Print Assumptions Minimal.NeutralComplete.paid_latch_record_run.
+Print Assumptions Minimal.NeutralComplete.paid_latch_not_nc.
+Print Assumptions Minimal.NeutralComplete.silent_not_nc.
+Print Assumptions Minimal.NeutralComplete.latch_raise_merges.
+(* === Minimal.NeutralHost : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NeutralHost.nc_raise_costs_one.
+Print Assumptions Minimal.NeutralHost.unit_raise_surcharge_two.
+(* === Minimal.NeutralMacro : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NeutralMacro.sim_base_lifts_neutrally.
+Print Assumptions Minimal.NeutralMacro.fl_macro_lifts_neutrally.
+Print Assumptions Minimal.NeutralMacro.small_unconditional_certificate.
+(* === Minimal.NeutralMerge : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NeutralMerge.nlift_raise_is_record_merge.
+Print Assumptions Minimal.NeutralMerge.nlift_base_no_record_merge.
+Print Assumptions Minimal.NeutralMerge.nlift_record_priced.
+Print Assumptions Minimal.NeutralMerge.nlift_toll_from_record_price.
+(* === Minimal.NeutralMore : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NeutralMore.drop_meets_BCD.
+Print Assumptions Minimal.NeutralMore.drop_not_nc.
+Print Assumptions Minimal.NeutralMore.frozen_meets_ACD.
+Print Assumptions Minimal.NeutralMore.frozen_not_nc.
+Print Assumptions Minimal.NeutralMore.paid_all_meets_ABD.
+Print Assumptions Minimal.NeutralMore.paid_all_not_nc.
+Print Assumptions Minimal.NeutralMore.silent_meets_ABC.
+Print Assumptions Minimal.NeutralMore.nc_free_not_finitely_branching.
+Print Assumptions Minimal.NeutralMore.tc_free_not_finitely_branching.
+Print Assumptions Minimal.NeutralMore.nlift_finitely_branching_not_nc.
+Print Assumptions Minimal.NeutralMore.nlift_stateless_not_nc.
+Print Assumptions Minimal.NeutralMore.nc_every_window_printed.
+Print Assumptions Minimal.NeutralMore.paid_test_gap_one.
 (* === Minimal.NoisyChairs : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.NoisyChairs.Qsum_map_plus.
 Print Assumptions Minimal.NoisyChairs.Qsum_map_ext.
@@ -6053,6 +6631,17 @@ Print Assumptions Minimal.PartitionReading.pr_reading_entitles_only.
 Print Assumptions Minimal.PartitionReading.pr_toll.
 Print Assumptions Minimal.PartitionReading.p_cinv_step.
 Print Assumptions Minimal.PartitionReading.pr_reading_costs_three.
+(* === Minimal.PayAny : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.PayAny.erase_app.
+Print Assumptions Minimal.PayAny.erase_mid.
+Print Assumptions Minimal.PayAny.prun_fst.
+Print Assumptions Minimal.PayAny.erase_split.
+Print Assumptions Minimal.PayAny.pay_thiele_complete_with.
+Print Assumptions Minimal.PayAny.pay_inert.
+Print Assumptions Minimal.PayAny.pay_clock.
+Print Assumptions Minimal.PayAny.pay_thiele_complete.
+Print Assumptions Minimal.PayAny.pay_any_filing.
+Print Assumptions Minimal.PayAny.pay_as_check_commit_or_certify.
 (* === Minimal.PayFree : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.PayFree.pf_err_latch.
 Print Assumptions Minimal.PayFree.pf_cert_latch.
@@ -6305,6 +6894,19 @@ Print Assumptions Minimal.StepLaw.merge_is_collision.
 Print Assumptions Minimal.StepLaw.revisit_means_loop.
 Print Assumptions Minimal.StepLaw.first_revisit_start_or_merge.
 Print Assumptions Minimal.StepLaw.later_steps_repeat.
+(* === Minimal.TCDeps : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.TCDeps.clauses_split.
+Print Assumptions Minimal.TCDeps.dep_toll.
+Print Assumptions Minimal.TCDeps.dep_three_moves.
+Print Assumptions Minimal.TCDeps.dep_three_ledger.
+Print Assumptions Minimal.TCDeps.dep_committed.
+Print Assumptions Minimal.TCDeps.dep_check_can_fail.
+Print Assumptions Minimal.TCDeps.dep_some_run.
+Print Assumptions Minimal.TCDeps.dep_only_certify.
+Print Assumptions Minimal.TCDeps.dep_raise_not_base.
+Print Assumptions Minimal.TCDeps.dep_free_move.
+Print Assumptions Minimal.TCDeps.dep_one_move.
+Print Assumptions Minimal.TCDeps.dep_every_window.
 (* === Minimal.Tc2Am : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Tc2Am.am_run_add.
 Print Assumptions Minimal.Tc2Am.am_run_S_l.

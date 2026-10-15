@@ -1,23 +1,23 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-15T04:08:18.602869+00:00",
+  "generated": "2026-10-15T16:32:44.581494+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "aa8517e7551ab018e936484e9c04ef80aa623bececa3086dcfbcd9356755504d",
-  "probe_digest": "f7b2fee43723c797ac2e9cfd7a6de6d6dd121f9b3af41c30ad432631e81c3e60",
+  "corpus_digest": "349749ec8c5d08c8cc713df096dae5b9537421f1722ab2548c52a5d05e2c412c",
+  "probe_digest": "6e5a1f7f3febbb9685913bb2ed011ad04f422d78ed71cd01717519fcb12d02fa",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "a283171c29994f0807366803e0ec0e1e2004e63d7f3947a17d2a9efaf9e32d1f",
-  "files_probed": 351,
-  "addressable_theorems_probed": 6142,
-  "blocks_parsed": 6142,
+  "raw_output_sha256": "39a337a427f2acc7fe2d2b98907a609720e33df8062071a4d1148f19de27e554",
+  "files_probed": 398,
+  "addressable_theorems_probed": 6650,
+  "blocks_parsed": 6650,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 6142,
-    "closed_under_global_context": 5322,
+    "theorems_probed": 6650,
+    "closed_under_global_context": 5830,
     "depend_on_axioms": 820,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 187,
@@ -223,8 +223,8 @@
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
     "Kernel": {
-      "theorems": 4350,
-      "closed": 3565,
+      "theorems": 4760,
+      "closed": 3975,
       "with_axioms": 785,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -234,8 +234,8 @@
       ]
     },
     "Minimal": {
-      "theorems": 1783,
-      "closed": 1748,
+      "theorems": 1881,
+      "closed": 1846,
       "with_axioms": 35,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -433,6 +433,12 @@
     "coq/kernel/foundation/AxWindow.v": {
       "theorems": 10,
       "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/ClockHost.v": {
+      "theorems": 11,
+      "closed": 11,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -682,6 +688,12 @@
     "coq/kernel/foundation/LRecursion.v": {
       "theorems": 46,
       "closed": 46,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/LatchConst.v": {
+      "theorems": 2,
+      "closed": 2,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -997,6 +1009,120 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/NeutralHostUP.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivBase.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivCanon.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivCert.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivDef.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivFloor.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivGstep.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivInOrderLink.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivMarkElim.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivMirror.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivNeed.v": {
+      "theorems": 28,
+      "closed": 28,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivPay.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivPhantom.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivRobust.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivShadow.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivSmuggle.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivTools.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivU.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NeutralUnivUP.v": {
+      "theorems": 21,
+      "closed": 21,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/Presentation.v": {
       "theorems": 7,
       "closed": 7,
@@ -1058,8 +1184,8 @@
       "axiom_set": []
     },
     "coq/kernel/foundation/RecordAxisDiscrimination.v": {
-      "theorems": 4,
-      "closed": 4,
+      "theorems": 7,
+      "closed": 7,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1307,6 +1433,114 @@
     "coq/kernel/foundation/TcRiceMM.v": {
       "theorems": 6,
       "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachCheatPNotReg.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachCheatPresented.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachCheatSmall.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachDef.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachHybrid.v": {
+      "theorems": 39,
+      "closed": 39,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachInOrderGen.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachInOrderU.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachInOrderUP.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachInert.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachMeetsU.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachMeetsUP.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachMirror.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachRegHost.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachShadowU.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachStrengthened.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachTCcheck.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachTrivialUP.v": {
+      "theorems": 23,
+      "closed": 23,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/UMachVersionsObs.v": {
+      "theorems": 25,
+      "closed": 25,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2200,6 +2434,42 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/NeutralChain.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NeutralComplete.v": {
+      "theorems": 48,
+      "closed": 48,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NeutralHost.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NeutralMacro.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NeutralMerge.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NeutralMore.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/NoisyChairs.v": {
       "theorems": 27,
       "closed": 27,
@@ -2215,6 +2485,12 @@
     "minimal/PartitionReading.v": {
       "theorems": 18,
       "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/PayAny.v": {
+      "theorems": 10,
+      "closed": 10,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2305,6 +2581,12 @@
     "minimal/StepLaw.v": {
       "theorems": 7,
       "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/TCDeps.v": {
+      "theorems": 12,
+      "closed": 12,
       "with_axioms": 0,
       "axiom_set": []
     },

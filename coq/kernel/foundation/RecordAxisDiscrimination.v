@@ -78,8 +78,8 @@ End Latch.
 
     [latch_core_honest] admits any event the base reaches, including one
     that holds everywhere. Its latch is up after one step from every start
-    ([latch_constant_up]). A latch tells two starts apart exactly when its
-    event holds along one run and not along the other ([latch_distinguishes]). *)
+    ([latch_constant_up]). A latch tells two starts apart when its event has
+    held along one run and not along the other ([latch_distinguishes]). *)
 
 Section LatchDistinguish.
 Variable B : BaseMachine.
@@ -116,8 +116,8 @@ Proof.
   simpl. destruct S as [_ Hr]. apply Hr. right. exists 0. split; [lia|apply Hc].
 Qed.
 
-(** The latch tells two starts apart at step n exactly when the event has
-    held along one run's first n states and not along the other's. *)
+(** The latch tells two starts apart at step n when the event has held
+    somewhere along one run's first n states and nowhere along the other's. *)
 Theorem latch_distinguishes : forall b0 b1 n,
   (exists k, k < n /\ h (Nat.iter k (b_next B) b0) = true) ->
   (forall k, k < n -> h (Nat.iter k (b_next B) b1) = false) ->
