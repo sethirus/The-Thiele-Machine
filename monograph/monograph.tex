@@ -254,11 +254,14 @@ the step that's charged. That's a few events in a run, not the billions of overw
 makes every second; what they write doesn't stay, and the toll leaves them to the erasure count and
 to physics.
 
-\emph{Three: structure is made of exactly this.} A 0 is the smallest structure there is: the ways a
-cell could be, sorted into piles, and one pile held. A grouping, an order, a relation a later move
-leans on, a fact somebody found out and wrote down: each is a distinction that stays, on the same
-bill as the 0. Insight, in the sense this book can price, is a kept distinction. That's what the
-book's other name, No Free Insight, means.
+\emph{Three: the structure a computation makes is made of exactly this.} Structure in general is a
+relation kept under the changes you choose; Part~II takes that word from the people who wrestled
+with it. The part a computation makes, and can't take back, is a distinction held in its state, and
+a 0 is the smallest one there is: the ways a cell could be, sorted into piles, and one pile held. A
+grouping, an order, a relation a later move leans on, a fact somebody found out and wrote down:
+each is a distinction that stays, on the same bill as the 0. Insight, in the sense this book can
+price, is a kept distinction. The toll charges the moment it's raised; holding it up afterward costs
+nothing more. That's what the book's other name, No Free Insight, means.
 
 \emph{Four: established is the sharpest case.} Two computers can end with the same answer, and only
 one of them checked it. The difference between them is a distinction one of them never kept. A
@@ -597,9 +600,13 @@ lean on it, and every theorem here about records gets its arrow from an assumed 
 
 \emph{Chosen: what the model adds, each of which could have gone another way.}
 \begin{itemize}
-\item To put the count inside the step, as part of what a step is. Nothing forces that, and a log
-off to the side was always the other place it could go. It's my claim about where the account
-belongs, and the rest of the book is the case for it.
+\item To put the account inside the step, as part of what a step is. Two things go there. That the
+record stays and the computing can't reach it has to: a rule kept by the step holds of every
+program, and a log a program keeps holds of that program only. The count can go there or not: it's
+the sum of the prices along the run, so a log of the run holds the same number. I keep it in the
+step so every state carries its own bill, and that part is presentation, not necessity. On the
+certified machine of Part~III the step also keeps the order, check, then commit, then certify, for
+the same reason.
 \item The toll itself: a whole mark, at least one, on the step that raises a reading, whichever way
 the keep is paid. On a finite machine it follows from a price on merging, and that price is a choice
 too; on a machine that pays in room, the toll is simply declared.
@@ -723,9 +730,19 @@ check, then a commitment, then a certificate, of exactly the same claim about ex
 edition, with claims about any property that comes with a checker proved to mean it and an exact test
 for telling properties apart, ``sorted'' included (Section~\ref{sec:smallest}). Every such run
 incurred at least three marks, and three is reached. The machine meets a definition I call
-Thiele-complete, which asks that computing cost no marks and never touch the record, and that the
-record be earned; a clock fails it, and every machine that meets it hides its record and its ledger
-from its own window, both by theorem.
+certified Thiele-complete, which asks that the record be earned, on top of everything
+Thiele-complete asks.
+
+Proved, over any base and any event: a machine is Thiele-complete when its computing is universal,
+costs no marks and can't touch the record, the record stays, starts are blank, and some run's record
+tells two starts apart (Section~\ref{sec:complete}). A clock fails it, every machine that meets it
+hides its record and its ledger from its own window, and any universal base becomes one by adding
+marks, all by theorem. Certified Thiele-complete is exactly Thiele-complete with clean starts, the
+earned chain and a claim that could have failed added (Theorem~\ref{thm:tc-decomposition}).
+
+Argued only: that the structure a computation makes is kept distinctions, priced by the toll, while
+structure kept under undoable moves costs nothing; that's a choice of what to price, and the free
+half is proved.
 
 Argued only: that an account of computation \emph{should} carry what a computation made the case, and
 what it cost, in how it steps. The proofs show that it hangs together, what it follows from, and what
@@ -1836,14 +1853,15 @@ all about its state, is a Thiele machine. A clock passes. Nothing about that is 
 what the definition says, and it means the definition, on its own, doesn't tie the marks to
 certifying anything. It only says a crossing can't go unpriced. (It's also why ``a base that can
 compute anything plus a flag that obeys the toll'' would be a cheap thing to call Thiele-complete,
-and why the definition that gets that name, in Part~III, asks for computing that costs no marks and an earned
-record, which no clock meets; Section~\ref{sec:smallest}.) Two things later in the book do the tying. One is a ceiling: demand that a run's
+and why the definition that gets that name, at the end of Part~II, asks for computing that costs no
+marks and a record that tells starts apart, which no clock meets; Section~\ref{sec:complete}.) Three
+things later in the book do the tying. The first is that bar: computing free, marks at one. The second is a ceiling: demand that a run's
 total never exceed the number of times the flag went up. With a price that can depend on where
 the step starts, that and the floor leave exactly one bill, one mark per raise and nothing else
 (Sections~\ref{sec:counter} and~\ref{sec:windows}). With a price per move name, as in my definition, no system whose flag
 ever rises meets both, because the raising move, played again from yes, raises nothing and still
 costs one. A clock fails the ceiling the first time it charges a step that raised
-nothing. The other is order, on the smallest machine I build:
+nothing. The third is order, on the smallest machine I build, and it's the certified case:
 there, from a clean start, the flag can't go up
 unless a passing check of a claim came first, then a commitment to that same claim, and a
 clock can't fake that, because it's about which moves happened, and a clock only makes marks
@@ -3211,7 +3229,7 @@ both. So any price list that
 charges every merge of that machine's own step charges the flag-raising step, and finiteness never
 comes into it.
 
-That leaves the other miss, the unpriced merges. Clause (c) of Thiele-complete (Definition~\ref{def:u34-thiele-complete}, in Part~III) asks for
+That leaves the other miss, the unpriced merges. Clause (c) of certified Thiele-complete (Definition~\ref{def:u34-thiele-complete}, in Part~III) asks for
 base moves at zero, and a base move merges (DEC, counting a counter down, lands two states on one),
 so full merge pricing and clause (c) can't both hold on that machine. They don't have to. Split a
 state into its base part, which is what a two-counter machine would show (the line number and the
@@ -4970,8 +4988,10 @@ The blocks let you separate them with your hands. Now take them down to the smal
 is. A bucket with two sides, one block, and a ruling that sticks: that's a cell going from blank to
 0, the case Part~I started from and put a bill on. So this is where the word lands. Structure is
 distinctions held in a state, every one of them a ruling that sticks, and holding one is on the
-same bill as the 0: a merge or room. The rest of this part asks what follows, on any machine, once
-that bill is kept.
+same bill as the 0: a merge or room. Klein's invariants, kept under moves that can all be undone,
+are structure the toll never charges, and Part~I proved why: a step that loses nothing can't raise a
+reading that stays. What it charges is the other kind, a distinction a computation made and holds.
+The rest of this part asks what follows, on any machine, once that bill is kept.
 
 %===========================================================================
 \section{The counter}
@@ -6121,13 +6141,13 @@ that's sound and complete for the claim can't be one that looks only at the bare
 three escapes get past that by adding full states, a bit that keeps the contract, or a truthful
 answer.
 
-On the machines Part III (Section~\ref{sec:smallest}) calls Thiele-complete, the collision is a theorem too, and it doesn't depend on the toy. Thiele-complete is a definition Part~III gives in full; on such a machine, computing costs no marks and never touches the record, and from a clean start the record goes up only on an earned check, commitment and certificate. Give a run from a loaded start (Part III's word for a start at line 1
+On the machines Part III (Section~\ref{sec:smallest}) calls certified Thiele-complete, the collision is a theorem too, and it doesn't depend on the toy. Certified Thiele-complete is a definition Part~III gives in full; on such a machine, computing costs no marks and never touches the record, and from a clean start the record goes up only on an earned check, commitment and certificate. Give a run from a loaded start (Part III's word for a start at line 1
 with the two counters set to $a$ and $b$, written $(1, a, b)$) the \emph{bare transcript} made of $a$, $b$ and the base window the run
 ends with, and say a state \emph{explains} a bare transcript when some run from that start ends
 at it showing that window.
 
-\begin{theorem}[No bare verifier on a Thiele-complete machine]\label{thm:ver-complete}
-Let a machine be Thiele-complete through an interface
+\begin{theorem}[No bare verifier on a certified Thiele-complete machine]\label{thm:ver-complete}
+Let a machine be certified Thiele-complete through an interface
 (Definition~\ref{def:u34-thiele-complete}). (1) No function from bare transcripts to Booleans is
 both sound and complete, under that explanation relation, for the claim ``the record is up.'' (2)
 There is a clean loaded state such that no function from bare transcripts to Booleans is both
@@ -6150,7 +6170,11 @@ two runs are written out in the statement: three moves land on line 4 in both ru
 counters at 0, and the same two-state argument applies.
 \end{proof}
 
-Put with the three escapes, the whole picture holds for every Thiele-complete machine
+Parts (1) and (2), with a loaded state for a clean one and ``at least 1'' for ``at least 3'', hold of every Thiele-complete
+machine, certified or not, by the same argument from Theorem~\ref{thm:tc-window} at the end of this
+part; certification is what raises the gap to three.
+
+Put with the three escapes, the whole picture holds for every certified Thiele-complete machine
 and for the small machine: the bare-transcript
 verifier doesn't exist; the collision survives into any richer transcript that keeps it, so no
 verifier that only reads its bare part works either; a verifier on full states exists; one on the
@@ -6790,7 +6814,7 @@ relation has to do: distinguish. Necula says how to build it. Hartley says what 
 Put the three pieces on one hypothesis list (narrow the list with a test that separates, find
 the paid event, count the bill against a tree the run paid for) and you get a single statement, structural entitlement, once
 over any Thiele machine and once, under the
-longer name structural entitlement represented, for every Thiele-complete machine, the small machine included
+longer name structural entitlement represented, for every certified Thiele-complete machine, the small machine included
 (Theorem~\ref{thm:ent-machine}). The machine version asks the same things with two changes: the run
 starts clean instead of merely at no, and the paid steps are the run's own record moves, CHECK,
 COMMIT and CERTIFY, at exactly one mark each. The first one reads
@@ -6904,7 +6928,7 @@ deleted by a test the run passed and paid for. Two premises stay, the prior list
 The share is needed. On the small machine one CHECK of ``$A \ge 15$,'' asked of sixteen
 candidates, keeps one, a $2^{-4}$ share, and narrows by 4 index bits on a run of 3 record moves
 (Proposition~\ref{prop:ent-share-needed}); with $k = 1$ part (4) would say $4 \le 3$. The same
-statement on every Thiele-complete machine, where the tests are the CHECK moves and the bill is
+statement on every certified Thiele-complete machine, where the tests are the CHECK moves and the bill is
 the ledger, is Theorem~\ref{thm:ent-run-machine}.
 
 \subsection{A grouping, checked and committed}
@@ -7092,7 +7116,7 @@ first kind of thing is. For a century and a half careful people have measured wh
 observation tells you, and every one of those measures is about what was seen. That's the side
 of the line the toll leaves alone.
 
-The second thing: \emph{certified insight}. Some move turns the reading from NO to YES. Here is
+The second thing: \emph{the raise}. Some move turns the reading from NO to YES. Here is
 where the toll lives. In any system with the five parts that obeys the toll, that move costs
 at least one mark, and every run that starts at NO and ends at YES pays at least one somewhere
 along the way, which is Section~\ref{sec:toll}'s universal floor. What's being charged for, at its best, is
@@ -7126,18 +7150,18 @@ Here they are, exactly, for any Thiele machine (Definition~\ref{def:certsys}). R
 written as lists, the way Section~\ref{sec:toll}'s proof wrote them: $[\,]$ is the empty run, and $i:: t$ is the
 run that starts with move $i$ and carries on with the run $t$.
 
-\begin{definition}[Certified insight event, raw observation]\label{def:u09-events}
-In a Thiele machine, a step from state $s$ by move $i$ is a \emph{certified insight event}
+\begin{definition}[Raise, non-raising move]\label{def:u09-events}
+In a Thiele machine, a step from state $s$ by move $i$ is a \emph{raise}
 when it turns the reading on: $\mathrm{cert}(s) = \mathrm{no}$ and
-$\mathrm{cert}(\mathrm{step}(s, i)) = \mathrm{yes}$. A move $i$ is \emph{raw observation} when no
-step by it, from any state, is a certified insight event.
+$\mathrm{cert}(\mathrm{step}(s, i)) = \mathrm{yes}$. A move $i$ is a \emph{non-raising move} when no
+step by it, from any state, is a raise. Raw observation, the first thing above, is one kind.
 \end{definition}
 
 \begin{remark}[What the toll prices, and what it doesn't]\label{rem:u09-three}
 All three read straight off Definition~\ref{def:certsys} and Observation~\ref{thm:universal-floor},
-with Section~\ref{sec:toll}'s board as the example. (1) The toll puts no bound on the cost of a raw-observation
-move; on Section~\ref{sec:toll}'s board STAY and WORK are raw observation and cost $0$. (2) Every certified
-insight event is charged at least $1$, by the toll, and every run from a state reading no to
+with Section~\ref{sec:toll}'s board as the example. (1) The toll puts no bound on the cost of a non-raising
+move; on Section~\ref{sec:toll}'s board STAY and WORK are non-raising moves and cost $0$. (2) Every
+raise is charged at least $1$, by the toll, and every run from a state reading no to
 one reading yes has total cost at least $1$, by the universal floor. (3) The price is flat:
 the floor's proof uses nothing about the end state but its reading, so it gives the same floor of $1$ whatever else the end state
 shows. A higher floor needs more hypotheses than the toll, and those hypotheses do the work. A system that
@@ -7151,7 +7175,7 @@ or an additional requirement could.
 
 Who decided the split? Not the costs alone. The toll prices exactly one thing, the crossing.
 A price list is free to put a floor under more moves than that (a look, a send, a check) and
-free to leave other moves at zero, so the sorting into raw observation and certified insight
+free to leave other moves at zero, so the sorting into non-raising moves and raises
 is by whether the reading moves, and that sorting is this book's. The part that's \emph{forced} is
 the floor under the crossing, once you grant a reading that stays up, finitely many states
 that read yes, and a price on every merge; Section~\ref{sec:a2-not-arbitrary} is the argument; anything a price list charges
@@ -7170,7 +7194,7 @@ Add a fourth move to the paper: CHECK. It looks at something (a sum, a coin unde
 formula against a row of values), and it can come out pass or fail, and it doesn't move the
 box. Charge it whatever you like; charging it on the attempt, pass or fail, fits Popper,
 because what made his test count was that it was really run and could have failed. That's
-the test. It's raw observation in the sense above,
+the test. It's a non-raising move in the sense above,
 because it never turns the reading on. VOUCH is the commit. So the honest protocol is two
 moves: test, then commit, and the costs are separate, one for the checking work and one for
 the crossing.
@@ -7204,11 +7228,12 @@ not.
 
 \subsection{What the word means}
 
-Insight, in the sense this book prices, is a relation committed to, in a move that flips a
-reading from off to on, and that move costs at least one mark, in any system with the toll,
-for any relation, whatever its depth. (And one edge from the paper: a bare crossing that
-commits to nothing pays the same mark, so ``a relation committed to'' is what the crossing is
-at its best. The toll doesn't guarantee it.) Three boundaries, each from a different place.
+Insight, in the sense this book prices, is a distinction made to stay: a move that flips a
+reading from off to on, for good, and that move costs at least one mark, in any system with the
+toll, whatever the reading is about and whatever its depth. At its best the reading is a relation
+committed to, a claim checked and closed; a bare crossing that commits to nothing pays the same
+mark, and the toll doesn't tell the two apart. Part~III's certified machine is one way to make
+sure a crossing is the first kind. Three boundaries, each from a different place.
 From Metcalfe: it isn't a feeling, and a system's version has to be an event. From the proof:
 the price is flat; a shallow commit and a deep one both cost at least one, and cost is not
 depth. A system can pay heavily to check a trivial claim, and Duncker's box, a real insight, is
@@ -8074,6 +8099,164 @@ choices, and whether its choice of event is the right one is a question I'll get
 more than two positions. Earlier in this section a record that rises got cut into one cup
 per threshold; the next section asks how much of the rest of the book survives once a record has
 more places to be than up and down.
+
+\subsection{What it takes to be complete}
+\label{sec:complete}
+
+The latch left two choices open, the price list and the event. A machine I can hold up against
+everything else has to make both, and a name for ``this machine computes, and its record keeps
+something'' has to ask for more than the toll does. The toll alone is a low bar. A machine that
+charges one mark for every step it takes obeys the toll for any record at all: every raise costs at
+least one because every move does. That's a clock bolted to a computer. And a machine whose record
+never goes up obeys it too, because a toll on a raise that never happens is never broken. Neither
+one keeps anything a computation made, and a name both of them get without trying isn't saying
+much.
+
+So here's the bar, in four clauses, and nothing in it mentions what the record is about.
+
+\begin{definition}[Thiele-complete]\label{def:thiele-complete}
+A Thiele machine is \emph{Thiele-complete} when it can be read through an \emph{interface} that
+hands over three things: a universal base, a split of its moves into \emph{computing moves} and
+\emph{marks}, and a \emph{ledger}, a whole number for each state. A \emph{universal base} is a way
+of reading each state as a configuration of a machine that runs every program (I use Minsky's two
+counters, Section~\ref{sec:counters-origin}), with a computing move for each of that machine's
+instructions that does to the configuration exactly what the instruction does, from every state
+it's live at, and a loaded state for each start. The interface has to meet four clauses.
+(A) \emph{Computing can't reach the record, and the record stays.} No computing move changes the
+record, and a record that's up stays up under every move.
+(B) \emph{Starts are blank.} Every loaded state has the record down.
+(C) \emph{Computing is free on the ledger, marks cost one.} Computing moves cost 0, every other
+move costs exactly 1, and each move adds its cost to the ledger.
+(D) \emph{The record tells starts apart.} Some run, the same list of moves, ends with the record
+up from one loaded state and down from another.
+\end{definition}
+
+Read the clauses as four plain sentences. (A) The machine computes anything a Turing machine can,
+and the computing never touches what's kept. (B) Nothing is kept before the run starts. (C) The
+ledger counts the marks, and only the marks. (D) What's kept depends on where you started: there's
+a run whose record says something about its start.
+
+(D) is where distinction lives. A record that goes up on every run from every start keeps a
+before and an after, and nothing about where the run began. (D) doesn't ask that every raise tell
+starts apart. It asks that the machine can. A machine may have a mark that raises the record from
+any state at all; it pays one for it, like every raise, and (D) is still met by some other run.
+Which runs a machine wants its record to tell apart is its own choice, and Part~III makes one.
+
+The name echoes Turing-complete, but this is a specification a machine meets, not a class closed
+under simulation: a machine is held up against it through an interface, and changing the unit of
+price drops a machine out.
+
+\begin{theorem}[What every Thiele-complete machine has]\label{thm:tc-has}
+Let a machine be Thiele-complete through an interface. (1) It obeys the toll, and the move that
+raises its record is a mark, never a computing move, and costs exactly one. (2) Along any run, the
+ledger rises by exactly the number of marks in it. (3) From any state with the record down, every
+run that ends with the record up raises the ledger by at least 1. (4) Some run from some loaded
+state raises the record. (5) Every move costs 0 or 1, and some move costs 0. (6) Its base runs
+every two-counter program step for step from every live state, and halting from a loaded state
+matches halting from the configuration it shows.
+\end{theorem}
+
+\begin{proof}
+(1) If a computing move raised the record it would change it, against (A); so the raising move is
+a mark, and a mark costs one by (C). (2) is (C) added up along the run. (3) Somewhere along the run
+the record goes from down to up, and that move is a mark, by (1), so it adds one. (4) is (D), and by (B) the record started down. (5)
+Every move is a computing move or a mark, and (A) supplies computing moves. (6) is (A), one
+instruction at a time.
+\end{proof}
+
+The floor is one, and one is reached: the lift below gives a machine whose record goes up after a
+single mark.
+
+\begin{observation}[A clock is a Thiele machine and isn't Thiele-complete]\label{obs:tc-clock}
+Take the two-counter machine, let every move cost 1, and take as the record any yes/no question
+about its configuration; or a flag that switches on, and stays on, the first time a chosen test of
+the configuration says yes. It obeys the toll and has a two-counter machine inside it, and it isn't
+Thiele-complete. No machine whose every move costs at least 1 is.
+\end{observation}
+
+\begin{proof}
+A Thiele-complete machine has a move priced 0, by Theorem~\ref{thm:tc-has}(5), and this one has
+none.
+\end{proof}
+
+A machine whose record is down at every state obeys the toll and meets (A), (B) and (C), and isn't
+Thiele-complete either: (D) asks for a run that raises the record.
+
+\begin{theorem}[Each clause does work]\label{thm:tc-clauses}
+For each clause there's a machine that meets the other three through some interface and is
+Thiele-complete through none. (A) fails: the two counters with a mark that raises the record when
+$A$ is 0, and one more free move that puts the record back down. (B) fails: the two counters with
+a record that no move ever changes, up at the starts where $A$ is 0 and down elsewhere. (C) fails:
+the two counters with that mark, every move priced 1. (D) fails: the two counters with a record
+that's always down.
+\end{theorem}
+
+\begin{proof}
+Each machine meets the three by construction. The first fails (A) through every interface, because
+a move lowers the record, so the record doesn't stay. The second: every one of its moves costs 0,
+so (C) makes every move a computing move under any interface; then by (A) no run changes the
+record, and with every start blank by (B) no run raises it, so (D) fails. The third has no move
+priced 0, so it fails by Observation~\ref{obs:tc-clock}. The fourth never raises its record.
+\end{proof}
+
+\begin{theorem}[The record can't be read off the window]\label{thm:tc-window}
+Let a machine be Thiele-complete through an interface. (1) Every configuration is shown, at no
+cost, with the record down, by one computing move from some loaded state. (2) Some loaded state
+has two runs that end on the same window, one with the record up and one with it down, and their
+ledgers differ by at least 1. (3) So no rule that reads only the window says, at the end of every
+run from every loaded state, whether the record is up, and none says what the ledger reads.
+\end{theorem}
+
+\begin{proof}
+(1) From the loaded state $(1, x+1, y)$, the computing move ``DEC $A$ to line $p$'' shows
+$(p, x, y)$, costs nothing by (C), and leaves the record down by (A) and (B). (2) Take the run (D)
+gives, from the loaded state where it raises the record. Its end shows some configuration. From
+the same loaded state, computing moves alone reach any configuration at all: count each counter
+down to zero, count it up to the value wanted, and jump to the line wanted. That run ends on the
+same window, and it's all computing, so by (A) and (B) its record is still down and by (C) its
+ledger hasn't moved, while the first run's ledger went up by at least one, at its raise. (3) A rule
+that reads the window gives one answer for one window, and (2) has one window with two answers.
+\end{proof}
+
+Part~III proves the same blindness for its certified machines (Observation~\ref{thm:u34-tc-window}),
+with a gap of three marks, because a certified raise costs three. Here the gap is one, and one is
+reached.
+
+\begin{theorem}[Every universal base becomes Thiele-complete]\label{thm:tc-lift}
+Take any machine with a universal base and any events on its states, and add, for each event, a
+mark that costs one and raises a record exactly when the event holds; computing moves cost nothing
+and leave the record alone. If some run of computing moves makes some event hold from one loaded
+state and not from another, the result is Thiele-complete, its computing is the original machine's
+step for step, and its record goes up after a single mark from any state where the event already
+holds.
+\end{theorem}
+
+\begin{proof}
+(A): computing moves are the original's and don't touch the record, and a mark only adds to it.
+(B): the record starts down. (C): by construction. (D): run the moves that make the event hold
+from one loaded state and not the other, then the event's mark. Step for step: a computing move
+acts on the original part and nothing else. And a mark from a state where its event holds puts the
+record up.
+\end{proof}
+
+One mark on ``$A$ is at least 1'' always works: the starts with $A$ at 0 and at 1 already differ
+on it, so that mark alone, run from each, tells them apart. So Thiele-complete isn't a property only a special
+machine has. Any model of computation that can run every program becomes Thiele-complete by adding
+marks, and needs no claims and no checker to do it. Two kinds of base don't lift, whatever the
+events: one whose moves don't depend on the state it's in, and one whose moves lead from each state
+to only finitely many next states. A universal base needs, from one state, a free move to every
+line of a program, and that's infinitely many places to go.
+
+A Thiele-complete machine can also run every other one. Appendix~\ref{sec:universal-machines}
+defines a \emph{universal Thiele machine} and builds hosts that run any machine a program can
+describe, in order, matching its record and its ledger up to a fixed surcharge, with every
+computing step done by counter moves on the host and every rise of the host's record placed by its
+program. None of that needs certification: the presented host's own program, read on a host with
+no claims, no checker and no table of facts, meets the definition too.
+
+This is the bar the rest of the book holds machines to. Part~III builds one machine that clears it,
+and asks for more: that its record go up only on a claim that was checked and could have failed.
+That's a choice of event, the second free choice of the latch, made one way.
 
 %===========================================================================
 \section{The whole direction}
@@ -9228,8 +9411,9 @@ kept 0 and at what it cost. It starts with what \emph{established} means, and wh
 with the same bits can differ in it. Then it builds a machine for it: an ordinary computer of two
 counters, with a record layer on top whose flag is the blank cell, six kinds of instruction in all. The
 step that raises the flag is the write of a 0, a merge in the record layer, and that's why it's
-charged; the order the step enforces, check, then commit, then certify, is why a raised flag means
-something. Then how far the machine reaches, the real systems that already put a price on a write,
+charged; the order the step enforces, check, then commit, then certify, is what makes this
+record's raise mean a claim held. That's certification, and it's the layer this part adds to the bar
+Part~II set. Then how far the machine reaches, the real systems that already put a price on a write,
 the thesis about which kept distinction is worth paying for, and what the machine's counter has to do
 with heat. The ordinary computer's own steps merge too (counting a counter down lands two states on
 one), and like every step that changes something they dissipate when they happen; the ledger leaves them alone.
@@ -10149,14 +10333,16 @@ Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine
 particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
 on a sheet of paper counts. That first bar is low, and I'd rather you hear it from me. A machine
 that charges one mark for every step it takes, whatever the step does, obeys the toll for any
-record you like; a clock is enough to make something a Thiele machine. So the small machine of the
-next chapter is held to a higher bar, \emph{Thiele-complete}: the machine under the record computes
-anything a Turing machine can (under an encoding done outside the machine), at no cost in marks and
-without touching the record; a record that goes up stays up; from a clean start the record goes up
-only after a passing check of a claim, by a checker proved to mean what the claim says, then a
+record you like; a clock is enough to make something a Thiele machine. Section~\ref{sec:complete}
+set the bar for every machine, \emph{Thiele-complete}: the machine under the record computes anything
+a Turing machine can (under an encoding done outside the machine), at no cost in marks and without
+touching the record; a record that goes up stays up; starts are blank; and some run's record tells
+two starts apart. A clock fails that, because it charges for computing, and so does a machine whose
+record never goes up. The small machine of the next chapter is held to a higher one,
+\emph{certified Thiele-complete}: on top of all that, from a clean start the record goes up only
+after a passing check of a claim, by a checker proved to mean what the claim says, then a
 commitment to that same claim, then a certificate, one mark each; and some claim's check can come
-out either way. A clock fails that, because it charges for computing, and so does a machine whose
-record never goes up. A \emph{universal} Thiele machine runs any machine of a stated class as a
+out either way. A \emph{universal} Thiele machine runs any machine of a stated class as a
 guest and earns each guest's record again with its own steps. The end of this chapter pins every
 one of these words down (Section~\ref{sec:layers}).
 
@@ -10283,7 +10469,7 @@ machine under its record
 computes without it. The book proves that over any machine at all, a base-driven record is a switch the machine's own
 events flip once and nothing flips back (Section~\ref{sec:latch}); it watches the computing and adds nothing to it. That's
 a sentence about the record. The checker belongs to the machine under it, and the definition of
-Thiele-complete doesn't ask the checker to be a program. Hand it a checker that knows which
+certified Thiele-complete doesn't ask the checker to be a program. Hand it a checker that knows which
 programs halt, and whether a CHECK of ``this program halts'' passes tells you whether it does, so
 that machine decides halting (Section~\ref{sec:smallest} has the details). With a checker that is a program, as
 every checker in this book is, nothing in the machine goes past what a program can do. The record
@@ -10316,7 +10502,7 @@ machine does. The theorems are about that program: it halts exactly when its gue
 guest's answer in its counters; its flag goes up at some step of its run exactly when the guest's
 goes up at some step of the guest's, by its own check, its own commit and its own certificate; its
 ledger equals the guest's at every point where the two runs match; and the machine it runs on is
-Thiele-complete (Appendix~\ref{sec:universal-host}). Its guests are the small machine's programs,
+certified Thiele-complete (Appendix~\ref{sec:universal-host}). Its guests are the small machine's programs,
 from every clean start, and those programs compute everything a Turing machine can, under
 Minsky's encoding. Add one move that pays a mark and does nothing else,
 and the same kind of program runs every Thiele machine
@@ -10333,7 +10519,9 @@ machine: states, moves, a step, a cost for each move, a yes-or-no reading, and t
 else is added on top, and each theorem names what it adds. First come extra structures and
 requirements: a ledger that sums the costs, a window, permanence of the reading, a price on
 merges. Then an earned implementation, the small machine of the next chapter, with a checker proved sound
-and a provenance theorem. Then an interface, Thiele-complete, that any machine can be read through.
+and a provenance theorem. Then two interfaces any machine can be read through: Thiele-complete,
+about computing and a record that tells starts apart, and certified Thiele-complete, which adds the
+earned chain.
 Then a universal interpreter for a stated class of guests. The bare definition doesn't ask the step
 to be computable, so when I say the record adds no computing power, I mean relative to a fixed
 base.
@@ -10399,7 +10587,12 @@ machine is \emph{weakly} Thiele-complete when a two-counter machine runs inside 
 asked of its record, and that bar is
 nearly empty: a machine that charges one for every step is a Thiele machine for any record, so a
 clock bolted to a computer clears it, and so does a machine whose record never rises. So
-\emph{Thiele-complete} asks for four things (Definition~\ref{def:u34-thiele-complete}). A
+\emph{Thiele-complete} asks for four things that say nothing about what the record is about
+(Definition~\ref{def:thiele-complete}): computing that runs every program, costs no marks and
+can't touch the record; a record that stays; blank starts; and some run whose record tells two
+starts apart. \emph{Certified Thiele-complete} asks for four things of its own
+(Definition~\ref{def:u34-thiele-complete}), and it is exactly Thiele-complete with three of them
+added (Theorem~\ref{thm:tc-decomposition}). A
 universal base whose moves can't touch the record, and a record that stays up once it's up. A record that, from a clean start, rises
 only after a
 passing check of a claim, then a commitment to that same claim with nothing it's about changed in
@@ -10413,7 +10606,7 @@ record, and every machine that meets the definition hides its record and its led
 That's about an observer who sees only where a run ended; one who also has the program and the
 start can work both out.
 None of the four clauses is there for decoration: for each one there's a machine that meets the other three and fails it, each of them a
-weakly Thiele-complete machine that no interface makes Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
+weakly Thiele-complete machine that no interface makes certified Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
 meets it, and so does the same machine over any properties with an exact test for telling two of
 them apart and a proved checker, as long as one of them can come out both ways, sorted lists
 included. A
@@ -10528,6 +10721,7 @@ could find to do it. I'll show you the pieces, then the proofs, then the places 
 short, which there are, and which I'd rather you hear from me.
 
 \subsection{Where the counters come from}
+\label{sec:counters-origin}
 
 The base first, and the base isn't mine. It's Marvin Minsky's. In a 1961 paper in the
 \emph{Annals of Mathematics}, and then in his 1967 book \emph{Computation: Finite and Infinite
@@ -11387,7 +11581,7 @@ defined a checker for a computational problem: given a program and an input, it 
 program as it likes, and it must say ``correct'' with high probability when the program is right
 everywhere and ``buggy'' with high probability when its answer on that input is wrong. A checker
 that always says ``correct'' isn't one. Here the checker is fixed, deterministic and proved sound
-once, and the part of their demand that survives is the fourth clause of Thiele-complete (Definition~\ref{def:u34-thiele-complete} below): some claim whose check can fail.
+once, and the part of their demand that survives is the fourth clause of certified Thiele-complete (Definition~\ref{def:u34-thiele-complete} below): some claim whose check can fail.
 
 \subsection{Nothing gets forged}
 
@@ -11619,25 +11813,21 @@ flag that's a latch of the base, a window that can't see the record, and, from a
 happen unless a check of the same claim,
 on the same edition, came first and was right.
 
-\subsection{What it takes to be Thiele-complete}
+\subsection{What it takes to be certified}
+\label{sec:certified}
 
-The last chapter named Thiele-complete; here is the definition, with its teeth. First,
-why it needs teeth. The easy definition goes: a Thiele machine is Thiele-complete when its base
-can compute anything a Turing machine can (under Minsky's $2^n$ encoding, done outside the
-machine). It looks fine, and it's nearly empty. Take Minsky's
-two-counter machine, charge one mark for every move, and pick any yes-or-no question about its
-configuration as the record. Every move costs one, so every move that raises the record costs
-one, so it obeys the toll. That's a Thiele machine with a two-counter machine running inside it: a clock bolted to a
-computer. A machine whose record never goes up passes too, since a toll on a raise that never
-happens is never broken. Neither one earns anything, and a name both of them get without trying
-isn't saying much.
+Section~\ref{sec:complete} set the bar every machine in this book is held to, Thiele-complete,
+and it says nothing about what the record is about. A clock fails it, and so does a machine whose
+record never goes up. The small machine clears it (Theorem~\ref{thm:u34-tc-instances} below), and
+it does more: its flag goes up only on top of a check of a claim, by a checker proved to mean what
+the claim says, then a commitment to the same claim with nothing changed underneath, then a
+certificate. A Thiele-complete machine can raise its record with one mark that goes up from any
+state at all, a receipt for nothing (Section~\ref{sec:established}). A certified one can't. So
+here's the second definition, the first one with three things added, written so that any machine
+can be held up against it. You name a language of claims first, then hand over a reading of the
+machine in that language, a list of things, and then the reading has to pass four clauses.
 
-So the definition below asks for what the small machine actually does, written so that any
-machine at all can be held up against it. You name a language of claims first, then hand over a
-reading of the machine in that language, a list of things, and then the reading has to pass four
-clauses.
-
-\begin{definition}[Thiele-complete]\label{def:u34-thiele-complete}
+\begin{definition}[Certified Thiele-complete]\label{def:u34-thiele-complete}
 A \emph{machine} has states, moves, a step, a cost for each move and a yes/no reading of each
 state, the \emph{record}. A \emph{claim language} for it is fixed first: a type of \emph{claims}
 with an exact equality test; a \emph{meaning} for each claim, a statement about a state; for each
@@ -11649,8 +11839,8 @@ states, a move for each two-counter instruction, and a loaded state for each sta
 a \emph{checker} that says yes or no to a claim at a state, with a proof that a yes means the
 claim's meaning, as the language gives it, holds of that state; a set of \emph{clean} states; a
 \emph{ledger}, a whole number for each state; and a \emph{kind} for each move: a base move, CHECK
-of a claim, COMMIT of a claim, or CERTIFY. The machine is \emph{Thiele-complete over} the language
-when some interface over it meets four clauses, and \emph{Thiele-complete} when some interface,
+of a claim, COMMIT of a claim, or CERTIFY. The machine is \emph{certified Thiele-complete over} the language
+when some interface over it meets four clauses, and \emph{certified Thiele-complete} when some interface,
 with claims, meanings and ``unchanged'' of its own, meets them.
 (a) \emph{Universal base.} Each two-counter instruction's move is a base move; from every live
 state it acts on the window exactly as the instruction acts on a configuration, and the state
@@ -11676,12 +11866,39 @@ loaded state showing it. Nothing is asked about the record, the prices or the ch
 An interface over a language becomes an interface
 of the plain kind by taking the language's claims, meanings and ``unchanged'' as its own, and the four clauses are asked of that.
 
+\begin{theorem}[Certified is Thiele-complete plus certification]\label{thm:tc-decomposition}
+(1) A machine is certified Thiele-complete through an interface exactly when it is Thiele-complete
+through the same interface read without its claims (its base moves as the computing moves, CHECK,
+COMMIT and CERTIFY as the marks, the same universal base and ledger), and three more things hold:
+its loaded states are clean; clause (b) holds, so clean states have the record down and every run
+from a clean state that ends with the record up contains the earned chain; and clause (d) holds,
+a claim whose three moves raise the record from a loaded state exactly when it holds there, true
+at one loaded state and false at another. (2) Every certified Thiele-complete machine is
+Thiele-complete. (3) Not the other way: the two counters with a mark that raises the record when
+$A$ is 0 is Thiele-complete, and certified Thiele-complete through no interface.
+\end{theorem}
+
+\begin{proof}
+(1) Clause (a) is (A) together with ``loaded states are clean''. Clause (c) is (C), with the three
+record kinds as the marks. Clause (b) says clean states have the record down, which with clean
+loads gives (B), and it gives the earned chain. Clause (d) gives (D): the claim's three moves end
+with the record up from the loaded state where it holds and down from the one where it fails.
+Going back, the same pieces put the four clauses together again. (2) is (1) read left to right.
+(3) That machine raises its record with one mark from a loaded state, and a certified raise from a
+clean state takes three (Theorem~\ref{thm:u34-tc-consequences}(3)).
+\end{proof}
+
+So certification is exactly three things on top of the bar: clean starts, the earned chain, and a
+claim that could have come out either way. Everything Section~\ref{sec:complete} proved holds of
+every certified machine. What this section adds is what those three things buy: a floor of three
+instead of one, a raise that is always a CERTIFY, a check that can fail, and no receipt for nothing.
+
 Why the language comes first. If the interface could name the meanings, it could take ``the
 checker says yes'' as the meaning of every claim, and checker soundness would hold for nothing. In
 the language-first form the meanings are written down before any checker is handed over, so ``a
 checker proved to mean what it says'' has the content it has on the small machine: what the claim
 says is the language's, and the proof is that a yes from the checker makes it true. The theorems
-that build Thiele-complete machines ask the checker for one thing more, that it say yes exactly when
+that build certified Thiele-complete machines ask the checker for one thing more, that it say yes exactly when
 the claim holds, because clause (d) needs a check that can come out yes. The plain form
 stays because the theorems that follow hold for any interface at all, so they hold over every
 language too.
@@ -11709,7 +11926,7 @@ every claim at every state, sound for the claim's meaning, and nothing in it say
 to be computable. Every instance in this book has a checker that's an actual program, so anything
 those machines certify could be listed by a program that runs them. For example, take a function that answers whether an arbitrary program runs forever.
 No program computes it (that's Turing's halting theorem). Hand the definition a checker built on it and it's still met, and the machine certifies claims no program could ever confirm. Nothing
-in this book builds one. So ``a Thiele-complete machine certifies
+in this book builds one. So ``a certified Thiele-complete machine certifies
 exactly the claims a program could list'' is true only with ``and its checker is computable''
 added, and the definition doesn't require that.
 
@@ -11739,7 +11956,7 @@ name. \emph{Rise-only pricing} charges at least one mark on every step that rais
 nothing on any other step; its tightest bill, one mark per raise and nothing else, is the
 \emph{exact schedule}. \emph{Instruction-exact pricing} charges every instruction a fixed listed
 price. On this machine that's one mark each for CHECK, COMMIT and CERTIFY and
-nothing for the rest, and the definition of Thiele-complete calls it \emph{exact prices}, not a toll, because it charges acts that raise nothing. CHECK
+nothing for the rest, and the definition of certified Thiele-complete calls it \emph{exact prices}, not a toll, because it charges acts that raise nothing. CHECK
 and COMMIT raise no flag, so the small machine is instruction-exact without being rise-only, and
 no rule is broken by that. \emph{Simulation-exact accounting} is a host whose ledger equals its
 guest's ledger at every point where the two runs match, as the universal program $U$'s does (Appendix~\ref{sec:universal-host}). A
@@ -11758,8 +11975,8 @@ asks, it is instruction-exact. Neither is wrong. They answer different questions
 count the acts, or does it charge the flag and only the flag? Simulation-exact accounting, the
 third name, comes up with the universal program $U$ in Appendix~\ref{sec:universal-host}.
 
-\begin{theorem}[What every Thiele-complete machine has]\label{thm:u34-tc-consequences}
-Let a machine be Thiele-complete through an interface. (1) It obeys the toll and has a
+\begin{theorem}[What every certified Thiele-complete machine has]\label{thm:u34-tc-consequences}
+Let a machine be certified Thiele-complete through an interface. (1) It obeys the toll and has a
 universal base, so it's weakly Thiele-complete; its base runs every two-counter program step
 for step from every live state,
 and halting from a loaded state matches halting from the configuration it shows. (2) Along any run, the ledger rises by exactly the number of
@@ -11785,11 +12002,11 @@ CERTIFY is the move.
 \end{proof}
 
 \begin{theorem}[The language first, and what a certificate then means]\label{thm:u34-tc-over}
-(1) A machine that is Thiele-complete over some claim language is Thiele-complete, so every part
-of Theorem~\ref{thm:u34-tc-consequences} holds of it. (2) If a machine is Thiele-complete through
-an interface whose claims have an exact equality test, it is Thiele-complete over the language
+(1) A machine that is certified Thiele-complete over some claim language is certified Thiele-complete, so every part
+of Theorem~\ref{thm:u34-tc-consequences} holds of it. (2) If a machine is certified Thiele-complete through
+an interface whose claims have an exact equality test, it is certified Thiele-complete over the language
 made of that interface's claims, meanings and ``unchanged,'' with clause (b)'s proof that a
-meaning keeps holding as the language's own. (3) If a machine is Thiele-complete over a claim
+meaning keeps holding as the language's own. (3) If a machine is certified Thiele-complete over a claim
 language $L$, some interface over $L$ meets the four clauses and has this property: every run
 from one of its clean states that ends with the record up contains a CHECK of a claim $c$ of $L$
 that passed, then a COMMIT of $c$, and $L$'s meaning of $c$ holds at the state the CHECK
@@ -11806,12 +12023,12 @@ committed.
 
 Part (2) says where the strength of the language-first form lives: in the naming. Any reading can
 be turned into a language when its claims come with an exact equality test, so for those
-``Thiele-complete over some language'' asks no more than Thiele-complete does. ``Thiele-complete over $L$,'' for an $L$ written down without looking at
+``certified Thiele-complete over some language'' asks no more than certified Thiele-complete does. ``certified Thiele-complete over $L$,'' for an $L$ written down without looking at
 the checker, says that what the machine certifies is what $L$ says. Every instance below is
 stated that way.
 
 Each item in the proof names the clause it comes from, and that's all the definition gives.
-A Thiele-complete machine needn't have a fact table, a CHECK that traps when it fails, a COMMIT
+A certified Thiele-complete machine needn't have a fact table, a CHECK that traps when it fails, a COMMIT
 that looks anything up, or claims about counters. The definition asks for an earned chain on the
 runs that raise the record and leaves the rest to the machine. So the small machine's table
 provenance, its trap, and its channel are facts about that machine, and they don't carry over to
@@ -11826,18 +12043,18 @@ fact once and then commits it again before every instruction runs any two-counte
 flag down and pays exactly one mark a step: the checked fact is about a counter the program never
 writes, so its edition never changes, and every COMMIT finds it.
 
-\begin{observation}[A clock is a Thiele machine and isn't Thiele-complete]\label{thm:u34-clock}
+\begin{observation}[A clock is a Thiele machine and isn't certified Thiele-complete]\label{thm:u34-clock}
 Take the two-counter machine, let every move cost 1, and take as the record any yes/no
 question about its configuration whatsoever; or take a flag that switches on, and stays on, the
 first time any chosen test of the configuration says yes. Either way the machine obeys the toll
-and has a two-counter machine running inside it, so it's weakly Thiele-complete, and it is not Thiele-complete. More
-generally, no machine whose every move costs at least 1 is Thiele-complete.
+and has a two-counter machine running inside it, so it's weakly Thiele-complete, and it is not certified Thiele-complete. More
+generally, no machine whose every move costs at least 1 is certified Thiele-complete.
 \end{observation}
 
 \begin{proof}
 Every move costs one, so any raise costs at least one: the toll holds for any record. The
 machine's own moves are the two-counter instructions, which gives the universal base. But a
-Thiele-complete machine has a move priced 0, by Theorem~\ref{thm:u34-tc-consequences}(6), and this
+certified Thiele-complete machine has a move priced 0, by Theorem~\ref{thm:u34-tc-consequences}(6), and this
 one has none.
 \end{proof}
 
@@ -11849,10 +12066,10 @@ definition hiding something.
 \begin{theorem}[Each clause does work]\label{thm:u34-tc-clauses}
 (1) Take a two-counter base priced 0 with a ledger beside it, and one extra move TICK that costs 1
 and raises a flag. It obeys the toll, and read with TICK as CERTIFY it meets the universal base
-clause and the exact prices clause; it is not Thiele-complete, and more generally no machine with a
+clause and the exact prices clause; it is not certified Thiele-complete, and more generally no machine with a
 move that puts the record up from every state is. (2) Take a two-counter base priced 0 and a record
 that is down at every state, so it never rises. It obeys the toll and meets clauses (a), (b) and (c); it is not
-Thiele-complete, and more generally no machine whose record never rises is.
+certified Thiele-complete, and more generally no machine whose record never rises is.
 \end{theorem}
 
 \begin{proof}
@@ -11877,7 +12094,7 @@ around one machine: for each clause, a machine that meets the other three and fa
 \begin{theorem}[The four clauses are independent]\label{thm:tc-independent}
 For each clause of Definition~\ref{def:u34-thiele-complete} there is a machine with an interface
 that meets the other three clauses and fails that one. Each of the four machines obeys the toll and
-has a two-counter machine running inside it, so it's weakly Thiele-complete, and none of them is Thiele-complete through
+has a two-counter machine running inside it, so it's weakly Thiele-complete, and none of them is certified Thiele-complete through
 any interface at all. (a) fails for this chapter's machine with one more move, DROP, priced 0 and read
 as a base move, which lowers the flag and trips the trap latch. (b) fails for this chapter's
 machine with one more move, FORGE, costing one and read as a CERTIFY, which raises the flag on any
@@ -11897,7 +12114,7 @@ one move has no room for a CHECK, a COMMIT and a CERTIFY. Through any interface:
 loaded state from which the record rises, so its trap is down; (a) makes that state clean, so its
 record is down by (b); and FORGE alone raises it, which (b) forbids. (c) Clauses (a), (b) and (d)
 never mention a price, and they hold as for the plain machine. Base moves cost one, so (c) fails,
-and every Thiele-complete machine has a move priced 0 (Theorem~\ref{thm:u34-tc-consequences}(6)). (d)
+and every certified Thiele-complete machine has a move priced 0 (Theorem~\ref{thm:u34-tc-consequences}(6)). (d)
 is Theorem~\ref{thm:u34-tc-clauses}(2).
 \end{proof}
 
@@ -11910,20 +12127,20 @@ one. A definition that a change of currency breaks would be a strange one, so he
 the unit left open.
 
 \begin{theorem}[Any unit]\label{thm:u34-tc-unit}
-Call a machine \emph{Thiele-complete at unit $c$}, for a whole number $c \ge 1$, when some
+Call a machine \emph{certified Thiele-complete at unit $c$}, for a whole number $c \ge 1$, when some
 interface meets clauses (a), (b) and (d) and this form of (c): base moves cost 0, each CHECK,
 COMMIT and CERTIFY costs exactly $c$, and each move adds its cost to the ledger. (1) At unit 1
-that is Thiele-complete. (2) Multiply every price of a Thiele-complete machine by $c \ge 1$ and the
-machine is Thiele-complete at unit $c$; divide every price of a machine Thiele-complete at unit
-$c$ by $c$ and the machine, with the same states, moves, step and record, is Thiele-complete,
+that is certified Thiele-complete. (2) Multiply every price of a certified Thiele-complete machine by $c \ge 1$ and the
+machine is certified Thiele-complete at unit $c$; divide every price of a machine certified Thiele-complete at unit
+$c$ by $c$ and the machine, with the same states, moves, step and record, is certified Thiele-complete,
 with the ledger read as $\lfloor\ell/c\rfloor$.
 (3) At every unit some move costs 0, so the clock of Observation~\ref{thm:u34-clock}, with any reading
-or any latch as its record, is Thiele-complete at no unit, and neither is any machine whose every
+or any latch as its record, is certified Thiele-complete at no unit, and neither is any machine whose every
 move costs at least 1. (4) At unit $c$, a run from a clean state that ends with the record up
 contains a CHECK, a COMMIT and a CERTIFY and raises the ledger by at least $3c$; the claim it
 stands on held when it was checked and still held when it was committed; and the move that raises
-the record is a CERTIFY. (5) The small machine with every price doubled is Thiele-complete at unit 2
-and isn't Thiele-complete.
+the record is a CERTIFY. (5) The small machine with every price doubled is certified Thiele-complete at unit 2
+and isn't certified Thiele-complete.
 \end{theorem}
 
 \begin{proof}
@@ -11935,7 +12152,7 @@ numbers, so the new ledger is a whole number and still adds each divided price.
 0 at every unit. (4) Clause (b) finds the three
 acts in the run as before, and each costs $c$. The other two parts are the unit-1 results on the
 divided machine, which runs exactly as this one does. (5) is (2) with $c = 2$, and the doubled
-machine has a CHECK that costs 2, which no Thiele-complete machine has
+machine has a CHECK that costs 2, which no certified Thiele-complete machine has
 (Theorem~\ref{thm:u34-tc-consequences}(6)).
 \end{proof}
 
@@ -11946,19 +12163,19 @@ way and every count in this chapter is in its marks.
 
 Now the other direction. A definition nobody meets is as useless as one everybody meets.
 
-\begin{theorem}[The small machine, the generic one and the sorted one are Thiele-complete]\label{thm:u34-tc-instances}
-(1) This chapter's machine is Thiele-complete, read with INC, DEC and HALT as base moves, CHECK $p$ $c$
+\begin{theorem}[The small machine, the generic one and the sorted one are certified Thiele-complete]\label{thm:u34-tc-instances}
+(1) This chapter's machine is certified Thiele-complete, read with INC, DEC and HALT as base moves, CHECK $p$ $c$
 and COMMIT $p$ $c$ as record moves on the claim ``$p$ holds of $c$,'' CERTIFY as CERTIFY, the
 window as (line, $A$, $B$), live states as those with the trap down, $\mathrm{start}(a, b)$ as
 the loaded state for $(1, a, b)$, ``unchanged'' as ``same value and same version of $c$,'' clean
 states as in Definition~\ref{def:u34-state} and the ledger as $\mu$. (2) So is the same machine over any property
 language with an exact equality test and a checker proved to say yes exactly when the claim holds, as long as some
 property is true of one number and false of another. (3) In particular the machine whose
-property is ``this counter, read as a list, is sorted'' is Thiele-complete. (4) Every
-Thiele-complete machine is a Thiele machine (Definition~\ref{def:certsys}) and obeys the
+property is ``this counter, read as a list, is sorted'' is certified Thiele-complete. (4) Every
+certified Thiele-complete machine is a Thiele machine (Definition~\ref{def:certsys}) and obeys the
 universal floor; for this chapter's machine, that system agrees step for step and cost for
 cost with the one of Theorem~\ref{thm:u34-instance}, and for the generic machine with the
-generic machine's own. (5) Each of the three is Thiele-complete over its own claim language,
+generic machine's own. (5) Each of the three is certified Thiele-complete over its own claim language,
 fixed before the checker. For this chapter's machine the language's claims are pairs of a
 property and a counter, equal when both parts are, the meaning of ``$p$ holds of $c$'' is the
 meaning $\mathrm{holds}$ of Definition~\ref{def:u34-props} applied to $c$'s value, written
@@ -11994,8 +12211,8 @@ And here's the thing every machine that meets the definition can't help doing. I
 Section~\ref{sec:windows}'s shape again, only this time it isn't about one machine. It's about all of
 them.
 
-\begin{observation}[Every Thiele-complete machine hides its record and its ledger from its window]\label{thm:u34-tc-window}
-Let a machine be Thiele-complete through an interface, and let its window be the two-counter
+\begin{observation}[Every certified Thiele-complete machine hides its record and its ledger from its window]\label{thm:u34-tc-window}
+Let a machine be certified Thiele-complete through an interface, and let its window be the two-counter
 configuration its universal base shows. (1) For every state $s$ there's a loaded state and one
 base move priced 0 from it that lands on a state with $s$'s window, with the record down and the
 ledger unchanged. (2) There's a loaded state and two runs from it that end with the same window,
@@ -12028,7 +12245,7 @@ doesn't say the window tells you nothing about it.
 Notice how little that took, and say it out loud so nobody mistakes it for more. It's the fibre
 fact from Section~\ref{sec:windows} plus one observation: a universal base can print any window
 for no marks. Which is the point. The window here is everything a Turing machine would call the
-machine, the line and the counters. On a Thiele-complete machine, that's never enough to tell you
+machine, the line and the counters. On a certified Thiele-complete machine, that's never enough to tell you
 what was established or what it cost, and it can't be, because computing costs no marks and can't touch
 the record. A richer window, one that shows the flag, is a different window, and nothing above
 says it fails.
@@ -12141,7 +12358,7 @@ Parts I and II proved their counts and their collisions for any system with the 
 and they left a promise: that the machine of this part would be put through them. Here it is. The eight-state
 machine of Section~\ref{sec:a2-not-arbitrary} gets run by the small machine, price for price.
 Structural entitlement, the count of what narrowing a list of rivals costs, is proved for every
-Thiele-complete machine, with the small machine as a worked member, a larger search on the host
+certified Thiele-complete machine, with the small machine as a worked member, a larger search on the host
 that has a counter for every number, and a run that shows the count's one awkward hypothesis, the
 covering, can't be dropped. And the time a check saves gets an exact exchange rate, for the part
 of the machine that has no record. (The no-bare-verifier result is in Section~\ref{sec:windows},
@@ -12151,7 +12368,7 @@ next to the collision it comes from.)
 window that shows two things: its line number read modulo four, which I'll call its \emph{slot} (the
 eight-state machine's word from Section~\ref{sec:a2-not-arbitrary}, unrelated to the slot registers of the universal program $U$ in Appendix~\ref{sec:universal-host}),
 and its flag. Call a state \emph{live} here, a narrower use of the word than in the definition of
-Thiele-complete, when its trap latch is down, the fact ``$A \ge 0$'' about
+certified Thiele-complete, when its trap latch is down, the fact ``$A \ge 0$'' about
 $A$'s current version is in its table, and its channel holds a commitment, which is what CERTIFY
 needs in order to run.
 
@@ -12226,14 +12443,14 @@ is a piece. The record layer closes the rest: asked only of merges between state
 line and counters, the merge premise holds for this machine's own prices and forces the toll on
 it with no finiteness premise (Theorem~\ref{thm:record-merge-toll}).
 
-\textbf{Structural entitlement, for every Thiele-complete machine.} Theorem~\ref{thm:ent-cs} was
-about any Thiele machine and handed the run's payments in as a bill. For a Thiele-complete
+\textbf{Structural entitlement, for every certified Thiele-complete machine.} Theorem~\ref{thm:ent-cs} was
+about any Thiele machine and handed the run's payments in as a bill. For a certified Thiele-complete
 machine (Definition~\ref{def:u34-thiele-complete}) the bill is known. Call the CHECK, COMMIT and
 CERTIFY moves of a run its \emph{record moves}; each costs exactly one, so the ledger rises by the
 number of record moves, and clause (b) says what a raised record must contain.
 
 \begin{theorem}[Structural entitlement represented]\label{thm:ent-machine}
-Let a machine be Thiele-complete through an interface. Take a clean start $s_0$ and a run $t$ from
+Let a machine be certified Thiele-complete through an interface. Take a clean start $s_0$ and a run $t$ from
 it; a type of rivals and a type of observations with an exact equality test; an observation
 $\mathrm{obs}$ of each rival; a decoder $d$ from runs to
 observations; lists $\Omega$, $\Omega'$ of rivals and a decision tree $T$. Suppose
@@ -12296,7 +12513,7 @@ have started from; a CHECK the run passed is asked of a rival by running the mov
 the rival and checking the same claim at the state that reaches. Nothing is supplied but the prior.
 
 \begin{theorem}[Structural entitlement, with the narrowing made by the run]\label{thm:ent-run-machine}
-Let a machine be Thiele-complete through an interface. Take a clean start $s_0$, a run $t$ from it
+Let a machine be certified Thiele-complete through an interface. Take a clean start $s_0$, a run $t$ from it
 that ends with the record up, and a list $\Omega$ of rival starts that contains $s_0$. Let the
 posterior $\Omega'$ be the rivals that pass every CHECK $t$ passed, each asked as above, in the
 order $t$ made them, and let $b_i$ and $a_i$ be the numbers of rivals standing just before and just
@@ -12351,7 +12568,7 @@ can't be dropped, seen from the run's side: one test can take many bits, and the
 bits per test times the tests.
 
 \begin{theorem}[What the record adds]\label{thm:ent-observed}
-Let a machine be Thiele-complete through an interface. (1) From a clean start, the record is up
+Let a machine be certified Thiele-complete through an interface. (1) From a clean start, the record is up
 at the end of a run exactly when the run contains the earned chain, and a run with the record up
 raised the ledger by at least 3. (2) Conclusions (1), (3) and (4) of
 Theorem~\ref{thm:ent-machine} hold without a clean start and without the record being up, for a
@@ -12382,7 +12599,7 @@ suppose the rivals aren't equally many: give each a whole-number weight, a multi
 the sum of the weights of a list its \emph{mass}. The count survives with masses in place of
 lengths. If the prior's mass is at most $L(T)$ times the posterior's, the rounded index bits of the
 two masses differ by at most $\mathrm{depth}(T)$; so for any Thiele machine a run that paid at
-least that many charged steps has a bill at least the drop, and for a Thiele-complete machine the
+least that many charged steps has a bill at least the drop, and for a certified Thiele-complete machine the
 representation theorem goes through with masses and the same five conclusions. On such a machine
 the ledger rises by the same number from every start, the number of record moves, so the weighted sum of
 ledger rises is the prior's mass times the record moves, and the drop in rounded bits
@@ -12452,7 +12669,7 @@ Definition~\ref{def:u34-multi}, the host in Appendix~\ref{sec:universal-host} wi
 for every number, with the small machine's property language
 of Zero, Even and At-least-$n$, read at registers,
 in place
-of $\mathsf{Slot}$. That machine is Thiele-complete too, by the argument of
+of $\mathsf{Slot}$. That machine is certified Thiele-complete too, by the argument of
 Theorem~\ref{thm:u34-U-complete} with these three properties in place of $\mathsf{Slot}$. Hide $n = k + m$ bits, one in each of registers 0
 to $n - 1$. The program asks $k$ questions, one per bit of the first $k$: CHECK ``at least 1'' of
 register $i$ for a 1, CHECK ``is 0'' for a 0. Then it COMMITs the first claim and CERTIFYs. The
@@ -12553,7 +12770,7 @@ answer wins when $1 + \lambda < m$. That's a sharper exchange rate than comparin
 happened to write: the unpaid side is a floor under every program of INC and DEC there is, so
 no choice of program comes into it, and the paid side doesn't move with $m$ at all. The limits: the
 bound is for programs that make no record move, INC and DEC with HALT or falling off the end as
-stopping. It doesn't cover every Thiele-complete machine, because the definition doesn't forbid a
+stopping. It doesn't cover every certified Thiele-complete machine, because the definition doesn't forbid a
 base move that changes a counter by more than one pebble, and such a machine is a different
 machine, one the bound doesn't speak for. And the two routes put their answers in different
 places, the unpaid one in the line number and the paid one in the flag; this compares two ways to
@@ -12692,15 +12909,16 @@ one, where the premise asks for at least one, is still a design choice.
 So this chapter has one machine, and it isn't the model. It's a Thiele machine in the opening's sense,
 a Thiele machine with the toll proved (Theorem~\ref{thm:u34-instance}), and
 its toll charges the blank cell's 0: raising its flag is a merge in its record layer
-(Theorem~\ref{thm:record-merge-toll}). It's Thiele-complete, in the sense of
-Definition~\ref{def:u34-thiele-complete}, the sense no clock meets (Observation~\ref{thm:u34-clock}
-and Theorem~\ref{thm:u34-tc-instances}): it computes whatever a Turing machine can, under Minsky's
+(Theorem~\ref{thm:record-merge-toll}). It's Thiele-complete, the sense no clock meets
+(Section~\ref{sec:complete}), and certified Thiele-complete, in the sense of
+Definition~\ref{def:u34-thiele-complete} (Theorem~\ref{thm:u34-tc-instances}): it computes whatever a Turing machine can, under Minsky's
 $2^n$ encoding, done outside the machine, its computing puts no marks on the ledger and can't touch
 the record, and, from a clean start, its record is earned.
 
 If you ever find yourself wondering whether a property of this machine is the model's or just the
 machine's, hold it up against Section~\ref{sec:toll}'s definition of a Thiele machine, the latch of
-Section~\ref{sec:latch} and the four clauses of Thiele-complete. What follows from those holds of
+Section~\ref{sec:latch}, the four clauses of Thiele-complete, and the four of certified
+Thiele-complete. What follows from those holds of
 every machine that meets them; the rest (a table of sixteen facts, three properties, a flat price of
 one) is this machine's choice. Six instruction kinds, and a seventh, PAY, for a host that has to bill
 somebody else's prices (Appendix~\ref{sec:presented-universal}). If the machine needs more than that, this is where it'll show.
@@ -12720,7 +12938,7 @@ from every clean start. It fetches, decodes and carries out each guest instructi
 Turing's universal machine does; nothing in the host means ``run one guest step.'' It halts exactly
 when its guest halts, with the guest's answer in its counters; its flag goes up during its run exactly when the
 guest's goes up during the guest's, by its own check, its own commitment and its own certificate; and its ledger equals the
-guest's at every point where the two runs match. The host is Thiele-complete, and whether $U$ halts
+guest's at every point where the two runs match. The host is certified Thiele-complete, and whether $U$ halts
 is undecidable. Add one move, PAY, that costs a mark and does nothing else, and the same kind of
 program, $U_P$, runs every Thiele machine whose next move, step, prices and reading are computed by
 programs that always answer: it halts when the guest's run stops, its flag goes up exactly when the
@@ -13453,7 +13671,8 @@ get \emph{copied and relied on by parties who didn't produce them}: checked, sto
 across independent places that share no other state. Copying alone can't be the test. A
 replicated system copies everything it holds to every node, the gas used in a block header as
 faithfully as the word final, so rival events get copied too. Nobody who didn't produce them
-acts on them. If that's true, the choice of certification stops being free.
+acts on them. If that's true, choosing certification has a reason behind it, given a premise about
+incentives.
 It's the one event the world around the machine keeps redundant copies of and leans on, and that's a
 reason to price it and leave the others unpriced. So the thesis has two halves, and the ways to
 kill it at the end aim at both: certification is that event, and where a deployed discipline puts
@@ -13876,7 +14095,7 @@ borrows a blank page, which is room, and can hand it back. Committing on finite 
 fixed (Section~\ref{sec:counter}). A window with a colliding pair in it can't price the flag exactly (Section~\ref{sec:windows}). Entitlement is an object,
 a check, and a paid event, and, given lists, a tree and a covering that someone supplies, and a run that
 paid for the tree's depth, it
-costs at least the index bits it commits to (Section~\ref{sec:entitlement}). Insight is a committed relation (Section~\ref{sec:insight}).
+costs at least the index bits it commits to (Section~\ref{sec:entitlement}). Insight is a distinction made to stay, and a committed relation is that at its best (Section~\ref{sec:insight}).
 A feeling doesn't qualify.
 Over any base a record that is driven by the computation and never comes
 down is a latch, with two free choices, the price list and the event
@@ -14510,7 +14729,7 @@ and after pictures and only one certifies. The window-pricing obstruction falls.
 shows certification is not a counterexample; the theorem says exactly that such a window
 prices exactly. For the three escapes, a verifier of one of the three kinds that's wrong about
 the pair, under its own relation; Theorem~\ref{thm:u21-escapes}
-falls. On any Thiele-complete machine: a function on bare transcripts, sound and complete under the
+falls. On any certified Thiele-complete machine: a function on bare transcripts, sound and complete under the
 explanation relation of Section~\ref{sec:windows} for ``the record is up,'' or, from the clean
 loaded state the theorem names, for ``the ledger is at least 3 above the start''; the
 no-bare-verifier theorem falls. On the small machine, the run CHECK, COMMIT, CERTIFY from $(1, 0, 0)$
@@ -14522,7 +14741,7 @@ list, with a distinguishing observation, that does not yield a strictly stronger
 test; the card argument falls. Or exhibit a run with a tree no deeper than its paid steps,
 covering the narrowing, whose counter rose by less than the index bits lost;
 Theorem~\ref{thm:u08-count} falls.
-On any Thiele-complete machine: a run from a clean start that ends with the record up, meets the
+On any certified Thiele-complete machine: a run from a clean start that ends with the record up, meets the
 hypotheses of Theorem~\ref{thm:ent-machine}, and has fewer record moves than the index bits it
 narrowed, or has no earned chain in it; the entitlement bound falls, and the weighted form
  falls the same way. A run on a machine meeting only the exact-prices clause, from any start, with the record up or
@@ -14610,9 +14829,17 @@ counterexample either; the step doesn't police trivial checks, and the book says
 program whose run on the small machine disagrees with it step for step, or halts when it
 doesn't; the step correspondence or the halting correspondence falls.
 
-\emph{Thiele-complete (Section~\ref{sec:smallest}).} A machine that charges at least one for every
+\emph{Thiele-complete (Section~\ref{sec:complete}).} A machine that charges at least one for every
+move and still meets the four clauses; the clock exclusion falls. A Thiele-complete machine and a
+function of its window that gives its record at the end of every run from every loaded state; the
+window theorem falls. A universal base with a mark added for an event that separates two starts,
+and a clause it fails; the lift falls. A machine that is certified Thiele-complete and not
+Thiele-complete through the same interface read without its claims, or the other way round with
+clean loads, the earned chain and a claim that can fail; the decomposition falls.
+
+\emph{Certified Thiele-complete (Section~\ref{sec:smallest}).} A machine that charges at least one for every
 move and still meets the four clauses; the requirement that base moves cost no marks falls, and with it the exclusion of clocks, whose proof uses it. A
-Thiele-complete machine and a function of its window that gives its record at the end of every
+certified Thiele-complete machine and a function of its window that gives its record at the end of every
 run from every loaded state; the window obstruction falls. For clause independence, take one of the four witnesses in Theorem~\ref{thm:tc-independent}
 and show that it also fails one of the three clauses it is said to meet, or that it meets
 the clause it is said to fail. That would break the claimed independence witness.
@@ -14637,22 +14864,22 @@ decides isn't a counterexample. It's outside the class, and the book says so.
 \emph{Every base (Appendix~\ref{sec:every-model}).} A box with a universal base, a claim language
 with an exact equality test and a checker proved to say yes exactly when the claim holds, a claim true at one loaded
 state and false at another, and a fact table with room, whose lift fails one of the four clauses;
-the lift theorem falls. A Thiele-complete machine none of whose interfaces has base moves that form,
+the lift theorem falls. A certified Thiele-complete machine none of whose interfaces has base moves that form,
 taken alone, a machine with a universal base; the converse falls. A state with the trap down from
 which a run of lever pulls in the lift moves the box differently from the box's own run, or raises
 the trap; the panel-leaves-the-box-alone claim falls. For what doesn't lift: a finitely branching
 box, or a box whose step ignores its state, with a universal base, or with a choice of claims and
-fact table whose lift is Thiele-complete; or a Thiele-complete machine on a record axis where every
+fact table whose lift is certified Thiele-complete; or a certified Thiele-complete machine on a record axis where every
 place is at or below every other. Each makes one part of the obstruction theorem fall. For the
 one-lever presentation: a base by simulation whose grouped box, with the window claims and a fact
-table with room, doesn't lift to a Thiele-complete machine; or the five-lever box of
+table with room, doesn't lift to a certified Thiele-complete machine; or the five-lever box of
 Theorem~\ref{thm:lift-macro} shown to have a universal base after all.
 
 \emph{Side by side and nesting (Appendix~\ref{sec:parts}).} Two machines side by side and a run of
 the pair whose cost isn't the left machine's cost of its moves plus the right's, or two
 interleavings of the same lever pulls that end in different places or at different costs; the
 product falls. A run of the pair from both flags down to both flags up that costs less than two;
-the floor of two falls. Two Thiele-complete machines whose pair fails one of the four clauses;
+the floor of two falls. Two certified Thiele-complete machines whose pair fails one of the four clauses;
 closure under pairing falls. A run of the pair from a clean start that ends with each side at a
 point not at or below its floor, with fewer than six record moves or a ledger rise under six; the
 floor of six falls. A machine mapping into both sides, preserving records, with two different maps
@@ -14744,9 +14971,12 @@ bound on how long a bounded memory can put the merge off; and the reading of it 
 with time setting how much heat the happening costs, with Bennett's trade of room for time cited rather than reproved.
 The four-state demon that learns with no merge and pays when it wipes, and the certainty bill.
 The window that can't price the flag exactly, and the small machine's own colliding pair. The
-latch form over any base, with its two counterexamples and converse. The small machine's earned record from a clean
+latch form over any base, with its two counterexamples and converse. The definition of
+Thiele-complete over any base and any event, with the clock and the silent machine failing it, each
+clause needed, the window blindness with a gap of one, every universal base lifted by marks, and the
+theorem that certified Thiele-complete is exactly it with certification added. The small machine's earned record from a clean
 start (checked, then committed, then certified, about
-the same edition, nothing forged, three at least), its exact ledger, its universality through Minsky, the definition of Thiele-complete that
+the same edition, nothing forged, three at least), its exact ledger, its universality through Minsky, the definition of certified Thiele-complete that
 every clock fails and the window blindness of every machine meeting it, the universal program $U$ with its guest's halting and flag matched exactly, its ledger equal to
 the guest's at every matching point, and its own flag earned, the priced
 program $U_P$ that runs every computably presented Thiele machine with its reading latched, its
@@ -14759,9 +14989,9 @@ the clean start on the two-counter machine. The integer check, exact for every p
 (and so a sufficient test for the bound, which tells you nothing about quantum behaviour), the equivalence with
 contraction, Tsirelson's bound from PSD, which is known mathematics proved again here, and the
 check earned on the host, a raised flag standing on it. Structural entitlement for every
-Thiele-complete machine, with its worked members, its floor that takes no supplied tree and its
+certified Thiele-complete machine, with its worked members, its floor that takes no supplied tree and its
 proof that the covering can't be dropped; the eight-state machine run by the small machine; the time
-a check saves; and the collision of every bare-transcript verifier on every Thiele-complete machine.
+a check saves; and the collision of every bare-transcript verifier on every certified Thiele-complete machine.
 All of it with premises printed.
 Of
 that list, the toll derivation on a reading that stays, from a price on merging moves
@@ -14903,7 +15133,7 @@ Learning costs nothing on every price list, or spends no room & not claimed; a p
 \endlastfoot
 Three states are the minimum for teaching at zero marks after the first look & proved & Section~\ref{sec:narrowing}, Theorem~\ref{thm:three-states} \\
 The certainty bill: the uncertainty about a start splits into the part the run destroyed, at most its cost in bits, and the part the end state holds; whatever the end state can't tell you about what an observer saw was paid for in marks & proved (premise: entropy pricing) & Section~\ref{sec:narrowing}, Theorem~\ref{thm:certainty-bill} \\
-``No Free Insight,'' the toll's first name, names the committed kind & choice (the name kept, the scope stated) & Section~\ref{sec:narrowing} \\
+``No Free Insight,'' the toll's first name, names a distinction made to stay & choice (the name kept, the scope stated) & Section~\ref{sec:narrowing} \\
 Watching narrows like a quantum measurement & not claimed & Section~\ref{sec:narrowing} \\
 Structure: relations, kept under chosen changes, carried by any stuff, relative to a frame & choice (my overlay of the sources; they never proved it together) & Section~\ref{sec:structure} \\
 Turing's four parts have no slot for ``these belong together'' & not claimed; I looked and didn't find one, which is weaker & Section~\ref{sec:structure} \\
@@ -14937,7 +15167,7 @@ No exact window price across a collision & proved (premise: a collision), by unf
 \endlastfoot
 On the toy, no verifier on bare transcripts is sound and complete, and none that reads only the bare part of a richer transcript is either, for any pair like it & proved, over arbitrary types & Section~\ref{sec:windows} \\
 Full-state, commitment and response verifiers are sound and complete for their explicit explanation relations; commitment requires binding and honesty & proved; verification cost is stipulated, and no proof reads it & Section~\ref{sec:windows}, Definition~\ref{def:u21-escape-relations}, Theorem~\ref{thm:u21-escapes} \\
-On every Thiele-complete machine, no verifier on bare transcripts is sound and complete for the record, or for a ledger rise of 3 & proved & Section~\ref{sec:windows}, Theorem~\ref{thm:ver-complete} \\
+On every certified Thiele-complete machine, no verifier on bare transcripts is sound and complete for the record, or for a ledger rise of 3 & proved & Section~\ref{sec:windows}, Theorem~\ref{thm:ver-complete} \\
 The one-round ``ask'' models a cheating prover & not claimed & Section~\ref{sec:windows} \\
 The window fact is mysticism, or Rice & not claimed & Section~\ref{sec:windows} \\
 Entitlement: object, checked relation, paid event & definition (the book's word) & Section~\ref{sec:entitlement}, Definition~\ref{def:u08-entitlement} \\
@@ -14945,10 +15175,10 @@ A decision tree has at most two to its depth leaves & definition; proved & Secti
 Paid narrowing, counted & proved with the bill of the charges, which equals the counter's rise by conservation; both are proved (premises: a covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:u08-count} \\
 Structural entitlement over any Thiele machine: a strictly stronger test, a paid crossing, a bill that covers the index bits & proved (premises: covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-cs} \\
 A reading that a grouping was checked and committed sees only its partition and entitles, uniformly over keys, exactly the groupings that refine it & proved & Section~\ref{sec:entitlement}, Theorem~\ref{thm:partition-reading} \\
-Structural entitlement for every Thiele-complete machine: stronger test, earned chain, index bits at most the record moves, ledger rise at least 3 & proved (premises: a clean start, and M1 to M6) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-machine} \\
+Structural entitlement for every certified Thiele-complete machine: stronger test, earned chain, index bits at most the record moves, ledger rise at least 3 & proved (premises: a clean start, and M1 to M6) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-machine} \\
 A floor with no supplied tree, from the run's own CHECKs & proved (answers taken at the rivals as they start) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-questions} \\
 Structural entitlement with the narrowing made by the run, over any Thiele machine whose test steps are named: every drop made by a test the run passed, the exact product count, index bits at most $k$ times the bill & proved (premises: test steps charged at least one, a prior containing the start, a $2^{-k}$ share kept by each test) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-run} \\
-The same for every Thiele-complete machine: index bits at most $k$ times the passing CHECKs, at most $k$ times the ledger's rise; the rounded sum with no share assumed; the share can't be dropped & proved (premises: a clean start, the record up at the end, a prior containing the start, the share for part (4)) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-run-machine}, Proposition~\ref{prop:ent-share-needed} \\
+The same for every certified Thiele-complete machine: index bits at most $k$ times the passing CHECKs, at most $k$ times the ledger's rise; the rounded sum with no share assumed; the share can't be dropped & proved (premises: a clean start, the record up at the end, a prior containing the start, the share for part (4)) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-run-machine}, Proposition~\ref{prop:ent-share-needed} \\
 What the record adds to the price bound from a clean start: the earned chain and a floor of 3 & proved & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-observed} \\
 The weighted count and the partition form & proved; the weights are whole numbers, and no probabilities enter & Section~\ref{sec:part3-on-machine} \\
 The eight-start member, and a search through $n$ bits with up to 16 questions & proved; the 16 is the machine's fact table & Section~\ref{sec:part3-on-machine}, Proposition~\ref{prop:ent-small}, Theorem~\ref{thm:ent-search} \\
@@ -14957,7 +15187,7 @@ The time tax: no program of zero-mark two-counter moves decides, in fewer than $
 The lists, tree and fibres are read off the run & not claimed, except in the worked members & Section~\ref{sec:part3-on-machine} \\
 Entitlement is truth, or permission & not claimed & Section~\ref{sec:entitlement} \\
 The count prices why candidates were dropped & not claimed; it prices the size of the drop & Section~\ref{sec:entitlement} \\
-Certified insight event, raw observation & definition & Section~\ref{sec:insight}, Definition~\ref{def:u09-events} \\
+Raise, non-raising move & definition & Section~\ref{sec:insight}, Definition~\ref{def:u09-events} \\
 The toll prices only the crossing, flat in depth & fact read off the definitions & Section~\ref{sec:insight}, Remark~\ref{rem:u09-three} \\
 Sorting moves by whether the reading moves & choice & Section~\ref{sec:insight} \\
 Nothing makes the crossing wait for a check & fact read off the definitions & Section~\ref{sec:insight}, Remark~\ref{rem:u09-no-wait} \\
@@ -14988,6 +15218,12 @@ One state space up to renaming & false: an extension may carry any hidden field 
 The latch on a Turing machine, a register machine, L & definition; proved (and the relation is an equivalence) & Section~\ref{sec:latch}, Definition~\ref{def:u11-weak-equiv}, Theorem~\ref{thm:u11-four-bases} \\
 Weak base equivalence connects those bases & not claimed & Section~\ref{sec:latch} \\
 A growing record is a family of latches & definition; proved, and one latch isn't enough & Section~\ref{sec:latch}, Definition~\ref{def:u11-growing}, Theorem~\ref{thm:u11-growing} \\
+Thiele-complete means a universal base whose moves cost no marks and can't touch the record, a record that stays up, blank starts, and some run whose record ends up from one start and down from another; nothing in it says what the record is about & definition & Section~\ref{sec:complete}, Definition~\ref{def:thiele-complete} \\
+Every Thiele-complete machine obeys the toll, raises its record only by a mark costing exactly one, counts its marks on its ledger, pays at least one on any run that raises the record, and runs every two-counter program & proved, for every machine and every interface meeting the definition & Section~\ref{sec:complete}, Theorem~\ref{thm:tc-has} \\
+A clock is not Thiele-complete, nor is a machine whose record never rises, and each of the four clauses is needed & proved & Section~\ref{sec:complete}, Observation~\ref{obs:tc-clock}, Theorem~\ref{thm:tc-clauses} \\
+Every Thiele-complete machine hides its record and its ledger from its window, with a gap of one mark, and one is reached & proved & Section~\ref{sec:complete}, Theorem~\ref{thm:tc-window} \\
+Every universal base becomes Thiele-complete by adding marks, with no claims and no checker & proved & Section~\ref{sec:complete}, Theorem~\ref{thm:tc-lift} \\
+Certified Thiele-complete is exactly Thiele-complete with clean starts, the earned chain and a claim that can fail; the inclusion is strict & proved & Section~\ref{sec:certified}, Theorem~\ref{thm:tc-decomposition} \\
 In a partial order the cups fix the place; in a preorder they need not & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-lines} \\
 The toll over any direction: every step that turns a cup over costs at least one exactly when every run that ends somewhere not at or below its start does, and exactly when every cup pays its own toll; a run then costs at least its number of such steps & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-toll} \\
 A chain of $n+1$ stages needs $n$ write-once Boolean cups & proved; ordinary rewritable binary storage is a different question & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-bits} \\
@@ -15054,7 +15290,7 @@ The floor raised to a threshold & proved (premises: the witness starts at zero, 
 
 Part III built one small machine, with the hosts that run it in an appendix, and the ledger keeps
 them apart from the model. The machine is the small one of Section~\ref{sec:smallest}, two counters and six instruction kinds, where commitments are earned
-and universality is proved, with the definition of Thiele-complete that every machine can be
+and universality is proved, with the definition of certified Thiele-complete that every machine can be
 held against, the universal program $U$ on a host made of the same instruction kinds, and the
 priced program $U_P$ that runs every computably presented Thiele machine. Every line in the
 next tables is about those machines, or about every machine meeting that definition, or about
@@ -15089,15 +15325,15 @@ The step refuses trivial checks & not claimed; ``is at least 0'' passes every va
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to say yes exactly when the claim holds, a sorted list read out of a counter included & proved on the generic machine  & Section~\ref{sec:smallest} \\
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine  & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
-Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, exact prices of one mark per check, commit and certificate, and a claim whose check can fail; weakly Thiele-complete asks only for the universal base & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
-A machine Thiele-complete over a claim language fixed first is Thiele-complete, and from a clean state its raised record stands on a claim whose meaning held when it was checked and when it was committed & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-over} \\
-Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
-A clock (every move charged, any reading or any latch as the record) obeys the toll with a two-counter machine running inside it and is not Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
-Each clause does work: a paid latch meets the universal base and exact prices clauses and isn't Thiele-complete, and a silent machine meets three clauses and fails non-vacuity & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
-The four clauses of Thiele-complete are independent: for each, a weakly Thiele-complete machine meets the other three, fails it, and is Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
-Thiele-complete at any unit: with record moves at one fixed price $c \ge 1$ the class is the unit class with its prices multiplied by $c$, and the clock fails at every unit & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-unit} \\
-The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
-Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-tc-window} \\
+Certified Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, exact prices of one mark per check, commit and certificate, and a claim whose check can fail; weakly Thiele-complete asks only for the universal base & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
+A machine certified Thiele-complete over a claim language fixed first is certified Thiele-complete, and from a clean state its raised record stands on a claim whose meaning held when it was checked and when it was committed & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-over} \\
+Every certified Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
+A clock (every move charged, any reading or any latch as the record) obeys the toll with a two-counter machine running inside it and is not certified Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
+Each clause does work: a paid latch meets the universal base and exact prices clauses and isn't certified Thiele-complete, and a silent machine meets three clauses and fails non-vacuity & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
+The four clauses of certified Thiele-complete are independent: for each, a weakly Thiele-complete machine meets the other three, fails it, and is certified Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
+Certified Thiele-complete at any unit: with record moves at one fixed price $c \ge 1$ the class is the unit class with its prices multiplied by $c$, and the clock fails at every unit & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-unit} \\
+The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are certified Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
+Every certified Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-tc-window} \\
 A counter beside a Turing machine changes nothing & proved & Section~\ref{sec:machine-vs-program}, Theorem~\ref{thm:u19-tm-lift} \\
 A Turing machine can't price a reading & not claimed & Section~\ref{sec:machine-vs-program} \\
 The calibration is a unit conversion & definition; proved & Section~\ref{sec:landauer}, Definition~\ref{def:u24-scale}, Theorem~\ref{thm:u24-calibration} \\
@@ -15117,12 +15353,12 @@ A universal Thiele machine for a class: one host and one program, any guest load
 One fixed program $U$, in the small machine's own instruction kinds and with no guest step built in, runs every small-machine program from every clean start $\mathrm{start}(x, y)$, step for step, with halting and answers matched & proved on the host machine & Appendix~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-sim}, Theorem~\ref{thm:u34-U-halting} \\
 $U$'s flag rises at some step if and only if the guest's does, and its ledger equals the guest's at every matching point & proved on the host machine & Appendix~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-flag} \\
 $U$'s raised flag stands on $U$'s own check, commit and certificate on a slot, and on the guest's own earned chain for the same claim & proved on the host machine & Appendix~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-earned} \\
-$U$'s host is Thiele-complete, and whether $U$ halts on a loaded guest is undecidable & proved on the host machine; undecidable in the reduction sense of Theorem~\ref{thm:u34-undecidable} & Appendix~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-complete} \\
+$U$'s host is certified Thiele-complete, and whether $U$ halts on a loaded guest is undecidable & proved on the host machine; undecidable in the reduction sense of Theorem~\ref{thm:u34-undecidable} & Appendix~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-complete} \\
 One fixed program $U_P$, $U$ with one paid move added, runs every computably presented Thiele machine: halting matched, the state decoded at every matching point, the host's flag up exactly when the guest's reading has been yes, and the host's ledger the guest's plus a surcharge & proved on the priced host & Appendix~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented} \\
 $U_P$'s raised flag stands on its own check, commit and certificate on a slot whose claim is the guest's own reading of a state where it said yes & proved on the priced host & Appendix~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented} \\
 The surcharge is at most two when the reading starts at no, and zero when the first raising move costs at least three & proved & Appendix~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
 No program on the host machine, run from a clean start, exactly matches a guest certified with its whole ledger below three & proved, for every program from a clean start, by unfolding & Appendix~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
-The priced host is Thiele-complete, with the paid move read as a check that never passes & proved & Appendix~\ref{sec:presented-universal} \\
+The priced host is certified Thiele-complete, with the paid move read as a check that never passes & proved & Appendix~\ref{sec:presented-universal} \\
 A demonstration machine (one move of price three, reading ``at least three'') runs on $U_P$, with the host's ledger exactly $3n$ at the host time matching move $n$ & proved; never run & Appendix~\ref{sec:presented-universal} \\
 A machine whose reading no program decides, or whose next move no program computes, runs on $U_P$ & not claimed; outside the class & Appendix~\ref{sec:presented-universal} \\
 A guest's reading that goes back to no is carried as no & not claimed; the host's flag is the latch of the reading & Appendix~\ref{sec:presented-universal} \\
@@ -15296,13 +15532,13 @@ quantifiers and representability premises.
 
 \emph{Entitlement bounds.} The count is handed its tree and its covering, along with the
 payment condition. It doesn't dig the tree out of an arbitrary run, and it isn't a Shannon bound
-on every trace (Section~\ref{sec:entitlement}). On every Thiele-complete machine the payment is
+on every trace (Section~\ref{sec:entitlement}). On every certified Thiele-complete machine the payment is
 the record moves, each exactly one mark, and a floor that takes no tree exists when the questions
 are the run's own CHECKs; but its answers are taken at the rivals as they start, a branch that costs no marks can
 still narrow, the lists, tree and fibres are supplied except in the worked members,
 and the covering can't be dropped. The search through $n$ bits is capped at 16 questions by the
 machine's fact table, and the time tax is a lower bound for programs of INC and DEC only. Nothing here
-extends it to every Thiele-complete machine (Section~\ref{sec:part3-on-machine}).
+extends it to every certified Thiele-complete machine (Section~\ref{sec:part3-on-machine}).
 
 \emph{Quantum behaviour.} The fixed-matrix equivalence is about one completion with zero
 marginals and zero within-party moments. The elliptope lets the within-party moments move,
@@ -15381,7 +15617,7 @@ same claim, nothing is forged, and the cheapest such run adds exactly three to t
 by a check that could have failed (the step doesn't police trivial checks: a check that can't
 fail certifies for three too). It's also
 where universality is proved, by matching Minsky's two-counter machines step for step and
-using the halting reduction of Forster, Larchey-Wendling and coauthors. It's Thiele-complete under a
+using the halting reduction of Forster, Larchey-Wendling and coauthors. It's certified Thiele-complete under a
 definition every clock-style machine fails, and every machine meeting that definition hides its
 record and ledger from its own window. The universal Thiele machine for the small machine's
 programs (Definition~\ref{def:universal-thiele}) is a host with the small machine's instruction
@@ -15425,7 +15661,9 @@ Every machine whose move names can be decided equal or different, finite or not:
 instructions every price that covers merges must charge, namely the merging ones. Every finite machine paying per halving: the
 machine's own narrowing bound. Every machine extending a base with a driven, permanent
 record: the latch. Every window through which a certifying and a non-certifying step look
-alike: no exact price from the window. Every machine meeting the definition of Thiele-complete: a move that costs no marks, at least three
+alike: no exact price from the window. Every machine meeting the definition of Thiele-complete: a
+move that costs no marks, at least one mark on any run that ends with the record up, and a final
+window that doesn't determine the record or the ledger. Every machine meeting the definition of certified Thiele-complete: a move that costs no marks, at least three
 marks on any run from a clean state that ends certified, and a final window that doesn't
 determine the record or the ledger. Any eight counts: the integer check and its PSD bridge, which are mathematics.
 This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
@@ -15496,10 +15734,10 @@ lists, a tree and a covering somebody supplies, a run that paid a charged step f
 of the tree has paid for the index bits it commits to (no run is shown to have to pay them, the
 run doesn't recover the tree, the lists count repeats, and the index bits aren't the questions
 anybody asked); on
-every Thiele-complete machine the same count, for a run from a clean start, is a theorem about its record moves, with the earned
+every certified Thiele-complete machine the same count, for a run from a clean start, is a theorem about its record moves, with the earned
 chain inside the run, and the count can't do without the covering; and it
 is a license to lean on a claim. It doesn't prove the claim true.
-Insight, in the sense the toll prices, is a committed relation. A feeling doesn't count. Its floor
+Insight, in the sense the toll prices, is a distinction made to stay. A feeling doesn't count. Its floor
 is flat: at least one, however deep. The claim behind the flag is something a check could
 have refused, and in the bare model nothing makes the commit wait for the check. Over any base,
 a base-driven record is a latch, with two free choices, the event and the price list; ``only one
@@ -15568,7 +15806,9 @@ can't tell apart two steps the window shows the same is elementary, and what's h
 pricing form. Third, a record driven by the
 computation that never switches off is a latch on one event, over any base
 (Observation~\ref{thm:u11-latch}); latches and history variables are old, and the theorem covers
-only records that never come down. Fourth, a record that's priced, and on the small machine
+only records that never come down; and the bar that a latch with free universal computing, marks at
+one and a record that tells starts apart clears, Thiele-complete, which any universal base reaches by
+adding marks (Section~\ref{sec:complete}). Fourth, a record that's priced, and on the small machine
 earned (Theorem~\ref{thm:u34-cert-earned}), under the move of guaranteeing something about
 every program. That move isn't mine at all. It's the reference monitor's (Anderson, 1972),
 made precise for monitors that watch a run (Schneider, 2000), and proved for monitors
@@ -15935,7 +16175,12 @@ machine}, lower case, is any system proved to fit that definition
 small machine. \emph{Weakly Thiele-complete} means a Thiele machine that a two-counter machine runs inside, with
 nothing asked of its record;
 that bar is nearly empty, since a clock that charges one for every move pays the toll for any
-record. \emph{Thiele-complete} means more (Definition~\ref{def:u34-thiele-complete}): a
+record. \emph{Thiele-complete} means more (Definition~\ref{def:thiele-complete}): computing that
+runs every program, costs no marks and can't touch the record, a record that stays up once it's up,
+blank starts, and some run whose record ends up from one start and down from another; a clock fails
+it, every universal base becomes one by adding marks, and every machine that meets it hides its
+record and ledger from its own window. \emph{Certified Thiele-complete} means more again
+(Definition~\ref{def:u34-thiele-complete}): a
 universal base whose moves cost no marks and can't touch the record, a record that
 stays up once it's up and is raised from a
 clean state only after a passing check, a commitment to the same claim with the thing it's about
@@ -16249,7 +16494,7 @@ Shannon 1948; Hartley 1928 & entropy and log-of-count bounds & the same squeeze 
 Tarjan 1985; Lyapunov 1892; Nipkow; Charguéraud and Pottier & the potential method, already mechanized & the toll as that method with the flag as potential \\
 Katsumata 2014; Orchard, Liepelt and Eades 2019; Danner and Licata & cost carried as a grade that composes with the computation & a run's cost as a writer cost and as a grade fixed before the run; the counter rides in the state, put there by the step rule, and it is their writer exactly, while their type systems and before-the-run checking of grades are not embedded, by design \\
 Lamport 1978; Floyd 1967; Turing 1949 & one-way counters give order and termination & the receipt's three properties (it only climbs, it equals the sum of the charges, it's the only such total) stated and proved for any machine with a counter and a price list fixed in advance \\
-Moore 1956; Kalman 1960; Cousot 1977; Codd 1970; Sampath and coauthors 1995; Saboori and Hadjicostis 2007 & what a window loses; when an observer can work out a hidden event, and when a secret state stays hidden & the fibre fact with a price in place of a decoder; the small machine's named collision, and the window every Thiele-complete machine is blind through \\
+Moore 1956; Kalman 1960; Cousot 1977; Codd 1970; Sampath and coauthors 1995; Saboori and Hadjicostis 2007 & what a window loses; when an observer can work out a hidden event, and when a secret state stays hidden & the fibre fact with a price in place of a decoder; the small machine's named collision, and the window every certified Thiele-complete machine is blind through \\
 Smith 2009 (quantitative information flow) & how much an observer learns about a secret from what it sees & none for leakage: the collisions rule out exact decoding through named windows, which isn't zero leakage, and no leakage measure is supplied \\
 Gettier 1963; Necula 1997; Cook 1971 & entitlement is not truth; proof-carrying checks & entitlement as object, relation, paid event, with a counted bound \\
 Dwork and Naor 1992; Back 2002 (Hashcash, first proposed 1997) & make establishing something cost, in a way anyone can check cheaply & a comparison, with no claim that the two are the same: proof of work checks a found value against a difficulty target, while the toll charges one mark at the step that certifies and verifies nothing about effort \\
@@ -16261,7 +16506,7 @@ Zurek 2009; Ollivier, Poulin and Zurek 2004; Blume-Kohout and Zurek 2006 & point
 Leroy 2009; Klein et al. 2009 & the discipline of saying where the proof stops & the separation of what's proved about the model from what any device running it does, inside its bounds \\
 Minsky 1961, 1967; Forster, Larchey-Wendling and coauthors 2019, 2020 & two-counter machines are universal, and their halting is undecidable & a machine of six instruction kinds on two counters where earned commitments, no forging and an exact minimum price of three are theorems, with halting reduced from two-counter halting \\
 Forster and Smolka 2017; Forster, Larchey-Wendling and coauthors; Norrish 2011 & L as a model of computation; counter-machine constructions; a compiler from computable functions to counter machines & L's recursion theorem, Rice and halting; a counter compilation putting every computably presented Thiele machine on the universal host \\
-Turing 1936; Post 1947; Popek and Goldberg 1974; Hamlen, Morrisett and Schneider 2006 & the universal machine as one fixed table; hosts that keep guests apart; which policies a monitor can enforce & a definition of Thiele-complete that every clock fails; one fixed program in the small machine's own instruction kinds that runs every program of it with halting, flag and ledger exact, earning its own flag; and one fixed program, with a paid move added, that runs every computably presented Thiele machine, its ledger exact to within a surcharge of at most two marks when the guest's reading starts at no, which can't be avoided in general \\
+Turing 1936; Post 1947; Popek and Goldberg 1974; Hamlen, Morrisett and Schneider 2006 & the universal machine as one fixed table; hosts that keep guests apart; which policies a monitor can enforce & a definition of certified Thiele-complete that every clock fails; one fixed program in the small machine's own instruction kinds that runs every program of it with halting, flag and ledger exact, earning its own flag; and one fixed program, with a paid move added, that runs every computably presented Thiele machine, its ledger exact to within a surcharge of at most two marks when the guest's reading starts at no, which can't be avoided in general \\
 \end{longtable}
 \endgroup
 
@@ -16591,7 +16836,7 @@ fingerprints is Naor and Rothblum's lower bound for checking a stored file (2005
 is Haeberlen and Kuznetsov's (2009), that only omission and commission faults can be detected from outside,
 and in philosophy it is Easwaran's transferability (2009). Mine: stating the pricing
 version (no window price is exact across a collision), exhibiting a colliding pair for the
-small machine's window, and the theorem that every Thiele-complete machine has two runs from one
+small machine's window, and the theorem that every certified Thiele-complete machine has two runs from one
 clean start that end looking the same through the window its base shows, one certified and one
 not (Section~\ref{sec:windows}, Section~\ref{sec:smallest}). Kind:
 an elementary observation about what a window hides, plus specific facts about the machine and the definition.
@@ -16607,7 +16852,7 @@ tree and a covering, a run that paid for the tree's depth pays at least the inde
 commits to (Section~\ref{sec:entitlement}). Kind: synthesis; the counting idea is standard, the
 assembly and its vocabulary are this work's, the pricing policy is assumed (nothing derives it), and the
 count is proved in its bill form over any Thiele machine, and for the record moves of
-every Thiele-complete machine on a run from a clean start, with the earned chain in the run, a floor that takes the run's own
+every certified Thiele-complete machine on a run from a clean start, with the earned chain in the run, a floor that takes the run's own
 checks in place of a tree, and a counterexample showing the covering can't be dropped
 (Section~\ref{sec:part3-on-machine}); and in a form where the run makes the posterior from a
 prior, every drop is made by a check the run passed, and the index bits are at most $k$ times the
@@ -16701,7 +16946,7 @@ check put together with a toll. The universality and the
 undecidability are borrowed, and the other properties are short consequences of the step
 rule. Whether the design is new I can't say, and I make no claim beyond the proofs.
 
-\subsection{Thiele-complete, defined so a clock fails}
+\subsection{Thiele-complete and certified Thiele-complete, defined so a clock fails}
 
 Known: Turing completeness, and the observation every theorist makes in four seconds, that a
 toll alone is cheap: a machine that charges for every step pays any toll. Enforcement mechanisms
@@ -16712,7 +16957,13 @@ classified which policies execution monitors, program
 rewriters and static analysis can each
 enforce, and they differ; Wai Wong (1995), on a neighbouring track, recorded
 and checked HOL proofs so a theorem could carry its derivation. Mine: a definition of
-Thiele-complete with four clauses (a universal base that can't touch the record and a record that stays up once it's
+Thiele-complete with four clauses that say nothing about what the record is about (computing that
+runs every program, costs no marks and can't touch the record; a record that stays; blank starts;
+and some run whose record tells two starts apart), with the proofs that a clock and a silent
+machine fail it, that each clause is needed, that every universal base becomes one by adding
+marks, and that every machine meeting it hides its record and ledger from its own window
+(Section~\ref{sec:complete}); and a definition of
+certified Thiele-complete with four clauses (a universal base that can't touch the record and a record that stays up once it's
 up, an earned
 record, exact prices with no marks for the base and one for each of the three record acts, and some claim whose check can fail), the proofs that every
 clock-style machine and a paid latch and a silent machine fail it while the small machine, the
@@ -16720,10 +16971,12 @@ same machine over any property language with an exact equality test, a proved ch
 that the four clauses are independent, each failed by some weakly Thiele-complete machine that
 meets the other three (Theorem~\ref{thm:tc-independent}),
 and the theorem that every machine meeting it hides its record and ledger from its own window
-(Section~\ref{sec:smallest}). Kind: a definition with short consequences. The window theorem is
+(Section~\ref{sec:smallest}), with the theorem that it is exactly Thiele-complete with clean
+starts, the earned chain and a claim that could have failed added
+(Theorem~\ref{thm:tc-decomposition}). Kind: definitions with short consequences. The window theorem is
 the fibre fact of item 6 plus one observation, that a universal base prints any window at no cost on the ledger.
 I'm not claiming the definition is the only reasonable one, or that LCF kernels, reference
-monitors and proof-carrying code are all Thiele-complete machines in disguise; Hamlen, Morrisett
+monitors and proof-carrying code are all certified Thiele-complete machines in disguise; Hamlen, Morrisett
 and Schneider's sorting says such mechanisms genuinely differ, and the book doesn't have a
 theorem showing the definition holds up across such differences.
 
@@ -16753,7 +17006,7 @@ Goldberg, 1974). Compiling computable functions into counter machines is Forster
 instruction on a host with a register for every whole number, with no guest step built in, that
 runs every program of the small machine from every clean start $\mathrm{start}(x, y)$, halts exactly when its guest does, raises
 its own flag by its own check, commit and certificate if and only if the guest's rises somewhere in its run, and
-keeps a ledger equal to the guest's at every matching point; its host machine is Thiele-complete,
+keeps a ledger equal to the guest's at every matching point; its host machine is certified Thiele-complete,
 and whether $U$ halts on a loaded guest is undecidable (Appendix~\ref{sec:universal-host}). Two
 small facts force its shape, and they're stated there: reading a counter on this machine writes
 it, and a finite program can't keep the guest's facts on a copy of the guest's counter, by the
@@ -16810,7 +17063,8 @@ latch form of a record that never comes down (item 8; latches and history variab
 And a record that's priced, and on the small machine earned, under the reference monitor's
 every-program move (items 10, 11 and 14; the move is Anderson's, Schneider's and the micro-policy
 authors', and what's added is the check bound to its edition, the toll on top, a definition of
-Thiele-complete that a clock fails, and universal programs that carry both to every
+Thiele-complete that a clock fails, over any base and any event, a certified refinement the small
+machine meets, and universal programs that carry both to every
 small-machine program and to every computably presented Thiele machine, earning their own flag).
 Under all four sits item 1, which is old mathematics read one way: every step of every machine
 takes new room, merges, or goes round a loop, a merge in a coarse description is a merge or
@@ -17123,14 +17377,14 @@ theorem on the guest's run, up to the step where its flag rose, gives the guest'
 same $p$ and $c$, and the record says $c$ held $v$ at its CHECK.
 \end{proof}
 
-\begin{theorem}[The host is Thiele-complete, and $U$'s halting is undecidable]\label{thm:u34-U-complete}
+\begin{theorem}[The host is certified Thiele-complete, and $U$'s halting is undecidable]\label{thm:u34-U-complete}
 (1) The host machine, with $\mathsf{Slot}$ as its property and one move per instruction, is
-Thiele-complete (Definition~\ref{def:u34-thiele-complete}), and Thiele-complete over its own
+certified Thiele-complete (Definition~\ref{def:u34-thiele-complete}), and certified Thiele-complete over its own
 claim language, whose claims are ``$\mathsf{Slot}$ holds of register $r$,'' whose meanings are
 written without the host's checker, and whose ``unchanged'' is ``same value and same version of
 register $r$''; and $U$'s run from $\mathrm{hload}(P, x, y)$ is a run of it. (2) Read as a Thiele machine it obeys the universal
 floor; a run of $U$ that raises the host's flag costs at least 3 there. The system built from its
-Thiele-completeness agrees with it step for step and cost for cost, so the same run costs at least
+certified Thiele-completeness agrees with it step for step and cost for cost, so the same run costs at least
 3 on that one too, and the universal floor of 1 holds there directly.
 (3) $U$ halts from $\mathrm{hload}(P, x, y)$ exactly when $P$ halts from $\mathrm{start}(x, y)$, so
 the question ``does $U$ halt from this loaded host?'' is undecidable in the reduction sense of
@@ -17153,7 +17407,7 @@ with no guest step built into anything, runs every program of the small machine 
 It halts exactly when its guest halts, with the guest's answer in its first two registers. Its
 flag goes up at some step of its run exactly when the guest's goes up at some step of the guest's run, by its own check, its own commit and its own
 certificate. Its ledger is the guest's, mark for mark, wherever the two line up. And the machine
-it runs on is Thiele-complete. Since the small machine runs every two-counter program, through
+it runs on is certified Thiele-complete. Since the small machine runs every two-counter program, through
 those guests $U$ runs every computation, under Minsky's $2^n$ encoding, done outside the machine. That's the universal Thiele machine of this book, for the small machine's
 programs; the next subsection carries it to every computably presented Thiele machine whose
 reading a program decides on every state.
@@ -17243,11 +17497,11 @@ sixteen of them. A simulated machine that bills more often than that has to bill
 somewhere, and PAY is where. The 32 is a fact about this machine; I haven't shown that every host
 without PAY falls short.
 
-The definition of Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
+The definition of certified Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
 has to be filed under one of them, and it's filed as a CHECK of the empty claim, a claim that
 never holds. That's a filing for the interface. It isn't what PAY does on the machine: a CHECK
 that fails on this machine traps, and PAY goes on to the next line. With PAY filed that way the
-host stays Thiele-complete, and Thiele-complete over its own claim
+host stays certified Thiele-complete, and certified Thiele-complete over its own claim
 language, in which the empty claim holds of no state. PAY costs exactly one, as clause (c) asks
 of a CHECK; its check never passes, so it can't stand in a chain; and it leaves the table, the
 channel and the flag alone, so it can't add to a chain or raise the flag either. For the same
@@ -18175,7 +18429,7 @@ it onto his own forms, bills at your rates to within two, and the stamp at the b
 earned by checking your own reading. He didn't copy it.
 
 What's outside the class is outside the theorems. A machine whose reading no program decides
-(an oracle checker, say, which the definition of Thiele-complete doesn't rule out) doesn't come in. Nor
+(an oracle checker, say, which the definition of certified Thiele-complete doesn't rule out) doesn't come in. Nor
 does a machine whose next move is nobody's computation. The two universal programs have different start conditions: $U$'s whole-run result starts
 its guest clean; $U_P$ starts its guest where the presentation says, even if that state
 already has a yes reading. The host starts clean and earns a claim about that reading.
@@ -18197,7 +18451,7 @@ the host updates. It's a record the host earns again, under the same rule, on it
 
 Here's the worry I couldn't put down after the smallest honest machine (Section~\ref{sec:smallest})
 and the universal programs of the previous appendix. Everything in them was built on
-Minsky's two counters. The definition of Thiele-complete names a two-counter window in clause (a).
+Minsky's two counters. The definition of certified Thiele-complete names a two-counter window in clause (a).
 The universal program runs two-counter guests. So is all of this a fact about counters? Pick a
 different machine to start from, a Turing machine with its tape, a register machine, Alonzo
 Church's lambda calculus, and does the record still go on the same way, or did I just find a
@@ -18224,9 +18478,9 @@ to know.
 My first guess was to keep whatever the box came with. Plenty of machines have a meter of their own,
 or a light on the front that means something's done, so leave those where they are, bolt the panel on
 beside them, and see what happens. It can't work, and the definition says why. If a lever can cost
-a mark, computing puts marks on the ledger, and Thiele-complete asks that it put none, which
+a mark, computing puts marks on the ledger, and certified Thiele-complete asks that it put none, which
 is a rule of the price list, not a claim about heat. If a lever can switch on the box's own light, a record went up with
-no CHECK behind it. Thiele-complete rules out both. So the meter and the light come off, along with
+no CHECK behind it. Certified Thiele-complete rules out both. So the meter and the light come off, along with
 everything else the box already had: its costs, its record, all of it, except the states, the levers
 and what each lever does to the state.
 
@@ -18237,11 +18491,11 @@ COMMIT and CERTIFY, at one mark each, with every lever at zero marks. Call that 
 machine.
 
 \begin{theorem}[Every universal base lifts]\label{thm:lift}
-(1) The lift of any box with a universal base, over a language of claims about the box's state (``unchanged'' meaning the box's state is the same), with an exact equality test and a checker proved to say yes exactly when the claim holds, is Thiele-complete, as long as the claims its CHECK can
+(1) The lift of any box with a universal base, over a language of claims about the box's state (``unchanged'' meaning the box's state is the same), with an exact equality test and a checker proved to say yes exactly when the claim holds, is certified Thiele-complete, as long as the claims its CHECK can
 ask include one that's true at one loaded state and false at another, and the fact table has room
 for at least one fact. (2) The claims ``this register is at least $n$'' and ``the program is at line $n$,''
 read off the window, always include such a claim, so with those claims every universal base lifts.
-(3) Conversely, every Thiele-complete machine has an interface meeting the four clauses under which
+(3) Conversely, every certified Thiele-complete machine has an interface meeting the four clauses under which
 its base moves, taken alone, form a machine with a universal base. (4) The
 panel leaves the box alone: from a state whose trap is down, a run of lever pulls in the lift moves
 the box exactly as the box's own run does, and the trap stays down.
@@ -18269,7 +18523,7 @@ the flag. From the second the CHECK traps, and a trapped machine raises nothing.
 least 1'' is true at the loaded state showing $(1, 1, 0)$ and false at the one showing $(1, 0,
 0)$. A window claim is a register and a number, or a line number, so two claims can be tested
 equal, and its checker reads the window, which is its meaning, so the checker is sound by
-definition. (3) Take an interface the machine is Thiele-complete with and throw away every move
+definition. (3) Take an interface the machine is certified Thiele-complete with and throw away every move
 whose kind isn't base. What's left has the same states, the base moves as levers, and the
 interface's window, live states and loaded states, and clause (a) says of exactly these that the
 window follows every instruction from every live state, that the state stays live, and that each
@@ -18292,7 +18546,7 @@ and it never needed to know which one. I'd half expected to be rewriting the pro
 \subsection{What never lifts}
 
 A theorem that says the panel fits every box is one I don't trust until I've watched it fail to fit
-something. So I went looking for boxes it won't turn into a Thiele-complete machine, and the first one I tried
+something. So I went looking for boxes it won't turn into a certified Thiele-complete machine, and the first one I tried
 was the one I was surest would work.
 
 A Turing machine, with one fixed table. Each lever does one row of the table. That looked like the
@@ -18305,10 +18559,10 @@ the others fail for other reasons. Each is proved.
 \begin{theorem}[What doesn't lift]\label{thm:lift-fails}
 (1) A box with only finitely many levers has no universal base, and no box with a universal base is
 finitely branching, meaning that from every state all its levers together lead to only finitely many
-different states. (2) The lift of a finitely branching box is never Thiele-complete, whatever claims
+different states. (2) The lift of a finitely branching box is never certified Thiele-complete, whatever claims
 and fact table it gets. (3) Neither is the lift of a box whose step ignores the state it's in, where
 each lever sends every state to the same place. (4) On a record axis where every place is at or below
-every other, there is no Thiele-complete machine at all. (5) The lift's own non-vacuity clause holds
+every other, there is no certified Thiele-complete machine at all. (5) The lift's own non-vacuity clause holds
 exactly when the fact table has room and some claim is true at one loaded state and false at another.
 \end{theorem}
 
@@ -18321,7 +18575,7 @@ lever lands in one place from one state, the levers for the DEC $A$ $j$ are all 
 are infinitely many of them. (2) In the lift the moves that cost no marks are the levers, since each
 button costs one, and from any state the levers together lead to finitely many states: the box's
 finitely many successors, each with the tally raised by one. (The buttons can lead to infinitely
-many, one CHECK for each claim, but each costs a mark.) If the lift were Thiele-complete through some
+many, one CHECK for each claim, but each costs a mark.) If the lift were certified Thiele-complete through some
 interface, that interface's base moves would cost no marks by clause (c), so they'd all be levers, and
 by Theorem~\ref{thm:lift}(3) they'd form a universal base on their own. By (1) a universal base has
 a state from which its moves reach infinitely many states, and levers of a finitely branching box
@@ -18361,12 +18615,12 @@ the box's levers, a list pulled in order.
 (1) Every box with a universal base is a base by simulation. (2) Every base by simulation is a
 universal base of its grouped box, and a run of the grouped box is the box's run along the joined
 lists. (3) So for every base by simulation, the lift of its grouped box, with the window claims and
-a fact table with room for at least one fact, is Thiele-complete. (4) The box with five levers, add
+a fact table with room for at least one fact, is certified Thiele-complete. (4) The box with five levers, add
 one to $A$ and go to the next line, the same for $B$, add one to a jump target (leaving the window
 alone), and for each of $A$ and $B$ ``if it's above 0,
 take one off and jump to the target, otherwise go to the next line, and put the target back to 0
 either way,'' is a base by simulation, has no universal base, and its grouped box lifts to a
-Thiele-complete machine.
+certified Thiele-complete machine.
 \end{theorem}
 
 \begin{proof}
@@ -18413,10 +18667,10 @@ inputs and reads its outputs, are in Appendix~\ref{sec:counter-constructions}.
 (1) A relation on numbers that's computable in any one of those seven models is computable in all
 seven. (2) The box that keeps a whole two-counter configuration in one number, with one lever for
 each instruction, has a universal base, its step is computable in all seven models, and its lift,
-with a table of sixteen facts, is Thiele-complete. (3) A register machine of the kind Cook and
+with a table of sixteen facts, is certified Thiele-complete. (3) A register machine of the kind Cook and
 Reckhow described, where each two-counter instruction compiles to at most six of its own
-instructions, has a universal base too, and its lift is Thiele-complete. (4) Any box on numbers
-with a universal base lifts to a Thiele-complete machine, and its step, computable in one model, is
+instructions, has a universal base too, and its lift is certified Thiele-complete. (4) Any box on numbers
+with a universal base lifts to a certified Thiele-complete machine, and its step, computable in one model, is
 computable in all seven.
 \end{theorem}
 
@@ -18505,9 +18759,9 @@ no spare chair in the closed room is the same one that says why the box has two 
 \subsection{What this appendix doesn't say}
 
 A panel that bolts onto anything is an easy picture to hear too much in, so here are four things the
-appendix might be heard to say, and doesn't. First, it doesn't prove ``a lift is Thiele-complete
+appendix might be heard to say, and doesn't. First, it doesn't prove ``a lift is certified Thiele-complete
 exactly when its base is universal'' as one equivalence. It proves the upward direction, the converse
-for every Thiele-complete machine's own base moves, and the two kinds of base that never lift.
+for every certified Thiele-complete machine's own base moves, and the two kinds of base that never lift.
 Second, the lift does not itself give each Turing transition a record operation. The
 tape-to-counter construction of Appendix~\ref{sec:counter-constructions} connects the bases
 through what they compute; the lift supplies the record operations. Third, the lift's tally is one version
@@ -18549,7 +18803,7 @@ to why it fails, because it's in the list of things that break. What works is to
 showing. The pair's record is the pair of records, a place for the left machine and a place for the
 right one, compared one side at a time.
 
-Since that record has more than two places, ``Thiele-complete'' in this appendix means the definition
+Since that record has more than two places, ``certified Thiele-complete'' in this appendix means the definition
 of Section~\ref{sec:smallest} with the record allowed to be a place along a direction, the way
 Section~\ref{sec:direction} set it up. The old definition had a single bit there, and at two places
 this one is exactly the old one.
@@ -18561,8 +18815,8 @@ change where the pair ends up or what it paid. (2) The pair pays the toll exactl
 do. (3) Read through ``either flag is up,'' two Thiele machines side by side are a
 Thiele machine with floor one; read through ``both flags are up,'' a run that starts with both
 flags down and ends with both up costs at least two, and two is reached when each part can certify
-for one. (4) Two Thiele-complete machines side by side
-are a Thiele-complete machine. (5) In that pair, call a side's \emph{floor} the place on its record axis where its clean states sit. A run from
+for one. (4) Two certified Thiele-complete machines side by side
+are a certified Thiele-complete machine. (5) In that pair, call a side's \emph{floor} the place on its record axis where its clean states sit. A run from
 a clean start that ends with each side at or above a point that isn't
 at or below that side's floor makes at least six record moves and raises the ledger by at least
 six. Six is reached, from suitable loaded starts, by a three-act certificate on each side; a
@@ -18643,8 +18897,8 @@ nobody checks anything, and plumbing has no business on a record. That turned ou
 and the wrong half is item (4).
 
 \begin{theorem}[One after the other]\label{thm:parts-seq}
-(1) Running one Thiele-complete machine and then handing its two counters to another through loads
-that cost no marks gives a Thiele-complete machine. (2) For any two programs of the two-counter machine, it computes the composite:
+(1) Running one certified Thiele-complete machine and then handing its two counters to another through loads
+that cost no marks gives a certified Thiele-complete machine. (2) For any two programs of the two-counter machine, it computes the composite:
 some schedule leaves the first machine's window where the first program takes the input, and the
 second's where the second program takes that result. (3) The hand-off keeps the toll when every
 state it can load into sits at one level of the second machine's record. (4) If some load lands
@@ -18657,12 +18911,12 @@ it's a certification nobody paid a mark for.
 machine's loaded state for some $(a, b)$, or running, a state of the second machine. A move LOAD
 $(a, b)$ turns a pristine state into the pristine state for $(a, b)$ and does nothing to a running
 one; the second machine's own moves move a running state as before and turn a pristine state into
-a running one. LOAD is a base move and costs no marks. When the second machine is Thiele-complete
+a running one. LOAD is a base move and costs no marks. When the second machine is certified Thiele-complete
 its loaded states are clean and stand at the floor, so a LOAD leaves the record alone; the base,
 the toll and the witness claim are the second machine's; and the chain in front of a raise lies
 after the last LOAD before the second machine's first move, so it lifts through the projection
-onto the second machine's own moves. So the loadable form is Thiele-complete, and the composite,
-the first machine side by side with it, is Thiele-complete by Theorem~\ref{thm:parts-product}(4).
+onto the second machine's own moves. So the loadable form is certified Thiele-complete, and the composite,
+the first machine side by side with it, is certified Thiele-complete by Theorem~\ref{thm:parts-product}(4).
 (2) A wired schedule is the first machine's moves, then a LOAD of the two counters its window
 shows at that moment, then the second machine's moves. The first stretch runs the first program on
 the first window; the LOAD puts the second window at $(1, a, b)$ for the counters $(a, b)$ the
@@ -18690,9 +18944,9 @@ does. Every one of them started as a reasonable-looking wiring job.
 
 \begin{theorem}[What breaks]\label{thm:parts-breaks}
 (1) Read the pair through ``both flags are up'' as a single flag, and any run that raises it from
-a clean start makes at least six record moves; the definition of Thiele-complete asks for a claim
+a clean start makes at least six record moves; the definition of certified Thiele-complete asks for a claim
 that three moves can certify, so through the pair's own interface that reading fails the non-vacuity clause. (2) Two clocks side by side
-are weakly Thiele-complete. They aren't Thiele-complete, so composing the easy notion composes
+are weakly Thiele-complete. They aren't certified Thiele-complete, so composing the easy notion composes
 nothing.
 (3) Give the small machine a second writer that changes counter A without raising its version, and
 the run ``check that A is 0, let the other writer change A, commit, certify'' raises the flag, so
@@ -18711,7 +18965,7 @@ raise the record from a loaded state. Three moves aren't six, so (d) fails for t
 clock is the two-counter machine with every move priced at one and a reading over it
 (Observation~\ref{thm:u34-clock}). Two side by side have a two-counter machine running inside, the left's, and pay the
 toll by Theorem~\ref{thm:parts-product}(2), so the pair is weakly Thiele-complete; and every move
-of the pair is a move of one clock, costing one, while a Thiele-complete machine has a move that
+of the pair is a move of one clock, costing one, while a certified Thiele-complete machine has a move that
 costs no marks (Theorem~\ref{thm:u34-tc-consequences}(6)). (3) Add to the small machine a writer
 that changes counter $A$ and leaves its version alone, read as a base move. The run CHECK ($A$ is
 0), the writer's move, COMMIT ($A$ is 0), CERTIFY, from a start with $A$ at 0, passes its CHECK,
@@ -18847,7 +19101,7 @@ shared value without a version can't be trusted, and a hand-off that costs no ma
 certificate. None of those is a surprise in hindsight. All of them are now theorems, and the
 composition question from Section~\ref{sec:toll} has an answer. Two Thiele machines side by
 side are one under both readings I tried, ``either flag'' and ``both flags.'' The ``both flags''
-reading still fails the definition of Thiele-complete through the pair's interface, the second writer breaks the earned-record clause through the small machine's own reading, the clocks and the two counterexamples fail outright, and simulation in
+reading still fails the definition of certified Thiele-complete through the pair's interface, the second writer breaks the earned-record clause through the small machine's own reading, the clocks and the two counterexamples fail outright, and simulation in
 general has a proved floor.
 
 Three of my first guesses on this bench were wrong: the single count, the harmless tipping, and the
