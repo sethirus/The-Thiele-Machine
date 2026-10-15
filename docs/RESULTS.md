@@ -69,7 +69,7 @@ each.
 - **Proved.** For the machine over any property language with an exact
   equality test and a proved checker, the floor holds, and from a clean start
   provenance, checker soundness, no forging and the minimum cost of three
-  hold, and its certification system is sound. Sorted lists are one instance,
+  hold, and read as a Thiele machine it is sound. Sorted lists are one instance,
   with a run that certifies and a run that is refused. Coq:
   `generic_earned_certification_provenance`, `generic_checker_soundness`,
   `generic_no_forging`, `generic_nfi_floor`, `generic_certified_run_min_cost`,
@@ -118,7 +118,7 @@ starts and failing at others.
   uncertified with its ledger unchanged. No function of the window recovers
   either. Coq: `complete_two_runs`, `complete_hides_record`,
   `complete_hides_ledger`, `thiele_complete_hides`.
-- **Proved.** Every Thiele-complete machine is a certification system whose
+- **Proved.** Every Thiele-complete machine is a Thiele machine whose
   window is blind to its reading. Coq: `thiele_complete_floor`,
   `complete_cs_window_blind`.
 

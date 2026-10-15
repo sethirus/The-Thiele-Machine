@@ -29,7 +29,7 @@ It adds no computing power.
 
 **Names.**
 The Thiele Machine, with capitals, is the model and nothing else.
-A Thiele machine, lower case, is any particular system proved to meet the model's definition (a certification system: states, moves, a step, a cost, a reading, and the toll), the way one rule table is a Turing machine.
+A Thiele machine, lower case, is any particular system proved to meet the model's definition (states, moves, a step, a cost, a reading, and the toll; the Coq record is `CertificationSystem`), the way one rule table is a Turing machine.
 A Thiele machine is weakly Thiele-complete when a two-counter machine runs inside it, with nothing asked of its record.
 That bar is nearly empty: a clock bolted to a computer clears it.
 So Thiele-complete asks for four things ([minimal/ThieleComplete.v](minimal/ThieleComplete.v)): a universal base whose moves cost no marks and can't touch the record, and a record that stays up once it's up; a record that, from a clean start, rises only after a passing check of a claim, a commitment to that same claim with nothing it's about changed in between, and a certificate, with the checker proved to mean what it says; exact prices, one mark for each of those three acts and nothing for anything else; and a claim whose check, commit and certificate raise the record from a loaded start exactly when the claim holds there, with the claim holding at some loaded starts and failing at others.
@@ -370,7 +370,7 @@ coq/kernel/foundation/   record-carrying machines, the record axis (Ax*), the Tu
                          (Realize*), and the Links files
 ocaml/                   extraction roots and drivers for the small machine, U, U_P and the compiler
 thiele_small/            the hand-written Python machine the extracted code is checked against
-coq/kernel/nfi/          certification systems, the universal floor, permanence and its
+coq/kernel/nfi/          Thiele machines (`CertificationSystem`), the universal floor, permanence and its
                          price, shadow pricing, narrowing, the threshold floor
 coq/kernel/category/     the algebraic Tsirelson bound (AlgebraicCoherence)
 coq/kernel/quantum/      CHSH algebra, the integer check, NPA, the elliptope
@@ -466,7 +466,7 @@ Use `make help` for the complete target list.
 
 Two independent receipts track proof assumptions.
 
-- [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues such as admitted proofs, undeclared axioms, vacuous theorem shapes, phantom imports, and circular claim patterns, and checks that every proof file connects to the foundation chain (the certification system, the record-carrying machine, the substrate, the Turing kernel, and the small machine) or says why it stands alone.
+- [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues such as admitted proofs, undeclared axioms, vacuous theorem shapes, phantom imports, and circular claim patterns, and checks that every proof file connects to the foundation chain (the Thiele machine, the record-carrying machine, the substrate, the Turing kernel, and the small machine) or says why it stands alone.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
 The vacuity gate probes the compiled theorem types, preserving their section binders and module scope. An unresolved theorem, failed import, or timeout is an audit error, not a passing result. Version-two receipts replace older receipts that did not distinguish these failures. Definitional transport helpers are labeled `Definition`; they are not counted as new theorems.

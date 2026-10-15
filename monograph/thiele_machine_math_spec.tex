@@ -61,7 +61,7 @@ This is a mathematical reference for the Thiele Machine: a model of computation 
 
 A formal proof shows that conclusions follow from premises. It does \emph{not} show that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, conjecture.
 
-The core claims are structural (S): the universal floor for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates, and on any state space the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
+The core claims are structural (S): the universal floor for every Thiele machine; on finite machines, the toll derived from merge pricing for permanent certificates, and on any state space the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
 \end{abstract}
 
 \tableofcontents
@@ -90,10 +90,10 @@ Earlier releases of this repository carried a 51-instruction virtual machine and
 \end{itemize}
 
 %=============================================================================
-\chapter{Certification Systems and the Universal Floor}\label{ch:nfi}
+\chapter{Thiele Machines and the Universal Floor}\label{ch:nfi}
 
-\begin{definition}[Certification system]
-A certification system is a tuple $(S, I, \mathrm{step}, \cost, \cert)$ with $\mathrm{step} : S \times I \to S$, $\cost : I \to \N$, $\cert : S \to \B$, satisfying the toll, first named No Free Insight,
+\begin{definition}[Thiele machine; \texttt{CertificationSystem} in Coq]
+A Thiele machine is a tuple $(S, I, \mathrm{step}, \cost, \cert)$ with $\mathrm{step} : S \times I \to S$, $\cost : I \to \N$, $\cert : S \to \B$, satisfying the toll, first named No Free Insight,
 \[
 \textbf{A2:}\quad \forall s\, i,\ \cert(s) = \mathrm{false} \wedge \cert(\mathrm{step}(s,i)) = \mathrm{true} \implies \cost(i) \ge 1.
 \]
@@ -101,7 +101,7 @@ Coq: the record \texttt{CertificationSystem}, with A2 as its field \texttt{cs\_c
 \end{definition}
 
 \begin{theorem}[The universal floor]\label{thm:nfi} \textbf{(S)}
-In every certification system, if $\cert(s_0) = \mathrm{false}$ and $\cert(\mathrm{run}(\tau, s_0)) = \mathrm{true}$, then $\cost(\tau) \ge 1$.
+In every Thiele machine, if $\cert(s_0) = \mathrm{false}$ and $\cert(\mathrm{run}(\tau, s_0)) = \mathrm{true}$, then $\cost(\tau) \ge 1$.
 Coq: \texttt{universal\_nfi\_any\_substrate}.
 \end{theorem}
 
@@ -110,12 +110,12 @@ Induction on $\tau$. Since $\cert$ is false at the start and true at the end, so
 \end{proof}
 
 \begin{theorem}[Simulating systems] \textbf{(S)}
-Let a base certification system be simulated by a host: an embedding of base states into host states, a decoding of each base instruction into a list of host instructions, a commuting step law, and certification reflected by the embedding (record \texttt{SimulatingCertificationSystem}). A base trace from uncertified to certified costs at least $1$ in the base, the host run of its decoded trace ends certified, and that host run costs at least $1$.
+Let a base Thiele machine be simulated by a host: an embedding of base states into host states, a decoding of each base instruction into a list of host instructions, a commuting step law, and certification reflected by the embedding (record \texttt{SimulatingCertificationSystem}). A base trace from uncertified to certified costs at least $1$ in the base, the host run of its decoded trace ends certified, and that host run costs at least $1$.
 Coq: \texttt{host\_represents\_simulating\_cert\_system}.
 \end{theorem}
 
 \begin{theorem}[Quantitative form] \textbf{(S)}
-Extend a certification system with a witness $w : S \to \N$ and a threshold $k$ such that each step raises $w$ by at most its cost and every certified state has $w \ge k$ (record \texttt{QuantitativeCertificationSystem}). A trace from a state with $w = 0$ to a certified state costs at least $k$.
+Extend a Thiele machine with a witness $w : S \to \N$ and a threshold $k$ such that each step raises $w$ by at most its cost and every certified state has $w \ge k$ (record \texttt{QuantitativeCertificationSystem}). A trace from a state with $w = 0$ to a certified state costs at least $k$.
 Coq: \texttt{universal\_nfi\_quantitative}.
 \end{theorem}
 
@@ -329,7 +329,7 @@ Coq: \texttt{earned\_run\_check\_can\_fail}, \texttt{earned\_run\_refused\_forev
 \end{theorem}
 
 \begin{theorem}[Links] \textbf{(S)}
-The small machine is a certification system with the trace floor (\texttt{earned\_core\_floor}), and as a record-carrying machine its record moves as a latch on one base event (\texttt{earned\_core\_is\_latch}).
+The small machine is a Thiele machine with the trace floor (\texttt{earned\_core\_floor}), and as a record-carrying machine its record moves as a latch on one base event (\texttt{earned\_core\_is\_latch}).
 \end{theorem}
 
 \begin{remark}
@@ -344,7 +344,7 @@ From any state of the small machine, every run that ends certified costs at leas
 \chapter{Thiele Completeness}\label{ch:complete}
 
 \begin{definition}[Machine, weak completeness]
-A machine is a state type, a move type, a step, a cost per move and a record $\cert : S \to \B$ (record \texttt{machine}). It is weakly Thiele-complete when it is a certification system whose base is universal.
+A machine is a state type, a move type, a step, a cost per move and a record $\cert : S \to \B$ (record \texttt{machine}). It is weakly Thiele-complete when it is a Thiele machine whose base is universal.
 \end{definition}
 
 The weak notion is nearly empty: a two-counter machine that charges $1$ for every move meets it for any record (\texttt{clock\_weakly\_thiele\_complete}).
@@ -384,7 +384,7 @@ For every Thiele-complete machine there are a clean start and two runs from it, 
 Clause (d) and clause (b) give a clean start and a certifying run. The base is universal, so base moves alone reach the window the certifying run ends at; base moves change neither the record nor the ledger.
 \end{proof}
 
-Every Thiele-complete machine is a certification system with the trace floor, and its window is blind to its reading (\texttt{thiele\_complete\_floor}, \texttt{complete\_cs\_window\_blind}).
+Every Thiele-complete machine is a Thiele machine with the trace floor, and its window is blind to its reading (\texttt{thiele\_complete\_floor}, \texttt{complete\_cs\_window\_blind}).
 
 \section{Every model of computation}
 
@@ -428,7 +428,7 @@ A \emph{universal Thiele machine} is one fixed machine running one fixed program
 \section{The universal host}
 
 \begin{theorem} \textbf{(S)}
-The host of \texttt{minimal/UniversalThiele.v} runs any small-machine program as a guest. From a loaded host, or any state where the two agree, its mirror of the guest's flag always equals that flag (\texttt{record\_agreement}, \texttt{hload\_agrees}). The mirror rises only in a guest step that passed CERTIFY, charged in that same host step (\texttt{no\_free\_host\_certification\_step}, \texttt{toll\_enforced\_by\_host\_step}). The host is a certification system with the trace floor (\texttt{host\_nfi}).
+The host of \texttt{minimal/UniversalThiele.v} runs any small-machine program as a guest. From a loaded host, or any state where the two agree, its mirror of the guest's flag always equals that flag (\texttt{record\_agreement}, \texttt{hload\_agrees}). The mirror rises only in a guest step that passed CERTIFY, charged in that same host step (\texttt{no\_free\_host\_certification\_step}, \texttt{toll\_enforced\_by\_host\_step}). The host is a Thiele machine with the trace floor (\texttt{host\_nfi}).
 \end{theorem}
 
 On this host, a machine from elsewhere enters through the two-counter encoding, and its computation and the toll are kept. Its own price list is not kept. On U\textsubscript{P}, in the section on the priced host below, a computably presented machine keeps its own ledger plus a surcharge.

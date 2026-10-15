@@ -51,9 +51,9 @@ about the model or a stated machine, (C) conditional results that hold under a n
 no machine fact discharges, and (R) refutations, where a theorem states the negation of a
 proposed claim and a named construction supplies the counterexample. One proposal, the
 pointer criterion of Chapter 13, has no proof; it carries a fourth tag, conjecture.
-    The core claims are structural (S): the universal floor for every certification system; on
-finite machines, the toll derived from merge pricing for permanent certificates, and on any
-state space the dichotomy that a permanent flip merges or needs a fresh state every time, with
+    The core claims are structural (S): the universal floor for every Thiele machine; on finite
+machines, the toll derived from merge pricing for permanent certificates, and on any state
+space the dichotomy that a permanent flip merges or needs a fresh state every time, with
 the exact retention bound for a bounded memory; the window and pricing results; the small
 machine’s earned provenance, checker soundness and minimum price; Thiele completeness of
 the small machine; the window theorem for every Thiele-complete machine; the lifting of every
@@ -74,7 +74,7 @@ Results stated over Landauer heat are conditional (C) on the named premise landa
 
 2 Notation and Conventions                                                                           4
 
-3 Certification Systems and the Universal Floor                                                      5
+3 Thiele Machines and the Universal Floor                                                            5
   3.1 A2 among cost frameworks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           5
   3.2 Several floors and one charge . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
 
@@ -181,28 +181,29 @@ Notation and Conventions
                                                4
 Chapter 3
 
-Certification Systems and the
-Universal Floor
+Thiele Machines and the Universal
+Floor
 
-Definition 3.1 (Certification system). A certification system is a tuple (S, I, step, c, P ) with
-step : S × I → S, c : I → N, P : S → B, satisfying the toll, first named No Free Insight,
-                  A2:    ∀s i, P (s) = false ∧ P (step(s, i)) = true =⇒ c(i) ≥ 1.
+Definition 3.1 (Thiele machine; CertificationSystem in Coq). A Thiele machine is a tuple
+(S, I, step, c, P ) with step : S × I → S, c : I → N, P : S → B, satisfying the toll, first named No
+Free Insight,
+                     A2: ∀s i, P (s) = false ∧ P (step(s, i)) = true =⇒ c(i) ≥ 1.
 Coq: the record CertificationSystem, with A2 as its field cs_cert_costs.
-Theorem 3.1 (The universal floor). (S) In every certification system, if P (s0 ) = false and
+Theorem 3.1 (The universal floor). (S) In every Thiele machine, if P (s0 ) = false and
 P (run(τ, s0 )) = true, then c(τ ) ≥ 1. Coq: universal_nfi_any_substrate.
 Proof. Induction on τ . Since P is false at the start and true at the end, some step in τ takes it
 from false to true. By A2 that step costs at least 1; every other step costs at least 0.
 
-Theorem 3.2 (Simulating systems). (S) Let a base certification system be simulated by a host:
+Theorem 3.2 (Simulating systems). (S) Let a base Thiele machine be simulated by a host:
 an embedding of base states into host states, a decoding of each base instruction into a list of
 host instructions, a commuting step law, and certification reflected by the embedding (record
 SimulatingCertificationSystem). A base trace from uncertified to certified costs at least 1 in
 the base, the host run of its decoded trace ends certified, and that host run costs at least 1. Coq:
 host_represents_simulating_cert_system.
-Theorem 3.3 (Quantitative form). (S) Extend a certification system with a witness w : S → N
-and a threshold k such that each step raises w by at most its cost and every certified state has
-w ≥ k (record QuantitativeCertificationSystem). A trace from a state with w = 0 to a
-certified state costs at least k. Coq: universal_nfi_quantitative.
+Theorem 3.3 (Quantitative form). (S) Extend a Thiele machine with a witness w : S → N and
+a threshold k such that each step raises w by at most its cost and every certified state has w ≥ k
+(record QuantitativeCertificationSystem). A trace from a state with w = 0 to a certified
+state costs at least k. Coq: universal_nfi_quantitative.
 Theorem 3.4 (A2 is a restriction). (S) A cost-bearing system without A2
 can switch certification on at zero cost, and A2 excludes exactly that. Coq:
 honest_cost_tracking_strict_restriction, free_forgery_violates_A2.
@@ -515,7 +516,7 @@ CERTIFY certifies from a start with a = 0, paying exactly 3, and from any other 
 has trapped by its fourth step and never raises the flag, for any number of steps. Coq:
 earned_run_check_can_fail, earned_run_refused_forever.
 
-Theorem 6.7 (Links). (S) The small machine is a certification system with the trace floor
+Theorem 6.7 (Links). (S) The small machine is a Thiele machine with the trace floor
 (earned_core_floor), and as a record-carrying machine its record moves as a latch on one base
 event (earned_core_is_latch).
 
@@ -544,7 +545,7 @@ Thiele Completeness
 
 Definition 7.1 (Machine, weak completeness). A machine is a state type, a move type, a step,
 a cost per move and a record P : S → B (record machine). It is weakly Thiele-complete when it
-is a certification system whose base is universal.
+is a Thiele machine whose base is universal.
    The weak notion is nearly empty: a two-counter machine that charges 1 for every move
 meets it for any record (clock_weakly_thiele_complete).
 Definition 7.2 (Thiele complete). A machine is Thiele-complete when its moves can be read
@@ -609,8 +610,8 @@ Proof. Clause (d) and clause (b) give a clean start and a certifying run. The ba
 so base moves alone reach the window the certifying run ends at; base moves change neither the
 record nor the ledger.
 
-    Every Thiele-complete machine is a certification system with the trace floor, and its window
-is blind to its reading (thiele_complete_floor, complete_cs_window_blind).
+    Every Thiele-complete machine is a Thiele machine with the trace floor, and its window is
+blind to its reading (thiele_complete_floor, complete_cs_window_blind).
 
 
 7.2    Every model of computation
@@ -725,11 +726,10 @@ when the guest’s reading starts at no and exactly 3 when it starts at yes.
 
 8.1     The universal host
 Theorem 8.1. (S) The host of minimal/UniversalThiele.v runs any small-machine program
-as a guest. From a loaded host, or any state where the two agree, its mirror of the guest’s flag al-
-ways equals that flag (record_agreement, hload_agrees). The mirror rises only in a guest step
-that passed CERTIFY, charged in that same host step (no_free_host_certification_step,
-toll_enforced_by_host_step). The host is a certification system with the trace floor
-(host_nfi).
+as a guest. From a loaded host, or any state where the two agree, its mirror of the guest’s flag
+always equals that flag (record_agreement, hload_agrees). The mirror rises only in a guest
+step that passed CERTIFY, charged in that same host step (no_free_host_certification_step,
+toll_enforced_by_host_step). The host is a Thiele machine with the trace floor (host_nfi).
 
     On this host, a machine from elsewhere enters through the two-counter encoding, and its
 computation and the toll are kept. Its own price list is not kept. On UP , in the section on the
@@ -752,11 +752,11 @@ trap latches, ledgers and flags are equal (universal_output).
 
 Theorem 8.4 (The flag is earned again). (S) The guest’s flag ever rises if and only if U’s flag
 ever rises (universal_flag_iff). A raised flag of U stands on U’s own passing CHECK, its
+own COMMIT of the same claim with the slot untouched, and the CERTIFY that raised it; when
 
 
                                                 18
-own COMMIT of the same claim with the slot untouched, and the CERTIFY that raised it; when
-checked, the slot held the guest’s claim and value, and the guest’s own run contains its chain on
+checked, the slot held the guest’s claim and value, and the guest’s own run contains its chain on
 the same claim (universal_earned).
 
 Theorem 8.5 (The ledger). (S) At matching points U’s ledger equals the guest’s, and every ledger
