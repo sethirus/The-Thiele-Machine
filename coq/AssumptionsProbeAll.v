@@ -2487,7 +2487,7 @@ Print Assumptions Kernel.NeutralUnivGstep.small_perm.
 Print Assumptions Kernel.NeutralUnivGstep.cheat_perm.
 Print Assumptions Kernel.NeutralUnivGstep.gstep_meets_N1_N2.
 Print Assumptions Kernel.NeutralUnivGstep.gstep_meets_naive.
-Print Assumptions Kernel.NeutralUnivGstep.cheat_untrapped_live.
+Print Assumptions Kernel.NeutralUnivGstep.gstep_host_untrapped_live.
 Print Assumptions Kernel.NeutralUnivGstep.gstep_not_reg.
 (* === Kernel.NeutralUnivInOrderLink : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NeutralUnivInOrderLink.gen_to_chains.
@@ -3574,7 +3574,7 @@ Print Assumptions Kernel.UMachMirror.mirror_not_reg_host.
 Print Assumptions Kernel.UMachRegHost.err_back.
 Print Assumptions Kernel.UMachRegHost.one.
 Print Assumptions Kernel.UMachRegHost.rh_base_determined.
-Print Assumptions Kernel.UMachRegHost.cheat_untrapped_live.
+Print Assumptions Kernel.UMachRegHost.gstep_host_untrapped_live.
 Print Assumptions Kernel.UMachRegHost.cheat_not_reg_host.
 (* === Kernel.UMachShadowU : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UMachShadowU.ptoll.

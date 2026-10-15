@@ -115,7 +115,7 @@ End Meets.
 
 Definition s_at (P : list UMachCheatSmall.E.instr) (err : bool) : cst := mkc 3 0 P (UMachCheatSmall.E.start 0 0) false err.
 
-Lemma cheat_untrapped_live : forall (R : reg_host cheat_host) P, b_err R (s_at P false) = false.
+Lemma gstep_host_untrapped_live : forall (R : reg_host cheat_host) P, b_err R (s_at P false) = false.
 Proof.
   intros R P. destruct (b_err R (s_at P false)) eqn:E; [| reflexivity].
   pose proof (b_next_err cheat_host R [PEEK; PEEK; GSTEP0] (s_at P false) E) as X.
@@ -127,7 +127,7 @@ Proof.
   intros R.
   pose proof (b_cost cheat_host R GSTEP0) as Hc. simpl in Hc.
   set (sp := s_at [UMachCheatSmall.E.CERTIFY] false).
-  assert (Ep : b_err R sp = false) by apply cheat_untrapped_live.
+  assert (Ep : b_err R sp = false) by apply gstep_host_untrapped_live.
   assert (Tp : hstep cheat_host sp GSTEP0 = s_at [UMachCheatSmall.E.CERTIFY] true) by reflexivity.
   assert (Fix : forall m, hstep cheat_host (s_at [UMachCheatSmall.E.CERTIFY] true) m = s_at [UMachCheatSmall.E.CERTIFY] true)
     by (intros m; reflexivity).
@@ -144,7 +144,7 @@ Proof.
     + destruct D2 as [_ R2]. specialize (R2 r). unfold upd in R2.
       rewrite Nat.eqb_refl, V in R2. lia.
   - set (sf := s_at [UMachCheatSmall.E.INC UMachCheatSmall.E.CA] false).
-    assert (Ef : b_err R sf = false) by apply cheat_untrapped_live.
+    assert (Ef : b_err R sf = false) by apply gstep_host_untrapped_live.
     destruct (b_halt cheat_host R sf GSTEP0 K) as (E2 & P2 & _).
     pose proof (b_next cheat_host R [PEEK; PEEK; GSTEP0; STOP] _ _ E2 P2) as N.
     discriminate N.
