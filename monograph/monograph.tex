@@ -8119,6 +8119,19 @@ never goes up obeys it too, because a toll on a raise that never happens is neve
 one keeps anything a computation made, and a name both of them get without trying isn't saying
 much.
 
+So here are the names, all of them, once, and the reason for each. They work the way Turing's do.
+\emph{The Thiele Machine}, with capitals, is the model: a computer with a reading that can go from
+no to yes, a ledger, and the toll. \emph{A Thiele machine}, lower case, is any particular system
+that fits the model, the way one rule table is a Turing machine. That bar is low on purpose, and a
+clock clears it. \emph{Thiele-complete}, defined next, is the bar worth meeting, the way
+Turing-complete is: a machine that computes anything, with its record kept apart from its computing
+and able to tell starts apart. Part~III adds one stricter bar, \emph{certified Thiele-complete},
+for a record that goes up only on a claim that was checked, committed and certified. And
+Appendix~\ref{sec:universal-machines} names a \emph{universal Thiele machine}: one machine that
+runs the others, the way Turing's universal machine runs every Turing machine. The model, the
+systems that obey it, the ones that compute and keep, the ones whose keeping is earned, and the one
+that runs them. That's all of them.
+
 So here's the bar, in four clauses, and nothing in it mentions what the record is about.
 
 \begin{definition}[Thiele-complete]\label{def:thiele-complete}
@@ -10341,17 +10354,10 @@ About the name. I named it after myself, on purpose. Half of that is a joke and 
 stake in the ground. Turing got a machine, so here's mine. The longer story,
 meta machines and all, is in the afterword, ``How I got here'' (Section~\ref{sec:origin}).
 
-The names work the way Turing's do, and I'm going to be a little annoying about them. \emph{The Thiele
-Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine}, lower case, is any
-particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
-on a sheet of paper counts. That first bar is low, and I'd rather you hear it from me. A machine
-that charges one mark for every step it takes, whatever the step does, obeys the toll for any
-record you like; a clock is enough to make something a Thiele machine. Section~\ref{sec:complete}
-set the bar for every machine, \emph{Thiele-complete}: the machine under the record computes anything
-a Turing machine can (under an encoding done outside the machine), at no cost in marks and without
-touching the record; a record that goes up stays up; starts are blank; and some run's record tells
-two starts apart. A clock fails that, because it charges for computing, and so does a machine whose
-record never goes up. The small machine of the next chapter is held to a higher one,
+The names are the ones Section~\ref{sec:complete} set out, and they work the way Turing's do. A
+clock is enough to make something a Thiele machine. It isn't Thiele-complete, because it charges
+for computing, and neither is a machine whose record never goes up. The small machine of the next
+chapter is held to a higher bar,
 \emph{certified Thiele-complete}: on top of all that, from a clean start the record goes up only
 after a passing check of a claim, by a checker proved to mean what the claim says, then a
 commitment to that same claim, then a certificate, one mark each; and some claim's check can come
@@ -10590,21 +10596,12 @@ kinds of instruction with more counters, runs every program of it, and with one 
 every computably presented Thiele machine (Appendix~\ref{sec:universal-host}). None of that is the model. It shows the model fits in
 six instruction kinds.
 
-The names again, this time with every part pinned down, because I'll hold to them for the rest
-of the book. \emph{The Thiele Machine}, with
-capitals, is the model and nothing else. \emph{A Thiele machine}, lower case, is any particular
-system proved to fit the model's core definition, its five parts and its toll
-(Definition~\ref{def:certsys}), the way one rule table is a Turing
-machine. The toys on paper in Part~I count, the same way trivial Turing machines do. The
-small machine counts too, with its toll proved, and the next chapter names the theorem. A Thiele
-machine is \emph{weakly} Thiele-complete when a two-counter machine runs inside it, with nothing
-asked of its record, and that bar is
-nearly empty: a machine that charges one for every step is a Thiele machine for any record, so a
-clock bolted to a computer clears it, and so does a machine whose record never rises. So
-\emph{Thiele-complete} asks for four things that say nothing about what the record is about
-(Definition~\ref{def:thiele-complete}): computing that runs every program, costs no marks and
-can't touch the record; a record that stays; blank starts; and some run whose record tells two
-starts apart. \emph{Certified Thiele-complete} asks for four things of its own
+The names again, with every part of the certified one pinned down, because I'll hold to them for
+the rest of the book. A Thiele machine is any particular system that fits the model's core
+definition, its five parts and its toll (Definition~\ref{def:certsys}); the toys on paper in
+Part~I count, and so does the small machine, with its toll proved. \emph{Thiele-complete}
+(Definition~\ref{def:thiele-complete}) says nothing about what the record is about.
+\emph{Certified Thiele-complete} asks for four things of its own
 (Definition~\ref{def:u34-thiele-complete}), and it is exactly Thiele-complete with clean loads, the
 earned record and a claim that can fail added (Theorem~\ref{thm:tc-decomposition}). A
 universal base whose moves can't touch the record, and a record that stays up once it's up. A record that, from a clean start, rises
@@ -10620,7 +10617,7 @@ record, and every machine that meets the definition hides its record and its led
 That's about an observer who sees only where a run ended; one who also has the program and the
 start can work both out.
 None of the four clauses is there for decoration: for each one there's a machine that meets the other three and fails it, each of them a
-weakly Thiele-complete machine that no interface makes certified Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
+Thiele machine with a two-counter machine inside that no interface makes certified Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
 meets it, and so does the same machine over any properties with an exact test for telling two of
 them apart and a proved checker, as long as one of them can come out both ways, sorted lists
 included. A
@@ -11874,10 +11871,10 @@ each move adds its cost to the ledger.
 (d) \emph{Non-vacuity.} Some claim $c$ has a CHECK, a COMMIT and a CERTIFY such that those three
 moves alone, from a loaded state, raise the record exactly when $c$'s meaning holds there; and
 $c$ holds at some loaded state and fails at another.
-A Thiele machine is \emph{weakly} Thiele-complete when some interface gives it a universal base
-and nothing more is asked: each two-counter instruction's move acts on the window exactly as the
-instruction does from every live state and keeps it live, and each start $(1, a, b)$ has a live
-loaded state showing it. Nothing is asked about the record, the prices or the checker.
+A Thiele machine \emph{has a universal base} when some interface gives it one and nothing more is
+asked: each two-counter instruction's move acts on the window exactly as the instruction does from
+every live state and keeps it live, and each start $(1, a, b)$ has a live loaded state showing it.
+Nothing is asked about the record, the prices or the checker.
 \end{definition}
 
 An interface over a language becomes an interface
@@ -12000,7 +11997,7 @@ third name, comes up with the universal program $U$ in Appendix~\ref{sec:univers
 
 \begin{theorem}[What every certified Thiele-complete machine has]\label{thm:u34-tc-consequences}
 Let a machine be certified Thiele-complete through an interface. (1) It obeys the toll and has a
-universal base, so it's weakly Thiele-complete; its base runs every two-counter program step
+universal base; its base runs every two-counter program step
 for step from every live state,
 and halting from a loaded state matches halting from the configuration it shows. (2) Along any run, the ledger rises by exactly the number of
 CHECK, COMMIT and CERTIFY moves in it. (3) A run from a clean state that ends with the record up
@@ -12070,7 +12067,7 @@ program never writes, so its edition never changes, and every COMMIT finds it.
 Take the two-counter machine, let every move cost 1, and take as the record any yes/no
 question about its configuration whatsoever; or take a flag that switches on, and stays on, the
 first time any chosen test of the configuration says yes. Either way the machine obeys the toll
-and has a two-counter machine running inside it, so it's weakly Thiele-complete, and it is not certified Thiele-complete. More
+and has a two-counter machine running inside it, and it is not certified Thiele-complete. More
 generally, no machine whose every move costs at least 1 is certified Thiele-complete.
 \end{observation}
 
@@ -12117,7 +12114,7 @@ around one machine: for each clause, a machine that meets the other three and fa
 \begin{theorem}[The four clauses are independent]\label{thm:tc-independent}
 For each clause of Definition~\ref{def:u34-thiele-complete} there is a machine with an interface
 that meets the other three clauses and fails that one. Each of the four machines obeys the toll and
-has a two-counter machine running inside it, so it's weakly Thiele-complete, and none of them is certified Thiele-complete through
+has a two-counter machine running inside it, and none of them is certified Thiele-complete through
 any interface at all. (a) fails for this chapter's machine with one more move, DROP, priced 0 and read
 as a base move, which lowers the flag and trips the trap latch. (b) fails for this chapter's
 machine with one more move, FORGE, costing one and read as a CERTIFY, which raises the flag on any
@@ -15348,12 +15345,12 @@ The step refuses trivial checks & not claimed; ``is at least 0'' passes every va
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to say yes exactly when the claim holds, a sorted list read out of a counter included & proved on the generic machine  & Section~\ref{sec:smallest} \\
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine  & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
-Certified Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, exact prices of one mark per check, commit and certificate, and a claim whose check can fail; weakly Thiele-complete asks only for the universal base & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
+Certified Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, exact prices of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
 A machine certified Thiele-complete over a claim language fixed first is certified Thiele-complete, and from a clean state its raised record stands on a claim whose meaning held when it was checked and when it was committed & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-over} \\
 Every certified Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a two-counter machine running inside it and is not certified Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the universal base and exact prices clauses and isn't certified Thiele-complete, and a silent machine meets three clauses and fails non-vacuity & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
-The four clauses of certified Thiele-complete are independent: for each, a weakly Thiele-complete machine meets the other three, fails it, and is certified Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
+The four clauses of certified Thiele-complete are independent: for each, a Thiele machine with a two-counter machine inside meets the other three, fails it, and is certified Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
 Certified Thiele-complete at any unit: with record moves at one fixed price $c \ge 1$ the class is the unit class with its prices multiplied by $c$, and the clock fails at every unit & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-unit} \\
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are certified Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
 Every certified Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-tc-window} \\
@@ -16194,10 +16191,8 @@ the machine on, from the universal machines (Appendix~\ref{sec:universal-host}) 
 (Appendix~\ref{sec:chsh}). \emph{A Thiele
 machine}, lower case, is any system proved to fit that definition
 (Definition~\ref{def:certsys}), five parts and the toll; the paper toys are, and so is the
-small machine. \emph{Weakly Thiele-complete} means a Thiele machine that a two-counter machine runs inside, with
-nothing asked of its record;
-that bar is nearly empty, since a clock that charges one for every move pays the toll for any
-record. \emph{Thiele-complete} means more (Definition~\ref{def:thiele-complete}): computing that
+small machine. That bar is nearly empty, since a clock that charges one for every move pays the
+toll for any record. \emph{Thiele-complete} means more (Definition~\ref{def:thiele-complete}): computing that
 runs every program, costs no marks and can't touch the record, a record that stays up once it's up,
 blank starts, and some run whose record ends up from one start and down from another; a clock fails
 it, every universal base becomes one by adding marks, and every machine that meets it hides its
@@ -16992,8 +16987,8 @@ up, an earned
 record, exact prices with no marks for the base and one for each of the three record acts, and some claim whose check can fail), the proofs that every
 clock-style machine and a paid latch and a silent machine fail it while the small machine, the
 same machine over any property language with an exact equality test, a proved checker and a property that holds of one number and fails of another, and the universal program's host meet it,
-that the four clauses are independent, each failed by some weakly Thiele-complete machine that
-meets the other three (Theorem~\ref{thm:tc-independent}),
+that the four clauses are independent, each failed by some machine with a two-counter machine
+inside that meets the other three (Theorem~\ref{thm:tc-independent}),
 and the theorem that every machine meeting it hides its record and ledger from its own window
 (Section~\ref{sec:smallest}), with the theorem that it is exactly Thiele-complete with clean
 starts, the earned chain and a claim that could have failed added
@@ -19051,8 +19046,8 @@ does. Every one of them started as a reasonable-looking wiring job.
 (1) Read the pair through ``both flags are up'' as a single flag, and any run that raises it from
 a clean start makes at least six record moves; the definition of certified Thiele-complete asks for a claim
 that three moves can certify, so through the pair's own interface that reading fails the non-vacuity clause. (2) Two clocks side by side
-are weakly Thiele-complete. They aren't certified Thiele-complete, so composing the easy notion composes
-nothing.
+obey the toll with a two-counter machine inside. They aren't Thiele-complete, so composing that
+easy bar composes nothing.
 (3) Give the small machine a second writer that changes counter A without raising its version, and
 the run ``check that A is 0, let the other writer change A, commit, certify'' raises the flag, so
 the earned-record
@@ -19069,9 +19064,9 @@ record moves. Clause (d) asks for a claim whose CHECK, COMMIT and CERTIFY, those
 raise the record from a loaded state. Three moves aren't six, so (d) fails for that reading. (2) A
 clock is the two-counter machine with every move priced at one and a reading over it
 (Observation~\ref{thm:u34-clock}). Two side by side have a two-counter machine running inside, the left's, and pay the
-toll by Theorem~\ref{thm:parts-product}(2), so the pair is weakly Thiele-complete; and every move
-of the pair is a move of one clock, costing one, while a certified Thiele-complete machine has a move that
-costs no marks (Theorem~\ref{thm:u34-tc-consequences}(6)). (3) Add to the small machine a writer
+toll by Theorem~\ref{thm:parts-product}(2); and every move
+of the pair is a move of one clock, costing one, while a Thiele-complete machine has a move that
+costs no marks (Theorem~\ref{thm:tc-has}(5)). (3) Add to the small machine a writer
 that changes counter $A$ and leaves its version alone, read as a base move. The run CHECK ($A$ is
 0), the writer's move, COMMIT ($A$ is 0), CERTIFY, from a start with $A$ at 0, passes its CHECK,
 finds its fact at the unchanged version at the COMMIT, and raises the flag at the CERTIFY. The base
