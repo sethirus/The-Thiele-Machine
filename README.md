@@ -9,8 +9,8 @@
 
 That is how I see this work.
 Take a blank cell and write a 0 in it, and keep it a 0. Something is now the case that wasn't. That moment, nothing becoming something, is never free, and the book is about its bill.
-A machine has to tell a blank from a 0 from a 1, or nothing happens: a machine with one state changes nothing. So every machine is made of kept distinctions; structure is the state itself. The smallest such machine is the cell: three states, one move (write a 0), one reading that stays (the cell is definite), and writing the 0 merges blank with 0, so it pays. That cell already has every part of the Thiele Machine but the price list, and every computer pays the same bill at every write. That's what "found" means: the bill. What I added is the meter, a count in the step of what keeping costs, and any price list that charges merges has to charge that write.
-Time counts steps and space counts cells, and both are counts of something made of distinctions; the bill for keeping them is the count nobody kept. In any real device every step that happens gives off some heat, less the slower it goes but never none; keeping something costs more on top, a merge, which carries a heat floor no slowness removes, or room never given back, which dodges only the floor. The book proves the counting; the heat is physics, taken as a named premise.
+I think computation has structure that a description of what it reads and writes leaves out.
+Every computer is charged for time and space. There is a third charge: what it keeps and cannot take back. In any real device every step that happens gives off some heat, less the slower it goes but never none; keeping something costs more on top, a merge, which carries a heat floor no slowness removes, or room never given back, which dodges only the floor. The book proves the counting; the heat is physics, taken as a named premise.
 
 **What the Thiele Machine is.**
 It is an abstract model of computation.

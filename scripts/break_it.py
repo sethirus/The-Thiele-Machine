@@ -1002,31 +1002,6 @@ def check_no_self_containment(N: int) -> Result:
     return r
 
 
-def check_one_state(N: int) -> Result:
-    r = Result("No distinction, no change", "thm:one-state",
-               f"every map and every reading on 1..{N} states, every start, runs of {N + 2} steps")
-    for n in range(1, N + 1):
-        for f in maps(n):
-            for Y in masks(n):
-                for x0 in range(n):
-                    xs = run(f, x0, n + 2)
-                    r.cases += 1
-                    for i in range(len(xs)):
-                        for j in range(i + 1, len(xs)):
-                            if has(Y, xs[i]) != has(Y, xs[j]) and xs[i] == xs[j] and r.counterexample is None:
-                                r.counterexample = f"{fmt_map(f)} yes={fmt_mask(Y, n)}: one state, two answers"
-                    if n == 1 and len({has(Y, x) for x in xs}) > 1 and r.counterexample is None:
-                        r.counterexample = f"one state, reading {fmt_mask(Y, n)} changes"
-    c = Control("only one state")
-    for f in maps(2):
-        for Y in masks(2):
-            for x0 in range(2):
-                if len({has(Y, x) for x in run(f, x0, 4)}) > 1 and not c.found:
-                    c.found = f"{fmt_map(f)} yes={fmt_mask(Y, 2)} from {x0}: the reading changes"
-    r.controls.append(c)
-    return r
-
-
 # ---------------------------------------------------------------------------
 # The certainty bill (thm:certainty-bill)
 # ---------------------------------------------------------------------------
@@ -1153,7 +1128,6 @@ def run_all(quick: bool, seed: int = 20261014) -> list[Result]:
     N5 = 4 if quick else 5
     small = 3 if quick else 4
     out = [
-        check_one_state(3 if quick else 4),
         check_step_law(N),
         check_heat_or_room_1(N),
         check_heat_or_room_2(4 if quick else 5),

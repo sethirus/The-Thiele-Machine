@@ -244,17 +244,13 @@ before it, and the book goes up them in order.
 on it, a bead that could sit in either of two dips, a bit of memory nobody has set. Now make it a
 0, and keep it a 0. Something is the case now that wasn't a moment ago. That moment, nothing
 becoming something, is never free. It gives off heat by happening, and keeping it is paid on top,
-in a merge or in room. That holds for anything that goes from state to state and makes something
-stay, whatever the states are made of: a rock rolling into a canyon and coming to rest, a strand of
-RNA latching onto its partner, a bead settling into one of two dips, a Turing machine writing a
-symbol. The bill doesn't care what the machine is. The counting is proved for every system you can
-describe as states and a step; the heat is physics, and I name the premise it rests on.
+in a merge or in room, on any machine there is.
 
-\emph{Two: so every machine already carries it.} A machine has to tell a blank from a 0, or nothing
-happens; every machine is made of kept distinctions, and pays this bill at every write, billions of
-times a second, with no account kept. I found that bill, I didn't invent it; the cell is where it
-starts. What I added is the meter, a count in the step itself, so the step that makes
-something stay is the step that's charged.
+\emph{Two: so what a computation makes the case is a resource.} Computer science charges a
+computation for two things, how long it runs and how much room it takes. Every computer also pays
+this third bill, billions of times a second, and keeps no account of it. The Thiele Machine is a
+model of computation that does keep the account: the step that makes something stay is the step
+that's charged.
 
 \emph{Three: structure is made of exactly this.} A 0 is the smallest structure there is: the ways a
 cell could be, sorted into piles, and one pile held. A grouping, an order, a relation a later move
@@ -453,28 +449,7 @@ something stay. That's the Thiele Machine.
 
 \subsection*{A bill nobody counts}
 
-That's step one. Step two is what it means for computing, and it starts with something so basic
-it's easy to walk past.
-
-A machine has to tell a blank from a 0 from a 1, or nothing happens. It doesn't need to know what a
-0 means. It needs the difference to be there and to hold. Take every difference away and a machine
-has one state, and its one step lands where it started: nothing changes, so nothing is computed
-(Observation~\ref{thm:one-state}). So every machine, before it computes anything, is made of kept
-distinctions. Structure isn't laid over the state. Structure is the state itself, the actual thing
-the machine runs on. And every step it takes does one of three things to those distinctions: it lands
-on a fresh one, it merges two, or it goes round a loop. That's proved, for any machine at all
-(Theorem~\ref{thm:step-law}).
-
-Put the two together on the smallest machine there is, the cell. Three states: blank, 0 and 1. One
-move: write a 0. One reading: ``the cell is definite,'' which once yes stays yes. Writing the 0 turns
-the reading on and lands blank and 0 on the same state. That's a merge, so it pays, and only endless
-room gets around it (Theorem~\ref{thm:write-merge}). That cell already has every part of the Thiele
-Machine but one: states, a move, a reading that stays, and a step that pays to raise it whether
-anybody counts or not. The part it lacks is a price list, the meter, and any price list that charges
-merges has to charge that write. With the meter on, it's the smallest Thiele machine, and every
-computer that can tell a blank from a 0 pays the same bill at every write.
-I didn't invent it. I found it. What I added is the meter: a count, in the step itself, of what the
-keeping costs.
+That's step one. Step two is what it means for computing.
 
 Computer science has always counted what a computation costs. How many steps it takes is time.
 How many cells it needs is room. Whole fields rest on those two counts, and on the models built to
@@ -486,14 +461,14 @@ slow one. Each of those computes exactly what Turing's machine computes. They di
 they count, and the counting is the reason to have them. Manuel Blum gave two axioms in 1967 for any
 measure of computational cost at all; they name no machine and say what every cost has to satisfy.
 
-Time counts the steps and room counts the cells, and both are counts of something made of
-distinctions. Every time a computation makes something the case and keeps it, a bit set, a list left
-in order, an answer written down, it pays, in a merge or in room. That bill isn't the time count: a
-slow step and a fast one can keep the same thing. It isn't the space count either, though room is one
-of the two ways to pay it: a machine with a fixed memory pays it by merging, over and over, in the same
-cells, and its space count never moves. It's the count nobody kept.
+Now look at the bill from step one. Every time a computation makes something the case and keeps it,
+a bit set, a list left in order, an answer written down, it pays, in a merge or in room. That bill
+isn't the time count: a slow step and a fast one can keep the same thing. It isn't the space count
+either, though room is one of the two ways to pay it: a machine with a fixed memory pays it by
+merging, over and over, in the same cells, and its space count never moves. It's a third thing a
+computation does, and no standard model counts it.
 
-So here's the Thiele Machine, written down. It's a model of computation, math you can reason about,
+So here's the Thiele Machine, all of it. It's a model of computation, math you can reason about,
 the way Turing's machine is. It has five parts and one rule. A set of states. A set of moves. A step
 that takes a state and a move to the next state. A price on each move, a whole number of marks. And
 a reading of the state, yes or no. The rule,
@@ -574,10 +549,10 @@ kept distinction, a 0 in some cell that says ``checked,'' and it pays the same b
 Part~III opens by taking that apart (Section~\ref{sec:established}): what ``could have said no'' means, what settling a question is, and why
 the people who thought hardest about knowledge kept landing near it.
 
-Then it builds the machine, in two layers. Underneath is an ordinary computer, the smallest I could
-find that can compute anything. Which computer doesn't matter: the same record layer bolts onto any
-machine that can compute anything, and the book proves it (Theorem~\ref{thm:lift}). Its own merges are an ordinary computer's
-merges, and the ledger leaves them alone. On top sits a record layer whose flag is the blank cell. Raising the flag is the write of a 0:
+Then it builds the machine, in two layers. Underneath is an ordinary computer, as small as I could
+make it: two counters that add one and take one away, which Marvin Minsky proved can compute anything
+a Turing machine can. Its own merges are an ordinary computer's merges, and the ledger leaves them
+alone. On top sits a record layer whose flag is the blank cell. Raising the flag is the write of a 0:
 the state with the flag down and the same state with it already up both land on one state. That's a
 merge, the one step one is about, and once merges in that layer are priced, the toll on the flag
 follows as a theorem (Theorem~\ref{thm:record-merge-toll}). The machine's toll is the bill on the 0,
@@ -599,8 +574,7 @@ appendices build it. That's the reach of the case, not what the book is about.
 Every claim in this book has a status and I'll tell you which, every time. Here's the whole list at
 once, in the order of the four steps, so you know what I'm on the hook for.
 
-Proved, step one. A machine with only one state changes nothing, so everything starts from states
-that can be told apart. On any machine with one next state for every state, finite or endless, every
+Proved, step one, on any machine with one next state for every state, finite or endless: every
 step lands on a fresh state, merges two states into one, or goes round a loop, and a run that keeps
 a reading up can't be on a loop through its start, so it merges somewhere or spends fresh room at
 every step. Heat or room. The same holds for steps that are noisy and for quantum steps, it holds
@@ -659,8 +633,7 @@ Dedekind's 1888 definition of infinite and the finite heart of Ernst Zermelo's 1
 argument, with Landauer and Bennett on merging and Thomas Ouldridge and David Wolpert's 2023 price in
 entropy on the merges a finite automaton can't avoid. What I'd defend most is there, at the bottom:
 the arrangement, one law with three columns and no fourth, for deterministic, noisy and quantum steps
-alike, with two small exact lemmas, the chair count and the bill at every scale, and the reading of
-it, that the cell every computer writes on is already a Thiele machine.
+alike, with two small exact lemmas, the chair count and the bill at every scale.
 
 \emph{What this book is not.} Not a solution to P versus NP, and not a complexity-class separation of
 any other kind. Not a theory of everything. Not a claim that computation is physics, or that physics
@@ -768,25 +741,6 @@ positions $j-1$ to $n$. The cases are exhaustive and do not overlap, by construc
 this is the first step that lands on a visited state and $j > 0$, then $x_n = x_{j-1}$ is
 impossible: $j - 1 < n$, so $x_n$ would itself be a revisit, an earlier one. So it is a merge.
 \end{proof}
-
-The theorem asks that the states can be told apart, and that hypothesis is doing work. Take it
-away and nothing happens at all.
-
-\begin{observation}[No distinction, no change]\label{thm:one-state}
-On a machine with only one state, every step lands where it started, and no yes-or-no reading of
-the state ever changes. A reading that goes from no to yes along any run needs at least two states
-the machine can tell apart.
-\end{observation}
-
-\begin{proof}
-With one state, the one next state is that state, so every run is the same state over and over. A
-reading gives each state one answer, and with one state it has one answer, so it never changes. If a
-reading says no at one point of a run and yes at a later one, the two states there get different
-answers, so they are different states.
-\end{proof}
-
-A machine has to tell a blank from a 0, or it computes nothing. It doesn't have to know what a 0
-means. It has to have the difference, and the step law says what every step then does to it.
 
 
 So here is ``nothing is kept for free'' as a theorem with two hypotheses: you can tell states
@@ -1246,10 +1200,9 @@ positions, no and yes, and build the smallest thing that could carry a charge fo
 on paper, with a pencil. Write the charge into its rules and see what follows. Keeping it this
 small is what lets you see which part of the construction does which part of the work.
 
-Computer science charges a computation for how long it runs and how much space it uses: a count
-of steps and a count of cells, and both count things made of distinctions. What it never charges is
-the keeping of those distinctions, what the computation makes stay and can't take back, though
-every machine pays for it at every write. This part is about that charge. It gets paid in a merge, which carries a heat floor when the
+Computer science charges a computation for two things: how long it runs and how much space it
+uses. There is a third thing to charge for: what the computation keeps and can't take back.
+This part is about that charge. It gets paid in a merge, which carries a heat floor when the
 merged states were really possible, or in room, and the last chapter showed it can't be talked
 down to zero. The record built below is the smallest thing that can carry the charge, and the
 tally next to it counts every time the record goes up. Whether a machine has to charge it as a
@@ -9046,8 +8999,8 @@ exactly that kind (Theorem~\ref{thm:u34-separation}).
 Part~III is step four, the sharpest case. A record that a claim was checked and closed is a
 distinction that stays, so it pays the bill of Part~I, and it's the case where you can point at the
 kept 0 and at what it cost. It starts with what \emph{established} means, and why two computers
-with the same bits can differ in it. Then it builds a machine for it: an ordinary computer,
-any one that can compute anything, with a record layer on top whose flag is the blank cell. The
+with the same bits can differ in it. Then it builds a machine for it: an ordinary computer, two
+counters and six kinds of instruction, with a record layer on top whose flag is the blank cell. The
 step that raises the flag is the write of a 0, a merge in the record layer, and that's why it's
 charged; the order the step enforces, check, then commit, then certify, is why a raised flag means
 something. Then how far the machine reaches, the real systems that already put a price on a write,
@@ -10327,18 +10280,8 @@ nothing more would go. I haven't got a proof that nothing smaller works, and I'm
 
 \subsection{What the model actually asks for}
 
-First what this chapter is not. It isn't where the bill comes from. The bill holds for anything
-that goes from state to state and makes something stay, a rock coming to rest, a strand of RNA
-latching, a bead, a Turing machine, and Parts~I and~II proved it with no machine in sight. This
-chapter picks one kept distinction, ``a claim was checked and closed,'' because it's the one where a
-kept 0 has a meaning you can test, and builds it out exactly. The computer underneath is a
-scratchpad. I use two counters because that's the smallest base I know that can compute anything, and
-nothing in the record depends on that choice: the same record layer bolts onto any machine that can
-compute anything, and the result meets the same definition (Theorem~\ref{thm:lift}, in
-Appendix~\ref{sec:every-model}).
-
-Here's the machine in three sentences, before any of its parts. It's an ordinary computer with a
-record layer on top. The flag in the record layer is the blank cell,
+Here's the machine in three sentences, before any of its parts. It's an ordinary computer, two
+counters and a jump, with a record layer on top. The flag in the record layer is the blank cell,
 and raising it is the write of a 0, a merge in the record layer (flag down and flag up land on the
 same state), which is why the step that raises it is charged once merges in that layer are priced
 (Theorem~\ref{thm:record-merge-toll}, in Part~I). And the order rule, check, then commit, then
