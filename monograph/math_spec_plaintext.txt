@@ -38,13 +38,13 @@ conjecture. The status of each result is stated below.
 
 
                                                 1
-                                            Abstract
+                                           Abstract
 
-This is a mathematical reference for the Thiele Machine: a model of computation in which
-a step that raises a certification record must pay into a ledger that only grows. It presents
-the abstract interfaces, the main theorems, and the definitions of the small machine from the
-machine-checked Coq corpus. The Coq source is the complete definition; this document states
-each result with its premises and names the declaration that carries it.
+This is a mathematical reference for the Thiele Machine: a model of computation in which a step
+that raises a record that stays must pay into a ledger that only grows. It presents the abstract
+interfaces, the main theorems, and the definitions of the small machine from the machine-checked
+Coq corpus. The Coq source is the complete definition; this document states each result with its
+premises and names the declaration that carries it.
     A formal proof shows that conclusions follow from premises. It does not show that premises
 model physical reality. Every result is tagged as one of three types: (S) structural theorems
 about the model or a stated machine, (C) conditional results that hold under a named premise
@@ -52,21 +52,22 @@ no machine fact discharges, and (R) refutations, where a theorem states the nega
 proposed claim and a named construction supplies the counterexample. One proposal, the
 pointer criterion of Chapter 13, has no proof; it carries a fourth tag, conjecture.
     The core claims are structural (S): the universal floor for every Thiele machine; on finite
-machines, the toll derived from merge pricing for permanent certificates, and on any state
-space the dichotomy that a permanent flip merges or needs a fresh state every time, with
-the exact retention bound for a bounded memory; the window and pricing results; the small
-machine’s earned provenance, checker soundness and minimum price; Thiele completeness of
-the small machine; the window theorem for every Thiele-complete machine; the lifting of every
-universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete
-machines; the universal machine U and the priced host’s program UP ; a verified compiler onto
-these machines; the record axis over any base and the toll over any order of records; the recursion
-theorem and Rice’s theorem (the logician Henry Rice, 1953: no program decides a property of
-what programs do, unless it holds of every program or of none) for L, and Rice’s theorem for
-the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and,
-on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness
-of one fixed 5 × 5 NPA matrix. The failure of every clock-style machine, the limits of lifting
-and of composition, and the necessity of each clause of Thiele completeness are refutations (R).
-Results stated over Landauer heat are conditional (C) on the named premise landauer_heat.
+machines, the toll derived from merge pricing for permanent certificates, and on any state space
+the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact
+retention bound for a bounded memory; the window and pricing results; the small machine’s
+earned provenance, checker soundness and minimum price; Thiele completeness of the small
+machine; the window theorem for every certified Thiele-complete machine; the lifting of every
+universal base to a certified Thiele-complete machine and its converse; the composition of
+certified Thiele-complete machines; the universal machine U and the priced host’s program UP ;
+a verified compiler onto these machines; the record axis over any base and the toll over any order
+of records; the recursion theorem and Rice’s theorem (the logician Henry Rice, 1953: no program
+decides a property of what programs do, unless it holds of every program or of none) for L,
+and Rice’s theorem for the two-counter machine itself; the classical CHSH bound; the algebraic
+Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with
+positive semidefiniteness of one fixed 5 × 5 NPA matrix. The failure of every clock-style machine,
+the limits of lifting and of composition, and the necessity of each clause of Thiele completeness
+are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise
+landauer_heat.
 Contents
 
 1 Introduction                                                                                       3
@@ -89,9 +90,9 @@ Results stated over Landauer heat are conditional (C) on the named premise landa
 
 7 Thiele Completeness                                                                               14
   7.1 The window theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        15
-  7.2 Every model of computation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        15
+  7.2 Every model of computation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        16
   7.3 Composition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       16
-  7.4 Each clause is needed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       16
+  7.4 Each clause is needed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       17
 
 8 The Universal Machine                                                                             18
   8.1 The universal host . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      18
@@ -135,17 +136,17 @@ the computation established, and by a ledger of what establishing it cost, with 
 the last two together: the step that raises the record pays. The chapters below state that rule,
 derive its consequences, show which machines carry it, and prove where a window that hides the
 record and the ledger loses information.
-     Chapter 3 states the model, its toll and the universal floor. Chapter 4 derives the toll on
-finite machines from the price of merging states and checks which premises are needed. Chapter 5
-states what a window can decide and price. Chapter 6 defines the small machine. Chapter 7
-defines Thiele completeness, states the window theorem, lifts any universal base of any model of
-computation to a Thiele-complete machine, composes Thiele-complete machines, and shows each
-clause is needed. Chapter 8 states the universal host, the universal machine U, the priced host’s
-program UP , a verified compiler onto these machines and the extraction to OCaml. Chapter 9
-states the recursion and undecidability results, for L and for the two-counter machine itself.
-Chapter 10 states the record axis over any base and the record over any order. Chapter 11 states
-the CHSH and Tsirelson mathematics. Chapter 12 states the physical boundary. Chapter 13
-states the models of external systems and the pointer conjecture.
+    Chapter 3 states the model, its toll and the universal floor. Chapter 4 derives the toll
+on finite machines from the price of merging states and checks which premises are needed.
+Chapter 5 states what a window can decide and price. Chapter 6 defines the small machine.
+Chapter 7 defines Thiele completeness, states the window theorem, lifts any universal base of any
+model of computation to a certified Thiele-complete machine, composes certified Thiele-complete
+machines, and shows each clause is needed. Chapter 8 states the universal host, the universal
+machine U, the priced host’s program UP , a verified compiler onto these machines and the
+extraction to OCaml. Chapter 9 states the recursion and undecidability results, for L and for
+the two-counter machine itself. Chapter 10 states the record axis over any base and the record
+over any order. Chapter 11 states the CHSH and Tsirelson mathematics. Chapter 12 states the
+physical boundary. Chapter 13 states the models of external systems and the pointer conjecture.
 
 
 1.1    Scope
@@ -543,132 +544,155 @@ a cost per move and a record P : S → B (record machine). It is weakly Thiele-c
 is a Thiele machine whose base is universal.
    The weak notion is nearly empty: a two-counter machine that charges 1 for every move
 meets it for any record (clock_weakly_thiele_complete).
-Definition 7.2 (Thiele complete). A machine is Thiele-complete when its moves can be read
-as base moves and three record moves, CHECK, COMMIT and CERTIFY of a claim, over a
-type of claims with a meaning on states, a checker, a notion of the thing a claim is about being
-unchanged, a set of clean starts and a ledger, such that:
+Definition 7.2 (Thiele complete). A machine is Thiele-complete when it can be read through a
+universal base (as in clause (a) below, without clean starts), a split of its moves into computing
+moves and marks, and a ledger, such that: computing moves never change the record and the
+record once up stays up; every loaded start has the record down; computing moves cost 0, every
+other move costs exactly 1, and the ledger grows by the cost of each move; and some run ends
+with the record up from one loaded start and down from another. Nothing in it says what the
+record is about. Coq: neutral_complete in minimal/NeutralComplete.v.
+Theorem 7.1 (Thiele-complete machines). (S) Every Thiele-complete machine obeys the toll and
+raises its record only by a mark costing exactly 1 (nc_is_weak, nc_raise_is_mark); every run
+from a state with the record down that ends with it up costs at least 1 (nc_floor_one); its window
+hides its record and its ledger, with a gap of one mark (nc_hides_record, nc_hides_ledger).
+A clock and a machine whose record never rises are not Thiele-complete (clock_not_nc,
+silent_not_nc), and each clause is needed (drop_not_nc, frozen_not_nc, paid_all_not_nc).
+Every universal base plus marks on an event that separates two loaded starts is Thiele-complete
+(every_base_lifts_neutrally, nlift_neutral_complete). A machine is certified Thiele-
+complete through an interface exactly when it is Thiele-complete through the same interface read
+without its claims and its loaded starts are clean, its record is earned and its non-vacuity clause
+holds (tc_iff_nc_plus_certification); the inclusion is strict (nc_strictly_weaker).
+Definition 7.3 (Certified Thiele complete). A machine is certified Thiele-complete when its
+moves can be read as base moves and three record moves, CHECK, COMMIT and CERTIFY of
+a claim, over a type of claims with a meaning on states, a checker, a notion of the thing a claim
+is about being unchanged, a set of clean starts and a ledger, such that:
 (a) Universal base. Every two-counter instruction has a base move that, from every live state,
     acts on a window of the state exactly as the instruction acts on a two-counter configuration
     and leaves the state live; every two-counter start has a clean live state showing it (its loaded
     start), base moves never change the record, and the record once up stays up.
-
 (b) Earned record. A clean start has the record down. Every run from a clean start that ends
     with the record up contains a passing CHECK of some claim, then a COMMIT of the same
     claim with the thing it is about unchanged in between, then the CERTIFY that raises the
     record. A passing check means its claim holds, and a claim that holds keeps holding while
     the thing it is about is unchanged.
 
-(c) Exact prices. Base moves cost 0, each record move costs exactly 1, and the ledger grows by
+                                                14
+(c) Exact prices. Base moves cost 0, each record move costs exactly 1, and the ledger grows by
     the cost of each move.
 
 (d) Non-vacuity. Some claim is true at some loaded start and false at another, and the bare
     chain CHECK, COMMIT, CERTIFY on it raises the record from a loaded start exactly
     when the claim holds there.
+
 Coq: thiele_complete in minimal/ThieleComplete.v.
+
    The claim language is fixed first and the definition is taken over it; the interface may not
 name the meanings, since checker soundness would then hold for nothing.
-Theorem 7.1 (Consequences). (S) In every Thiele-complete machine: the ledger
-counts the record moves (ledger_counts_record_moves); a certificate reached from
-a clean start costs at least 3 (certificate_costs_three); the claim such a cer-
+
+Theorem 7.2 (Consequences). (S) In every certified Thiele-complete machine: the
+ledger counts the record moves (ledger_counts_record_moves); a certificate reached
+from a clean start costs at least 3 (certificate_costs_three); the claim such a cer-
 tificate stands on held when it was checked and still held when it was committed
 (Minimal.ThieleComplete.committed_claim_holds); some check fails (check_can_fail);
 some run certifies (some_run_certifies); the move raising the record from a clean start is a
 CERTIFY (only_certify_raises); and some move costs 0 (complete_has_free_move).
 
-                                                14
-Theorem 7.2 (Machines that meet it). (S) The small machine is Thiele-complete
+Theorem 7.3 (Machines that meet it). (S) The small machine is certified Thiele-complete
 (earned_core_thiele_complete), and so are the machine over any property language
 with an exact equality test on properties, an exact checker and a property true of one
 value and false of another (earned_generic_thiele_complete) and the sorted-list machine
 (sorted_machine_thiele_complete).
 
-Theorem 7.3 (Machines that fail it). (R) Every clock-style machine, with any
-record, is weakly Thiele-complete and not Thiele-complete (clock_weakly_thiele_complete,
-clock_not_thiele_complete); so is a clock whose record is a latch on its configura-
-tion (latch_clock_weakly_thiele_complete, latch_clock_not_thiele_complete). A ma-
-chine with a free base and one paid move that raises a latch meets clauses (a) and (c),
-and since that move raises the record from every state, the machine is Thiele-complete
+Theorem 7.4 (Machines that fail it). (R) Every clock-style machine, with any record, is
+weakly Thiele-complete and not certified Thiele-complete (clock_weakly_thiele_complete,
+clock_not_thiele_complete); so is a clock whose record is a latch on its configuration
+(latch_clock_weakly_thiele_complete, latch_clock_not_thiele_complete). A machine
+with a free base and one paid move that raises a latch meets clauses (a) and (c), and
+since that move raises the record from every state, the machine is certified Thiele-complete
 through no interface (paid_latch_meets_base_and_toll, one_move_record_excluded,
 paid_latch_not_thiele_complete). A machine whose record never rises meets (a), (b) and
 (c) and fails (d) (silent_meets_base_record_toll, silent_not_thiele_complete).
 
 
-7.1    The window theorem
-Theorem 7.4 (Every Thiele-complete machine hides its record). (S) For every Thiele-complete
-machine there are a clean start and two runs from it, the second made of base moves only,
-that end at the same base window; the first ends certified with its ledger at least 3 above the
-start, and the second ends uncertified with its ledger unchanged (complete_two_runs). Hence
-no function of the base window recovers the record (complete_hides_record) or the ledger
-(complete_hides_ledger) on every reachable state (thiele_complete_hides).
+7.1     The window theorem
+Theorem 7.5 (Every certified Thiele-complete machine hides its record). (S) For every certified
+Thiele-complete machine there are a clean start and two runs from it, the second made of base
+moves only, that end at the same base window; the first ends certified with its ledger at least 3
+above the start, and the second ends uncertified with its ledger unchanged (complete_two_runs).
+Hence no function of the base window recovers the record (complete_hides_record) or the
+ledger (complete_hides_ledger) on every reachable state (thiele_complete_hides).
 
 Proof. Clause (d) and clause (b) give a clean start and a certifying run. The base is universal,
 so base moves alone reach the window the certifying run ends at; base moves change neither the
 record nor the ledger.
 
-    Every Thiele-complete machine is a Thiele machine with the trace floor, and its window is
-blind to its reading (thiele_complete_floor, complete_cs_window_blind).
+   Every certified Thiele-complete machine is a Thiele machine with the trace floor, and its
+window is blind to its reading (thiele_complete_floor, complete_cs_window_blind).
 
 
-7.2    Every model of computation
-Theorem 7.5 (Lifting). (S) For any machine with a universal base in the sense of clause
-(a), any claim language over its states that has an exact equality test and a checker proved
-equal to its meaning, and any fact-table capacity of at least 1, if some claim is true at one
-loaded start and false at another, the machine that adds the earned layer (base moves that
-raise a version, and CHECK, COMMIT and CERTIFY costing 1 each) is Thiele-complete
-(lift_thiele_complete). With the window claims (a register of the window is at least n, or
-the program line is n) the premise on claims always holds (lift_window_thiele_complete).
-Conversely, every Thiele-complete machine has an interface making it Thiele-complete whose
-base moves form a universal base (lift_reduct_universal).
 
-Theorem 7.6 (Limits of lifting). (R) A base whose moves have only finitely many differ-
+
+                                               15
+7.2     Every model of computation
+Theorem 7.6 (Lifting). (S) For any machine with a universal base in the sense of clause (a),
+any claim language over its states that has an exact equality test and a checker proved equal to its
+meaning, and any fact-table capacity of at least 1, if some claim is true at one loaded start and false
+at another, the machine that adds the earned layer (base moves that raise a version, and CHECK,
+COMMIT and CERTIFY costing 1 each) is certified Thiele-complete (lift_thiele_complete).
+With the window claims (a register of the window is at least n, or the program line is n) the
+premise on claims always holds (lift_window_thiele_complete). Conversely, every certified
+Thiele-complete machine has an interface making it certified Thiele-complete whose base moves
+form a universal base (lift_reduct_universal).
+Theorem 7.7 (Limits of lifting). (R) A base whose moves have only finitely many differ-
 ent effects at each state (one with finitely many moves, for instance), or one whose step
-ignores the current state, lifts to no Thiele-complete machine under any claim language
+ignores the current state, lifts to no certified Thiele-complete machine under any claim language
 and capacity through the direct one-move interface (lift_finite_branching_not_complete,
 lift_stateless_not_complete). This does not exclude grouping several base steps into one
 macro move. A one-counter program of k instructions started at n halts exactly when it has
 stopped after k(n + k + 1) steps, so one-counter halting is decidable (lift_oc_halts_bound,
 lift_oc_halts_dec); two-counter halting is undecidable (lift_cm_halting_undecidable),
-
-
-                                              15
-and a computable halting-preserving translation of two-counter instances into one-counter in-
+and a computable halting-preserving translation of two-counter instances into one-counter in-
 stances would make it decidable (lift_no_oc_translation).
-Theorem 7.7 (Models of computation). (S) A relation on numbers computable in any one of
+Theorem 7.8 (Models of computation). (S) A relation on numbers computable in any one of
 the seven models of the vendored library (the lambda calculus L, the alternate Minsky machines
-MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and mu-
-recursive functions) is computable in all of them (lift_num_models_agree). The number-coded
-two-counter machine has a universal base, its step relation is computable in all seven models, and
-the window lifts, with a fact table of 16, of that machine and of the random-access machine are
-Thiele-complete (lift_classic_bases). Over any record that is a preorder with binary joins
-(Chapter 10), every universal base, with a claim language that has an exact equality test and a
-proved checker and a fact table with room for one fact, lifts to a machine that is Thiele-complete
-on the axis, given a claim whose point is not at or below the floor and which is true at one load
-and false at another (lift_lax_thiele_complete). When every record is below every other, no
-machine over that axis is Thiele-complete (lift_ax_indiscrete_no_machine).
+MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and
+mu-recursive functions) is computable in all of them (lift_num_models_agree). The number-
+coded two-counter machine has a universal base, its step relation is computable in all seven
+models, and the window lifts, with a fact table of 16, of that machine and of the random-access
+machine are certified Thiele-complete (lift_classic_bases). Over any record that is a preorder
+with binary joins (Chapter 10), every universal base, with a claim language that has an exact
+equality test and a proved checker and a fact table with room for one fact, lifts to a machine
+that is certified Thiele-complete on the axis, given a claim whose point is not at or below
+the floor and which is true at one load and false at another (lift_lax_thiele_complete).
+When every record is below every other, no machine over that axis is certified Thiele-complete
+(lift_ax_indiscrete_no_machine).
 
 
 7.3     Composition
-Theorem 7.8 (Products and hand-offs). (S) Two machines Thiele-complete on the axis give
-a product, whose moves act on one part each and whose record is the pair of the two records,
-that is Thiele-complete under the product interface, with every certification keeping its own
+Theorem 7.9 (Products and hand-offs). (S) Two machines certified Thiele-complete on the axis
+give a product, whose moves act on one part each and whose record is the pair of the two records,
+that is certified Thiele-complete under the product interface, with every certification keeping its own
 earned chain (cmpz_prod_tc, cmpz_prod_thiele_complete). The cost of an interleaved run is
 the cost of its left moves plus the cost of its right moves (cmpz_cost_prod), two interleavings
 of the same moves reach the same state at the same cost (cmpz_interleaving_invariant),
 and with record-preserving simulations as morphisms the product is the categorical product
 (cmpz_prod_universal). Running one machine and handing its two output counters to a second
-through free loading moves gives a Thiele-complete machine when both are (cmpz_seq_tc), and
-it computes the second program’s run on the first program’s output (cmpz_seq_composes).
-Theorem 7.9 (Limits of composition). (R) From a clean start of the product, ev-
-ery run that raises the AND of the two records makes at least six record moves
-(cmpz_and_costs_six), and the point-level interface through “both flags are up” fails non-vacuity
-(cmpz_and_not_complete). The product of two clocks is weakly Thiele-complete and not Thiele-
-complete (cmpz_or_clocks_not_complete). A second writer that changes counter A of the small
-machine without raising its version breaks the earned-record clause (cmpz_shared_not_earned).
-Two finite machines that each have an exact shadow price through a window can collide as a
-pair (cmpz_exactness_not_preserved). If two load states of the second machine have records
-with the first not at or below the second, the second machine with free loads added fails the toll
+through free loading moves gives a certified Thiele-complete machine when both are (cmpz_seq_tc),
+and it computes the second program’s run on the first program’s output (cmpz_seq_composes).
+Theorem 7.10 (Limits of composition). (R) From a clean start of the product, every run that
+raises the AND of the two records makes at least six record moves (cmpz_and_costs_six), and
+the point-level interface through “both flags are up” fails non-vacuity (cmpz_and_not_complete).
+
+                                                  16
+The product of two clocks is weakly Thiele-complete and not certified Thiele-complete
+(cmpz_or_clocks_not_complete). A second writer that changes counter A of the small machine
+without raising its version breaks the earned-record clause (cmpz_shared_not_earned). Two
+finite machines that each have an exact shadow price through a window can collide as a pair
+(cmpz_exactness_not_preserved). If two load states of the second machine have records with
+the first not at or below the second, the second machine with free loads added fails the toll
 (cmpz_ld_unclean).
-Theorem 7.10 (Nesting). (S) If Y runs X and Z runs Y by simulation, then Z runs X with
+
+Theorem 7.11 (Nesting). (S) If Y runs X and Z runs Y by simulation, then Z runs X with
 the record bit equal at matched points, halting and the rising of the record corresponding, and
 the surcharge bounds adding (cmpz_link_compose); a tower of k links adds between the sum
 of the lower bounds and the sum of the upper bounds (cmpz_tower). A computably presented
@@ -679,32 +703,31 @@ by a host run costing at least the number of the guest run’s exits (cmpz_sim_c
 
 
 7.4     Each clause is needed
-Theorem 7.11. (R) Take any interface that makes a machine Thiele-complete. Charging every
-move twice its cost keeps clauses (a), (b) and (d), fails (c), and gives a machine that is Thiele-
-
-                                                16
-complete through no interface (nec_t_doubled_cost_meets_all_but_toll). A ledger that al-
-ways reads 0 keeps (a), (b) and (d) and fails (c) (nec_t_ledgerless_meets_all_but_ledger).
-An extra move ZAP that raises the record from every state at cost 1, read as CER-
-TIFY, keeps (a), (c) and (d) and fails (b), and the machine with ZAP is Thiele-complete
-through no interface (nec_t_zap_meets_all_but_chain, nec_t_zap_not_thiele_complete).
-A checker that accepts every claim keeps (a), (c) and (d) and loses checker soundness
+Theorem 7.12. (R) Take any interface that makes a machine certified Thiele-
+complete.       Charging every move twice its cost keeps clauses (a), (b) and (d),
+fails (c), and gives a machine that is certified Thiele-complete through no interface
+(nec_t_doubled_cost_meets_all_but_toll). A ledger that always reads 0 keeps (a), (b)
+and (d) and fails (c) (nec_t_ledgerless_meets_all_but_ledger). An extra move ZAP
+that raises the record from every state at cost 1, read as CERTIFY, keeps (a), (c)
+and (d) and fails (b), and the machine with ZAP is certified Thiele-complete through
+no interface (nec_t_zap_meets_all_but_chain, nec_t_zap_not_thiele_complete).                     A
+checker that accepts every claim keeps (a), (c) and (d) and loses checker soundness
 (nec_t_unsound_check_meets_all_but_soundness). A machine whose states pair one of six
 control states with a ledger, with one move that costs no marks and the ordered record moves
-CHECK, COMMIT and CERTIFY, meets the loose notion, which keeps every clause except
-the universal base, and is Thiele-complete through no interface (nec_t_nb_loose_complete,
+CHECK, COMMIT and CERTIFY, meets the loose notion, which keeps every clause except the
+universal base, and is certified Thiele-complete through no interface (nec_t_nb_loose_complete,
 nec_t_nb_not_thiele_complete). For the generic machine, the exact equality test, the exact
-checker and a property true of one value and false of another each do work. An equality test
-that calls a different property equal to one the checker accepts on some value, a checker that
-accepts a property on a value where it does not hold, or a property language in which every
-property that holds of one value holds of all, each leaves the generic machine with its interface
-not Thiele-complete (nec_t_generic_needs_exact_eqb, nec_t_generic_needs_exact_eval,
+checker and a property true of one value and false of another each do work. An equality test that
+calls a different property equal to one the checker accepts on some value, a checker that accepts
+a property on a value where it does not hold, or a property language in which every property
+that holds of one value holds of all, each leaves the generic machine with its interface not certi-
+fied Thiele-complete (nec_t_generic_needs_exact_eqb, nec_t_generic_needs_exact_eval,
 nec_t_generic_needs_varying_property).
 
 
 
 
-                                               17
+                                                17
 Chapter 8
 
 The Universal Machine
@@ -757,10 +780,10 @@ the same claim (universal_earned).
 Theorem 8.5 (The ledger). (S) At matching points U’s ledger equals the guest’s, and every ledger
 of U lies between the guest’s ledger at some m and at m + 1. Coq: universal_ledger_exact.
 
-Theorem 8.6. (S) The machine U runs on, read with INC and DEC as its base and CHECK,
-COMMIT and CERTIFY as its record moves, is Thiele-complete (universal_thiele_complete).
-U’s halting problem, whether U started on the code of P and the inputs x, y ever halts, is
-undecidable (interp_halting_undecidable).
+Theorem 8.6. (S) The machine U runs on, read with INC and DEC as its base
+and CHECK, COMMIT and CERTIFY as its record moves, is certified Thiele-complete
+(universal_thiele_complete). U’s halting problem, whether U started on the code of P
+and the inputs x, y ever halts, is undecidable (interp_halting_undecidable).
 
 
 8.3     The priced host and UP
@@ -769,7 +792,7 @@ natural number and one more paid move, PAY. Its fixed program UP runs priced gue
 
 Theorem 8.7 (UP ). (S) A priced guest halts if and only if UP run on it halts
 (pu_universal_halting), and the priced host, read with INC and DEC as its base, CHECK,
-COMMIT and CERTIFY as its record moves and PAY as a check of the empty claim, is
+COMMIT and CERTIFY as its record moves and PAY as a check of the empty claim, is certified
 Thiele-complete (pu_universal_thiele_complete). A computably presented machine runs on
 UP : UP halts exactly when the machine does, and at every step before the halt some host step
 decodes the machine’s state, carries a flag equal to the machine’s latch and a ledger equal to
@@ -922,7 +945,7 @@ do not determine the branch weights (schedule_determines_probabilities_refuted).
 
 
                                                22
-10.2     Bases
+10.2      Bases
 The relation weak_base_equiv, agreement on chosen observations and halting with stutter-
 ing steps, is an equivalence (weak_base_equiv_refl_holds, weak_base_equiv_sym_holds,
 weak_base_equiv_trans_holds). The record axis is a latch over the Cook and Reckhow
@@ -933,7 +956,7 @@ stances follow from the general theorem and do not distinguish the bases. Cost-r
 simulations between different bases are not constructed.
 
 
-10.3     The record over any order
+10.3      The record over any order
 Let the record be a point of a preorder given by a Boolean test. A step leaves the down-set
 when its new record is not at or below the old one. An axis system has states, instructions, a
 step, a cost per instruction and such a record; it pays the toll when every step that leaves the
@@ -954,14 +977,14 @@ pricing every merge gives the toll (ax_a2_from_merge_price). For finitely many s
 moves and decidable observations, some price computed from a window is exact exactly when the
 window has no collision (ax_window_exact_iff_no_collision).
 
-Theorem 10.7 (Completeness and entropy on the axis). (S) An interface makes a machine
-of Chapter 7 Thiele-complete exactly when the same interface, read over the two-point order
-with false below true, meets the four clauses on the axis (ax_tc_two_point_iff). Every Thiele-
-complete axis machine pays the toll (ax_tc_a2), every run from a clean start that ends with the
-record not at or below the floor makes at least three record moves and raises the ledger by at
-least 3 (ax_tc_certificate_three), and no function of the counter-machine window gives the
-record (ax_tc_independence). On the multi-register host, for every reading of final states into
-a preorder that respects agreement on everything a program can read, a property of programs
+Theorem 10.7 (Completeness and entropy on the axis). (S) An interface makes a machine of
+Chapter 7 certified Thiele-complete exactly when the same interface, read over the two-point order
+with false below true, meets the four clauses on the axis (ax_tc_two_point_iff). Every certified
+Thiele-complete axis machine pays the toll (ax_tc_a2), every run from a clean start that ends
+with the record not at or below the floor makes at least three record moves and raises the ledger by
+at least 3 (ax_tc_certificate_three), and no function of the counter-machine window gives
+the record (ax_tc_independence). On the multi-register host, for every reading of final states
+into a preorder that respects agreement on everything a program can read, a property of programs
 that respects behaving alike on the record is undecidable when it holds of some program and fails
 of another (ax_rice_record); some host program has runs whose claim sets climb in m strict
 steps exactly when m ≤ 16, the size of the fact table (ax_single_run_boundary). Under the
@@ -973,7 +996,7 @@ cost times ln 2 (ax_inf_loss_bits).
 
 
 
-                                               23
+                                                23
 Chapter 11
 
 CHSH and Tsirelson

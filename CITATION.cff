@@ -34,13 +34,15 @@ abstract: >-
   minimal two-counter machine whose commitments are earned, where every
   certified run from a clean start contains a passing check of the committed
   claim, a commitment to that same claim, and a certificate, and costs at
-  least three. Thiele-complete asks for four things: a universal base whose
-  moves cost no marks and cannot touch the record, a record raised only by an
-  earned check, commitment and certificate of one claim, exact prices, and a
-  claim whose check, commitment and certificate raise the record on some
-  loaded starts and leave it down on others. The small machine meets it, and every clock-style
-  machine fails it. Every Thiele-complete machine hides its record and its
-  ledger from its own window. A universal machine U, one fixed program of
+  least three. Thiele-complete asks for four things that say nothing about
+  what the record is about: a universal base whose moves cost no marks and
+  cannot touch the record, a record that stays up, blank starts, and a run
+  whose record ends up from one start and down from another. Every clock
+  fails it, every universal base reaches it by adding marks, and every
+  Thiele-complete machine hides its record and its ledger from its own
+  window. Certified Thiele-complete is exactly Thiele-complete with clean
+  starts, the earned check, commitment and certificate of one claim, and a
+  claim that can fail added; the small machine meets it. A universal machine U, one fixed program of
   the small machine's own instructions, runs every program of the small
   machine from every start, halts exactly when its guest halts, raises its
   flag by its own check, commit and certificate exactly when the guest would,
