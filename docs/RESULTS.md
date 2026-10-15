@@ -315,7 +315,7 @@ steps on the other.
 ## The bill
 
 The monograph's point is that nothing becomes something for free: a
-distinction that comes into being gives off heat by happening (in any real
+distinction that comes into being dissipates by happening (in any real
 device, in finite time; physics, with one proved instance below), and keeping
 it is paid on top, in a merge or in room. Certification is the sharpest case.
 
@@ -339,8 +339,9 @@ it is paid on top, in a merge or in room. Certification is the sharpest case.
 - **Proved.** A biased Brownian walk produces strictly positive entropy per
   tick at any nonzero speed, and heat times time is at least the distance
   squared. Coq: `heat_at_any_speed`, `heat_time_floor`.
-- **Proved** in the monograph, with no Coq counterpart: one mark per crossing
-  of the reading from no to yes; the certainty bill (under entropy pricing,
+- **Proved** in the monograph and in Coq: one mark per crossing of the reading
+  from no to yes, `flips_le_cost` (coq/kernel/nfi/CostFrameworks.v).
+- **Proved** in the monograph, with no Coq counterpart: the certainty bill (under entropy pricing,
   the uncertainty about the start is the part the run destroyed, at most its
   cost in bits, plus the part the end state still holds); and the same bill at
   every scale (a coarse merge forces a fine merge, unless the fine step leaves

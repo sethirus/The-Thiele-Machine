@@ -6297,12 +6297,14 @@ Print Assumptions Minimal.SmallConsensus.sc_step_other.
 Print Assumptions Minimal.SmallConsensus.sc_step_progress.
 Print Assumptions Minimal.SmallConsensus.sc_run_progress.
 Print Assumptions Minimal.SmallConsensus.sc_wait_free.
-(* === Minimal.StepLaw : 5 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.StepLaw : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.StepLaw.run_add.
 Print Assumptions Minimal.StepLaw.revisit_periodic.
 Print Assumptions Minimal.StepLaw.step_law.
 Print Assumptions Minimal.StepLaw.merge_is_collision.
 Print Assumptions Minimal.StepLaw.revisit_means_loop.
+Print Assumptions Minimal.StepLaw.first_revisit_start_or_merge.
+Print Assumptions Minimal.StepLaw.later_steps_repeat.
 (* === Minimal.Tc2Am : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Tc2Am.am_run_add.
 Print Assumptions Minimal.Tc2Am.am_run_S_l.

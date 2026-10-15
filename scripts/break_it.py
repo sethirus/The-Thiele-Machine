@@ -141,37 +141,27 @@ class Result:
 # ---------------------------------------------------------------------------
 
 
-def classify(xs: list[int], k: int) -> tuple[str, int]:
-    """Classify the step from xs[k] to xs[k+1] the way the theorem does."""
-    nxt = xs[k + 1]
-    seen = xs[: k + 1]
-    if nxt not in seen:
-        return "fresh", -1
-    j = seen.index(nxt)
-    if j == 0:
-        return "loop", j
-    if xs[j - 1] != xs[k]:
-        return "merge", j
-    return "loop", j
-
-
 def step_law_violation(xs: list[int]) -> Optional[str]:
-    first_revisit_done = False
+    """Check a run against the theorem: fresh steps up to the first revisit; the first
+    revisit lands on the start or is a merge; every later step repeats a step already
+    taken; and the run holds at most one pair of distinct states with a shared next state."""
+    first = None
     for k in range(len(xs) - 1):
-        kind, j = classify(xs, k)
-        if kind == "merge":
-            a, b = xs[j - 1], xs[k]
-            if a == b or xs[j] != xs[k + 1]:
-                return f"step {k} called a merge but {a},{b} do not share a next state"
-        if kind != "fresh" and not first_revisit_done:
-            first_revisit_done = True
-            if not (j == 0 or kind == "merge"):
-                return f"first revisit at step {k} is neither the start nor a merge"
-        if kind == "loop":
-            earlier = set(xs[: k + 1])
-            later = xs[k + 2 :]
-            if any(x not in earlier for x in later):
-                return f"step {k} is a loop step but the run later reaches a new state"
+        if xs[k + 1] in xs[: k + 1]:
+            first = k
+            break
+    if first is None:
+        return None
+    j = xs[: first + 1].index(xs[first + 1])
+    if j > 0 and xs[j - 1] == xs[first]:
+        return f"first revisit at step {first} is neither the start nor a merge"
+    for k in range(first + 1, len(xs) - 1):
+        if not any(xs[i] == xs[k] and xs[i + 1] == xs[k + 1] for i in range(k)):
+            return f"step {k} comes after the first revisit but repeats no earlier step"
+    pairs = {(xs[a], xs[b]) for a in range(len(xs) - 1) for b in range(len(xs) - 1)
+             if xs[a] < xs[b] and xs[a + 1] == xs[b + 1]}
+    if len(pairs) > 1:
+        return f"the run holds {len(pairs)} merging pairs, not at most one"
     return None
 
 

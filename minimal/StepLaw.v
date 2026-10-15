@@ -93,4 +93,31 @@ Proof.
   replace k with (j + (k - j)) by lia. auto.
 Qed.
 
+(* The shape of a run, stated so that no step is counted twice: before the first
+   revisit every step is fresh; the first revisit lands on the start or is a merge;
+   and every step after it repeats a step the run already took, so it merges nothing new. *)
+Theorem first_revisit_start_or_merge : forall n j, j <= n -> run (S n) = run j ->
+  (forall m i, m < n -> i <= m -> run (S m) <> run i) ->
+  j = 0 \/ (1 <= j /\ run n <> run (j - 1)).
+Proof.
+  intros n j Hj He Hfirst.
+  destruct j as [|j']; [left; reflexivity|right].
+  split; [lia|].
+  intro Heq. destruct n as [|n']; [lia|].
+  apply (Hfirst n' j'); [lia|lia|].
+  replace (S j' - 1) with j' in Heq by lia. exact Heq.
+Qed.
+
+Theorem later_steps_repeat : forall n j, j <= n -> run (S n) = run j ->
+  forall k, k > n -> exists i, i < k /\ run i = run k /\ run (S i) = run (S k).
+Proof.
+  intros n j Hj He k Hk.
+  destruct (revisit_periodic n j Hj He) as [Hp Hper].
+  exists (k - (S n - j)). split; [lia|]. split.
+  - replace k with ((k - (S n - j)) + (S n - j)) at 2 by lia.
+    symmetry. apply Hper. lia.
+  - replace (S k) with ((S (k - (S n - j))) + (S n - j)) by lia.
+    symmetry. apply Hper. lia.
+Qed.
+
 End StepLaw.

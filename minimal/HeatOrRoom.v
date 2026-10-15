@@ -225,6 +225,8 @@ Variable x0 : X.
 Variable r : nat.
 Hypothesis r_no : P (iterF f r x0) = false.
 Hypothesis r_yes : P (iterF f (S r) x0) = true.
+(* States can be told apart. *)
+Hypothesis X_eq_dec : forall a b : X, {a = b} + {a <> b}.
 
 Lemma run_yes_after : forall t, S r <= t -> P (iterF f t x0) = true.
 Proof.
@@ -243,9 +245,10 @@ Proof.
   rewrite r_no in Hr. discriminate Hr.
 Qed.
 
-(* Merging among the run's own states, within its first n steps. *)
+(* Merging among the run's own states, within its first n steps: two different
+   states of the run with the same next state, a literal collision. *)
 Definition run_merges (n : nat) : Prop :=
-  exists i j, i <= n /\ j <= n /\ i <> j /\ f (iterF f i x0) = f (iterF f j x0).
+  exists i j, i <= n /\ j <= n /\ iterF f i x0 <> iterF f j x0 /\ f (iterF f i x0) = f (iterF f j x0).
 
 (* If the first n steps of the run never merge, cancellation works. *)
 Lemma run_cancel : forall n k a b, ~ run_merges n ->
@@ -255,9 +258,9 @@ Proof.
   intros n k. induction k as [| k IH]; intros a b Hnm Ha Hb H; [exact H |].
   apply (IH a b Hnm); try lia.
   simpl in H.
-  destruct (Nat.eq_dec (k + a) (k + b)) as [E | NE].
-  - rewrite E. reflexivity.
-  - exfalso. apply Hnm. exists (k + a), (k + b). repeat split; try lia. exact H.
+  destruct (X_eq_dec (iterF f (k + a) x0) (iterF f (k + b) x0)) as [E | NE].
+  - exact E.
+  - exfalso. apply Hnm. exists (k + a), (k + b). repeat split; try lia; assumption.
 Qed.
 
 (* A run that keeps a record and never merges never repeats a state. *)

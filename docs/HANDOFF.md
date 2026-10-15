@@ -25,7 +25,7 @@ Devon Thiele; every word of the book is his; the rules below are his.
 ## What the release carries
 
 - The point, opening the book: nothing becomes something for free. A blank cell becoming a 0
-  gives off heat by happening (any real device, finite time; time sets how much); keeping it is
+  dissipates by happening (any real device, finite time; time sets how much); keeping it is
   paid on top, in a merge (Landauer's floor, a premise, when the merged states were really
   possible) or in room. Certification is the sharpest case, not the point itself. The book runs in that order: Part I the
   bill, Part II what structure is made of, Part III established, Part IV checking it.

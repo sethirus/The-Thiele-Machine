@@ -47,7 +47,7 @@ An explicitly qualified citation keeps its own module identity.
 - `permanent_certification_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
 - `permanent_flip_iterates_distinct`: On any state space, if a move never merges two states and a reading the move never turns off goes from no to yes at a state `s`, then the iterates of `s` under the move are pairwise distinct.
 - `permanent_flip_no_finite_list`: Under the same premises, no finite duplicate-free list contains every state.
-- `run_merges_or_fresh`: For any step `f`, a reading `P` that `f` never turns off, and a run from `x0` in which the reading goes from no at step `r` to yes at step `r + 1`: if no two states among the run's first `n` steps merge under `f`, then those states are pairwise distinct.
+- `run_merges_or_fresh`: For any step `f`, a reading `P` that `f` never turns off, and a run from `x0` in which the reading goes from no at step `r` to yes at step `r + 1`: if no two different states among the run's first `n` steps share a next state under `f` (states can be told apart), then those states are pairwise distinct.
 - `run_bounded_by_room`: Under the same premises, if a duplicate-free list contains every state, a run whose first `n` steps never merge has `n` below the list's length.
 - `retention_bound`: For a finite implementation of a reset, with representatives of the reset state and of `N - 1` further distinct abstract states, whose move is injective on the states reached from the representatives in fewer than `T` applications, the state space has at least `1 + (T+1)(N-1)` elements.
 - `retention_horizon`: Under the same premises, with at least one non-reset representative, either `T = 0` or `T` is at most `(|X|-1)/(N-1) - 1`.
@@ -1393,7 +1393,9 @@ An explicitly qualified citation keeps its own module identity.
 
 ## What a chair is
 
-- `step_law`: For any step on any type with decidable equality and any start, every step of the run is fresh (its new state equals no earlier state), or a merge (it equals an earlier state reached from a different state, so two distinct states share an image), or a return to the start, or a revisit from the same state as before.
+- `step_law`: For any step on any type with decidable equality and any start, every step of the run is fresh (its new state equals no earlier state), or a merge (it equals an earlier state reached from a different state, so two distinct states share an image), or a return to the start, or a revisit from the same state as before. The labels can overlap after the first revisit; the two lemmas below give the shape without double counting.
+- `first_revisit_start_or_merge`: If the step from position n is the first that lands on an earlier state, position j, then j is the start or the state before position j differs from the state at n, so the two share a next state: the first return is to the start or a merge.
+- `later_steps_repeat`: After any revisit, every later step is a step the run already took, from the same state to the same state, so nothing after the first return merges anew.
 - `merge_is_collision`: A merge in the sense of the step law exhibits two distinct states with the same image under the step.
 - `revisit_means_loop`: Once a run returns to a state it visited at position j, every later state of the run is one it visited at some position at most n, the position of the return.
 - `partial_raises_without_merge`: On two states with a partial step, a steps to b, b has no successor, the reading is false on a and true on b, and no two states share a successor.

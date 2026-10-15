@@ -23,7 +23,7 @@ The small machine of minimal/EarnedCore.v, a two-counter machine whose commitmen
 earned, is one instance; the universal machine U built on it is another. They are witnesses of
 the model, which is the record and the interface.
     The monograph’s point is that nothing becomes something for free: a distinction that comes
-into being gives off heat by happening (in any real device, in finite time), and keeping it is paid on
+into being dissipates by happening (in any real device, in finite time), and keeping it is paid on
 top, in a merge, which carries Landauer’s floor (a named premise) when the merged states were
 really possible, or in room. Certification, a record that a claim was checked and closed, is the
 sharpest case. It is one example of a wider question about structural state, observation and cost.
@@ -37,7 +37,7 @@ conjecture. The status of each result is stated below.
 
 
 
-                                                  1
+                                                1
                                             Abstract
 
 This is a mathematical reference for the Thiele Machine: a model of computation in which
@@ -289,11 +289,9 @@ two states (forced_priced_iff_merges). An instruction that switches a reading on
 merges or switches it off somewhere else (flip_merges_or_revokes). So every permanent-
 record write is forced, and the only flips a merge-priced schedule can leave unpriced are revocable
 ones, which keep nothing.
-
 Theorem 4.5 (Refutation). (R) “The forced events are exactly the permanent-record
 writes” is false: a three-state instruction flips, revokes, and merges at once. Coq:
 forced_price_without_permanent_record.
-
 Theorem 4.6 (Heat or room: the dichotomy). (S) On any state space, let a reading be per-
 manent under a step f , and take a run x0 , f (x0 ), f (f (x0 )), . . . in which the reading goes from
 false at step r to true at step r + 1. If no two states among the run’s first n steps merge under
@@ -303,7 +301,6 @@ that switches the reading on at s, the iterates of s are pairwise distinct and n
 free list contains them all: a permanent flip either merges or visits a fresh state every time.
 Coq: run_merges_or_fresh, run_bounded_by_room; permanent_flip_iterates_distinct,
 permanent_flip_no_finite_list.
-
 Theorem 4.7 (Retention bound, and its exactness). (S) Let a finite implementation F : X → X
 of a reset carry an abstraction q that sends every image of F to a fixed abstract state q0 , with a
 representative of q0 and representatives of N − 1 further, pairwise distinct abstract states, and let
@@ -314,19 +311,17 @@ its last state to the fixed one, has exactly 1 + (T + 1)(N − 1) states, is clo
 the reset and representative premises, is injective through T repetitions, and merges on the next.
 Coq: retention_bound, retention_horizon; tight_exact, tight_closed, tight_retain,
 tight_merges_next.
-
-Theorem 4.8 (The step law). (S) For any step f on any type with decidable equality and any
-start, every step of the run is exactly one of: fresh (the new state equals no earlier state of the
-run), a merge (it equals an earlier state xj with j ≥ 1 and the state before xj differs from the
-current state, so two distinct states share an f -image), or a return to the start or a revisit from
-the same state, after which the run is periodic and every later state is one already visited. Coq:
-step_law, merge_is_collision, revisit_means_loop.
-
+Theorem 4.8 (The step law). (S) For any step f on any type with decidable equality and
+any start, every step of the run before its first revisit is fresh (the new state equals no earlier
+state of the run); the first revisit lands on the start or is a merge (it equals an earlier state xj
+with j ≥ 1 and the state before xj differs from the current state, so two distinct states share an
+f -image); and every later step repeats a step the run already took, so the run is periodic and
+merges nothing new. Coq: step_law, first_revisit_start_or_merge, later_steps_repeat,
+merge_is_collision, revisit_means_loop.
 Theorem 4.9 (Refutation: the halting hole). (R) “Every raise of a permanent reading on
 finitely many states is a merge” is false for partial steps: on two states, a 7→ b with b having no
 successor raises the reading with no shared image. Totalising the halt (b 7→ b) makes the raise a
 merge. Coq: partial_raises_without_merge, totalised_halt_is_merge.
-
 Theorem 4.10 (The write of a cell, and the room it takes to avoid the merge). (S)
 On the states blank, zero, one with reading “definite,” the write of a 0 is permanent,
 raises the reading from blank, and merges blank with zero. A fourth state remembering
@@ -408,7 +403,7 @@ from the uniform distribution (permanent_flip_heat_floor), and, when kB T > 0, p
 tive heat from any distribution that leaves every certified state and the flipping one possible
 (permanent_flip_full_support_heat_positive). For a state known in advance, the premise
 is equivalent to heat ≥ 0, so it supplies no positive lower bound; it does not prove zero device heat
-(a step that happens in finite time still gives off heat, and the distinction is already kept by whoever
+(a step that happens in finite time still dissipates, and the distinction is already kept by whoever
 knows the start), and the ledger toll still charges its mark on a known run, since merge pricing
 prices the instruction whatever input was prepared (known_state_flip_forces_no_heat).
 
@@ -431,7 +426,7 @@ the scale is a premise, and nothing here measures it.
 
 
 
-                                                  10
+                                                 10
 Chapter 5
 
 Windows, Pricing and Narrowing
