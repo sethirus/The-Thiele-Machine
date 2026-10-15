@@ -21,7 +21,7 @@ From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
 Require Import Kernel.UMachDef.
 Require Import Kernel.UMachCheatSmall.
-Require Import Kernel.UMachCheatPresented.
+Require Import Kernel.UMachPresented.
 Require Import Kernel.UMachMeetsU.
 Require Import Kernel.UMachMeetsUP.
 Require Import Kernel.UMachInert.
@@ -94,4 +94,3 @@ Print Assumptions UP_checker_free.
 Print Assumptions U_load_clean.
 Print Assumptions UP_load_clean.
 Print Assumptions cheat_is_universal.
-Print Assumptions pcheat_is_universal.

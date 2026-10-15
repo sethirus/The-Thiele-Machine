@@ -202,8 +202,6 @@ Require Kernel.TcPlain.
 Require Kernel.TcPrefix.
 Require Kernel.TcRice.
 Require Kernel.TcRiceMM.
-Require Kernel.UMachCheatPNotReg.
-Require Kernel.UMachCheatPresented.
 Require Kernel.UMachCheatSmall.
 Require Kernel.UMachDef.
 Require Kernel.UMachHybrid.
@@ -214,6 +212,7 @@ Require Kernel.UMachInert.
 Require Kernel.UMachMeetsU.
 Require Kernel.UMachMeetsUP.
 Require Kernel.UMachMirror.
+Require Kernel.UMachPresented.
 Require Kernel.UMachRegHost.
 Require Kernel.UMachShadowU.
 Require Kernel.UMachStrengthened.
@@ -3405,26 +3404,6 @@ Print Assumptions Kernel.TcRiceMM.tc_code_tovec.
 Print Assumptions Kernel.TcRiceMM.tc_simul_iff.
 Print Assumptions Kernel.TcRiceMM.tc_Q_halts.
 Print Assumptions Kernel.TcRiceMM.tc_Q_diverges.
-(* === Kernel.UMachCheatPNotReg : 5 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.UMachCheatPNotReg.paid_toll.
-Print Assumptions Kernel.UMachCheatPNotReg.free_toll.
-Print Assumptions Kernel.UMachCheatPNotReg.bcode.
-Print Assumptions Kernel.UMachCheatPNotReg.ucode.
-Print Assumptions Kernel.UMachCheatPNotReg.pcheat_not_reg_host.
-(* === Kernel.UMachCheatPresented : 13 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.UMachCheatPresented.live_or_stop_gen.
-Print Assumptions Kernel.UMachCheatPresented.glatch_read.
-Print Assumptions Kernel.UMachCheatPresented.pcheat_toll.
-Print Assumptions Kernel.UMachCheatPresented.hr_cons.
-Print Assumptions Kernel.UMachCheatPresented.hl_cons.
-Print Assumptions Kernel.UMachCheatPresented.pay_loop.
-Print Assumptions Kernel.UMachCheatPresented.round.
-Print Assumptions Kernel.UMachCheatPresented.start_block.
-Print Assumptions Kernel.UMachCheatPresented.points.
-Print Assumptions Kernel.UMachCheatPresented.fpt_ge.
-Print Assumptions Kernel.UMachCheatPresented.pcheat_is_universal.
-Print Assumptions Kernel.UMachCheatPresented.pcheat_exact_when_no_at_start.
-Print Assumptions Kernel.UMachCheatPresented.one_is_forced.
 (* === Kernel.UMachCheatSmall : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UMachCheatSmall.cheat_toll.
 Print Assumptions Kernel.UMachCheatSmall.cert_exec_cost0.
@@ -3570,6 +3549,9 @@ Print Assumptions Kernel.UMachMirror.mpoints.
 Print Assumptions Kernel.UMachMirror.mirror_is_universal.
 Print Assumptions Kernel.UMachMirror.mirror_earned.
 Print Assumptions Kernel.UMachMirror.mirror_not_reg_host.
+(* === Kernel.UMachPresented : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UMachPresented.live_or_stop_gen.
+Print Assumptions Kernel.UMachPresented.glatch_read.
 (* === Kernel.UMachRegHost : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UMachRegHost.err_back.
 Print Assumptions Kernel.UMachRegHost.one.

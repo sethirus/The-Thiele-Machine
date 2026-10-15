@@ -31,7 +31,7 @@
 From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
 Require Import Kernel.UMachDef.
-Require Import Kernel.UMachCheatPresented.
+Require Import Kernel.UMachPresented.
 Require Import Kernel.UMachMeetsUP.
 Require Import Kernel.UMachRegHost.
 Require Import Kernel.UMachInOrderUP.

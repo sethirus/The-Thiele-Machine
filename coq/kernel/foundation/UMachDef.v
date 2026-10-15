@@ -1,9 +1,9 @@
 (** UMachDef.v: the plain definition of a universal Thiele machine, over
     arbitrary guest classes and arbitrary hosts.  It asks for halting,
     matching and the host's own raise, and puts no condition on how the host
-    computes.  The cheats of UMachCheatSmall.v and UMachCheatPresented.v meet
-    it; NeutralUnivDef.v states the definition with the clauses that exclude
-    them ([neutral_universal]).
+    computes.  The cheat of UMachCheatSmall.v meets it; NeutralUnivDef.v
+    states the definition with the clauses that exclude it
+    ([neutral_universal]).
 
     The plain definition:
       Fix a class C of Thiele machines, each with its runs from given start

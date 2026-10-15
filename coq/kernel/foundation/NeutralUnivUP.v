@@ -51,7 +51,7 @@ Require Minimal.NeutralComplete.
 Module T := Minimal.ThieleComplete.
 
 (* ================================================================= *)
-(* The class and the host (as in UMachCheatPresented.v and UMachMeetsUP.v).     *)
+(* The class and the host (as in UMachPresented.v and UMachMeetsUP.v).          *)
 (* ================================================================= *)
 
 Definition pinst : Type :=

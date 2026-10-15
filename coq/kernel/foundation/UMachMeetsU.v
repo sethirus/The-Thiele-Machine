@@ -2,7 +2,7 @@
     the plain definition in UMachDef.v, from the theorems already proved
     about them.
     This checks that the rendering is not stronger than what the book's
-    machines satisfy, so that the cheat of UMachCheatSmall.v / UMachCheatPresented.v
+    machines satisfy, so that the cheat of UMachCheatSmall.v
     meeting the (stronger, in-order) rendering is a statement about the
     book's definition and not about an over-weak formalisation.          *)
 

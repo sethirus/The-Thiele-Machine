@@ -104,10 +104,10 @@ python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proof
 
 The bead erasure quoted in the book's "Time has a bill" is a simulation of a model with the numbers of Bérut and colleagues (2012), not a measurement; `python3 scripts/bead_erasure_sim.py` reruns it (it needs numpy and takes a few minutes).
 
-The third command prints the assumption receipt: 6,650 theorems probed, zero *project-local* axiom findings.
+The third command prints the assumption receipt: 6,634 theorems probed, zero *project-local* axiom findings.
 This is a report about the formal derivations, not a premise or a source of authority for the argument.
 Some theorems do use axioms from Coq's own standard library.
-5,830 of those theorems are closed under the global context outright; the remaining 820 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+5,814 of those theorems are closed under the global context outright; the remaining 820 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 The receipt's counts are written by the receipt generator on Linux (`make assumption-receipt`, then `scripts/sync_assumption_receipt_readme.py`), never by hand.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
@@ -229,7 +229,7 @@ Since their classical parts are equal, it would have to return two different ans
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 6,650 addressable theorems probed across 398 files and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 6,634 addressable theorems probed across 397 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -474,8 +474,8 @@ Two independent receipts track proof assumptions.
 
 The vacuity gate probes the compiled theorem types, preserving their section binders and module scope. An unresolved theorem, failed import, or timeout is an audit error, not a passing result. Version-two receipts replace older receipts that did not distinguish these failures. Definitional transport helpers are labeled `Definition`; they are not counted as new theorems.
 
-The generated assumption receipt reports 6,650 addressable theorems probed across 398 files and no user/project-local axiom findings.
-The split: 5,830 close under the global context outright, and the remaining 820 lean only on Coq-stdlib axiom families.
+The generated assumption receipt reports 6,634 addressable theorems probed across 397 files and no user/project-local axiom findings.
+The split: 5,814 close under the global context outright, and the remaining 820 lean only on Coq-stdlib axiom families.
 Those families are `functional_extensionality_dep` (784), the classical-reals pair `sig_forall_dec` (806) and `sig_not_dec` (285), and `classic` (187). No theorem uses `eq_rect_eq` (0).
 Those families enter through the real-number layers; the minimal core uses none of them.
 These counts are written by the receipt generator on Linux, never by hand.

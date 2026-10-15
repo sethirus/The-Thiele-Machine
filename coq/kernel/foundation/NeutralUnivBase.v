@@ -2,7 +2,7 @@
     stated in a file of its own so that it can be used without importing the
     presented cheat host (whose large state type would make every host too
     large to be read as a ThieleComplete.machine), together with
-    live_or_stop_gen of UMachCheatPresented.v. *)
+    live_or_stop_gen of UMachPresented.v. *)
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file
    states the register-host record over the hosts of UMachDef.v and imports

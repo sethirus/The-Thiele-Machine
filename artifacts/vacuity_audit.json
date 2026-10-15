@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v2",
   "summary": {
     "error": 0,
-    "ok": 6645,
-    "total": 6645,
+    "ok": 6629,
+    "total": 6629,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -62889,9 +62889,9 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
+      "file": "coq/kernel/foundation/UMachPresented.v",
       "kind": "Lemma",
-      "line": 25,
+      "line": 17,
       "name": "live_or_stop_gen",
       "probe_a": null,
       "probe_b": null,
@@ -62899,123 +62899,13 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
+      "file": "coq/kernel/foundation/UMachPresented.v",
       "kind": "Lemma",
-      "line": 40,
+      "line": 32,
       "name": "glatch_read",
       "probe_a": null,
       "probe_b": null,
       "statement": "forall (C : gclass) (i : gi C) s n, gread C i (gr s n) = true -> glatch s n = true",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Theorem",
-      "line": 124,
-      "name": "pcheat_toll",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall h m, pmir h = false -> pmir (pexec h m) = true -> pcost m >= 1",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 153,
-      "name": "hr_cons",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall Q h m n, pnext Q h = Some m -> hr (H:=pcheat_host) Q h (S n) = hr (H:=pcheat_host) Q (pexec h m) n",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 157,
-      "name": "hl_cons",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall Q h m n, pnext Q h = Some m -> hl (H:=pcheat_host) Q h (S n) = pcost m + hl (H:=pcheat_host) Q (pexec h m) n",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 164,
-      "name": "pay_loop",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k M s mir, hr (H:=pcheat_host) PB (mkp 7 k M s mir false) (3 * k + 1) = mkp 10 0 M s mir false /\\ hl (H:=pcheat_host) PB (mkp 7 k M s mir false) (3 * k + 1) = k",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 184,
-      "name": "round",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall M s r mv, pm_next M s = Some mv -> let s' := T.cs_step (pm_sys M) s mv in forall mir, (T.cs_cert (pm_sys M) s' = true -> T.cs_cost (pm_sys M) mv = 0 -> mir = true) -> hr (H:=pcheat_host) PB (mkp 4 r M s mir false) (roundlen M s) = mkp 4 0 M s' (mir || T.cs_cert (pm_sys M) s') false /\\ hl (H:=pcheat_host) PB (mkp 4 r M s mir false) (roundlen M s) = T.cs_cost (pm_sys M) mv",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 233,
-      "name": "start_block",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall i, hr (H:=pcheat_host) PB (pload i) (start_len i) = mkp 4 (start_fee i) (projT1 i) (snd (projT2 i)) (glat (C:=presented_class) i 0) false /\\ hl (H:=pcheat_host) PB (pload i) (start_len i) = start_fee i",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 244,
-      "name": "points",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall (i : pinst) m, live_before (C:=presented_class) i m -> exists r, hr (H:=pcheat_host) PB (pload i) (fpt i m) = mkp 4 r (projT1 i) (grun (C:=presented_class) i m) (glat (C:=presented_class) i m) false /\\ hl (H:=pcheat_host) PB (pload i) (fpt i m) = gledger (C:=presented_class) i m + start_fee i",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Lemma",
-      "line": 276,
-      "name": "fpt_ge",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall i m, live_before (C:=presented_class) i m -> m <= fpt i m",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Theorem",
-      "line": 296,
-      "name": "pcheat_is_universal",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "universal_thiele presented_class pcheat_host (fun i => option (T.cs_state (pm_sys (projT1 i)))) pobs 1",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Theorem",
-      "line": 332,
-      "name": "pcheat_exact_when_no_at_start",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall i m, T.cs_cert (pm_sys (projT1 i)) (snd (projT2 i)) = false -> live_before (C:=presented_class) i m -> hl (H:=pcheat_host) PB (pload i) (fpt i m) = gledger (C:=presented_class) i m /\\ pmir (hr (H:=pcheat_host) PB (pload i) (fpt i m)) = glat (C:=presented_class) i m",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPresented.v",
-      "kind": "Theorem",
-      "line": 345,
-      "name": "one_is_forced",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall (Hh : host) (P : hP Hh) (h0 : hS Hh) n, hflag Hh h0 = false -> hflag Hh (hr P h0 n) = true -> hl P h0 n >= 1",
       "status": "ok"
     },
     {
@@ -63996,56 +63886,6 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "reg_host hybrid_host -> False",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPNotReg.v",
-      "kind": "Lemma",
-      "line": 22,
-      "name": "paid_toll",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall (s : bool) (i : unit), s = false -> true = true -> 1 >= 1",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPNotReg.v",
-      "kind": "Lemma",
-      "line": 28,
-      "name": "free_toll",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall (s : bool) (i : unit), s = false -> s = true -> 0 >= 1",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPNotReg.v",
-      "kind": "Lemma",
-      "line": 34,
-      "name": "bcode",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall b : bool, Some (Nat.eqb (if b then 1 else 0) 1) = Some b",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPNotReg.v",
-      "kind": "Lemma",
-      "line": 37,
-      "name": "ucode",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall u : unit, Some tt = Some u",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/UMachCheatPNotReg.v",
-      "kind": "Theorem",
-      "line": 50,
-      "name": "pcheat_not_reg_host",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "reg_host pcheat_host -> False",
       "status": "ok"
     },
     {
