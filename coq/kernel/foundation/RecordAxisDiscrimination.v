@@ -74,6 +74,70 @@ Qed.
 
 End Latch.
 
+(** * A latch on a constant event distinguishes nothing
+
+    [latch_core_honest] admits any event the base reaches, including one
+    that holds everywhere. Its latch is up after one step from every start
+    ([latch_constant_up]). A latch tells two starts apart exactly when its
+    event holds along one run and not along the other ([latch_distinguishes]). *)
+
+Section LatchDistinguish.
+Variable B : BaseMachine.
+Variable h : b_state B -> bool.
+
+Lemma latch_run_shape : forall n b r m,
+  let '(b', r', _) := rc_run (LatchCore B h) n (b, r, m) in
+  b' = Nat.iter n (b_next B) b /\
+  (r' = true <-> r = true \/ exists k, k < n /\ h (Nat.iter k (b_next B) b) = true).
+Proof.
+  induction n as [|n IH]; intros b r m; simpl.
+  - split; [reflexivity|]. split; [tauto|]. intros [H|[k [Hk _]]]; [exact H|lia].
+  - specialize (IH b r m). unfold rc_run in IH |- *.
+    destruct (Nat.iter n (rc_next (LatchCore B h)) (b, r, m)) as [[b' r'] m'] eqn:E.
+    simpl. destruct IH as [Hb Hr]. subst b'. split; [reflexivity|].
+    rewrite orb_true_iff. rewrite Hr. split.
+    + intros [[H|[k [Hk Hh]]]|H].
+      * left; exact H.
+      * right; exists k; split; [lia|exact Hh].
+      * right; exists n; split; [lia|exact H].
+    + intros [H|[k [Hk Hh]]].
+      * left; left; exact H.
+      * destruct (Nat.eq_dec k n) as [->|Hne].
+        -- right; exact Hh.
+        -- left; right; exists k; split; [lia|exact Hh].
+Qed.
+
+(** A constant event: its latch is up after one step from every start. *)
+Theorem latch_constant_up : (forall b, h b = true) ->
+  forall b m, rc_cert (LatchCore B h) (rc_run (LatchCore B h) 1 (b, false, m)) = true.
+Proof.
+  intros Hc b m. pose proof (latch_run_shape 1 b false m) as S.
+  destruct (rc_run (LatchCore B h) 1 (b, false, m)) as [[b' r'] m'].
+  simpl. destruct S as [_ Hr]. apply Hr. right. exists 0. split; [lia|apply Hc].
+Qed.
+
+(** The latch tells two starts apart at step n exactly when the event has
+    held along one run's first n states and not along the other's. *)
+Theorem latch_distinguishes : forall b0 b1 n,
+  (exists k, k < n /\ h (Nat.iter k (b_next B) b0) = true) ->
+  (forall k, k < n -> h (Nat.iter k (b_next B) b1) = false) ->
+  rc_cert (LatchCore B h) (rc_run (LatchCore B h) n (b0, false, 0)) = true /\
+  rc_cert (LatchCore B h) (rc_run (LatchCore B h) n (b1, false, 0)) = false.
+Proof.
+  intros b0 b1 n H0 H1.
+  pose proof (latch_run_shape n b0 false 0) as S0.
+  pose proof (latch_run_shape n b1 false 0) as S1.
+  destruct (rc_run (LatchCore B h) n (b0, false, 0)) as [[x0 r0] m0].
+  destruct (rc_run (LatchCore B h) n (b1, false, 0)) as [[x1 r1] m1].
+  simpl. destruct S0 as [_ R0]. destruct S1 as [_ R1]. split.
+  - apply R0. right. exact H0.
+  - destruct r1; [|reflexivity]. exfalso.
+    destruct (proj1 R1 eq_refl) as [D|[k [Hk Hh]]]; [discriminate|].
+    rewrite (H1 k Hk) in Hh. discriminate.
+Qed.
+
+End LatchDistinguish.
+
 (** * A reversible base with unbounded memory *)
 
 Section History.
@@ -152,6 +216,8 @@ Proof.
 Qed.
 
 Print Assumptions latch_core_honest.
+Print Assumptions latch_constant_up.
+Print Assumptions latch_distinguishes.
 Print Assumptions history_latch_injective.
 Print Assumptions history_latch_honest.
 Print Assumptions finite_reversible_cannot_write.

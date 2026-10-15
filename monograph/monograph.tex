@@ -237,7 +237,7 @@
 \label{sec:point}
 %===========================================================================
 
-Here's the whole book in four steps, so you know what you're carrying. Each step stands on the one
+Here's the whole book in four steps, so you know what you're carrying. Each step is motivated by the one
 before it, and the book goes up them in order.
 
 \emph{One: nothing becomes something for free.} Take a blank cell. A square of paper with nothing
@@ -267,7 +267,9 @@ pays the same bill. I build a machine for that case, all the way down, because i
 you can point at the kept 0 and at what it cost. It's the sharpest case of the bill. It isn't the
 point. The point is the 0.
 
-If the bottom step breaks, everything above it falls with it, so that's where I start: the blank
+Step one is where the toll gets its reason. If it breaks, the toll goes back to being only my
+choice, though the latch, the window, the diagonal and the earned record are proved without it and
+would stand. So that's where I start: the blank
 cell, taken apart as far down as I can get before I hit something that holds or something I can't
 get under. I'll tell you which.
 
@@ -979,8 +981,8 @@ can't give back. The machine is the thing whose state includes the chairs it can
 
 It doesn't stop at the cell. The tape is a set of distinctions that stayed. So is the rule for
 the next state, and so is the question you ask of a chair. Each of the five parts of the model
-is itself a definite thing where there could have been anything, which is to say each is an
-instance of the thing the model charges for. And the model can run itself: a host that pays the toll and runs a guest move for move pays at
+is itself a definite thing where there could have been anything; the model doesn't charge for
+them, but they're the same kind of thing it charges for. And the model can run itself: a host that pays the toll and runs a guest move for move pays at
 least a mark in its own ledger for every step where the guest's record went up, and Part~III states
 one (Section~\ref{sec:reach}; Appendix~\ref{sec:universal-machines} builds it). The tower is the same machine above and below. What no level does is hold all the questions you can ask of it: for any way of coding
 readings as states, there's a reading no state codes, the one that answers each state with the
@@ -1002,8 +1004,11 @@ ways.
 
 The regress has a price too. Write a 0 on a cell you know is blank and Landauer's premise sets
 no floor: the entropy before and after are both zero (Theorem~\ref{thm:known-state}, two
-chapters on, does the arithmetic). The write still dissipates when it happens; what's missing is a
-floor that survives going slowly. So where did the floor go? Into the knowing. ``This cell is
+chapters on, does the arithmetic). The write still dissipates when it happens. What's missing is a
+floor that survives going slowly, and it's missing only for a writer built for this one cell,
+knowing it's blank. A writer that writes 0 on whatever it's handed, blank or 0, keeps a floor on
+the worse of the two however slowly it goes (Section~\ref{sec:bits-zero} says how much). So where
+did the floor go, for the writer built knowing? Into the knowing. ``This cell is
 blank'' is a distinction that stays, a record, and the entitlement count of
 Section~\ref{sec:entitlement} says how much a record like that has to say: at least the
 rounded-up logarithm of how many possibilities it picks among, one yes-or-no question per
@@ -2585,8 +2590,23 @@ that heat has to be heat \emph{wasted}. Takahiro Sagawa's 2014 analysis says tha
 can, in principle, approach a process that produces no entropy overall: the reservoir's
 entropy goes up by what the machine's goes down. A positive mean heat transfer can then
 be unavoidable without being wasteful. A known input has no uncertainty to remove, and
-this entropy-loss premise alone sets no positive heat floor for it; the reset still gives off
-some heat when it actually happens in a finite time.
+this entropy-loss premise alone sets no positive heat floor for it. The reset still dissipates
+when it actually happens in a finite time, and a reset device that wasn't built for that one input
+keeps a floor that survives going slowly (Section~\ref{sec:bits-zero}).
+
+Ladyman and his coauthors and Sagawa aren't disagreeing. They use ``reversible'' for two
+different things. Ladyman's L-machines are devices, and a device counts as reversible only if it
+produces no entropy on every input it's fed, each one known. Sagawa's reversible erasure is a
+process on one given spread of inputs, with the device tuned to that spread. The standard eraser
+is both at once: on an even mix of 0 and 1 it produces no entropy, and on each known input it
+produces $k_B\ln2$. One identity holds the two together. For a fixed device that sends every
+input to one output, and any spread $q$ of its inputs, the average over inputs of the entropy
+produced on each known input equals the entropy produced on the spread $q$, plus $k_B$ times the
+Shannon entropy of $q$. Here's why. The heat is the same average either way, because the device
+is fixed. The output is the same either way. The only difference is at the start: the spread's own
+entropy includes $k_B H(q)$ for not knowing which input it is, and each known input's doesn't.
+Sagawa makes the first term on the right zero; Ladyman reads the left side, which is then
+$k_B H(q)$, and more than zero.
 
 \subsection{How much: the price grows with the squeeze}
 
@@ -2715,6 +2735,7 @@ halving price. What does hold there is merge pricing asked of the record layer a
 and it gives the toll on that machine too (Theorem~\ref{thm:record-merge-toll}, below).
 
 \subsection{The same bill, written in bits, and when it's zero}
+\label{sec:bits-zero}
 
 There's one more way to say all this, and I include it because it's the way physicists say
 it and because it hands you the one case where the bill is exactly zero, which I find more
@@ -2977,7 +2998,9 @@ again. Nothing you didn't know changed. No bit was lost. And the principle, appl
 you already knew, demands nothing: the premise holds exactly when the heat is zero or more,
 which is to say it sets no positive floor. Setting a coin you know is tails to heads still
 dissipates when you do it in a finite time, as any change does (time's bill); setting one you know
-is heads changes nothing. What's gone either way is a floor that survives going slowly. And that isn't a hole in the bill. When you lifted the
+is heads changes nothing. What the premise gives up either way is a floor that survives going
+slowly. Whether the hand that sets the coin keeps one is a question about the hand, and I come to
+it below. And that isn't a hole in the premise's bill. When you lifted the
 cup, which side was up got written down somewhere: in you. That's a distinction that stays, kept
 by whoever knows, on a page that was blank before you looked, and the page gets paid for in heat
 when it's wiped to be used again. The bill moved to the one who knows; it didn't vanish.
@@ -3008,8 +3031,7 @@ dissipates every time the stamp actually comes down in a finite time, known inpu
 stamp changes the sheet:
 that's time's bill, proved here for Bennett's walker (Theorem~\ref{thm:time-bill}), found for a dragged bead by Schmiedl and Seifert and in general by Shiraishi, Funo and Saito, and how much depends on the device's physical
 implementation, its control protocol and how fast it goes. What the
-theorem says is only that the \emph{premise} sets no floor there, nothing that survives going
-slowly. The floor comes from what you
+theorem says is only that the \emph{premise} sets no floor there. The floor comes from what you
 didn't know. That's a sentence about the bill. The device is a separate matter. And notice that the
 toll still charges the known-state stamp one mark, because the toll is a rule about the
 \emph{move}, and the move doesn't know what the observer knows. That's the worst-case gap from
@@ -3024,6 +3046,20 @@ Wolpert (2017) showed that a fixed process built to dissipate as little as possi
 over its states pays extra when it runs on another, and the extra is how much closer the process
 brings the two spreads, measured in relative entropy; the extra was later named mismatch cost.
 That's the worst-case gap again, priced for an actual spread, where the toll prices the move.
+
+Run their formula on a known input and a floor comes back, from the device this time. Their extra
+is the relative entropy of the two spreads at the start, less the same at the end. Take a fixed
+device that sends input $x$ to output $y$, and let $w$ be the spread it dissipates least on, with
+some chance on every input, which is when their formula is exact. Put everything on $x$. At the
+start the relative entropy is $\ln(1/w(x))$; at the end everything is on $y$, and it's
+$\ln(1/W(y))$, where $W(y)$ is the chance $w$ puts on all the inputs that land on $y$ together. So
+on $x$ alone the device produces at least $k_B\ln\bigl(W(y)/w(x)\bigr)$, however slowly it runs.
+If $K$ inputs land on $y$, the smallest of their $K$ chances is at most a $K$-th of $W(y)$, and on
+that input the device produces at least $k_B\ln K$. A device can make one input cheap only by
+making another dear. Only a device chosen knowing the input gets it to nothing, and then the device
+is where the knowing is kept. So the floor sits on the merging move, on its worst input, whatever
+anyone knows, and that's the shape of the toll. The relaxation bound below is one more floor of
+this kind.
 
 There's a second piece of fine print on that theorem, and it's about who works the controls.
 The entropy-loss bound supplies no positive floor for a known input. Whether a device
@@ -3056,7 +3092,8 @@ Theorem~\ref{thm:known-state}'s entropy calculation nor identifies the book's ab
 merge price with a universal physical bill.
 
 A deterministic run from a known start has a known state at every step, so the premise sets
-no floor under any of its steps; each that changes something still dissipates when it happens in a finite time.
+no floor under any of its steps; each that changes something still dissipates when it happens in a finite time,
+and a fixed device keeps the floor above on each step that merges.
 One more limit, about which states collide. The chairs guarantee a
 collision among the already-yes states together with the entering no-state. They do not guarantee that the entering state takes part in the collision. Take four chairs with only the first reading no, and a move that walks the first chair to the second, the second to the third, and leaves the third and fourth where they are: the second and third both land on the third, and the first never shares with anyone. For an input distribution
 supported only on no-states, this counting argument alone forces no positive entropy
@@ -3067,9 +3104,10 @@ So here's what this section actually earns. A finite machine's permanent flag-ra
 instruction has two allowed starting states that land on one state. Prepare those two
 with equal chances: that instruction removes one bit, and under the adopted physical
 premise its mean heat is at least $k_B T\ln2$. That is a worst-case preparation, not a
-positive charge on every execution. A known start gives no positive entropy-loss floor; it
+positive charge on every execution. A known start gives no positive entropy-loss floor. It
 still dissipates whenever it runs in a finite time, and how much depends on the device's
-dynamics, controls and speed. The
+dynamics, controls and speed; a fixed device that merges $K$ inputs keeps at least $k_B\ln K$ on
+its worst one, however slowly it runs. The
 ledger charges the merging move whatever the preparation, because merge pricing says so. The counting proves a collision, the preparation
 determines the uncertainty removed, and the physical premises connect that removal to heat.
 
@@ -3187,7 +3225,9 @@ A move that sends two different states with the same base part to one state cost
 \end{premise}
 
 The merges among base parts are the ordinary computer's business, the ones any two-counter machine
-makes, and whatever heat they cost is the ordinary computer's heat. Merge pricing implies this
+makes, and whatever heat they cost is the ordinary computer's heat. The premise prices only merges
+between states with the same ordinary-computer part. A step like DEC, which changes that part, can
+lose a version number with no mark, and the premise doesn't object. Merge pricing implies this
 premise, so it asks less, and on the record distinctions it is still an assumed operation-level price; identifying
 it with heat needs a physical model.
 
@@ -3917,8 +3957,9 @@ the theorem holds under either. Three things it doesn't say. It doesn't say how 
 that's Landauer's premise, applied to the destroyed part, $H(\text{start} \mid \text{end})$,
 which is the uncertainty the run really removed. It doesn't say the observer's own notes are
 free: they're room on the observer's side, a page that was blank. And with a known start,
-$p$ on one chair, every term is zero: nothing to learn, nothing destroyed, no floor, and the
-step still gives off its heat for happening. The bill for knowing sits with whoever knew.
+$p$ on one chair, every term is zero: nothing to learn, nothing destroyed, no floor from the
+premise. The step still dissipates for happening, and keeps the device's floor if the device wasn't
+built for that start. The bill for knowing sits with whoever knew.
 
 So here's the path between uncertainty and certainty, both ways round. Going in, certainty is
 got by narrowing what's possible, and narrowing is a merge or a copy: a merge pays marks, and
@@ -4071,7 +4112,7 @@ I used that word for most of my life without once looking at it, which I suspect
 most people and most words, and it's fine, right up until you do something stupid. The
 stupid thing I did was build a machine that keeps a running bill, and the bill has one rule I
 couldn't talk it out of. You can arrange things however you like, and the ledger lets you put
-any price on the arranging, including none; the arranging still gives off its heat when it
+any price on the arranging, including none; the arranging still dissipates when it
 happens, like anything that does. But the moment an arrangement has to \emph{stay}, the moment you
 ask the machine to keep it, or to vouch for it, to put its own name on the claim that these things
 belong together, there's a charge, and it isn't zero. Charged in what? Anything that changes a machine's state dissipates when it happens; keeping
@@ -7315,6 +7356,11 @@ short case split on whether the record is already on, and it uses only \emph{two
 rules, ``driven by the computation'' and ``permanent.'' The ledger, the toll, and the reachable-write clauses play no part in it. A
 latch is what you get from ``answers only to the base'' plus ``never comes back down,'' full
 stop. The other three rules matter for the \emph{converse}: for any base and any event the base can reach, the latch of that event, priced at one unit per write, \emph{is} a base-driven record.
+The event can be one that holds everywhere. Then its latch is up after one step from every start
+and tells no two starts apart. It's still a latch and still base-driven: the converse doesn't ask
+the record to distinguish anything. A record that does has to latch an event that holds somewhere
+along one run and nowhere along another, and then the latch tells those two runs apart from that
+point on.
 Put the two together and you've got: base-driven records are exactly
 latches. One shape, no others, over any base.
 
@@ -11701,7 +11747,9 @@ machine can meet any one of the three and fail the others.
 
 One word needs pinning before the theorems, using those three names.
 In clause (c), \emph{exact prices} means instruction-exact pricing: each of the three acts, CHECK
-and COMMIT included, costs exactly one, so the ledger counts the acts that make a claim. Back in
+and COMMIT included, costs exactly one, so the ledger counts the moves filed as record moves.
+That's the acts that make a claim, and also a check that fails, a COMMIT of a fact already
+committed, and a CERTIFY with the flag already up: each is filed as a record move and costs one. Back in
 Section~\ref{sec:counter}, one result is about
 rise-only pricing in its tightest bill, the \emph{exact schedule}: one mark on the step that
 raises the flag and nothing on any other step. Measured against the flag alone, the small machine
@@ -11771,7 +11819,12 @@ every machine that meets the definition. Through a plain interface its claims ca
 the interface names; over a claim language they are the language's. Either way its checker can
 be an oracle, as the halting-function checker above shows.
 
-The second half of (6) in Theorem~\ref{thm:u34-tc-consequences}, that some move costs 0, is the one that kills the clock.
+The second half of (6) in Theorem~\ref{thm:u34-tc-consequences}, that some move costs 0, is the one
+that rules out the clock: a machine that charges every move. It doesn't rule out a program that
+makes the ledger tick. On the host of Appendix~\ref{sec:universal-host}, a program that checks one
+fact once and then commits it again before every instruction runs any two-counter program with the
+flag down and pays exactly one mark a step: the checked fact is about a counter the program never
+writes, so its edition never changes, and every COMMIT finds it.
 
 \begin{observation}[A clock is a Thiele machine and isn't Thiele-complete]\label{thm:u34-clock}
 Take the two-counter machine, let every move cost 1, and take as the record any yes/no
@@ -15154,7 +15207,7 @@ physics, which stays in the premises the book names and the results it cites.
 
 \begin{itemize}
 \item That the axis belongs in the step (Section~\ref{sec:scope}, Section~\ref{sec:conclusion}).
-\item That the usual account of a computation is a shadow of the step (Section~\ref{sec:shadow-exact}).
+\item That the usual account of a computation is a shadow of the step, for machines whose control never reads their record (Section~\ref{sec:shadow-exact}). The small machine's control does read its own: a commitment that finds no fact traps. So for it the claim is about its ordinary computer, not the whole machine.
 \item Within the record construction, that certification is the event selected by the reliance criterion of the pointer thesis (Section~\ref{sec:pointer}).
 \item That this is a structural account of computation, with a cost model as one part of it (Section~\ref{sec:scope}).
 \item That the toll is the right thing to price. The alternatives are a wall or a penalty for contradiction (Section~\ref{sec:models}, Section~\ref{sec:conclusion}).
@@ -16110,7 +16163,9 @@ actually removed under its thermal conditions. A known starting state supplies n
 positive floor from that premise (Theorem~\ref{thm:known-state}). That isn't a hole in the bill.
 The distinction was already kept by whoever knows the start, and the bill was paid in that
 knowing, or will be paid when that record is wiped. And a write from a known start that changes the cell still
-dissipates when it happens in a finite time; what it lacks is a floor that survives going slowly. Riechers, Boyd, Wimsatt and Crutchfield (2020) derive additional work bounds under
+dissipates when it happens in a finite time. It lacks a floor that survives going slowly only when
+the device doing it was chosen knowing the start; a fixed device that merges $K$ inputs keeps at
+least $k_B\ln K$ on its worst one (Section~\ref{sec:bits-zero}). Riechers, Boyd, Wimsatt and Crutchfield (2020) derive additional work bounds under
 time-symmetric control of metastable memories. Their low-error bound depends on the
 initial distribution and the memory's time-reversal behaviour; it is not a universal
 heat charge on each logical move.
