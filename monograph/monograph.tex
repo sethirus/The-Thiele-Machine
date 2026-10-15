@@ -10611,8 +10611,10 @@ meets it, and so does the same machine over any properties with an exact test fo
 them apart and a proved checker, as long as one of them can come out both ways, sorted lists
 included. A
 \emph{universal} Thiele machine is one fixed machine running one fixed program that runs any
-machine of a stated class as a guest, with each guest's record earned again and its toll paid by
-the host's own steps. Nothing is left to the guest's good manners. Appendix~\ref{sec:universal-host}
+machine of a stated class as a guest, with every step of the guest's computing done by the host's
+own counter moves and every rise of its record put where its program put it; a certified one also
+earns each guest's record again by its own check, commit and certificate. Nothing is left to the
+guest's good manners. Appendix~\ref{sec:universal-host}
 builds one, $U$: a fixed program in the small machine's own six kinds of instruction, on a host
 with more counters, with no step of any guest built in. Its guests are the small machine's
 programs, so every computation runs on it under Minsky's $2^n$ encoding, done outside the
@@ -16189,8 +16191,10 @@ three acts, and a claim whose check, commit and certificate raise the record fro
 exactly when the claim holds there, true at some loaded starts and false at others. Every clock-style machine fails it; the small
 machine meets it; and every machine that meets it hides its record
 and ledger from its own window. A \emph{universal} Thiele machine is one fixed machine running one
-fixed program that runs any machine of a stated class as a guest, with each guest's record earned
-again and its toll paid by the host's own steps (Definition~\ref{def:universal-thiele}). The ones in this book are $U$ (Appendix~\ref{sec:universal-host}), a fixed
+fixed program that runs any machine of a stated class as a guest, with every step of the guest's
+computing done by the host's counter moves and every rise of its record put where its program put
+it, and, in the certified case, each guest's record earned again by the host's own check, commit
+and certificate (Definition~\ref{def:universal-thiele}). The ones in this book are $U$ (Appendix~\ref{sec:universal-host}), a fixed
 program in the small machine's instruction kinds, with no guest step built in, that runs every
 small-machine program with halting and flag exact and its ledger equal to the guest's at every matching point, and $U_P$
 (Appendix~\ref{sec:presented-universal}), the same program with one paid move added, that runs
@@ -17096,24 +17100,78 @@ The small machine raises its flag only by checking, committing and certifying, a
 for that. The next question is whether one machine can stand in for a whole class of machines, the way
 Turing's universal machine stands in for every Turing machine. Here's what I mean by that. A
 \emph{universal Thiele machine} is one fixed machine running one fixed program that runs any
-machine of a stated class as a guest, with each guest's record earned again and its toll paid by
-the host's own steps. No program running on the host has to keep a convention for it. In full:
+machine of a stated class as a guest, with every step of the guest's computing done by the host's
+own counter moves and every rise of the host's record put where the host's program put it. No
+program running on the host has to keep a convention for it. In full:
 
 \begin{definition}[Universal Thiele machine]\label{def:universal-thiele}
 Fix a class $C$ of Thiele machines, each with its runs from given start states. A
 \emph{universal Thiele machine for} $C$ is a Thiele machine $H$, the \emph{host}, with one program
-$P$ fixed for the whole class and a way to load any guest $M$ in $C$ with any start $s_0$ into a
-start state of $H$, such that the run of $P$ from that loaded state
-(1) halts exactly when $M$'s run from $s_0$ stops;
-(2) passes, in order, through host states that decode to $M$'s states along its run, at which the
-host's flag equals $M$'s reading kept as a latch and the host's ledger equals $M$'s ledger plus
-a surcharge bounded by a number fixed for the class;
-(3) raises the host's flag only by the host's own moves, under the host's own toll.
+$P$ fixed for the whole class, a way to load any guest $M$ in $C$ with any start $s_0$ into a
+start state of $H$, and a way to read a guest's state off the host's registers, such that:
+(1) $H$ is Thiele-complete (Definition~\ref{def:thiele-complete}), and its computing moves are its
+counter moves;
+(2) the run of $P$ from the loaded state halts exactly when $M$'s run from $s_0$ stops, and then
+shows $M$'s last state, reading and ledger;
+(3) the run passes, in order, through host states that show $M$'s states along its run, at which
+the host's record equals $M$'s reading kept as a latch and the host's ledger equals $M$'s ledger
+plus a surcharge bounded by a number fixed for the class;
+(4) \emph{the rise is the program's}: each record move either traps or raises the record exactly
+when the line it sits on is one $P$ marks as raising, from every untrapped state, so nothing the move
+reads decides it;
+(5) $H$ is a \emph{register host}: its counter moves are INC, DEC and HALT on registers, its record
+moves leave the registers alone and go to the next line or trap, and which move comes next depends
+only on the line and whether the trap is up;
+(6) each guest is loaded with the record down, no trap, a fixed line and the guest written into the
+registers, and the guest's state is read off the registers in a coding fixed with the class,
+before any guest is named.
+A \emph{certified} universal Thiele machine also has its host certified Thiele-complete with clean
+loads, and its record, whenever it's up, standing on the host's own check of the guest's own
+justification, as the class supplies it: for $U$, the guest's chain claim; for $U_P$, the reading
+at a state of the run.
 \end{definition}
 
 The guest lives only in the loaded state; the machine and the program are fixed before any guest is
 named. For $U$ the surcharge is zero; for $U_P$ it is at most two when the guest's reading starts
-at no, and exactly three when it starts at yes, so three bounds it over the whole class.
+at no, and exactly three when it starts at yes, so three bounds it over the whole class. Both are
+certified universal Thiele machines.
+
+The two that $U_P$ adds once a guest's record is up is the price of certification, not of
+universality. A certified host raises its record from a clean load only after three marks, so on a
+guest that raises its reading for one mark it falls two behind at least. A host without
+certification can keep up exactly: on a host with registers, INC, DEC, HALT, a paid move TICK that
+always raises the record and a paid move PAY that never does, the program ``count register 0 down
+to zero; TICK; HALT'' runs the guests that count a pile down to zero and then raise their reading
+for one mark, each from its own pile, with surcharge zero. Whether one host gets surcharge zero on a whole
+universal class is open; the best I've proved is two. (And PAY is needed on such a host: a guest
+that pays while its reading is down makes the host run a record move that doesn't raise, which is
+what PAY is.)
+
+Each clause stops something, and each is needed: for every clause there's a host that meets the
+others and fails it. Clause (1) stops a host that raises its record early and lowers it again
+before anyone looks. Clause (4) stops a mark that reads the registers, or a copy of the guest kept
+outside them, and raises when the guest would: the same move on the same line would raise from one
+state and not from another. Clause (5) stops a host with a move that takes one step of the guest:
+that move costs nothing, so it would have to be a counter move, and a counter move never traps,
+while this one traps on the guest's paid instructions; and it stops a free move that fetches,
+decodes and carries out a guest instruction on the registers, because that move adds one to one
+register from one state and to another register from another, which no single INC or DEC does.
+Clause (6) stops a host that runs the same for every guest while the reading of its registers adds
+the guest in. What the clauses allow is exact too. By (4) and (5), the line, the registers, the
+record and the ledger of a run before any trap depend only on the line, registers and record it was
+loaded with: each counter move acts on those alone, each record move leaves the registers and
+moves the line, and its effect on the record is fixed by its line. So a host may carry anything else
+along, even a copy of the guest that its counter moves step, and that passenger can't touch
+anything the host shows. One channel I haven't closed: a move that traps may read anything, and
+stopping the run is all it can do. $U_P$ never traps on its class, so for it the channel is shut;
+for $U$ it isn't proved.
+
+None of this needs certification. $U_P$'s own program, read on a host with no claims, no checker,
+no table and no channel, with CHECK, COMMIT and PAY read as PAY and CERTIFY as TICK, meets (1) to
+(6) with the same surcharge: $U_P$ never traps on its class, and while nothing traps the two hosts
+agree, step for step, on the line, the registers, the record and the ledger. Certification adds the
+tie to the guest's own justification, and it needs (4) as much as anything: a host that carries out
+a hidden copy's own check, commit and certificate meets the tie and fails only (4) and (5).
 
 And I want it the hard way. The easy way is to give the host a move that means ``take one step
 of the guest,'' and then ``it runs any guest'' is true because I wrote it that way. There's a host
@@ -17121,8 +17179,9 @@ like that two subsections on, after the two programs, and it's useful as a pictu
 It isn't Turing's kind of universal. Turing's universal machine has no instruction for ``do what the machine on the tape
 would do.'' It has the same kind of instructions every other Turing machine has, and one fixed
 table, and the table does the reading and the deciding and the carrying out. That's the bar
-here: one fixed program, written in the small machine's own six kinds of instruction, with no
-step of the guest built into anything.
+here, and clauses (4) and (5) make it exact: one fixed program, every computing step a counter
+move, every rise where the program put it, and anything else the host carries unable to touch what
+it shows.
 
 Turing's own explanation is worth having in your head, because the program below copies its
 shape. In the 1936 paper the universal machine's tape starts with the machine to imitate, written
@@ -17494,10 +17553,16 @@ is reached: sixteen rounds of CHECK \emph{at least 0} $A$; COMMIT \emph{at least
 pay 32 with no trap and the flag down. A guest that writes both counters at every move of the
 machine it simulates needs a fresh CHECK for each move it pays for, so it can pay for at most
 sixteen of them. A simulated machine that bills more often than that has to bill
-somewhere, and PAY is where. The 32 is a fact about this machine; I haven't shown that every host
-without PAY falls short.
+somewhere, and PAY is where. The 32 is a fact about the small machine, with its two counters. The
+host has a counter for every whole number, and on it the count doesn't hold: a program that checks
+one fact about a counter it never writes can commit that fact again and again, a mark each, for as
+long as it likes, with the flag down and no trap, because the counter's version never changes. So
+on the host PAY is a convenience, which keeps the table and the channel out of the billing, not a
+necessity. On a host without certification it is a necessity: a guest that pays while its reading
+is down makes the host run a paid move that doesn't raise its record.
 
-The definition of certified Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
+Read as a Thiele-complete machine, the host needs no filing at all: PAY is a mark that never raises
+the record. The definition of certified Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
 has to be filed under one of them, and it's filed as a CHECK of the empty claim, a claim that
 never holds. That's a filing for the interface. It isn't what PAY does on the machine: a CHECK
 that fails on this machine traps, and PAY goes on to the next line. With PAY filed that way the
@@ -17698,8 +17763,12 @@ was run.
 
 There's a much simpler host than $U$, and I keep it in the book because it's easy to read and
 it shows the copy rule in one line. Its universality is by construction: it has a move that runs
-one guest step by calling the small machine's own step. So it isn't the universal Thiele machine
-of this book. $U$ is. Read it as a picture of what $U$ does the long way, and as a host that
+one guest step by calling the small machine's own step. It isn't a universal Thiele machine in the
+sense of Definition~\ref{def:universal-thiele}, and the reasons are exact. It never halts, since it
+has no HALT and its guest step never traps; its surcharge grows without bound, since it charges a
+mark even for a guest step that costs nothing; and it isn't a register host, since its guest step
+does the computing. A host that fixed the first two and kept the built-in step would still fail the
+last (the argument after the definition). $U$ is the universal Thiele machine of this book. Read it as a picture of what $U$ does the long way, and as a host that
 starts from any guest state at all, clean or not.
 
 It carries a guest inside its own state: the guest's program as data, the guest's counters, its
