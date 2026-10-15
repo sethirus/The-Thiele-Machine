@@ -642,7 +642,11 @@ can be undone costs nothing and that every bit a computation irreversibly erases
 and Erik Demaine and three coauthors (2016) put that count on the random-access machine, beside
 time and space. What none of them charges, as far as I found, is the moment a chosen reading goes
 up and stays, whichever way that keep is paid. That’s a third thing a computation does, and it’s
-what this model adds. It isn’t a cost in Blum’s sense: a run that never stops can have a finite bill.
+what this model adds. It isn’t a cost in Blum’s sense. Blum asks that “this run costs exactly m” be
+decidable, and here it isn’t: a program that runs another program and makes one mark if that one
+halts costs exactly one exactly when the other halts, so deciding its cost would decide halting. (A
+run that never stops can also have a finite bill, where Blum leaves the cost undefined, but that alone
+isn’t a violation; it’s the decidability that fails.)
 So here’s the Thiele Machine, all of it. It’s a model of computation, math you can reason about, the
 way Turing’s machine is. It has five parts and one rule. A set of states. A set of moves. A step that
 takes a state and a move to the next state. A price on each move, a whole number of marks. And
@@ -672,10 +676,6 @@ is spent at every step and charged at most once, at the raise, and where a merge
 bill of one mark per raise leaves that merge out. What ties the count to the bill is a theorem, not
 a reading of a dial: on a machine with finitely many states reading yes, any price list that charges
 merges has to charge each raise of a reading that stays at least one. What a kept reading means,
-whether a reading that’s up stands for anything, is a separate question with a separate answer, and
-Part III gives it for one case: an order the step enforces, which is the lock. A lock would work at a
-price of zero. The price isn’t there to make the lock work. It’s there because, on a machine where
-every state has a next one, the raise of a reading that stays merges or takes room, whether anybody
 
 
 
@@ -684,6 +684,10 @@ every state has a next one, the raise of a reading that stays merges or takes ro
 
 
 
+whether a reading that’s up stands for anything, is a separate question with a separate answer, and
+Part III gives it for one case: an order the step enforces, which is the lock. A lock would work at a
+price of zero. The price isn’t there to make the lock work. It’s there because, on a machine where
+every state has a next one, the raise of a reading that stays merges or takes room, whether anybody
 writes it down or not.
 
 What I found, what I assumed and what I chose
@@ -732,10 +736,6 @@ Assumed: what the found list is taken to stand on, in the world.
    • A merge of states the machine really could have been in has a floor under its heat, on average,
      however slowly it’s done, in a memory whose states are alike apart from what they record.
      That’s Landauer’s principle, the premise from thermodynamics, named and assumed and
-     never proved here, with its critics named.
-   • A real device can tell apart only finitely many states in any bounded place, so room runs out.
-     Nobody has measured where that ceiling sits.
-
 
 
                                                     13
@@ -743,6 +743,9 @@ Assumed: what the found list is taken to stand on, in the world.
 
 
 
+      never proved here, with its critics named.
+   • A real device can tell apart only finitely many states in any bounded place, so room runs out.
+     Nobody has measured where that ceiling sits.
    • The clean start. A raised record means the event happened only because the record was
      down at the start, and that start is put in by hand. It’s a past hypothesis in miniature. The
      past hypothesis, the philosopher David Albert’s name (2000) for an assumed low-entropy
@@ -791,17 +794,16 @@ how narrow. Finding something out doesn’t have to pay the merge. Bennett showe
 can write down what you see on a blank page without merging anything, so Landauer’s floor
 isn’t owed; the page is what you spend, and it can be handed back while the original is still there.
 Making it stay is what pays. Learning borrows, committing pays. The insight the toll prices is the
-committed kind: a distinction made to stay. Whether that narrower thing deserves the word is a
-fair thing to argue about, and Part I argues it, where learning and committing get pulled apart.
-Then Part II asks what follows, on any machine, once a distinction is kept and the keeping is
 
 
-
-                                                  14
+                                                   14
 The Thiele Machine                                                                          Devon Thiele
 
 
 
+committed kind: a distinction made to stay. Whether that narrower thing deserves the word is a
+fair thing to argue about, and Part I argues it, where learning and committing get pulled apart.
+Then Part II asks what follows, on any machine, once a distinction is kept and the keeping is
 charged. The ledger is a chair too: a number that only climbs takes a fresh value for every mark. A
 window that shows only part of a state can hide the very distinction that was paid for, and when it
 hides it, no bill read off the window can be exact. A later step can be entitled to something because
@@ -850,9 +852,6 @@ reading up can’t be on a loop through its start, so it merges somewhere or spe
 every step. Heat or room. On finitely many states, a noisy step that keeps the even spread and
 a quantum step that keeps lengths can’t raise a reading that stays up either. And a coarse merge
 forces something at every finer zoom it’s exact about (when a coarse picture merges, a finer picture
-it’s exact about merges too, steps out of the states the picture describes, or has no end), and for a
-bounded memory the room runs out at an exact count. With finitely many states reading yes and a
-reading that never comes down, every move that raises it merges states, which is the chairs. That a
 
 
                                                   15
@@ -860,6 +859,9 @@ reading that never comes down, every move that raises it merges states, which is
 
 
 
+it’s exact about merges too, steps out of the states the picture describes, or has no end), and for a
+bounded memory the room runs out at an exact count. With finitely many states reading yes and a
+reading that never comes down, every move that raises it merges states, which is the chairs. That a
 merge carries a heat floor is Landauer’s premise, and that every change a real device makes in a
 finite time dissipates is cited physics; neither is proved here.
 Proved, step two: with finitely many states reading yes, every schedule that prices merges charges
@@ -907,9 +909,6 @@ By my own sorting at the back (Appendix C), each piece has its neighbours standi
 Start from the top. The small machine and its universal programs carry the reference monitor’s
 every-program move (Anderson in 1972) to a record that’s priced and earned; the two-player game
 check in the appendices (Appendix H) is careful engineering on known mathematics. The latch
-has the 1918 flip-flop and write-once memory for neighbours. The window fact is an old fact about
-functions, from Edward Moore’s 1956 thought experiments and Rudolf Kalman’s observability,
-with a price put on it. The toll derived from finiteness, permanence and a price on merging is a
 
 
                                                   16
@@ -917,6 +916,9 @@ with a price put on it. The toll derived from finiteness, permanence and a price
 
 
 
+has the 1918 flip-flop and write-once memory for neighbours. The window fact is an old fact about
+functions, from Edward Moore’s 1956 thought experiments and Rudolf Kalman’s observability,
+with a price put on it. The toll derived from finiteness, permanence and a price on merging is a
 ledger form of the core underneath. And that core, step one’s bill, is old mathematics: the pigeon-
 hole principle, Dedekind’s 1888 definition of infinite and the finite heart of Ernst Zermelo’s 1896
 recurrence argument, with Landauer and Bennett on merging and Thomas Ouldridge and David

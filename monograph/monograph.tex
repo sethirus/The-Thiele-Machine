@@ -495,7 +495,11 @@ step that can be undone costs nothing and that every bit a computation irreversi
 unit, and Erik Demaine and three coauthors (2016) put that count on the random-access machine, beside
 time and space. What none of them charges, as far as I found, is the moment a chosen reading goes up
 and stays, whichever way that keep is paid. That's a third thing a computation does, and it's what
-this model adds. It isn't a cost in Blum's sense: a run that never stops can have a finite bill.
+this model adds. It isn't a cost in Blum's sense. Blum asks that ``this run costs exactly $m$'' be
+decidable, and here it isn't: a program that runs another program and makes one mark if that one
+halts costs exactly one exactly when the other halts, so deciding its cost would decide halting.
+(A run that never stops can also have a finite bill, where Blum leaves the cost undefined, but that
+alone isn't a violation; it's the decidability that fails.)
 
 So here's the Thiele Machine, all of it. It's a model of computation, math you can reason about,
 the way Turing's machine is. It has five parts and one rule. A set of states. A set of moves. A step
