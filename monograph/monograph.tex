@@ -244,7 +244,11 @@ before it, and the book goes up them in order.
 on it, a bead that could sit in either of two dips, a bit of memory nobody has set. Now make it a
 0, and keep it a 0. Something is the case now that wasn't a moment ago. That moment, nothing
 becoming something, is never free. It gives off heat by happening, and keeping it is paid on top,
-in a merge or in room, on any machine there is.
+in a merge or in room. That holds for anything that goes from state to state and makes something
+stay, whatever the states are made of: a rock rolling into a canyon and coming to rest, a strand of
+RNA latching onto its partner, a bead settling into one of two dips, a Turing machine writing a
+symbol. The bill doesn't care what the machine is. The counting is proved for every system you can
+describe as states and a step; the heat is physics, and I name the premise it rests on.
 
 \emph{Two: so every machine already carries it.} A machine has to tell a blank from a 0, or nothing
 happens; every machine is made of kept distinctions, and pays this bill at every write, billions of
@@ -570,10 +574,10 @@ kept distinction, a 0 in some cell that says ``checked,'' and it pays the same b
 Part~III opens by taking that apart (Section~\ref{sec:established}): what ``could have said no'' means, what settling a question is, and why
 the people who thought hardest about knowledge kept landing near it.
 
-Then it builds the machine, in two layers. Underneath is an ordinary computer, as small as I could
-make it: two counters that add one and take one away, which Marvin Minsky proved can compute anything
-a Turing machine can. Its own merges are an ordinary computer's merges, and the ledger leaves them
-alone. On top sits a record layer whose flag is the blank cell. Raising the flag is the write of a 0:
+Then it builds the machine, in two layers. Underneath is an ordinary computer, the smallest I could
+find that can compute anything. Which computer doesn't matter: the same record layer bolts onto any
+machine that can compute anything, and the book proves it (Theorem~\ref{thm:lift}). Its own merges are an ordinary computer's
+merges, and the ledger leaves them alone. On top sits a record layer whose flag is the blank cell. Raising the flag is the write of a 0:
 the state with the flag down and the same state with it already up both land on one state. That's a
 merge, the one step one is about, and once merges in that layer are priced, the toll on the flag
 follows as a theorem (Theorem~\ref{thm:record-merge-toll}). The machine's toll is the bill on the 0,
@@ -9042,8 +9046,8 @@ exactly that kind (Theorem~\ref{thm:u34-separation}).
 Part~III is step four, the sharpest case. A record that a claim was checked and closed is a
 distinction that stays, so it pays the bill of Part~I, and it's the case where you can point at the
 kept 0 and at what it cost. It starts with what \emph{established} means, and why two computers
-with the same bits can differ in it. Then it builds a machine for it: an ordinary computer, two
-counters and six kinds of instruction, with a record layer on top whose flag is the blank cell. The
+with the same bits can differ in it. Then it builds a machine for it: an ordinary computer,
+any one that can compute anything, with a record layer on top whose flag is the blank cell. The
 step that raises the flag is the write of a 0, a merge in the record layer, and that's why it's
 charged; the order the step enforces, check, then commit, then certify, is why a raised flag means
 something. Then how far the machine reaches, the real systems that already put a price on a write,
@@ -10323,8 +10327,18 @@ nothing more would go. I haven't got a proof that nothing smaller works, and I'm
 
 \subsection{What the model actually asks for}
 
-Here's the machine in three sentences, before any of its parts. It's an ordinary computer, two
-counters and a jump, with a record layer on top. The flag in the record layer is the blank cell,
+First what this chapter is not. It isn't where the bill comes from. The bill holds for anything
+that goes from state to state and makes something stay, a rock coming to rest, a strand of RNA
+latching, a bead, a Turing machine, and Parts~I and~II proved it with no machine in sight. This
+chapter picks one kept distinction, ``a claim was checked and closed,'' because it's the one where a
+kept 0 has a meaning you can test, and builds it out exactly. The computer underneath is a
+scratchpad. I use two counters because that's the smallest base I know that can compute anything, and
+nothing in the record depends on that choice: the same record layer bolts onto any machine that can
+compute anything, and the result meets the same definition (Theorem~\ref{thm:lift}, in
+Appendix~\ref{sec:every-model}).
+
+Here's the machine in three sentences, before any of its parts. It's an ordinary computer with a
+record layer on top. The flag in the record layer is the blank cell,
 and raising it is the write of a 0, a merge in the record layer (flag down and flag up land on the
 same state), which is why the step that raises it is charged once merges in that layer are priced
 (Theorem~\ref{thm:record-merge-toll}, in Part~I). And the order rule, check, then commit, then
