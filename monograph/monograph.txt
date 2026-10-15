@@ -1246,10 +1246,10 @@ in principle move without giving off any. Nothing real is cut off from everythin
 a machine on course against the slightest noise means correcting its errors, which is merging again.
 The bead of Jun, Gavrilov and Bechhoefer (2014) shows the other half. Put through the same moves
 as an erasure but with no tilt, so nothing is squashed, its work extrapolated to the slow limit came
-out at 0.05 ± 0.03 kT, zero within error: no floor under it, which is what the premise says. Keeping
-something costs, on top of that, a merge, which under Landauer’s premise owes a floor of kT ln 2
-per bit that no slowness removes, or a fresh chair of room. Room dodges the floor and never the
-heat of happening. And a finite building forces the merge.
+out at 0.05 ± 0.03 kT, within two error bars of zero: no floor under it, which is what the premise
+says. Keeping something costs, on top of that, a merge, which under Landauer’s premise owes a
+floor of kT ln 2 per bit that no slowness removes, or a fresh chair of room. Room dodges the floor
+and never the heat of happening. And a finite building forces the merge.
 I also simulated the bead. Bérut, Arakelyan, Petrosyan, Ciliberto, Dillenschneider and Lutz (2012)
 erased one bit held by a glass bead in a laser double well, and found the heat falling toward
 Landauer’s number as they slowed the erasure, with the excess going like a constant over the
@@ -1285,8 +1285,8 @@ Here’s what the laboratories have found, with the numbers taken from the paper
   Shared chair, the floor            Jun, Gavrilov and Bechhoefer (2014): one bead in a feedback
                                      trap. Squash two wells to one: 0.71 ± 0.03 kT of work, in the
                                      slow limit. Run the same moves without the tilt, so nothing
-                                     is squashed: 0.05 ± 0.03 kT, also in the slow limit, zero within
-                                     error. ln 2 is 0.693. Same bead, same trap.
+                                     is squashed: 0.05 ± 0.03 kT, also in the slow limit, within two
+                                     error bars of zero. ln 2 is 0.693. Same bead, same trap.
   The floor, three more ways         Bérut and others (2012), a colloidal bead; Hong, Lambson,
                                      Dhuey and Bokor (2016), nanomagnetic memory bits, within
                                      two standard deviations of Landauer; Gaudenzi, Burzurí, Mae-
@@ -1612,8 +1612,8 @@ toll on vouching: the test pays, and a discovery that stands gets paid.
 
 2.4 What they all agree on, and who they rule out
 Lay them down, and this time what shows through is not one thing. It’s five different jobs that the
-word “record” has been doing, and I’d been letting one word carry all five. Each has a corpse next
-to it, and the corpses are different too.
+word “record” has been doing, and I’d been letting one word carry all five. Most of them have a
+corpse next to them, and the corpses are different too.
 Durability: the record can’t be silently undone. The bulla, the write-once disk, the hash chain,
 Bennett’s card that has to be wiped. The corpse is the editable log, and the company that kept its
 debts off the books: Enron hid its debt in side entities set up to keep it off the balance sheet, which
@@ -1764,9 +1764,10 @@ one rule, the toll: for every state s and move i,
 The run of t = [i1 , . . . , in ] from s0 ends at run(t, s0 ), the result of applying the steps in order, and its
 total cost is cost(t) = cost(i1 ) + · · · + cost(in ), with the empty run costing 0.
 
-The formal files call this definition CertificationSystem, after one reading it can carry, and
-they call the reading cert, which is the name I keep for it in the formulas. The book calls the whole
-thing what it is.
+The formal files, the proof-assistant versions of these arguments (Appendix M says what they are
+and aren’t), call this definition CertificationSystem, after one reading it can carry, and they
+call the reading cert, which is the name I keep for it in the formulas. The book calls the whole thing
+what it is.
 A word on the label before the first result. I call a result an observation when its proof does little
 more than unfold the definitions, and in an axiomatic cost model that’s what the definitions are
 meant to do: the work is in choosing them, so the results that follow from them in a few lines are
@@ -1806,7 +1807,6 @@ steps that take the reading from no to yes, with no permanence assumed. Converse
 run costs at least its number of such steps obeys the toll. And the bound is reached for every count: on the
 one-bit machine with a set that costs one and a reset that costs no marks, setting and resetting n times from
 no crosses n times and costs exactly n.
-
 
 
 
@@ -1929,7 +1929,7 @@ it proves that if you price that step, the floor follows everywhere, for any mac
 
 
                                                     34
-The Thiele Machine                                                                          Devon Thiele
+The Thiele Machine                                                                           Devon Thiele
 
 
 
@@ -1963,19 +1963,19 @@ makes a mark because I said so. If that’s all it is, the ledger is a long way 
 and you should treat it the way you’d treat someone telling you their favourite colour is a law of
 nature. So this chapter is me trying to find out whether a machine has to charge it. I’ll tell you
 the shape of the answer up front, because I don’t want you reading forty paragraphs to find out
-whether there’s a point. The bill itself needs no “if”: on any machine, keeping something is paid
-in a merge or in room, and in any real device that comes on top of the heat every step gives off,
-with time setting how much; that’s the paragraph above. Getting from that bill to my rule, a mark
-on the ledger for the step that raises the flag, takes three “ifs”: there are finitely many states that
-read yes, so room runs out; the flag, once raised, stays up; and the ledger charges every step that
-forgets. Then the step that raises the flag has to forget something, and pays. Forgetting is also the
-step Landauer’s principle, my premise, puts a heat price on, when what’s forgotten wasn’t already
-known; when somebody already knew, that knowing is where the bill went, and I’ll show you that
-too. Each of the three “ifs” is a door out of the theorem, and I’m going to walk through each one,
-because what’s on the other side of each door is where the content is. None of them is a door out of
-the bill. Behind the first, the machine pays in room. Behind the second, the flag comes back down,
-so nothing is kept and there’s nothing to bill. Behind the third, the step still forgets, and only the
-ledger looks away.
+whether there’s a point. The bill itself needs no “if”: on any machine, keeping something is paid in
+a merge or in room, and in any real device that comes on top of the heat every step gives off, with
+time setting how much; that’s the paragraph above. Getting from that bill to my rule, a mark on the
+ledger for the step that raises the flag, takes three “ifs”: there are finitely many states that read yes,
+so room runs out; the flag, once raised, stays up; and the ledger charges every move that forgets.
+Then the move that raises the flag has to forget something, two of the states it acts on landing
+on one, and pays. Forgetting is also the step Landauer’s principle, my premise, puts a heat price
+on, when what’s forgotten wasn’t already known; when somebody already knew, that knowing is
+where the bill went, and I’ll show you that too. Each of the three “ifs” is a door out of the theorem,
+and I’m going to walk through each one, because what’s on the other side of each door is where
+the content is. None of them is a door out of the bill. Behind the first, the machine pays in room.
+Behind the second, the flag comes back down, so nothing is kept and there’s nothing to bill. Behind
+the third, the step still forgets, and only the ledger looks away.
 One more thing before the doors, and it comes first on purpose. Nothing in the argument uses the
 word certify. It uses a reading that can go from no to yes and never back. A fuse that has blown is
 one. So is a seal that has been broken, a bit in write-once memory, a block a chain has finalized, a
@@ -16279,23 +16279,24 @@ These get their full story in the chapter that uses them; here’s the one-line 
 forgotten which one Landauer was.
 The pigeonhole principle: put more pigeons than holes and some hole holds two. Section 3’s room
 with too few chairs is that, and so is the proof that, when only finitely many states read yes, a
-permanent flag can only be raised by a step that forgets something. Landauer’s principle (Rolf
-Landauer, 1961): a step that wipes information, lowering the entropy of what a machine holds by
-some number of bits, gives off mean heat at least Boltzmann’s constant times the temperature times
-the natural log of two per bit, under a physical model relating that logical entropy to the memory’s
-thermodynamic entropy. That’s a floor, and going slowly doesn’t lower it. It isn’t the whole bill: any
-step that actually happens in a finite time gives off some heat, merge or no merge, and going slower
-shrinks that part toward zero without ever reaching it. In this book Landauer’s floor is always a
-premise with its name on it. Nothing here derives it (Section 3, Section 19). Entropy, in Claude
-Shannon’s sense: for a spread of chances over states, roughly the average number of yes-or-no
-questions you’d need to pin the state down, so an even spread over n states has log2 n bits. A
-spread, in this book, is just a list of chances that add up to one. Maxwell’s demon (Section 4): a little
-creature that watches molecules and sorts fast from slow, seemingly for nothing; Charles Bennett’s
-answer was that the looking can be done without merging anything, so Landauer’s premise sets it
-no floor (it still gives off some heat as it happens, less the slower it goes), and the floor lands when
-the demon wipes its notes to look again. The potential method (Robert Tarjan, 1985): pay for a run
-with a quantity stored in the state, so a step’s bill plus the change in the stored quantity is what you
-count; Section 6 reads the toll as that method with one particular potential.
+permanent flag can only be raised by a move that forgets something, two states landing on one.
+Landauer’s principle (Rolf Landauer, 1961): a step that wipes information, lowering the entropy of
+what a machine holds by some number of bits, gives off mean heat at least Boltzmann’s constant
+times the temperature times the natural log of two per bit, under a physical model relating that
+logical entropy to the memory’s thermodynamic entropy. That’s a floor, and going slowly doesn’t
+lower it. It isn’t the whole bill: any step that actually happens in a finite time gives off some heat,
+merge or no merge, and going slower shrinks that part toward zero without ever reaching it. In this
+book Landauer’s floor is always a premise with its name on it. Nothing here derives it (Section 3,
+Section 19). Entropy, in Claude Shannon’s sense: for a spread of chances over states, roughly the
+average number of yes-or-no questions you’d need to pin the state down, so an even spread over n
+states has log2 n bits. A spread, in this book, is just a list of chances that add up to one. Maxwell’s
+demon (Section 4): a little creature that watches molecules and sorts fast from slow, seemingly for
+nothing; Charles Bennett’s answer was that the looking can be done without merging anything, so
+Landauer’s premise sets it no floor (it still gives off some heat as it happens, less the slower it goes),
+and the floor lands when the demon wipes its notes to look again. The potential method (Robert
+Tarjan, 1985): pay for a run with a quantity stored in the state, so a step’s bill plus the change in
+the stored quantity is what you count; Section 6 reads the toll as that method with one particular
+potential.
 The halting problem (Alan Turing, 1936, who essentially proved it without stating it in this form;
 Stephen Kleene stated it in 1952, and Martin Davis seems to have been the first to name it, in 1958,
 Section 13): no program decides, for every program and input, whether it stops. Kleene’s recursion
@@ -16312,8 +16313,7 @@ into the fingerprint of the last, and a Merkle tree folds them pairwise into one
 Section 17).
 
 
-
-                                                  275
+                                                   275
 The Thiele Machine                                                                           Devon Thiele
 
 

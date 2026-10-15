@@ -1110,7 +1110,7 @@ real is cut off from everything, and keeping such a machine on course against th
 means correcting its errors, which is merging again. The bead of Jun, Gavrilov and Bechhoefer
 (2014) shows the other half. Put through the same moves as an erasure but with no tilt, so
 nothing is squashed, its work extrapolated to the slow limit came out at $0.05 \pm 0.03\,kT$,
-zero within error: no floor under it, which is what the premise says.
+within two error bars of zero: no floor under it, which is what the premise says.
 Keeping something costs, on top of that, a merge, which under Landauer's premise owes a floor of
 $kT\ln 2$ per bit that no slowness removes, or a fresh chair of room. Room dodges the floor and
 never the heat of happening. And a finite building forces the merge.
@@ -1146,7 +1146,7 @@ Here's what the laboratories have found, with the numbers taken from the papers.
 \begin{tabular}{p{0.28\textwidth} p{0.64\textwidth}}
 Shared chair, the floor & Jun, Gavrilov and Bechhoefer (2014): one bead in a feedback trap.
 Squash two wells to one: $0.71 \pm 0.03\,kT$ of work, in the slow limit. Run the same
-moves without the tilt, so nothing is squashed: $0.05 \pm 0.03\,kT$, also in the slow limit, zero within error. $\ln 2$ is $0.693$. Same bead, same trap. \\[3pt]
+moves without the tilt, so nothing is squashed: $0.05 \pm 0.03\,kT$, also in the slow limit, within two error bars of zero. $\ln 2$ is $0.693$. Same bead, same trap. \\[3pt]
 The floor, three more ways & B\'erut and others (2012), a colloidal bead; Hong, Lambson, Dhuey
 and Bokor (2016), nanomagnetic memory bits, within two standard deviations of Landauer;
 Gaudenzi, Burzur\'i, Maegawa, van der Zant and Luis (2018), molecular spins at one kelvin. \\[3pt]
@@ -1477,8 +1477,8 @@ the test pays, and a discovery that stands gets paid.
 \subsection{What they all agree on, and who they rule out}
 
 Lay them down, and this time what shows through is not one thing. It's five different jobs
-that the word ``record'' has been doing, and I'd been letting one word carry all five. Each
-has a corpse next to it, and the corpses are different too.
+that the word ``record'' has been doing, and I'd been letting one word carry all five. Most of
+them have a corpse next to them, and the corpses are different too.
 
 Durability: the record can't be silently undone. The bulla, the write-once disk, the hash
 chain, Bennett's card that has to be wiped. The corpse is the editable log, and the company
@@ -1638,7 +1638,8 @@ $\mathrm{cost}(t) = \mathrm{cost}(i_1) + \cdots + \mathrm{cost}(i_n)$, with the 
 costing 0.
 \end{definition}
 
-The formal files call this definition \texttt{CertificationSystem}, after one reading it can
+The formal files, the proof-assistant versions of these arguments (Appendix~\ref{sec:methodology} says
+what they are and aren't), call this definition \texttt{CertificationSystem}, after one reading it can
 carry, and they call the reading $\mathrm{cert}$, which is the name I keep for it in the formulas. The book calls the whole thing what it is.
 
 
@@ -1858,8 +1859,8 @@ whether there's a point. The bill itself needs no ``if'': on any machine, keepin
 in a merge or in room, and in any real device that comes on top of the heat every step gives off, with time setting how much; that's the paragraph above. Getting from that
 bill to my rule, a mark on the ledger for the step that raises the flag, takes three ``ifs'': there
 are finitely many states that read yes, so room runs out; the flag, once raised, stays up; and the
-ledger charges every step that forgets. Then the step that raises the flag has to forget something,
-and pays. Forgetting is also the step Landauer's principle, my premise, puts a heat price on, when
+ledger charges every move that forgets. Then the move that raises the flag has to forget something,
+two of the states it acts on landing on one, and pays. Forgetting is also the step Landauer's principle, my premise, puts a heat price on, when
 what's forgotten wasn't already known; when somebody already knew, that knowing is where the bill
 went, and I'll show you that too. Each of the three ``ifs'' is a door out of the theorem, and I'm
 going to walk through each one, because what's on the other side of each door is where the content
@@ -15706,7 +15707,7 @@ when you've forgotten which one Landauer was.
 
 The pigeonhole principle: put more pigeons than holes and some hole holds two. Section~\ref{sec:a2-not-arbitrary}'s room with
 too few chairs is that, and so is the proof that, when only finitely many states read yes, a
-permanent flag can only be raised by a step that forgets something. Landauer's principle (Rolf Landauer, 1961): a step that wipes
+permanent flag can only be raised by a move that forgets something, two states landing on one. Landauer's principle (Rolf Landauer, 1961): a step that wipes
 information, lowering the entropy of what a machine holds by some number of bits, gives off mean heat
 at least Boltzmann's constant times the temperature times the natural log of two per bit,
 under a physical model relating that logical entropy to the memory's thermodynamic entropy. That's a
