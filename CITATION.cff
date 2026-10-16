@@ -35,16 +35,17 @@ abstract: >-
   certified run from a clean start contains a passing check of the committed
   claim, a commitment to that same claim, and a certificate, and costs at
   least three. Thiele-complete asks for four things that say nothing about
-  what the record is about: a universal base whose moves cost no marks and
-  cannot touch the record, a record that stays up, blank starts, and a run
-  whose record ends up from one start and down from another. Every clock
+  what the record is about: a universal base whose moves cannot touch the
+  record, with a record that stays up; blank starts; computing moves that
+  cost no marks and every other move exactly one; and a run whose record
+  ends up from one start and down from another. Every clock
   fails it, every universal base reaches it by adding marks, and every
   Thiele-complete machine hides its record and its ledger from its own
   window. Certified Thiele-complete is exactly Thiele-complete with clean
   starts, the earned check, commitment and certificate of one claim, and a
   claim that can fail added; the small machine meets it. A universal machine U, one fixed program of
   the small machine's own instructions, runs every program of the small
-  machine from every start, halts exactly when its guest halts, raises its
+  machine from every clean start, halts exactly when its guest halts, raises its
   flag by its own check, commit and certificate exactly when the guest would,
   and keeps the guest's ledger mark for mark where the runs line up. A
   computation gives you an answer. What did it establish on the way there?
@@ -60,10 +61,12 @@ abstract: >-
   certificate no step revokes
   can only be switched on by a step that merges states, so pricing merges,
   as Landauer's principle does in the worst case over what the machine might
-  hold, yields A2; the heat floor comes from uncertainty about the state, so under
-  Landauer's principle a known state owes no floor, though the step still
+  hold, yields A2; Landauer's floor comes from uncertainty about the state,
+  so under that premise a known state owes no floor, though the step still
   gives off heat when it happens and the distinction is held by whoever
-  knows the start. Priced per halving, switching
+  knows the start; and a fixed device that merges K inputs still produces at
+  least k_B ln K of entropy on its worst input, however slowly it runs and
+  whatever anyone knows. Priced per halving, switching
   k states on beside m certified ones costs at least log2((m+k)/m), and on
   finite hardware that prices merges, whose instructions have decidable
   equality, the events that must be priced are exactly the merges, with every
