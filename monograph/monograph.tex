@@ -1883,7 +1883,13 @@ that costs no marks still dissipates. It just raises nothing the ledger prices.
 And the other side of that: nothing is in scope just for being a computation. A Turing
 machine's run isn't an instance of this theorem because it's a run. It becomes one when
 somebody supplies all five parts for it, says which states read yes, and proves the toll for
-that cost. Until then the theorem says nothing about it, and I won't pretend it does.
+that cost. Until then the theorem says nothing about it, and I won't pretend it does. That's the
+toll's scope. The bill has none to supply. Every run of anything with one next state per state
+takes a fresh state at every step, joins exactly one pair of its states into one, or goes round a
+loop through its start and
+keeps nothing (Theorem~\ref{thm:step-law}). The reading \emph{this isn't the state I started in}
+rises at the first step and stays up exactly on the runs that never come back to their start, the
+first two kinds, and those pay, in room or in their one merge.
 
 That's also where the hunch this book started from ended up, once I checked it: the night a
 video about \emph{Flatland} convinced me there was another axis, a direction ordinary computing

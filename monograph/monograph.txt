@@ -1996,10 +1996,14 @@ sipates as it happens. A ledger that billed that would charge every step, and th
 can’t tell a run that kept something from a run that only ran. So the ledger leaves the dissipation
 of happening to physics and counts one thing, the rise of a reading that stays. A step that costs no
 marks still dissipates. It just raises nothing the ledger prices.
-And the other side of that: nothing is in scope just for being a computation. A Turing machine’s
-run isn’t an instance of this theorem because it’s a run. It becomes one when somebody supplies all
-five parts for it, says which states read yes, and proves the toll for that cost. Until then the theorem
-says nothing about it, and I won’t pretend it does.
+And the other side of that: nothing is in scope just for being a computation. A Turing machine’s run
+isn’t an instance of this theorem because it’s a run. It becomes one when somebody supplies all five
+parts for it, says which states read yes, and proves the toll for that cost. Until then the theorem says
+nothing about it, and I won’t pretend it does. That’s the toll’s scope. The bill has none to supply.
+Every run of anything with one next state per state takes a fresh state at every step, joins exactly one
+pair of its states into one, or goes round a loop through its start and keeps nothing (Theorem 1.1).
+The reading this isn’t the state I started in rises at the first step and stays up exactly on the runs that
+never come back to their start, the first two kinds, and those pay, in room or in their one merge.
 That’s also where the hunch this book started from ended up, once I checked it: the night a video
 about Flatland convinced me there was another axis, a direction ordinary computing is blind to
 (the Afterword, Section 24, tells it). It isn’t a direction an ordinary computer can’t reach. Hand a
@@ -2021,10 +2025,6 @@ depends on the reading you give the pair. Take a reading that can only go up whe
 readings goes up, like “either flag is up” or “both are”: then any crossing of the pair is a crossing of
 a part, that part’s toll charged it, and the pair obeys the toll. Take “the first flag is up and the second
 is down,” and it doesn’t: that reading turns on when the second flag falls, and nothing charges a
-fall. The first two readings are proved in Appendix F: read through “either flag is up” the pair is a
-Thiele machine whose floor is one. Read through “both are,” a run that starts with both flags down
-and ends with both up costs at least two, and two is reached when each part can raise its own flag
-for one. From a start with one flag already up, one raise is enough, so two is a floor for the clean
 
 
 
@@ -2033,6 +2033,10 @@ for one. From a start with one flag already up, one raise is enough, so two is a
 
 
 
+fall. The first two readings are proved in Appendix F: read through “either flag is up” the pair is a
+Thiele machine whose floor is one. Read through “both are,” a run that starts with both flags down
+and ends with both up costs at least two, and two is reached when each part can raise its own flag
+for one. From a start with one flag already up, one raise is enough, so two is a floor for the clean
 start only. The third needs nothing beyond the one unpriced fall above. A related composite is
 proved too, a host machine running a guest, read through “the host’s own flag or its copy of the
 guest’s” (Theorem D.13). Whether every way of building one machine out of others keeps the toll
@@ -2080,10 +2084,6 @@ and you should treat it the way you’d treat someone telling you their favourit
 nature. So this chapter is me trying to find out whether a machine has to charge it. I’ll tell you
 the shape of the answer up front, because I don’t want you reading forty paragraphs to find out
 whether there’s a point. The bill itself needs no “if”: on any machine, keeping something is paid
-in a merge or in room, and in any real device that comes on top of the dissipation of every change,
-with time setting how much; that’s the paragraph above. Getting from that bill to my rule, a mark
-on the ledger for the step that raises the flag, takes three “ifs”: there are finitely many states that
-read yes, so room runs out; the flag, once raised, stays up; and the ledger charges every move
 
 
                                                    36
@@ -2091,6 +2091,10 @@ read yes, so room runs out; the flag, once raised, stays up; and the ledger char
 
 
 
+in a merge or in room, and in any real device that comes on top of the dissipation of every change,
+with time setting how much; that’s the paragraph above. Getting from that bill to my rule, a mark
+on the ledger for the step that raises the flag, takes three “ifs”: there are finitely many states that
+read yes, so room runs out; the flag, once raised, stays up; and the ledger charges every move
 that forgets. Then the move that raises the flag has to forget something, two of the states it acts
 on landing on one, and pays. Forgetting is also the step Landauer’s principle, my premise, puts a
 heat price on, when what’s forgotten wasn’t already known; when somebody already knew, that
@@ -2139,10 +2143,6 @@ The collision is a fact about the instruction over possible states.
 The precise statement of the chairs argument is a theorem a few lines down, and it needs one word
 first. “Injective” is the mathematician’s word for “forgets nothing”: a step is injective when two
 different starts always give two different ends. The theorem says exactly what the chairs said and
-takes exactly the three premises: a duplicate-free list that names every state (finite), a reading that
-no step ever turns off (permanent), and one state that reads NO before the step and YES after it (the
-flip). There is no price in it anywhere. It is pure counting. I’ll come back to what counts as physics,
-but notice that nothing so far has been.
 
 
                                                     37
@@ -2150,6 +2150,10 @@ but notice that nothing so far has been.
 
 
 
+takes exactly the three premises: a duplicate-free list that names every state (finite), a reading that
+no step ever turns off (permanent), and one state that reads NO before the step and YES after it (the
+flip). There is no price in it anywhere. It is pure counting. I’ll come back to what counts as physics,
+but notice that nothing so far has been.
 Here are the words, exactly. For this whole section the setting is the five parts from Section 2
 without the toll: states S, move names I, a step, a reading, and (later) a cost.
 
@@ -2198,17 +2202,17 @@ and Poincaré’s theorem isn’t needed. And the wait is at most as many steps 
 Nothing enormous. Zermelo was aiming it at the second law. Flags never came into it. A quantum
 recurrence result came in 1957, when P. Bocchieri and A. Loinger proved returns arbitrarily close
 to the initial state under their conditions on a closed quantum system. That is a neighbouring
+
+
+                                                    38
+The Thiele Machine                                                                        Devon Thiele
+
+
+
 recurrence argument, not this finite-state proof: even a finite-dimensional quantum system has
 continuously many states. Applying it to a physical record requires saying how that record is read
 and how robustly it distinguishes nearby states.
 The second place stings more, because it’s in computer science. Somebody got here first, again.
-
-
-                                                    38
-The Thiele Machine                                                                          Devon Thiele
-
-
-
 Picture a finite machine that reads letters, one move per letter. If every letter just reshuffles the
 states one for one, automata theorists call it a permutation automaton, and the sets of inputs
 such machines can pick out are called group languages. Jean-Éric Pin’s 1992 paper on reversible
@@ -2256,18 +2260,19 @@ exactly that: tasks that are possible while their transposes aren’t. Marletto,
 Vedral and coauthors (2022) made an irreversible task out of the quantum homogeniser, a machine
 of reservoir qubits that interact by partial swaps, and ran it with photons. Maria Violaris and
 Marletto (2022) then argued that the same machine, run in a cycle, can turn a pure qubit into a
+
+
+
+                                                 39
+The Thiele Machine                                                                                Devon Thiele
+
+
+
 mixed one and can never turn a mixed qubit back into a pure one, even though every interaction in
 it is reversible, and that this suggests erasure may cost something beyond Landauer’s bound. The
 chairs are a classical, finite, exact cousin of that sentence: a set of states a step can’t leave, a task
 that’s possible, and no way back. Theirs is quantum and approximate and aimed at physics’ price;
 mine is counted, and assumes its price. Deutsch and Marletto’s paper on information (2015) has
-
-
-                                                   39
-The Thiele Machine                                                                                Devon Thiele
-
-
-
 a neighbour of the chairs argument in its section 8.6: measuring one observable disturbs another
 irreducibly, and nothing can undo the disturbance afterwards while the outcome stays in an infor-
 mation variable. That’s a second, theory-independent way of saying that a record that stays makes
@@ -2316,11 +2321,6 @@ the universal floor (Observation 2.1) applies to it.
 Proof. A move that flips the reading merges, by Theorem 3.1; merge pricing charges it at least
 one.
 
-The theorem asks for more than it uses. Only the yes-states need to be finitely many: with a
-permanent reading and finitely many states reading yes, the rest of the machine as large as you like,
-merge pricing still gives the toll. With infinitely many it can fail: Door one below builds a machine
-that raises a permanent flag at zero marks while charging every merge. That machine hasn’t got
-out of the bill. It pays in room, and a price list that charges only merges never looks at that column.
 
 
                                                       40
@@ -2328,6 +2328,11 @@ out of the bill. It pays in room, and a price list that charges only merges neve
 
 
 
+The theorem asks for more than it uses. Only the yes-states need to be finitely many: with a
+permanent reading and finitely many states reading yes, the rest of the machine as large as you like,
+merge pricing still gives the toll. With infinitely many it can fail: Door one below builds a machine
+that raises a permanent flag at zero marks while charging every merge. That machine hasn’t got
+out of the bill. It pays in room, and a price list that charges only merges never looks at that column.
 And merge pricing asks for more than the toll needs. Under those same two conditions the toll
 holds exactly when every move that flips the reading somewhere and merges is priced. Merge
 pricing gives that, and the eight-state machine described later in this section, with its jump repriced
@@ -2376,11 +2381,6 @@ him to Hilbert’s lecture notes, which had just been printed in 2013, and in 20
 guess back in a paper called “The True (?) Story of Hilbert’s Infinite Hotel.” Keep the question
 mark. Even Kragh’s own paper puts the lecture in January 1924 in one place and January 1925 in
 another. Still, this time a story everybody repeated turned out to have a real lecture behind it. I’ve
-learned not to count on that happening. Bring it back to the table. In the room, the person from the
-door had nowhere to sit because the chairs ran out. In Hilbert’s hotel they never do, so everybody
-shifts one over and nobody has to share. The strip machine is that hotel. The argument stays the
-same. What the hotel shows you is that it was about running out of chairs all along.
-
 
 
                                                    41
@@ -2388,6 +2388,10 @@ same. What the hotel shows you is that it was about running out of chairs all al
 
 
 
+learned not to count on that happening. Bring it back to the table. In the room, the person from the
+door had nowhere to sit because the chairs ran out. In Hilbert’s hotel they never do, so everybody
+shifts one over and nobody has to share. The strip machine is that hotel. The argument stays the
+same. What the hotel shows you is that it was about running out of chairs all along.
 What walked out the door is the finiteness premise. Now cut the strip to eight boxes and run it
 for real: eight boxes, nine moves. On the ninth move there’s nowhere to write. To keep going you
 have to reuse a box, and the moment you reuse a box two different histories end on the same strip,
@@ -2436,10 +2440,6 @@ That’s Hilbert’s front desk as a theorem, and it’s also exactly how Richar
 infinite collection in 1888: one that can be matched one-to-one with a part of itself that leaves
 something out. So with no merge, every raise has to send the kept things one-to-one into a part of
 themselves with a gap left over, and only endlessly many of them have a gap to spare. Room isn’t
-the absence of a bill. It’s the other way of paying it, and only an endless building can keep paying
-it.
-Which state is being counted. Whether a move merges depends on what the state keeps. The strip
-keeps its history, so nothing merges; cut it to eight boxes and the reuse merges. Section 19 proves
 
 
                                                        42
@@ -2447,6 +2447,10 @@ keeps its history, so nothing merges; cut it to eight boxes and the reuse merges
 
 
 
+the absence of a bill. It’s the other way of paying it, and only an endless building can keep paying
+it.
+Which state is being counted. Whether a move merges depends on what the state keeps. The strip
+keeps its history, so nothing merges; cut it to eight boxes and the reuse merges. Section 19 proves
 the general form (Theorem 19.3): keep the list of every earlier state alongside the current one and
 every fixed-instruction step is one-to-one. (Keeping only the one state before isn’t enough: two
 states that differ only in what came before them still land together.) So a merge price is a fact
@@ -2496,10 +2500,6 @@ first chair in the row reads the way that start reads, the rest read the fixed w
 walks the row and parks on the last chair. Count the chairs: one, plus a row for each of the other
 starts. For as many repetitions as you asked for, nobody shares a chair. On the next repetition
 somebody does, because the last chair in every row now lands where the chair before it lands. A
-single fixed reading isn’t needed either. If the operation sends everyone to one of a few parking
-spots and leaves each spot alone, and every spot is one of the starts, the same walking back counts
-the same rows inside each spot’s own catchment. The total comes to one chair per start, plus, for
-every repetition, one more chair for each start that isn’t a parking spot. With one spot that is the
 
 
                                                       43
@@ -2507,6 +2507,10 @@ every repetition, one more chair for each start that isn’t a parking spot. Wit
 
 
 
+single fixed reading isn’t needed either. If the operation sends everyone to one of a few parking
+spots and leaves each spot alone, and every spot is one of the starts, the same walking back counts
+the same rows inside each spot’s own catchment. The total comes to one chair per start, plus, for
+every repetition, one more chair for each start that isn’t a parking spot. With one spot that is the
 bound in the proposition, and the same rows in each catchment show it exact. In the exact form: N
 starts, L of them spots, T repetitions, at least N + T ( N − L) chairs, and that many are enough.
 So the strip pays in room for as long as it has room to pay. Cut the strip anywhere and part (1) says
@@ -2556,10 +2560,6 @@ applies, and i merges.
 
 I’ll give you the three-card version too, because it shows that a move can be forced to be priced
 without writing anything permanent, and I don’t want you to think the picture is tidier than it is.
-Three cards, T0, T1, T2, with a star on T1. The rule: T0 goes to T1, T1 goes to T2, T2 goes to T1.
-T0 gains the star (a flip). T1 loses it (a revocation). T0 and T2 both land on T1 (a merge). So this
-move is priced, by the forgetting rule, and yet it writes nothing permanent; it takes a star away in
-the same breath. “The priced moves are exactly the permanent records” is false, as the three cards
 
 
                                                       44
@@ -2567,6 +2567,10 @@ the same breath. “The priced moves are exactly the permanent records” is fal
 
 
 
+Three cards, T0, T1, T2, with a star on T1. The rule: T0 goes to T1, T1 goes to T2, T2 goes to T1.
+T0 gains the star (a flip). T1 loses it (a revocation). T0 and T2 both land on T1 (a merge). So this
+move is priced, by the forgetting rule, and yet it writes nothing permanent; it takes a star away in
+the same breath. “The priced moves are exactly the permanent records” is false, as the three cards
 just showed. What’s true is one direction: on a finite machine whose move names can be decided
 equal or different, every permanent raise is a priced move. The other direction has the three cards
 standing in it. And “priced” here has an exact meaning worth one sentence: a move is forced to be
@@ -2615,10 +2619,6 @@ constant and T is the temperature; and for the specific case of resetting one bi
 don’t know, the minimum is kT times the natural log of 2, about 0.69 kT. I want you to hear two
 things in that. First, “of the order of”: he was not handing out a number to three decimals. Second,
 and this surprised me, he did not measure anything. The paper is argument, with models. He
-writes that he can “show, or at least very strongly suggest” the conclusion, and that his reasoning
-gives “no guarantee that this minimum is in fact achievable.” That’s the founding paper of the
-whole subject, and it’s a careful man saying “I think this is right and here’s why.” I like him more
-for it.
 
 
 
@@ -2627,6 +2627,10 @@ for it.
 
 
 
+writes that he can “show, or at least very strongly suggest” the conclusion, and that his reasoning
+gives “no guarantee that this minimum is in fact achievable.” That’s the founding paper of the
+whole subject, and it’s a careful man saying “I think this is right and here’s why.” I like him more
+for it.
 Was it measured, eventually? Yes, and only recently. In 2012 a group at the École Normale
 Supérieure in Lyon, Antoine Bérut and Sergio Ciliberto’s lab working with Eric Lutz, trapped
 a single glass bead, two millionths of a metre across, in a double well made of laser light, and used
@@ -2675,10 +2679,6 @@ one. The counting core of this section, that a step losing nothing can’t carry
 that stays up, is that point in finite, discrete form. And if you want the best case for the premise
 itself, the one I found is James Ladyman, Stuart Presnell, Anthony Short and Berry Groisman (2007):
 from one of the standard statements of the second law, the one named for Kelvin, they derive that
-a logically irreversible operation can’t be carried out thermodynamically reversibly by any of their
-L-machines. That’s a physical argument under their stated model of a machine. It deserves to be
-argued with on those terms; it does not by itself establish the book’s whole-number ledger charge.
-One question a physicist asks before any of that, and it’s a good one: the laws underneath never
 
 
                                                   46
@@ -2686,6 +2686,10 @@ One question a physicist asks before any of that, and it’s a good one: the law
 
 
 
+a logically irreversible operation can’t be carried out thermodynamically reversibly by any of their
+L-machines. That’s a physical argument under their stated model of a machine. It deserves to be
+argued with on those terms; it does not by itself establish the book’s whole-number ledger charge.
+One question a physicist asks before any of that, and it’s a good one: the laws underneath never
 merge anything. Classical mechanics carries each exact state forward to exactly one next state and
 could carry it back again, and Liouville’s theorem adds that a patch of states keeps its size as it
 moves; quantum mechanics is unitary, which is one-to-one too. So when this section says a step
@@ -2735,10 +2739,6 @@ there is only one possible face to report. Two bits gone from that reading. Two 
 the label off would recover the old face, so this tabletop version models the loss from the reading;
 it does not demonstrate physical erasure. So that move costs at least two marks, and two marks
 is enough: a cost of exactly two satisfies the halving rule. The general statement is m + k at most
-2 to the cost times m, and there is also a logarithm form that rounds both logarithms up and is
-weaker for it (three states and one newcomer round to the same two bits on both sides, and the
-rounded form says nothing). The halving premise, like the one before it, is a definition used as an
-assumption. The units are halvings. To turn a halving into joules of heat you multiply by k B T ln 2,
 
 
                                                    47
@@ -2746,6 +2746,10 @@ assumption. The units are halvings. To turn a halving into joules of heat you mu
 
 
 
+2 to the cost times m, and there is also a logarithm form that rounds both logarithms up and is
+weaker for it (three states and one newcomer round to the same two bits on both sides, and the
+rounded form says nothing). The halving premise, like the one before it, is a definition used as an
+assumption. The units are halvings. To turn a halving into joules of heat you multiply by k B T ln 2,
 and that multiplication is physics; the counting stops before it.
 That little k B deserves a short trip of its own, because it sits exactly where counting turns into
 physics, and its name is a small history lesson. Ludwig Boltzmann’s grave in Vienna has S =
@@ -2795,10 +2799,7 @@ assigns to the move. Then
                                                                                           m+k
                 m + k ≤ 2cost(i) · m,         and, when m ≥ 1,         cost(i ) ≥ log2        .
                                                                                            m
-When m ≥ 1 the two displayed bounds say the same thing. (When m = 0 there is nowhere for a newcomer
-to land, so k = 0 too.)
 
-Proof. Put the m yes-states and the k newcomers in one list; it has m + k different members. By
 
 
                                                         48
@@ -2806,6 +2807,10 @@ Proof. Put the m yes-states and the k newcomers in one list; it has m + k differ
 
 
 
+When m ≥ 1 the two displayed bounds say the same thing. (When m = 0 there is nowhere for a newcomer
+to land, so k = 0 too.)
+
+Proof. Put the m yes-states and the k newcomers in one list; it has m + k different members. By
 permanence every yes-state lands on a yes-state, and by hypothesis every newcomer does too, so
 all m + k land among the m yes-states: imgi ≤ m. The halving price gives m + k ≤ 2cost(i) · imgi ≤
 2cost(i) · m.
@@ -2854,10 +2859,7 @@ step that removes that many bits from the state gives off at least k B T ln 2 of
 two together and the flip gives off heat, and the exact statements below say how much and under
 which side conditions, one of which (the temperature has to be taken as zero or above) is easy to
 skip and shouldn’t be.
-Why does Shannon’s number share a name with the physicists’ entropy at all? There’s a story about
-it. Shannon wanted to call it uncertainty, and the mathematician John von Neumann told him to
-call it entropy instead, for two reasons: the same formula already lived in statistical mechanics
-under that name, and nobody really knows what entropy is, so in an argument he’d always have
+
 
 
                                                    49
@@ -2865,6 +2867,10 @@ under that name, and nobody really knows what entropy is, so in an argument he�
 
 
 
+Why does Shannon’s number share a name with the physicists’ entropy at all? There’s a story about
+it. Shannon wanted to call it uncertainty, and the mathematician John von Neumann told him to
+call it entropy instead, for two reasons: the same formula already lived in statistical mechanics
+under that name, and nobody really knows what entropy is, so in an argument he’d always have
 the upper hand. It’s a great story. It comes from Myron Tribus, who spent years tying information
 theory to thermodynamics, who said Shannon told it to him in 1961, and who printed it, with
 Edward McIrvine, in Scientific American in 1971. Then in 1982 an interviewer, Robert Price, asked
@@ -2913,8 +2919,6 @@ on the m + k states, the move removes at least log2 mm+k bits.
 Proof. After the move, all the chance sits on the m yes-states (permanence for the old ones, the
 hypothesis for the new). There is at least one yes-state: the image of a state that flips. So m ≥ 1.
 Write q1 , . . . , qr for the positive output probabilities, where r ≤ m and their sum is 1.
-For y > 0, ln y ≤ y − 1: the derivative of y − 1 − ln y is 1 − 1/y, so its minimum is 0 at y = 1. Apply
-
 
 
 
@@ -2923,6 +2927,7 @@ For y > 0, ln y ≤ y − 1: the derivative of y − 1 − ln y is 1 − 1/y, so
 
 
 
+For y > 0, ln y ≤ y − 1: the derivative of y − 1 − ln y is 1 − 1/y, so its minimum is 0 at y = 1. Apply
 this with y = 1/(mq j ), multiply by q j , and add:
 
                                   r              r
@@ -2976,7 +2981,6 @@ counterpart. They call this absolute irreversibility. If the reverse histories w
 carry some share of the probability, their bound on mean entropy production picks up the logarithm
 of one over what’s left. In their free-expansion example, gas that starts confined to a tenth of a box
 gives the logarithm of ten.
-Make the confined fraction the old yes-states’ share of the pile, the yes-states over the yes-states
 
 
                                                        51
@@ -2984,6 +2988,7 @@ Make the confined fraction the old yes-states’ share of the pile, the yes-stat
 
 
 
+Make the confined fraction the old yes-states’ share of the pile, the yes-states over the yes-states
 plus the newcomers, and out comes the same logarithm as the squeeze bound. That numerical
 match does not identify two physical processes. The arrows specify neither a thermodynamic
 reverse experiment nor its path probabilities, so they don’t determine that share of reverse histories.
@@ -3035,7 +3040,6 @@ when it satisfies the halving price (Premise 3.4). (3) A cost satisfies merge pr
 it satisfies the halving price for every list of at most two different states, and exactly when it satisfies entropy
 pricing for every spread whose chance sits on at most two states. The first of those two equivalences uses no
 finiteness, only the test for equal states.
-
 
 
 
