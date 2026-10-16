@@ -26,6 +26,7 @@ into this directory.
 | `PermanentRecordPricing.v` | The bill's size (`permanent_flips_log_bound`) and which flips a finite machine must pay for (`forced_priced_iff_merges`, `flip_merges_or_revokes`, `forced_price_without_permanent_record`) |
 | `PermanentCertificationEntropy.v` | The same bound in Shannon entropy, and heat under the named premise `landauer_heat` (`permanent_flip_heat_floor`, `known_state_flip_forces_no_heat`) |
 | `FiniteCertMachine.v` | An eight-state machine that meets both premises as theorems (`fin_a2_from_merging_price`) |
+| `PricingOnePremise.v` | The three roads to the toll (merge pricing, halving and entropy pricing) are one premise (`entropy_drop_le_log_fibre`, `step_no_pileup_entropy_invariant`) |
 | `PricingPhysicsTarget.v`, `PricingPhysicsAudit.v` | A ledger has no intrinsic joule value (`mu_has_no_intrinsic_joule_value`); a chosen scale is a premise (`calibrated_mu_landauer_energy`) |
 
 ## Windows and narrowing

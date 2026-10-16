@@ -3,7 +3,7 @@
 # Builds and checks the Coq proofs of the abstract model and the small
 # machine, and runs the test suite.
 
-.PHONY: help install_deps organize clean deep-clean purge
+.PHONY: help install_deps clean deep-clean purge
 .PHONY: test test-seq install-hooks
 .PHONY: coq-gate coq-core coq-kernel coq-clean proof-gate-repro proof-undeniable
 .PHONY: assumption-receipt assumption-receipt-check vacuity-audit
@@ -185,10 +185,6 @@ deep-clean: clean
 	@echo "✓ Deep clean complete"
 
 # Organize workspace (clean transient caches, write a folder audit)
-organize:
-	@echo "Organizing workspace..."
-	@./scripts/auto_organize.sh
-
 # Clean everything including local environments
 purge: deep-clean
 	@echo "Purging all generated files..."
