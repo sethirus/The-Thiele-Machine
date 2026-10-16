@@ -2,7 +2,7 @@
 \label{sec:coq-statements}
 %===========================================================================
 
-This book states its theorems in its own words, and Section~\ref{sec:coq} says why that's a
+This book states its theorems in its own words, and Section~\ref{sec:methodology} says why that's a
 risk: the checker confirms a proof matches its statement. Whether my sentence matches the
 statement is a question the checker never asks. So here are the statements themselves for twenty-one of the results the argument
 leans on hardest. Each is copied from its file with the comments taken out and a few long lines
@@ -349,7 +349,7 @@ start; each loaded state shows $(1, a, b)$ and is live, and from every live stat
 changes the window exactly as \code{cm\_exec} says and leaves the state live. The interface lists
 its parts and asks nothing of them: the base, the claims, a kind for each move, each claim's
 meaning, the checker, ``unchanged,'' the clean states and the ledger. The demands are the four
-clauses printed below under Thiele-complete. This is part
+clauses printed below under certified Thiele-complete. This is part
 (a) of Definition~\ref{def:u34-thiele-complete} and the interface it describes.
 
 \subsection{The universal floor}
@@ -380,7 +380,7 @@ Theorem universal_nfi_any_substrate :
     cs_total_cost CS trace >= 1.
 \end{verbatim}}
 
-In plain words: a certification system is a record of a state type, a move type, a step, a
+In plain words: a Thiele machine is a record of a state type, a move type, a step, a
 cost and a yes-or-no reading, plus one more field, \code{cs\_cert\_costs}, which is the toll: a
 move that takes the reading from false to true costs at least one. Since the toll is a field,
 every system the theorem talks about has it, which is why the same file also states it as
@@ -451,7 +451,7 @@ Theorem a2_from_merging_price_and_permanence :
 In plain words: \code{merging\_steps\_priced} says every move that isn't injective costs at
 least one, and \code{a2\_holds} is the toll. The theorem: finite, permanent and merges priced
 give the toll. Observation~\ref{thm:toll-derived} says this and one thing more, that the machine
-with that cost is then a certification system the universal floor applies to. That second half
+with that cost is then a Thiele machine the universal floor applies to. That second half
 isn't in this statement. It's the definition right after it in the file
 (\code{certification\_system\_from\_merging\_price}), which fills the record's toll field with
 this theorem, so the printed form is true, and it leans on two Coq items: this theorem and that
@@ -682,7 +682,7 @@ nothing ever certifies. Theorem~\ref{thm:u34-tight} says this. The older witness
 file, \code{min\_cost\_tight}, reaches three with ``$A$ is at least 0'', a check that can't
 fail; the step doesn't police that, and Section~\ref{sec:smallest} says so.
 
-\subsection{Thiele-complete, the four clauses}
+\subsection{Certified Thiele-complete, the four clauses}
 
 {\raggedright \code{thiele\_complete}, minimal/ThieleComplete.v, with the clauses it is made of, and its form over a claim language fixed first, \code{thiele\_complete\_over}. \texttt{load a b} is the interface's loaded state for the start $(1, a, b)$, written inside a section that fixes \texttt{I}; \texttt{run M} runs a list of moves from a state.\par}
 
@@ -786,12 +786,13 @@ it a plain interface whose claims, meanings and ``unchanged'' are the language's
 \code{thiele\_complete\_over} asks that interface to meet all four.
 \texttt{clock} is the two-counter machine with every move costing 1 and any
 reading of its configuration as the record. Definition~\ref{def:u34-thiele-complete} says
-this, the language-first form included, and adds the weaker
-notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed here). Observation~\ref{thm:u34-clock} says the last line and more: the clock is weakly
-Thiele-complete (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
+this, the language-first form included. The file also has a Coq predicate,
+\code{weakly\_thiele\_complete} (not printed here), that asks only for the toll and a universal
+base. Observation~\ref{thm:u34-clock} says the last line and more: the clock meets
+\code{weakly\_thiele\_complete} (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
 behaves the same way (\code{latch\_clock\_weakly\_thiele\_complete} and
 \code{latch\_clock\_not\_thiele\_complete}), and no machine whose every move costs at least 1 is
-Thiele-complete, which comes from \code{complete\_has\_free\_move}. Clause (c) fixes the unit at
+certified Thiele-complete, which comes from \code{complete\_has\_free\_move}. Clause (c) fixes the unit at
 one. Theorem~\ref{thm:u34-tc-unit} states the definition with every record move at one fixed price
 $c \ge 1$ (\code{thiele\_complete\_at}, ThieleCompleteScaled.v), shows that class is this one with
 its prices multiplied by $c$ (\code{scale\_complete\_at} and \code{unscale\_complete}), and shows the
@@ -832,7 +833,7 @@ with the host count at least the guest count, or both stopped, with equal ledger
 between the guest's at some step and at the step after. \texttt{rel} and \texttt{rel\_halt} are the
 relations Theorem~\ref{thm:u34-U-sim} spells out. The fourth: the host machine, the small machine
 with a register for every whole number and the one property \code{PSlot}, read one move per
-instruction, is Thiele-complete in the sense of the previous subsection.
+instruction, is certified Thiele-complete in the sense of the previous subsection.
 Theorem~\ref{thm:u34-U-flag} says exactly the second and the third. Theorem~\ref{thm:u34-U-halting}
 says the first and more: at halting the registers, the traps, the ledgers and the flags match too
 (\code{universal\_output}, not printed here). Theorem~\ref{thm:u34-U-complete} says the fourth
@@ -1100,7 +1101,7 @@ Theorem ent_representation :
     ti_ledger I s0 + 3 <= ti_ledger I (run M tr s0).
 \end{verbatim}}
 
-In plain words: take a machine and an interface through which it is Thiele-complete, any type of
+In plain words: take a machine and an interface through which it is certified Thiele-complete, any type of
 rivals $X$ and of observations $O$ with an exact equality test, a run $t$ from a clean
 state $s_0$, and a decoder $d$ that reads the run's receipts, its list of moves. Hypotheses
 in order: the posterior list is inside the prior and drops at least one rival; some dropped rival
@@ -1179,7 +1180,7 @@ In plain words: \code{ent\_passes} walks the run and keeps, for each CHECK that 
 the run is in, the moves before it and its claim; \code{ent\_run\_tests} turns each into a test of
 a candidate start $x$, replay those moves from $x$ and check the same claim; the posterior keeps
 the candidates that pass every test, in order; and \code{ent\_stages} records the number of
-candidates standing before and after each test. Hypotheses: the machine is Thiele-complete through
+candidates standing before and after each test. Hypotheses: the machine is certified Thiele-complete through
 \texttt{I}, the start is clean, the run ends with the record up, the start is among the
 candidates, and every test keeps at least a $2^{-k}$ share. Conclusions in order: the posterior is
 inside the prior and keeps the start; every dropped candidate fails, replayed, a CHECK the run made
