@@ -420,7 +420,8 @@ all of it leaves as heat. Go slower
 and the dissipation per step drops, but it never reaches nothing for a run that finishes; Part~I proves
 that for his model (Theorem~\ref{thm:time-bill}), and the physicists who study changes made in a finite time (Tim Schmiedl and
 Udo Seifert for a dragged bead; Naoto Shiraishi, Ken Funo and Keiji Saito for jump processes) find the same
-for any change in the chances of a device's states that finishes. So in any real device every step that
+for any change in the chances of a device's states that finishes, when those states jump or drift at
+random in surroundings at a fixed temperature. So in any real device of that kind every step that
 actually changes something dissipates, on average. What a merge adds is a floor under its heat that no slowness removes, and
 what room buys is a way around the floor, never around the dissipation of happening. Time sets how much
 you pay above the floor. Only forever makes it zero, and a step that takes forever never happens.
@@ -945,6 +946,13 @@ what it might have been, and that part carries a floor no slowness takes away: i
 about to show you. Here I want the other part of the price, the part for keeping it, from the step law and
 nothing else.
 
+And the cell isn't a floor. Describe whatever holds it, a bead in two dips, the molecules that
+jostle the bead, whatever holds those, and you've described states that can be told apart and a way
+they change: a machine of the same kind, on the same bill, because a merge one level up forces a
+merge or room one level down, as long as the level below stays among the states the one above
+describes (Theorem~\ref{thm:every-scale}). Every level you can describe is one of these. Under all
+of them there's nothing told apart at all, and that's the nothing a blank cell stands for.
+
 Three states: blank, zero, one. The reading is ``the cell is definite,'' no on blank and yes on
 the other two, and a written cell stays written, so the reading is permanent. The move is
 ``write a 0,'' which takes blank to zero and leaves a written cell alone. Now look. Blank lands
@@ -962,7 +970,8 @@ and one land on themselves, and the remembering state is where blank landed. So 
 the smallest version it lands on itself, and then blank and the remembering state share a
 chair. No finite extension of the cell gets out of the merge, and the reason is counting
 (Proposition~\ref{prop:raise-needs-room}, two chapters on), not bad luck. The only way to write
-with no merge is an endless tape: a new cell for every write, forever (it comes back two chapters on, as the first of three doors out of a theorem, Door one). That isn't getting
+with no merge is endless room: a fresh state for every write, forever, such as a new cell of an endless
+tape for each one (it comes back two chapters on, as the first of three doors out of a theorem, Door one). That isn't getting
 out of the bill. It dodges the floor by paying room, without limit, and each write still
 dissipates when it happens. Or, in a form I need below, a tape
 that stretches both ways with the machine stepping one cell along it. Every cell has one before
@@ -3062,7 +3071,7 @@ Be careful with that one, because it's easy to overread. ``The premise sets no h
 state'' does not mean a stamping machine run on a known-blank sheet dissipates nothing. It
 dissipates every time the stamp actually comes down in a finite time, known input or not, since the
 stamp changes the sheet:
-that's time's bill, proved here for Bennett's walker (Theorem~\ref{thm:time-bill}), found for a dragged bead by Schmiedl and Seifert and in general by Shiraishi, Funo and Saito, and how much depends on the device's physical
+that's time's bill, proved here for Bennett's walker (Theorem~\ref{thm:time-bill}), found for a dragged bead by Schmiedl and Seifert and for any classical jump process by Shiraishi, Funo and Saito, and how much depends on the device's physical
 implementation, its control protocol and how fast it goes. What the
 theorem says is only that the \emph{premise} sets no floor there. The floor comes from what you
 didn't know. That's a sentence about the bill. The device is a separate matter. And notice that the
