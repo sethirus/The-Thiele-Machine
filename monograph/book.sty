@@ -1,12 +1,17 @@
 % SPDX-FileCopyrightText: 2026 Devon Thiele
 % SPDX-License-Identifier: CC-BY-SA-4.0
-\ProvidesPackage{book}[2026/10/11 The Thiele Machine book composition]
+\ProvidesPackage{book}[2026/10/18 The Thiele Machine book composition]
 \RequirePackage{needspace}
 \RequirePackage{tocloft}
 \RequirePackage{charter}
 
-\geometry{paperwidth=190mm,paperheight=255mm,inner=22mm,outer=32mm,
-  top=24mm,bottom=30mm,headheight=0pt,headsep=0pt,footskip=14mm}
+% One page, one ink, one grey. The only ornament in the book is the open
+% square: the blank cell the book is about. It closes every proof.
+\definecolor{inkgrey}{gray}{0.52}
+\definecolor{palegrey}{gray}{0.84}
+
+\geometry{paperwidth=190mm,paperheight=255mm,inner=22mm,outer=30mm,
+  top=27mm,bottom=28mm,headheight=14pt,headsep=9mm,footskip=12mm}
 \setstretch{1}
 \makeatletter
 \renewcommand\normalsize{\@setfontsize\normalsize{11}{15}%
@@ -35,58 +40,75 @@
   pdfdisplaydoctitle=true,pdfpagelayout=TwoPageRight,
   colorlinks=true,allcolors=black,bookmarksdepth=3}
 
-% The running matter stays at the edge of the reading field.
+% Small letterspaced labels: the running heads, the part and chapter marks.
+\newcommand{\BookLabel}[1]{{\sffamily\fontsize{7.5}{9}\selectfont\textls[160]{\MakeUppercase{#1}}}}
+\newcommand{\BookFolio}{{\sffamily\fontsize{8.5}{10}\selectfont\thepage}}
+
+% Running heads: the book on the left-hand page, the chapter on the right.
 \renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
-\newcommand{\BookRunning}{\sffamily\fontsize{8.5}{10}\selectfont}
+\renewcommand{\subsectionmark}[1]{}
+\newcommand{\BookSecMark}[1]{\markboth{#1}{#1}#1}
 \fancypagestyle{book}{%
   \fancyhf{}%
-  \fancyfoot[LE]{\BookRunning\thepage}%
-  \fancyfoot[RO]{\BookRunning\thepage}%
+  \fancyhead[LE]{\BookFolio\hspace{1.6em}\textcolor{inkgrey}{\BookLabel{The Thiele Machine}}}%
+  \fancyhead[RO]{\textcolor{inkgrey}{\BookLabel{\rightmark}}\hspace{1.6em}\BookFolio}%
   \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
 \fancypagestyle{plain}{%
-  \fancyhf{}\fancyfoot[LE,RO]{\BookRunning\thepage}%
+  \fancyhf{}\fancyfoot[C]{\BookFolio}%
   \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
 \pagestyle{book}
 
-% Preserve the manuscript's section flow and its own explicit page breaks.
-\titleformat{\part}[display]{\normalfont\sffamily\raggedright}
-  {\BookRunning\partname\space\thepart}{8pt}{\fontsize{26}{29}\selectfont}
-\titlespacing*{\part}{0pt}{25pt}{14pt}
-\pretocmd{\part}{\Needspace{15\baselineskip}}{}{}
-\titleformat{\section}[display]{\normalfont\sffamily\raggedright}
-  {\BookRunning\thesection}{10pt}{\fontsize{30}{32}\selectfont}
-\titleformat{name=\section,numberless}[display]{\normalfont\sffamily\raggedright}
-  {}{0pt}{\fontsize{30}{32}\selectfont}
-\titlespacing*{\section}{0pt}{10mm}{8mm}
-\titleformat{\subsection}{\normalfont\sffamily\bfseries\fontsize{11.7}{15}\selectfont}
-  {\thesubsection}{.7em}{}
-\titlespacing*{\subsection}{0pt}{19pt plus 3pt minus 2pt}{7pt}
+% A part gets a page of its own: its numeral large and pale, its title over it,
+% and the few paragraphs that introduce it. Its first chapter starts overleaf.
+\titleformat{\part}[display]{\normalfont\raggedright}
+  {\fontsize{150}{150}\selectfont\color{palegrey}\thepart}{-34pt}
+  {\fontsize{36}{40}\selectfont\bfseries}
+\titlespacing*{\part}{0pt}{22mm}{18mm}
+\pretocmd{\part}{\clearpage\thispagestyle{plain}}{}{}
+
+% Every chapter opens its own page, a third of the way down, with its number
+% standing large and grey beside the title.
+\titleformat{\section}[display]{\normalfont\raggedright}
+  {\fontsize{72}{72}\selectfont\color{inkgrey}\thesection}{14pt}
+  {\fontsize{27}{31}\selectfont\bfseries}
+\titleformat{name=\section,numberless}[display]{\normalfont\raggedright}
+  {}{0pt}{\fontsize{27}{31}\selectfont\bfseries\BookSecMark}
+\titlespacing*{\section}{0pt}{38mm}{16mm}
+\pretocmd{\section}{\clearpage\thispagestyle{plain}\phantomsection}{}{}
+\titleformat{\subsection}{\normalfont\bfseries\fontsize{12}{15}\selectfont}
+  {\textcolor{inkgrey}{\thesubsection}}{.8em}{}
+\titlespacing*{\subsection}{0pt}{20pt plus 3pt minus 2pt}{7pt}
 \titleformat{\subsubsection}{\normalfont\itshape\fontsize{11}{15}\selectfont}
-  {\thesubsubsection}{.7em}{}
+  {\textcolor{inkgrey}{\thesubsubsection}}{.8em}{}
 \titlespacing*{\subsubsection}{0pt}{14pt plus 2pt}{5pt}
 
-% Keep the original contents entries and hierarchy.
-\setlength{\cftbeforetoctitleskip}{13mm}
-\setlength{\cftaftertoctitleskip}{15mm}
-\renewcommand{\cfttoctitlefont}{\normalfont\sffamily\fontsize{30}{32}\selectfont}
+% Contents, in the same hand as the chapter openers.
+\setlength{\cftbeforetoctitleskip}{38mm}
+\setlength{\cftaftertoctitleskip}{16mm}
+\renewcommand{\cfttoctitlefont}{\normalfont\bfseries\fontsize{27}{31}\selectfont}
 \renewcommand{\cftaftertoctitle}{\thispagestyle{plain}\markboth{Contents}{Contents}}
-\setlength{\cftbeforepartskip}{16pt}
-\setlength{\cftbeforesecskip}{4pt}
+\setlength{\cftbeforepartskip}{18pt}
+\setlength{\cftbeforesecskip}{5pt}
 \renewcommand{\cftpartfont}{\normalfont\bfseries}
-\renewcommand{\cftpartpagefont}{\normalfont}
-\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftpartpagefont}{\normalfont\bfseries}
+\renewcommand{\cftsecfont}{\normalfont\bfseries}
 \renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecfont}{\normalfont}
 \renewcommand{\cftsecleader}{\hfill}
-\setlength{\cftsecindent}{1.7em}
+\renewcommand{\cftsubsecleader}{\hfill}
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsubsecindent}{1.7em}
 \setlength{\cftsecnumwidth}{2.5em}
 \setlength{\cftsubsecnumwidth}{3em}
 \setlength{\cftpartnumwidth}{1.7em}
 
-% Upright statements support sustained reading of long hypotheses.
+% Upright statements support sustained reading of long hypotheses. Each one
+% is closed by the open square, the blank cell.
 \newtheoremstyle{thielethm}{13pt plus 2pt}{9pt plus 1pt}{\normalfont}{0pt}
   {\bfseries}{.}{.6em}{}
 \newtheoremstyle{thieledef}{13pt plus 2pt}{9pt plus 1pt}{\normalfont}{0pt}
   {\bfseries}{.}{.6em}{}
+\renewcommand{\qedsymbol}{\raisebox{0.1ex}{\tikz\draw[line width=0.45pt] (0,0) rectangle (1.35ex,1.35ex);}}
 \BeforeBeginEnvironment{theorem}{\Needspace{5\baselineskip}}
 \BeforeBeginEnvironment{lemma}{\Needspace{5\baselineskip}}
 \BeforeBeginEnvironment{definition}{\Needspace{5\baselineskip}}
