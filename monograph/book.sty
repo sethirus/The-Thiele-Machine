@@ -5,10 +5,59 @@
 \RequirePackage{tocloft}
 \RequirePackage{charter}
 
-% One page, one ink, one grey. The only ornament in the book is the open
-% square: the blank cell the book is about. It closes every proof.
+% Black ink, one grey, and one colour, used for one thing. The book is about
+% a blank cell becoming a 0 and staying, and the design draws that and nothing
+% else. A cell is a square. Blank, it is an open square. Written and paid for,
+% it is filled, in the one colour, the colour of the flag. Every statement opens
+% on a blank cell; the proof that pays for it closes on a filled one, and a
+% statement whose proof is elsewhere keeps its cell open on the page. Every
+% chapter opens with the book's own ledger: one cell per chapter, the ones
+% already established filled. Each part opens on the cell in that part's state.
 \definecolor{inkgrey}{gray}{0.52}
 \definecolor{palegrey}{gray}{0.84}
+\definecolor{flag}{RGB}{196,38,26}
+\newcommand{\BlankCell}{\tikz[baseline=0pt]\draw[flag,line width=0.5pt] (0,0) rectangle (1.3ex,1.3ex);}
+\newcommand{\FilledCell}{\tikz[baseline=0pt]\fill[flag] (0,0) rectangle (1.3ex,1.3ex);}
+
+% The ledger row on a chapter opener: one cell per numbered chapter and
+% appendix, those already reached filled. The count of main chapters is
+% taken at \appendix; the total is carried over from the previous run.
+\makeatletter
+\newcommand{\CellOffset}{0}
+\providecommand{\CellTotal}{38}
+\pretocmd{\appendix}{\xdef\CellOffset{\number\value{section}}}{}{}
+\AtEndDocument{\immediate\write\@auxout{\string\gdef\string\CellTotal{\number\numexpr\CellOffset+\value{section}\relax}}}
+\makeatother
+\newcommand{\LedgerRow}[1]{%
+  \begin{tikzpicture}[x=3.4mm,y=3.4mm]
+    \foreach \i in {1,...,\CellTotal}{%
+      \ifnum\i>#1\relax
+        \draw[flag,line width=0.45pt] (\i,0) rectangle +(0.75,0.75);
+      \else
+        \fill[flag] (\i,0) rectangle +(0.75,0.75);
+      \fi}
+  \end{tikzpicture}}
+\newcommand{\ChapterCells}{\LedgerRow{\number\numexpr\CellOffset+\value{section}\relax}}
+\newcommand{\NoCells}{\LedgerRow{0}}
+
+% The cell on each part's page, in the state that part leaves it in: blank
+% for the bill; divided, for what structure is made of; filled, established;
+% and with its edge drawn as a question, for the checking.
+\newcommand{\PartGlyph}{%
+  \begin{tikzpicture}[x=1mm,y=1mm,line width=0.7pt]
+    \ifcase\value{part}\or
+      \draw (0,0) rectangle (34,34);
+    \or
+      \draw (0,0) rectangle (34,34);
+      \draw (17,0) -- (17,34); \draw (0,17) -- (34,17);
+    \or
+      \fill[flag] (0,0) rectangle (34,34);
+    \or
+      \draw[dash pattern=on 2.2mm off 1.4mm] (0,0) rectangle (34,34);
+    \else
+      \draw (0,0) rectangle (34,34);
+    \fi
+  \end{tikzpicture}}
 
 \geometry{paperwidth=190mm,paperheight=255mm,inner=22mm,outer=30mm,
   top=27mm,bottom=28mm,headheight=14pt,headsep=9mm,footskip=12mm}
@@ -61,19 +110,19 @@
 % A part gets a page of its own: its numeral large and pale, its title over it,
 % and the few paragraphs that introduce it. Its first chapter starts overleaf.
 \titleformat{\part}[display]{\normalfont\raggedright}
-  {\fontsize{150}{150}\selectfont\color{palegrey}\thepart}{-34pt}
+  {\textcolor{inkgrey}{\BookLabel{Part \thepart}}\\[7mm]\PartGlyph}{12mm}
   {\fontsize{36}{40}\selectfont\bfseries}
-\titlespacing*{\part}{0pt}{22mm}{18mm}
+\titlespacing*{\part}{0pt}{20mm}{18mm}
 \pretocmd{\part}{\clearpage\thispagestyle{plain}}{}{}
 
 % Every chapter opens its own page, a third of the way down, with its number
 % standing large and grey beside the title.
 \titleformat{\section}[display]{\normalfont\raggedright}
-  {\fontsize{72}{72}\selectfont\color{inkgrey}\thesection}{14pt}
+  {\ChapterCells\\[12mm]\fontsize{60}{60}\selectfont\color{inkgrey}\thesection}{12pt}
   {\fontsize{27}{31}\selectfont\bfseries}
 \titleformat{name=\section,numberless}[display]{\normalfont\raggedright}
-  {}{0pt}{\fontsize{27}{31}\selectfont\bfseries\BookSecMark}
-\titlespacing*{\section}{0pt}{38mm}{16mm}
+  {\NoCells}{14mm}{\fontsize{27}{31}\selectfont\bfseries\BookSecMark}
+\titlespacing*{\section}{0pt}{18mm}{16mm}
 \pretocmd{\section}{\clearpage\thispagestyle{plain}\phantomsection}{}{}
 \titleformat{\subsection}{\normalfont\bfseries\fontsize{12}{15}\selectfont}
   {\textcolor{inkgrey}{\thesubsection}}{.8em}{}
@@ -105,10 +154,10 @@
 % Upright statements support sustained reading of long hypotheses. Each one
 % is closed by the open square, the blank cell.
 \newtheoremstyle{thielethm}{13pt plus 2pt}{9pt plus 1pt}{\normalfont}{0pt}
-  {\bfseries}{.}{.6em}{}
+  {\BlankCell\enspace\bfseries}{.}{.6em}{}
 \newtheoremstyle{thieledef}{13pt plus 2pt}{9pt plus 1pt}{\normalfont}{0pt}
   {\bfseries}{.}{.6em}{}
-\renewcommand{\qedsymbol}{\raisebox{0.1ex}{\tikz\draw[line width=0.45pt] (0,0) rectangle (1.35ex,1.35ex);}}
+\renewcommand{\qedsymbol}{\FilledCell}
 \BeforeBeginEnvironment{theorem}{\Needspace{5\baselineskip}}
 \BeforeBeginEnvironment{lemma}{\Needspace{5\baselineskip}}
 \BeforeBeginEnvironment{definition}{\Needspace{5\baselineskip}}
