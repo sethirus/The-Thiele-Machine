@@ -243,8 +243,8 @@ before it, and the book goes up them in order.
 \emph{One: nothing becomes something for free.} Take a blank cell. A square of paper with nothing
 on it, a bead that could sit in either of two dips, a bit of memory nobody has set. Now make it a
 0, and keep it a 0. Something is the case now that wasn't a moment ago. That moment, nothing
-becoming something, is never free. It dissipates by happening, and keeping it is paid on top,
-in a merge or in room.
+becoming something, is never free. It dissipates by happening, in any real device, in finite time,
+and keeping it is paid on top, in a merge or in room.
 
 \emph{Two: so what a computation makes the case is a resource.} Computer science charges a
 computation for two things, how long it runs and how much room it takes, and the bits it erases
@@ -1360,7 +1360,8 @@ and it's a Thiele machine, and when the cell could have held anything, Landauer'
 heat floor under that raise, because on a finite cell the raise is a merge. That's the toll's
 shape, paid in heat instead of marks. And the bill, deterministic or noisy or
 quantum, is this: in any real device every change that finishes dissipates, more the faster it
-goes, which I prove for Bennett's walker and cite the physicists for in general; keeping something
+goes, which I prove for Bennett's walker and cite the physicists for wherever a device's states jump or
+drift at random in surroundings at a temperature; keeping something
 costs on top of that either a merge, with Landauer's floor when the merged states were really
 possible, or a fresh chair of room; and a finite building forces the merge. The step law, the
 noisy chairs and the quantum chairs are proved, and the table above says how near the laboratory
@@ -1977,7 +1978,7 @@ everywhere.
 The first chapter of this part proved the bill with chairs: a run that raises a flag and keeps it
 up either shares a chair somewhere or never repeats one, so keeping is paid in a merge or in room;
 and in any real device every step that changes something dissipates on top of that, by happening. The merge-or-room
-part needs no premise; the heat is physics, which I proved for Bennett's walker and cited in general. This chapter counts
+part needs no premise; the heat is physics, which I proved for Bennett's walker and cited for devices whose states jump or drift at random in surroundings at a temperature. This chapter counts
 the room exactly, and asks what it takes to turn the bill into a mark on a ledger. The flag I
 built is one thing that stays; the result is about anything that stays.
 
@@ -2432,7 +2433,10 @@ inside each spot's own catchment. The total comes to one chair per start, plus, 
 repetition, one more chair for each start that isn't a parking spot. With one spot that is the
 bound in the proposition, and the same rows in each catchment show it exact.
 In the exact form: $N$ starts, $L$ of them spots, $T$ repetitions, at least $N + T(N - L)$ chairs,
-and that many are enough.
+and that many are enough. In bits: a memory of $B$ bits has at most $2^B$ states, so surviving $T$
+repetitions with one spot takes $B \ge \log_2\bigl(1 + (T+1)(N-1)\bigr)$. The room grows with the
+logarithm of how long the history is kept; a fresh state at every step isn't a fresh cell at every
+step.
 
 So the strip pays in room for as long as it has room to pay. Cut the strip anywhere and part (1)
 says how many moves are left before a box gets reused. Room is not the only other cost.
