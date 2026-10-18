@@ -19358,7 +19358,7 @@ tell you which runs are practical on this build. Here's what ran and what didn't
 The small machine & run: the executable versions agree on every tested step \\
 The host machines, with and without PAY & run, compared the same way \\
 $U$ and $U_P$ on tiny guests & run, against a separate guest implementation \\
-$U$ or $U_P$ on a guest that certifies & proved, not run \\
+$U$ or $U_P$ on a guest that certifies & proved and counted, not run \\
 Source programs through the compiler & run as far as the host program \\
 The two-counter guest and $U_P$ running it & proved, not run \\
 The presented machine carried by $U_P$ & proved, not run \\
@@ -19441,6 +19441,30 @@ $10^{20}$ years. So $U$ on a guest that certifies is proved, in Appendix~\ref{se
 and has never been run. Runs this long only fit in memory at all because the build can repack the
 host's register store in the middle of a run; repacking changes how the registers are stored, not
 what they hold.
+
+What a run that long can be is counted. All of $U$'s time goes into four loop shapes from
+Appendix~\ref{sec:universal-blocks}, the ones that empty a register, copy it, copy it twice and halve it, and
+each repeats one pass a known number of times: for a register at $v$, emptying takes $v + 1$ steps,
+copying $2v + 1$, copying twice $3v + 1$, and halving three for every two in $v$. Replace each loop
+by its count, step every other instruction one at a time with the host's own step, and the counts
+are exact as long as the four closed forms are. The script \texttt{scripts/count\_universal\_run.py}
+does that, checks the four forms against plain stepping at every one of their 981 sites in $U$, and
+checks each run against the guest machine the way the runner above does. The three stepped runs
+above come out of it to the step. The guest with the whole chain, CHECK, COMMIT, CERTIFY, comes
+out of it too: from $(0,0)$ it halts with the flag up and a ledger of three, and from $(5,0)$ its
+CHECK traps with a ledger of one.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lr@{}}
+start & host steps \\ \hline
+$(0,0)$ & 3,894,222,629,847,358,066,688,933,266,198,944 \\
+$(5,0)$ & 973,555,646,581,507,138,873,939,791,446,643 \\
+\end{tabular}
+\end{center}
+
+That is a count, not a run. Nothing stepped those $10^{33}$ instructions, and the row in the table
+at the top of this section says so.
 
 Those big counts come from this encoding and from reading it one pebble at a time. They
 measure the work this interpreter does, and that's all they measure. Whether some other

@@ -311,7 +311,7 @@ G     Running it                                                   551
     G.2 A second machine, written by hand, to check the first      552
     G.3 U on a real guest                                          552
     G.4 From source programs to the host                           554
-    G.5 What wasn’t built                                          558
+    G.5 What wasn’t built                                          559
 H     The CHSH check                                               560
     H.1 The game                                                   560
     H.2 Where it came from, and why anyone cared                   562
@@ -22385,7 +22385,7 @@ are practical on this build. Here’s what ran and what didn’t.
   out PAY
   U and UP on tiny guests                run, against a separate guest implementa-
                                          tion
-  U or UP on a guest that certifies      proved, not run
+  U or UP on a guest that certifies      proved and counted, not run
   Source programs through the com- run as far as the host program
   piler
   The two-counter guest and UP run- proved, not run
@@ -22476,15 +22476,35 @@ rate, with this encoding on that computer, a run of its three steps comes to aro
 been run. Runs this long only fit in memory at all because the build can repack the
 host’s register store in the middle of a run; repacking changes how the registers are
 stored, not what they hold.
-    Those big counts come from this encoding and from reading it one pebble at
-a time. They measure the work this interpreter does, and that’s all they measure.
-Whether some other interpreter, or some other base, could do the same job fast is a
-separate construction with its own running-time analysis. Nothing measured here
-puts a floor under every way of doing it.
+    What a run that long can be is counted. All of U’s time goes into four loop shapes
+from Appendix L, the ones that empty a register, copy it, copy it twice and halve it,
+and each repeats one pass a known number of times: for a register at v, emptying
+takes v + 1 steps, copying 2v + 1, copying twice 3v + 1, and halving three for every
+two in v. Replace each loop by its count, step every other instruction one at a time
+with the host’s own step, and the counts are exact as long as the four closed forms
+are. The script scripts/count_universal_run.py does that, checks the four forms
 554   G Running it
 
 
+              against plain stepping at every one of their 981 sites in U, and checks each run
+              against the guest machine the way the runner above does. The three stepped runs
+              above come out of it to the step. The guest with the whole chain, CHECK, COMMIT,
+              CERTIFY, comes out of it too: from (0, 0) it halts with the flag up and a ledger of
+              three, and from (5, 0) its CHECK traps with a ledger of one.
+                             start                                        host steps
+                             (0, 0)   3,894,222,629,847,358,066,688,933,266,198,944
+                             (5, 0)     973,555,646,581,507,138,873,939,791,446,643
+                  That is a count, not a run. Nothing stepped those 1033 instructions, and the row
+              in the table at the top of this section says so.
+                  Those big counts come from this encoding and from reading it one pebble at
+              a time. They measure the work this interpreter does, and that’s all they measure.
+              Whether some other interpreter, or some other base, could do the same job fast is a
+              separate construction with its own running-time analysis. Nothing measured here
+              puts a floor under every way of doing it.
+
+
               G.4 From source programs to the host
+
               Running guests one CHECK at a time doesn’t tell you whether the built machine
               can do anything you’d recognise as a program. You’d want to hand it gcd, or a
               sort, written the way people write them, and get the answer out, and writing gcd
@@ -22507,26 +22527,26 @@ puts a floor under every way of doing it.
               counter at 0, its ledger at 0 and its flag down. So a terminating compiled program
               delivers its answer and certifies nothing. To certify a claim about that answer, a
               target program must add a CHECK, a COMMIT and a CERTIFY; this compiler does
-              not insert that chain. The runner also takes exactly as many steps as the host
-              program does, with the rest of its fuel left over, and a run that doesn’t halt has used
-              all its fuel.
-
-              Proof. Six arrows and a runner, each argued below, and the statement is their
-              composition. Four of the arrows are between machines that take steps, and for those
-              one argument does both directions, so I give it first.
-                 The simulation argument. Take two machines S and T, each deterministic, where
-              S has a next state from every state inside its program, and a relation ∼ between
-              their states such that: a state of S inside its program is related only to states of T
-              inside its program, and a state of S outside it only to states of T outside it; and
-              from any related pair with S inside its program, one step of S is matched by one or
-              more steps of T that land related to S’s next state. Then from related starts, S halts
-              exactly when T does, and they halt related. Forward: induction on the length of S’s
-              run, one matched stretch per step, gives a run of T ending related to S’s last state,
-              which is outside S’s program, so T’s is outside its own. Backward: suppose T halts
-              after k steps and S doesn’t halt. Then S takes at least k + 1 steps without leaving
                                                              G.4 From source programs to the host   555
 
 
+not insert that chain. The runner also takes exactly as many steps as the host
+program does, with the rest of its fuel left over, and a run that doesn’t halt has used
+all its fuel.
+
+Proof. Six arrows and a runner, each argued below, and the statement is their
+composition. Four of the arrows are between machines that take steps, and for those
+one argument does both directions, so I give it first.
+    The simulation argument. Take two machines S and T, each deterministic, where
+S has a next state from every state inside its program, and a relation ∼ between
+their states such that: a state of S inside its program is related only to states of T
+inside its program, and a state of S outside it only to states of T outside it; and
+from any related pair with S inside its program, one step of S is matched by one or
+more steps of T that land related to S’s next state. Then from related starts, S halts
+exactly when T does, and they halt related. Forward: induction on the length of S’s
+run, one matched stretch per step, gives a run of T ending related to S’s last state,
+which is outside S’s program, so T’s is outside its own. Backward: suppose T halts
+after k steps and S doesn’t halt. Then S takes at least k + 1 steps without leaving
 its program, the matched stretches give T a run of at least k + 1 steps all of whose
 stretch ends are inside its program, and T, being deterministic, has only one run
 from its start, which halted at step k. That’s a contradiction, so S halts, and by the
@@ -22550,26 +22570,26 @@ the unfolded body to a state carrying the callee’s final frame, and the copy w
 the results where the source call writes them. Every assignment in the compiled
 statement writes in its own frame or the frames above it, so variables below b are
 never touched. Backward, by induction on the derivation of the compiled statement:
-the compiled statement has the source statement’s shape everywhere except at calls,
-and the derivation of a compiled call is a derivation of its four pieces in sequence,
-which the induction hypothesis turns back into a derivation of the callee’s body from
-the frame the source call would build. So the unfolded program has a derivation
-ending with y in the answer variable exactly when the original does, and neither
-has one when the program doesn’t terminate.
-    Flattening. The flat code of a statement placed at address a: an assignment is one
-assignment; a sequence is the first statement’s code followed by the second’s; if b is
-a jump on false to the else part, the then part, a jump past the else part, and the
-else part; and while b with a body of l instructions is a jump on false to a + l + 2,
-the body at a + 1, and a jump back to a. Every jump in the code of a statement
-lands inside that code or at its end, the address just past it. Forward, by induction
-on the derivation: a derivation from e to e1 gives a flat run from a with variables e
-to the end of the code with variables e1 . For a loop that runs its body once more,
-the test falls through, the body’s code takes the run to a + l + 1, the jump returns
-it to a, and the induction hypothesis on the rest of the loop’s derivation finishes.
-Backward, by induction on the statement and, inside that, on the length of the run:
 556   G Running it
 
 
+              the compiled statement has the source statement’s shape everywhere except at calls,
+              and the derivation of a compiled call is a derivation of its four pieces in sequence,
+              which the induction hypothesis turns back into a derivation of the callee’s body from
+              the frame the source call would build. So the unfolded program has a derivation
+              ending with y in the answer variable exactly when the original does, and neither
+              has one when the program doesn’t terminate.
+                  Flattening. The flat code of a statement placed at address a: an assignment is one
+              assignment; a sequence is the first statement’s code followed by the second’s; if b is
+              a jump on false to the else part, the then part, a jump past the else part, and the
+              else part; and while b with a body of l instructions is a jump on false to a + l + 2,
+              the body at a + 1, and a jump back to a. Every jump in the code of a statement
+              lands inside that code or at its end, the address just past it. Forward, by induction
+              on the derivation: a derivation from e to e1 gives a flat run from a with variables e
+              to the end of the code with variables e1 . For a loop that runs its body once more,
+              the test falls through, the body’s code takes the run to a + l + 1, the jump returns
+              it to a, and the induction hypothesis on the rest of the loop’s derivation finishes.
+              Backward, by induction on the statement and, inside that, on the length of the run:
               a flat run from a that ends anywhere outside the code passes through the end of the
               code, and the part up to its first visit there has a derivation of the statement. For a
               loop, the run’s first step is the test. If it is false, the run jumps to the end, and the
@@ -22593,26 +22613,26 @@ Backward, by induction on the statement and, inside that, on the length of the r
               empties both. The code of an expression, by induction on the expression, leaves its
               value in a working register t and returns every register above t to 0, and leaves every
               register below t as it found it. The code of a test, by induction on the test, goes to its
-              true or false address and leaves every register as it found it. So an assignment block
-              computes the value into the first working register, empties register x + 1, moves
-              the value in, and lands related; a jump on false runs the test’s code with the true
-              exit at the next block and the false exit at the block of j; a jump is DEC 0 j. The
-              linker places the blocks one after another and sends every jump to the start of its
-              target’s block. That’s the one-step matching. The flat machine has a next state from
-              every address in its program, and an instruction that names a variable outside the
-              frame just advances, so the step is total. The counter machine is deterministic. The
-              simulation argument gives both directions: the counter program from the loaded
-              inputs leaves its code with register out + 1 equal to y exactly when the flat program
-              halts with y in out.
-                  Host. The host’s DEC is the other way round: it jumps when its register is positive,
-              taking one off, and goes on at zero. An INC x stays INC x. A DEC x j at host address
-              a becomes three instructions: DEC x ( a + 3), then INC 0, then DEC 0 j′ , where j′
-              is the host address of j’s block. If register x is positive, the first takes one off and
-              jumps to a + 3, the start of the next block, which is what the counter machine does.
-              If it is 0, the run goes on to INC 0, which raises register 0 to one more than it held,
-                                                               G.4 From source programs to the host   557
+                                                              G.4 From source programs to the host   557
 
 
+true or false address and leaves every register as it found it. So an assignment block
+computes the value into the first working register, empties register x + 1, moves
+the value in, and lands related; a jump on false runs the test’s code with the true
+exit at the next block and the false exit at the block of j; a jump is DEC 0 j. The
+linker places the blocks one after another and sends every jump to the start of its
+target’s block. That’s the one-step matching. The flat machine has a next state from
+every address in its program, and an instruction that names a variable outside the
+frame just advances, so the step is total. The counter machine is deterministic. The
+simulation argument gives both directions: the counter program from the loaded
+inputs leaves its code with register out + 1 equal to y exactly when the flat program
+halts with y in out.
+     Host. The host’s DEC is the other way round: it jumps when its register is positive,
+taking one off, and goes on at zero. An INC x stays INC x. A DEC x j at host address
+a becomes three instructions: DEC x ( a + 3), then INC 0, then DEC 0 j′ , where j′
+is the host address of j’s block. If register x is positive, the first takes one off and
+jumps to a + 3, the start of the next block, which is what the counter machine does.
+If it is 0, the run goes on to INC 0, which raises register 0 to one more than it held,
 and DEC 0 j′ finds it positive, takes the one back off and jumps to j′ , which is the
 counter machine’s jump at zero, with register 0 as it was. The relation: the same
 registers, at corresponding addresses. Each counter-machine step is matched by one
@@ -22636,31 +22656,31 @@ changes the exponent of pi alone, by the right amount. The host’s step is tota
 these programs and the guest is deterministic, so the simulation argument gives:
 the guest halts with B coding registers whose register out + 1 is y, that is, with y
 the exponent of that register’s prime in B, exactly when the host program halts with
-that register at y. The guest has no record instruction, so its ledger stays 0 and its
-flag down.
-     UP . UP is U with one more branch, for a guest PAY, and this guest has no PAY
-and no record instruction, so on it UP runs only branches U has. Theorem D.2
-gives the one-step matching from a freshly loaded host, and Theorem D.3: UP halts
-exactly when the guest does, with its registers 0 and 1 holding the guest’s A and B,
-and its ledger and flag equal to the guest’s. So it halts with register 0 at 0, register 1
-the code with y in it, ledger 0 and flag down.
-     The runner. The runner keeps the host program and the registers in binary tries,
-a tree indexed by the bits of a number. Looking up an index and storing at one
-give what the finite map they stand for gives: induction on the bits of the index. So
-each round of the runner’s loop does exactly what one host step does to the same
-registers, and the runner stops when the line leaves the program or the fuel is spent.
-If it halts after k rounds, the host run of k steps is halted at the end of the program
-with the runner’s registers, and the fuel left is the fuel given less k. If the source
-program has a derivation, the arrows above give a halting host run, of some length
-k, and the host, being deterministic, has only that run; any fuel of at least k makes
-the runner take those k steps and stop. If the runner hasn’t halted, it used every
 558   G Running it
 
 
+              that register at y. The guest has no record instruction, so its ledger stays 0 and its
+              flag down.
+                  UP . UP is U with one more branch, for a guest PAY, and this guest has no PAY
+              and no record instruction, so on it UP runs only branches U has. Theorem D.2
+              gives the one-step matching from a freshly loaded host, and Theorem D.3: UP halts
+              exactly when the guest does, with its registers 0 and 1 holding the guest’s A and B,
+              and its ledger and flag equal to the guest’s. So it halts with register 0 at 0, register 1
+              the code with y in it, ledger 0 and flag down.
+                  The runner. The runner keeps the host program and the registers in binary tries,
+              a tree indexed by the bits of a number. Looking up an index and storing at one
+              give what the finite map they stand for gives: induction on the bits of the index. So
+              each round of the runner’s loop does exactly what one host step does to the same
+              registers, and the runner stops when the line leaves the program or the fuel is spent.
+              If it halts after k rounds, the host run of k steps is halted at the end of the program
+              with the runner’s registers, and the fuel left is the fuel given less k. If the source
+              program has a derivation, the arrows above give a halting host run, of some length
+              k, and the host, being deterministic, has only that run; any fuel of at least k makes
+              the runner take those k steps and stop. If the runner hasn’t halted, it used every
               unit of fuel on host steps that stayed inside the program, so the host is still running
               after that many steps, and a derivation, which would give a halting host run of some
               length k, would need k larger than the fuel.
-                 Composing: the program computes y exactly when the unfolded program does,
+                  Composing: the program computes y exactly when the unfolded program does,
               exactly when the flat program halts with y, exactly when the counter program does,
               exactly when the host program does, exactly when the guest halts with y coded in B,
               exactly when UP halts as stated, and exactly when the runner halts with y on some
@@ -22678,26 +22698,26 @@ the runner take those k steps and stop. If the runner hasn’t halted, it used e
               Ackermann’s function at (3, 5) is 253; the source program takes 64,768 operations
               to get there, and the compiled host program takes about 119 million steps. The
               executable runner does a few million host steps a second, so that’s under a minute.
-                 That’s about 1,800 host steps per source operation for Ackermann, and up to
-              about a hundred thousand for multiplication by repeated addition, because every
-              addition copies a running total one unit at a time. On this build the work grows
-              with the size of the numbers being handled, because every operation is one pebble
-              at a time. How it grows with the size of the program I haven’t measured. The last
-              two stages, the two-counter guest and UP running it, are proved and have never
-              been run, and UP on a compiled guest would be slow for the same reason U on a
-              certifying guest is. Still, I like that 253. It came out of nothing but INC and DEC,
-              and a proof that they mean what the source meant.
-
-
-              G.5 What wasn’t built
-              No chip. The design was never cut into metal: there’s no circuit for the small
-              machine, no simulation of one at the level of gates, and no board ever ran any
-              of this. The small machine exists as mathematical definitions and executable
-              implementations that agree on every tested step. That’s the whole of what “it runs”
-              means in this book.
                                                                           G.5 What wasn’t built   559
 
 
+   That’s about 1,800 host steps per source operation for Ackermann, and up to
+about a hundred thousand for multiplication by repeated addition, because every
+addition copies a running total one unit at a time. On this build the work grows
+with the size of the numbers being handled, because every operation is one pebble
+at a time. How it grows with the size of the program I haven’t measured. The last
+two stages, the two-counter guest and UP running it, are proved and have never
+been run, and UP on a compiled guest would be slow for the same reason U on a
+certifying guest is. Still, I like that 253. It came out of nothing but INC and DEC,
+and a proof that they mean what the source meant.
+
+
+G.5 What wasn’t built
+No chip. The design was never cut into metal: there’s no circuit for the small
+machine, no simulation of one at the level of gates, and no board ever ran any
+of this. The small machine exists as mathematical definitions and executable
+implementations that agree on every tested step. That’s the whole of what “it runs”
+means in this book.
    I’d love to see it in metal some day. But builds that can be held against each other
 on every step are worth a lot to me. A board with nothing to hold it up against isn’t,
 and that’s the trade I made.

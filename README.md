@@ -98,6 +98,7 @@ There is a tier for that: Python's standard library and nothing else.
 
 ```bash
 python3 scripts/break_it.py    # tries to break every Part I result on every machine up to six states; each premise dropped must break it
+python3 scripts/count_universal_run.py    # counts U's host steps on a guest exactly, the four unary loops by their closed forms, the rest stepped
 python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against the cost floor; exits 0
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
