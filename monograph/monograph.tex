@@ -1,6 +1,7 @@
 % SPDX-FileCopyrightText: 2025-2026 Devon Thiele
 % SPDX-License-Identifier: CC-BY-SA-4.0
-\documentclass[10pt,a4paper]{article}
+\RequirePackage{fix-cm}
+\documentclass[11pt,twoside]{article}
 \usepackage{longtable}
 
 \usepackage[utf8]{inputenc}
@@ -19,8 +20,8 @@
   final,
   tracking=true,
   factor=1100,
-  stretch=12,
-  shrink=12
+  stretch=20,
+  shrink=20
 ]{microtype}
 \usepackage{array}
 \usepackage[skip=6pt plus 1pt]{parskip}
@@ -211,6 +212,9 @@
 \newtheorem{thesis}[theorem]{Thesis}
 \newtheorem{observation}[theorem]{Observation}
 
+% The book's setting: trim size, Charter body, sans headings, open spacing.
+\usepackage{book}
+
 \begin{document}
 \sloppy
 
@@ -230,14 +234,12 @@
 
 \thispagestyle{empty}
 \vspace*{\stretch{1}}
-\begin{center}
-\begin{minipage}{0.66\linewidth}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.85em}
+\begingroup
+\setlength{\parskip}{0.8em}
 \begin{center}
 {\large\itshape For Julie, and for my dad.}
 \end{center}
-\vspace{2.2em}
+\vspace{1.6em}
 
 {\itshape Julie,}
 
@@ -269,9 +271,8 @@ behind in front of anyone. Here it is.
 
 Julie carries the name now too. So the machine has it third. This is for the two of you who had
 it first.
-\end{minipage}
-\end{center}
-\vspace*{\stretch{1.5}}
+\endgroup
+\vspace*{\stretch{1.4}}
 \clearpage
 \hypersetup{pageanchor=true}
 

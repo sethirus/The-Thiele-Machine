@@ -20,14 +20,13 @@ body = remainder
 original_body = remainder
 recovered = body
 changes = []
-preamble = preamble.replace(r"\documentclass[10pt,a4paper]{article}",
-                            r"\RequirePackage{fix-cm}" + "\n" +
-                            r"\documentclass[11pt,twoside]{article}")
-preamble = preamble.replace("stretch=12", "stretch=20").replace("shrink=12", "shrink=20")
-tex = preamble + r"\usepackage{book}" + "\n" + r"\begin{document}" + body
+# The manuscript now carries its own setting (book.sty beside it), so the
+# composition is the manuscript's preamble as it stands.
+assert r"\usepackage{book}" in preamble
+tex = preamble + r"\begin{document}" + body
 assert tex.split(r"\begin{document}", 1)[1] == remainder
 (BUILD / "book.tex").write_text(tex)
-shutil.copyfile(ROOT / "book.sty", BUILD / "book.sty")
+shutil.copyfile(ROOT.parent / "book.sty", BUILD / "book.sty")
 report = {
     "source": str(SOURCE),
     "source_sha256": hashlib.sha256(source.encode()).hexdigest(),
