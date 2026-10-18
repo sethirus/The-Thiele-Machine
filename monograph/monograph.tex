@@ -622,9 +622,11 @@ the condition the stopping hole gets around.
 And on a machine that pays in room, where the write merges nothing, the record stays up because I
 declare that it does (Theorem~\ref{thm:u11-reversible}).
 \item On the machine of Part~III, where its ordinary computer ends and its record begins, and the
-form of its certifying move: a flag that's already up just stays up, which is what makes raising it
-a merge. A record kept as a list that only grows would raise its reading with no merge, and pay in
-room instead.
+form of its certifying move: it treats the rest of the state the same whichever way the flag reads,
+so it keeps no copy of the old reading. The merge is not a second choice. Given that form, the
+flag's two readings go to one, and the state with the flag down and the same state with it up land
+together. A record kept as a list that only grows keeps the copy, raises its reading with no merge,
+and pays in room instead.
 \end{itemize}
 
 The machine Part~III builds is one worked demonstration of the third list, on one reading. Nothing
@@ -936,6 +938,10 @@ case is the same two lines: if $c \ne h$ steps to the halted state $h$ and $h$ s
 then $c$ and $h$ share a next state.
 \end{proof}
 
+Stepping the halted state to itself is one way to totalise. Step it to a fresh sink state instead
+and the sink is the held chair of the paragraph above, paid for before the run began; let it tick a
+counter instead and the counter is room. The bill moves columns. It doesn't go away.
+
 \subsection{A chair is a distinction that stays}
 
 Now the cell. A blank cell could be anything. Write a 0 in it and it is a 0, and it stays a 0.
@@ -1204,6 +1210,11 @@ monotonicity of the logarithm; at $p=\tfrac12$ the first factor is zero. For the
 $\ln(1+v) \ge 0$ and $\ln(1-v) \le -v$ since $\ln y \le y - 1$, so
 $\ln\frac{1+v}{1-v} \ge v$, and the product is $N^2$ times that logarithm divided by $v$.
 \end{proof}
+
+The sharp floor is twice that. The difference $\ln\frac{1+v}{1-v} - 2v$ is zero at $v = 0$ and
+its derivative, $\frac{2}{1-v^2} - 2$, is never negative on $(0,1)$, so the logarithm is at least
+$2v$ and the product is at least $2N^2$. I state $N^2$ because the one-line bound gives it and the
+factor isn't the point. The square is.
 
 The walker is the one case I prove, but it isn't special, and the physicists have the general
 form. Drag a bead held in a spring-like trap through water from one place to another in a set
@@ -2416,7 +2427,9 @@ of those paths cannot share a chair either: walk back to the earlier time, and e
 different starts sit in one chair, or a start sits in a chair that reads the fixed value. That
 is $(T+1)(N-1)$ chairs. The start that already reads the fixed value, followed through $T$
 repetitions, ends in one more: if that chair were on one of the paths, walking back would again
-put a start in a chair that reads the fixed value.
+put a start in a chair that reads the fixed value. One more is all that start is owed, not
+$T + 1$: every state on its own path reads the fixed value, so walking back along it finds no
+contradiction, and the path may fold onto one chair, as it does in the building below.
 \end{proof}
 
 The number is exact, not only a floor, and you can build the building that reaches it. One
@@ -3248,15 +3261,27 @@ whatever those merges cost the hardware is off the ledger, so the finite piece i
 the whole machine comes from the record layer (Theorem~\ref{thm:record-merge-toll}).
 
 Finiteness did one job in the chairs. It forced the step that raises a permanent flag to merge two
-states. On the machine of Part~III nothing has to force that, because the merge is in plain view.
+states. On the machine of Part~III no count over the whole machine has to force that, because the
+merge is in plain view.
 Its record moves are the check, the commitment and the raised flag that the opening's lock puts in
 order, and it names them CHECK, COMMIT and CERTIFY: COMMIT names a
 checked claim in a slot called the channel, and CERTIFY raises the flag. CERTIFY takes a state with the flag down and the same state with the flag up to one place,
 since a flag that's already up just stays up. Its COMMIT overwrites the channel, so two states that
 differ only in what the channel names land on one state. Part (1) of the theorem below shows
 both. So any price list that
-charges every merge of that machine's own step charges the flag-raising step, and finiteness never
-comes into it.
+charges every merge of that machine's own step charges the flag-raising step, with no premise that
+the machine is finite. It isn't: its versions and its ledger grow without bound.
+
+Finiteness is still there, in the smallest place it can be. Hold every part of the state but the
+flag fixed, and the flag has two readings, down and up. CERTIFY sends both to up, and it does the
+same to everything else from either, so the two states land together. That is the counting of
+Theorem~\ref{thm:perm-flip-merges} on a set of two. So the choice I made in the opening's list
+isn't the merge. It's that CERTIFY treats the rest of the state the same whichever way the flag
+reads, which is to say it keeps no copy of the old reading. Make CERTIFY trap instead when the flag
+is already up, and the merge moves rather than goes away: the state it traps lands with the state
+that was trapped already, since a trapped machine only pays. The one way out is to write the old
+reading somewhere, a ledger that counts a raise and a re-raise differently, say, and that is room,
+the other column.
 
 That leaves the other miss, the unpriced merges. Clause (c) of certified Thiele-complete (Definition~\ref{def:u34-thiele-complete}, in Part~III) asks for
 base moves at zero, and a base move merges (DEC, counting a counter down, lands two states on one),
@@ -3276,7 +3301,13 @@ makes, and whatever heat they cost is the ordinary computer's heat. The premise 
 between states with the same ordinary-computer part. A step like DEC, which changes that part, can
 lose a version number with no mark, and the premise doesn't object. Merge pricing implies this
 premise, so it asks less, and on the record distinctions it is still an assumed operation-level price; identifying
-it with heat needs a physical model.
+it with heat needs a physical model. And it is a price on this machine, not a source of the toll on
+any machine. A certifying move whose effect on the base read the flag, say one that moved a
+counter up when it raised the flag and left the counter alone when the flag was up already, would
+raise the flag and send no two states with the same base to one state, and the premise would have
+nothing to charge; the counter's extra step is the copy of the old reading, paid in room. The small
+machine's record moves treat the base the same whichever way the flag reads, which is why the
+premise does its job there, and the theorem below is stated for that machine and no other.
 
 \begin{theorem}[The toll on the machine I built]\label{thm:record-merge-toll}
 For the small machine of Section~\ref{sec:smallest}, with no finiteness premise: (1) CERTIFY merges,
@@ -3967,7 +3998,7 @@ the same for anything $v$ that's fixed by the start, like the whole film of what
 showed: $H(v \mid \text{end})$ is what you'd still be missing about $v$ once you knew the end.
 
 \begin{theorem}[The certainty bill]\label{thm:certainty-bill}
-On a finite machine with an entropy-priced cost (Definition~\ref{def:u04-entropy-priced}),
+On a finite deterministic machine with an entropy-priced cost (Definition~\ref{def:u04-entropy-priced}),
 take any spread $p$ over starting states, any run $t$, and anything $v$ that the start fixes.
 Then
 (1) $H(p) = H(\text{start} \mid \text{end}) + H(q)$: the uncertainty about the start is the
