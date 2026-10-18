@@ -210,41 +210,56 @@
 \theoremstyle{thielethm}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{thesis}[theorem]{Thesis}
+\theoremstyle{thieleobs}
 \newtheorem{observation}[theorem]{Observation}
+\theoremstyle{thielethm}
 
 % The book's setting: trim size, Charter body, sans headings, open spacing.
 \usepackage{book}
 
 \begin{document}
-\sloppy
 
 \hypersetup{pageanchor=false}
-\begin{titlepage}
-\thispagestyle{empty}
-\vspace*{30mm}
-\noindent\textcolor{inkgrey}{\BookLabel{Devon Thiele}}
+\pagestyle{empty}
+\vspace*{154pt}
+\noindent{\fontsize{14}{18}\selectfont The Thiele Machine}
+\cleardoublepage
 
-\vspace{34mm}
-\noindent{\fontsize{46}{50}\selectfont\bfseries The Thiele\\Machine}
+\vspace*{0pt}
+\noindent\BookLabel{Devon Thiele}
 
-\vspace{9mm}
-\noindent{\fontsize{17}{21}\selectfont\itshape No Free Insight}
-\vfill
-\noindent\tikz\draw[line width=0.55pt] (0,0) rectangle (7mm,7mm);
-\vspace{8mm}
-\end{titlepage}
+\vspace{14pt}
+\PageCellBlank
+
+\vspace{14pt}
+\noindent{\fontsize{40}{44}\selectfont The Thiele Machine}
+
+\vspace{7pt}
+\noindent{\fontsize{16}{20}\selectfont\itshape No Free Insight}
 \clearpage
 
-\thispagestyle{empty}
-\vspace*{\stretch{1}}
-\begingroup
-\setlength{\parskip}{0.8em}
-\begin{center}
-{\large\itshape For Julie, and for my dad.}
-\end{center}
-\vspace{1.6em}
+\vspace*{\fill}
+\begingroup\footnotesize\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\noindent\textit{The Thiele Machine: No Free Insight}
 
-{\itshape Julie,}
+Devon Thiele
+
+Copyright 2025--2026 Devon Thiele. Licensed under Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0).
+
+The source of this book, its proofs and its build are public:
+\href{https://github.com/sethirus/The-Thiele-Machine}{github.com/sethirus/The-Thiele-Machine}.
+Archived at \href{https://doi.org/10.5281/zenodo.17316437}{doi.org/10.5281/zenodo.17316437}.
+
+Set in Charter. Built from its source with pdfTeX.
+\endgroup
+\cleardoublepage
+
+\vspace*{154pt}
+\begingroup
+\noindent For Julie, and for my dad.
+
+\vspace{28pt}
+\noindent Julie,
 
 Three years ago, a few months into the rendering engine, I came out of my office and told you I
 thought I was onto something. You said okay. You didn't ask what it was, or what it was for, or
@@ -263,8 +278,8 @@ because I threw out every piece of it I couldn't prove, and what's left holds. I
 what you gave the years for. You gave them for me. But it's what I have to show, and I wanted it
 to be worth showing.
 
-\vspace{1.4em}
-{\itshape Dad,}
+\vspace{14pt}
+\noindent Dad,
 
 The name on the cover was yours first. I asked you before I used it and you said go ahead. You
 and Mom taught me that nothing is true just because somebody says it is. This book is that
@@ -275,8 +290,8 @@ behind in front of anyone. Here it is.
 Julie carries the name now too. So the machine has it third. This is for the two of you who had
 it first.
 \endgroup
-\vspace*{\stretch{1.4}}
-\clearpage
+\cleardoublepage
+\pagestyle{book}
 \hypersetup{pageanchor=true}
 
 \tableofcontents
@@ -863,6 +878,7 @@ who wants the story; then the appendices, which carry the full constructions the
 \clearpage
 
 \part{The bill}
+\clearpage
 
 Part~I is step one, and the rule step two needs. It starts at the smallest structure there is: a
 cell that's blank, and then a 0. First the bill itself, before any price list: what a chair is, what
@@ -2588,7 +2604,7 @@ On a finite machine whose move names can be decided equal or different, a move
 that never turns the reading off and turns it on somewhere is
 forced to be priced. (By Theorem~\ref{thm:merge-or-revoke} it merges; by
 Theorem~\ref{thm:forced-iff-merge} it is forced.) The converse fails: the three cards are
-forced, because they merge, and they revoke.
+forced, because they merge, and they revoke.\proofclosed
 \end{corollary}
 
 \subsection{Door three: don't charge for forgetting}
@@ -4211,7 +4227,8 @@ is; then comes the next question (Section~\ref{sec:counter}). What happens when 
 keeps that total itself, inside its own state, where a step could in principle reach in and
 change it? That's the counter, and it's the next thing I have to build.
 
-\part{What structure is made of}
+\part[What structure is made of]{What structure\\is made of}
+\clearpage
 
 Part~I found the bill on a single cell and wrote it into a step. Part~II is step three: the rest of
 structure is the same thing at a bigger size. It starts with the word itself, structure, and
@@ -9534,6 +9551,7 @@ not to call one by the other's name again. The machine I build later has a colli
 exactly that kind (Theorem~\ref{thm:u34-separation}).
 
 \part{Established}
+\clearpage
 
 Part~III is step four, the sharpest case. A record that a claim was checked and closed is a
 distinction that stays, so it pays the bill of Part~I, and it's the case where you can point at the
@@ -13474,7 +13492,7 @@ that reads on, and $s$, to a state that reads on, and it is not injective even o
 The proof is Theorem~\ref{thm:perm-flip-merges} with permanence required only of the one instruction $i$.
 For the second half: if the step were one-to-one on the states that read on together with $s$,
 it would map the states that read on onto themselves, and then $s$ would land where some state
-that reads on already lands.
+that reads on already lands.\proofclosed
 
 What the quote can do is say what was \emph{measured}.
 It can't say the measured code is correct, and it can't say anything about runtime state
@@ -14665,7 +14683,8 @@ this book proves any of it. The proofs are about models and machines, and whenev
 in them it shows up as an assumption with a name on it. The suspicion is why I went looking. It
 isn't what I found.
 
-\part{Checking it, and its edge}
+\part[Checking it, and its edge]{Checking it,\\and its edge}
+\clearpage
 
 Part~IV is where you aim at all of it: how to break each claim, the ledger of what's proved and
 what isn't, the fence around what I've shown, and the conclusion. The thing to aim at first is the
@@ -14726,7 +14745,7 @@ statements usually get caught, the small cases. The search is the file
 you get this table, or a counterexample.
 
 \begingroup\small
-\begin{longtable}{p{0.28\linewidth}p{0.34\linewidth}p{0.07\linewidth}p{0.17\linewidth}}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.28\linewidth}>{\raggedright\arraybackslash}p{0.34\linewidth}>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}}
 \textbf{Result} & \textbf{Searched} & \textbf{Fails} & \textbf{Premise dropped} \\
 \hline
 Step law (Thm.~\ref{thm:step-law}) & every map on up to 6 states, every start & none & one next state: fails \\
@@ -20878,7 +20897,7 @@ into the three conditions.
 \begin{corollary}[A passed check implies the Tsirelson bound]\label{cor:chsh-check-bound}
 If a tally $w$ passes the seven-integer check, the correlators of $w$ satisfy
 $S^2 \le 8$. It is the composition of Theorem~\ref{thm:chsh-check-sound},
-Corollary~\ref{cor:chsh-iff} and Theorem~\ref{thm:chsh-psd-tsirelson}.
+Corollary~\ref{cor:chsh-iff} and Theorem~\ref{thm:chsh-psd-tsirelson}.\proofclosed
 \end{corollary}
 For the form this takes on the small machine, where a raised flag has to stand on a passing
 check, see Appendix~\ref{sec:chsh}.
@@ -21289,7 +21308,7 @@ length 2), which is why this proof does not use the row bounds of Section~\ref{s
 
 \begin{corollary}[The PR box is outside]\label{cor:chsh-ell-pr}
  $(1, 1, 1, -1)$ is not elliptope realizable, since its
-$S^2 = 16 > 8$.
+$S^2 = 16 > 8$.\proofclosed
 \end{corollary}
 
 \begin{theorem}[Strictly beyond the classical bound]\label{thm:chsh-ell-beyond}
@@ -22340,7 +22359,7 @@ CERTIFY & 3725 & 4 \\
 The head is
 $F(2,3;T_0,T_1,T_2,T_3,T_4;K,K)$;
 $Z(T_0)$; $N(T_3,T_2,T_5)$;
-$D(T_5,T_4;109,221,98,369,2441,3725)$; $J(T_4,K)$.
+$D(T_5,T_4;109,\allowbreak 221,\allowbreak 98,\allowbreak 369,\allowbreak 2441,\allowbreak 3725)$; $J(T_4,K)$.
 Fetching supplies an instruction code in $T_2$. Unpacking leaves its operand in $T_2$
 and its opcode in $T_5$. The six-way selector chooses its handler. The final jump
 handles an invalid opcode, though a loaded program has none.
@@ -24485,4 +24504,30 @@ are where the pointer thesis got its shape; none of them proves it.
 \noindent Wojciech H. Zurek (2009). Quantum Darwinism. Nature Physics 5, pp. 181--188. \href{https://doi.org/10.1038/nphys1202}{DOI: 10.1038/nphys1202}; \href{https://arxiv.org/abs/0903.5082v1}{arXiv: 0903.5082v1}.
 \par\medskip
 
+
+\cleardoublepage
+\thispagestyle{empty}
+\vspace*{154pt}
+\begingroup\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\noindent\BookLabel{Colophon}
+
+\vspace{14pt}
+This book is set in Charter, drawn by Matthew Carter in 1987 for the laser printers of its day,
+10.5 on 14 point, on a page 189 by 246 millimetres. It was built from its source with pdfTeX.
+The cells are drawn in TikZ.
+
+Its own count, taken by the build: \ClaimTotal\ numbered statements, of which \PaidTotal\ are
+closed by a proof on the page. One cell for each, in the order they come, filled where the
+proof closed:
+
+\vspace{7pt}
+\noindent\LedgerGrid
+\endgroup
+\clearpage
+\thispagestyle{empty}
+\vspace*{0pt}
+\noindent\BookLabel{\phantom{Devon Thiele}}
+
+\vspace{14pt}
+\PageCellFilled
 \end{document}
