@@ -14725,9 +14725,8 @@ statements usually get caught, the small cases. The search is the file
 \texttt{scripts/break\_it.py} in the repository, standard Python, no other library; run it and
 you get this table, or a counterexample.
 
-\begin{center}
-\small
-\begin{tabular}{p{0.28\linewidth}p{0.34\linewidth}p{0.07\linewidth}p{0.17\linewidth}}
+\begingroup\small
+\begin{longtable}{p{0.28\linewidth}p{0.34\linewidth}p{0.07\linewidth}p{0.17\linewidth}}
 \textbf{Result} & \textbf{Searched} & \textbf{Fails} & \textbf{Premise dropped} \\
 \hline
 Step law (Thm.~\ref{thm:step-law}) & every map on up to 6 states, every start & none & one next state: fails \\
@@ -14749,8 +14748,8 @@ Teaching at zero marks (Thm.~\ref{thm:three-states}) & every zero-mark machine o
 No level holds its questions (Thm.~\ref{thm:no-self-containment}) & every assignment on up to 3 states & none & \\
 Certainty bill (Thm.~\ref{thm:certainty-bill}) & every pair of moves on up to 3 states, runs up to 3, every window, random spreads & none & halving price: fails \\
 Same bill at every scale (Thm.~\ref{thm:every-scale}) & every fine machine on up to 4 states, every described set and coarse description & none & staying inside, finiteness: both fail \\
-\end{tabular}
-\end{center}
+\end{longtable}
+\endgroup
 
 Three rows deserve a word. For the quantum chairs, a unitary keeps right angles by definition,
 so the search can only catch an arithmetic slip; its control, an invertible map that isn't
