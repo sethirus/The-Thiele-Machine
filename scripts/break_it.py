@@ -1014,7 +1014,7 @@ def cond_H(pairs: list[tuple[object, object, Fraction]]) -> float:
 def check_certainty_bill(N: int, rng: random.Random, trials: int) -> Result:
     r = Result("The certainty bill", "thm:certainty-bill",
                f"every pair of moves on 1..{N} states at their least halving costs, runs up to 3, "
-               f"every window, {trials} random spreads")
+               f"{trials} random two-valued windows and spreads")
     eps = 1e-9
     ctrl = Control("the halving price")
     for n in range(1, N + 1):
