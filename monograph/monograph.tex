@@ -12100,7 +12100,12 @@ nothing on any other step; its tightest bill, one mark per raise and nothing els
 price. On this machine that's one mark each for CHECK, COMMIT and CERTIFY and
 nothing for the rest, and the definition of certified Thiele-complete calls it \emph{exact prices}, not a toll, because it charges acts that raise nothing. CHECK
 and COMMIT raise no flag, so the small machine is instruction-exact without being rise-only, and
-no rule is broken by that. \emph{Simulation-exact accounting} is a host whose ledger equals its
+no rule is broken by that. What the three marks pay for isn't one thing three times. A passing
+CHECK adds a fact to a table that holds sixteen, so its mark is a price on room, one slot of a
+bounded store; COMMIT overwrites the channel and CERTIFY raises the flag, each sending two states
+with the same base to one, so their marks are prices on merges
+(Theorem~\ref{thm:record-merge-toll}). Room or merge, the two columns of Part~I: one mark of the
+first kind and two of the second. \emph{Simulation-exact accounting} is a host whose ledger equals its
 guest's ledger at every point where the two runs match, as the universal program $U$'s does (Appendix~\ref{sec:universal-host}). A
 machine can meet any one of the three and fail the others.
 
