@@ -70,7 +70,7 @@ I   The bill                                                  31
     3.5  Door three: don’t charge for forgetting             78
     3.6  How much: the price grows with the squeeze          81
     3.7 The same bill, written in bits, and when it’s zero   84
-    3.8 What you’re entitled to, and what you’re not         93
+    3.8 What you’re entitled to, and what you’re not         94
 4     Learning borrows, committing pays                      104
     4.1  Somebody got there first, goddamn it                104
     4.2 A small being at a small door                        105
@@ -241,7 +241,7 @@ I   The bill                                                  31
 IV    Checking it, and its edge                                     395
 20     How to break this                                            397
      20.1 Where I already looked                                    397
-     20.2 The abstract claims (Parts I to III)                      399
+     20.2 The abstract claims (Parts I to III)                      400
      20.3 The machine claims (Part III and the appendices)          404
      20.4 What’s mine and what isn’t                                407
 21     The claim ledger                                             410
@@ -533,7 +533,7 @@ and make it permanent: no step ever turns a yes back into a no. Start on a chair
                  every one taken, and the newcomer still gets a seat: everybody inside moves up one,
                  from chair n to chair n + 1, and chair 1 comes free. Nobody shares. That’s David
                  Hilbert’s hotel, from a lecture in the 1920s, and it’s no trick. Look at what it took:
-                                                                                              The point   19
+                                                                                         The point   19
 
 
 every single person inside had to get up and move one over, into a chair that was
@@ -560,25 +560,26 @@ factor, and stop with the answer, paying in time. Give it an endless tape to kee
 history on and it keeps everything, never comes back, and pays a fresh stretch of tape
 at every step. And a reversible computer isn’t free either. Bennett’s own only moves
 forward if it’s pushed, and at any speed above nothing the push dissipates, and in
-his walker all of it leaves as heat. Go slower and the dissipation per step drops,
-but it never reaches nothing for a run that finishes; Part I proves that for his model
-(Theorem 1.8), and the physicists who study changes made in a finite time (Tim
-Schmiedl and Udo Seifert for a dragged bead; Naoto Shiraishi, Ken Funo and Keiji
-Saito for jump processes) find the same for any change in the chances of a device’s
-states that finishes, when those states jump or drift at random in surroundings at a
-fixed temperature. So in any real device of that kind every step that actually changes
-something dissipates, on average. What a merge adds is a floor under its heat that
-no slowness removes, and what room buys is a way around the floor, never around
-the dissipation of happening. Time sets how much you pay above the floor. Only
-forever makes it zero, and a step that takes forever never happens.
+his walker, in the long run, all of it leaves as heat. Go slower and the dissipation
+per step drops, but it never reaches nothing for a run that finishes; Part I proves
+that for his model (Theorem 1.8), and the physicists who study changes made in
+a finite time (Tim Schmiedl and Udo Seifert for a dragged bead; Naoto Shiraishi,
+Ken Funo and Keiji Saito for jump processes) find the same for any change in the
+chances of a device’s states that finishes, when those states jump or drift at random
+in surroundings at a fixed temperature. So in any real device of that kind every
+step that actually changes something dissipates, on average. What a merge adds
+is a floor under its heat that no slowness removes, and what room buys is a way
+around the floor, never around the dissipation of happening. Time sets how much
+you pay above the floor. Only forever makes it zero, and a step that takes forever
+never happens.
     Now the physics, as an assumption with its name on it. Rolf Landauer, at IBM,
 1961, said that a step that can’t be run backwards, that merges, “requires a minimal
 heat generation.” That’s the rule people call Landauer’s principle: when a merge
 wipes out a difference the machine really could have been holding, its heat has a
-floor, on average at least k B T ln 2 for every bit of difference lost, however slowly it’s
 20   The point
 
 
+                 floor, on average at least k B T ln 2 for every bit of difference lost, however slowly it’s
                  done. Landauer stated it for a memory whose states are alike apart from what they
                  record, a symmetric memory; when the states differ in their own entropy the floor
                  moves, and in a lopsided double well the work to erase has been measured below
@@ -1235,8 +1236,8 @@ And the model can run itself: a host that pays the toll and runs a guest move fo
 
 
                move pays at least a mark in its own ledger for every step where the guest’s record
-               went up, and Part III states one (Section 16; Appendix D builds it). The tower is
-               the same machine above and below. What no level does is hold all the questions
+               went up, and Part III states one (Section 16; Appendix D builds it). The tower is the
+               same kind of machine above and below. What no level does is hold all the questions
                you can ask of it: for any way of coding readings as states, there’s a reading no
                state codes, the one that answers each state with the opposite of what that state’s
                own coded reading says of it. That’s Cantor’s diagonal, the shape of Russell’s 1902
@@ -1447,19 +1448,20 @@ gives VV † = P. Then PUQ = VV † UQ = V PU † UQ = V PQ = 0.
                derivative, 1−2v2 − 2, is never negative on (0, 1), so the logarithm is at least 2v and
                the product is at least 2N 2 . I state N 2 because the one-line bound gives it and the
                factor isn’t the point. The square is.
-                                                                             1.6 Time has a bill   43
+                                                                               1.6 Time has a bill   43
 
 
     The walker is the one case I prove, but it isn’t special, and the physicists have
 the general form. Drag a bead held in a spring-like trap through water from one
-place to another in a set time and the least work you can get away with is the
-drag times the distance squared, divided by the time plus twice the drag over the
-stiffness, which at long times is the drag times the distance squared over the time
-(Schmiedl and Seifert, 2007, who worked out the best protocols for doing it in finite
-time). Change any spread of chances into another in a set time and the entropy
-produced is at least a fixed fraction of the square of how far apart the two spreads
-are, divided by the time and by how busy the jumping is (Aurell, Mejía-Monasterio
-and Muratore-Ginanneschi, 2011; Shiraishi, Funo and Saito, 2018). Those are their
+place to another in a set time and the least work you can get away with is the drag
+times the distance squared, divided by the time plus twice the drag over the stiffness,
+which at long times is the drag times the distance squared over the time (Schmiedl
+and Seifert, 2007, who worked out the best protocols for doing it in finite time).
+Change any spread of chances into another in a set time and the entropy produced
+is at least a fixed fraction of the square of how far apart the two spreads are, divided
+by the time and by how mobile the states are: the diffusion, for a bead that drifts
+(Aurell, Mejía-Monasterio and Muratore-Ginanneschi, 2011), and how busy the
+jumping is, for states that jump (Shiraishi, Funo and Saito, 2018). Those are their
 results, and I cite them as physics. Put them next to the step law and the whole bill
 reads like this. Every change a device makes to the spread of its states in a finite
 time dissipates, merge or no merge, reversible or not; time sets how much, and
@@ -1489,10 +1491,10 @@ excess going like a constant over the time taken. I wrote their protocol as desc
 barrier down over a second, tilt ramped over the protocol time, tilt stopped, barrier
 up over a second, as overdamped Brownian motion in a quartic double well with
 their numbers, and added up the heat the way they do, the force times the bead’s
-displacement along each path. I set the tilt at each protocol time from a scan so
 44   1 What a chair is
 
 
+               displacement along each path. I set the tilt at each protocol time from a scan so
                that it erased about nine times in ten (between 88 and 92 times in a hundred across
                the six protocol times, two seconds to eighty; they took the smallest that erased
                ninety-five times in a hundred), and fitted the heat against the time. Averaged over
@@ -1514,7 +1516,6 @@ displacement along each path. I set the tilt at each protocol time from a scan s
 
 
                1.7 What the lab has measured
-
                Here’s what the laboratories have found, with the numbers taken from the papers.
                                                                  1.7 What the lab has measured   45
 
@@ -1680,10 +1681,10 @@ a while. What I’m about to build prices vouching for anything at all: a flag g
 up, and the rule doesn’t ask what the flag is standing behind. A sorting of a pile
 into groups, the kind of structure Part II starts from (Section 5), is the first kind of
 claim I care about. It isn’t the only kind, and the book comes back to what a flag
-stands behind in Section 8, and on a machine in Section 15, where a flag stands on a
-checked claim. Until then nothing leans on groupings. The floor in this section, the
-reason for it in the next, and the latch in Part II all work for any yes-or-no reading
-whatsoever, partition or no partition. When groupings come in, in Section 8, it’s as a
+stands behind in Section 8, and on a machine in Section 15, where a flag stands on
+a checked claim. Until then nothing leans on groupings. The floor in this section,
+the reason for it in the next, and the latch in Part II all work whatever the reading
+is about, partition or no partition. When groupings come in, in Section 8, it’s as a
 theorem: a reading that says a grouping has been checked and committed sees the
 grouping only through its partition, and what it entitles is exactly the groupings that
 refine it (Theorem 8.5). So the grouping gets a job, and an exact one.
@@ -2293,10 +2294,11 @@ The first chapter of this part proved the bill with chairs: a run that raises a 
 keeps it up either shares a chair somewhere or never repeats one, so keeping is paid
 in a merge or in room; and in any real device every step that changes something
 dissipates on top of that, by happening. The merge-or-room part needs no premise;
-the heat is physics, which I proved for Bennett’s walker and cited for devices whose
-states jump or drift at random in surroundings at a temperature. This chapter counts
-the room exactly, and asks what it takes to turn the bill into a mark on a ledger. The
-flag I built is one thing that stays; the result is about anything that stays.
+the heat is physics, which I proved for Bennett’s walker with Schnakenberg’s formula
+taken as the model, and cited for devices whose states jump or drift at random in
+surroundings at a temperature. This chapter counts the room exactly, and asks what
+it takes to turn the bill into a mark on a ledger. The flag I built is one thing that
+stays; the result is about anything that stays.
     The last chapter wrote that bill into a toy as one rule, and in the toy the move
 that raises the flag makes a mark because I said so. If that’s all it is, the ledger is
 a long way of describing a preference, and you should treat it the way you’d treat
@@ -2319,14 +2321,16 @@ the content is. None of them is a door out of the bill. Behind the first, the ma
 pays in room. Behind the second, the flag comes back down, so nothing is kept and
 there’s nothing to bill. Behind the third, the step still forgets, and only the ledger
 looks away.
-    One more thing before the doors, and it comes first on purpose. Nothing in the
-argument uses the word certify. It uses a reading that can go from no to yes and
+
+
 
 
                                   64
                                                               3.1 A closed room with no spare chair   65
 
 
+   One more thing before the doors, and it comes first on purpose. Nothing in the
+argument uses the word certify. It uses a reading that can go from no to yes and
 never back. A fuse that has blown is one. So is a seal that has been broken, a bit in
 write-once memory, a block a chain has finalized, a measurement somebody wrote
 down and won’t take back. The argument below sends the bill to whichever of them
@@ -2337,7 +2341,6 @@ The flag is only the one I keep on the table.
 
 
 3.1 A closed room with no spare chair
-
 Do this one with real objects, because the whole section rests on it and it’s about
 ninety seconds of work. Draw a box on the table and call it the yes room. Put three
 chairs inside the box and one chair outside, by the door. Four people, one per chair;
@@ -2366,11 +2369,11 @@ It’s the kind of fact a child accepts and a mathematician spends a career find
 new uses for. Here the use is: a step that forgets nothing is a one-to-one shuffle, a
 one-to-one shuffle of a finite set of chairs hits every chair, so the inside chairs are
 all taken by insiders, so there’s no room for the newcomer. Finite. Permanent. Flip.
-Those three force a collision in the instruction’s map. The two starts that collide
-need not include the outsider: send the outsider to one inside chair and send two
 66   3 Why the toll isn’t arbitrary
 
 
+               Those three force a collision in the instruction’s map. The two starts that collide
+               need not include the outsider: send the outsider to one inside chair and send two
                insiders to another. A run from a known outside chair can still have a uniquely
                identifiable start. The collision is a fact about the instruction over possible states.
                    The precise statement of the chairs argument is a theorem a few lines down, and
@@ -2409,10 +2412,10 @@ need not include the outsider: send the outsider to one inside chair and send tw
                    A list with no repeats, as long as the set it draws from, contains the whole set.
                 Leave one member of the set out and you have packed the list into one place fewer
                 than it has members. That can’t be done: take away one occupied place and the
-                member sitting in it, and the list is still one too long for the places left, and it stays
-                                                               3.1 A closed room with no spare chair   67
+                                                                3.1 A closed room with no spare chair   67
 
 
+member sitting in it, and the list is still one too long for the places left, and it stays
 one too long until there are no places left at all. This is the pigeonhole in the form
 Leurechon would recognise.
     Is that new? No. It has been sitting in two places for a long time, one in physics
@@ -2452,10 +2455,10 @@ If every letter just reshuffles the states one for one, automata theorists call 
 permutation automaton, and the sets of inputs such machines can pick out are called
 group languages. Jean-Éric Pin’s 1992 paper on reversible automata, machines
 whose letters act as one-to-one maps, sorts out exactly which languages those
-machines recognise, and in that world the chairs are folklore. Here’s the short
 68   3 Why the toll isn’t arbitrary
 
 
+                machines recognise, and in that world the chairs are folklore. Here’s the short
                 version. Start at a state that reads no, and collect every input that ends at a yes.
                 Because yes is permanent, adding letters to the end of a collected input keeps it
                 collected. A group language with that property is either empty or everything, and
@@ -2494,11 +2497,11 @@ machines recognise, and in that world the chairs are folklore. Here’s the shor
                 production at all. One of their worked examples is the strings with no b in them,
                 which is my flag turned inside out: the runs that raise it are exactly the strings that
                 have seen a b. So the chairs, a real price on them, and the case when you already
-                know which chair you’re in are all in their paper, three years before this book. Their
-                price is derived from the physics of the device. Mine is assumed.
                                                                  3.1 A closed room with no spare chair   69
 
 
+know which chair you’re in are all in their paper, three years before this book. Their
+price is derived from the physics of the device. Mine is assumed.
     There’s a fourth neighbour, and I’d call it a cousin, because it speaks another
 language. Constructor theory is David Deutsch and Chiara Marletto’s programme for
 stating physics as which transformations a device that runs in a cycle can and can’t
@@ -2927,12 +2930,12 @@ they merge, and they revoke.
 
 
 times over, slower and slower, and measured the heat each time. The average heat
-came down toward Landauer’s kT ln 2 and sat there as the erasure got slower. On
-average. Single runs went under it; the bound is about the average, and any one
-erasure can beat it. And if you only succeed in erasing half the time the floor drops
-to zero, which the paper’s formula shows and which I think is the most honest line
-in it. Others have done it since with different devices. So: predicted in 1961 by
-argument, seen in a laboratory fifty-one years later.
+came down toward Landauer’s kT ln 2 as the erasure got slower, closer the slower it
+went, and never under it. On average. Single runs went under it; the bound is about
+the average, and any one erasure can beat it. And if you only succeed in erasing
+half the time the floor drops to zero, which the paper’s formula shows and which I
+think is the most honest line in it. Others have done it since with different devices.
+So: predicted in 1961 by argument, seen in a laboratory fifty-one years later.
     And is it settled? No, and I’d be lying by omission if I left that out, because the
 people who doubt it are not cranks. John Norton, a philosopher of physics, has
 argued since 2005 that the usual proofs of the principle quietly assume what they’re
@@ -3162,8 +3165,9 @@ cost that meets the bound is exactly the rounded-up logarithm, ⌈log2 mm+k ⌉.
                 3.7 The same bill, written in bits, and when it’s zero
 
                 There’s one more way to say all this, and I include it because it’s the way physicists
-                say it and because it hands you the one case where the bill is exactly zero, which I
-                find more instructive than any case where it isn’t.
+                say it and because it hands you the two cases where the bill is exactly zero, a move
+                that forgets nothing and a move on a state already known, and the second I find
+                more instructive than any case where it isn’t.
                     Claude Shannon, in 1948, gave a number to “how much you don’t know”: if
                 something could be in any of n states and you have no idea which, your uncertainty
                 is log base two of n bits, and that’s the most it can be for n states. If you push your
@@ -3179,11 +3183,11 @@ cost that meets the bound is exactly the rounded-up logarithm, ⌈log2 mm+k ⌉.
                 together and the flip gives off heat, and the exact statements below say how much
                 and under which side conditions, one of which (the temperature has to be taken as
                 zero or above) is easy to skip and shouldn’t be.
-                    Why does Shannon’s number share a name with the physicists’ entropy at all?
-                There’s a story about it. Shannon wanted to call it uncertainty, and the mathemati-
                                                         3.7 The same bill, written in bits, and when it’s zero   85
 
 
+    Why does Shannon’s number share a name with the physicists’ entropy at all?
+There’s a story about it. Shannon wanted to call it uncertainty, and the mathemati-
 cian John von Neumann told him to call it entropy instead, for two reasons: the
 same formula already lived in statistical mechanics under that name, and nobody
 really knows what entropy is, so in an argument he’d always have the upper hand.
@@ -3219,14 +3223,14 @@ draws.
 that forgets nothing sends each state somewhere different, so the chances just get
 carried to new addresses, one for one. Nothing piles up and nothing spreads out.
 The uncertainty is the same number before and after.
-
-
-
-Theorem 3.9 (A move that forgets nothing removes no bits). Let the states be finite,
-listed once each, and let f send states to states with f ( a) = f (b) only when a = b.
-Then for every assignment of chances p, the pushed spread q has H (q) = H ( p).
 86   3 Why the toll isn’t arbitrary
 
+
+
+
+                Theorem 3.9 (A move that forgets nothing removes no bits). Let the states be finite,
+                listed once each, and let f send states to states with f ( a) = f (b) only when a = b.
+                Then for every assignment of chances p, the pushed spread q has H (q) = H ( p).
 
                 Proof. An injective map on a finite list of distinct states is a reshuffle of that list:
                 every state is hit exactly once. So q( f ( x )) = p( x ) for every x, and the sum defining
@@ -3262,11 +3266,14 @@ Then for every assignment of chances p, the pushed spread q has H (q) = H ( p).
                 k B is Boltzmann’s constant. Here Q is an average over that preparation, not a bound
                 on each individual trial. Applying this premise requires a physical model in which
                 the logical entropy loss has this thermodynamic meaning; a bare state-transition
-                table does not supply one. In particular the memory is symmetric, its logical states
-                alike in their own entropy, as Landauer assumed; for a memory whose states differ,
-                the floor changes (Maroney 2009), and erasure work in an asymmetric double well
-                has been measured below k B T ln 2 (Gavrilov and Bechhoefer 2016).
                                                    3.7 The same bill, written in bits, and when it’s zero   87
+
+
+table does not supply one. In particular the memory is symmetric, its logical states
+alike in their own entropy, as Landauer assumed; for a memory whose states differ,
+the floor changes (Maroney 2009), and erasure work in an asymmetric double well
+has been measured below k B T ln 2 (Gavrilov and Bechhoefer 2016).
+
 
 
 Corollary 3.11 (Heat floor of a permanent flip). Under Premise 3.5, with k B T ≥ 0,
@@ -3302,16 +3309,16 @@ thirty thousand times this. The point of the number isn’t that a permanent fli
 expensive. It’s that, on the premise, it isn’t zero.
     A related logarithm appears in a different physical question. Yûto Murashita,
 Ken Funo and Masahito Ueda (2014) study processes whose reverse histories can
-include ones with no forward counterpart. They call this absolute irreversibility. If
-the reverse histories with no forward partner carry some share of the probability,
-their bound on mean entropy production picks up the logarithm of one over what’s
-left. In their free-expansion example, gas that starts confined to a tenth of a box
-gives the logarithm of ten.
-    Make the confined fraction the old yes-states’ share of the pile, the yes-states over
-the yes-states plus the newcomers, and out comes the same logarithm as the squeeze
 88   3 Why the toll isn’t arbitrary
 
 
+                include ones with no forward counterpart. They call this absolute irreversibility. If
+                the reverse histories with no forward partner carry some share of the probability,
+                their bound on mean entropy production picks up the logarithm of one over what’s
+                left. In their free-expansion example, gas that starts confined to a tenth of a box
+                gives the logarithm of ten.
+                    Make the confined fraction the old yes-states’ share of the pile, the yes-states over
+                the yes-states plus the newcomers, and out comes the same logarithm as the squeeze
                 bound. That numerical match does not identify two physical processes. The arrows
                 specify neither a thermodynamic reverse experiment nor its path probabilities, so
                 they don’t determine that share of reverse histories. The state count alone says noth-
@@ -3319,7 +3326,7 @@ the yes-states plus the newcomers, and out comes the same logarithm as the squee
                 Gülce Kardeş, Édgar Roldán and David Wolpert (2024) study such trajectory-level
                 questions for computations with one-way transitions and random stopping times.
                 Their physical premises are additional to the counting done here.
-                   The even spread is the easy case, and you might worry the heat depends on
+                    The even spread is the easy case, and you might worry the heat depends on
                 picking it. It doesn’t. Any spread that gives a real chance to every yes-state and to
                 the state that flips will do.
 
@@ -3340,19 +3347,19 @@ the yes-states plus the newcomers, and out comes the same logarithm as the squee
                 Definition 3.6 (Entropy-priced). On a finite machine, a cost is entropy-priced when,
                 for every move i and every spread p, the cost of i is at least the bits the move
                 removes: cost(i ) ≥ H ( p) − H (q), where q is p pushed through i.
-
-
-
-               Theorem 3.13 (The toll from entropy pricing). On a finite machine with a perma-
-               nent reading and an entropy-priced cost, every move that turns the reading from
-               no to yes costs at least one. So the machine with that cost is a Thiele machine
-               (Definition 2.1), and every run from a no-state to a yes-state costs at least one.
-
-                Proof. Let move i turn s yes, and let m be the number of yes-states; m ≥ 1, since
-                step(s, i ) is one. Take the even spread on the m yes-states and s. By Theorem 3.10
-                with k = 1, the move removes at least log2 mm  +1 > 0 bits, so the cost of i is a whole
                                                        3.7 The same bill, written in bits, and when it’s zero   89
 
+
+
+
+Theorem 3.13 (The toll from entropy pricing). On a finite machine with a perma-
+nent reading and an entropy-priced cost, every move that turns the reading from
+no to yes costs at least one. So the machine with that cost is a Thiele machine
+(Definition 2.1), and every run from a no-state to a yes-state costs at least one.
+
+Proof. Let move i turn s yes, and let m be the number of yes-states; m ≥ 1, since
+step(s, i ) is one. Take the even spread on the m yes-states and s. By Theorem 3.10
+with k = 1, the move removes at least log2 mm  +1 > 0 bits, so the cost of i is a whole
 
 number above a positive number, which makes it at least one. The run-level floor is
 the universal floor (Observation 2.1) applied to that system.
@@ -3365,7 +3372,6 @@ restriction of the stronger conditions.
 of one meets merge pricing but fails entropy pricing and the halving price, which
 require at least three. All three conditions give the permanent-record toll; only the
 stronger two give the full squeeze bound.
-
 
 
 Theorem 3.14 (Entropy pricing, halving, and pairwise merge pricing). Take a finite
@@ -3385,17 +3391,17 @@ up, the total is at most log2 K plus a positive multiple of K1 ∑ x: p( x)>0 q(
 and that sum counts each landing spot’s chance once for every state that lands there,
 at most K times, so the sum is at most K and the extra part is at most zero. For the
 even spread on a pile of K, the chance starts on K states, log2 K bits, and ends on
-one, which is zero bits. (2) If the cost is entropy-priced, take the even spread on any
-pile: by (1) the cost is at least log2 of its size, and a whole number c at least log2 n
-has n ≤ 2c . That every pile is at most 2c is the halving price (the plainer reading
-above). The other way, (1) with K = 2c says no spread loses more than c bits. (3)
-Two different states that land together have one image, so the halving price for that
-pair reads 2 ≤ 2cost(i) , which is cost(i ) ≥ 1; a pair that doesn’t land together, or a
-single state, asks nothing. A spread on two states loses at most one bit, and none
-unless they land together; the even spread on two that do loses exactly one.
 90   3 Why the toll isn’t arbitrary
 
 
+                one, which is zero bits. (2) If the cost is entropy-priced, take the even spread on any
+                pile: by (1) the cost is at least log2 of its size, and a whole number c at least log2 n
+                has n ≤ 2c . That every pile is at most 2c is the halving price (the plainer reading
+                above). The other way, (1) with K = 2c says no spread loses more than c bits. (3)
+                Two different states that land together have one image, so the halving price for that
+                pair reads 2 ≤ 2cost(i) , which is cost(i ) ≥ 1; a pair that doesn’t land together, or a
+                single state, asks nothing. A spread on two states loses at most one bit, and none
+                unless they land together; the even spread on two that do loses exactly one.
                     So merge pricing is weaker than full entropy pricing, though both force the
                 one-mark toll under the permanence and finiteness premises. The prices are rules
                 on moves. Reading one as physics takes Landauer’s premise for the actual spread
@@ -3426,19 +3432,19 @@ unless they land together; the even spread on two that do loses exactly one.
                 he wrote, there’s no need to carry out any operation, so no entropy changes and no
                 heat is given off, and resetting a row all ZERO to ONE involves no entropy change
                 either, because neither row carries any information.
-
-
-                Theorem 3.15 (A known state gets no heat floor from the premise). On a finite
-                machine, if the spread puts all its chance on one state s, then any move removes
-                zero bits, and Premise 3.5 for that move holds exactly when Q ≥ 0.
-
-                Proof. A spread on one state has entropy 0, and so does its image, which is again on
-                one state. So ∆H = 0 and the premise reads Q ≥ 0.
-                   Be careful with that one, because it’s easy to overread. “The premise sets no heat
-                floor for a known state” does not mean a stamping machine run on a known-blank
                                                  3.7 The same bill, written in bits, and when it’s zero   91
 
 
+
+
+Theorem 3.15 (A known state gets no heat floor from the premise). On a finite
+machine, if the spread puts all its chance on one state s, then any move removes
+zero bits, and Premise 3.5 for that move holds exactly when Q ≥ 0.
+
+Proof. A spread on one state has entropy 0, and so does its image, which is again on
+one state. So ∆H = 0 and the premise reads Q ≥ 0.
+    Be careful with that one, because it’s easy to overread. “The premise sets no heat
+floor for a known state” does not mean a stamping machine run on a known-blank
 sheet dissipates nothing. It dissipates every time the stamp actually comes down in
 a finite time, known input or not, since the stamp changes the sheet: that’s time’s
 bill, proved here for Bennett’s walker (Theorem 1.8), found for a dragged bead by
@@ -3469,19 +3475,19 @@ one known equals the entropy it produces on the even spread, plus k B ln K. The
 second law makes the entropy produced on the spread zero or more. So the average
 is at least k B ln K, and the worst of the K is at least the average: on some one of
 them the device produces at least k B ln K of entropy, which is at least k B T ln K of
-dissipated work, however slowly it runs. Kolchinsky and Wolpert’s formula says,
-under their conditions, which input pays: the one the device’s own best spread gave
-the least chance. A device can make one input cheap only by making another dear.
-Only a device chosen knowing the input gets it to nothing, and then the device is
-where the knowing is kept. So the floor sits on the merging move, on its worst input,
-whatever anyone knows, and that’s the shape of the toll. The bound on a device left
-to relax from a known start, in the next subsection, is one more floor of this kind.
-    There’s a second piece of fine print on Theorem 3.15, and it’s about who works
-the controls. The entropy-loss bound supplies no positive floor for a known input.
-Whether a device can approach that floor also depends on its controls: lower this
 92   3 Why the toll isn’t arbitrary
 
 
+                dissipated work, however slowly it runs. Kolchinsky and Wolpert’s formula says,
+                under their conditions, which input pays: the one the device’s own best spread gave
+                the least chance. A device can make one input cheap only by making another dear.
+                Only a device chosen knowing the input gets it to nothing, and then the device is
+                where the knowing is kept. So the floor sits on the merging move, on its worst input,
+                whatever anyone knows, and that’s the shape of the toll. The bound on a device left
+                to relax from a known start, in the next subsection, is one more floor of this kind.
+                   There’s a second piece of fine print on Theorem 3.15, and it’s about who works
+                the controls. The entropy-loss bound supplies no positive floor for a known input.
+                Whether a device can approach that floor also depends on its controls: lower this
                 barrier, tilt that well, raise the barrier again. Those operations have a timing and a
                 physical implementation. The entropy calculation alone does not price either.
                    Paul Riechers, Alexander Boyd, Gregory Wimsatt and James Crutchfield (2020)
@@ -3513,19 +3519,19 @@ Whether a device can approach that floor also depends on its controls: lower thi
                 state. They do not guarantee that the entering state takes part in the collision. Take
                 four chairs with only the first reading no, and a move that walks the first chair to
                 the second, the second to the third, and leaves the third and fourth where they are:
-                the second and third both land on the third, and the first never shares with anyone.
-                For an input distribution supported only on no-states, this counting argument alone
-                forces no positive entropy loss. Whether other states in that support merge depends
-                on the move. The operation-level ledger toll still follows under merge pricing.
-                   So here’s what this section actually earns. A finite machine’s permanent flag-
-                raising instruction has two allowed starting states that land on one state. Prepare
-                those two with equal chances: that instruction removes one bit, and under the
-                adopted physical premise its mean heat is at least k B T ln 2. That is a worst-case
-                preparation, not a positive charge on every execution. A known start gives no
-                positive entropy-loss floor. It still dissipates whenever it runs in a finite time, and
-                                                        3.8 What you’re entitled to, and what you’re not   93
+                                                    3.7 The same bill, written in bits, and when it’s zero   93
 
 
+the second and third both land on the third, and the first never shares with anyone.
+For an input distribution supported only on no-states, this counting argument alone
+forces no positive entropy loss. Whether other states in that support merge depends
+on the move. The operation-level ledger toll still follows under merge pricing.
+   So here’s what this section actually earns. A finite machine’s permanent flag-
+raising instruction has two allowed starting states that land on one state. Prepare
+those two with equal chances: that instruction removes one bit, and under the
+adopted physical premise its mean heat is at least k B T ln 2. That is a worst-case
+preparation, not a positive charge on every execution. A known start gives no
+positive entropy-loss floor. It still dissipates whenever it runs in a finite time, and
 how much depends on the device’s dynamics, controls and speed; a fixed device
 that merges K inputs produces at least k B ln K of entropy on its worst one, however
 slowly it runs. The ledger charges the merging move whatever the preparation,
@@ -3556,22 +3562,20 @@ at a landing spot is the sum of the p( x ) that land there, so H (q) =
 term is non-negative because the landing spot holds at least what x brought,
 q(step( x, i )) ≥ p( x ), and the logarithm keeps order. If x and x ′ share a landing spot,
 that spot holds at least p( x ) + p( x ′ ) > p( x ), so the term for x is strictly positive.
-
-
-3.8 What you’re entitled to, and what you’re not
-Let me total it: what have you earned the right to conclude, and what is still a door?
-    You’ve earned this first, and it needs no premise at all: on any machine, finite or
-endless, a run that keeps a reading up either merges two of its own states or never
-repeats one, and a single move that raises a kept reading without merging anything
-has to send the kept states one-to-one into a part of themselves with a gap left over,
-which takes endlessly many of them. Heat or room. You’ve earned this: on any
-machine with finitely many states, a move that raises a flag either forgets something
-or takes a flag down somewhere else. Pure counting, no physics, no premise beyond
-finiteness, and the half of it where nothing comes down is the four chairs. You’ve
-earned this: on a finite machine, if a flag, once up, stays up, then raising it has a
 94   3 Why the toll isn’t arbitrary
 
 
+                3.8 What you’re entitled to, and what you’re not
+                Let me total it: what have you earned the right to conclude, and what is still a door?
+                    You’ve earned this first, and it needs no premise at all: on any machine, finite or
+                endless, a run that keeps a reading up either merges two of its own states or never
+                repeats one, and a single move that raises a kept reading without merging anything
+                has to send the kept states one-to-one into a part of themselves with a gap left over,
+                which takes endlessly many of them. Heat or room. You’ve earned this: on any
+                machine with finitely many states, a move that raises a flag either forgets something
+                or takes a flag down somewhere else. Pure counting, no physics, no premise beyond
+                finiteness, and the half of it where nothing comes down is the four chairs. You’ve
+                earned this: on a finite machine, if a flag, once up, stays up, then raising it has a
                 collision somewhere. If it raises several no-states at once, the yes-states together
                 with those newcomers land on at least that many fewer spots than there are of them.
                 This does not say that each newcomer shares its destination. Counting again. And
@@ -3600,21 +3604,21 @@ earned this: on a finite machine, if a flag, once up, stays up, then raising it 
                 still doesn’t charge for forgetting in general, so the merge-pricing premise fails for it.
                 Either one puts a machine outside these theorems as stated, though a finite piece
                 of it can still sit inside. The machine I build later (Section 15) misses in both ways.
-                It keeps counters with no ceiling, so it’s infinite outright, and some of its ordinary
-                steps, counting a counter down among them, can land two different states on one
-                at no charge on the ledger. So the chairs, as stated, don’t reach it: they force the
-                toll only on machines with finitely many yes-states that price every merge, and it is
-                neither. It doesn’t need the chairs, though: the moves that raise its flag merge states
-                themselves, so the same bill lands on them directly (Theorem 3.17).
-                    A finite piece can still sit inside, and here’s the smallest one I could build where
-                every premise can be seen to hold. None of them is left as a hypothesis. Four slots
-                times a flag, eight states. Three kinds of move: stamp (set the flag, go to the next
-                slot, cost one), jump to a chosen slot (cost two), next slot (cost zero). It’s finite
-                and permanent; the next-slot move forgets nothing; the stamp and the jump merge;
-                merges are priced, and priced per halving. So this section’s two conclusions hold on
                                                       3.8 What you’re entitled to, and what you’re not   95
 
 
+It keeps counters with no ceiling, so it’s infinite outright, and some of its ordinary
+steps, counting a counter down among them, can land two different states on one
+at no charge on the ledger. So the chairs, as stated, don’t reach it: they force the
+toll only on machines with finitely many yes-states that price every merge, and it is
+neither. It doesn’t need the chairs, though: the moves that raise its flag merge states
+themselves, so the same bill lands on them directly (Theorem 3.17).
+    A finite piece can still sit inside, and here’s the smallest one I could build where
+every premise can be seen to hold. None of them is left as a hypothesis. Four slots
+times a flag, eight states. Three kinds of move: stamp (set the flag, go to the next
+slot, cost one), jump to a chosen slot (cost two), next slot (cost zero). It’s finite
+and permanent; the next-slot move forgets nothing; the stamp and the jump merge;
+merges are priced, and priced per halving. So this section’s two conclusions hold on
 it outright. The counting lemma underneath, that a duplicate-free list in which no
 landing spot is hit by more than a set number of members has at most that many
 times as many members as landing spots, is the plainer reading of the halving price
@@ -3643,21 +3647,21 @@ a slot called the channel, and CERTIFY raises the flag. CERTIFY takes a state wi
 the flag down and the same state with the flag up to one place, since a flag that’s
 already up just stays up. Its COMMIT overwrites the channel, so two states that
 differ only in what the channel names land on one state. Part (1) of the theorem
-below shows both. So any price list that charges every merge of that machine’s own
-step charges the flag-raising step, with no premise that the machine is finite. It isn’t:
-its versions and its ledger grow without bound.
-    Finiteness is still there, in the smallest place it can be. Hold every part of the
-state but the flag fixed, and the flag has two readings, down and up. CERTIFY sends
-both to up, and it does the same to everything else from either, so the two states
-land together. That is the counting of Theorem 3.1 on a set of two. So the choice I
-made in the opening’s list isn’t the merge. It’s that CERTIFY treats the rest of the
-state the same whichever way the flag reads, which is to say it keeps no copy of
-the old reading. Make CERTIFY trap instead when the flag is already up, and the
-merge moves rather than goes away: the state it traps lands with the state that was
-trapped already, since a trapped machine only pays. The one way out is to write the
 96   3 Why the toll isn’t arbitrary
 
 
+                below shows both. So any price list that charges every merge of that machine’s own
+                step charges the flag-raising step, with no premise that the machine is finite. It isn’t:
+                its versions and its ledger grow without bound.
+                    Finiteness is still there, in the smallest place it can be. Hold every part of the
+                state but the flag fixed, and the flag has two readings, down and up. CERTIFY sends
+                both to up, and it does the same to everything else from either, so the two states
+                land together. That is the counting of Theorem 3.1 on a set of two. So the choice I
+                made in the opening’s list isn’t the merge. It’s that CERTIFY treats the rest of the
+                state the same whichever way the flag reads, which is to say it keeps no copy of
+                the old reading. Make CERTIFY trap instead when the flag is already up, and the
+                merge moves rather than goes away: the state it traps lands with the state that was
+                trapped already, since a trapped machine only pays. The one way out is to write the
                 old reading somewhere, a ledger that counts a raise and a re-raise differently, say,
                 and that is room, the other column.
                     That leaves the other miss, the unpriced merges. Clause (c) of certified Thiele-
@@ -3686,22 +3690,22 @@ trapped already, since a trapped machine only pays. The one way out is to write 
                 the counter alone when the flag was up already, would raise the flag and send no
                 two states with the same base to one state, and the premise would have nothing to
                 charge; the counter’s extra step is the copy of the old reading, paid in room. The
-                small machine’s record moves treat the base the same whichever way the flag reads,
-                which is why the premise does its job there, and the theorem below is stated for that
-                machine and no other.
-
-
-                Theorem 3.17 (The toll on the machine I built). For the small machine of Section 15,
-                with no finiteness premise: (1) CERTIFY merges, and so does COMMIT of every
-                claim, and each joins two different states with the same line and counters. (2) Every
-                cost that satisfies merge pricing for that machine’s step charges CERTIFY and every
-                COMMIT at least one, and obeys the toll, so the machine with that cost is a Thiele
-                machine. (3) No INC, DEC or HALT sends two different states with the same line
-                and counters to one state. So the machine’s own prices, base moves at zero and
-                each record move at one, satisfy Premise 3.7, and merge pricing fails for them. (4)
                                                      3.8 What you’re entitled to, and what you’re not   97
 
 
+small machine’s record moves treat the base the same whichever way the flag reads,
+which is why the premise does its job there, and the theorem below is stated for that
+machine and no other.
+
+
+Theorem 3.17 (The toll on the machine I built). For the small machine of Section 15,
+with no finiteness premise: (1) CERTIFY merges, and so does COMMIT of every
+claim, and each joins two different states with the same line and counters. (2) Every
+cost that satisfies merge pricing for that machine’s step charges CERTIFY and every
+COMMIT at least one, and obeys the toll, so the machine with that cost is a Thiele
+machine. (3) No INC, DEC or HALT sends two different states with the same line
+and counters to one state. So the machine’s own prices, base moves at zero and
+each record move at one, satisfy Premise 3.7, and merge pricing fails for them. (4)
 Every cost that satisfies Premise 3.7 obeys the toll, so the machine with that cost is a
 Thiele machine.
 
@@ -3729,22 +3733,22 @@ full merge pricing permits those base moves to cost zero. Choosing that schedule
 would meet clause (c); the lower-bound premise alone does not require zero charges.
 That base wouldn’t be getting anything for nothing: what it doesn’t forget it keeps
 in its counters, which is the room column again. I haven’t built that machine.
-    And you haven’t earned anything about what the flag means. Four chairs don’t
-know what they’re certifying. The bill is for raising a flag that stays up. Whether
-raising that flag ever amounts to standing behind a structural fact, the “vouching” I
-keep promising and keep not delivering, is a question for the machine of Part III,
-and here it has moved exactly this far: on a finite machine that charges for every
-merge, if that flag stays up, it was paid for.
-    One last thing, because it should nag at you. The toll is forced by the premises,
-but the premises were chosen, and “permanent” in particular was chosen by me.
-Why should a flag stay up? Why not let it come down, pay no mark, and be honest
-about it? That’s a fair question, and merge or revoke is the start of an answer (the
-three-card machine only showed that the converse of Corollary 3.7 fails): on a finite
-machine that charges for every merge, a flag that goes up at zero marks is a flag the
-same move takes back somewhere, and a record that can be silently taken back is
 98   3 Why the toll isn’t arbitrary
 
 
+                   And you haven’t earned anything about what the flag means. Four chairs don’t
+               know what they’re certifying. The bill is for raising a flag that stays up. Whether
+               raising that flag ever amounts to standing behind a structural fact, the “vouching” I
+               keep promising and keep not delivering, is a question for the machine of Part III,
+               and here it has moved exactly this far: on a finite machine that charges for every
+               merge, if that flag stays up, it was paid for.
+                   One last thing, because it should nag at you. The toll is forced by the premises,
+               but the premises were chosen, and “permanent” in particular was chosen by me.
+               Why should a flag stay up? Why not let it come down, pay no mark, and be honest
+               about it? That’s a fair question, and merge or revoke is the start of an answer (the
+               three-card machine only showed that the converse of Corollary 3.7 fails): on a finite
+               machine that charges for every merge, a flag that goes up at zero marks is a flag the
+               same move takes back somewhere, and a record that can be silently taken back is
                the thing the bulla and the hash chain and the write-once disk were all built against.
                “Permanent” here is exactly that: the flag can’t be lowered. The toy in Section 2 has
                it only because none of its three moves happens to lower the flag, and it does none
@@ -3772,22 +3776,22 @@ same move takes back somewhere, and a record that can be silently taken back is
                flag goes up along that run and stays up from some point on, the move merges two
                states the run itself visits. The shared chair is one the machine actually sits in. And
                it doesn’t touch the known-state point above: a merge among states the run visits
-               still receives no positive lower bound from the entropy-loss premise when its state is
-               known. The argument holds for any map iterated from a start whose flag is down,
-               with the flag up at every step from some point on; no permanence premise is used.
-                   Runs that mix different moves split two ways, and the answer is short enough to
-               give here. If the moves are picked from outside, in any order at all, the answer is
-               no. Take two states, one reading no and one reading yes. One move swaps them;
-               the other does nothing. Run the swap once and then the do-nothing move forever:
-               the flag goes up at the first step and stays up for good, and neither move merges
-               anything anywhere. The swap would take the flag down from the yes-state if it ever
-               ran there; on this run it never does, and that’s exactly the weakened permanence
-               this paragraph is about. But if the machine is closed, picking its next move from its
-               own state, the run is the orbit of one map, the step with whatever move the state
-               picks, and the single-move argument applies to that map as it stands. Now say the
-                                                     3.8 What you’re entitled to, and what you’re not   99
+                                                    3.8 What you’re entitled to, and what you’re not   99
 
 
+still receives no positive lower bound from the entropy-loss premise when its state is
+known. The argument holds for any map iterated from a start whose flag is down,
+with the flag up at every step from some point on; no permanence premise is used.
+    Runs that mix different moves split two ways, and the answer is short enough to
+give here. If the moves are picked from outside, in any order at all, the answer is
+no. Take two states, one reading no and one reading yes. One move swaps them;
+the other does nothing. Run the swap once and then the do-nothing move forever:
+the flag goes up at the first step and stays up for good, and neither move merges
+anything anywhere. The swap would take the flag down from the yes-state if it ever
+ran there; on this run it never does, and that’s exactly the weakened permanence
+this paragraph is about. But if the machine is closed, picking its next move from its
+own state, the run is the orbit of one map, the step with whatever move the state
+picks, and the single-move argument applies to that map as it stands. Now say the
 moves come in a pattern that eventually repeats, one phrase of moves played over
 and over. Suppose the flag is down at some step after the repeating starts, and goes
 up and stays up after that. Count the repetitions from a step where the flag was
@@ -3815,21 +3819,21 @@ up and down have the ratio of their mean stretch lengths, because crossings up a
 down balance. So − ln π (no) = ln(1 + Tup /Tdown ).
     For a large up-to-down ratio, doubling that ratio raises this lower bound by about
 k B ln 2. Making both stretches longer by the same factor leaves it unchanged. Across
-a family of devices whose ratio tends to infinity, the bound diverges; no single
-finite irreducible device in this class keeps its flag up forever. This is a relaxation
-bound, not a heat charge on each flip. It uses neither a thermodynamic reverse-path
-construction nor time-symmetric control, so it does not identify the quantities in
-those other results. It also leaves the known-input case of the deterministic entropy-
-loss bound where it was: this noisy evolution and its total entropy production are a
-different question. The entropy is added up over one whole relaxation, from the
-known no-state s until the device has settled, and local detailed balance is what
-ties it to heat exchanged with the reservoirs. Total entropy production includes the
-change in the device’s entropy too; it is not heat alone. It also isn’t the permanence
-of the finite-state theorems on a noisy device: on this device the flag comes back
-down, and Tup and Tdown are average stretches.
 100   3 Why the toll isn’t arbitrary
 
 
+               a family of devices whose ratio tends to infinity, the bound diverges; no single
+               finite irreducible device in this class keeps its flag up forever. This is a relaxation
+               bound, not a heat charge on each flip. It uses neither a thermodynamic reverse-path
+               construction nor time-symmetric control, so it does not identify the quantities in
+               those other results. It also leaves the known-input case of the deterministic entropy-
+               loss bound where it was: this noisy evolution and its total entropy production are a
+               different question. The entropy is added up over one whole relaxation, from the
+               known no-state s until the device has settled, and local detailed balance is what
+               ties it to heat exchanged with the reservoirs. Total entropy production includes the
+               change in the device’s entropy too; it is not heat alone. It also isn’t the permanence
+               of the finite-state theorems on a noisy device: on this device the flag comes back
+               down, and Tup and Tdown are average stretches.
                    Here is the core of it for a chain that ticks, worked out, in the case where
                the long-run spread π gives every state a positive chance and satisfies detailed
                balance: in the long run as much weight flows from x to y in one step as from y
@@ -3857,22 +3861,22 @@ down, and Tup and Tdown are average stretches.
                just like the ratio of YES to NO counters. In a long record, count all the YES entries
                and divide by the number of YES stretches; that is the measured mean stretch length.
                Divide both counts by the total number of draws and you have mass divided by flow.
-                   For this rule the long-run flow from NO to YES is (1/10)(9/10) = 9/100 per
-               draw, and the reverse flow is the same. A start known to be NO has relative entropy
-               − ln(1/10) = ln 10 against the long-run spread; after one draw the spread is already
-               1/10, 9/10, so none of that relative entropy remains. This bag shows the probability
-               accounting. The entropy-production interpretation still needs the stated physical
-               model; shaking counters in a bag does not measure that heat.
-                   Two things need establishing for a general device: that it actually settles, and
-               that “mean stretch length” means what it sounds like. Here is what each says, and
-               why it holds.
-                   Settling first. A chain doesn’t have to settle. It can get stuck in a corner, or cycle
-               round forever. What rules that out here is a condition named for Wolfgang Doeblin,
-               a German-born French mathematician, son of the novelist Alfred Döblin, who took
-               his doctorate at the Sorbonne in 1938 for work on chains like this one and died
-                                                      3.8 What you’re entitled to, and what you’re not   101
+                                                     3.8 What you’re entitled to, and what you’re not   101
 
 
+    For this rule the long-run flow from NO to YES is (1/10)(9/10) = 9/100 per
+draw, and the reverse flow is the same. A start known to be NO has relative entropy
+− ln(1/10) = ln 10 against the long-run spread; after one draw the spread is already
+1/10, 9/10, so none of that relative entropy remains. This bag shows the probability
+accounting. The entropy-production interpretation still needs the stated physical
+model; shaking counters in a bag does not measure that heat.
+    Two things need establishing for a general device: that it actually settles, and
+that “mean stretch length” means what it sounds like. Here is what each says, and
+why it holds.
+    Settling first. A chain doesn’t have to settle. It can get stuck in a corner, or cycle
+round forever. What rules that out here is a condition named for Wolfgang Doeblin,
+a German-born French mathematician, son of the novelist Alfred Döblin, who took
+his doctorate at the Sorbonne in 1938 for work on chains like this one and died
 in June 1940, at twenty-five. In words: from wherever the device is, its next step
 lands on each state with at least some fixed fraction δ of that state’s long-run chance.
 No state is ever out of reach in one step, and none is favoured so heavily that the
@@ -3900,22 +3904,22 @@ logarithm of their ratio, and that is exactly the pair’s share of the rate ent
 produced; a difference times the logarithm of the same ratio is never negative. So at
 every instant the relative entropy falls at exactly the rate entropy is being produced,
 and that rate is never negative; add the rate up between two times and you get
-exactly the drop in relative entropy between them. For settling, Doeblin’s condition
-becomes a condition on rates: the rate of hopping from any state x to any state y
-is at least c times π (y), for some fixed c > 0. Split the rates in two again: a part
-that, at rate c, forgets where the device was and redraws it from π, and the rest,
-which still satisfies detailed balance. The production rate adds over the two parts,
-because with detailed balance it’s the rates times quantities that don’t depend on
-the rates. The rest produces nothing negative, and the redraw part alone produces
-at least c times the relative entropy still left. So relative entropy falls at least as fast
-as e−ct . One wrinkle needs its own line. A known start puts all its weight on one
-state and none anywhere else, and the logarithms in the relative entropy go bad at
-zero. The relative entropy is still continuous at the starting instant, because each of
-its terms has the form u ln(u/π ), and u ln u goes to zero as u does. So adding up
-the production from the start out to infinity gives exactly − ln π (s).
 102   3 Why the toll isn’t arbitrary
 
 
+               exactly the drop in relative entropy between them. For settling, Doeblin’s condition
+               becomes a condition on rates: the rate of hopping from any state x to any state y
+               is at least c times π (y), for some fixed c > 0. Split the rates in two again: a part
+               that, at rate c, forgets where the device was and redraws it from π, and the rest,
+               which still satisfies detailed balance. The production rate adds over the two parts,
+               because with detailed balance it’s the rates times quantities that don’t depend on
+               the rates. The rest produces nothing negative, and the redraw part alone produces
+               at least c times the relative entropy still left. So relative entropy falls at least as fast
+               as e−ct . One wrinkle needs its own line. A known start puts all its weight on one
+               state and none anywhere else, and the logarithms in the relative entropy go bad at
+               zero. The relative entropy is still continuous at the starting instant, because each of
+               its terms has the form u ln(u/π ), and u ln u goes to zero as u does. So adding up
+               the production from the start out to infinity gives exactly − ln π (s).
                    I should say what Doeblin’s condition costs. It asks for every hop to be possible
                directly, in one step or at a positive rate. A device whose states reach each other
                only through other states can still settle, and the standard theory of these chains
@@ -3943,22 +3947,22 @@ the production from the start out to infinity gives exactly − ln π (s).
                ments, it comes out the same, by a different route. Ask, for each up-state, how
                long on average the device takes to leave the up-states from there. Call that its
                leaving time. The leaving times are finite: from every up-state the device hops
-               into the down-states at a total rate of at least c π (down), so the chance a stretch
-               is still running at time t falls at least as fast as e−c π (down) t , and no leaving time is
-               more than one over c π (down). And they obey one plain rule, which you get by
-               asking what happens in the first instant: from any up-state, the rate out of it times
-               its leaving time, minus the rates into the other up-states times their leaving times,
-               comes to exactly one. (Per second times seconds: a pure number.) Average the
-               leaving times over the way the flow starts stretches, multiply by the flow, and the
-               rule plus the balance of the steady spread (as much weight flows into each state as
-               out of it) rearrange the sum into exactly π (up). Mass over flow, in seconds. Both
-               of the bound’s premises are proved now, in steps and in seconds, under Doeblin’s
-               condition.
-                   One chapter remains in this part, and it’s about a different door entirely. Forget-
-               ting has had its chapter; the question after that is whether finding out costs, because
-                                               3.8 What you’re entitled to, and what you’re not   103
+                                                      3.8 What you’re entitled to, and what you’re not   103
 
 
+into the down-states at a total rate of at least c π (down), so the chance a stretch
+is still running at time t falls at least as fast as e−c π (down) t , and no leaving time is
+more than one over c π (down). And they obey one plain rule, which you get by
+asking what happens in the first instant: from any up-state, the rate out of it times
+its leaving time, minus the rates into the other up-states times their leaving times,
+comes to exactly one. (Per second times seconds: a pure number.) Average the
+leaving times over the way the flow starts stretches, multiply by the flow, and the
+rule plus the balance of the steady spread (as much weight flows into each state as
+out of it) rearrange the sum into exactly π (up). Mass over flow, in seconds. Both
+of the bound’s premises are proved now, in steps and in seconds, under Doeblin’s
+condition.
+    One chapter remains in this part, and it’s about a different door entirely. Forget-
+ting has had its chapter; the question after that is whether finding out costs, because
 the demon’s whole trick was that it knew which way the molecule was going, and I
 owe you a straight answer on what knowing costs.
 CHAPTER 4
@@ -6084,15 +6088,15 @@ gets there for one. It’s a neighbour to know about. I don’t count it as a re
 
 6.6 What the counter is, said once
 A receipt is a total that lives in the state, only climbs, equals the sum of the charges
-on every path including the failures, and is the only such total for its schedule. Each
-of those had a home before this book: the stick for a total that lives in the state,
-Lamport’s clocks for climbing, Turing’s and Floyd’s ranking functions for the same
-one-way rule run downward, the telescoping sum for conservation, the induction
-for the single honest count. None of them is physics. None of them says what the
-charges should be. What they say is that once you’ve chosen the charges, the counter
-is the arithmetic. It’s no second opinion. And the toll on top of it is the potential
-method with the flag as potential, which is to say a trick from 1985 wearing the
-question from Section 5.
+on every path including the failures, and is the only such total, on the states a run
+reaches, for its schedule. Each of those had a home before this book: the stick for
+a total that lives in the state, Lamport’s clocks for climbing, Turing’s and Floyd’s
+ranking functions for the same one-way rule run downward, the telescoping sum
+for conservation, the induction for the single honest count. None of them is physics.
+None of them says what the charges should be. What they say is that once you’ve
+chosen the charges, the counter is the arithmetic. It’s no second opinion. And the
+toll on top of it is the potential method with the flag as potential, which is to say a
+trick from 1985 wearing the question from Section 5.
     Here’s one thing the counter can’t do just by existing: if you can only see part of
 the state, can you tell what the counter is? Can you even tell, from outside, which
 step paid? The stick works because you can lay the two halves together. What if
@@ -7329,8 +7333,8 @@ settling. I couldn’t get past the journal’s paywall to Artemov and Kuznets�
 my account of it comes from how other people describe it.
      Push on mine the same way and it gives. A check is one of Duc’s trains of thought,
 so my act is the last step of his train, where the walking stops. What I’ve added is a
-direction and a charge on stopping. And the charge rests on a choice. I put it inside
-the step, and nothing forced me to.
+direction and a charge on stopping. Where the charge sits rests on a choice: I put it
+inside the step, and nothing forced me to.
      Three things entitlement is not. It isn’t permission: an access control system says
 who may write to what, and that’s granted from outside and says nothing about
 truth; a process with permission to write the note still has no entitlement. It isn’t
@@ -8914,23 +8918,23 @@ current value, so the events aren’t all functions of the base alone. And (3) c
                obeys it too, because a toll on a raise that never happens is never broken. Neither
                one keeps anything a computation made, and a name both of them get without
                trying isn’t saying much.
-                  So here are the names, all of them, once, and the reason for each. They work
+                   So here are the names, all of them, once, and the reason for each. They work
                the way Turing’s do. The Thiele Machine, with capitals, is the model: a computer
                with a reading that can go from no to yes, a ledger, and the toll. A Thiele machine,
                lower case, is any particular system that fits the model, the way one rule table is a
                Turing machine. That bar is low on purpose, and a clock clears it. Thiele-complete,
-               defined next, is the bar worth meeting, the way Turing-complete is: a machine that
-               computes anything, with its record kept apart from its computing and able to tell
-               starts apart. Part III adds one stricter bar, certified Thiele-complete, for a record that
+               defined next, is the bar worth meeting, the way Turing-complete is: a machine
+               that computes anything, with its record kept apart from its computing and able to
+               tell starts apart. Part III adds one stricter bar, certified Thiele-complete, for a record
                                                                 10.8 What it takes to be complete   223
 
 
-goes up only on a claim that was checked, committed and certified. And Appendix D
-names a universal Thiele machine: one machine that runs the others, the way Turing’s
-universal machine runs every Turing machine. The model, the systems that obey
-it, the ones that compute and keep, the ones whose keeping is earned, and the one
-that runs them. That’s all of them.
-     So here’s the bar, in four clauses, and nothing in it mentions what the record is
+that, from a clean start, goes up only on a claim that was checked, committed and
+certified. And Appendix D names a universal Thiele machine: one machine that runs
+the others, the way Turing’s universal machine runs every Turing machine. The
+model, the systems that obey it, the ones that compute and keep, the ones whose
+keeping is earned, and the one that runs them. That’s all of them.
+   So here’s the bar, in four clauses, and nothing in it mentions what the record is
 about.
 
 Definition 10.6 (Thiele-complete). A Thiele machine is Thiele-complete when it
@@ -10105,11 +10109,12 @@ no shortcut. That’s the diagonal for one fixed model, and I don’t plug L int
 252   13 The diagonal
 
 
-              substrate theorem. I can’t, honestly: a substrate’s run map has to answer, with a
-              state or with nothing, and to read L’s evaluation that way you’d have to settle, for
-              every term, whether it ever reaches a value. That’s a decision made from outside L.
-              So on L I run the argument again from scratch instead of applying the general one.
-              Both are true; they’re different sentences.
+              substrate theorem. I don’t, and here’s why: a substrate’s run map has to answer,
+              with a state or with nothing, and to read L’s evaluation that way you’d have to settle,
+              for every term, whether it ever reaches a value. That’s a decision made from outside
+              L, and L is in this book as the model where nothing is taken from outside. So on L I
+              run the argument again from scratch instead of applying the general one. Both are
+              true; they’re different sentences.
                   Here’s what that string of words means, because L is the strangest thing in this
               book that computes, and the smallest. The lambda calculus is Alonzo Church’s,
               from the 1930s, and it’s a programming language with one idea in it: functions. A
@@ -10143,11 +10148,11 @@ no shortcut. That’s the diagonal for one fixed model, and I don’t plug L int
               were handed and apply the first to the second.” Hand it its own card. Putting D in
               for both copies of x gives D D → D D. You’re back at exactly the same instruction
               and argument, so the rule never finishes. Both arguments were already functions,
-              so neither example sneaks any work under a function that hasn’t been handed
-              anything.
                                                                    13.4 Now point it at the record   253
 
 
+so neither example sneaks any work under a function that hasn’t been handed
+anything.
     The variable numbers are what keep the copying from getting confused. In
 λx.λy.x, the last x points past the nearest λ (the one for y) to the one before it, so
 its number is 1; in λx.λy.y the last variable has number 0. Rename x and y however
@@ -10185,12 +10190,12 @@ answers true and y when D answers false. Take its t from (1). If P(t), then t �
 and P(n); if not, t ≡ y and P(t). Both are contradictions. (3) Halting is extensional;
 apply (2) with y = λz.z and n = (λx. x x )(λx. x x ), which steps only to itself and so
 never reaches a value.
-   The construction in that proof isn’t mine, and the credit belongs right here.
-Forster and Smolka’s L development of 2017 has the Scott encoding of terms,
-a closed quoting term with exactly this specification, the code of a term to the
 254   13 The diagonal
 
 
+                  The construction in that proof isn’t mine, and the credit belongs right here.
+              Forster and Smolka’s L development of 2017 has the Scott encoding of terms,
+              a closed quoting term with exactly this specification, the code of a term to the
               code of its code, and a fixed point built the same way: their t is C ⌜C⌝ with
               C = λx. s ( A x ( Q x )), so their C is my A, and their A, which builds the code of an
               application, is my mkapp. They say they follow the proof in the Dutch logician Henk
@@ -10228,12 +10233,12 @@ a closed quoting term with exactly this specification, the code of a term to the
 
               13.5 How to kill it
               Three ways, and I mean them as instructions.
-                 One: produce, for some substrate with a shortcut predicate, a decider whose flip
-              the substrate can represent and that’s correct on every program. That breaks the
-              generic proof at a named step, and I’ve named the steps.
-                                                                   13.6 What this does to the book   255
+                                                                  13.6 What this does to the book   255
 
 
+   One: produce, for some substrate with a shortcut predicate, a decider whose flip
+the substrate can represent and that’s correct on every program. That breaks the
+generic proof at a named step, and I’ve named the steps.
    Two: for the nat family, produce a d that correctly decides the predicate of the
 substrate built from d.
    Three: for L, produce a closed term that decides some extensional property
@@ -10255,7 +10260,7 @@ with a recursion theorem no inside one can. The diagonal says such a system can�
 automate the judgement from inside, for any behavioural property with a yes and a
 no. The latch says you can record the commitment. Those are different jobs, and a
 record does the second.
-     The diagonal has a famous cousin that seems like it ought to bite a record too, so
+    The diagonal has a famous cousin that seems like it ought to bite a record too, so
 let me walk right up to it. Gödel’s second theorem says a consistent system strong
 enough for arithmetic can’t prove its own consistency, and Martin Löb, a logician
 answering another logician’s question, sharpened that in 1955: if such a system
@@ -10272,14 +10277,14 @@ of Section 15, under what the small machine doesn’t do, show; it says the even
 happened. Sergei Artemov, a logician who comes back in Section 14, drew exactly
 that line in 2001, between implicit provability (“there is a proof”) and explicit
 evidence (“this is a proof”). As I read him, for explicit evidence the reflection step
-“if this is a proof of F, then F” is harmless, while for the bare “there is a proof” it’s
-what Gödel and Löb forbid. Why, in my words: a receipt in your hand you can look
 256   13 The diagonal
 
 
+              “if this is a proof of F, then F” is harmless, while for the bare “there is a proof” it’s
+              what Gödel and Löb forbid. Why, in my words: a receipt in your hand you can look
               at, and a receipt somewhere you take on the system’s own word. A record sits on
               the explicit side.
-                  Push on that and it gives, because a receipt is only as good as whoever wrote it.
+                   Push on that and it gives, because a receipt is only as good as whoever wrote it.
               Its trust rests on the checker meaning what it says, and that gets settled once, from
               outside the machine. That’s where I chose to stop this machine’s chain of reasons.
               Gödel’s second theorem does not forbid a machine from checking a proof about a
@@ -10291,7 +10296,7 @@ what Gödel and Löb forbid. Why, in my words: a receipt in your hand you can lo
               settle it, and it doesn’t make my design the only one possible. So I didn’t get rid of
               the receipt somewhere. I moved it out of the machine and handed it to whoever
               reads the record.
-                  One more thing follows from the same picture, by a short argument. Can a record
+                   One more thing follows from the same picture, by a short argument. Can a record
               rest on itself, the way the sentence “this sentence is certified” would like to? Not if
               it’s earned and permanent. The check that a certificate stands on happened while
               the record was still down, because the record goes up only after that check passes,
@@ -10303,7 +10308,7 @@ what Gödel and Löb forbid. Why, in my words: a receipt in your hand you can lo
               simulating each other needed a grounding step of the same kind to stop an infinite
               regress. I haven’t written this argument out anywhere else; the claim is exactly what
               this paragraph says, and it’s short enough to check by hand.
-                  One last distinction, because the two are easy to conflate and conflating them
+                   One last distinction, because the two are easy to conflate and conflating them
               is the easiest way to misread this book. There’s a second wall, nothing to do with
               the diagonal. It’s Section 7’s kind of wall, a window with a colliding pair in it.
               Two states that differ in their certification reading can look identical through a
@@ -10315,11 +10320,11 @@ what Gödel and Löb forbid. Why, in my words: a receipt in your hand you can lo
               Rice is underneath it. The property the diagonal uses (any behavioural property
               of programs with a yes and a no) is a different kind of thing from the reading the
               window hides, and nothing here says the two are the same. Two walls, two axes.
-              The diagonal is about what no inside procedure can decide. The window is about
-              what no outside observer can see. I’ll need both, and I’ll try not to call one by the
-                                                              13.6 What this does to the book   257
+                                                                13.6 What this does to the book   257
 
 
+The diagonal is about what no inside procedure can decide. The window is about
+what no outside observer can see. I’ll need both, and I’ll try not to call one by the
 other’s name again. The machine I build later has a colliding pair of exactly that
 kind (Theorem 15.14).
 PA RT I I I
@@ -12986,18 +12991,17 @@ claim, on the same edition, came first and was right.
 
 15.12 What it takes to be certified
 
-Section 10.8 set the bar every machine in this book is held to, Thiele-complete,
-and it says nothing about what the record is about. A clock fails it, and so does a
-machine whose record never goes up. The small machine clears it (Theorems 15.26
-and 15.18(2) below), and it does more: its flag goes up only on top of a check
-of a claim, by a checker proved to mean what the claim says, then a commitment
-to the same claim with nothing changed underneath, then a certificate. A Thiele-
-complete machine can raise its record with one mark that goes up from any state at
-all, a receipt for nothing (Section 14). A certified one can’t. So here’s the second
-definition, the first one with three things added, written so that any machine can be
-held up against it. You name a language of claims first, then hand over a reading of
-the machine in that language, a list of things, and then the reading has to pass four
-clauses.
+Section 10.8 set the bar worth meeting, Thiele-complete, and it says nothing about
+what the record is about. A clock fails it, and so does a machine whose record
+never goes up. The small machine clears it (Theorems 15.26 and 15.18(2) below),
+and it does more: its flag goes up only on top of a check of a claim, by a checker
+proved to mean what the claim says, then a commitment to the same claim with
+nothing changed underneath, then a certificate. A Thiele-complete machine can
+raise its record with one mark that goes up from any state at all, a receipt for nothing
+(Section 14). A certified one can’t. So here’s the second definition, the first one with
+three things added, written so that any machine can be held up against it. You name
+a language of claims first, then hand over a reading of the machine in that language,
+a list of things, and then the reading has to pass four clauses.
 
 Definition 15.7 (Certified Thiele-complete). A machine has states, moves, a step, a
 cost for each move and a yes/no reading of each state, the record. A claim language
@@ -13005,10 +13009,10 @@ for it is fixed first: a type of claims with an exact equality test; a meaning f
 each claim, a statement about a state; for each claim, a relation “the thing this
 claim is about is unchanged” between two states; and a proof that a meaning that
 holds keeps holding while the thing it’s about is unchanged. An interface over that
+language hands over the rest: a universal base, meaning a two-counter configuration
 324   15 The smallest honest machine
 
 
-              language hands over the rest: a universal base, meaning a two-counter configuration
               shown by each state (its window), a class of live states, a move for each two-counter
               instruction, and a loaded state for each start (1, a, b); a checker that says yes or no
               to a claim at a state, with a proof that a yes means the claim’s meaning, as the
@@ -13036,6 +13040,7 @@ holds keeps holding while the thing it’s about is unchanged. An interface over
               exactly as the instruction does from every live state and keeps it live, and each start
               (1, a, b) has a live loaded state showing it. Nothing is asked about the record, the
               prices or the checker.
+
                   An interface over a language becomes an interface of the plain kind by taking
                the language’s claims, meanings and “unchanged” as its own, and the four clauses
                are asked of that.
@@ -13047,10 +13052,10 @@ holds keeps holding while the thing it’s about is unchanged. An interface over
               moves, CHECK, COMMIT and CERTIFY as the marks, the same universal base and
               ledger), and three more things hold: its loaded states are clean; clause (b) holds, so
               clean states have the record down, every run from a clean state that ends with the
+              record up contains the earned chain, a passing check means its claim holds, and a
                                                                   15.12 What it takes to be certified   325
 
 
-record up contains the earned chain, a passing check means its claim holds, and a
 claim that holds keeps holding while what it’s about is unchanged; and clause (d)
 holds, a claim whose three moves raise the record from a loaded state exactly when
 it holds there, true at one loaded state and false at another. (2) Every certified Thiele-
@@ -13090,10 +13095,10 @@ leave the record exactly where it was, and a record that goes up stays up. (b) F
 a clean start, the record goes up only on top of the small machine’s chain: a check
 that passed, a commitment to the same claim with nothing changed underneath,
 then a certificate. (c) Computing costs no marks on the ledger and each of the three
+acts costs one mark, so the ledger counts the acts. The steps in between add nothing
 326   15 The smallest honest machine
 
 
-              acts costs one mark, so the ledger counts the acts. The steps in between add nothing
               to it. (A mark is a unit of the ledger, not of heat.) (d) Somewhere there’s a claim
               whose check could have said no. A machine whose every claim is “at least 0” doesn’t
               qualify, and neither does one with nothing to certify.
@@ -13131,12 +13136,12 @@ then a certificate. (c) Computing costs no marks on the ledger and each of the t
               Proof. At a start the latch is down and the table is empty, so the check passes exactly
               when eval(Ge(m), a) says yes, that is when m ≤ a; a failing check sets the latch.
               The price table charges a CHECK 1.
-                 The two counters alone look at A only through the zero test of DEC, and started
+                  The two counters alone look at A only through the zero test of DEC, and started
                one pebble below a threshold or right at it, that test can’t come out differently until
+               the pile has been counted down to zero, so they need about as many steps as the
                                                                  15.12 What it takes to be certified   327
 
 
-the pile has been counted down to zero, so they need about as many steps as the
 threshold for what CHECK does in one. Theorem 15.38 gives the precise lower
 bound and the matching ladder. So the record makes nothing faster, and CHECK, a
 primitive test, can.
@@ -13176,10 +13181,10 @@ Theorem 15.20 (What every certified Thiele-complete machine has). Let a machine
 be certified Thiele-complete through an interface. (1) It obeys the toll and has a
 universal base; its base runs every two-counter program step for step from every
 live state, and halting from a loaded state matches halting from the configuration
+it shows. (2) Along any run, the ledger rises by exactly the number of CHECK,
 328   15 The smallest honest machine
 
 
-              it shows. (2) Along any run, the ledger rises by exactly the number of CHECK,
               COMMIT and CERTIFY moves in it. (3) A run from a clean state that ends with the
               record up contains at least three of those moves and raises the ledger by at least 3.
               (4) Some CHECK fails at some loaded state, on a claim that is false there, and some
@@ -15947,26 +15952,28 @@ And a list of premises that only its own example satisfies.
 
 20.1 Where I already looked
 Before you aim, here’s where I aimed first. A result nobody has tried to break has
-only been believed, so I wrote a search whose whole job is to make the results of Part
-I fail. It takes every machine small enough to list: every way of sending each of up
-to six states to a next state, every yes-or-no reading on them, every set of starts and
-every run length the statement talks about, and for the statements about chances
-or amplitudes, hundreds of random tables of chances, done in exact fractions, and
-hundreds of random unitaries. For each machine where a result’s premises hold, it
-checks the conclusion. A false statement would turn up a machine where it fails,
-and the search would print it.
+only been believed, so I wrote a search whose whole job is to make the results
+of Part I fail. It takes every machine small enough to list: every way of sending
+each of up to six states to a next state (the table says how many states each result
+got), every yes-or-no reading on them, every set of starts and every run length
+the statement talks about, and for the statements about chances or amplitudes,
+hundreds of random tables of chances, done in exact fractions, and hundreds of
+random unitaries. For each machine where a result’s premises hold, it checks the
+
 
                                                  397
 398   20 How to break this
 
 
+              conclusion. A false statement would turn up a machine where it fails, and the search
+              would print it.
                  That alone proves nothing about a search that’s broken. So every result with a
               premise to drop also gets a control: the same search with one premise taken away.
               The control has to find a machine where the conclusion fails, and every one of them
               did. That shows two things at once: the premise is doing work in the statement, and
               the search is able to catch a failure when there is one. A table of zeros from a search
               that couldn’t have found anything would be worth nothing. These zeros sit next to
-              controls that found something every time.
+              controls that found something every time there was a premise to drop.
                  None of this is why the results are true. The arguments on the page are. A search
               over small machines can’t reach a machine with a million states, and the results
               are about every machine. What it does is give each statement a fair chance to be
@@ -16000,22 +16007,22 @@ and the search would print it.
                   meets floor and ceiling                                                dependent
                   once the flag rises                                                    price: meets
                   (Section 2)                                                            both
-                  Squeeze bound              every map and kept reading,         none    permanence:
-                  (Thm. 3.8)                 up to 6 states                              fails
-                                                                   20.2 The abstract claims (Parts I to III)   399
+                                                                           20.1 Where I already looked   399
 
 
+   Squeeze bound                every map and kept reading,        none   permanence:
+   (Thm. 3.8)                   up to 6 states                            fails
    Least halving price is the   every map and every list of        none
    log of the largest pile      states, up to 5 states
    (Thm. 3.14)
-   Own narrowing priced         every pair of moves on up to 3     none     halving price:
-   (Thm. 4.1)                   states, runs up to 3, every list            fails
+   Own narrowing priced         every pair of moves on up to 3     none   halving price:
+   (Thm. 4.1)                   states, runs up to 3, every list          fails
                                 of starts
-   Entropy ceiling              every map on up to 4 states,       none     permanence:
-   (Thm. 3.10)                  random spreads                              fails
-   Noisy chairs (Thm. 1.6)      400 random tables per size, 2      none     columns add to
-                                to 4 states, every closed set               one: fails
-   Quantum chairs               200 random unitaries per size,     none     unitary: fails
+   Entropy ceiling              every map on up to 4 states,       none   permanence:
+   (Thm. 3.10)                  random spreads                            fails
+   Noisy chairs (Thm. 1.6)      400 random tables per size, 2      none   columns add to
+                                to 4 states, every closed set             one: fails
+   Quantum chairs               200 random unitaries per size,     none   unitary: fails
    (Thm. 1.7)                   dimensions 2 to 4
    Time’s bill (Thm. 1.8)       999 values of p, distances up to   none
                                 60
@@ -16023,12 +16030,12 @@ and the search would print it.
    (Thm. 4.3)                   up to 3 states, every window
    No level holds its           every assignment on up to 3        none
    questions (Thm. 1.4)         states
-   Certainty bill (Thm. 4.4)    every pair of moves on up to 3     none     halving price:
-                                states, runs up to 3, every                 fails
+   Certainty bill (Thm. 4.4)    every pair of moves on up to 3     none   halving price:
+                                states, runs up to 3, every               fails
                                 window, random spreads
-   Same bill at every scale     every fine machine on up to 4      none     staying inside,
-   (Thm. 1.9)                   states, every described set and             finiteness: both
-                                coarse description                          fail
+   Same bill at every scale     every fine machine on up to 4      none   staying inside,
+   (Thm. 1.9)                   states, every described set and           finiteness: both
+                                coarse description                        fail
 
 
     Three rows deserve a word. For the quantum chairs, a unitary keeps right angles
@@ -16042,14 +16049,12 @@ nothing else, needs a price that can depend on where the step starts (Section 6)
 Where a statement was about the infinite, the finiteness control is the endless strip
 of Door one, checked on as long a stretch as you like; no search reaches the end of
 it, and the argument on the page is what covers it.
-
-
-20.2 The abstract claims (Parts I to III)
-What a chair is (Section 1). For the step law, a deterministic step whose next state is
-neither new to the run, nor a revisit from a different state than the one that first got
 400   20 How to break this
 
 
+              20.2 The abstract claims (Parts I to III)
+              What a chair is (Section 1). For the step law, a deterministic step whose next state is
+              neither new to the run, nor a revisit from a different state than the one that first got
               there, nor a return that puts the run on a loop. For the write, a finite set of states
               extending blank, zero and one on which writing a 0 takes blank to a definite state, is
               one-to-one, and never brings “definite” down; the count in the write theorem forbids
@@ -16086,13 +16091,13 @@ neither new to the run, nor a revisit from a different state than the one that f
               ones and two to the cost times m is less than m plus k; the squeeze bound falls.
               For merge-or-revoke, a finite machine and an injective instruction that switches
               a reading on without switching it off anywhere; the merge-or-revoke claim falls.
-              A move that merges and also revokes counts against nothing. It’s the three cards.
-              For the eight-state machine, a move of it that merges two states and costs nothing;
-              merge pricing on that machine falls. For the small machine, with no finiteness in
-              play: an INC, DEC or HALT that sends two different states with the same line and
                                                             20.2 The abstract claims (Parts I to III)   401
 
 
+A move that merges and also revokes counts against nothing. It’s the three cards.
+For the eight-state machine, a move of it that merges two states and costs nothing;
+merge pricing on that machine falls. For the small machine, with no finiteness in
+play: an INC, DEC or HALT that sends two different states with the same line and
 counters to one state, or a CERTIFY, or a COMMIT of some claim, that never joins
 two such states; the toll on the machine I built falls. For heat or room, a run of
 one rule (every state has one next state) on a machine with a permanent reading,
@@ -16129,13 +16134,13 @@ one. It never says learning costs nothing: it uses up a blank page, which is roo
 zero-mark teacher on two states; the three-state minimum falls. A finite machine
 with an entropy-priced cost, a spread and a run after which the end state leaves
 more bits about the start unknown than the run cost in marks, or a run of zero
-marks after which two starts that both had a chance and showed different things at
-the window end in the same state; the certainty bill falls.
-    The counter (Section 6; on the small machine, Section 15). Find a state of the
-small machine and an instruction such that the ledger after is anything other than
 402   20 How to break this
 
 
+              marks after which two starts that both had a chance and showed different things at
+              the window end in the same state; the certainty bill falls.
+                  The counter (Section 6; on the small machine, Section 15). Find a state of the
+              small machine and an instruction such that the ledger after is anything other than
               the ledger before plus that instruction’s cost; the loud version is a ledger that goes
               down. Conservation falls. The uniqueness half, that only one bookkeeping starts
               at zero and follows the schedule, holds over any counter machine (Section 6); a
@@ -16171,14 +16176,14 @@ small machine and an instruction such that the ledger after is anything other th
               machine, a program of INC and DEC that runs fewer than m moves and whose final
               line number and B determine whether A ≥ m at every start; the lower bound for
               zero-mark programs falls.
-                  The latch (Section 10). Exhibit an extension of a base whose record is driven by
-              the computation and never switches off, and which is not a latch on any event. The
-              latch theorem falls. A record that switches off, like the toggle, or the timestamp,
-              switched on by a hidden clock, isn’t a new one: those are the two counterexamples
-              already given.
                                                            20.2 The abstract claims (Parts I to III)   403
 
 
+    The latch (Section 10). Exhibit an extension of a base whose record is driven by
+the computation and never switches off, and which is not a latch on any event. The
+latch theorem falls. A record that switches off, like the toggle, or the timestamp,
+switched on by a hidden clock, isn’t a new one: those are the two counterexamples
+already given.
     The whole direction (Sections 11 and 12). Two different places of a partial order
 that leave the same cups up; the cup reading falls. A chain of different arrangements
 of k cups, each keeping up every cup the one before had up, with more than k + 1
@@ -16214,14 +16219,14 @@ falls. A map of host programs that a host program carries out, with no host prog
 that stops when its image stops and agrees with it on register 0, the trap latch,
 the ledger, the flag, the number of facts and whether the channel is empty, is a
 counterexample to the fixed-point theorem for the record. A map whose fixed point
-disagrees with its image on some other register is not one: some computable map
-has no fixed point that agrees with its image on every register.
-    The five models (Section 17). Each fragment has a theorem with a named falsifier:
-a finality fork with nobody slashable; a gas schedule meeting floor and no-overcharge
-whose charging predicate differs from the commit predicate on some step; a nonce n
 404   20 How to break this
 
 
+              disagrees with its image on some other register is not one: some computable map
+              has no fixed point that agrees with its image on every register.
+                  The five models (Section 17). Each fragment has a theorem with a named falsifier:
+              a finality fork with nobody slashable; a gas schedule meeting floor and no-overcharge
+              whose charging predicate differs from the commit predicate on some step; a nonce n
               and a function from quotes to Booleans that returns flag( P) on quoten ( P) for every
               platform P; one of the RFC’s own example proofs that the transcribed inclusion check
               rejects, or an input with leaf index equal to tree size that it accepts; a program the
@@ -16257,15 +16262,15 @@ whose charging predicate differs from the commit predicate on some step; a nonce
               trivial checks, and the book says so. A two-counter machine and a program whose
               run on the small machine disagrees with it step for step, or halts when it doesn’t;
               the step correspondence or the halting correspondence falls.
-                  Thiele-complete (Section 10.8). A machine that charges at least one for every
-              move and still meets the four clauses; the clock exclusion falls. A Thiele-complete
-              machine and a function of its window that gives its record at the end of every run
-              from every loaded state; the window theorem falls. A universal base with a mark
-              added for an event that separates two starts, and a clause it fails; the lift falls. A
-              machine that is certified Thiele-complete and not Thiele-complete through the same
                                                20.3 The machine claims (Part III and the appendices)   405
 
 
+    Thiele-complete (Section 10.8). A machine that charges at least one for every
+move and still meets the four clauses; the clock exclusion falls. A Thiele-complete
+machine and a function of its window that gives its record at the end of every run
+from every loaded state; the window theorem falls. A universal base with a mark
+added for an event that separates two starts, and a clause it fails; the lift falls. A
+machine that is certified Thiele-complete and not Thiele-complete through the same
 interface read without its claims, or the other way round with clean loads, the
 earned chain and a claim that can fail; the decomposition falls.
     Certified Thiele-complete (Section 15). A machine that charges at least one for
@@ -16300,15 +16305,15 @@ with a universal base; the converse falls. A state with the trap down from which
 run of lever pulls in the lift moves the box differently from the box’s own run, or
 raises the trap; the panel-leaves-the-box-alone claim falls. For what doesn’t lift: a
 finitely branching box, or a box whose step ignores its state, with a universal base,
-or with a choice of claims and fact table whose lift is certified Thiele-complete; or a
-certified Thiele-complete machine on a record axis where every place is at or below
-every other. Each makes one part of the obstruction theorem fall. For the one-lever
-presentation: a base by simulation whose grouped box, with the window claims and
-a fact table with room, doesn’t lift to a certified Thiele-complete machine; or the
-five-lever box of Theorem E.3 shown to have a universal base after all.
 406   20 How to break this
 
 
+              or with a choice of claims and fact table whose lift is certified Thiele-complete; or a
+              certified Thiele-complete machine on a record axis where every place is at or below
+              every other. Each makes one part of the obstruction theorem fall. For the one-lever
+              presentation: a base by simulation whose grouped box, with the window claims and
+              a fact table with room, doesn’t lift to a certified Thiele-complete machine; or the
+              five-lever box of Theorem E.3 shown to have a universal base after all.
                   Side by side and nesting (Appendix F). Two machines side by side and a run of
               the pair whose cost isn’t the left machine’s cost of its moves plus the right’s, or two
               interleavings of the same lever pulls that end in different places or at different costs;
@@ -16342,15 +16347,15 @@ five-lever box of Theorem E.3 shown to have a universal base after all.
               of the packed-counts property before it, or whose counts give S2 > 8; the earned
               game-check guarantee falls. A tally that passes the seven facts while its pinned
               matrix isn’t PSD, or one with every pair sampled and a PSD pinned matrix that fails
-              them; the exact integer-check equivalence falls. The all-ones tally and the PR box
-              being refused are not counterexamples; those refusals are the point.
-                  The nine-by-nine (Appendix H). A point and five extra numbers where the
-              contraction-like condition holds and the nine-by-nine isn’t PSD, or the other way
-              round; the nine-by-nine equivalence falls. A point where the condition holds with
-              all five extras at zero and S is above two; the zero-extras bound falls.
                                                                  20.4 What’s mine and what isn’t   407
 
 
+them; the exact integer-check equivalence falls. The all-ones tally and the PR box
+being refused are not counterexamples; those refusals are the point.
+    The nine-by-nine (Appendix H). A point and five extra numbers where the
+contraction-like condition holds and the nine-by-nine isn’t PSD, or the other way
+round; the nine-by-nine equivalence falls. A point where the condition holds with
+all five extras at zero and S is above two; the zero-extras bound falls.
     The elliptope completion (Appendix H). This one’s a shape, so you’re trying to
 push a point in or out of it. Three targets, one per theorem, plus the decider beside
 it. Signs a0 , a1 , b0 , b1 , each squaring to one, and a vector on which the completed
@@ -16366,6 +16371,7 @@ require.
 
 
 20.4 What’s mine and what isn’t
+
 This is not a claim to have been first. Appendix C does the sorting item by item,
 with sources: what was known, what’s added, and what kind of addition it is. Here’s
 the short form. A boundary that’s wrong gets moved, and the appendix is where to
@@ -16385,15 +16391,15 @@ Isabelle, and Lean’s mathlib). Landauer, Bennett, Szilard, Maxwell, and their
 critics. The potential method (Tarjan) and its mechanizations (Nipkow, Charguéraud
 and Pottier), Lamport’s clocks, Floyd and Hoare. Gettier, Necula, Cook, Hartley,
 Shannon, Rissanen. Zurek. The guarantee about every program: the reference
-monitor (Anderson), execution monitors (Schneider), and monitors checked at every
-instruction and proved correct (Azevedo de Amorim and coauthors). The counting
-under the permanence results: Poincaré’s recurrence, as Zermelo used it. The seL4
-and CompCert discipline. The facts under the permanence results are Landauer’s
-own example and Shannon’s bounds, and “set a bit to one whatever it held” is my
-way of saying his RESTORE TO ONE.
 408   20 How to break this
 
 
+              monitor (Anderson), execution monitors (Schneider), and monitors checked at every
+              instruction and proved correct (Azevedo de Amorim and coauthors). The counting
+              under the permanence results: Poincaré’s recurrence, as Zermelo used it. The seL4
+              and CompCert discipline. The facts under the permanence results are Landauer’s
+              own example and Shannon’s bounds, and “set a bit to one whatever it held” is my
+              way of saying his RESTORE TO ONE.
                   What I proved, each inside its stated interfaces. First the bill, with no price list,
               no reading and no finiteness: the step law, that every run of a machine with one
               next state for every state takes fresh states until its first return, which lands on
@@ -16428,15 +16434,15 @@ way of saying his RESTORE TO ONE.
               guest’s halting and flag matched exactly, its ledger equal to the guest’s at every
               matching point, and its own flag earned, the priced program UP that runs every
               computably presented Thiele machine with its reading latched, its flag earned on
-              the guest’s own reading and its ledger within two of the guest’s when the reading
-              starts at no, a surcharge no program on that host, run from a clean start, can avoid
-              when the guest certifies with its whole ledger below three, and the simpler host’s
-              mirror, its isolation and its refusal to certify for no marks. The substrate diagonal
-              and the L results, with Rice’s and Kleene’s theorems on the machine’s host and Rice’s
-              from the clean start on the two-counter machine. The integer check, exact for every
                                                                     20.4 What’s mine and what isn’t   409
 
 
+the guest’s own reading and its ledger within two of the guest’s when the reading
+starts at no, a surcharge no program on that host, run from a clean start, can avoid
+when the guest certifies with its whole ledger below three, and the simpler host’s
+mirror, its isolation and its refusal to certify for no marks. The substrate diagonal
+and the L results, with Rice’s and Kleene’s theorems on the machine’s host and Rice’s
+from the clean start on the two-counter machine. The integer check, exact for every
 pair being sampled and the pinned matrix being PSD (and so a sufficient test for
 the bound, which tells you nothing about quantum behaviour), the equivalence
 with contraction, Tsirelson’s bound from PSD, which is known mathematics proved
@@ -18321,33 +18327,35 @@ sorting there is. And making a grouping, keeping it, checking it and standing be
 
 
                                  454
-                                                                                           455
+                                                                                              455
 
 
 it came apart into four different acts. So the question became how an account of
 computation could carry the cell’s bill, and the difference between those acts, in its
 step.
     The rest of Part II was the logic, and here’s what it earned, in the order it was
-earned. The counter is arithmetic once the schedule is chosen. A window in which
-a raising step and a quiet one look the same can’t price the raise exactly, by a fact
-about functions far older than the machine. Entitlement is defined as an object,
-a checked relation, and a paid event; given lists, a tree and a covering somebody
-supplies, a run that paid a charged step for every level of the tree has paid for the
-index bits it commits to (no run is shown to have to pay them, the run doesn’t
-recover the tree, the lists count repeats, and the index bits aren’t the questions
-anybody asked); on every certified Thiele-complete machine the same count, for a
-run from a clean start, is a theorem about its record moves, with the earned chain
-inside the run, and the count can’t do without the covering; and it is a license to
-lean on a claim. It doesn’t prove the claim true. Insight, in the sense the toll prices,
-is a distinction made to stay. A feeling doesn’t count. Its floor is flat: at least one,
-however deep. The claim behind the flag is something a check could have refused,
-and in the bare model nothing makes the commit wait for the check. Over any base,
-a base-driven record is a latch, with two free choices, the event and the price list;
-“only one substrate” is false and “one structure, many price lists” is true once the
-event is fixed. No procedure the substrate itself can represent decides the shortcut
-predicate, given a recursion theorem, by the same diagonal that broke Frege’s floor,
-and the machine’s answer is to record the commitment. It leaves the judgement
-unautomated.
+earned. The counter is arithmetic once the schedule is chosen. A window in which a
+raising step and a quiet one look the same can’t price the raise exactly, by a fact about
+functions far older than the machine. Entitlement is defined as an object, a checked
+relation, and a paid event; given lists, a tree and a covering somebody supplies, a
+run that paid a charged step for every level of the tree has paid for the index bits it
+commits to (that count doesn’t show a run has to pay them, the run doesn’t recover
+the tree, the lists count repeats, and the index bits aren’t the questions anybody
+asked); when the run makes the narrowing itself, every candidate dropped was
+dropped by a test the run paid for, and the index bits are at most k times the bill
+when each test keeps a 2−k share; on every certified Thiele-complete machine the
+same count, for a run from a clean start, is a theorem about its record moves, with
+the earned chain inside the run, and the count can’t do without the covering; and it
+is a license to lean on a claim. It doesn’t prove the claim true. Insight, in the sense
+the toll prices, is a distinction made to stay. A feeling doesn’t count. Its floor is flat:
+at least one, however deep. The claim behind the flag is something a check could
+have refused, and in the bare model nothing makes the commit wait for the check.
+Over any base, a base-driven record is a latch, with two free choices, the event and
+the price list; “only one substrate” is false and “one structure, many price lists” is
+true once the event is fixed. No procedure the substrate itself can represent decides
+the shortcut predicate, given a recursion theorem, by the same diagonal that broke
+Frege’s floor, and the machine’s answer is to record the commitment. It leaves the
+judgement unautomated.
     Part III built it. The small machine’s state ties a checked claim to an edition
 of a counter, and its step uses the tie: change the counter and the old check no
 longer lets you commit. So from a clean start a raised flag needs a passing check, a
@@ -18362,14 +18370,14 @@ its own flag exactly when the guest raises one, and matches the ledger wherever 
 two line up. With PAY added, UP runs every computably presented Thiele machine,
 latches the guest’s reading through its own earned chain, and carries the guest’s
 ledger to within the stated surcharge: at most two at the raise when the reading
-starts at no. The theorems say which states match; the appendix on running it
 456   23 Conclusion
 
 
+              starts at no. The theorems say which states match; the appendix on running it
               (Appendix G) says how long this particular build takes to get there, which is a long
               time.
-                  Then I changed the base and joined machines up, to see what carried over.
-              The panel bolts onto any box that can compute, with the boxes it won’t fit named
+                  Then I changed the base and joined machines up, to see what carried over. The
+              panel bolts onto any box with a universal base, with the boxes it won’t fit named
               (Appendix E). Two machines side by side need both records kept; one total loses
               which side did the work. Hand-offs and nested runs each come with conditions
               of their own (Appendix F). Every one of those constructions makes you say which
@@ -18405,10 +18413,10 @@ starts at no. The theorems say which states match; the appendix on running it
               (Theorem 3.1, Observation 3.2); and on any machine a raise that merges nothing
               needs endlessly many yes-states, so it pays in room instead (Proposition 3.3). The
               counting under it is the finite cousin of the recurrence argument Zermelo threw at
-              Boltzmann in 1896, and the abstract merge price is motivated by Landauer’s reset
                                                                                          457
 
 
+Boltzmann in 1896, and the abstract merge price is motivated by Landauer’s reset
 example. Identifying that price with heat needs the further premises stated in Part I.
 Ouldridge and Wolpert (2023) had already put a physical price on that merge for
 finite automata, and Li and Vitányi (1996) had already assumed a unit price on each
@@ -18448,10 +18456,10 @@ check passes exactly when every pair was sampled and the five-by-five is positiv
 semidefinite (Appendix H).
     In the model: the diagonal rules out a correct decider whenever its flip can be
 expressed inside the substrate and the substrate supplies the fixed point; in L the
-fixed point is proved from the reduction rules and the diagonal is Rice’s theorem.
 458   23 Conclusion
 
 
+              fixed point is proved from the reduction rules and the diagonal is Rice’s theorem.
               On the small machine’s host, Kleene’s recursion theorem and Rice’s theorem are
               proved for its own programs, so the wall stands there by proof, with its premise
               a theorem: no host program decides a property of what a program computes that
@@ -18992,16 +19000,17 @@ reading are computed by programs with the reading decided on every state, keepin
                (Section 6). My machine has exactly one, the ledger µ (Section 15). Two other
                things get called counters, and each chapter says which: Minsky’s two bins on the
                small machine, and the eight counts that tally the game’s rounds (Appendix H).
-                                                                          A.8 Words this book builds   471
+                                                                       A.8 Words this book builds   471
 
 
 Neither is the ledger. A price list says what each move costs; the model takes it as
 given, and my machine’s table of what each instruction costs is in Section 15. A
-receipt is a total that lives in the state, only climbs, equals the sum of the charges on
-every path including the failures, and is the only such total for its price list (Section 6
-proves it for any system with a counter and a price list; on my machine the sum is a
-theorem too, Section 15). In the model there is just a reading, yes or no (Section 2);
-on the small machine it’s the flag, set by a CERTIFY that passes and never cleared.
+receipt is a total that lives in the state, only climbs, equals the sum of the charges
+on every path including the failures, and is the only such total, on the states a run
+reaches, for its price list (Section 6 proves it for any system with a counter and a
+price list; on my machine the sum is a theorem too, Section 15). In the model there
+is just a reading, yes or no (Section 2); on the small machine it’s the flag, set by a
+CERTIFY that passes and never cleared.
     These belong to the small machine only (Section 15). A two-counter machine
 is Minsky’s: two counters holding whole numbers with no upper limit, and two
 instructions: add one, and subtract one and jump if the counter is above zero,
@@ -19034,10 +19043,10 @@ Slot, true of a number that packs a property of the small machine together with 
 value it holds of. A slot is a register of the host used for nothing but holding one
 checked fact about the guest, and its mirror is a register beside it, safe to read, that
 says which claim the slot holds while its fact is live. U is the fixed program of host
-instructions that runs every small-machine program; it reads guest instructions out
 472   A Things I had to learn first
 
 
+               instructions that runs every small-machine program; it reads guest instructions out
                of one register, keeps the guest’s counters in two others, and puts every checked fact
                in a slot, because on this machine reading a counter into a program’s control flow
                writes it. The universal program’s guest is a program of the small machine, held as
@@ -19157,8 +19166,8 @@ contract            when the claim holds, and         Section 7
                     whenever it holds
 Computably          four programs compute the         the universal host for presented
 presented           driver, the step, the price and   machines, Appendix D.2
-                    the reading, and the reading’s
-                    program answers on every state
+                    the reading, each halting on
+                    every input
 Clean start         an empty fact table, an empty      every provenance theorem
                     channel and the flag down          about the small machine,
                                                        Section 15
@@ -19779,29 +19788,29 @@ merges nothing and wiping the display merges two pairs of states; the second cop
                Known: one-way counters that give order and termination are old: Turing’s 1949
                note on checking a large routine, Floyd’s ranking functions (1967), Lamport’s clocks
                (1978). Carrying a run’s cost beside its result is the writer cost of Danner, Licata and
-               Ramyaa (2015) and of Danner and Licata (2022), and the graded effect semantics
-               of Katsumata (2014), with a working-language version in Orchard, Liepelt and
-               Eades (2019). The receipt side of time credits is Mével, Jourdan and Pottier’s
-               (2019): in their extension of the Iris logic every step uses up a credit and produces
-               a receipt, receipts prove lower bounds, and enough of them prove that a counter
-               can’t overflow in any feasible time, which is the closest published neighbour of a
-               total that only climbs. Mine: putting three properties side by side (the total only
-               climbs, it equals the sum of the charges on every path including the failures, and
-               it is the only such total for a given price list), the argument for any system with a
-               counter and a price list, and the sum proved from the small machine’s own step
-               (Section 6, Section 15). Kind: synthesis; the abstract statements are proved for any
-               system with a counter and a price list, and on the small machine the sum is proved
-               too. Against the graded frameworks the answer is split: the counter is their writer
-               exactly, and their type systems, bounding relations and before-the-run checking of
-               grades are not embedded, because the grade here is written by the step during the
-               run (Section 6). For the well-graded, loop-free programs defined in Section 6, on
-               runs that do not trap, the counter’s rise equals the fixed grade. The loop built there
-               costs its input value, so no fixed whole number is its exact grade on every input; an
+               Ramyaa (2015) and of Danner and Licata (2022), and the graded effect semantics of
+               Katsumata (2014), with a working-language version in Orchard, Liepelt and Eades
+               (2019). The receipt side of time credits is Mével, Jourdan and Pottier’s (2019): in
+               their extension of the Iris logic every step uses up a credit and produces a receipt,
+               receipts prove lower bounds, and enough of them prove that a counter can’t overflow
+               in any feasible time, which is the closest published neighbour of a total that only
+               climbs. Mine: putting three properties side by side (the total only climbs, it equals
+               the sum of the charges on every path including the failures, and it is the only such
+               total, on the states a run reaches, for a given price list), the argument for any system
+               with a counter and a price list, and the sum proved from the small machine’s own
+               step (Section 6, Section 15). Kind: synthesis; the abstract statements are proved
+               for any system with a counter and a price list, and on the small machine the sum
+               is proved too. Against the graded frameworks the answer is split: the counter is
+               their writer exactly, and their type systems, bounding relations and before-the-run
+               checking of grades are not embedded, because the grade here is written by the
+               step during the run (Section 6). For the well-graded, loop-free programs defined in
+               Section 6, on runs that do not trap, the counter’s rise equals the fixed grade. The
+               loop built there costs its input value, so no fixed whole number is its exact grade
                                                         C.6 Windows that can’t price what they hide   491
 
 
-input-dependent grade is exact. The arguments are given there. Cost-aware type
-theories such as calf allow grades that depend on the inputs.
+on every input; an input-dependent grade is exact. The arguments are given there.
+Cost-aware type theories such as calf allow grades that depend on the inputs.
 
 
 C.6 Windows that can’t price what they hide
@@ -21759,9 +21768,9 @@ CHECK, COMMIT, CERTIFY never looked at anything but the tally and the claim.
 The levers changed only the tally on the panel, making old facts stale; they never
 inserted a fact, made a commitment or raised the flag. Neither side of the proof ever
 needed to know it was looking at pebbles.
-   So the earned layer isn’t something two counters do. It sits on top of any machine
-that can compute, and it never needed to know which one. I’d half expected to be
-rewriting the proof once per model.
+   So the earned layer isn’t something two counters do. It sits on top of any box
+with a universal base, and it never needed to know which one. I’d half expected to
+be rewriting the proof once per model.
 
 
 E.2 What never lifts
@@ -21991,9 +22000,9 @@ one toy. A trick for one toy wouldn’t survive being carried both ways.
 line. (3) Such a translation, followed by the test in (1), would decide two-counter
 halting, against (2).
    So two counters are the fewest in exactly this sense: one counter can’t compute
-everything, because its halting can be decided, and two can. I like where the answer
-came from. The pigeonhole that left no spare chair in the closed room is the same
-one that says why the box has two bins.
+everything, because its halting can be decided, and two, handed their inputs packed,
+can. I like where the answer came from. The pigeonhole that left no spare chair in
+the closed room is the same one that says why the box has two bins.
 
 
 E.5 What this appendix doesn’t say
@@ -22011,9 +22020,9 @@ one per counter. That’s coarser, and it’s enough for every theorem above. Fo
 it doesn’t show that a lifted machine is computably presented in general. The trip
 down needs the four relations, and for a particular machine somebody has to supply
 them.
-     If you want the whole appendix in one sentence: any box that can compute takes
-the panel, and any box written down by programs that always answer runs inside
-mine.
+     If you want the whole appendix in one sentence: any box with a universal base
+takes the panel, and any box written down by programs that always answer runs
+inside mine.
      I went into this appendix looking for the place where the bins were doing secret
 work for the panel. I didn’t find one, and the four items above are where I’d send
 anybody who wants to look harder.
@@ -22409,9 +22418,9 @@ definitions and once by hand from the same description, ran both, and compared
 the whole state after every step. Then I ran the universal programs on guests small
 enough to finish, and real programs through the part of the compiler that executes.
    One rule for the whole appendix. The runs test the builds, and the proofs carry
-the theorems. A run shows what a build did on the inputs it was given, and nothing
-else in the book leans on one: every theorem in it stands on its argument, on the
-page.
+the theorems. A run shows what a build did on the inputs it was given, and no
+theorem in the book leans on one: every theorem in it stands on its argument, on
+the page.
    Two counts to keep apart as you read. The ledger counts what the price list
 charges. The number of interpreter steps counts the work this particular build does
 to carry the run out. One guest step can take millions of host steps and add one

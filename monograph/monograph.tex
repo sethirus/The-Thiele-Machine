@@ -480,8 +480,7 @@ do what any deterministic machine does in the same space, up to a constant facto
 answer, paying in time. Give it an
 endless tape to keep its history on and it keeps everything, never comes back, and pays a fresh
 stretch of tape at every step. And a reversible computer isn't free either. Bennett's own only
-moves forward if it's pushed, and at any speed above nothing the push dissipates, and in his walker
-all of it leaves as heat. Go slower
+moves forward if it's pushed, and at any speed above nothing the push dissipates, and in his walker, in the long run, all of it leaves as heat. Go slower
 and the dissipation per step drops, but it never reaches nothing for a run that finishes; Part~I proves
 that for his model (Theorem~\ref{thm:time-bill}), and the physicists who study changes made in a finite time (Tim Schmiedl and
 Udo Seifert for a dragged bead; Naoto Shiraishi, Ken Funo and Keiji Saito for jump processes) find the same
@@ -1088,7 +1087,7 @@ the next state, and so is the question you ask of a chair. Each of the five part
 is itself a definite thing where there could have been anything; the model doesn't charge for
 them, but they're the same kind of thing it charges for. And the model can run itself: a host that pays the toll and runs a guest move for move pays at
 least a mark in its own ledger for every step where the guest's record went up, and Part~III states
-one (Section~\ref{sec:reach}; Appendix~\ref{sec:universal-machines} builds it). The tower is the same machine above and below. What no level does is hold all the questions you can ask of it: for any way of coding
+one (Section~\ref{sec:reach}; Appendix~\ref{sec:universal-machines} builds it). The tower is the same kind of machine above and below. What no level does is hold all the questions you can ask of it: for any way of coding
 readings as states, there's a reading no state codes, the one that answers each state with the
 opposite of what that state's own coded reading says of it. That's Cantor's diagonal, the shape
 of Russell's 1902 letter to Frege (Section~\ref{sec:structure}), and the subject of Section~\ref{sec:diagonal}. Put the
@@ -1294,7 +1293,7 @@ the time plus twice the drag over the stiffness, which at long times is the drag
 squared over the time (Schmiedl and Seifert,
 2007, who worked out the best protocols for doing it in finite time). Change any spread of
 chances into another in a set time and the entropy produced is at least a fixed fraction of the
-square of how far apart the two spreads are, divided by the time and by how busy the jumping is (Aurell, Mej\'ia-Monasterio and Muratore-Ginanneschi, 2011; Shiraishi, Funo and Saito, 2018). Those are
+square of how far apart the two spreads are, divided by the time and by how mobile the states are: the diffusion, for a bead that drifts (Aurell, Mej\'ia-Monasterio and Muratore-Ginanneschi, 2011), and how busy the jumping is, for states that jump (Shiraishi, Funo and Saito, 2018). Those are
 their results, and I cite them as physics. Put them next to the step law and the whole bill
 reads like this. Every change a device makes to the spread of its states in a finite time
 dissipates, merge or no merge, reversible or not; time sets how much, and only infinite time makes
@@ -1489,8 +1488,7 @@ pile into groups, the kind of structure Part~II starts from (Section~\ref{sec:st
 first kind of claim I care about. It isn't the only kind, and the book comes back to what a flag
 stands behind in Section~\ref{sec:entitlement}, and on a machine in Section~\ref{sec:smallest},
 where a flag stands on a checked claim. Until then nothing leans on groupings. The floor in
-this section, the reason for it in the next, and the latch in Part~II all
-work for any yes-or-no reading whatsoever, partition or no partition. When groupings come in,
+this section, the reason for it in the next, and the latch in Part~II all work whatever the reading is about, partition or no partition. When groupings come in,
 in Section~\ref{sec:entitlement}, it's as a theorem: a reading that says a grouping has been checked
 and committed sees the grouping only through its partition, and what it entitles is exactly the
 groupings that refine it (Theorem~\ref{thm:partition-reading}). So the grouping gets a job,
@@ -2061,7 +2059,7 @@ everywhere.
 The first chapter of this part proved the bill with chairs: a run that raises a flag and keeps it
 up either shares a chair somewhere or never repeats one, so keeping is paid in a merge or in room;
 and in any real device every step that changes something dissipates on top of that, by happening. The merge-or-room
-part needs no premise; the heat is physics, which I proved for Bennett's walker and cited for devices whose states jump or drift at random in surroundings at a temperature. This chapter counts
+part needs no premise; the heat is physics, which I proved for Bennett's walker with Schnakenberg's formula taken as the model, and cited for devices whose states jump or drift at random in surroundings at a temperature. This chapter counts
 the room exactly, and asks what it takes to turn the bill into a mark on a ledger. The flag I
 built is one thing that stays; the result is about anything that stays.
 
@@ -2650,8 +2648,7 @@ Supérieure in Lyon, Antoine Bérut and Sergio Ciliberto's lab working with Eric
 a single glass bead, two millionths of a metre across, in a
 double well made of laser light, and used the two wells as the two values of a bit. Then they
 erased the bit, by lowering the barrier, tilting the trap, and raising it again, many times
-over, slower and slower, and measured the heat each time. The average heat came down toward
-Landauer's kT ln 2 and sat there as the erasure got slower. On average. Single runs went
+over, slower and slower, and measured the heat each time. The average heat came down toward Landauer's kT ln 2 as the erasure got slower, closer the slower it went, and never under it. On average. Single runs went
 under it; the bound is about the average, and any one erasure can beat it. And if you only succeed in
 erasing half the time the floor drops to zero, which the paper's formula shows and which I think is
 the most honest line in it. Others have done it since with different devices. So: predicted
@@ -2869,8 +2866,7 @@ and it gives the toll on that machine too (Theorem~\ref{thm:record-merge-toll}, 
 \label{sec:bits-zero}
 
 There's one more way to say all this, and I include it because it's the way physicists say
-it and because it hands you the one case where the bill is exactly zero, which I find more
-instructive than any case where it isn't.
+it and because it hands you the two cases where the bill is exactly zero, a move that forgets nothing and a move on a state already known, and the second I find more instructive than any case where it isn't.
 
 Claude Shannon, in 1948, gave a number to ``how much you don't know'': if something could be in
 any of n states and you have no idea which, your uncertainty is log base two of n bits, and
@@ -5570,7 +5566,7 @@ one. It's a neighbour to know about. I don't count it as a result.
 \subsection{What the counter is, said once}
 
 A receipt is a total that lives in the state, only climbs, equals the sum of the charges on
-every path including the failures, and is the only such total for its schedule. Each of
+every path including the failures, and is the only such total, on the states a run reaches, for its schedule. Each of
 those had a home before this book: the stick for a total that lives in the state, Lamport's clocks for climbing, Turing's and Floyd's ranking functions for
 the same one-way rule run downward, the telescoping sum for conservation, the
 induction for the single honest count. None of them is physics. None of them says
@@ -6711,7 +6707,7 @@ how other people describe it.
 
 Push on mine the same way and it gives. A check is one of Duc's trains of thought, so my act is the
 last step of his train, where the walking stops. What I've added is a direction and a charge on
-stopping. And the charge rests on a choice. I put it inside the step, and nothing forced me to.
+stopping. Where the charge sits rests on a choice: I put it inside the step, and nothing forced me to.
 
 Three things entitlement is \emph{not}. It isn't permission: an access
 control system says who may write to what, and that's granted from outside and says nothing
@@ -8256,7 +8252,7 @@ that fits the model, the way one rule table is a Turing machine. That bar is low
 clock clears it. \emph{Thiele-complete}, defined next, is the bar worth meeting, the way
 Turing-complete is: a machine that computes anything, with its record kept apart from its computing
 and able to tell starts apart. Part~III adds one stricter bar, \emph{certified Thiele-complete},
-for a record that goes up only on a claim that was checked, committed and certified. And
+for a record that, from a clean start, goes up only on a claim that was checked, committed and certified. And
 Appendix~\ref{sec:universal-machines} names a \emph{universal Thiele machine}: one machine that
 runs the others, the way Turing's universal machine runs every Turing machine. The model, the
 systems that obey it, the ones that compute and keep, the ones whose keeping is earned, and the one
@@ -9351,9 +9347,7 @@ follows, and the diagonal is reproved in the shape of the substrate
 theorem, for any property of programs that depends only
 on what they compute and that holds of one program and fails of another. The statement
 mentions no shortcut. That's the diagonal for one fixed model, and I don't plug L into the
-substrate theorem. I can't, honestly: a substrate's run map has to answer, with a state or with
-nothing, and to read L's evaluation that way you'd have to settle, for every term, whether it ever
-reaches a value. That's a decision made from outside L. So on L I run the argument again from
+substrate theorem. I don't, and here's why: a substrate's run map has to answer, with a state or with nothing, and to read L's evaluation that way you'd have to settle, for every term, whether it ever reaches a value. That's a decision made from outside L, and L is in this book as the model where nothing is taken from outside. So on L I run the argument again from
 scratch instead of applying the general one. Both are true; they're different sentences.
 
 Here's what that string of words means, because L is the strangest thing in this book that
@@ -11962,7 +11956,7 @@ on the same edition, came first and was right.
 \subsection{What it takes to be certified}
 \label{sec:certified}
 
-Section~\ref{sec:complete} set the bar every machine in this book is held to, Thiele-complete,
+Section~\ref{sec:complete} set the bar worth meeting, Thiele-complete,
 and it says nothing about what the record is about. A clock fails it, and so does a machine whose
 record never goes up. The small machine clears it (Theorems~\ref{thm:u34-tc-instances}
 and~\ref{thm:tc-decomposition}(2) below), and
@@ -14740,8 +14734,7 @@ of gap to hunt). And a list of premises that only its own example satisfies.
 
 Before you aim, here's where I aimed first. A result nobody has tried to break has only been
 believed, so I wrote a search whose whole job is to make the results of Part I fail. It takes every machine small
-enough to list: every way of sending each of up to six states to a next state, every yes-or-no
-reading on them, every set of starts and every run length the statement talks about, and for the
+enough to list: every way of sending each of up to six states to a next state (the table says how many states each result got), every yes-or-no reading on them, every set of starts and every run length the statement talks about, and for the
 statements about chances or amplitudes, hundreds of random tables of chances, done in exact
 fractions, and hundreds of random unitaries. For
 each machine where a result's premises hold, it checks the conclusion. A false statement would
@@ -14753,7 +14746,7 @@ the same search with one premise taken away. The control has to find a machine w
 conclusion fails, and every one of them did. That shows two things at once: the premise is doing
 work in the statement, and the search is able to catch a failure when there is one. A table of
 zeros from a search that couldn't have found anything would be worth nothing. These zeros sit
-next to controls that found something every time.
+next to controls that found something every time there was a premise to drop.
 
 None of this is why the results are true. The arguments on the page are. A search over small
 machines can't reach a machine with a million states, and the results are about every machine.
@@ -15891,9 +15884,7 @@ is arithmetic once the schedule is chosen. A window in which a raising step and 
 look the same can't price the raise exactly, by a fact about functions far older than the
 machine. Entitlement is defined as an object, a checked relation, and a paid event; given
 lists, a tree and a covering somebody supplies, a run that paid a charged step for every level
-of the tree has paid for the index bits it commits to (no run is shown to have to pay them, the
-run doesn't recover the tree, the lists count repeats, and the index bits aren't the questions
-anybody asked); on
+of the tree has paid for the index bits it commits to (that count doesn't show a run has to pay them, the run doesn't recover the tree, the lists count repeats, and the index bits aren't the questions anybody asked); when the run makes the narrowing itself, every candidate dropped was dropped by a test the run paid for, and the index bits are at most $k$ times the bill when each test keeps a $2^{-k}$ share; on
 every certified Thiele-complete machine the same count, for a run from a clean start, is a theorem about its record moves, with the earned
 chain inside the run, and the count can't do without the covering; and it
 is a license to lean on a claim. It doesn't prove the claim true.
@@ -15922,8 +15913,7 @@ earned chain, and carries the guest's ledger to within the stated surcharge: at 
 the raise when the reading starts at no. The theorems say which states match; the appendix
 on running it (Appendix~\ref{sec:running}) says how long this particular build takes to get there, which is a long time.
 
-Then I changed the base and joined machines up, to see what carried over. The panel bolts
-onto any box that can compute, with the boxes it won't fit named
+Then I changed the base and joined machines up, to see what carried over. The panel bolts onto any box with a universal base, with the boxes it won't fit named
 (Appendix~\ref{sec:every-model}). Two machines side by side need both records kept; one
 total loses which side did the work. Hand-offs and nested runs each come with conditions
 of their own (Appendix~\ref{sec:parts}). Every one of those constructions makes you say
@@ -16401,7 +16391,7 @@ tally the game's rounds (Appendix~\ref{sec:chsh}). Neither is the ledger. A \emp
 what each move costs; the model takes it as given, and my machine's table of what each instruction
 costs is in Section~\ref{sec:smallest}. A \emph{receipt} is a total that lives in the
 state, only climbs, equals the sum of the charges on every path including the failures, and is
-the only such total for its price list (Section~\ref{sec:counter} proves it for any system with a counter
+the only such total, on the states a run reaches, for its price list (Section~\ref{sec:counter} proves it for any system with a counter
 and a price list; on my machine the sum is a theorem too, Section~\ref{sec:smallest}). In
 the model there is just a \emph{reading}, yes or no (Section~\ref{sec:toll}); on
 the small machine it's the \emph{flag}, set by a CERTIFY that passes and never cleared.
@@ -16544,7 +16534,7 @@ Entropy pricing & on a finite machine, each move costs at least the bits it remo
 Landauer's principle & for a stated physical memory, removing $\Delta H$ bits gives off mean heat $\ge k_B T \ln 2 \cdot \Delta H$ & the heat floor; with $k_B T \ge 0$ (or $> 0$) as a separate hypothesis on each theorem \\
 Recursion (generic) & every transformation the substrate can represent has a fixed point & the diagonal, Section~\ref{sec:diagonal} \\
 Commitment contract & a commitment bit is set only when the claim holds, and whenever it holds & the commitment escape, Section~\ref{sec:windows} \\
-Computably presented & four programs compute the driver, the step, the price and the reading, and the reading's program answers on every state & the universal host for presented machines, Appendix~\ref{sec:presented-universal} \\
+Computably presented & four programs compute the driver, the step, the price and the reading, each halting on every input & the universal host for presented machines, Appendix~\ref{sec:presented-universal} \\
 Clean start & an empty fact table, an empty channel and the flag down & every provenance theorem about the small machine, Section~\ref{sec:smallest} \\
 Record-layer merge pricing & a move that sends two different states with the same base part to one state costs at least one & the toll on the small machine, Theorem~\ref{thm:record-merge-toll} \\
 Structural dissipation pricing & every collapsing instruction dissipates at least one unit, and dissipation is at most cost & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
@@ -16967,8 +16957,7 @@ Liepelt and Eades (2019). The receipt side of time credits is Mével, Jourdan an
 produces a receipt, receipts prove lower bounds, and enough of them prove that a counter can't
 overflow in any feasible time, which is the closest published neighbour of a total that only
 climbs. Mine: putting three properties side by side (the total only
-climbs, it equals the sum of the charges on every path including the failures, and it is
-the only such total for a given price list), the argument for any system with a counter
+climbs, it equals the sum of the charges on every path including the failures, and it is the only such total, on the states a run reaches, for a given price list), the argument for any system with a counter
 and a price list, and the sum proved from the small machine's own step (Section~\ref{sec:counter},
 Section~\ref{sec:smallest}). Kind: synthesis; the abstract statements are proved for any system
 with a counter and a price list, and on the small machine the sum is proved too. Against the graded
@@ -18783,8 +18772,7 @@ never looked at anything but the tally and the claim. The levers changed only th
 a fact, made a commitment or raised the flag. Neither
 side of the proof ever needed to know it was looking at pebbles.
 
-So the earned layer isn't something two counters do. It sits on top of any machine that can compute,
-and it never needed to know which one. I'd half expected to be rewriting the proof once per model.
+So the earned layer isn't something two counters do. It sits on top of any box with a universal base, and it never needed to know which one. I'd half expected to be rewriting the proof once per model.
 
 \subsection{What never lifts}
 
@@ -18995,8 +18983,7 @@ book's instruction set line by line. (3) Such a translation, followed by the tes
 decide two-counter halting, against (2).
 \end{proof}
 
-So two counters are the fewest in exactly this sense: one counter can't compute everything, because
-its halting can be decided, and two can. I like where the answer came from. The pigeonhole that left
+So two counters are the fewest in exactly this sense: one counter can't compute everything, because its halting can be decided, and two, handed their inputs packed, can. I like where the answer came from. The pigeonhole that left
 no spare chair in the closed room is the same one that says why the box has two bins.
 
 \subsection{What this appendix doesn't say}
@@ -19013,8 +19000,7 @@ per counter. That's coarser, and it's enough for every theorem above. Fourth, it
 lifted machine is computably presented in general. The trip down needs the four relations, and for a
 particular machine somebody has to supply them.
 
-If you want the whole appendix in one sentence: any box that can compute takes the panel, and
-any box written down by programs that always answer runs inside mine.
+If you want the whole appendix in one sentence: any box with a universal base takes the panel, and any box written down by programs that always answer runs inside mine.
 
 I went into this appendix looking for the place where the bins were doing secret work for the panel.
 I didn't find one, and the four items above are where I'd send anybody who wants to look harder.
@@ -19364,8 +19350,7 @@ Then I ran the universal programs on guests small enough to finish, and real pro
 the part of the compiler that executes.
 
 One rule for the whole appendix. The runs test the builds, and the proofs carry the theorems. A
-run shows what a build did on the inputs it was given, and nothing else in the book leans on
-one: every theorem in it stands on its argument, on the page.
+run shows what a build did on the inputs it was given, and no theorem in the book leans on one: every theorem in it stands on its argument, on the page.
 
 Two counts to keep apart as you read. The ledger counts what the price list charges. The
 number of interpreter steps counts the work this particular build does to carry the run out.
