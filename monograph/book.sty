@@ -109,6 +109,20 @@
 \AtEndDocument{\immediate\write\@auxout{\string\gdef\string\ClaimTotal{\number\value{bookclaim}}}%
   \immediate\write\@auxout{\string\gdef\string\PaidTotal{\number\value{bookpaid}}}}
 \providecommand{\PaidTotal}{0}
+\newcommand{\BookRecordClaim}[1]{\immediate\write\@auxout{\string\expandafter\string\gdef\string\csname\space bookclaimlabel@\number\value{bookclaim}\string\endcsname{#1 \thetheorem}}}
+\AtEndEnvironment{theorem}{\BookRecordClaim{Theorem}}
+\AtEndEnvironment{lemma}{\BookRecordClaim{Lemma}}
+\AtEndEnvironment{corollary}{\BookRecordClaim{Corollary}}
+\AtEndEnvironment{proposition}{\BookRecordClaim{Proposition}}
+\AtEndEnvironment{thesis}{\BookRecordClaim{Thesis}}
+\AtEndEnvironment{conjecture}{\BookRecordClaim{Conjecture}}
+\newcommand{\OpenClaimList}{%
+  \@tempcnta=1 \def\book@sep{}%
+  \loop\ifnum\@tempcnta>\ClaimTotal\relax\else
+    \ifcsname bookpaid@\number\@tempcnta\endcsname\else
+      \book@sep\csname bookclaimlabel@\number\@tempcnta\endcsname\def\book@sep{, }%
+    \fi
+    \advance\@tempcnta 1 \repeat}
 \makeatother
 \newcommand{\LedgerGrid}{%
   \begin{tikzpicture}[x=3.4mm,y=3.4mm]
