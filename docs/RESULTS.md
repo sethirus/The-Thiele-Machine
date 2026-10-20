@@ -494,7 +494,7 @@ is the sharpest case.
   either merges two of its states or visits a fresh state at every step; an
   injective raising move visits a fresh state every time. Coq:
   `run_merges_or_fresh`, `permanent_flip_iterates_distinct`. A finite memory
-  keeps the history of a reset through at most (M - 1)/(N - 1) repetitions,
+  keeps the history of a reset through at most (M - N)/(N - 1) repetitions,
   and the bound is attained. Coq: `retention_bound`, `tight_exact`.
 - **Proved.** Writing a 0 on a blank cell merges blank with zero, and a
   finite extension of the cell still merges; an endless tape avoids the merge

@@ -30,7 +30,7 @@
         different from q0. Retention: F is injective on the states reached
         from the representatives in fewer than T applications. Then
         |X| >= 1 + (T+1) * (number of others) ([retention_bound]), so a
-        bounded memory keeps the history of at most (|X|-1)/(N-1) resets
+        bounded memory keeps the history through at most (|X|-N)/(N-1) resets
         ([retention_horizon]). A bounded memory delays the merge and does
         not avoid it.
 

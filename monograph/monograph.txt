@@ -20975,22 +20975,32 @@ CHECK traps. So the host machine gets a seventh instruction kind, PAY: it costs 
               written for the host’s registers doesn’t need PAY: it checks one true fact once, about
               a register it never writes, and pays every later mark by committing that fact again.
               Those commits overwrite the channel, so at the move where the reading first says
-              yes it runs the chain’s CHECK, COMMIT and CERTIFY back to back and pays the
-              rest of that move after the CERTIFY. Whether UP itself, whose guests run on two
-              counters, could do without it I haven’t settled. On a host without certification PAY is
-              a necessity: a guest that pays while its reading is down makes the host run a paid
-              move that doesn’t raise its record.
-                  Read as a Thiele-complete machine, the host needs no filing at all: PAY is a mark
-              that never raises the record. The definition of certified Thiele-complete sorts every
-              paid move into CHECK, COMMIT or CERTIFY, so PAY has to be filed under one of
-              them, and it’s filed as a CHECK of the empty claim, a claim that never holds. That’s
-              a filing for the interface. It isn’t what PAY does on the machine: a CHECK that fails
-              on this machine traps, and PAY goes on to the next line. With PAY filed that way
-              the host stays certified Thiele-complete, and certified Thiele-complete over its own
-              claim language, in which the empty claim holds of no state. PAY costs exactly one,
+              yes it runs the chain’s CHECK, COMMIT and CERTIFY back to back and pays the rest
+              of that move after the CERTIFY. UP can do without it on its class, and PAY is what it
+              needs beyond the class. UP names no register above 80 and its guest can’t name a
+              host register, so two sit untouched. Pay the first mark by raising one of them to 1,
+              which reads “zero holds at 0,” and checking it; pay every later mark by committing
+              that fact again, which passes because the register’s version never moves. A compiled
+              guest runs its chain back to back and pays after it, so the chain’s own commitment
+              is what its certificate finds, and its one check leaves the table at two facts. Every
+              payment costs one, the surcharge is unchanged, and the host is the register host
+              with no seventh instruction. Outside the class the trick fails: a guest that pays twice
+              and then certifies with nothing committed traps, and this host, with the pay-fact
+              sitting in its channel, would raise its flag instead. PAY leaves the channel alone, and
+              that is what those guests need. On a host without certification PAY is a necessity:
 D.2 Every computably presented Thiele machine, on one host: driven, decided, priced in whole units, carried as a latch
                                                                                                                   519
 
+a guest that pays while its reading is down makes the host run a paid move that
+doesn’t raise its record.
+    Read as a Thiele-complete machine, the host needs no filing at all: PAY is a mark
+that never raises the record. The definition of certified Thiele-complete sorts every
+paid move into CHECK, COMMIT or CERTIFY, so PAY has to be filed under one of
+them, and it’s filed as a CHECK of the empty claim, a claim that never holds. That’s
+a filing for the interface. It isn’t what PAY does on the machine: a CHECK that fails
+on this machine traps, and PAY goes on to the next line. With PAY filed that way
+the host stays certified Thiele-complete, and certified Thiele-complete over its own
+claim language, in which the empty claim holds of no state. PAY costs exactly one,
 as clause (c) asks of a CHECK; its check never passes, so it can’t stand in a chain;
 and it leaves the table, the channel and the flag alone, so it can’t add to a chain or
 raise the flag either. For the same reason the floor of three for a flag raised from a
@@ -21021,19 +21031,19 @@ fuel register’s entry in v’s prime factorisation), runs the routine for at m
 and says yes exactly when by then the routine has left its code with 1 in its answer
 register. Every input gets an answer within f steps, so the checker is total, and what
 it means is that bounded run: yes if and only if the routine halts within the fuel
-the value carries, with answer 1. That’s how it stays clear of the diagonal. A total
-evaluator E that agreed with every total yes-or-no program on that program’s code
-alone would let g(n) = ¬ E(n, n) contradict itself at its own code, as long as E is
-itself computable. This checker never evaluates a program on its code alone: the
-fuel comes with the claim’s value. The guest compiled from M runs M’s reading
-routine itself and puts at least the step count it took into the fuel register, and at
-such a value the checker says yes if and only if the reading says yes.
-    For the fuel rule, take a routine containing just one instruction: increment an
-answer register initially holding 0, then leave its one-line code. Give it fuel 0 and
-the check says no: it has not completed. Give it fuel 1 and the check says yes: it
 520   D The universal machines
 
 
+              the value carries, with answer 1. That’s how it stays clear of the diagonal. A total
+              evaluator E that agreed with every total yes-or-no program on that program’s code
+              alone would let g(n) = ¬ E(n, n) contradict itself at its own code, as long as E is
+              itself computable. This checker never evaluates a program on its code alone: the
+              fuel comes with the claim’s value. The guest compiled from M runs M’s reading
+              routine itself and puts at least the step count it took into the fuel register, and at
+              such a value the checker says yes if and only if the reading says yes.
+                  For the fuel rule, take a routine containing just one instruction: increment an
+              answer register initially holding 0, then leave its one-line code. Give it fuel 0 and
+              the check says no: it has not completed. Give it fuel 1 and the check says yes: it
               has left the code with answer 1. The first no did not mean the routine would never
               answer yes. It meant “not within this allowance.” You can run that distinction with
               a pebble and one instruction card. The real checker does the same job for any list of
@@ -21064,19 +21074,19 @@ the check says no: it has not completed. Give it fuel 1 and the check says yes: 
               chain whose claim is M’s reading program applied to the coded state where the
               reading first said yes. Here is why. The guest keeps a few registers packed into its
               counters the way Minsky packed them: the coded state, a latch bit, the price still
-              owed, and a register that counts the reading’s steps. It starts at the reading with
-              nothing owed, and goes round one loop. Run the compiled reading on the coded
-              state, counting its steps. If it says yes and the latch bit is 0, run CHECK, COMMIT
-              and CERTIFY on the claim “reading program r says yes of v,” v being the packed
-              registers with the step count as fuel, set the latch bit, and take three off what’s owed,
-              stopping at zero. Pay what’s owed in PAYs. Run the compiled driver, and halt if it
-              says stop. Otherwise run the compiled step and price for the move it picked, put
-              the new coded state and that price in place, and go round again. Everything but
-              the PAYs and the one chain is INC and DEC, at no marks. So at the point just after
-              the PAYs and before the driver runs, once n moves have been made, the coded state
 D.2 Every computably presented Thiele machine, on one host: driven, decided, priced in whole units, carried as a latch
                                                                                                                   521
 
+owed, and a register that counts the reading’s steps. It starts at the reading with
+nothing owed, and goes round one loop. Run the compiled reading on the coded
+state, counting its steps. If it says yes and the latch bit is 0, run CHECK, COMMIT
+and CERTIFY on the claim “reading program r says yes of v,” v being the packed
+registers with the step count as fuel, set the latch bit, and take three off what’s owed,
+stopping at zero. Pay what’s owed in PAYs. Run the compiled driver, and halt if it
+says stop. Otherwise run the compiled step and price for the move it picked, put
+the new coded state and that price in place, and go round again. Everything but
+the PAYs and the one chain is INC and DEC, at no marks. So at the point just after
+the PAYs and before the driver runs, once n moves have been made, the coded state
 is M’s state after n moves, the latch bit is M’s latch, and the ledger is M’s ledger,
 except that the move where the latch bit was set was paid with the chain’s three
 and the larger of c − 3 and 0 in PAYs instead of its price c (or, if the reading is yes at
@@ -21106,26 +21116,26 @@ over the universal claim language.
 three marks it can’t be helped. The host raises its flag the only way the host machine
 allows, by a CHECK, a COMMIT and a CERTIFY, and those cost three. If M’s first
 move that turns its reading to yes costs at least three, the host pays the difference in
-PAYs and nothing more is owed. If it costs less, the host pays three there anyway,
-which is the larger of three and the move’s price. The surcharge starts at that move:
-while M’s latch is down it’s zero, so a run that never certifies is matched exactly.
-Whether anything could do better depends on what M paid before. When M’s whole
-ledger at the raise is below three, no program on the host machine can match it,
-since a raised host flag costs three from a clean start. When M’s ledger at the raise
-is three or more, this compiler isn’t always the cheapest. Take a guest whose first
-move costs two and leaves its reading at no, and whose second costs one and turns
-it to yes. This compiler carries it at 2 and then 5, against the guest’s 2 and 3. A
-program that looks ahead carries it exactly: inside the first move’s two marks it
 522   D The universal machines
 
 
+              PAYs and nothing more is owed. If it costs less, the host pays three there anyway,
+              which is the larger of three and the move’s price. The surcharge starts at that move:
+              while M’s latch is down it’s zero, so a run that never certifies is matched exactly.
+              Whether anything could do better depends on what M paid before. When M’s whole
+              ledger at the raise is below three, no program on the host machine can match it,
+              since a raised host flag costs three from a clean start. When M’s ledger at the raise
+              is three or more, this compiler isn’t always the cheapest. Take a guest whose first
+              move costs two and leaves its reading at no, and whose second costs one and turns
+              it to yes. This compiler carries it at 2 and then 5, against the guest’s 2 and 3. A
+              program that looks ahead carries it exactly: inside the first move’s two marks it
               works out the guest’s state two moves on, puts it on B, runs the CHECK and the
               COMMIT of the reading’s claim about it, and puts the guest’s state back; inside the
               second move’s one mark it runs the CERTIFY, which needs only a fact in the channel,
               and nothing has committed since. Its totals are 2 and 3, and its flag stands on the
               guest’s reading at the first state where it said yes. Part (1) of the theorem below
               bounds this compiler, and part (3) is the only lower bound proved.
-                 Keep two tally lines for a guest whose first three moves each cost one and whose
+                  Keep two tally lines for a guest whose first three moves each cost one and whose
               reading first says yes after the third. The guest’s totals are 1, 2, 3. This compiler
               pays one PAY on each of the first two moves, then its three-act chain: the host
               totals are 1, 2, 5. The excess is two, added once. If the third move instead costs
@@ -21149,19 +21159,19 @@ program that looks ahead carries it exactly: inside the first move’s two marks
               moves while its ledger is below three, then no run of the host machine from a clean
               start, under any program at all, ends with its flag equal to that latch and its ledger
               raised by exactly M’s ledger. (4) If instead M’s reading is yes at s0 , then at the host
-              time matching each move n before M stops, the host’s ledger is M’s ledger after n
-              moves plus exactly three.
-
-              Proof. (1) and (2): the guest pays M’s prices in PAYs, a unit at a time, except at the
-              move where M’s reading first says yes. There it has to run its CHECK, COMMIT
-              and CERTIFY, three units, and it makes up the rest of the move’s price in PAYs, so it
-              pays the larger of the price c and three. The price is at least one, because the move
-              raised a reading (the toll), so the excess is at most two, and none when c ≥ 3. (3):
-              a raised flag on the host machine costs at least three from a clean start, whatever
-              the program, and M’s ledger is less. (4): the guest finds the reading yes before M
 D.2 Every computably presented Thiele machine, on one host: driven, decided, priced in whole units, carried as a latch
                                                                                                                   523
 
+time matching each move n before M stops, the host’s ledger is M’s ledger after n
+moves plus exactly three.
+
+Proof. (1) and (2): the guest pays M’s prices in PAYs, a unit at a time, except at the
+move where M’s reading first says yes. There it has to run its CHECK, COMMIT
+and CERTIFY, three units, and it makes up the rest of the move’s price in PAYs, so it
+pays the larger of the price c and three. The price is at least one, because the move
+raised a reading (the toll), so the excess is at most two, and none when c ≥ 3. (3):
+a raised flag on the host machine costs at least three from a clean start, whatever
+the program, and M’s ledger is less. (4): the guest finds the reading yes before M
 has made a move, runs its CHECK, COMMIT and CERTIFY there, three units on top
 of a ledger of nothing, and from then on its flag is up, so the reading never first says
 yes again and every move’s price is paid in PAYs, exactly.
@@ -21189,19 +21199,19 @@ makes the ledger exact.
 • One run per start. The driver picks the move, so the guest is deterministic. A
   machine whose next move is somebody’s free choice gets in only with that choice
   written into its driver.
-• The record is the latch. The host’s flag is up once M’s reading has been yes at
-  any state of the run, which is exactly the latch of Section 10. A reading that goes
-  yes and then back to no is carried as “it was yes once.”
-• The ledger is exact up to the surcharge. When the reading starts at no, at most
-  two, and zero when the first raising move costs three or more; when it starts at
-  yes, three. And no program on this host, run from a clean start, can do better
-  when the guest certifies with its whole ledger below three.
-• Prices in whole units, paid one at a time. A move that costs a million is a
-  million PAYs. The compiler also uses Minsky’s packing. Between them, those two
-  choices set how long the host takes to pay the guest’s bill.
 524   D The universal machines
 
 
+               • The record is the latch. The host’s flag is up once M’s reading has been yes at
+                 any state of the run, which is exactly the latch of Section 10. A reading that goes
+                 yes and then back to no is carried as “it was yes once.”
+               • The ledger is exact up to the surcharge. When the reading starts at no, at most
+                 two, and zero when the first raising move costs three or more; when it starts at
+                 yes, three. And no program on this host, run from a clean start, can do better
+                 when the guest certifies with its whole ledger below three.
+               • Prices in whole units, paid one at a time. A move that costs a million is a
+                 million PAYs. The compiler also uses Minsky’s packing. Between them, those two
+                 choices set how long the host takes to pay the guest’s bill.
                • Proved; never run on a presented machine. The demonstration machine’s
                  numbers come from the two theorems above. UP itself has run on guests small
                  enough to finish; a presented machine’s compiled guest is far too large for that,
@@ -21231,20 +21241,21 @@ makes the ledger exact.
               ledger µ(h), its own flag own(h), the guest program P(h) held as a list of instructions,
               the guest state g(h), and the mirror m(h), a yes/no copy of the guest’s flag. The host
               has two kinds of move. OWN i runs the instruction i on the host’s own core, costs
-              what the small machine charges for i, and raises own exactly when that machine’s
-              flag would rise. GSTEP b costs b. If the host’s core is trapped it does nothing else.
-              Otherwise it moves the host to its next line and, if the guest’s next instruction costs
-              at most b, takes one program step of the guest, which leaves a stopped guest where
-              it is; in the same move the mirror becomes m(h) ∨ (¬cert( g(h)) ∧ cert( g′ )), where
-              g′ is the new guest state. The host’s reading is own(h) ∨ m(h). Its stored program
-              is U0 = [GSTEP 1; OWN (INC A); OWN (DEC A 1)]: one guest step, then two
-              moves that bring the host back to its first line. It loads a program P from ( x, y) with
-              g(h) = start( x, y) and the mirror and its own flag down.
-                Every instruction of the small machine costs at most one, so GSTEP 1 runs every
-              guest instruction there is. Why charge the budget b? Why not the cost of whatever
                                                        D.3 A simpler host, with the guest step built in   525
 
 
+what the small machine charges for i, and raises own exactly when that machine’s
+flag would rise. GSTEP b costs b. If the host’s core is trapped it does nothing else.
+Otherwise it moves the host to its next line and, if the guest’s next instruction costs
+at most b, takes one program step of the guest, which leaves a stopped guest where
+it is; in the same move the mirror becomes m(h) ∨ (¬cert( g(h)) ∧ cert( g′ )), where
+g′ is the new guest state. The host’s reading is own(h) ∨ m(h). Its stored program
+is U0 = [GSTEP 1; OWN (INC A); OWN (DEC A 1)]: one guest step, then two
+moves that bring the host back to its first line. It loads a program P from ( x, y) with
+g(h) = start( x, y) and the mirror and its own flag down.
+
+    Every instruction of the small machine costs at most one, so GSTEP 1 runs every
+guest instruction there is. Why charge the budget b? Why not the cost of whatever
 instruction got fetched? Because charging the budget keeps the price a function of
 the move alone, which is what the definition of Section 2 asks for: you read the
 price of a host move off the move, the way you read the small machine’s prices off
@@ -21273,17 +21284,17 @@ mirror unless the guest itself passes a CERTIFY inside a guest step the host pai
 (Theorem D.12). No OWN move, in any host program at all, touches the guest’s
 state or the mirror (the second sentence of that same theorem), and no host move
 of either kind rewrites the guest’s program. And the mirror is tied to the guest’s
-earned chain: after any host run from a loaded host, if the mirror is up, the guest’s
-own run from its start contains a passing CHECK, then a COMMIT of the same
-claim, then a CERTIFY, since the mirror is the guest’s flag and the guest started clean
-(Theorem 15.9). So this host runs any small-machine program by construction and
-keeps the guest’s record by theorem, as a copy of the guest’s flag. The mirroring
-program U0 does not earn the host’s own flag; a different program could do so with
-the host’s OWN CHECK, COMMIT and CERTIFY. U does both the long way: it runs
-the guest with its own instructions, and it earns its own flag.
 526   D The universal machines
 
 
+              earned chain: after any host run from a loaded host, if the mirror is up, the guest’s
+              own run from its start contains a passing CHECK, then a COMMIT of the same
+              claim, then a CERTIFY, since the mirror is the guest’s flag and the guest started clean
+              (Theorem 15.9). So this host runs any small-machine program by construction and
+              keeps the guest’s record by theorem, as a copy of the guest’s flag. The mirroring
+              program U0 does not earn the host’s own flag; a different program could do so with
+              the host’s OWN CHECK, COMMIT and CERTIFY. U does both the long way: it runs
+              the guest with its own instructions, and it earns its own flag.
 
 
               Theorem D.9 (The host runs any guest). (1) If the host’s core is not trapped, then
@@ -21310,19 +21321,19 @@ the guest with its own instructions, and it earns its own flag.
               mirror or the crossing, and the guest’s flag is a latch (Theorem 15.5), so if the old
               mirror equalled the old flag, the new mirror equals the new flag. The last sentence
               is this together with Theorem D.9.
+                                                      D.3 A simpler host, with the guest step built in   527
 
 
 
-              Theorem D.11 (The host’s step collects the guest’s toll). (1) If h agrees, is not
-              trapped, and the guest step that budget b allows takes the guest’s flag from down to
-              up, then the mirror is down before GSTEP b and up after it, the host’s ledger rose
-              by exactly b, and b ≥ 1. (2) In the run of (1) of Theorem D.9, from a host that
-              agrees, if the guest’s flag goes up between its steps n and n + 1, the mirror goes up
-              between the host’s moves n and n + 1, and that move costs 1. (3) For every host
-              trace t, µ( g(run(t, h))) + µ(h) ≤ µ(run(t, h)) + µ( g(h)): the host’s ledger grows at
-              least as fast as the guest’s.
-                                                       D.3 A simpler host, with the guest step built in   527
 
+Theorem D.11 (The host’s step collects the guest’s toll). (1) If h agrees, is not
+trapped, and the guest step that budget b allows takes the guest’s flag from down to
+up, then the mirror is down before GSTEP b and up after it, the host’s ledger rose
+by exactly b, and b ≥ 1. (2) In the run of (1) of Theorem D.9, from a host that
+agrees, if the guest’s flag goes up between its steps n and n + 1, the mirror goes up
+between the host’s moves n and n + 1, and that move costs 1. (3) For every host
+trace t, µ( g(run(t, h))) + µ(h) ≤ µ(run(t, h)) + µ( g(h)): the host’s ledger grows at
+least as fast as the guest’s.
 
 Proof. (1) The guest’s flag rises only on a passing CERTIFY (Theorem 15.5), which
 costs 1, and the budget let it run, so b ≥ 1; the mirror was the guest’s flag, so it was
@@ -21354,20 +21365,20 @@ and any host trace that raises the host’s reading costs at least 1.
 
 Proof. The mirror’s half is Theorem D.12; the own flag’s half is the small machine’s
 toll on the host’s core. The trace form is Section 2’s universal floor.
-
-Remark D.1 (Two guests, run). Load the guest CHECK is zero A; COMMIT is zero
-A; CERTIFY; HALT with both counters at 0. After two moves GSTEP 1 the mirror is
-down; after three it is up, the guest’s flag is up, the host’s own flag is still down, and
-the host has paid 3. Under the program U0 the mirror is down at host step 6 and up
-at step 7, with 3 paid. The guest CERTIFY; CERTIFY traps on its first step: after five
-moves GSTEP 1 the mirror is down, the guest is trapped, and the host has paid 5 for
-nothing.
-   That copy can’t be faked. The proof walks every host move there is, and the
-copy only rises in a guest step where the guest itself ran CERTIFY and passed. A
-host program that never touches the guest leaves the copy exactly where it was.
 528   D The universal machines
 
 
+              Remark D.1 (Two guests, run). Load the guest CHECK is zero A; COMMIT is zero
+              A; CERTIFY; HALT with both counters at 0. After two moves GSTEP 1 the mirror is
+              down; after three it is up, the guest’s flag is up, the host’s own flag is still down, and
+              the host has paid 3. Under the program U0 the mirror is down at host step 6 and up
+              at step 7, with 3 paid. The guest CERTIFY; CERTIFY traps on its first step: after five
+              moves GSTEP 1 the mirror is down, the guest is trapped, and the host has paid 5 for
+              nothing.
+
+                 That copy can’t be faked. The proof walks every host move there is, and the
+              copy only rises in a guest step where the guest itself ran CERTIFY and passed. A
+              host program that never touches the guest leaves the copy exactly where it was.
               From a loaded host the copy always equals the guest’s flag, and the host’s ledger
               always grows at least as fast as the guest’s, and a three-instruction loop runs any
               small-machine program one guest step per pass. Here the mirror, the crossing test
@@ -21389,7 +21400,7 @@ host program that never touches the guest leaves the copy exactly where it was.
               are the two classical results that turn a universal machine into a place where the
               diagonal bites: Rice’s theorem and Kleene’s recursion theorem. They come with a
               wrinkle I should put first, because it decides which machine they’re about.
-                   The wrinkle is the one from Section 15, at the end of the subsection on what two
+                  The wrinkle is the one from Section 15, at the end of the subsection on what two
               counters compute. The small machine takes its inputs straight into two counters,
               and Schroeppel’s memo gives a proof that two plain counters can’t even compute
               2n from n. Rice’s reduction has to keep a program’s input safe while a copy of a
@@ -21398,20 +21409,20 @@ host program that never touches the guest leaves the copy exactly where it was.
               they’re true and where I could prove them. The host machine of Definition D.2, the
               one with a counter for every number that U runs on, is a fine programming system:
               its programs are numbers, an input sits in register 1, and there’s room to spare. On
-              it both theorems hold in full. On the two-counter machine itself the story splits, and
-              I’ll tell it at the end of the subsection: Rice’s theorem holds on every input, by a trick
-              for keeping the input that I’ll show you; Kleene’s holds when inputs are written as
-              powers of two, the way Minsky packed them; and on plain inputs Kleene’s is false,
-              and that’s a theorem too.
-                   The host machine’s programs are numbered in the same style as U numbers a
-              guest’s. Write ⟨m, n⟩ for (2n + 1) · 2m . INC r is ⟨0, r ⟩, DEC r j is ⟨1, ⟨r, j⟩⟩, HALT is
-              ⟨2, 0⟩, CHECK r is ⟨3, r ⟩, COMMIT r is ⟨4, r ⟩, CERTIFY is ⟨5, 0⟩, and a program is the
-              list code: the empty program is 0, and an instruction x followed by a program t is
-              ⟨ x, code(t)⟩. An instruction number that is none of these codes reads as HALT. Then
-              every number decodes to some program, since a positive number is ⟨ x, n⟩ with n
-                                                      D.4 The diagonal, on this machine’s programs   529
+                                                        D.4 The diagonal, on this machine’s programs   529
 
 
+it both theorems hold in full. On the two-counter machine itself the story splits, and
+I’ll tell it at the end of the subsection: Rice’s theorem holds on every input, by a trick
+for keeping the input that I’ll show you; Kleene’s holds when inputs are written as
+powers of two, the way Minsky packed them; and on plain inputs Kleene’s is false,
+and that’s a theorem too.
+     The host machine’s programs are numbered in the same style as U numbers a
+guest’s. Write ⟨m, n⟩ for (2n + 1) · 2m . INC r is ⟨0, r ⟩, DEC r j is ⟨1, ⟨r, j⟩⟩, HALT is
+⟨2, 0⟩, CHECK r is ⟨3, r ⟩, COMMIT r is ⟨4, r ⟩, CERTIFY is ⟨5, 0⟩, and a program is the
+list code: the empty program is 0, and an instruction x followed by a program t is
+⟨ x, code(t)⟩. An instruction number that is none of these codes reads as HALT. Then
+every number decodes to some program, since a positive number is ⟨ x, n⟩ with n
 smaller than it, and decoding a program’s code gives the program back. When I put
 one program after another, the later one’s jumps move down by the length of what
 comes before it, and a jump to a line where it has no instruction, line 0 included,
@@ -21441,18 +21452,19 @@ Definition D.5 (Behaving the same, on the host). A host program ends in a state
 when it halts there, from the start with x in register 1 and the rest clean; a trap
 counts as stopping. Two host programs behave the same when for every input x, any
 state one ends in has a state the other ends in that agrees with it on every register’s
-value, the fact table, the channel, the trap latch, the ledger and the flag, and the
-same the other way round. The line number and the versions aren’t compared. A
-property of host programs is extensional when behaving the same carries it from one
-program to the other.
-
-
-
-Theorem D.14 (Rice’s theorem on the host machine). Let Π be an extensional
-property of host programs that some program has and some program lacks. Then Π
-is undecidable in the reduction sense of Theorem 15.4.
 530   D The universal machines
 
+
+              value, the fact table, the channel, the trap latch, the ledger and the flag, and the
+              same the other way round. The line number and the versions aren’t compared. A
+              property of host programs is extensional when behaving the same carries it from one
+              program to the other.
+
+
+
+              Theorem D.14 (Rice’s theorem on the host machine). Let Π be an extensional
+              property of host programs that some program has and some program lacks. Then Π
+              is undecidable in the reduction sense of Theorem 15.4.
 
               Proof. The reduction above. The prefix before y leaves every register but the two
               fresh ones as it found them, and empties those, so when H halts the built program
@@ -21483,20 +21495,20 @@ is undecidable in the reduction sense of Theorem 15.4.
               program H with a start ( a, b), and let y have Π and n lack it; as before, if the
               program that loops has Π, swap the roles of y and n. Build the program that does
               INC A a times and INC B b times, runs a copy of H with its jumps moved down
-              (a jump to a line where H has no instruction, line 0 or past its end, goes to the
-              line just after the copy), empties A and then B with a one-line DEC loop each, and
-              then runs y with its jumps moved down. From the clean start the copy of H begins
-              at ( a, b), which is H’s own start, so it stops exactly when H does. If it does, both
-              counters are emptied and y runs from (0, 0). Every instruction before y is an INC
-              or a DEC: it puts no mark on the ledger and touches no fact, channel, trap latch or
-              flag. It does move the versions of A and B up, each by the number of writes that
-              counter took before y started, and the facts y records carry versions. But a CHECK
-              or a COMMIT reads versions only to ask whether two versions of the same counter
-              are equal, and adding one fixed amount to both keeps the answer. So y takes the
-              same steps inside the built program as it takes from the clean start, with the same
-                                                       D.4 The diagonal, on this machine’s programs   531
+                                                      D.4 The diagonal, on this machine’s programs   531
 
 
+(a jump to a line where H has no instruction, line 0 or past its end, goes to the
+line just after the copy), empties A and then B with a one-line DEC loop each, and
+then runs y with its jumps moved down. From the clean start the copy of H begins
+at ( a, b), which is H’s own start, so it stops exactly when H does. If it does, both
+counters are emptied and y runs from (0, 0). Every instruction before y is an INC
+or a DEC: it puts no mark on the ledger and touches no fact, channel, trap latch or
+flag. It does move the versions of A and B up, each by the number of writes that
+counter took before y started, and the facts y records carry versions. But a CHECK
+or a COMMIT reads versions only to ask whether two versions of the same counter
+are equal, and adding one fixed amount to both keeps the answer. So y takes the
+same steps inside the built program as it takes from the clean start, with the same
 counters, trap latch, ledger and flag at every point, and with facts that differ only
 by that fixed shift in their versions. That shift is why the fact table and the channel
 are left out of “behaves the same from the clean start.” If H doesn’t stop, neither
@@ -21524,22 +21536,22 @@ that needs one input fewer. Then the witness is the evaluator specialised to its
 code. Run on any input, it builds its own code, hands it to F’s program, gets the
 code of F ( p), and runs that.
     Here’s each piece on the host machine, with its exact premise.
-
-
-Theorem D.16 (s-m-n, and a universal program for host programs). (1) For a
-number c and a host program V, let spec(c, V ) be c copies of INC 2 followed by V
-with its jumps moved to follow them. Then for all x, y, spec(c, V ) outputs y on input
-x if and only if V, started with x in register 1 and c in register 2, halts with y in
-register 0. (2) There is a host program W made only of INC, DEC and HALT such
-that, for all c, x, y, W started with x in register 1 and c in register 2 halts with y in
-register 0 exactly when the host program numbered c outputs y on input x.
-
-Proof. (1) The prefix writes register 2 c times and nothing else, so it moves that
-register’s version from 0 to c. A fact records a version, so after the prefix every later
-version of register 2, and the version in every fact the run records about register 2,
 532   D The universal machines
 
 
+
+
+              Theorem D.16 (s-m-n, and a universal program for host programs). (1) For a
+              number c and a host program V, let spec(c, V ) be c copies of INC 2 followed by V
+              with its jumps moved to follow them. Then for all x, y, spec(c, V ) outputs y on input
+              x if and only if V, started with x in register 1 and c in register 2, halts with y in
+              register 0. (2) There is a host program W made only of INC, DEC and HALT such
+              that, for all c, x, y, W started with x in register 1 and c in register 2 halts with y in
+              register 0 exactly when the host program numbered c outputs y on input x.
+
+              Proof. (1) The prefix writes register 2 c times and nothing else, so it moves that
+              register’s version from 0 to c. A fact records a version, so after the prefix every later
+              version of register 2, and the version in every fact the run records about register 2,
               is c more than in a clean run. A CHECK or a COMMIT reads versions only to ask
               whether two versions of the same register are equal, and adding c to both keeps the
               answer, so the two runs take the same steps. The run is V’s run from the stated start,
@@ -21567,21 +21579,20 @@ version of register 2, and the version in every fact the run records about regis
                f on numbers, defined everywhere, that some host program computes, some number
               e has the program numbered e and the program numbered f (e) output the same on
               every input.
-
-              Proof. (1) Let E be the following program of INC and DEC, built the same way as
-              W from one finite evaluator, with T’s number t written in. On inputs x and c it
-              computes the number of spec(c, Pc ), where Pc is the program numbered c, runs T
-              on that number to get d, and then runs the program numbered d on x. Let c0 be the
-              number of E, and let e = spec(c0 , E). By (1) of Theorem D.16, e on input x does
-              what E does on x and c0 . And E on c0 builds the number of spec(c0 , Pc0 ), which is
-              the number of e, since Pc0 is E. So e hands its own number to T, gets d, and runs d
-              on x. (2) and (3) are (1) with T carrying out F or f .
-                  That fixed point is of the function: e and F (e) stop on the same inputs and leave
-              the same number in register 0. Their ledgers, flags and fact tables can differ: e is
-              all INC and DEC, so whatever F (e) pays, e only simulates. I’d like a fixed point that
                                                         D.4 The diagonal, on this machine’s programs   533
 
 
+Proof. (1) Let E be the following program of INC and DEC, built the same way as
+W from one finite evaluator, with T’s number t written in. On inputs x and c it
+computes the number of spec(c, Pc ), where Pc is the program numbered c, runs T
+on that number to get d, and then runs the program numbered d on x. Let c0 be the
+number of E, and let e = spec(c0 , E). By (1) of Theorem D.16, e on input x does
+what E does on x and c0 . And E on c0 builds the number of spec(c0 , Pc0 ), which is
+the number of e, since Pc0 is E. So e hands its own number to T, gets d, and runs d
+on x. (2) and (3) are (1) with T carrying out F or f .
+    That fixed point is of the function: e and F (e) stop on the same inputs and leave
+the same number in register 0. Their ledgers, flags and fact tables can differ: e is
+all INC and DEC, so whatever F (e) pays, e only simulates. I’d like a fixed point that
 agrees on the record too, and the next two theorems say how much of that can be
 had. The ledger and the flag can be had. Every register can’t.
 
@@ -21611,20 +21622,20 @@ at least one fact. A CERTIFY needs a commitment, so a raised flag means a passin
 COMMIT, and so a positive allowance. And the channel is empty exactly when no
 COMMIT passed, which is exactly when the allowance is zero, since a CERTIFY can’t
 pass before a COMMIT has. The allowance counts repeated CERTIFYs as well as
-COMMITs; it counts marks the replay can spend on commitments, not the original
-commitment events. Those are the only properties of a record the replay will use.
-    The second step is five blocks, one for each number. Each block reads the code of
-T, runs T on the number of the specialised program, runs the program that comes
-out on x, and returns its number. All of that happens on plain data: the blocks are
-programs of INC and DEC, built the way W was, from a finite evaluator translated
-into INC and DEC. So if T has marks of its own, they are simulated and never paid.
-    The third step is the payment. The evaluator puts 1 in a fresh register, which is
-⟨0, 0⟩, the pair of Zero and 0, so it satisfies the host’s one property, and CHECKs it
-once for every fact; there are at most sixteen, so the table has room. It COMMITs to
-that claim once for every mark in the replay allowance. It CERTIFYs once if the flag
 534   D The universal machines
 
 
+              COMMITs; it counts marks the replay can spend on commitments, not the original
+              commitment events. Those are the only properties of a record the replay will use.
+                  The second step is five blocks, one for each number. Each block reads the code of
+              T, runs T on the number of the specialised program, runs the program that comes
+              out on x, and returns its number. All of that happens on plain data: the blocks are
+              programs of INC and DEC, built the way W was, from a finite evaluator translated
+              into INC and DEC. So if T has marks of its own, they are simulated and never paid.
+                  The third step is the payment. The evaluator puts 1 in a fresh register, which is
+              ⟨0, 0⟩, the pair of Zero and 0, so it satisfies the host’s one property, and CHECKs it
+              once for every fact; there are at most sixteen, so the table has room. It COMMITs to
+              that claim once for every mark in the replay allowance. It CERTIFYs once if the flag
               is up. It copies the first number into register 0. And if the trap latch is up, it CHECKs
               a register that holds 0, which fails, since 0 is no pair, and the host traps. Everything
               before the payments is INC and DEC and costs no marks, and the payments cost
@@ -21654,19 +21665,19 @@ that claim once for every mark in the replay allowance. It CERTIFYs once if the 
               Proof. Let F ( p) be the one-line program INC r, with r one above the number of
               p. To carry this out on numbers, add one to the input code, encode INC with that
               register, and encode the one-element instruction list. These are finite arithmetic
-              operations of the counter construction in Appendix K. A program’s number is at
-              least every register it names: the number of an instruction is above its register, and
-              the code of a list is above every instruction in it. So e can’t name r, the register F (e)
-              writes. On input 0 the run of F (e) ends with 1 in register r, and if e stops at all, it
-              ends with 0 there. If e doesn’t stop, then it already differs from F (e), which does.
-              Either way they don’t behave the same.
-                 A variant of F that also CHECKs register r and commits to it gives F (e) a fact and
-              a commitment about r that e can’t have, so no fixed point agrees on the fact table
-              alone, or on the channel alone, or on the versions of the registers. What survives is
-              what Theorem D.18 states, plus any register named in advance, or any finite set of
-                                                      D.4 The diagonal, on this machine’s programs   535
+                                                       D.4 The diagonal, on this machine’s programs   535
 
 
+operations of the counter construction in Appendix K. A program’s number is at
+least every register it names: the number of an instruction is above its register, and
+the code of a list is above every instruction in it. So e can’t name r, the register F (e)
+writes. On input 0 the run of F (e) ends with 1 in register r, and if e stops at all, it
+ends with 0 there. If e doesn’t stop, then it already differs from F (e), which does.
+Either way they don’t behave the same.
+   A variant of F that also CHECKs register r and commits to it gives F (e) a fact and
+a commitment about r that e can’t have, so no fixed point agrees on the fact table
+alone, or on the channel alone, or on the versions of the registers. What survives is
+what Theorem D.18 states, plus any register named in advance, or any finite set of
 them: before it pays, the evaluator reads that register’s final value off the simulated
 run of F (e) and writes it into its own copy of the register, keeping its scratch work
 and its two payment registers elsewhere. The register F above writes is chosen by
@@ -21695,21 +21706,21 @@ that computes D’s flip on numbers, by the finite-simulation search of Appendix
 reading the Boolean from the first halting run of D; then (1) applies. This one is a
 plain no: the flip (1) needs is built from D itself, so no premise about what can be
 represented is left over.
-   Rice and Kleene are the ingredients the diagonal of Section 13 asks a substrate for,
-and the wall they put up doesn’t care about the record: the base does the computing
-and the flag watches. A program’s ledger and flag are among what “behaves the
-same” sees on the host, so a nontrivial property of those is undecidable too, in the
-reduction sense of Theorem D.14, and the fixed point is up to the record, as far as
-the theorems above say and no further.
-   Now the two-counter machine itself, which I promised at the start of the subsec-
-tion: Minsky’s two bins of pebbles and nothing else. Rice, first. Say a two-counter
-program behaves the same as another on a set X of inputs when, on every input n in
-X, started with n pebbles in bin A and none in bin B, one stops exactly when the
-other does, and then they agree on both bins, the trap latch, the ledger, the flag, and
-on which property and which counter each recorded fact and the channel are about.
 536   D The universal machines
 
 
+                  Rice and Kleene are the ingredients the diagonal of Section 13 asks a substrate for,
+              and the wall they put up doesn’t care about the record: the base does the computing
+              and the flag watches. A program’s ledger and flag are among what “behaves the
+              same” sees on the host, so a nontrivial property of those is undecidable too, in the
+              reduction sense of Theorem D.14, and the fixed point is up to the record, as far as
+              the theorems above say and no further.
+                  Now the two-counter machine itself, which I promised at the start of the subsec-
+              tion: Minsky’s two bins of pebbles and nothing else. Rice, first. Say a two-counter
+              program behaves the same as another on a set X of inputs when, on every input n in
+              X, started with n pebbles in bin A and none in bin B, one stops exactly when the
+              other does, and then they agree on both bins, the trap latch, the ledger, the flag, and
+              on which property and which counter each recorded fact and the channel are about.
               The versions are left out: they say which write a fact is about, and the trick below
               moves them.
                   The trick is the whole problem. Rice’s reduction has to keep the program’s input
@@ -21738,25 +21749,25 @@ on which property and which counter each recorded fact and the channel are about
               b, build a program that turns the input of n pebbles in bin A into (6n + 5) · 2a · 3b ,
               runs H inside the exponents of 2 and 3, divides out every 2 and every 3 when H
               stops, takes away 5, divides by 6, and then runs the program that has the property.
-              Because 6n + 5 shares no factor with 2 or 3, the coding never mistakes it for an
-              exponent, and the input comes back whole. If H halts, the built program behaves
-              the same as the one with the property on every input; if not, it never stops on
-              any input, like the program that loops. As before, if the looping program has the
-              property, put a program that lacks it at the end instead, and the decider’s own
-              answer about the looping program says which. So a decider for the property would
-              decide two-counter halting.
-                  Try input 2 while the simulated counters hold 1 and 2. The pile is 17 · 2 · 9 = 306.
-              Raising the first simulated counter doubles it to 612; lowering the second divides it
-              by three, to 204. Strip off every factor of two and three and 17 remains; subtract
-              five and divide by six, and the original input 2 is back.
-                                                       D.4 The diagonal, on this machine’s programs   537
+                                                      D.4 The diagonal, on this machine’s programs   537
 
 
-   So 6n + 5 is the place to keep the input that two counters seemed not to have. It
+Because 6n + 5 shares no factor with 2 or 3, the coding never mistakes it for an
+exponent, and the input comes back whole. If H halts, the built program behaves
+the same as the one with the property on every input; if not, it never stops on
+any input, like the program that loops. As before, if the looping program has the
+property, put a program that lacks it at the end instead, and the decider’s own
+answer about the looping program says which. So a decider for the property would
+decide two-counter halting.
+    Try input 2 while the simulated counters hold 1 and 2. The pile is 17 · 2 · 9 = 306.
+Raising the first simulated counter doubles it to 612; lowering the second divides it
+by three, to 204. Strip off every factor of two and three and 17 remains; subtract
+five and divide by six, and the original input 2 is back.
+    So 6n + 5 is the place to keep the input that two counters seemed not to have. It
 isn’t beside the work. It’s inside it, in a factor the work never touches. I like that
 one more than I can justify: the input hides in the leftover that every halving and
 thirding walks straight past.
-   Kleene needs more than keeping an input. It needs a program that runs a
+    Kleene needs more than keeping an input. It needs a program that runs a
 program. So write a number x as 2x pebbles and read a result as the exponent of 2,
 the way Minsky did. With inputs written that way, there’s one two-counter program,
 call it U2 , that, started on 2x · 3e , stops with 2y exactly when the program numbered
@@ -21781,19 +21792,19 @@ of Appendix K.3 gives U2 : started on 2x · 3e it stops with 2y in bin A exactly
 the program numbered e, started on 2x , stops with 2y . Second, specialising. For a
 number c and a program V, let spec(c, V ) be c copies of a block that multiplies bin
 A by three, followed by V with its jumps moved down. The block is INC and DEC
-only, so it puts no marks on the ledger and records nothing, and started on 2x the c
-copies leave 2x · 3c ; so spec(c, V ) on 2x does what V does on 2x · 3c . Third, the fixed
-point. Let T be a program that carries out F: on 2n , n the number of a program
-p, it stops with 2m , m the number of F ( p). Build E from the same finite evaluator,
-with T’s number written in, and pack it into two counters as before: on 2x · 3c it
-computes the number of spec(c, Pc ), where Pc is the program numbered c, runs T
-on that number to get d, and runs the program numbered d on 2x . Let c0 be the
-number of E and e = spec(c0 , E). On 2x , e does what E does on 2x · 3c0 : it builds
-the number of spec(c0 , Pc0 ), which is the number of e itself since Pc0 is E, hands it
-to T, gets the number of F (e), and runs F (e) on 2x . The machine is deterministic,
 538   D The universal machines
 
 
+              only, so it puts no marks on the ledger and records nothing, and started on 2x the c
+              copies leave 2x · 3c ; so spec(c, V ) on 2x does what V does on 2x · 3c . Third, the fixed
+              point. Let T be a program that carries out F: on 2n , n the number of a program
+              p, it stops with 2m , m the number of F ( p). Build E from the same finite evaluator,
+              with T’s number written in, and pack it into two counters as before: on 2x · 3c it
+              computes the number of spec(c, Pc ), where Pc is the program numbered c, runs T
+              on that number to get d, and runs the program numbered d on 2x . Let c0 be the
+              number of E and e = spec(c0 , E). On 2x , e does what E does on 2x · 3c0 : it builds
+              the number of spec(c0 , Pc0 ), which is the number of e itself since Pc0 is E, hands it
+              to T, gets the number of F (e), and runs F (e) on 2x . The machine is deterministic,
               so a packed output is unique, and for every x and y, e started on 2x stops with 2y
               exactly when F (e) does. (2) is the counterexample that follows.
                   The counterexample in (2) is short. Number the programs the way U numbers
@@ -21824,19 +21835,19 @@ to T, gets the number of F (e), and runs F (e) on 2x . The machine is determinis
                  For (1), suppose an n-line program did it. Split each state into the two bin counts
               and a finite control: the line (one of the n lines, or “stopped” for any line with no
               instruction), the trap, whether the channel is empty, and the table read entry by
-              entry as a fact’s property, its counter, and whether it is current (its version is its
-              counter’s version now) or stale. Only properties the program names can enter the
-              table, at most n of them, so an entry is one of at most 4n kinds, and a table of at
-              most sixteen entries is one of at most ∑k≤16 (4n)k ≤ (4n + 1)16 lists. So there are at
-              most Q = 4(n + 1)(4n + 1)16 controls. The control and the two counts decide the
-              next control and counts: a CHECK writes a current fact, a write to a counter makes
-              that counter’s facts stale, a COMMIT passes exactly when a current fact with its
-              property and counter is in the table, a CERTIFY passes exactly when the channel isn’t
-              empty, and the ledger, the flag, the channel’s contents and the versions themselves
-              never decide a branch. Call the control with the two counts a configuration.
                                                        D.4 The diagonal, on this machine’s programs   539
 
 
+entry as a fact’s property, its counter, and whether it is current (its version is its
+counter’s version now) or stale. Only properties the program names can enter the
+table, at most n of them, so an entry is one of at most 4n kinds, and a table of at
+most sixteen entries is one of at most ∑k≤16 (4n)k ≤ (4n + 1)16 lists. So there are at
+most Q = 4(n + 1)(4n + 1)16 controls. The control and the two counts decide the
+next control and counts: a CHECK writes a current fact, a write to a counter makes
+that counter’s facts stale, a COMMIT passes exactly when a current fact with its
+property and counter is in the table, a CERTIFY passes exactly when the channel isn’t
+empty, and the ledger, the flag, the channel’s contents and the versions themselves
+never decide a branch. Call the control with the two counts a configuration.
     Pick a threshold h ≥ 1 above every number k in a property Ge(k) the program
 names. At h or above, a count answers every question the program can put to it (is
 it zero, is it even, is it at least k, can a DEC take one off) the same way as any other
@@ -21866,20 +21877,20 @@ round, never dipping below h. In every case but (a), then, the forced run from s
 step on repeats one stretch forever, and each time round the exact bin changes by a
 fixed g and the large bin by a fixed amount; in (b) g = 0, and in (c) the stretch is at
 most N moves long.
-    What the real run does, once v is large enough for that stage start, meaning the
-large bin can’t reach the crossing before the forced run stops or its repeating stretch
-has gone round once in full. If the forced run stops, the real run stops the same
-way, with the exact bin at a count fixed by the stage start and the large one at v
-plus a fixed amount. If the large bin doesn’t lose each time round, the real run
-never crosses and never stops. If it loses and g = 0, the real run crosses with both
-bins below a bound fixed by the stage start. The remaining case is a transfer: each
-time round the large bin loses m > 0 and the exact one gains g > 0. That’s case
-(c), so the stretch has at most N moves, each moving one bin by at most one, and
-m, g ≤ N; both are even. Now the stage rule. Start the same stage with v + m
-in place of v. The parity is the same, so the forced run is the same, and since the
 540   D The universal machines
 
 
+                  What the real run does, once v is large enough for that stage start, meaning the
+              large bin can’t reach the crossing before the forced run stops or its repeating stretch
+              has gone round once in full. If the forced run stops, the real run stops the same
+              way, with the exact bin at a count fixed by the stage start and the large one at v
+              plus a fixed amount. If the large bin doesn’t lose each time round, the real run
+              never crosses and never stops. If it loses and g = 0, the real run crosses with both
+              bins below a bound fixed by the stage start. The remaining case is a transfer: each
+              time round the large bin loses m > 0 and the exact one gains g > 0. That’s case
+              (c), so the stretch has at most N moves, each moving one bin by at most one, and
+              m, g ≤ N; both are even. Now the stage rule. Start the same stage with v + m
+              in place of v. The parity is the same, so the forced run is the same, and since the
               crossing comes after the stretch has gone round once, the bin needs exactly one
               more time round to get down to h − 1. So the real run crosses one time round later,
               with the same control, the formerly large bin at h − 1, and the other bin larger by g.
@@ -21909,16 +21920,18 @@ in place of v. The parity is the same, so the forced run is the same, and since 
               stops.
                   The comparison. Put D = 2 ∏i mi and run the input x + D. It is x plus a multiple
               of m1 , so by the stage rule the first stage crosses at the same configuration except
-              that the other bin is larger by ( D/m1 ) g1 = 2g1 ∏i≥2 mi , which is a multiple of m2 .
-              So the second stage crosses the same way, with the next bin larger by 2g1 g2 ∏i≥3 mi ,
-              and so on through every stage. The last stage starts with its large bin larger by
-              2 ∏i gi , an even amount, so it stops the same way with bin A larger by exactly that.
-              So the outputs from x + D and from x differ by 2 ∏i gi . But multiplication by c
-              makes them differ by cD = 2c ∏i mi . Cancel two:
-                                                  c ∏ m i = ∏ gi .
-                                                    i         i
-                                                     D.4 The diagonal, on this machine’s programs   541
+                                                      D.4 The diagonal, on this machine’s programs   541
 
+
+that the other bin is larger by ( D/m1 ) g1 = 2g1 ∏i≥2 mi , which is a multiple of m2 .
+So the second stage crosses the same way, with the next bin larger by 2g1 g2 ∏i≥3 mi ,
+and so on through every stage. The last stage starts with its large bin larger by
+2 ∏i gi , an even amount, so it stops the same way with bin A larger by exactly that.
+So the outputs from x + D and from x differ by 2 ∏i gi . But multiplication by c
+makes them differ by cD = 2c ∏i mi . Cancel two:
+
+                                  c ∏ m i = ∏ gi .
+                                     i        i
 
 Empty products are 1. Every factor on the right is between 1 and N, and c is a prime
 above N, so it divides none of them, and a prime that divides a product divides one
@@ -21951,12 +21964,14 @@ theorem; compare Theorem D.23), so they fall outside Rogers’s class, and his r
 to the theorem isn’t open there. The computer scientists James Royer and John
 Case (1994) studied that territory: programming systems for classes of functions
 smaller than all the computable ones, which can’t be acceptable, and what can still
-be programmed and proved in them. And the logician and puzzle writer Raymond
-Smullyan’s two books on recursion theory and self-reference (1993, 1994) take
-the fixed-point theorems apart axiomatically, so you can see which property of a
-numbering each one leans on. The plain-input failure is a small instance on the map
-they drew.
 542   D The universal machines
+
+
+              be programmed and proved in them. And the logician and puzzle writer Raymond
+              Smullyan’s two books on recursion theory and self-reference (1993, 1994) take
+              the fixed-point theorems apart axiomatically, so you can see which property of a
+              numbering each one leans on. The plain-input failure is a small instance on the map
+              they drew.
 
 
               D.5 What the universal machine covers, and what it doesn’t
@@ -21992,15 +22007,15 @@ they drew.
               history.
                   And here’s why insisting on no built-in step is the point. A plain interpreter
               on an ordinary computer runs guests too, but then the guest’s record is data the
-              interpreter’s program updates by convention, which is exactly the position of the
-              ordinary programmable computer from Section 14 and Section 15.13. That’s a fact
-              about how such interpreters are built. It says nothing about what they can do: U
-              and UP are fixed interpreters, and their record isn’t kept by convention. Nothing in
-              them raises the host’s flag except the host’s own CERTIFY, and the host’s step won’t
-              let that pass without a COMMIT, or the COMMIT without a CHECK on a slot nobody
                                         D.5 What the universal machine covers, and what it doesn’t   543
 
 
+interpreter’s program updates by convention, which is exactly the position of the
+ordinary programmable computer from Section 14 and Section 15.13. That’s a fact
+about how such interpreters are built. It says nothing about what they can do: U
+and UP are fixed interpreters, and their record isn’t kept by convention. Nothing in
+them raises the host’s flag except the host’s own CERTIFY, and the host’s step won’t
+let that pass without a COMMIT, or the COMMIT without a CHECK on a slot nobody
 has touched. The guest’s record isn’t data the host updates. It’s a record the host
 earns again, under the same rule, on its own registers.
 APPENDIX E
