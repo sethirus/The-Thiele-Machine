@@ -181,7 +181,7 @@ Theorem nec_s_host_toll_needs_untrapped :
 Proof. vm_compute. auto. Qed.
 
 (* The ledger inequality is attained with equality on the whole demo run,
-   and is strict on a GSTEP that runs a free guest instruction. *)
+   and is strict on a GSTEP that runs an unpaid guest instruction. *)
 Theorem nec_s_host_cost_cover_tight :
   (let tr := repeat (GSTEP 1) 3 in
    E.mu (gst (hrun tr demo_host)) + hmu demo_host = hmu (hrun tr demo_host) + E.mu (gst demo_host)

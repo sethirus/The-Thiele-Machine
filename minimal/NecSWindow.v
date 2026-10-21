@@ -106,7 +106,7 @@ Lemma nec_s_total_cost_decs : forall n c j, total_cost (repeat (DEC c j) n) = 0.
 Proof. induction n; intros; simpl; auto. Qed.
 
 (* From an untrapped state, increments and decrements reach any window
-   for free, without touching the flag. *)
+   at no cost, without touching the flag. *)
 Lemma nec_s_reach_window : forall s w,
   err (core_of s) = false ->
   exists tr, window (core_of (run tr s)) = w /\ cert (run tr s) = cert s /\

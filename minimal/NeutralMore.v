@@ -125,7 +125,7 @@ Qed.
 (* What doesn't lift, neutrally.                                      *)
 (* ================================================================= *)
 
-(* The free moves of a neutral-complete machine are never finitely
+(* The unpaid moves of a neutral-complete machine are never finitely
    branching: uses only the base clause's compiled moves and prices. *)
 Definition free_finitely_branching (M : machine) : Prop :=
   forall s, exists N (idx : m_move M -> nat),
@@ -216,7 +216,7 @@ Print Assumptions nlift_finitely_branching_not_nc.
 Print Assumptions nlift_stateless_not_nc.
 
 (* ================================================================= *)
-(* Window: every window printed for free (tc-window (1)), and the     *)
+(* Window: every window printed at no cost (tc-window (1)), and the   *)
 (* ledger gap of the neutral class is exactly 1, not 3.               *)
 (* ================================================================= *)
 

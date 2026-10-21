@@ -6,7 +6,7 @@
     Read that way, "Thiele-complete" meant a Thiele machine whose base is
     Turing-universal. That notion is nearly empty: a two-counter machine
     that charges 1 for every move is a Thiele machine for ANY reading,
-    because every move pays the toll whether or not it certifies anything
+    because every move costs at least 1 whether or not it certifies anything
     [clock_weakly_thiele_complete, latch_clock_weakly_thiele_complete].
     A machine that never raises its reading is one too, vacuously
     [silent_weakly_thiele_complete].
@@ -43,7 +43,7 @@
     Over a fixed claim language. In thiele_interface the claims, their
     meanings and "unchanged" are fields beside the checker, so a reading
     could take "the checker says yes" as the meaning and meet checker
-    soundness for free. thiele_complete_over M L fixes them first: a claim
+    soundness trivially. thiele_complete_over M L fixes them first: a claim
     language L (claim_language) carries the claims, an exact equality test,
     the meaning of each claim on states, "unchanged", and the fact that a
     meaning that holds keeps holding while its subject is unchanged. An
@@ -96,8 +96,8 @@
          configuration as the record, is weakly Thiele-complete and not
          Thiele-complete [clock_not_thiele_complete,
          latch_clock_not_thiele_complete].
-      5. The other clauses do work too. A two-counter machine with a free
-         base, a ledger, and one paid move TICK that raises a latch meets
+      5. The other clauses do work too. A two-counter machine with a base
+         that costs nothing, a ledger, and one paid move TICK that raises a latch meets
          (a) and (c) and is weakly Thiele-complete, but fails (b), because
          no record that one move can raise is earned
          [paid_latch_meets_base_and_toll, one_move_record_excluded,
@@ -395,7 +395,7 @@ Definition thiele_complete (M : machine) : Prop :=
 (* In thiele_interface the claims, their meanings and "unchanged" are
    fields of the same interface that supplies the checker, so a reading
    could take "the checker says yes" as the meaning and pass checker
-   soundness for free. A claim language fixes those three things first:
+   soundness trivially. A claim language fixes those three things first:
    its claims, an exact equality test on them, what each claim means of a
    state, when the thing a claim is about counts as unchanged, and the
    fact that a meaning that holds keeps holding while its subject is
@@ -687,7 +687,7 @@ Qed.
 Definition clock_cert_system (rd : cm_conf -> bool) : CertificationSystem :=
   as_cert_system (clock rd) (proj1 (clock_weakly_thiele_complete rd)).
 
-(* SAFE: short on purpose: a Thiele-complete machine has a free move (complete_has_free_move) and every clock move costs 1. *)
+(* SAFE: short on purpose: a Thiele-complete machine has an unpaid move (complete_has_free_move) and every clock move costs 1. *)
 Theorem clock_not_thiele_complete : forall rd, ~ thiele_complete (clock rd).
 Proof.
   intros rd H. destruct (complete_has_free_move _ H) as [m Hm].
@@ -715,14 +715,14 @@ Proof.
   intros s m _ _. simpl. lia.
 Qed.
 
-(* SAFE: short on purpose: a Thiele-complete machine has a free move (complete_has_free_move) and every move costs 1. *)
+(* SAFE: short on purpose: a Thiele-complete machine has an unpaid move (complete_has_free_move) and every move costs 1. *)
 Theorem latch_clock_not_thiele_complete : forall lt, ~ thiele_complete (latch_clock lt).
 Proof.
   intros lt H. destruct (complete_has_free_move _ H) as [m Hm].
   simpl in Hm. discriminate.
 Qed.
 
-(* The paid latch: a free two-counter base, a ledger, and one move TICK
+(* The paid latch: a two-counter base that costs nothing, a ledger, and one move TICK
    that costs 1 and raises the flag. It has a universal base and an exact
    toll; what it lacks is an earned record. *)
 Inductive pl_move : Type := PL_BASE (i : cm_instr) | PL_TICK.
@@ -781,7 +781,7 @@ Proof.
   intros [[x f] l]. reflexivity.
 Qed.
 
-(* The silent machine: a free two-counter base and a record that never
+(* The silent machine: a two-counter base that costs nothing and a record that never
    rises. It meets (a), (b) and (c) with nothing to certify. *)
 Definition silent : machine :=
   mk_machine cm_conf cm_instr (fun x i => cm_exec i x) (fun _ => 0) (fun _ => false).

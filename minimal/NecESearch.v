@@ -66,7 +66,7 @@ Proof.
 Qed.
 
 (* ================================================================= *)
-(* 3. The time tax needs the free fragment.                            *)
+(* 3. The time tax needs the unpaid fragment.                          *)
 (* ================================================================= *)
 
 (* One CHECK of "A >= m" decides it in one move: the program counter is 2
@@ -86,8 +86,8 @@ Proof.
   - intros a b. reflexivity.
 Qed.
 
-(* So the premise "free" of the time tax carries the weight: for every
-   m >= 2, no free program of fewer than m moves decides A >= m, and one
+(* So the premise "unpaid" of the time tax carries the weight: for every
+   m >= 2, no unpaid program of fewer than m moves decides A >= m, and one
    paid move does. *)
 Theorem nec_e_time_tax_free_needed : forall m, 2 <= m ->
   (forall Mp n, n < m -> ~ ent2_machine_decides Mp n m) /\

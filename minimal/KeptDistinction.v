@@ -17,8 +17,8 @@ Proof. split. reflexivity. discriminate. Qed.
 
 (* 2. The supposed escape: a fourth state that remembers it was blank. It does NOT escape.
       The remembering state has to go somewhere on the next write; on a finite set it lands on a
-      chair already taken (here: itself), and the blank and the remembering state merge.
-      This is the chairs theorem biting the escape: no finite extension of the cell avoids the merge. *)
+      state already used (here: itself), and the blank and the remembering state merge.
+      This is the permanent-flip theorem biting the escape: no finite extension of the cell avoids the merge. *)
 Inductive Cell4 := B4 | Z4 | O4 | ZfromB.
 Definition write0' (c : Cell4) : Cell4 := match c with B4 => ZfromB | Z4 => Z4 | O4 => O4 | ZfromB => ZfromB end.
 Theorem four_state_escape_fails : write0' B4 = write0' ZfromB /\ B4 <> ZfromB.
@@ -34,7 +34,7 @@ Theorem tape_write_never_returns : forall n, tape_write n <> 0.
 Proof. unfold tape_write. lia. Qed.
 
 (* 4. No state space codes all its own readings: there is no surjection from X onto X -> bool,
-      so the questions you can ask of a chair always outnumber the chairs. This is Cantor's diagonal.
+      so the questions you can ask of a state always outnumber the states. This is Cantor's diagonal.
       The machine does contain itself by running itself (the universal program, Minimal.UniversalThiele);
       what no level does is hold every question about itself, which is why the regress is forced. *)
 Theorem no_space_holds_its_own_readings : forall (X : Type) (code : X -> (X -> bool)),
@@ -49,14 +49,14 @@ Qed.
 (* 5. The regress has a price. The entitlement count in the repo (ent_cs_run_entitlement, ent_run_entitlement)
       says: with each passed test keeping at least half the candidates, the rounded-up log2 drop from the
       prior to the posterior is at most the number of tests passed, each costing at least one.
-      Instance: to be entitled to "this cell is blank" among N possibilities costs at least log2_up N marks,
+      Instance: to be entitled to "this cell is blank" among N possibilities costs at least log2_up N units,
       and that price is unbounded as the possibilities grow. *)
 Theorem regress_price_unbounded : forall m, exists N, m <= Nat.log2_up N.
 Proof. intro m. exists (2 ^ m). rewrite Nat.log2_up_pow2 by lia. lia. Qed.
 
-(* 6. Infinite room: the bilateral shift on the integers. Every state has a successor and a
+(* 6. Endlessly many states: the bilateral shift on the integers. Every state has a successor and a
       predecessor (it is a bijection, the discrete unitary), the reading "at least one" is raised
-      from 0 on the first step and never comes down, and nothing ever merges. Fresh chair forever. *)
+      from 0 on the first step and never comes down, and nothing ever merges; every step lands on a fresh state. *)
 Require Import ZArith.
 Open Scope Z_scope.
 Definition shift (z : Z) : Z := z + 1.

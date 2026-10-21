@@ -8,7 +8,7 @@
     interface at all. Three of them are the small machine of EarnedCore.v
     with one change.
 
-      (a) fails. The small machine with one more move, DROP, a free base
+      (a) fails. The small machine with one more move, DROP, an unpaid base
           move that lowers the flag and trips the trap latch. A run that
           uses DROP ends with the flag down for good, so every run that ends
           with the flag up is a run of the small machine, and (b), (c), (d)
@@ -23,10 +23,10 @@
           free_not_thiele_complete].
       (c) fails. The small machine with every move costing 1. (a), (b) and
           (d) do not mention prices and hold as they do there; base moves
-          cost 1, so (c) fails, and a Thiele-complete machine has a free
+          cost 1, so (c) fails, and a Thiele-complete machine has an unpaid
           move [paid_meets_a_b_d, paid_fails_c, paid_not_thiele_complete].
-      (d) fails. The silent machine of ThieleComplete.v: a free two-counter
-          base whose record never rises [silent_meets_base_record_toll,
+      (d) fails. The silent machine of ThieleComplete.v: a two-counter
+          base, costing nothing, whose record never rises [silent_meets_base_record_toll,
           silent_not_thiele_complete].
 
     The four together are [thiele_complete_clauses_independent].

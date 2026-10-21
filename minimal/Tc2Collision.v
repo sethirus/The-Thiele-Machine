@@ -9,7 +9,7 @@
 
       [tc2_collision]       two runs of such a program, on different inputs,
                             never reach the same core state: the same state
-                            has the same future, hence the same output.
+                            has the same future, and so the same output.
       [tc2_collision_pure]  the same for a program that only uses INC, DEC
                             and HALT, where only the counters, the program
                             counter and the trap latch matter (versions and

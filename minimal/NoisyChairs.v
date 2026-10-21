@@ -1,5 +1,5 @@
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file is the noisy
-   form of the chairs theorem, stated on a finite Markov kernel over the rationals with no
+   form of the permanent-flip theorem, stated on a finite Markov kernel over the rationals with no
    dependence on the certification-system kernel. Both directions of the noisy dichotomy:
    a kernel that can raise a permanent reading (a closed set reachable from outside) does not
    preserve the uniform spread, and strictly raises the collision weight of the uniform spread in

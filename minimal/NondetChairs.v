@@ -1,4 +1,4 @@
-(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file is the nondeterministic form of the chairs theorem (a total, closed step relation that raises a permanent reading has a yes-state with two predecessors) and stands alone from the certification-system kernel. *)
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file is the nondeterministic form of the permanent-flip theorem (a total, closed step relation that raises a permanent reading has a yes-state with two predecessors) and stands alone from the certification-system kernel. *)
 (* Attack: nondeterministic machines. A step relation R on a finite state list `all` (no repeats).
    Y is the list of yes-states (no repeats, all in `all`).
    Closed and total on Y: every yes-state has at least one successor, and all its successors are yes-states.

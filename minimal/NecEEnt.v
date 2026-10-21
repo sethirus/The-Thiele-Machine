@@ -14,7 +14,7 @@
     - Every other premise is needed: for each one there is a run of the
       small machine (read as a certification system for ent-cs) meeting
       all the other premises with the conclusion false.
-    - The bound is attained: for every k >= 1 a run with bill exactly k
+    - The bound is attained: for every k >= 1 a run with cost exactly k
       narrows by exactly k index bits, and from a clean start, for every
       k >= 3, a certified run with exactly k record moves narrows by
       exactly k bits. Below 3 nothing certifies from a clean start
@@ -322,7 +322,7 @@ Qed.
 
 (* The covering is needed: sixteen rivals narrowed to one by the
    three-move chain, a tree of depth 0, every other premise met, and the
-   bill 3 is below the 4 index bits. *)
+   cost 3 is below the 4 index bits. *)
 Theorem nec_e_cs_needs_covering :
   ent_strict_sublist nec_e_po1 nec_e_pr16 /\
   (exists w, In w nec_e_pr16 /\ ~ In w nec_e_po1 /\ ent_distinguishes (fun x : nat => x) w nec_e_po1) /\
@@ -351,7 +351,7 @@ Qed.
 
 (* The paid steps are needed: the covering by the complete tree of depth
    4 holds, every other premise is met, and the run has only 3 paid
-   steps; the bill 3 is below the 4 index bits. *)
+   steps; the cost 3 is below the 4 index bits. *)
 Theorem nec_e_cs_needs_paid_depth :
   ent_strict_sublist nec_e_po1 nec_e_pr16 /\
   (exists w, In w nec_e_pr16 /\ ~ In w nec_e_po1 /\ ent_distinguishes (fun x : nat => x) w nec_e_po1) /\
@@ -481,7 +481,7 @@ Proof.
 Qed.
 
 (* For every k >= 1: a certification system (the small machine), a state
-   reading no, and a run that ends reading yes with bill exactly k, with a
+   reading no, and a run that ends reading yes with cost exactly k, with a
    narrowing of exactly k index bits that meets every premise of ent-cs. *)
 Theorem nec_e_cs_tight : forall k, 1 <= k ->
   let prior := seq 0 (2 ^ k) in

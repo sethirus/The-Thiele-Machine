@@ -47,7 +47,7 @@ Section Reduct.
 Variable M : T.machine.
 Variable I : T.thiele_interface M.
 
-(** The machine with only the base moves, free, with no record. *)
+(** The machine with only the base moves, at no cost, with no record. *)
 Definition lift_reduct : T.machine :=
   T.mk_machine (T.m_state M) {m : T.m_move M | T.ti_kind I m = T.KBase}
     (fun s m => T.m_step M s (proj1_sig m)) (fun _ => 0) (fun _ => false).

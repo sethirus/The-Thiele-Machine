@@ -253,7 +253,7 @@ Proof.
   rewrite Hw, E1, H1 in E2. congruence.
 Qed.
 
-(* LEDGER HIDING needs: compiled moves free and an additive ledger, and
+(* LEDGER HIDING needs: compiled moves costing nothing and an additive ledger, and
    some run from a loaded start whose ledger grows. *)
 Variable led : m_state M -> nat.
 Hypothesis Hfree : forall i s, led (m_step M s (ub_compile U i)) = led s.
@@ -577,7 +577,7 @@ Qed.
 (* 6. Separations.                                                    *)
 (* ================================================================= *)
 
-(* The paid test: the two-counter machine (free) plus marks. Mark true
+(* The paid test: the two-counter machine (costing nothing) plus marks. Mark true
    registers "A is 0"; mark false raises unconditionally (a TICK). *)
 Definition pt_event (k : bool) (x : cm_conf) : bool :=
   if k then Nat.eqb (fst (snd x)) 0 else true.
@@ -612,7 +612,7 @@ Proof.
 Qed.
 
 (* Not Thiele-complete through ANY interface: from any clean start, count
-   A down for free, then mark: the record rises for a total cost of 1 < 3. *)
+   A down at no cost, then mark: the record rises for a total cost of 1 < 3. *)
 Theorem paid_test_not_thiele_complete : ~ thiele_complete paid_test.
 Proof.
   intros [I HI].
@@ -643,7 +643,7 @@ Proof.
 Qed.
 
 (* The clock and the latch clock are not neutral-complete: neutral-complete
-   machines have a free move. Any machine whose every move costs >= 1 is out. *)
+   machines have an unpaid move. Any machine whose every move costs >= 1 is out. *)
 Theorem all_paid_not_nc : forall M, (forall m, m_cost M m >= 1) -> ~ neutral_complete M.
 Proof.
   intros M H HN. destruct (nc_costs M HN) as [_ [m Hm]]. specialize (H m). lia.

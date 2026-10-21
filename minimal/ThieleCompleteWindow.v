@@ -7,7 +7,7 @@
     every interface I that witnesses thiele_complete M, so they are
     consequences of the definition, not facts about one machine.
 
-      1. Every window is printed for free. For any state s at all, there is
+      1. Every window is printed at no cost. For any state s at all, there is
          a clean start and one base move (cost 0) that ends in a state
          showing the same window as s, with the record down and the ledger
          where the clean start left it [complete_every_window_printed]. The
@@ -21,7 +21,7 @@
       3. Same start, same window, different record. The same two runs: the
          record is up after the first and down after the second
          [complete_hides_record].
-      4. Hence no function of the window gives the ledger, and none gives
+      4. So no function of the window gives the ledger, and none gives
          the record, even on runs from clean starts alone
          [complete_no_ledger_oracle, complete_no_record_oracle], and every
          candidate function is refuted by a specific run
@@ -156,7 +156,7 @@ Arguments base_run_blind {M} I _ is s.
 Arguments base_run_only_base {M} I _ is.
 
 (* ================================================================= *)
-(* 1. Every window is printed by one free move from a clean start.   *)
+(* 1. Every window is printed by one unpaid move from a clean start. *)
 (* ================================================================= *)
 
 Theorem complete_every_window_printed : forall M (I : thiele_interface M),

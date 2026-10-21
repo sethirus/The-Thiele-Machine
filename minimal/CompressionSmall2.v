@@ -18,7 +18,7 @@
     least that satisfies it [ent2_frag_cost_minimal], and the bound is met
     with equality by the fragment's stamp [ent2_frag_bound_attained]. The
     whole small machine is not compression-priced, whatever its decision
-    procedure for equality [ent2_small_not_compression_priced]: a free
+    procedure for equality [ent2_small_not_compression_priced]: an unpaid
     branch merges two full states.
 
     Which flips. Fix a finite machine and one move. A move that switches the
@@ -26,8 +26,8 @@
     off somewhere else [ent2_flip_merges_or_revokes]; a flip that forgets
     nothing is paid for by a revocation [ent2_injective_flip_revokes]; the
     move is charged at least 1 by every cost assignment that prices merges
-    exactly when it merges [ent2_forced_priced_iff_merges]; a move that
-    never revokes and switches the reading on is therefore forced to be
+    exactly when it merges [ent2_forced_priced_iff_merges]; so a move that
+    never revokes and switches the reading on is forced to be
     priced [ent2_permanent_flip_forced]. The converse is false: a
     three-state machine has a forced price and no permanent record
     [ent2_forced_without_permanent].

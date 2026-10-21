@@ -244,7 +244,7 @@ Proof.
 Qed.
 
 (* On a certification system: a weighted covering and enough paid steps
-   put the weighted index bits under the bill. *)
+   put the weighted index bits under the cost. *)
 Theorem ent2_weighted_cs : forall (C : CertificationSystem) {X : Type}
     (tr : list (cs_instr C)) (prior post : list (X * nat)) (T : ent_tree),
   0 < ent2_mass post -> ent2_wcovers T prior post ->

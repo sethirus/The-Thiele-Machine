@@ -11,11 +11,11 @@
       1. Every Thiele-complete machine meets the loose notion
          [nec_t_complete_is_loose]. So the loose notion is a genuine
          weakening of the definition.
-      2. A machine with one free move that does nothing, and three record
+      2. A machine with one unpaid move that does nothing, and three record
          moves CHECK, COMMIT, CERTIFY that must come in that order, meets the
          loose notion [nec_t_nb_loose_complete] and is not Thiele-complete
          through any interface [nec_t_nb_not_thiele_complete]: its only
-         free move cannot be the compiled form of both "increment A" and
+         unpaid move cannot be the compiled form of both "increment A" and
          "increment B".
       3. Every Thiele-complete machine has a certificate that costs exactly
          3, not only at least 3 [nec_t_certificate_three_attained]. *)
@@ -136,7 +136,7 @@ Inductive nb_mv : Type := NCHK | NCMT | NCRT | NNOP.
 
 (* Z: loaded, claim true. N: loaded, claim false. K: checked. M: committed.
    C: certified. D: dead. The three record moves must come in order; the
-   free move NNOP changes nothing. *)
+   unpaid move NNOP changes nothing. *)
 Definition nb_stst (s : nb_st) (m : nb_mv) : nb_st :=
   match s, m with
   | NC, _ => NC

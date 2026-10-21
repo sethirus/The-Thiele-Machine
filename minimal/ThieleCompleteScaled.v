@@ -1,8 +1,8 @@
 (** ThieleCompleteScaled.v: Thiele-complete at any unit price.
 
     Clause (c) of ThieleComplete.v fixes the unit: base moves cost 0 and
-    each CHECK, COMMIT and CERTIFY costs exactly 1. Doubling every price of
-    a Thiele-complete machine therefore takes it out of the class
+    each CHECK, COMMIT and CERTIFY costs exactly 1. So doubling every price of
+    a Thiele-complete machine takes it out of the class
     [doubled_earned_not_thiele_complete]. This file states the clause with
     the unit as a parameter: base moves cost 0 and every record move costs
     one fixed c, with c at least 1, and the ledger adds each move's cost.
@@ -18,7 +18,7 @@
                                  same states, moves, step and record. So the
                                  class at unit c is the class at unit 1 with
                                  its prices multiplied by c, and nothing else.
-      scaled_has_free_move,      at every unit a base move is free, so the
+      scaled_has_free_move,      at every unit a base move costs nothing, so the
       clock_not_thiele_complete_at_any_unit
                                  clock, charging 1 per move with any reading,
                                  is Thiele-complete at no unit, and neither is

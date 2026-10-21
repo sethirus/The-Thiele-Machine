@@ -1,11 +1,11 @@
-(** PayFree: what the small machine can bill while its flag stays down.
+(** PayFree: what the small machine can charge while its flag stays down.
 
     The small machine of EarnedCore.v has no PAY. Its only paid
     instructions are CHECK, COMMIT and CERTIFY. Take any run that never
     traps and ends with the flag down. Then no CERTIFY ran (a passing one
     raises the flag, a failing one traps), every CHECK passed and took a
     table entry (at most sixteen), and every COMMIT committed a claim the
-    table holds about its counter's current version. So the run bills at
+    table holds about its counter's current version. So the run costs at
     most 32, plus one for each COMMIT of a claim the run had already
     committed ([pf_bound]). A claim names its counter's version, and a
     version changes at every write, so a repeated COMMIT happens only while
@@ -15,11 +15,11 @@
       the number of repeated COMMITs.
     - [pf_bound_start]: from a start, total cost <= 32 + the number of
       repeated COMMITs.
-    - [pf_no_repeat_bound]: a run with no repeated COMMIT bills at most 32
+    - [pf_no_repeat_bound]: a run with no repeated COMMIT costs at most 32
       before its flag goes up.
 
     That is the job PAY does in the universal program U_P: a guest whose
-    moves write its counters has to bill each move's price with the flag
+    moves write its counters has to charge each move's price with the flag
     down, and without PAY it runs out after 32. *)
 
 From Coq Require Import List Arith Lia Bool.
@@ -160,7 +160,7 @@ Proof.
   rewrite H0 in H. cbn [length] in H. lia.
 Qed.
 
-(** A run with no repeated COMMIT bills at most 32 while its flag stays
+(** A run with no repeated COMMIT costs at most 32 while its flag stays
     down. *)
 Theorem pf_no_repeat_bound : forall tr a b,
   E.err (E.core_of (E.run tr (E.start a b))) = false -> E.cert (E.run tr (E.start a b)) = false ->

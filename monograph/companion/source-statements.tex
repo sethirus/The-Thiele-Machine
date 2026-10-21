@@ -426,7 +426,7 @@ takes some state from false to true isn't injective, so it merges two states.
 Theorem~\ref{thm:perm-flip-merges} says exactly this, with ``merges'' meaning ``isn't
 injective''.
 
-\subsection{The toll from finiteness, permanence and merge pricing}
+\subsection{The toll from finiteness, permanence, and merge pricing}
 
 {\raggedright \code{a2\_from\_merging\_price\_and\_permanence}, the same file and section, with a cost on moves added.\par}
 
@@ -947,7 +947,7 @@ map of records such that the record of an image state is the image of the record
 of the guest is simulated by some list of the host's moves landing on the image of the state
 after the move. \code{cmpz\_follows tr s segs} says the host's run is split into one stretch per
 guest move, each stretch carrying the image of the state before that move to the image of the
-state after it. The first theorem: if the record map reflects the order and $Y$ pays its toll,
+state after it. The first theorem: if the record map reflects the order and $Y$ obeys its toll,
 then every host run that follows a guest run in that sense costs at least the number of guest
 steps whose new record isn't at or below the old one. The second: for host runs that only reach
 the image of the guest's end state, no such bound holds in general. On a one-bit machine whose
@@ -977,7 +977,7 @@ Observation~\ref{thm:u34-mirror} says this for lists of moves and adds single mo
 and the mirror after $n$ moves GSTEP 1,
 which are \code{record\_agreement\_step}, \code{record\_agreement\_program}, \code{hload\_agrees} and \code{simulated\_record}.
 
-\subsection{No free host certification, on the simpler host}
+\subsection{No unpaid host certification, on the simpler host}
 
 {\raggedright \code{no\_free\_host\_certification}, minimal/UniversalThiele.v, with the host's moves and their costs.\par}
 

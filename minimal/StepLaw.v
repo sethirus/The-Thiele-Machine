@@ -4,10 +4,10 @@
    Run: x_n = f^n x0.
    Claim: the step from x_n to x_{n+1} is exactly one of
      fresh : x_{n+1} differs from every earlier x_i (i <= n)
-     merge : x_{n+1} = x_j for some 1 <= j <= n with x_n <> x_{j-1}  (two chairs land on one)
+     merge : x_{n+1} = x_j for some 1 <= j <= n with x_n <> x_{j-1}  (two states land on one)
      loop  : x_{n+1} = x_j for some j <= n and the run was already periodic
              (either j = 0, a pure cycle through the start, or x_n = x_{j-1}).
-   And: once a run revisits any chair, it is periodic forever (computes nothing new). *)
+   And: once a run revisits any state, it is periodic forever (computes nothing new). *)
 Require Import Arith Lia.
 
 Section StepLaw.
@@ -65,7 +65,7 @@ Proof.
   - left. intros i Hi He. apply (Hno i Hi He).
 Qed.
 
-(* a merge is two distinct chairs landing on one chair under f *)
+(* a merge is two distinct states landing on one state under f *)
 Theorem merge_is_collision : forall n, merge n ->
   exists a b, a <> b /\ f a = f b.
 Proof.

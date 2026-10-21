@@ -1,7 +1,7 @@
-(** RecordMerge.v: the room argument's merge, found on the small machine
+(** RecordMerge.v: the permanent-flip argument's merge, found on the small machine
     itself, and a merge price the small machine's own price list meets.
 
-    The room argument of Section 4 needs finiteness for one thing: to force
+    The permanent-flip argument of Section 4 needs finiteness for one thing: to force
     the step that raises a permanent flag to merge two states. On the small
     machine of EarnedCore.v no counting is needed, because the merge can be
     exhibited. CERTIFY sends a state with the flag down and the same state
@@ -12,14 +12,14 @@
     list, with no finiteness premise anywhere.
 
     Then it makes the merge premise and clause (c) of Thiele-complete agree.
-    Full merge pricing fails on the small machine, because a free DEC merges
+    Full merge pricing fails on the small machine, because an unpaid DEC merges
     two full states [frag_small_not_merge_priced]. Record-layer merge
     pricing asks less: a move that sends two different states with the same
     two-counter configuration (line, A, B), the window of clause (a), to one
     state costs at least 1. Everything outside the window (versions, fact
     table, channel, trap latch, ledger, flag) is the record layer. A base
     move never merges two such states, so the small machine's own prices,
-    base moves free and each record move 1, meet the premise; and every
+    base moves costing nothing and each record move 1, meet the premise; and every
     price list that meets it charges the flag-raising step.
 
     What is proved (every result closed under the global context):
@@ -41,7 +41,7 @@
       4. Every price list that meets record-layer merge pricing charges the
          flag-raising step at least 1: the toll, with no finiteness premise
          [rm_toll_from_record_price, rm_cert_system_from_record_price]. A
-         price list with base moves free and record moves at 1 meets it,
+         price list with base moves at 0 and record moves at 1 meets it,
          and it is the small machine's own [rm_record_price_and_exact_toll].
 
     Dependencies: Coq standard library, EarnedCore.v, ThieleComplete.v and

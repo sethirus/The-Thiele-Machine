@@ -1,5 +1,5 @@
-(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file is the quantum form of the chairs theorem, over mathcomp's algC: a finite-dimensional unitary step that keeps a projector's range inside itself keeps the complement inside itself, so a no-state never reads yes; it depends on the Mathematical Components library and stands alone from the certification-system kernel. *)
-(* The quantum chairs, machine-checked over algC (algebraic numbers with complex conjugation).
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file is the quantum form of the permanent-flip theorem, over mathcomp's algC: a finite-dimensional unitary step that keeps a projector's range inside itself keeps the complement inside itself, so a no-state never reads yes; it depends on the Mathematical Components library and stands alone from the certification-system kernel. *)
+(* Unitary steps, machine-checked over algC (algebraic numbers with complex conjugation).
    States: column vectors in C^n. Step: a unitary U (adj U * U = 1). A permanent reading: a projector P
    (P*P = P, adj P = P) whose range U maps into itself: (1-P) U P = 0.
    Theorem: U maps the complement into the complement: P U (1-P) = 0. A no-state never reads yes.

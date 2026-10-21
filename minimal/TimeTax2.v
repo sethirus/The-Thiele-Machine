@@ -7,12 +7,12 @@
 
     The question. Is counter A at least m? Two ways to find out.
 
-      Free. Base moves only (INC, DEC, and falling off the end). They cost
+      Unpaid. Base moves only (INC, DEC, and falling off the end). They cost
       nothing. But a base move reads A one unit at a time: a DEC takes a
       unit off A or finds it empty. After n moves, a run that started with A
       at least n has never seen A empty, so it behaves identically for every
       such A, up to a constant shift in A itself.
-      [ent2_free_run_shift]. Hence no free program of fewer than m moves
+      [ent2_free_run_shift]. So no unpaid program of fewer than m moves
       tells A = m - 1 from A = m [ent2_free_cannot_decide_fast], and the
       ladder of m DECs decides in exactly m moves [ent2_ladder_decides], on
       the machine itself [ent2_machine_free_cannot_decide,
@@ -23,12 +23,12 @@
       [ent2_chain_decides].
 
     So the exchange, for any price lambda of a ledger unit in moves: the
-    paid route costs 3 + 3 lambda, the free route costs at least m, and the
+    paid route costs 3 + 3 lambda, the unpaid route costs at least m, and the
     paid route is cheaper exactly when 3 + 3 lambda < m
-    [ent2_time_tax]. No free program does better than the ladder; the
+    [ent2_time_tax]. No unpaid program does better than the ladder; the
     blind side is not a choice of program.
 
-    The paid side is constant (the earned chain, exactly 3) and the free
+    The paid side is constant (the earned chain, exactly 3) and the unpaid
     side is linear in the number asked about (exactly m). The k-dimensional
     counts (N^k blind against k N factored) are arithmetic on formulas;
     the ones that carry content are cost-model lemmas below
@@ -41,7 +41,7 @@
     (programs that make no record move); a machine with a base move that
     changes a counter by more than one unit per move is a different machine
     and the bound does not speak for it. The paid route certifies and the
-    free route decides into the program counter; the comparison is of two
+    unpaid route decides into the program counter; the comparison is of two
     ways to answer the same question, not of two certifications.
 
     Dependencies: Coq standard library and EarnedCore.v. No axioms and no
@@ -53,7 +53,7 @@ Require Minimal.EarnedCore.
 Module E := Minimal.EarnedCore.
 
 (* ================================================================= *)
-(* 1. A free run reads A one unit at a time.                          *)
+(* 1. An unpaid run reads A one unit at a time.                       *)
 (* ================================================================= *)
 
 (* Two counter-machine configurations alike except that A differs by a
@@ -113,7 +113,7 @@ Definition ent2_decides (M : list E.minsky) (n m : nat) : Prop :=
   exists f : nat * nat -> bool, forall a b,
     f (fst (E.mrun n M (1, (a, b))), snd (snd (E.mrun n M (1, (a, b))))) = Nat.leb m a.
 
-(* No free program of fewer than m moves decides whether A is at least m. *)
+(* No unpaid program of fewer than m moves decides whether A is at least m. *)
 Theorem ent2_free_cannot_decide_fast : forall M n m, n < m -> ~ ent2_decides M n m.
 Proof.
   intros M n m Hn [f Hf].
@@ -306,7 +306,7 @@ Proof.
 Qed.
 
 (* Deciding "A >= m" on the machine itself, from the program counter and B
-   after n moves of a free program. *)
+   after n moves of an unpaid program. *)
 Definition ent2_machine_decides (M : list E.minsky) (n m : nat) : Prop :=
   exists f : nat * nat -> bool, forall a b,
     f (E.pc (E.core_of (E.run_prog n (E.compile M) (E.start a b))),
@@ -329,7 +329,7 @@ Proof.
   rewrite <- H in Hf. exact Hf.
 Qed.
 
-(* The ladder is free. *)
+(* The ladder costs nothing. *)
 Theorem ent2_ladder_free : forall m n a b,
   E.mu (E.run_prog n (E.compile (ent2_ladder m)) (E.start a b)) = 0.
 Proof. intros. rewrite ent2_compile_free. reflexivity. Qed.
@@ -363,11 +363,11 @@ Qed.
 
 (* THE TIME TAX. For every m and every price lambda of one ledger unit in
    moves:
-   (1) no free program of fewer than m moves decides whether A >= m;
+   (1) no unpaid program of fewer than m moves decides whether A >= m;
    (2) the ladder decides it in exactly m moves, at ledger 0;
    (3) the three-move chain certifies it at ledger exactly 3, and the
        record is up exactly when A >= m;
-   (4) the chain's total, 3 + 3 lambda, is below the free route's, m,
+   (4) the chain's total, 3 + 3 lambda, is below the unpaid route's, m,
        exactly when 3 + 3 lambda < m. *)
 Theorem ent2_time_tax : forall m lambda,
   (forall M n, n < m -> ~ ent2_machine_decides M n m) /\

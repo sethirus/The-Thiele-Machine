@@ -20,7 +20,7 @@
 
     What is proved (every result closed under the global context):
 
-      1. The machine of EarnedPriced.v pays the toll for any property
+      1. The machine of EarnedPriced.v obeys the toll for any property
          language, so it is a CertificationSystem [priced_toll,
          priced_cert_system].
       2. For any property language with an exact checker and a property

@@ -22208,9 +22208,10 @@ smaller than all the computable ones, which can’t be acceptable, and what can 
               The surcharge is zero when that move costs three or more, and it can’t always be
               avoided: when the guest certifies with a ledger below three, no program on that
               host, run from a clean start, matches its ledger exactly (Theorems D.7 and D.8).
-              Picture a clerk who’ll stamp anybody’s receipt. He copies it onto his own forms,
-              bills at your rates to within two, and the stamp at the bottom is one he earned by
-              checking your own reading, not one he copied.
+              Picture a clerk who’ll stamp anybody’s receipt. He copies it onto his own forms, bills
+              at your rates to within two when your reading starts at no and to within three when
+              it starts at yes, and the stamp at the bottom is one he earned by checking your own
+              reading, not one he copied.
                    What’s outside the class is outside the theorems. A machine whose reading no
               program decides (an oracle checker, say, which the definition of certified Thiele-
               complete doesn’t rule out) doesn’t come in. Nor does a machine whose next move is
@@ -22219,11 +22220,11 @@ smaller than all the computable ones, which can’t be acceptable, and what can 
               says, even if that state already has a yes reading. The host starts clean and earns a
               claim about that reading. It does not reconstruct or authenticate the guest’s earlier
               history.
-                   And insisting on no built-in step is the point, and a plain interpreter shows why.
-              A plain interpreter on an ordinary computer runs guests too, but then the guest’s
                                          D.5 What the universal machine covers, and what it doesn’t   547
 
 
+   And insisting on no built-in step is the point, and a plain interpreter shows why.
+A plain interpreter on an ordinary computer runs guests too, but then the guest’s
 record is data the interpreter’s program updates by convention, which is exactly the
 position of the ordinary programmable computer from Section 14 and Section 15.13.
 That’s a fact about how such interpreters are built. It says nothing about what they

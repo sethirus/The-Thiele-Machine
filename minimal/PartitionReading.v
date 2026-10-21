@@ -36,7 +36,7 @@
                                entitled by it: there is a key for which g is
                                sound and that grouping is not.
       pr_toll, pr_reading_costs_three
-                               the bucket machine pays the toll, and a raised
+                               the bucket machine obeys the toll, and a raised
                                reading from a clean start has cost at least 3.
 
     Dependencies: ThieleComplete.v (the machine record and the toll) and

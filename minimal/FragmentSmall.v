@@ -1,7 +1,7 @@
 (** FragmentSmall.v: the finite fragment that pays for its merges, run by
     the small machine.
 
-    The room argument (a permanent flip on a finite machine merges two
+    The permanent-flip argument (a permanent flip on a finite machine merges two
     states; charge every merge; the toll follows) needs a finite state
     space. The small machine's counters, versions and ledger are unbounded,
     so it is not finite. This file faces that the same way the book does:
@@ -17,7 +17,7 @@
 
     What is proved (every result closed under the global context):
 
-      1. The room, on any machine. On a finite machine with a permanent
+      1. The permanent flip, on any machine. On a finite machine with a permanent
          reading, a move that turns the reading on merges two states
          [frag_flip_merges]; with every merge priced, the toll follows
          [frag_toll_from_merges].
@@ -78,7 +78,7 @@ Require Minimal.EarnedCore.
 Module E := Minimal.EarnedCore.
 
 (* ================================================================= *)
-(* 1. The room, on any machine.                                       *)
+(* 1. The permanent flip, on any machine.                             *)
 (* ================================================================= *)
 
 Section Room.

@@ -46,7 +46,7 @@
          the reading to yes; it does not change as n grows
          [presented_first_raise_spec, presented_first_raise_stable].
       4. When the reading starts at no, the surcharge is at most 2,
-         because the raising move pays the toll cs_cert_costs
+         because the toll cs_cert_costs charges the raising move
          [presented_surcharge_le_two]; while the latch is down it is 0
          [presented_surcharge_zero_before_raise]; when the reading starts
          at yes it is 3 [presented_surcharge_raised_at_start]; once the
@@ -317,7 +317,7 @@ Qed.
 (* ================================================================= *)
 
 (* From a start where the reading is no, the surcharge is at most 2: the
-   first raising move pays the toll of at least 1. *)
+   toll charges the first raising move at least 1. *)
 Theorem presented_surcharge_le_two : forall s0 n,
   rd s0 = false -> surcharge s0 n <= 2.
 Proof.

@@ -1,10 +1,10 @@
 (** HeatOrRoom.v: the count under the three currencies.
 
     The toll chapter of the monograph leads with one sentence: anything a
-    machine keeps and can't take back is paid for in heat, room or time.
-    This file checks the counting that sentence rests on, the proposition
-    the book calls Heat or room. No heat is mentioned here: pricing a merge
-    is a separate premise. What is counted is states.
+    machine keeps and can't take back is paid for in heat, fresh states or
+    time. This file checks the counting that sentence rests on, the proposition
+    the book calls Merge, or a fresh state every step. No heat is mentioned
+    here: pricing a merge is a separate premise. What is counted is states.
 
     (1) The dichotomy, on any state space [Section Dichotomy]. Take a
         reading P that a move F never turns off, and a state s at which F
@@ -21,7 +21,7 @@
         first n steps merge under f, the run visits a fresh state at every one
         of those steps ([run_merges_or_fresh]); so on M states a run that keeps
         a record and never merges has fewer than M steps
-        ([run_bounded_by_room]). Time is paid out of room.
+        ([run_bounded_by_room]). Time is paid for in fresh states.
 
     (2) The retention bound [Section Retention]. A finite implementation of
         a reset, F : X -> X, with an abstraction q : X -> A sending every
@@ -34,9 +34,9 @@
         ([retention_horizon]). A bounded memory delays the merge and does
         not avoid it.
 
-    (3) The bound is exact [Section Tightness]. One fixed chair Z and, for
-        each of n others, a path of T+1 chairs Node i 0, ..., Node i T, with
-        F walking the path and sending its last chair to Z. The set has
+    (3) The bound is exact [Section Tightness]. One fixed state Z and, for
+        each of n others, a path of T+1 states Node i 0, ..., Node i T, with
+        F walking the path and sending its last state to Z. The set has
         exactly 1 + (T+1) * n states ([tight_length], [tight_nodup]), is
         closed under F ([tight_closed]), satisfies the reset and
         representative hypotheses of (2) ([tight_reset],
@@ -52,8 +52,8 @@
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file
    counts the states of an abstract move on any type and imports only the
-   standard library. It is the count the monograph's Heat or room proposition
-   rests on. The finite-machine toll it sits under is PermanentCertification.v,
+   standard library. It is the count the monograph's proposition Merge, or a fresh state
+   every step, rests on. The finite-machine toll it sits under is PermanentCertification.v,
    and the small machine's record-layer toll is in ThieleComplete.v. *)
 
 From Coq Require Import List Arith Lia Bool.
@@ -339,7 +339,7 @@ Proof.
 Qed.
 
 (* So on M states a run that keeps a record and never merges has at most
-   M - 1 steps: time is paid out of room. *)
+   M - 1 steps: time is paid for in fresh states. *)
 Theorem run_bounded_by_room : forall (all : list X), NoDup all -> (forall x, In x all) ->
   forall n, ~ run_merges n -> n < length all.
 Proof.
@@ -543,14 +543,14 @@ Variable n T : nat.
 
 Inductive St : Type := Z | Node (i t : nat).
 
-(* F walks each path and sends its last chair to Z; Z stays. *)
+(* F walks each path and sends its last state to Z; Z stays. *)
 Definition Ft (x : St) : St :=
   match x with
   | Z => Z
   | Node i t => if t <? T then Node i (S t) else Z
   end.
 
-(* The abstraction: the first chair of path i represents i; all else q0. *)
+(* The abstraction: the first state of path i represents i; all else q0. *)
 Definition qt (x : St) : option nat :=
   match x with Z => None | Node i t => if t =? 0 then Some i else None end.
 
@@ -666,7 +666,7 @@ Proof.
     injection E. intros -> ->. reflexivity.
 Qed.
 
-(* And on the next repetition the last chair of a path lands on Z. *)
+(* And on the next repetition the last state of a path lands on Z. *)
 Theorem tight_merges_next : 1 <= n ->
   iterF Ft T (Node 0 0) <> iterF Ft T Z /\
   Ft (iterF Ft T (Node 0 0)) = Ft (iterF Ft T Z).

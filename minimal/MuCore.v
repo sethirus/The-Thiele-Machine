@@ -179,8 +179,8 @@ Qed.
 
 (* ----------------------------------------------------------------- *)
 (* 4. Only CERTIFY can flip the flag: the instruction set contains no *)
-(*    free side door.  (A buggy simulator that "skips the charge" has *)
-(*    no instruction to express itself with.)                         *)
+(*    unpaid side door. (A buggy simulator that "skips the charge"    *)
+(*    has no instruction to express itself with.)                     *)
 (* ----------------------------------------------------------------- *)
 
 Theorem only_certify_certifies :
@@ -197,7 +197,7 @@ Qed.
 (* ----------------------------------------------------------------- *)
 (* 5. The receipt separation: two one-instruction programs whose      *)
 (*    final classical states are IDENTICAL and whose receipts differ. *)
-(*    Hence no function of the classical shadow recovers mu or cert.  *)
+(*    So no function of the classical shadow recovers mu or cert.     *)
 (* ----------------------------------------------------------------- *)
 
 Definition s0 : state := mk_state [] [] 0 0 false.
