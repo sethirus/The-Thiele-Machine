@@ -2308,6 +2308,17 @@ pricing asks for more than the toll needs. Under those same two conditions the t
 when every move that flips the reading somewhere and merges is priced. Merge pricing gives that, and the eight-state machine described later in this
 section, with its jump repriced at zero, meets the toll without merge pricing.
 
+That ``more'' has an exact size. On a finite machine a move merges exactly when it turns on some
+reading that it never turns off. If it merges, take the reading ``this move can land here.'' The
+move never turns it off, because everywhere it lands reads yes; and some state reads no, because
+a move that sends two states to one lands on fewer states than the machine has, and from that
+state the move turns the reading on. If it doesn't merge, it turns on no reading it never turns
+off: that's Theorem~\ref{thm:perm-flip-merges}, whose proof asks permanence only of the one move.
+So on a finite machine a price list meets merge pricing exactly when it meets the toll for every
+reading at once, each move answering only for the readings it never turns off. The charge on
+forgetting isn't a second kind of price beside the toll. What the premise chooses is which
+readings the toll answers to: the flag alone, or every reading a move keeps.
+
 There is one more way to see the same thing, and I give it because it answers a rival I'd otherwise owe you. The
 rival says: leave certification alone. Price \emph{erasure}, and keep an honest flag that reports
 when something was erased. Fine; but a system can set its certificate at cost zero with its
@@ -11985,8 +11996,8 @@ where it was, and a record that goes up stays up. (b) From a clean start, the re
 top of the small machine's chain: a check that passed, a commitment
 to the same claim with nothing changed underneath, then a certificate. (c) Computing costs nothing on the ledger and each of the three acts costs one unit, so the ledger
 counts the acts. The steps in between add nothing to it. (The unit belongs to the ledger; it isn't a unit of heat.) (d) Somewhere there's a claim whose check could have said no. A
-machine whose every claim is ``at least 0'' doesn't qualify, and neither does one with nothing
-to certify.
+machine doesn't qualify over a language whose every claim is ``at least 0'', and neither does
+one with nothing to certify.
 
 And look where the checker's honesty sits. In (b), ``a passing check means its claim holds''
 is a condition on the interface, proved once, outside every run, exactly where it sat for the small
@@ -12300,7 +12311,7 @@ record, and (3) says that run paid at least 3. Say it ends with window (line $\e
 Two-counter instructions can steer any configuration to any other: empty $A$, fill it to $x + 1$,
 empty $B$, fill it to $y$, then one DEC of $A$ that jumps to line $\ell$. Those are base moves,
 so from the same loaded state they reach the same window, cost nothing, and leave the record down,
-by (a) and (c). That's two runs, one window, two records and two ledgers, which is (2). A function
+by (a), (b) and (c). That's two runs, one window, two records and two ledgers, which is (2). A function
 of the window would have to give both answers on that one window, which is (3). For (1), load
 $(x + 1, y)$ and take just the last DEC. (4) is (3) read as a Thiele machine,
 whose runs are the machine's.
@@ -12356,8 +12367,17 @@ the story on the box.)
 
 A fixed machine can enforce an invariant in its own transition table, and that includes a
 Turing machine. Give its tape a ledger track and a certification cell, and write a table
-that never sets the cell without bumping the ledger: that machine obeys the toll in its step
-relation. It's a Thiele machine itself, so it can't be a counterexample to the model.
+that never sets the cell without bumping the ledger: that machine keeps the invariant in its
+step relation. The ledger track is part of its state, though, and a ledger kept in the state
+isn't a price on the move. The toll of Definition~\ref{def:certsys} puts the price on the move,
+the same from every state, so what it charges depends on what the machine's moves are. Give it
+one move, the next step its table picks: if the table sets the cell from any configuration at
+all, that move costs at least one, so every step does, whatever the track says, and the machine
+is a clock (Observation~\ref{obs:tc-clock}). Give it a move for each row of its table, as the
+levers of Appendix~\ref{sec:every-model} do: every row that can set the cell costs at least one
+wherever it's taken, and a row that never sets it can cost nothing. Either way it's the price on
+its moves that meets the toll, and the track only simulates it. Priced that way, it's a Thiele
+machine itself, so it can't be a counterexample to the model.
 What it doesn't do, built the ordinary way, is enforce the toll on the programs it runs. A
 universal machine whose table was written only to interpret carries the simulated
 certification bit as plain data on its tape. If the host is programmable, so that other code
@@ -12416,9 +12436,11 @@ is exactly the Turing machine's next configuration, whatever $m'$ is, and the in
 hypothesis at $(c', m')$ finishes it.
 \end{proof}
 
-The pair is a Turing configuration with a number riding beside it, and nothing more. It isn't a
-Thiele machine in this book's sense, so don't read it as a Thiele machine running Turing
-machines; it isn't one. A counter beside a machine is the scorekeeper's tally from
+The pair is a Turing configuration with a number riding beside it, and nothing more. Its counter
+is kept in the state, and a ledger kept in the state isn't a price on the move:
+Definition~\ref{def:certsys} puts the cost on the move's name, and this counter's charge depends
+on what the step writes. So don't read the pair as a Thiele machine running Turing machines; it
+isn't one. A counter beside a machine is the scorekeeper's tally from
 Section~\ref{sec:toll}: honest about the machine, and kept by whoever holds the pencil.
 
 One limit on all of this needs saying, so it isn't read as more. Certification is one event. If you wanted
@@ -15899,6 +15921,31 @@ are right, which would leave every theorem standing and one premise unowned by t
 And the question I'd most like someone to take from me: is there a smaller start than a
 partition, by a ruler they can state? I said in Section~\ref{sec:structure} it would change this book, and it would.
 
+One more claim ties the counting to the world, the way Church and Turing's ties computing to it,
+and I'll state it as what it is, a thesis, the \emph{Thiele thesis}: every physical process that
+computes with final answers has an exact description as a machine run by one rule, with a next
+state for every state, computably presented (its states written as whole numbers, and its step,
+its reading and its start for each input computed by programs that halt on every input), on
+which the answer is a reading that no run from any input ever turns off, on inputs accepted and
+rejected alike. No proof settles it, because ``a physical process that computes'' isn't a
+mathematical object. What is proved sits on either side of it. On one side, Part~I applies to
+every such description on the states its inputs reach, where the answer never comes down: a run
+that raises it merges two of its own states or never visits a state twice
+(Proposition~\ref{prop:heat-or-room}). On the other, seen only through which inputs it accepts,
+the thesis says exactly that every set a physical process accepts with final answers is one a
+Turing machine can list, which is the physical Church-Turing thesis for final answers. One
+way, run the description from every input, a step at a time across all of them, and list an
+input the first time its reading says yes; no run turns its answer off, so a yes seen once is
+the answer. The other way, a set a Turing machine lists is accepted by the machine that searches
+the list for its input and then steps from its halted configuration to itself, with the reading
+``halted,'' which nothing turns off. Nothing about how the keeping is paid survives that view: the
+same search held at its halt by a step to itself, which merges, or by a counter that goes on
+ticking, which takes fresh states, accepts the same inputs. And ``final'' has to cover the
+rejected inputs too. A machine that starts at no, reads yes while program $n$ is still running
+and falls to no for good if it halts reads yes for good on exactly the programs that never halt,
+and no Turing machine lists those, since one that did, run beside the search for a halt, would
+decide halting.
+
 And then there are the two computers of Section~\ref{sec:established}, the sorter and the copier, holding the
 same list. Walk the warehouse again. The list is in order on both. On the machine
 with the earned layer, a different part of the state tells you whether a check happened
@@ -16115,9 +16162,12 @@ this book is about is what a window on that tape shows. That's real, and it rais
 question: if a tape can stand in for the state, what was the
 difference? The tape carries a picture of the state, the way a photograph carries a
 fire, and a photograph of a fire keeps you exactly as warm as any other photograph. The counter and the toll live in
-the step rule. An encoding copies the bytes, and the step rule isn't in them. A Turing machine built
-with the toll in its own transition table is a different case: it directly satisfies the
-model's rule. Whether it also simulates another machine is a separate question. What no machine can do is make a simulated rule binding just
+the step rule. An encoding copies the bytes, and the step rule isn't in them. A Turing machine that bumps a
+ledger on its tape whenever its table sets its flag keeps that ledger in its state, and a ledger
+kept in the state isn't a price on the move. The toll prices the machine's moves: with one move,
+the next step its table picks, every step costs at least one once the flag can go up at all, and
+with a move for each row of the table, every row that can set the flag costs at least one wherever
+it's taken (Section~\ref{sec:machine-vs-program}). The ledger on the tape only simulates that. What no machine can do is make a simulated rule binding just
 by writing it down on tape.
 
 Projection is a function that drops information on purpose. The window on the small machine
@@ -18595,8 +18645,9 @@ Then bolt on a panel cut down from the small machine's, and nothing else:
 one version number for the whole box that every lever
 raises, which is the tally, a table of facts, and three new moves, CHECK,
 COMMIT and CERTIFY, each costing one, with every lever costing nothing. Call that the \emph{lift} of the
-machine. A lever moves the box whether or not the trap is up; the trap only stops the three new moves
-from passing.
+machine. A lever moves the box only while the trap is down. The trap works as on the small
+machine: a CHECK, COMMIT or CERTIFY that fails sets it, nothing takes it down, and once it's up
+every move, a lever included, changes nothing but the ledger.
 
 \begin{theorem}[Every universal base lifts]\label{thm:lift}
 (1) The lift of any box with a universal base, over a language of claims about the box's state (``unchanged'' meaning the box's state is the same), with an exact equality test and a checker proved to say yes exactly when the claim holds, is certified Thiele-complete, as long as the claims its CHECK can
@@ -18611,16 +18662,19 @@ the box exactly as the box's own run does, and the trap stays down.
 
 \begin{proof}
 (1) The four clauses, one at a time. (a) The lift keeps the box's states, levers and step and adds
-the tally, the table, the channel, the flag and the trap. A lever moves the box's part of the state
-as the box's step does, raises the tally by one, and touches nothing else. So from a live state, which is a state whose box part is live and whose trap is down, the window moves as the instruction does and the state
+the tally, the table, the channel, the flag, the trap and the ledger. With the trap down, a lever
+moves the box's part of the state as the box's step does, raises the tally by one, and touches
+nothing else. So from a live state, which is a state whose box part is live and whose trap is down, the window moves as the instruction does and the state
 stays live; no lever changes the flag; the loaded states are the box's loaded states with an empty
 panel, so they're clean; and the flag, once up, is lowered by nothing. (b) Start with the panel
 empty. The only move that raises the flag is CERTIFY, and CERTIFY traps unless the channel holds a
 fact; the channel is filled only by a COMMIT, which traps unless the table holds its claim at the
 current tally; and the table is filled only by a CHECK that passed, which files the claim with the
 tally it was checked at. So in front of the raise there's a passing CHECK of some claim $c$, then a
-COMMIT of $c$ at the same tally, then the CERTIFY. The tally rises with every lever pull, so an
-unchanged tally means no lever was pulled in between, so the box's state is unchanged, and that's
+COMMIT of $c$ at the same tally, then the CERTIFY. The trap is down from the CHECK to the COMMIT,
+since the COMMIT passed and nothing takes the trap down, and with the trap down the tally rises
+with every lever pull, so an unchanged tally means no lever was pulled in between, so the box's
+state is unchanged, and that's
 what ``the thing $c$ is about is unchanged'' says in the lift's language, whose claims are about the
 box's state. A passing CHECK means the checker said yes, and the checker was proved to mean what it
 says. (c) is the price list: levers at a cost of zero, the three buttons at one each, the ledger the running
@@ -18684,8 +18738,9 @@ comes off and the line jumps to $j$. Different $j$, different window, different 
 has infinitely many different successors, which is what not finitely branching means; and since one
 lever lands in one place from one state, the levers for the DEC $A$ $j$ are all different, so there
 are infinitely many of them. (2) In the lift the moves that cost nothing are the levers, since each
-button costs one, and from any state the levers together lead to finitely many states: the box's
-finitely many successors, each with the tally raised by one. (The buttons can lead to infinitely
+button costs one, and from any state the levers together lead to finitely many states: with the trap
+down, the box's finitely many successors, each with the tally raised by one, and with it up, the state
+itself. (The buttons can lead to infinitely
 many, one CHECK for each claim, but each costs one.) If the lift were certified Thiele-complete through some
 interface, that interface's base moves would cost nothing by clause (c), so they'd all be levers, and
 by Theorem~\ref{thm:lift}(3) they'd form a universal base on their own. By (1) a universal base has
