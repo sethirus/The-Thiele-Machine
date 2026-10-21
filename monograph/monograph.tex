@@ -317,7 +317,21 @@ have been counted too. What no model I found charges is the moment a reading goe
 Thiele Machine is a model of computation that does: the step that raises a reading that stays is
 the step that's charged. Those steps are a few events in a run, not the billions of overwrites a computer
 makes every second; what they write doesn't stay, and the toll leaves them to the erasure count and
-to physics.
+to physics. And it doesn't sit beside ordinary computation. Take any computer that shows two
+counters and a line, with a move for each two-counter instruction, a jump to every line included,
+that does to them what the instruction does, and a start for any two counters. Put on it a record layer that checks whether a counter
+is at least a number, with room in its table for a fact, and what you get is certified
+Thiele-complete, the bar Part~III sets. Forget the layer again and what's left is the
+computer you started with: until a record move fails and stops the machine, it runs as it ran and
+reaches what it reached, the record moves never move it, and it can't see what was kept or what it
+cost. The other way round, read any Thiele-complete machine through its window and what's left is
+two counters, run by its moves for the instructions, which cost nothing, and blind to its record and
+its ledger (Theorem~\ref{thm:slice}). That's the sense in which computation is the slice of a Thiele
+machine. A machine run as one rule, with every move doing the same thing from each state, has no
+universal base and no slice, and is a Thiele machine only as a clock or with a reading that never
+rises. And none of what keeping takes is a thesis about models: for anything written down as states,
+a step and a reading that stays, it's a theorem. Only the tie from a physical process to such a
+description is a thesis, and the Conclusion states it.
 
 \emph{Three: the structure a computation makes is made of exactly this.} Structure in general is a
 relation kept under the changes you choose; Part~II takes that word from the people who wrestled
@@ -455,7 +469,7 @@ tell you. History is like that: it's where you start digging.)
 Now give the room endless chairs inside, numbered 1, 2, 3 and on with no end, every one taken, and
 the newcomer still gets a seat: everybody inside moves up one, from chair $n$ to chair $n+1$, and
 chair 1 is left empty. Nobody shares. That's David Hilbert's hotel, from a lecture in the 1920s, and
-it's no trick. Look at what it took: every single person inside had to get up and move one over, into a chair that was taken a moment before, to leave one gap. Any way of doing it moves an endless line of them, the person in chair 1, the one whose chair they took, and on with no end, and that only works because the building has a chair past every chair.
+it's no trick. Look at what it took: every single person inside had to get up and move one over, into a chair that was taken a moment before, to leave one gap. Any way of doing it moves an endless line of them, the person in the chair the newcomer takes, the one whose chair that person took, and on with no end, and that only works because the building has a chair past every chair.
 That's the fresh-state column, paid in full on every raise. Richard
 Dedekind, the German mathematician, made it the definition of infinite in 1888: a collection is
 infinite exactly when it can be moved one-to-one into a proper part of itself. So finiteness
@@ -784,6 +798,28 @@ base becomes one by adding marks, all by theorem. Certified Thiele-complete is e
 Thiele-complete with clean starts, an earned record (the chain, a checker proved sound, claims that
 stay true while what they're about is unchanged) and a claim that could have failed added
 (Theorem~\ref{thm:tc-decomposition}).
+
+Proved, over any computer that shows two counters and a line, with a move for each two-counter
+instruction and a start for any two counters, about where ordinary computation sits: it's the
+slice. Put a record layer on such a computer, a tally, a table with room
+for a fact, a channel, a trap, a ledger and a flag, with check, commit and certify its only priced
+moves and ``this counter is at least $n$'' as its claims, and the result is certified
+Thiele-complete. Forget the layer and what's left runs as the
+computer runs until a record move fails, reaches exactly what the computer reaches, is never moved
+by a check, a commitment or a certificate, and can't see the record or the ledger: from one start,
+two runs end on the same state of the computer with the record up in one and down in the other and
+ledgers exactly three apart. With no room in the table, no way of reading the result meets the
+definition. The other way round, the moves of a Thiele-complete machine that cost nothing are the
+same however you read it as Thiele-complete, and its window is a slice of it onto two counters. And
+a machine run as one rule has no universal base and no slice, and is a Thiele machine only as a
+clock or with a reading that never rises (Theorem~\ref{thm:slice}). Not all of that could have
+failed. That the slice runs as the computer runs and that the record moves leave it alone hold by
+construction, and its blindness follows from the second once the layer is certified. The other way
+round holds by construction too, apart from the window being blind, which Part~II proves. What
+could have failed is that the layer is certified at all, that every Thiele-complete machine's
+window is blind, and that a table with no room certifies under no reading. The one-rule result is
+short, and it rests on one choice in the toll: the price sits on the move, the same from every
+state.
 
 Argued only: that the structure a computation makes is kept distinctions, priced by the toll, while
 a reading that undoable moves keep never rises and is never charged; that's a choice of what to
@@ -2511,7 +2547,7 @@ So the strip pays by taking fresh states for as long as it has fresh states to t
 says how many moves are left before a box gets reused. A fresh state is not the only other cost.
 Bennett (1989) showed that a computation can run without ever forgetting, but then its space
 grows with the run, or it spends time undoing and redoing its own work to keep the space small.
-Part (1) says what that time buys: a run that never lands two states on one needs a state it hasn't used
+Part (1) says what that time buys: a run that keeps a record and never lands two states on one needs a state it hasn't used
 at every step, so a machine's states run out one step before their number. Redoing
 work slows down how fast you go through the states; it doesn't add any. And the time has its
 own dissipation. Bennett's review (1982) gives the rate for his Brownian computer: the heat per step
@@ -2520,9 +2556,9 @@ heat. Going slower shrinks that heat toward zero and never gets there, because o
 takes forever gives off none, and a step that takes forever never happens. The first chapter of
 this part proved that as heat against time, Theorem~\ref{thm:time-bill}. So
 two payments are running. Anything that changes a device's state dissipates, and time sets how much. Keeping
-something adds a second payment on top: a merge, two states landing on one, which carries a floor of heat that no
-slowness removes, or a state never used before. A reading that stays up pays what keeping
-takes, a heat floor or a fresh state, and it lands on the move that raises it. Which one a device pays is
+something adds a second payment on top: a merge, two states landing on one, which under Landauer's premise carries a floor of heat that no
+slowness removes when the merged states were really possible, or a state never used before. A reading that stays up pays what keeping
+takes, a merge or a fresh state, and it lands on the move that raises it. Which one a device pays is
 physics. That it pays one of them is counting.
 
 
@@ -3375,7 +3411,7 @@ own price list, clause (c) included, satisfies that premise. This is a result ab
 its ledger, not a heat bound. There's a second way to settle the clash, which I note and didn't take. Morita's reversible two-counter
 machine, from the history earlier in this chapter, runs every step backwards and is still
 universal: with its input encoded, it computes anything a Turing machine can. Put the record layer on a base like that, with the base's step taken as the program's own step from line to line and the halt left with no next step, and every base step is one-to-one, and full merge pricing permits those base steps to cost zero. Choosing that schedule
-would meet clause (c); the lower-bound premise alone does not require zero charges. That base
+would meet clause (c); the lower-bound premise alone does not require zero charges. It wouldn't meet clause (a) as I stated it, though. Clause (a) asks for a move for each two-counter instruction, acting from every live state, not a step for each line of one program, and DEC $c$ $j$ sends states on any two lines with the same counters, $c$ above 0, to the same window, so whether it merges turns on the rest of the state and not on the program being reversible. That base
 wouldn't be getting anything for nothing: what it doesn't forget it keeps in its counters, which
 is the column of states never used before, again. I haven't built that machine.
 
@@ -3433,7 +3469,7 @@ repeating starts, and goes up and stays up after that. Count the repetitions fro
 the phrase at that move if you have to) and run the same argument on the whole phrase treated as one move, at the states where each playing of it begins. It merges two
 of those states, both visited; follow the two through the phrase, and the first move
 where their paths meet merges two states the run visits at that move's place in the pattern.
-So the answer is no for moves picked from outside, and yes for a closed machine or a repeating program.
+So the answer is no for moves picked from outside, and yes for a closed machine, or for a repeating program once the flag is down somewhere after the repeating starts.
 
 There is also a limited statement about how long a noisy record lasts, using a different
 quantity: total entropy production during relaxation. Take a device with no outside hand:
@@ -7562,7 +7598,7 @@ again. That it is base-driven is the proof of Theorem~\ref{thm:u11-converse} wit
 along. (2) is Theorem~\ref{thm:perm-flip-merges} of Section~\ref{sec:a2-not-arbitrary} with a single move.
 \end{proof}
 
-So a base that never merges can carry a record only by paying in fresh states: once the record is up, the run never comes back to a state it has been in (Proposition~\ref{prop:heat-or-room}). A history that grows by one entry every step is one way to supply them, and a base that never repeats a state, a counter, supplies them already. A machine with finitely many states hasn't got fresh states to go on taking, so it
+So a base that never merges can carry a record without merging anywhere only by paying in fresh states: once the record is up, the run never comes back to a state it has been in (Proposition~\ref{prop:heat-or-room}). A history that grows by one entry every step is one way to supply them, and a base that never repeats a state, a counter, supplies them already. A machine with finitely many states hasn't got fresh states to go on taking, so it
 can't carry one without merging: on a finite machine an instruction that first raises a permanent reading must
 merge some possible states. The entering state need not belong to the colliding
 pair; Section~\ref{sec:a2-not-arbitrary} prices the instruction under merge pricing.
@@ -7906,8 +7942,8 @@ starting at zero and adding each move's price? Yes, on every state reachable fro
 that's Section~\ref{sec:counter}'s initiality, and it assumes the price list.
 
 The second claim asks: is every base-driven record over a base \emph{the same machine}, charges and all? No,
-and the counterexample is embarrassing in its simplicity. Take any base-driven record and add
-one more unit to the cost of every step, whatever the step is, and then walk the five rules. The
+and the counterexample is embarrassing in its simplicity. Take any base-driven record, give it a new ledger that adds each step's old cost and one unit more,
+whatever the step is, and then walk the five rules. The
 record still answers only to the base and its own value (R1); the cost never touches it. The
 ledger still never goes down (R2); it climbs faster, if anything. The step that turns the
 record on still costs at least one (R3), because the toll is a \emph{floor} and a surcharge only
@@ -7916,7 +7952,11 @@ raises the price. Once on, the record stays on (R4), and the same run still reac
 the original sat still at no charge, the surcharged one pays one unit a step for sitting still. Do it
 with the cup and the die, and charge one unit for every roll, six or not. The cup turns over on the
 same roll as before, so you've changed the cost and nothing about the record. A machine that
-charges for CPU time is base-driven and isn't the one that doesn't.
+charges for CPU time is base-driven and isn't the one that doesn't. The new ledger has to sit beside the old
+state and not be read off it. A step's cost is the ledger after less the ledger before, so a ledger read off the
+state charges nothing for a step that leaves the state where it was, such as a halted machine stepping to itself,
+or for any step on a loop (Section~\ref{sec:counter}). The surcharge is paid in fresh ledger values, the way every
+counter that climbs is paid for.
 
 But the surcharged machine isn't a different \emph{structure}, since it has the same record, steps and
 halting with a different
@@ -8287,7 +8327,7 @@ A two-counter base priced 0 with a record that's down at every state obeys the t
 \begin{theorem}[Each of the four clauses is needed]\label{thm:tc-clauses}
 For each clause there's a machine that meets the other three through some interface and is
 Thiele-complete through none. Two of them are built on the two counters with two marks, one that raises
-the record when $A$ is 0 and one that always raises it. (A) fails: that machine, and one more move,
+the record when $A$ is 0 and one that always raises it, and a ledger beside them that each move adds its cost to. (A) fails: that machine, and one more move,
 priced 0, that puts the record back down. (B) fails: the two counters, every move priced 0, with
 a record that no move ever changes, up at the starts where $A$ is 0 and down elsewhere. (C) fails:
 the two counters with two marks, every move priced 1. (D) fails: the two counters, every move priced 0,
@@ -8326,9 +8366,9 @@ with a gap of three, because a certified raise costs three. Here the gap is one,
 reached.
 
 \begin{theorem}[Every universal base becomes Thiele-complete]\label{thm:tc-lift}
-Take any machine with a universal base and any events on its states, and add, for each event, a
-mark that costs one and raises a record exactly when the event holds; computing moves cost nothing
-and leave the record alone. If some run of computing moves makes some event hold from one loaded
+Take any machine with a universal base and any events on its states, and add a record, a ledger and, for each event, a
+mark that costs one and raises the record exactly when the event holds; computing moves cost nothing
+and leave the record alone, and every move adds its cost to the ledger. If some run of computing moves makes some event hold from one loaded
 state and not from another, the result is Thiele-complete, its computing is the original machine's
 step for step, and its record goes up after a single mark from any state where the event already
 holds.
@@ -8353,7 +8393,7 @@ every line of a program, and that's infinitely many places to go.
 
 Some Thiele-complete machine runs every Thiele machine a program can describe.
 Appendix~\ref{sec:universal-machines} defines a \emph{universal Thiele machine} and builds hosts
-that run any machine a program can describe, in order, carrying its reading as a latch and matching its ledger up to a fixed surcharge, with every
+that run any machine a program can describe, in order, carrying its reading as a latch and matching its ledger up to a surcharge of at most three, with every
 computing step done by counter moves on the host and every rise of the host's record placed by its
 program. None of that needs certification: the presented host's own program, read on a host with no claims, no checker and no table of facts, and one paid mark that raises the record when a register is at least 1, meets the definition too.
 
@@ -8559,7 +8599,7 @@ So five stages need four cups, and neither one nor three will do it, as long as 
 up. An ordinary binary counter holds a thousand stages in ten bits, because its bits go
 down as well as up, and the theorem says nothing against that. The switch isn't wrong:
 it's the first line, and a straight strip with more than two places needs more of them, exactly one
-fewer than it has stages. A direction that branches needs at least as many cups as the steps in its longest strict climb, and at least as many as it takes to tell its places apart, the rounded-up logarithm of how many there are. Put three places above a bottom, none of them above another: the longest climb is one step, and one cup can't tell four places apart, so it takes two, and two do it. It can need more than both. Take two places each below two others: one step of climb, four places, and two cups still won't do, because both upper places would have to keep up every cup either lower one has up, and two cups allow at most one arrangement like that besides the lower places' own.
+fewer than it has stages. A direction that branches needs at least as many cups as the steps in its longest strict climb, and at least as many as it takes to tell its places apart, the rounded-up logarithm of how many there are. Put three places above a bottom, none of them above another: the longest climb is one step, and one cup can't tell four places apart, so it takes two, and two do it, though not two lines: one cup that goes up at the first and the third, and one that goes up at the second and the third. It can need more than both. Take two places each below two others: one step of climb, four places, and two cups still won't do, because both upper places would have to keep up every cup either lower one has up, and two cups allow at most one arrangement like that besides the lower places' own.
 
 People got here before me, and from a direction I didn't expect, which was programming for many
 processors at once. Lindsey Kuper and Ryan Newton's LVars (2013), ``lattice-based data structures
@@ -9193,7 +9233,8 @@ for any substrate with those parts. (A substrate here is the mathematical struct
 to give back a state, a counter with a step relation it never goes down along, an
 encoding of programs as data, a notion of ``representable'' transformation, and the recursion
 theorem for those. It says nothing about what the states are made of. A small instance is the nat family below.) It's Rice's trick one floor over, and I should be careful
-with that. Rice's theorem is stated for the functions Turing machines compute. This wall is
+with that. Rice stated his theorem for classes of recursively enumerable sets, the sets a program
+can list, and it's usually taught now for the functions Turing machines compute. This wall is
 the same diagonal with different premises: it carries its own recursion theorem and its own
 list of representable transformations, and it picks the property. So it isn't a corollary
 of Rice as Rice stated it, and it doesn't show that any property is harder or easier to decide
@@ -9499,7 +9540,11 @@ Part~III is step four, the sharpest case. A record that a claim was checked and 
 distinction that stays, so it pays what Part~I found keeping takes, and it's the case where you can point at the
 kept 0 and at what it cost. It starts with what \emph{established} means, and why two computers
 with the same bits can differ in it. Then it builds a machine for it: an ordinary computer of two
-counters, with a record layer on top whose flag is the blank cell, six kinds of instruction in all. The
+counters, with a record layer on top whose flag is the blank cell, six kinds of instruction in all.
+Read through its window, the line and the two counters, it's the ordinary computer again, run by its
+moves for the instructions and blind to the record and the ledger: the record layer is the part the
+slice forgets, and the appendix proves that every computer with a move for each two-counter
+instruction is the slice of a certified Thiele-complete machine (Theorem~\ref{thm:slice}). The
 step that raises the flag is the write of a 0, a merge in the record layer, and that's why it's
 charged; the order the step enforces, check, then commit, then certify, is what makes this
 record's raise mean a claim held. That's what I mean by certification, and it's the layer this part adds to the bar
@@ -10228,8 +10273,8 @@ length keeps changing, and only when he feels it does he find a circle, a perfec
 sphere tells him it will rise, and he watches it dwindle to a point and vanish, and come back larger
 and larger. The hidden direction
 leaks into his view, faintly, and a sharp enough flat observer could in principle work out where the
-sphere is. In this machine, as far as I can make out, you could move a state all the way along the
-established direction without changing a single bit of the ordinary machine. That may be exactly why the
+sphere is. In this machine two states can sit at different places along the
+established direction and agree on every bit of the ordinary machine (Theorem~\ref{thm:u34-separation}). That may be exactly why the
 ordinary machine can't see it. It may also be why, if the direction is worth having, someone has to build
 it in on purpose and keep it on purpose. Keeping it is paid for; Part~I's counting of states says so. What's still open is what has
 to be kept, and that's what the rest of this chapter is for.
@@ -10409,8 +10454,9 @@ no function it couldn't already compute.
 
 Which leaves a fair question hanging: if it computes nothing new, does it even get to call
 itself a model of computation? It does, for the reason the start of the book gave: the
-random-access, cell-probe and input-output models compute exactly what Turing's does and differ
-only in what they count, and so do the energy-aware random-access machines of Demaine and his
+random-access machine computes exactly what Turing's does, the cell-probe and input-output models
+leave the computing between the moves they count out of the count, and each is worth having for
+what it counts. So are the energy-aware random-access machines of Demaine and his
 coauthors (2016), which count the bits destroyed. Add one more to that family,
 the bulk-synchronous parallel model of Leslie Valiant, a computer scientist at Harvard (1990), which
 charges for rounds of communication between processors. Closest in kind are Blum's axioms, also from
@@ -10767,7 +10813,7 @@ certify, is what makes a raised flag mean something.
 
 Parts I and II say what the model adds to a machine. It adds a \emph{record}, a flag that reads
 no or yes and, once yes, stays, which on a machine is the blank cell's 0. Here yes means ``certified,''
-because that's the event I picked (Section~\ref{sec:pointer}, later in this part, asks whether the pick was unforced). It adds a \emph{toll}: the step that raises the flag costs something
+because that's the event I picked (Section~\ref{sec:pointer}, later in this part, asks whether anything outside the rules picks it out). It adds a \emph{toll}: the step that raises the flag costs something
 (Section~\ref{sec:toll}). And it adds a \emph{ledger}, the running total of those costs, a whole number that only climbs (Section~\ref{sec:counter}).
 And Section~\ref{sec:latch} proved the thing this whole chapter stands on: over any base at
 all, a base-driven record is a \emph{latch}, a bit that switches on at an event the base decides and
@@ -11274,10 +11320,14 @@ Others walked into the same line from communication. Three theoretical computer 
 Oded Goldreich, Brendan Juba and Madhu Sudan
 (2012), built a theory of communication with a partner you may not understand, in which getting a
 message across counts only as a way to reach a goal, and the central notion is \emph{sensing}: being able to tell, from what you see,
-whether you're making progress. The sensing they ask for is \emph{safe}: when there's no progress
-it says so, and so it never reports a success that didn't happen. Their main result, as I read it,
-is that safe sensing, with a partner who could help if you spoke its language, is enough for one
-strategy that reaches the goal with every such partner. Their theorem, in their setting, is a check that can fail and never lies,
+whether you're making progress. They ask two things of it. It has to be \emph{safe}: with any
+partner in the class, when there's no progress it keeps saying so, so it can't report a lasting
+success that didn't happen. And it has to be \emph{viable}: with a partner who could help if you
+spoke its language, the right way of speaking gets a yes from it within a known time, and keeps
+getting one. Either half alone is cheap. A sensor that always says no is safe, and one that always
+says yes is viable. Their main result, as I read it, is that the two together, with the ways of
+speaking listed one after another, are enough for one strategy that reaches the goal with every
+such partner. Their theorem, in their setting, is a check that can fail and never lies,
 standing in front of a verdict you can't take back, and
 it's the same shape.
 
@@ -11959,7 +12009,7 @@ clause (d) holds,
 a claim whose three moves raise the record from a loaded state exactly when it holds there, true
 at one loaded state and false at another. (2) Every certified Thiele-complete machine is
 Thiele-complete. (3) Not the other way: the two counters with two marks, one that raises the
-record when $A$ is 0 and one that always raises it, is Thiele-complete, and certified
+record when $A$ is 0 and one that always raises it, and a ledger beside them that each move adds its cost to, is Thiele-complete, and certified
 Thiele-complete through no interface.
 \end{theorem}
 
@@ -12892,9 +12942,12 @@ a way to move the line number that adds nothing to the ledger and leaves no trac
 subsection on the window, earlier in this chapter, uses exactly that.
 \item \textbf{After a trap, a trace still pays.} On programs, a trap stops the run. On arbitrary
 traces, instructions after a trap are each charged their cost and none of them changes the
-core. I chose to keep charging so that the ledger stays the plain sum of what was issued
-(Theorem~\ref{thm:u34-toll} has no exceptions); what that choice brings with it is that a trapped
-machine can still be charged for instructions that change nothing.
+core. That isn't a separate choice. A price belongs to the instruction, the same from every state
+(Definition~\ref{def:certsys}), so a CERTIFY on a trapped machine costs what every CERTIFY costs, and
+clause (c) of Definition~\ref{def:u34-thiele-complete} has the ledger add it; Theorem~\ref{thm:u34-toll}
+has no exceptions for that reason. The choice is one level up, in putting the price on the instruction and
+not on the instruction at a state, and what it brings with it is that a trapped
+machine is still charged for instructions that change nothing.
 \item \textbf{``Checked'' means what the property language can say.} On this machine that's \emph{is
 zero}, \emph{is even} and \emph{is at least $n$}, and a live fact means one of those holds of one counter's
 current value. It doesn't mean the program is correct, or that anything follows from the
@@ -13377,7 +13430,7 @@ required a counter to be able to tick once every five seconds, and that the chip
 expected to survive about a hundred thousand writes in its whole life, so writing once a second
 would wear it out in under twenty-eight hours. Memoir writes to it twice per boot. The permanent record,
 then, is finite and rationed: it has a budget, in exactly the sense from the start of the
-section, and it sits on these slots and counters; the registers the quote signs have none. It's the budget of Theorem~\ref{thm:u11-growing}'s chain
+section, and it sits on these slots and counters; the registers the quote signs have none. On the bit field it's the budget of Theorem~\ref{thm:u11-growing}'s chain
 of $k$-bit words, which can only climb $k$ times. Phones and small controllers go one floor further down,
 to fuses like the PROMs in Section~\ref{sec:latch}: a version number kept as a row of fuses, one
 more blown at each security update, and boot code that refuses anything older. An industry guide
@@ -13740,7 +13793,7 @@ something about how people and machines lean on records that picks this event ou
 
 What I have is a thesis, in the sense the Church-Turing thesis is one
 (Section~\ref{sec:structure}): a claim tying defined things to the world, which no proof
-can settle. Whether it stands or falls is what decides whether the choice of event was unforced.
+can settle. Whether it stands or falls is what decides whether the choice of event has a reason behind it.
 Nothing before it depends on it; the latch, the windows and the counting arguments hold
 whichever event a system records. What follows is the claim, where I got it, what can be checked, and how to kill it.
 
@@ -14158,7 +14211,7 @@ a toll on something nobody else leans on. That breaks the second half, ``the pri
 Two: find a rival event, one certification doesn't imply, that is copied and relied on \emph{as well as} certification in a real ecosystem.
 Then certification isn't the pointer and the first half's ``the one'' is wrong. Or do it in a model:
 show that something like a multiplication count, or the number of times a Turing machine's head turns around, is copied and relied on by the same
-standard, so the criterion picks out more than one event and decides nothing.
+standard while certification doesn't imply it, so certification isn't the pointer.
 
 Three: formalise an ecosystem honestly, with independence as Definition~\ref{def:u14-reliance} defines it, where certification
 \emph{fails} the test. The symmetric-MAC row is already most of the way there for a different
@@ -14550,7 +14603,7 @@ Is there a heat prediction the permanent-certificate theorems make that Landauer
 alone doesn't? No, and the reason is short. The smallest case, one certified state and one
 flipping in, is ``set a bit to one whatever it held,'' which is the reset Landauer described
 and Bérut measured; Landauer's own name for it is ``restore to one,'' and
-Section~\ref{sec:toll} put it beside the toll. The general bound, kT ln((m plus k) over m) for squeezing m plus k
+Section~\ref{sec:toll} put it beside the toll. The general bound, the larger of kT ln((m plus k) over m) and 2k over (m plus k) times kT ln 2, for squeezing m plus k
 equally likely states into m, is what Landauer's principle gives for that squeeze, at kT ln 2 for
 each bit removed. What the permanence theorems add is the structural half: finiteness and a
 permanent reading force any flag-raising instruction to merge some full states.
@@ -14564,7 +14617,7 @@ machine result and the physical premise do different jobs, and neither does the 
 This section holds a calibration that's a unit conversion; a pair of premises, consistent on
 the steps the toll is about and inconsistent on the whole instruction set; a history that makes any step injective by paying with a fresh state at every step; and a
 measurement protocol that's a specification with a selected scale. The physics in this book is
-in Section~\ref{sec:a2-not-arbitrary}, as a named premise with its critics named. Here there's
+in Part~I: Landauer's principle as a named premise with its critics named (Section~\ref{sec:a2-not-arbitrary}), and the dissipation of every change, cited, and proved for one model (Section~\ref{sec:what-a-chair-is}). Here there's
 accounting, and I've tried to call every line by its right name. That's the end of the machine.
 What's left, after one suspicion I can't prove, is how you'd break any of this, and where it stops.
 
@@ -14629,7 +14682,11 @@ isn't what I found.
 Part~IV is where you aim at all of it: how to break each claim, the ledger of what's proved and
 what isn't, the fence around what I've shown, and the conclusion. The thing to aim at first is the
 bottom: find a 0 that's kept with no merge and no fresh state, and the claim about what keeping
-takes falls, and the derivation of the toll falls with it.
+takes falls, and the derivation of the toll falls with it. The next is the slice: a computer with a
+move for each two-counter instruction whose lift, with the claims ``this counter is at least $n$''
+and room in its table, isn't certified, or has a record or a ledger that can be read off what's left
+when the layer is forgotten, and the claim that ordinary computation is
+the slice of a Thiele machine falls (Section~\ref{sec:falsification}, under ``Every base'').
 
 %===========================================================================
 \section{How to break this}
@@ -14953,7 +15010,14 @@ fact table whose lift is certified Thiele-complete; or a certified Thiele-comple
 place is at or below every other. Each makes one part of the obstruction theorem fall. For the
 one-lever presentation: a base by simulation whose grouped box, with the window claims and a fact
 table with room, doesn't lift to a certified Thiele-complete machine; or the five-lever box of
-Theorem~\ref{thm:lift-macro} shown to have a universal base after all.
+Theorem~\ref{thm:lift-macro} shown to have a universal base after all. For the slice: a lift as in
+Theorem~\ref{thm:lift}(1) with a state whose trap is down from which a lever moves the box's part
+other than as the box's step does, a CHECK, COMMIT or CERTIFY that moves the box's part, or a
+function of the box's part that gives the flag at the end of every run from every loaded state; a
+lift with no room in its table that's certified Thiele-complete through some interface; a machine
+with two interfaces it's Thiele-complete through whose computing moves differ; or a machine run as
+one rule that has a universal base, or whose reading rises somewhere and that obeys the toll with a
+move priced 0. Each makes one part of Theorem~\ref{thm:slice} fall.
 
 \emph{Side by side and nesting (Appendix~\ref{sec:parts}).} Two machines side by side and a run of
 the pair whose cost isn't the left machine's cost of its moves plus the right's, or two
@@ -15106,8 +15170,8 @@ wrong. ``By unfolding'' after it means the proof does little more than read the 
 definitions, a case split whose every branch is a line: true, and carrying almost
 nothing the definitions didn't already say. If you're counting results, count those
 differently. I mark them so they don't pad the list, and where they're stated in the book they
-carry the label \emph{observation}, with two exceptions: Theorem~\ref{thm:u34-toll}, and part (3)
-of Theorem~\ref{thm:u34-presented-surcharge}.
+carry the label \emph{observation}, with three exceptions: Theorem~\ref{thm:u34-toll}, part (3)
+of Theorem~\ref{thm:u34-presented-surcharge}, and the parts of Theorem~\ref{thm:slice} its line names.
 
 Ledger is a good word for it, and it's older than bookkeeping. Around 1400 a \emph{ledger} was a
 book that lay permanently in one place, a big church breviary, say, from the old verb
@@ -15179,10 +15243,10 @@ The halving price holds exactly when no pile-up exceeds $2^{\mathrm{cost}}$; the
 \bottomrule
 \endlastfoot
 Forgetting nothing removes no bits & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:u04-injective-entropy} \\
-A permanent flip from the even spread removes at least $\log_2 \frac{m+k}{m}$ bits & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:entropy-ceiling} \\
+A permanent flip from the even spread removes at least $\log_2 \frac{m+k}{m}$ bits and at least $\frac{2k}{m+k}$ bits & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:entropy-ceiling} \\
 Landauer's principle & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:landauer} \\
 Heat floor of a permanent flip & proved (premises: Landauer, $k_B T \ge 0$, the even spread) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:heat-floor} \\
-In the worst case over spreads a permanent flip removes at least a full bit, whatever the number of yes-states; from the even spread it removes at least $\log_2 \frac{m+k}{m}$ & proved & Section~\ref{sec:a2-not-arbitrary} \\
+In the worst case over spreads a permanent flip removes at least a full bit, whatever the number of yes-states; from the even spread it removes at least $\log_2 \frac{m+k}{m}$ and at least $\frac{2k}{m+k}$ bits & proved & Section~\ref{sec:a2-not-arbitrary} \\
 Positive heat for any full spread & proved (premises: Landauer, $k_B T > 0$) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:u04-full-support-heat} \\
 Entropy pricing gives the toll & definition; proved (premise: entropy pricing) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:u04-entropy-priced}, Theorem~\ref{thm:u04-entropy-toll} \\
 Entropy pricing is equivalent to the halving price; merge pricing is their weaker restriction to pairs. The largest entropy loss is $\log_2$ of the largest pile-up & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:one-premise} \\
@@ -15473,6 +15537,8 @@ Kleene's recursion theorem for two-counter programs, inputs written as powers of
 Kleene's recursion theorem for two-counter programs on plain inputs & refuted: a carried-out transformation has no fixed point & Appendix~\ref{sec:small-diagonal}, Theorem~\ref{thm:no-plain-recursion} \\
 Every universal base lifts with an exact checker, a nontrivial claim and room for a fact; finite simulations lift after grouping & proved under the stated interface conditions & Appendix~\ref{sec:every-model}, Theorems~\ref{thm:lift} and~\ref{thm:lift-macro} \\
 Finite branching, state-independent moves and an indiscriminate record order give the stated obstructions to lifting & proved & Appendix~\ref{sec:every-model}, Theorem~\ref{thm:lift-fails} \\
+Every box with a universal base is a slice of its lift with the window claims and room for a fact: forgetting the panel runs as the box runs while the trap is down, reaches exactly what the box reaches, isn't moved by CHECK, COMMIT or CERTIFY, and gives neither the flag nor the ledger, the chain's ledger exactly 3 above the empty run's; with no room in the table no interface certifies the lift; a Thiele-complete machine's computing moves are its moves that cost nothing, through every interface, and its window is a slice onto two counters; a machine run as one rule has no universal base, no base by simulation and no slice, and is a Thiele machine only as a clock or with a reading that never rises & proved; that the slice runs as the box runs and that the record moves leave it alone, by unfolding, and the converse's universal base and step-for-step clauses by unfolding too & Appendix~\ref{sec:every-model}, Definition~\ref{def:slice}, Theorem~\ref{thm:slice} \\
+With the program in the state, a reading is kept by every operation exactly when it never comes down from any state; a cell some program clears is a simulated bit & proved, by unfolding & Appendix~\ref{sec:every-model}, Observation~\ref{obs:program-in-state} \\
 The seven models compute the same numerical relations under their encodings; one counter has decidable halting & proved & Appendix~\ref{sec:every-model}, Theorems~\ref{thm:lift-models} and~\ref{thm:one-counter} \\
 Products and sequential hand-offs preserve the stated structure; shared writers and unsuitable record readings can break it & proved under the stated interfaces and loading conditions & Appendix~\ref{sec:parts}, Theorems~\ref{thm:parts-product}--\ref{thm:parts-breaks} \\
 A following host run pays for the guest's record rises; presented nesting surcharges add & proved; every host run is presented on its states with finitely many live registers, so towers go to any depth & Appendix~\ref{sec:parts}, Theorem~\ref{thm:parts-nesting} \\
@@ -15523,7 +15589,7 @@ physics, which stays in the premises the book names and the results it cites.
 
 \begin{itemize}
 \item That the axis belongs in the step (Section~\ref{sec:scope}, Section~\ref{sec:conclusion}).
-\item That the usual account of a computation is a shadow of the step, for machines whose control never reads their record (Section~\ref{sec:shadow-exact}). The small machine's control does read its own record layer: a commitment that finds no fact traps. So for it the claim is about its ordinary computer, not the whole machine.
+\item That the usual account of a computation is a shadow of the step, for machines whose control never reads their record (Section~\ref{sec:shadow-exact}). For a computer with a move for each two-counter instruction, under the record layer of Appendix~\ref{sec:every-model}, part of that is proved: the computer is a slice of a certified Thiele-complete machine, what's left with the layer forgotten, and it can't see the record or the ledger (Theorem~\ref{thm:slice}). That layer's control reads its trap, so the slice follows the computer only while the trap is down. The proposal is the rest: that this is how to see computation in general. The small machine's control does read its own record layer: a commitment that finds no fact traps. So for it the claim is about its ordinary computer, not the whole machine.
 \item Within the record construction, that certification is the event selected by the reliance criterion of the pointer thesis (Section~\ref{sec:pointer}).
 \item That this is a structural account of computation, with a cost model as one part of it (Section~\ref{sec:scope}).
 \item That the toll is the right thing to price. The alternatives are a wall or a penalty for contradiction (Section~\ref{sec:models}, Section~\ref{sec:conclusion}).
@@ -15732,7 +15798,7 @@ would need protocol or hardware semantics I haven't formalised, and I've proved 
 them. So none of this yields a new outside result that both needs the record axis and is ready
 to use.
 
-\emph{Where each result lives.} Every deterministic machine, finite or endless: the step law, heat
+\emph{Where each result lives.} Every deterministic machine, finite or endless: the step law, a merge
 or fresh states for a kept reading, and the endless supply of fresh states a raise of a kept reading with no merge needs. Every system that
 follows the toll, whatever its states: the
 floor, at most as many certifications as cost, and the potential-method reading. Every
@@ -15744,9 +15810,65 @@ alike: no exact price from the window. Every machine meeting the definition of T
 move that costs nothing, a cost of at least one on any run from a state with the record down that ends with it up, and a final
 window that doesn't determine the record or the ledger. Every machine meeting the definition of certified Thiele-complete: a move that costs nothing, a cost of at least
 three on any run from a clean state that ends certified, and a final window that doesn't
-determine the record or the ledger. Any eight counts: the integer check and its PSD bridge, which are mathematics.
+determine the record or the ledger. Every box with a universal base: a slice of its lift with the window
+claims and room for a fact, blind to the flag and the ledger. Every Thiele-complete machine: its moves that cost nothing are the same
+through every interface, and its window is a slice onto two counters. Every machine run as one rule:
+no universal base, no slice, and a Thiele machine only as a clock or with a reading that never rises.
+Any eight counts: the integer check and its PSD bridge, which are mathematics.
 This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
 pair, and the encodings its universal programs use.
+
+\emph{Models and processes.} For a model of computation written down as states, a step and a reading
+that stays, what keeping takes is a theorem about the model, not a thesis. The thesis in the
+Conclusion is only the tie from a physical process to such a description. Here's how far the
+theorems reach, and where they stop. A step that gives every state one next state, on any number of
+states: a run that raises a reading and keeps it up merges two of its own states or never visits a
+state twice (Proposition~\ref{prop:heat-or-room}), and with finitely many states reading yes the
+move that raises it merges (Theorem~\ref{thm:perm-flip-merges},
+Proposition~\ref{prop:raise-needs-room}). That takes in a Turing machine or a counter machine stepping
+by its program, and a cellular automaton stepping its whole grid at once. A model that halts has no
+next state at its halt, and slips past with no merge; give the halt a next state and the run is one
+rule again, so keeping the answer merges or takes fresh states, and with the halted state stepping to
+itself the step onto it is a merge (Theorem~\ref{thm:halting-hole}). Steps by chance on finitely many
+states: one whose chances into each state add to one, which is what keeping the even spread takes,
+never enters a finite set nothing leaves from a state outside it (Theorem~\ref{thm:noisy-chairs}). A
+unitary step that keeps a finite-dimensional part of the space keeps the part at right angles to it,
+so a state at right angles to the kept part stays at right angles (Theorem~\ref{thm:quantum-chairs}).
+
+A model whose step may offer several next states, or none, comes in too: a nondeterministic machine,
+a lambda term reduced at whichever redex you like, a rewriting system, a proof system read as
+derivations made one rule at a time. Nothing earlier in the book is stated for such steps, so here are the
+two arguments. The first is the pigeonhole of Proposition~\ref{prop:raise-needs-room} on one choice
+of next state, and the second is the walk back of Proposition~\ref{prop:heat-or-room}, stopped at
+the raise. First, suppose only finitely many states read yes, none of them can step to a state
+reading no, each has at least one next state, and some state reading no can step to one of them.
+Pick one next state for each yes-state, and the outside state's step into the yes-states: that's one
+more step than there are yes-states, each leaving a different state and landing on a yes-state, so
+two land on the same one, and two different states share a next state. That needs the yes-states
+finite; Hilbert's hotel, everybody moving up one, keeps a reading with no two states sharing a next
+state. Second, along any one run, however its choices fall, take the step where a reading goes up,
+and suppose it stays up for the rest of that run. If the run is in one state at two times after the
+raise, step both times back together. They can't stay equal past the raise, because the state at the
+raise reads no and every later one reads yes, so at the first pair that differs, two different
+states of that very run step onto one. So after the raise the run merges or never repeats a state,
+on any number of states. Before the raise it can come back to a state and then leave it for good
+with no merge, which one rule can't do. A normal form, with no next state, is the halt again: a reading
+kept by stopping is kept with no merge, as Theorem~\ref{thm:halting-hole} says. For such steps
+the first argument says little by itself: in the lambda calculus every term $N$ is one step from two
+different terms, $(\lambda x.x)N$ and $(\lambda z.N)M$ with $z$ not free in $N$, so two states
+sharing a next state is no news there, and the second argument is the one that carries weight. And
+when a step can branch, a shared next state doesn't by itself bunch the crowd up, since a branch
+spreads it out again; with chances on the steps and finitely many states, the count that does is
+Theorem~\ref{thm:noisy-chairs}.
+
+Where they stop. Steps in continuous time have no next state to count, and nothing here covers them.
+Steps by chance where endlessly many states read yes, and unitary steps whose kept part has endlessly
+many dimensions, get none of the finite results above, and the bilateral shift keeps a reading with
+no merge, a fresh state every step. What still reaches them is the run: a unitary step is one rule,
+so its runs are Proposition~\ref{prop:heat-or-room}'s, and one run of steps by chance is a run the
+second argument covers. And a truth isn't a process at all: that a statement is provable is a fact
+with no step in it, and the theorems are about a run that derives it. What they give is the merge or
+the fresh states. The heat stays Landauer's premise.
 
 \emph{What I'm proposing beyond that.} A way of describing computation in which the
 relations a computation carries live in the state, what each move does to them lives in the
@@ -15880,8 +16002,15 @@ can't tell apart two steps the window shows the same is elementary, and what's h
 pricing form. Third, a record driven by the
 computation that never switches off is a latch on one event, over any base
 (Observation~\ref{thm:u11-latch}); latches and history variables are old, and the theorem covers
-only records that never come down; and the definition of Thiele-complete, which any universal base
-meets once marks are added (Section~\ref{sec:complete}). Fourth, a record that's priced, and on the small machine
+only records that never come down. Beside it, built rather than new, sit the definition of Thiele-complete, which any universal base
+meets once marks are added (Section~\ref{sec:complete}), and the slice under it: a computer with a
+move for each two-counter instruction is what's left of a certified Thiele-complete machine with
+its record layer forgotten, blind to the record and the ledger, and every Thiele-complete machine
+leaves one through its window (Theorem~\ref{thm:slice}). That forgetting a layer gives the runs back,
+where the step doesn't read it, is the ghost-code erasure of Section~\ref{sec:counter}; what's here is
+that the forgotten layer still earns its record, and that what's left can't see it. It's a theorem
+about boxes with a universal base, and it uses no equivalence between models; the one that carries a
+box to the other models is imported (Theorem~\ref{thm:lift-models}). Fourth, a record that's priced, and on the small machine
 earned (Theorem~\ref{thm:u34-cert-earned}), under the move of guaranteeing something about
 every program. That move isn't mine at all. It's the reference monitor's (Anderson, 1972),
 made precise for monitors that watch a run (Schneider, 2000), and proved for monitors
@@ -15928,7 +16057,16 @@ state for every state, computably presented (its states written as whole numbers
 its reading and its start for each input computed by programs that halt on every input), on
 which the answer is a reading that no run from any input ever turns off, on inputs accepted and
 rejected alike. No proof settles it, because ``a physical process that computes'' isn't a
-mathematical object. What is proved sits on either side of it. On one side, Part~I applies to
+mathematical object. A model of computation is one, and for a model written down as states, a step
+and a reading that stays, what keeping takes needs no thesis: it's a theorem, and
+Section~\ref{sec:scope} says how far it reaches. The thesis is about what a physical computation pays for what it keeps, which is Part~I, and not a
+claim that its description run by one rule, with its program loaded, is a Thiele machine: by
+Theorem~\ref{thm:slice}(4) that one-rule description is one only as a clock or with a reading that
+never rises. Whether the computer underneath is a Thiele machine depends on the moves it offers
+before a program is chosen, and with the program in the state a reading is a record, not a
+simulated bit, exactly when it never comes down from any state
+(Observation~\ref{obs:program-in-state}).
+What is proved sits on either side of the thesis. On one side, Part~I applies to
 every such description on the states its inputs reach, where the answer never comes down: a run
 that raises it merges two of its own states or never visits a state twice
 (Proposition~\ref{prop:heat-or-room}). On the other, seen only through which inputs it accepts,
@@ -15965,7 +16103,12 @@ At the bottom of the Thiele Machine is one cell going from blank to 0, and the
 claim that nothing gets to be the case for free. Built on that cell, the machine is structure held as state, acted
 on by a step, with an account of the changes and a view that may keep or lose their distinctions.
 What I'm arguing is that those relations are part of computation itself, and not something you
-bolt on afterwards. The record and its toll are the part of that I've worked all the way through.
+bolt on afterwards. The record and its toll are the part of that I've worked all the way through,
+and there this much is proved: a computer with a move for each two-counter instruction is a slice
+of a certified Thiele-complete machine, what's left when the record layer is forgotten, blind to what
+was kept and what it cost, and every Thiele-complete machine has such a slice
+(Theorem~\ref{thm:slice}). Run as one rule, a machine has no universal base and no slice, and is a
+Thiele machine only as a clock or with a reading that never rises.
 The small machine and its interpreters are things you can take apart. Each theorem
 answers a stated question under stated premises. Which questions an account of
 computation ought to keep is the part that's still open, and it's yours to push on.
@@ -16175,7 +16318,11 @@ keeps three things, the line number and the two counters, which are what Minsky'
 already has, and that's why projecting lands you back in ordinary computation. It drops
 everything else, including the parts doing the new work: the versions, the table of checked
 facts, the channel, the trap, the ledger and the flag. Nothing is wrong with it, and it's a perfectly good
-function; it just loses you what made the state more than a pair of counters. A quotient is the operation of declaring two things the same when
+function; it just loses you what made the state more than a pair of counters. When what's left runs
+as the machine underneath runs, reaches what it reaches and still can't see the record or the
+ledger, the projection is a slice (Definition~\ref{def:slice}): every Thiele-complete machine has one
+onto two counters, its window, and every computer with a move for each two-counter instruction is a
+slice of a certified Thiele-complete machine (Theorem~\ref{thm:slice}). A quotient is the operation of declaring two things the same when
 they agree on what you chose to look at and working with the classes instead. A projection
 does exactly that. Dropping fields one at a time also glues together states that
 the dropped fields kept apart. The fibre of a function over a value is
@@ -16682,7 +16829,10 @@ their picture.
 \item Ghost state (Owicki and Gries 1976; Filliâtre, Gondelman and Paskevich 2014): variables
 added for a proof that can be erased without changing what the program computes. The flag and
 the counter are ghost in that sense. The small machine's table of checked facts isn't, because
-the step reads it and refuses on it, for every program.
+the step reads it and refuses on it, for every program. The slice of
+Appendix~\ref{sec:every-model} is that erasure on the lift, while its trap is down, with two things
+on top: the erased layer still earns its record, and what's left can't read the record or the
+ledger (Theorem~\ref{thm:slice}).
 \item Verifiable computation and proof-carrying data (Parno, Howell, Gentry and Raykova 2013;
 Chiesa and Tromer 2010): a short proof, checkable by a stranger, that a computation's output is
 right. That establishes the claim for the stranger, and anyone with the inputs can make one,
@@ -18643,9 +18793,12 @@ and what each lever does to the state.
 
 Then bolt on a panel cut down from the small machine's, and nothing else:
 one version number for the whole box that every lever
-raises, which is the tally, a table of facts, and three new moves, CHECK,
-COMMIT and CERTIFY, each costing one, with every lever costing nothing. Call that the \emph{lift} of the
-machine. A lever moves the box only while the trap is down. The trap works as on the small
+raises, which is the tally, a table of facts, a channel, the flag, and three new moves, CHECK,
+COMMIT and CERTIFY, each costing one, with every lever costing nothing. The three act as on the
+small machine, with the tally in place of a counter's version: CHECK files its claim with the tally
+when the checker says yes and the table has room, COMMIT puts the fact in the channel when the table
+holds its claim at the current tally, and CERTIFY raises the flag when the channel holds a fact.
+Call that the \emph{lift} of the machine. A lever moves the box only while the trap is down. The trap works as on the small
 machine: a CHECK, COMMIT or CERTIFY that fails sets it, nothing takes it down, and once it's up
 every move, a lever included, changes nothing but the ledger.
 
@@ -18810,6 +18963,162 @@ followed by INC $A$, and a box that can't tell those apart can't keep two counte
 Item (4) is the trouble with bare preorders from Section~\ref{sec:direction}, where the cups stopped telling you the place, showing up one level higher. If
 every place on the axis is at or below every other, the flag has no up to go to. No step ever turns a cup over, nothing ever has to be paid for, and the earned chain has nothing to earn.
 
+\subsection{Computation is the slice}
+
+The lift says the panel goes onto any box with a universal base. Turn it round and it says something
+about the box: the box is what you see of the lift when you stop looking at the panel. That's where
+ordinary computation sits in this book, so I want it said exactly, with a name.
+
+\begin{definition}[Slice]\label{def:slice}
+Take a machine with a ledger, a whole number for each state, and a loaded state for each start, and
+take a box with a universal base. A \emph{slice} of the machine onto the box is a map from the
+machine's states to the box's states, a move of the machine for each lever of the box, called its
+\emph{computing move}, and a class of the machine's states, called \emph{working}, such that:
+(i) each loaded state is working, and the map sends it to the box's loaded state for the same start;
+(ii) from a working state, a computing move lands on a working state, and the map sends where it
+lands to where the box's lever takes the map's image; (iii) from some loaded state there are two runs
+whose ends the map sends to one box state, with the record up at one end and down at the other, and
+two runs whose ends it sends to one box state, with different ledgers.
+\end{definition}
+
+When there's a slice, I'll say the box is a slice of the machine. The first two clauses say the slice
+runs as the box runs. By induction on the run, from a working state a run of computing moves is sent,
+move for move, to the box's run of the matching levers, and from a loaded state that means the slice
+reaches exactly what the box reaches from its loaded state, no more and no less. The third clause
+says it can't see what was kept or what it cost: a function of the box state that gave the record at
+the end of every run from every loaded state would have to give both answers at the one box state
+the clause names, and the same goes for the ledger. Nothing else is hidden in the definition. Read
+the box's window through the map and take as live the working states whose image is live, and the
+first two clauses make the computing moves for the box's instruction levers a universal base of the
+machine. So a machine has a slice onto some box exactly when it has a universal base whose window
+meets the third clause, and then the window itself is a slice onto the two-counter box, whose states
+are configurations and whose levers are the instructions. The third clause does work. A
+Thiele-complete machine's computing moves, taken alone, are a box, and the map that forgets nothing
+meets the first two clauses onto it and fails the third, because the record and the ledger are
+functions of the state; and the window of the first clock of Observation~\ref{obs:tc-clock}, whose
+record is a question about its counters, fails it too.
+
+\begin{theorem}[Computation is the slice]\label{thm:slice}
+(1) Take the lift of a box with a universal base, as in Theorem~\ref{thm:lift}(1). Forgetting the
+panel, which keeps the box's part of each state and drops the tally, the table, the channel, the
+trap, the ledger and the flag, is a slice of the lift onto the box, with the levers as its computing
+moves and the states whose trap is down as its working states. Beyond that, CHECK, COMMIT and
+CERTIFY never move the box's part, from any state; from any box state with an empty panel, the
+lever runs are sent, under forgetting, to exactly the box's own runs from that state, lever list for
+lever list; and from a loaded state where the claim of Theorem~\ref{thm:lift}(1) is true, the run of
+no moves and the run CHECK, COMMIT, CERTIFY of that claim end on one box state with the flag down
+and up and ledgers exactly 3 apart, CERTIFY three times ends there too with the flag down and the
+same ledger as the second run, and CERTIFY $d$ times, for any $d$, ends there with the flag down and
+a ledger $d$ above the first run's. (2) With no room in the fact table, the lift of any box, with any
+claims, is certified Thiele-complete through no interface at all. (3) Let a machine be
+Thiele-complete through an interface; every certified Thiele-complete machine is
+(Theorem~\ref{thm:tc-decomposition}). Its computing moves are exactly its moves that cost nothing,
+so they're the same through every interface it's Thiele-complete through; taken alone, with the
+interface's window, live states and loaded states, they form a machine with a universal base; and
+the window is a slice of the machine onto the two-counter box, with the instructions' moves as
+computing moves and the live states as working. (4) Let a machine be run as one rule: from each
+state, every move leads to the same next state. It has no universal base, no base by simulation and
+no slice onto any box. It obeys the toll exactly when every move costs at least one or no state
+reading no steps to one reading yes, so it's a Thiele machine only as a clock or with a reading that
+never rises.
+\end{theorem}
+
+\begin{proof}
+(1) The lift's loaded states are the box's loaded states with an empty panel and the trap down, so
+they're working, and forgetting sends each to the box's loaded state for its start. From a state with
+the trap down a lever moves the box's part as the box's step does and leaves the trap down
+(Theorem~\ref{thm:lift}(4)), which is the second clause; by induction on the run, the same holds for
+lever runs from any box state with an empty panel, pull for pull. A CHECK, COMMIT or CERTIFY that
+passes changes only the table, the channel, the flag and the ledger; one that fails sets the trap and
+adds to the ledger; and with the trap up every move changes nothing but the ledger. None of them
+touches the box's part. Now take the loaded state where the claim is true. The run of no moves ends
+there with the flag down and the ledger at 0. On the other run the CHECK passes and files the claim,
+the table having room, the COMMIT finds it at the same tally, and the CERTIFY raises the flag: three
+moves at one each, none of them moving the box, so the same box state, the flag up and the ledger
+at 3. CERTIFY from a clean state finds the channel empty and traps, and every later move changes only
+the ledger, so CERTIFY $d$ times ends at the same box state with the flag down and the ledger at $d$,
+which at $d = 3$ is the chain's ledger. So the third clause holds, for the flag and for the ledger,
+and no function of the box state and the ledger together gives the flag. (2) Take any interface and
+the three moves its clause (d) names. Each costs one by clause (c), so each is a button. Take a loaded
+state from which they raise the flag; it's clean by (a), so its flag is down by (b). If its trap is
+up, nothing passes and nothing rises. If its channel holds a fact, CERTIFY alone raises the flag from
+it: a run of one move from a clean state that ends with the flag up, where (b) asks for a CHECK and a
+COMMIT before the raise. If its channel is empty, some COMMIT has to pass inside the three moves,
+before the CERTIFY that raises the flag. Until then no CHECK has passed, because a CHECK passes only
+with room in the table, and no button moves the tally, so that COMMIT found its fact in the loaded
+state's own table at the loaded state's own tally; that COMMIT and a CERTIFY, run from the loaded
+state, then raise the flag in two moves, against (b) again. So the three moves raise the flag from no
+loaded state, and clause (d) fails. (3) By (C), computing moves cost 0 and every other move costs 1,
+so the computing moves are the moves that cost 0, whichever interface the machine is read through.
+Throw the rest away and what's left has the same states, the interface's window, live states and
+loaded states, and a move for each instruction that acts on the window as the instruction does from
+every live state and keeps it live, with each loaded state live and showing $(1, a, b)$: a universal
+base, as in Theorem~\ref{thm:lift}(3). The same facts are the first two clauses of a slice onto the
+two-counter box, and the third is Theorem~\ref{thm:tc-window}(2): two runs from one loaded state
+end on one window, one with the record up and one with it down, and their ledgers differ. (4) From
+each state all the moves lead to one state, so the machine is finitely branching, and by
+Theorem~\ref{thm:lift-fails}(1) it has no universal base. A slice would give it one, as the remark
+after Definition~\ref{def:slice} says. A base by simulation fails too. A list of $p$ moves does $p$
+steps of the rule, so two lists run one after the other end in the same place in either order. From
+the loaded state showing $(1, 0, 0)$, INC $A$ and then DEC $A$ to line 5 shows $(2, 1, 0)$ and then
+$(5, 0, 0)$, while DEC $A$ to line 5 and then INC $A$ shows $(2, 0, 0)$ and then $(3, 1, 0)$, and one
+state can't show both. For the toll: if a state reading no steps to one reading yes, every move
+takes that step, so every move costs at least one, every step does, and the machine is a clock
+(Observation~\ref{obs:tc-clock}); if none does, the reading never rises and the toll asks nothing.
+\end{proof}
+
+Not every part of that carries the same weight, and I'd rather say which before somebody else does.
+Some of it holds by construction. That the slice runs as the box runs, and that CHECK, COMMIT and
+CERTIFY leave it alone, are how the lift was built, and the blindness in (1) follows from the
+second once the chain raises the flag: the chain and the run of no moves end on one box state
+because no button moves the box. In (3), the window meeting the first two clauses of a slice is the
+definition of Thiele-complete read out, and so is the fact that the moves that cost nothing are the
+same through every interface. Three parts could have failed. That the lift is certified at all is
+the earned chain of Theorem~\ref{thm:lift}, clause (b). That the window of every Thiele-complete
+machine can't see what was kept or what it cost is Theorem~\ref{thm:tc-window}, and it could have
+gone the other way: the first clock's window sees its record. That a table with no room certifies
+through no interface is (2). And (4), that a machine run as one rule has no slice and is a Thiele
+machine only as a clock or with a reading that never rises, is short, and its second half rests on
+one choice in Definition~\ref{def:certsys}: the toll puts the price on the move, the same from
+every state. With a price that could read the state, a machine run as one rule could charge exactly
+its raises.
+
+What ``computation'' means in the theorem's name is a box's levers acting on its states. A model that
+comes with a move for each two-counter instruction is covered as it stands, and one with a fixed list
+of its own moves for each is covered once its moves are grouped (Theorem~\ref{thm:lift-macro}). A model run as one rule, a Turing machine
+stepping by its one table, is covered by (4) only: it has no slice, and it isn't a slice of
+anything. A Turing machine read the other way, with a lever for each program that carries out one
+two-counter instruction, as in the previous subsection, is a box like any other. Nothing in the
+theorem uses the equivalence of the seven models below (Theorem~\ref{thm:lift-models}(1)), which is
+other people's work; that equivalence is what says a box with a universal base computes whatever the
+other models compute.
+
+A machine run as one rule can still run programs, and its program can keep a flag. Whether that flag
+is a record the machine keeps or a bit it only simulates can be said exactly too, once the program
+is part of the state.
+
+\begin{observation}[A record or a simulated bit]\label{obs:program-in-state}
+Take a machine whose moves are operations on configurations, with a reading of the configurations,
+and put the program in the state: a state is a program, which picks an operation for each
+configuration, together with a configuration, and one step applies to the configuration the
+operation the program picks there and keeps the program. Take every program. Then the reading never
+comes down under any operation from any configuration exactly when, read on these states, it never
+comes down from any state.
+\end{observation}
+
+\begin{proof}
+If no operation brings the reading down anywhere, no step does, since each step applies an
+operation. If an operation brings it down from some configuration, the program that picks that
+operation at every configuration is one of the programs, and the step from the state made of that
+program and that configuration brings it down.
+\end{proof}
+
+So whether a cell is a record or a simulated bit is a fact about the one rule that steps program and
+configuration together, and it takes the whole set of states to see it. A certification cell that
+some program can clear, like the one a universal machine keeps as plain data on its tape
+(Section~\ref{sec:machine-vs-program}), is a simulated bit, though on a run whose program never
+clears it the cell goes up and stays, as a record would.
+
 \subsection{The same thing, in seven models}
 
 Now the other direction, the one the worry was really about. Put boxes with different insides in a
@@ -18920,6 +19229,9 @@ A panel that bolts onto anything is an easy picture to hear too much in, so I'll
 appendix could be heard to say, and doesn't. First, it doesn't prove ``a lift is certified Thiele-complete
 exactly when its base is universal'' as one equivalence. It proves the upward direction, the converse
 for every certified Thiele-complete machine's own base moves, and the two kinds of base that never lift.
+Two questions in between I haven't settled: whether a box with no universal base, neither finitely
+branching nor blind to the state it's in, can still have a lift that's certified Thiele-complete, and
+exactly which claims and tables make a lift certified through some interface other than its own.
 Second, the lift does not itself give each Turing transition a record operation. The
 tape-to-counter construction of Appendix~\ref{sec:counter-constructions} connects the bases
 through what they compute; the lift supplies the record operations. Third, the lift's tally is one version
@@ -18928,7 +19240,7 @@ per counter. That's coarser, and it's enough for every theorem above. Fourth, it
 lifted machine is computably presented in general. The trip down needs the four relations, and for a
 particular machine somebody has to supply them.
 
-If you want the whole appendix in one sentence: any box with a universal base takes the panel, and any box written down by programs that always answer runs inside mine.
+If you want the whole appendix in one sentence: any box with a universal base takes the panel and is the slice of what it becomes, every Thiele-complete machine slices onto two counters, and any box written down by programs that always answer runs inside mine.
 
 I went into this appendix looking for the place where the bins were doing secret work for the panel.
 I didn't find one, and the four items above are where I'd send anybody who wants to look harder.
@@ -19168,14 +19480,18 @@ computably presented Thiele machine, and the small machine's own programs, with 
 again by the host. What's new is putting those links in a row, a box in a box in a box, and asking
 what the outermost one pays.
 
-My first guess was that it could pay less, since a host that's clever about how it runs the guest could
-skip some of the guest's costs. The first item below puts a floor under that: the host pays at
+My first guess was that it could pay less, even nothing for the guest's climbs, since a host that's
+clever about how it runs the guest could skip the guest's costs. The first item below puts a floor under that: the host pays at
 least one for each step where the guest's record went up. It's a floor on rises, and it doesn't
 keep the guest's whole cost.
 
 \begin{theorem}[Nesting]\label{thm:parts-nesting}
-(1) Let a host that obeys the toll simulate a guest faithfully, with a record map that reflects the
-order. Say a run of the host \emph{follows} a run of the guest when it splits into one stretch of
+(1) Let a host that obeys the toll simulate a guest faithfully: each guest state has an image among
+the host's states and each guest record an image among the host's records, the host's record at the
+image of a state is the image of the guest's record there, and each guest move is carried by some
+host run from the image of the state before it to the image of the state after it. Let the record
+map also reflect the order: when the image of one guest record is at or below the image of another,
+the first record is at or below the second. Say a run of the host \emph{follows} a run of the guest when it splits into one stretch of
 host moves for each guest step, each stretch carrying the image of the state before that step to
 the image of the state after it. Every run of the guest has a host run that follows it, every
 such host run ends on the image of the guest's end state, and every host run that follows a guest
@@ -19249,7 +19565,7 @@ reading still fails the definition of certified Thiele-complete through the pair
 general has a proved floor.
 
 Three of my first guesses on this bench were wrong: the single count, the harmless tipping, and the
-clever host that pays less. The last two leaned toward a record that says more than anybody paid for,
+clever host that pays nothing for a climb. The last two leaned toward a record that says more than anybody paid for,
 and the first toward one that says less than it should. I didn't see any of the three coming; the
 proofs did.
 
