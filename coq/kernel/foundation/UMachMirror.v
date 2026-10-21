@@ -4,7 +4,7 @@
     instruction when it is a CHECK (else traps the host), MCOMMIT when it
     is a COMMIT, MCERTIFY when it is a CERTIFY; only MCERTIFY touches the
     host's flag (flag := flag || the guest's flag after the step).  The
-    free guest instructions are still carried out by the built-in GSTEP0.
+    unpaid guest instructions are still carried out by the built-in GSTEP0.
 
     mirror_is_universal: it meets the in-order rendering of
       the plain definition for U's class with surcharge 0.

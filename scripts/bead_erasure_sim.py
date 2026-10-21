@@ -1,6 +1,6 @@
 """Simulate the bead erasure of Berut et al. (2012) and fit heat against time.
 
-The book's chair chapter ("Time has a bill") quotes this run. A bead in a
+The book's chapter "A distinction that stays" ("Going faster gives off more heat") quotes this run. A bead in a
 quartic double well, overdamped Brownian motion, the protocol as the paper
 describes it: lower the barrier over one second, tilt the trap with a force
 ramped over the protocol time tau, stop the tilt, raise the barrier over one

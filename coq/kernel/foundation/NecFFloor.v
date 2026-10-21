@@ -6,8 +6,8 @@
     - The premise A2 is exactly what the floor needs. The floor for every
       start holds if and only if A2 holds ([nec_f_floor_iff_a2]).
     - For one fixed start, A2 is only needed at the states the start reaches
-      for free, and there it is needed exactly ([nec_f_floor_at_iff_free_reach]).
-      A free flip at a state reachable only by a paid run does not break the
+      at no cost, and there it is needed exactly ([nec_f_floor_at_iff_free_reach]).
+      An unpaid flip at a state reachable only by a paid run does not break the
       floor ([nec_f_paid_door_floor], [nec_f_paid_door_not_a2]).
     - The bound one is too weak. A run pays at least once for every time the
       reading goes from no to yes ([nec_f_cost_ge_rises]); no permanence is
@@ -70,13 +70,13 @@ Proof.
     + rewrite nec_f_run_app. simpl. rewrite Hrun. reflexivity.
 Qed.
 
-(** The A2 premise restricted to the states the start reaches for free. *)
+(** The A2 premise restricted to the states the start reaches at no cost. *)
 Definition nec_f_a2_free_from (s0 : S) : Prop :=
   forall r i, nec_f_free_reach s0 r -> cert r = false -> cert (step r i) = true ->
     cost i >= 1.
 
 (** For one start reading no, the floor holds exactly when A2 holds at every
-    state that start reaches for free. *)
+    state that start reaches at no cost. *)
 Theorem nec_f_floor_at_iff_free_reach :
   forall s0, cert s0 = false ->
     nec_f_floor_at s0 <-> nec_f_a2_free_from s0.
@@ -201,7 +201,7 @@ Qed.
 
 (** * Witnesses *)
 
-(** A bit with a paid SET and a free RESET. It meets A2; certifying, revoking
+(** A bit with a paid SET and an unpaid RESET. It meets A2; certifying, revoking
     and certifying again costs two, not one. *)
 Inductive NecFBitOp := NecFSet | NecFReset.
 
@@ -258,14 +258,14 @@ Theorem nec_f_floor_needs_no_start :
   cs_total_cost nec_f_bit_cs [] = 0.
 Proof. repeat split. Qed.
 
-(** Without A2 the floor fails: the free stamp certifies at cost zero. *)
+(** Without A2 the floor fails: the unpaid stamp certifies at cost zero. *)
 Theorem nec_f_free_stamp_floor_fails :
   ~ nec_f_floor_everywhere bool NecFBitOp nec_f_bit_step (fun _ => 0) (fun b => b).
 Proof.
   intro H. specialize (H [NecFSet] false eq_refl eq_refl). simpl in H. lia.
 Qed.
 
-(** A free flip behind a paid door. Three rooms: A and B read no, C reads yes.
+(** An unpaid flip behind a paid door. Three rooms: A and B read no, C reads yes.
     PAY moves A to B and costs one; FREE moves B to C and costs zero. The
     floor holds from A, yet A2 fails at B, which A reaches. *)
 Inductive NecFRoom := NecFA | NecFB | NecFC.

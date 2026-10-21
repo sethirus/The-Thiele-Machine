@@ -1,7 +1,7 @@
 (** AxNecessity: each clause of Thiele-complete on the axis does work.
 
-    A clock fails.  A machine that charges 1 for every move has the toll for
-    free, and a universal base, whatever its record is and whatever order the
+    A clock fails.  A machine that charges 1 for every move obeys the toll
+    outright, and has a universal base, whatever its record is and whatever order the
     record lives in; it is not Thiele-complete on the axis, because a
     Thiele-complete machine has a move that costs nothing
     ([ax_clock_weakly_complete], [ax_clock_not_tc]).  Even a record that is
@@ -24,7 +24,7 @@
                              fails at its soundness conjunct.
       ax_nec_respect_same    "unchanged" holding of every pair of states: the
                              earned clause fails at its respect conjunct.
-      ax_nec_base            a machine whose only free move does nothing meets
+      ax_nec_base            a machine whose only unpaid move does nothing meets
                              the other three clauses (the book's loose
                              notion) and no axis interface makes it
                              Thiele-complete ([ax_nb_not_tc]).
@@ -172,7 +172,7 @@ End Neighbours.
 (** The three-state machine of the book's necessity result, read as an axis
     machine over the two-point order, meets the loose notion (the other three
     clauses without a base, [Minimal.NecTLoose.nec_t_nb_loose_complete]) and no
-    axis interface makes it Thiele-complete: its one free move cannot be the
+    axis interface makes it Thiele-complete: its one unpaid move cannot be the
     compiled form of both counter increments. *)
 Theorem ax_nb_not_tc : ~ ax_thiele_complete (lift_am Minimal.NecTLoose.nb_machine).
 Proof.

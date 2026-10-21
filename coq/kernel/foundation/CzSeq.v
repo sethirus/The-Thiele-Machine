@@ -32,7 +32,7 @@
       cmpz_ld_a2_iff           the wire keeps the toll exactly when the
                                loaded states of N all stand at the same
                                record: a hand-off that lands N above the
-                               floor is a free certification;
+                               floor is an unpaid certification;
       cmpz_ld_unclean          so a hand-off that can land N above its floor
                                breaks the toll of the composite. *)
 
@@ -73,7 +73,7 @@ Fixpoint cmpz_wired (tr : list (am_move cmpz_seq)) (s : am_state cmpz_seq) : Pro
               /\ cmpz_wired r (am_step cmpz_seq s m)
   end.
 
-(** The cost of a wired schedule is the cost of its two parts; the wire is free. *)
+(** The cost of a wired schedule is the cost of its two parts; the wire costs nothing. *)
 Theorem cmpz_seq_cost : forall (tr : list (am_move cmpz_seq)),
   cmpz_cost cmpz_seq tr
     = cmpz_cost M (cmpz_lefts tr) + cmpz_cost (cmpz_ld I2) (cmpz_rights tr).
@@ -238,7 +238,7 @@ Proof.
   pose proof (H _ _ Hex) as Hc. cbn in Hc. lia.
 Qed.
 
-(** A hand-off that can land N above its floor is a free certification:
+(** A hand-off that can land N above its floor is an unpaid certification:
     the loaded form has a move of cost 0 that leaves the down-set. *)
 Theorem cmpz_ld_unclean : forall a b a' b',
   ~ bp_le Q (am_rec N (T.ub_load (axi_base I2) a b))

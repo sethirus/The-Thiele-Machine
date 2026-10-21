@@ -8,7 +8,7 @@
     local predicate [lps_charge s i].  The trust law says:
 
       - charged steps cost at least 1;
-      - uncharged steps are free.
+      - uncharged steps cost nothing.
 
     This is the clean "no hidden A2 in the cost schedule" regime: the local
     predicate is the whole reason a step can cost anything.

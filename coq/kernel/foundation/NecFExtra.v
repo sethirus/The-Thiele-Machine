@@ -10,7 +10,7 @@
     - On a finite set a move that merges nothing can be undone
       ([nec_f_finite_injective_undoable]).
     - The small machine has infinitely many states
-      ([nec_f_small_machine_infinite]); with its free merge
+      ([nec_f_small_machine_infinite]); with its unpaid merge
       (frag_small_dec_free_merge) it misses both premises of the finite
       theorems, as the book says. *)
 

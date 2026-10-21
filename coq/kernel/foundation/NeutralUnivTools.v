@@ -1,7 +1,7 @@
 (** NeutralUnivTools.v: helpers for testing the clauses on small classes of CNH
     guests: CNH guest classes, line_raise for mark-free programs, the
     impossibility of line_raise for programs that use MARK, and the
-    general "a free move with a fixed point that moves the line elsewhere is
+    general "an unpaid move with a fixed point that moves the line elsewhere is
     no counter move, under any register reading" lemma.                  *)
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file
@@ -59,7 +59,7 @@ Proof.
 Qed.
 
 (* ================================================================= *)
-(* A free move with a fixed point that elsewhere changes what the      *)
+(* An unpaid move with a fixed point that elsewhere changes what the   *)
 (* program does next is no counter move, whatever the register reading.*)
 (* ================================================================= *)
 
@@ -86,7 +86,7 @@ Proof.
 Qed.
 
 
-(* A free move that, read through R, increments register x (and leaves y)
+(* An unpaid move that, read through R, increments register x (and leaves y)
    from one untrapped state and increments y (and leaves x) from another, has
    no counter kind: a built-in "execute the guest's next instruction" that
    is INC A here and INC B there is no INC, no DEC and no HALT. *)

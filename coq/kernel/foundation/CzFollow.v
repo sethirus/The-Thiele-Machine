@@ -2,7 +2,7 @@
     the guest.
 
     CzCat.v proves two things about a simulation f of a guest X in a host Y
-    whose record map reflects the order, when Y pays the toll:
+    whose record map reflects the order, when Y obeys the toll:
 
       cmpz_sim_exit_cost       for EVERY host list of moves that carries the
                                image of a guest state to the image of its

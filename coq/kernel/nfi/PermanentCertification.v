@@ -22,12 +22,12 @@
     - Honest erasure accounting agrees with A2. The trusted erasure system
       of [CommitmentVsErasure] certifies at cost zero only because its
       erasure flag reports no erasure on a step that merges two states.
-      Once the flag reports every merge, the two laws send the same bill
+      Once the flag reports every merge, the two laws charge the same
       for a permanent certificate on a finite machine.
 
     Each premise is needed. Unbounded memory lets a step keep its history
     and stay injective. A revocable certificate can be switched on by a
-    bijection. A free merging step certifies at cost zero. The
+    bijection. An unpaid merging step certifies at cost zero. The
     counterexamples at the end of the file are those three.
 
     Scope. The premise that merging steps cost at least one is Landauer's
@@ -237,8 +237,8 @@ Definition honest_erasure (TE : TrustedErasureAccountingSystem) : Prop :=
             exists s, tea_erases TE s i = true.
 
 (** Under honest erasure accounting, a finite machine with a permanent
-    certificate satisfies A2. The erasure law and the A2 law send the same
-    bill for the certification flip. *)
+    certificate satisfies A2. The erasure law and the A2 law charge the same
+    for the certification flip. *)
 Theorem honest_erasure_accounting_implies_a2 :
   forall (TE : TrustedErasureAccountingSystem) (all : list (tea_state TE)),
     finite_states all ->

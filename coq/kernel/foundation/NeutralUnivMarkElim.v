@@ -1,14 +1,14 @@
 (** NeutralUnivMarkElim.v: a mark that reads one register adds nothing.
 
-    On CNH, MARK r (record := record || r >= 1, one mark) is replaced by the
+    On CNH, MARK r (record := record || r >= 1, one unit) is replaced by the
     six-line block
 
       l: DEC r (l+4);  l+1: PAY;  l+2: INC z;  l+3: DEC z (l+6);  l+4: INC r;  l+5: TICK
 
     which ends at line l+6 with the same registers, the record raised exactly
-    when r >= 1, and exactly one mark paid, and whose two record moves sit on
+    when r >= 1, and exactly one unit paid, and whose two record moves sit on
     lines that never raise (PAY) or always raise (TICK).  So the line rule
-    (N3) costs nothing in marks: whatever a zero-test mark decides, the
+    (N3) costs nothing on the ledger: whatever a zero-test mark decides, the
     program's own branch can decide at the same price.                     *)
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file

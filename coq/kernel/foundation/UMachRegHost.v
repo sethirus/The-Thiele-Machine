@@ -188,7 +188,7 @@ Defined.
 (* choice of line, registers and trap bit: GSTEP0 has price 0, so it   *)
 (* would have to be a counter move, and no counter move can both trap  *)
 (* (as GSTEP0 does on a paid guest instruction) and move the line (as  *)
-(* it does on a free one).                                             *)
+(* it does on an unpaid one).                                          *)
 (* ================================================================= *)
 
 Definition s_at (P : list UMachCheatSmall.E.instr) (err : bool) : cst := mkc 3 0 P (UMachCheatSmall.E.start 0 0) false err.
@@ -223,7 +223,7 @@ Proof.
     + destruct D2 as [P2 _]. lia.
     + destruct D2 as [_ R2]. specialize (R2 r). unfold upd in R2.
       rewrite Nat.eqb_refl, V in R2. lia.
-  - (* RHalt: the line could not move, yet GSTEP0 moves it on a free guest instruction *)
+  - (* RHalt: the line could not move, yet GSTEP0 moves it on an unpaid guest instruction *)
     set (sf := s_at [UMachCheatSmall.E.INC UMachCheatSmall.E.CA] false).
     assert (Ef : b_err R sf = false) by apply gstep_host_untrapped_live.
     destruct (b_halt cheat_host R sf GSTEP0 K) as (E2 & P2 & _).

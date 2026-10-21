@@ -18,7 +18,7 @@
       cmpz_pair_every_window_printed    every pair of shadow states is
                                         printed by a state at or below the
                                         floors of both parts, reached by two
-                                        free moves from a clean start *)
+                                        unpaid moves from a clean start *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.

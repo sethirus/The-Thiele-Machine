@@ -22,13 +22,13 @@
       empty at the start of the transaction, any sequence of stores that
       leaves it nonzero has gas charged minus refund of at least 20000
       ([persistent_write_priced]).
-    - Writing a record and revoking it before the transaction ends is almost
-      free: set then clear costs 2300 net for a cold slot
+    - Writing a record and revoking it before the transaction ends costs almost
+      nothing: set then clear costs 2300 net for a cold slot
       ([revoked_write_nearly_free]), and the refund returns the rest.
 
     Ethereum prices the write that persists, and refunds the write that is
     taken back. That is the shape of the finite-machine result: a record
-    whose write is free is one that can be revoked. *)
+    whose write costs nothing is one that can be revoked. *)
 
 (* SCOPE NOTE: standalone proof scope. This transcribes the Ethereum
    specification's storage gas arithmetic; it imports no machine semantics on

@@ -3,17 +3,17 @@
 
     Three states, blank, once and twice, with once and twice reading yes. The
     flip takes blank to once and leaves the other two where they are; the
-    smooth takes once and twice to twice and leaves blank alone. A bill
+    smooth takes once and twice to twice and leaves blank alone. A price
     charges each step: a whole number for a move taken at a state, and a run
     costs the sum of its steps' charges.
 
     - Six requirements that name no reading: no charge on a step that changes
-      nothing; none on a move that forgets nothing; the same bill under every
+      nothing; none on a move that forgets nothing; the same price under every
       renaming of the states that respects the moves; a total that adds up
       along a run (the run cost is that sum, by definition); a charge that
-      looks only at the step, the state before and the state after; and one
-      mark on the flip from blank ([nec_f_three_reading_free]).
-    - The toll, the bill that charges the flip from blank and nothing else,
+      looks only at the step, the state before and the state after; and a cost
+      of one on the flip from blank ([nec_f_three_reading_free]).
+    - The toll, the price that charges the flip from blank and nothing else,
       meets all six, and so does the price on merging, which charges the
       smooth from once as well ([nec_f_three_toll_meets],
       [nec_f_three_merge_meets]); they differ on the smooth
@@ -21,12 +21,12 @@
     - The only renaming of the states that respects the moves is the identity
       ([nec_f_three_automorphism_id]), so the renaming requirement constrains
       nothing here.
-    - On any machine, a bill that charges every raise at least one and whose
-      total over every run is at most the number of raises is exactly one mark
+    - On any machine, a price that charges every raise at least one and whose
+      total over every run is at most the number of raises is exactly one unit
       per raise and nothing else ([nec_f_record_ceiling_unique]). On the three
-      states that bill is the toll, and the price on merging fails the ceiling
+      states that price is the toll, and the price on merging fails the ceiling
       ([nec_f_three_ceiling_picks_toll], [nec_f_three_merge_fails_ceiling]).
-    - Priced per move, flip one mark and smooth free, the three states are a
+    - Priced per move, flip one unit and smooth nothing, the three states are a
       certification system, and its universal floor holds
       ([nec_f_three_cs_floor]). *)
 
@@ -34,7 +34,7 @@ From Coq Require Import List Bool Arith Lia.
 Import ListNotations.
 From Kernel Require Import UniversalCertificationCost.
 
-(** * Any machine: the ceiling and the floor fix the bill *)
+(** * Any machine: the ceiling and the floor fix the price *)
 
 Section Ceiling.
 
@@ -184,7 +184,7 @@ Proof. intro H. specialize (H Once [Smooth]). simpl in H. lia. Qed.
 
 (** * The three states as a certification system *)
 
-(** Priced per move, the toll charges the flip one mark and the smooth
+(** Priced per move, the toll charges the flip one unit and the smooth
     nothing; only the flip from blank raises the reading, so this is a
     certification system, and its universal floor applies: every run from
     blank to a yes-state costs at least one ([nec_f_three_cs_floor]). *)

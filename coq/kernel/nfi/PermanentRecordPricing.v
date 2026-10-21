@@ -24,7 +24,7 @@
       revocation.
     - Forced price is merging. The instruction is charged at least one by
       every cost assignment that prices merges exactly when the instruction
-      merges. Decidable equality on instructions is used to build the free
+      merges. Decidable equality on instructions is used to build the zero-price
       assignment for an injective instruction.
     - Permanent records are forced. An instruction that never revokes the
       reading and switches it on somewhere is charged by every such cost

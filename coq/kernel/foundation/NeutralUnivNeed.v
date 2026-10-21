@@ -17,7 +17,7 @@
                    surcharge 0 but the load clause; with the load clause the
                    surcharge at that guest's start is at least 1, and 1 is
                    attained (up_floor, up_attained);
-      need_N4      a hybrid host whose free primitive GEX fetches, decodes
+      need_N4      a hybrid host whose unpaid primitive GEX fetches, decodes
                    and executes the guest's next instruction from the
                    registers: it meets everything with a register reading
                    that only drops the counter-move requirement, and it is
@@ -396,7 +396,7 @@ Qed.
 (* (N4) is needed: the hybrid host.                                   *)
 (* ================================================================= *)
 
-(* CNH plus GEX, a free primitive that fetches the guest's instruction at
+(* CNH plus GEX, an unpaid primitive that fetches the guest's instruction at
    the guest line kept in register 2 (guest program Qd), decodes it and,
    if it is a DEC, executes it on the registers (the host line stays);
    on a MARK or HALT it moves the host to its next line; on no

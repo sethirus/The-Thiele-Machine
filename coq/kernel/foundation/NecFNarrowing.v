@@ -1,4 +1,4 @@
-(** NecFNarrowing: learning is free, committing is not, at the limit.
+(** NecFNarrowing: learning costs nothing, committing pays, at the limit.
 
     - The machine's own narrowing. The bound
       log2_up |D| <= cost(t) + log2_up |img_t(D)| holds for every run exactly
@@ -15,7 +15,7 @@
       run ([nec_f_two_state_observer_free]); a one-state machine satisfies it
       ([nec_f_one_state_observer_priced]), so for the claim as stated the
       smallest refuting machine has two states, not four.
-    - Free teaching. A machine with two or fewer states never teaches an
+    - Teaching at zero cost. A machine with two or fewer states never teaches an
       observer anything during a run, whatever its prices and whatever the
       run costs, and with any candidate list at all
       ([nec_f_two_states_never_teach]). So the minimum of three needs no price

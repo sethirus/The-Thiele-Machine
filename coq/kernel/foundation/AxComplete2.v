@@ -19,7 +19,7 @@
       ax_tc_independence          no function of the shadow gives the record,
                                   no function of the shadow gives the ledger.
       ax_tc_every_window_printed  every shadow state is the shadow of a state
-                                  at the floor, one free move from a clean
+                                  at the floor, one unpaid move from a clean
                                   start.
       ax_tc_conservative          compiled counter instructions act on the
                                   shadow exactly as the counter machine does

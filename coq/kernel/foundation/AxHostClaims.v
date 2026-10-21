@@ -6,7 +6,7 @@
     which write of r the claim is about; it is not part of what was
     established, and reading it as part of the record would let a program
     store any number for the price of one CHECK (write the register n times
-    for free, then CHECK).  So the record of a run is the set of registers
+    at no cost, then CHECK).  So the record of a run is the set of registers
     named by the facts in its table, ordered by inclusion.
 
     Results (all closed):

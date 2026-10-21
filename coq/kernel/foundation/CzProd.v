@@ -23,7 +23,7 @@
                              part plus the cost of its right part;
       cmpz_exit_count_prod   so is the number of steps that leave the
                              down-set;
-      cmpz_prod_a2_iff       the product pays the toll exactly when both
+      cmpz_prod_a2_iff       the product obeys the toll exactly when both
                              parts do;
       cmpz_prod_floor        the cost floor holds for the product;
       cmpz_prod_exit_cost    the cost of a run is at least the number of
@@ -237,7 +237,7 @@ Proof.
   - apply cmpz_exits_inr_iff in Hex. exact (HN _ _ Hex).
 Qed.
 
-(** Conversely, each part pays its toll when the product does: the other
+(** Conversely, each part obeys its toll when the product does: the other
     component is any state at all. *)
 Theorem cmpz_prod_a2_only_if : ax_a2 (X := am_axsys cmpz_prod) ->
   forall (t : am_state N) (s : am_state M), ax_a2 (X := am_axsys M).

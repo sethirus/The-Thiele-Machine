@@ -1,7 +1,7 @@
 (** AxUniversal: one host runs every presented machine on the axis, one
     threshold at a time.
 
-    A presented axis machine is an axis system that pays the toll, with a
+    A presented axis machine is an axis system that obeys the toll, with a
     driver (the move to take in each state, or none to halt) and number
     codes for its states and moves.  Reading its record through the
     threshold a, "is a at or below the record", gives a presented machine of

@@ -16,7 +16,7 @@
 
     A record run by a hidden clock ([clock_record_not_driven]) and a record
     that can switch back off ([toggle_not_latch]) are ruled out in
-    [StructuralRecordAxis]. A machine that bills for time only changes its
+    [StructuralRecordAxis]. A machine that charges for time only changes its
     ledger, which the latch form does not constrain. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.

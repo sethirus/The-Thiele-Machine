@@ -253,7 +253,7 @@ Qed.
 End Fold.
 
 (** A toll does not force descent. The source is the bit with a paid SET and
-    a free RESET, which meets A2; the target keeps its whole history, which
+    an unpaid RESET, which meets A2; the target keeps its whole history, which
     obeys any toll. SET and RESET, SET leave the bit in the same state and the
     history in two. *)
 Theorem nec_f_descent_fails_for_history :

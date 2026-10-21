@@ -23,8 +23,8 @@
                               the down-set" and "rises strictly" are the same
                               step; without growth they differ.
       ax_view_a2              every threshold "a <= record" of an axis that
-                              pays its toll is a one-bit certification system
-                              that pays its toll.
+                              obeys its toll is a one-bit certification system
+                              that obeys its toll.
       two_point_nfi           the book's certification floor, derived from the
                               axis theorem by taking the two-point order. *)
 
@@ -218,7 +218,7 @@ Definition ax_view {A : Type} {P : BPre A} (X : AxSys A P) (a : A) : AxSys bool 
   mk_axsys bool two_pre (ax_state A P X) (ax_instr A P X) (ax_step A P X)
     (ax_cost A P X) (fun s => bp_leb A P a (ax_rec A P X s)).
 
-(** Every threshold of an axis that pays its toll pays its own toll. *)
+(** Every threshold of an axis that obeys its toll obeys its own toll. *)
 Theorem ax_view_a2 : forall {A : Type} {P : BPre A} (X : AxSys A P),
   ax_a2 (X := X) -> forall a, ax_a2 (X := ax_view X a).
 Proof.
@@ -269,7 +269,7 @@ Proof.
 Qed.
 
 (** Conversely an axis system over the two-point order is a certification
-    system, when it pays the toll. *)
+    system, when it obeys the toll. *)
 Definition axsys_cs (X : AxSys bool two_pre) (H : ax_a2 (X := X)) : CertificationSystem.
 Proof.
   refine (mk_cert_system (ax_state bool two_pre X) (ax_instr bool two_pre X)

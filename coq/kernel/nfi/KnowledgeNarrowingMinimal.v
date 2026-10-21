@@ -1,14 +1,14 @@
-(** KnowledgeNarrowingMinimal: free learning in a run, and the smallest
+(** KnowledgeNarrowingMinimal: learning at no cost in a run, and the smallest
     machine that does it.
 
     - The demon of [KnowledgeNarrowing] refutes the incremental reading too
       ([demon_refutes_incremental]): its first window shows a blank display
       at both starting states, so the observer starts with two candidates,
-      and one free measurement leaves one.
+      and one unpaid measurement leaves one.
     - Three states are enough ([free_incremental_narrowing_with_three]).
       A cycle through three states, seen as false, false, true, splits the
       two states that look alike at the start, and a cycle forgets nothing,
-      so it is free.
+      so it costs nothing.
     - Two states are not ([no_free_incremental_narrowing_below_three]).
       Two starting states that look alike at the start are then every
       state, so the window shows the same thing everywhere and never
@@ -16,7 +16,7 @@
 
 (* SCOPE NOTE: standalone proof scope. The machines here are the demon and
    small cycles, stated over any step function and window, so the file
-   imports no machine semantics; the demon's free narrowing is
+   imports no machine semantics; the demon's unpaid narrowing is
    [observer_narrowing_can_be_free] in [KnowledgeNarrowing]. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia FinFun.

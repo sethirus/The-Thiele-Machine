@@ -93,7 +93,7 @@ Definition redundantly_proliferating
 
 (** Unique pointer among a designated family of rival events: the event
     proliferates and no rival in the list does. Uniqueness is relative to
-    the named rivals on purpose: absolute uniqueness is false for free (any
+    the named rivals on purpose: absolute uniqueness is false trivially (any
     event equal to [E] on every state proliferates whenever [E] does), and
     the conjecture's content is about the events a step rule could
     meaningfully meter, not about Boolean algebra. *)

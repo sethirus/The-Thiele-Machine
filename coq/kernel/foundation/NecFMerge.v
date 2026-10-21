@@ -10,7 +10,7 @@
       the flipped state itself ([nec_f_collision_avoids_s]).
     - A merge does not make a flip ([nec_f_jump_merges_never_flips]).
     - Each premise of the toll is needed, and merge pricing is more than A2
-      needs: the eight-state machine with a free jump still meets A2
+      needs: the eight-state machine with an unpaid jump still meets A2
       ([nec_f_a2_without_merge_pricing]). What A2 needs, on a machine with a
       permanent reading and finitely many yes-states, is exactly that every
       move which flips somewhere and merges is priced
@@ -248,7 +248,7 @@ Qed.
 (** ** The toll: each premise is needed *)
 
 (** Without finiteness: the history machine, charged nothing, prices every
-    merge (it has none), keeps its reading, and certifies for free. *)
+    merge (it has none), keeps its reading, and certifies at no cost. *)
 Theorem nec_f_toll_needs_finite :
   permanent history_step history_cert /\
   merging_steps_priced history_step (fun _ : unit => 0) /\
@@ -273,7 +273,7 @@ Proof.
   - intro Ha. specialize (Ha false tt eq_refl H1). cbn in *; lia.
 Qed.
 
-(** Merge pricing is not needed for A2: the eight-state machine with a free
+(** Merge pricing is not needed for A2: the eight-state machine with an unpaid
     jump still meets A2, because the jump never flips. *)
 Definition nec_f_free_jump_cost (i : FInstr) : nat :=
   match i with FCertify => 1 | FJump _ => 0 | FNext => 0 end.
@@ -450,7 +450,7 @@ Qed.
 (** ** Permanent records are forced: finiteness and permanence are needed *)
 
 (** Without finiteness: the history machine writes a permanent record and is
-    not forced, since a free price prices its (absent) merges. *)
+    not forced, since a zero price prices its (absent) merges. *)
 Theorem nec_f_forced_needs_finite :
   history_cert [] = false /\ history_cert (history_step [] tt) = true /\
   permanent_at history_step history_cert tt /\

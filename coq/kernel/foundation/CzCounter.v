@@ -8,14 +8,14 @@
                                     order in which independent parts moved,
                                     in the record, the ledger and the state.
       cmpz_or_weakly_complete       the weak notion composes: the product of
-                                    two machines that pay the toll and have a
-                                    universal base pays it and has one.
+                                    two machines that obey the toll and have a
+                                    universal base obeys it and has one.
       cmpz_or_clocks_not_complete   and it proves nothing: the product of
                                     two clocks is weakly Thiele-complete and
                                     is not Thiele-complete, because it has
                                     no move that costs nothing.
       cmpz_sum_record_loses         a record that adds the parts, instead of
-                                    pairing them, pays the toll on the
+                                    pairing them, obeys the toll on the
                                     product but cannot say which part
                                     certified: two product states with the
                                     same sum differ in the left threshold. *)

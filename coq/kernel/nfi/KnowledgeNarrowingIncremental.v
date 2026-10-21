@@ -7,8 +7,8 @@
     after the empty trace with knowledge after the trace: only what the run
     itself taught.
 
-    The question it poses is how small a machine can teach an observer for
-    free. A machine teaches for free when its prices meet the squeeze price,
+    The question it poses is how small a machine can teach an observer at
+    no cost. A machine teaches at no cost when its prices meet the squeeze price,
     a trace of total cost zero runs, and the observer ends up with fewer
     candidates than it started with. [free_incremental_narrowing_with n]
     says a machine with exactly [n] states does this. *)

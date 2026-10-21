@@ -10,7 +10,7 @@
       gap 2 k_B T ln 2 is the only one giving heat k_B T ln 2
       ([nec_f_landauer_gap_unique]).
     - The calibration: any two different scales give different energies to
-      every state with a nonzero count, not just to states with one mark
+      every state with a nonzero count, not just to states with a count of one
       ([nec_f_scales_always_disagree]).
 
     This file uses the real numbers and rests on the standard library's

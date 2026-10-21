@@ -2,7 +2,7 @@
 
     Casper-style finality gadgets (Buterin and Griffith 2017) name their
     central failure mode "nothing at stake": when voting costs a validator
-    nothing, conflicting votes are free. This file puts the finality end of
+    nothing, conflicting votes cost nothing. This file puts the finality end of
     that folk theorem against the kernel's abstract records.
 
     What it puts there is small. The file defines a
@@ -17,7 +17,7 @@
     stake-at-risk is a [CostBearingSystem] realizing the
     [dishonest_forge_system] pattern: finalization flips from false to true
     at total cost 0, so by [free_forgery_violates_A2] no A2 field can be
-    constructed for it. Free finalization is free forgery, in the kernel's
+    constructed for it. Unpaid finalization is free forgery, in the kernel's
     exact sense. Nothing-at-stake proper is about conflicting votes; the
     gadget pictures only its price side.
 
@@ -90,7 +90,7 @@ Qed.
     The gadget with stake-at-risk identically zero. This is a perfectly
     good [CostBearingSystem] (the record without A2), because nothing in
     an unconstrained cost-bearing world stops a protocol from declaring
-    finalization free. The two theorems after it show what that declaration
+    that finalization costs nothing. The two theorems after it show what that declaration
     costs the protocol: membership in the honest class. The name borrows
     "nothing at stake"; the consensus failure mode itself, conflicting
     votes, is not constructed here. *)
@@ -105,7 +105,7 @@ Definition nothing_at_stake_gadget : CostBearingSystem :=
     one-instruction trace [PoSFinalize] reaches a finalized state at total
     stake-at-risk 0.
 
-    This is free finalization in its smallest form, and it is the PoS
+    This is unpaid finalization in its smallest form, and it is the PoS
     instance of [dishonest_free_certification] from the kernel: a non-empty
     trace flipping cert false-to-true at total cost zero. Note the witness
     is not exotic: it is the gadget's own finalize instruction, used exactly
@@ -128,7 +128,7 @@ Qed.
     field. Concretely: the honesty law "every finalizing step risks stake
     at least 1" is refutable for [nothing_at_stake_gadget], so no
     [CertificationSystem] record can be built over its (step, cost, cert)
-    data. Free finalization and free forgery are the same defect, stated in
+    data. Unpaid finalization and free forgery are the same defect, stated in
     two vocabularies; the formal conclusion concerns only this Boolean
     transition.
 

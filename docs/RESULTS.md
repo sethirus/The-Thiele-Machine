@@ -44,7 +44,7 @@ writes on Linux.
 
 The small machine of minimal/EarnedCore.v has two counters, a table of
 checked facts, a certification flag and a ledger. Its counter instructions are
-a two-counter machine and cost no marks; CHECK, COMMIT and CERTIFY cost one
+a two-counter machine and cost nothing; CHECK, COMMIT and CERTIFY cost one
 each.
 
 - **Proved.** From a clean start, every certified run contains a passing
@@ -89,7 +89,7 @@ A machine is Thiele-complete when some interface gives it four clauses, with
 no claim, no checker and no certificate: a universal base (a two-counter
 machine runs inside it) whose moves cannot touch the record, with a record
 that stays up once it is up; a record that is down at every loaded start;
-exact prices, nothing for a base move and one mark for every other move, with
+exact prices, nothing for a base move and one unit for every other move, with
 the ledger adding the price of each move; and distinction, one fixed run that
 raises the record from one loaded start and not from another. The event the
 record registers is not fixed in advance; any event that some run tells apart
@@ -103,10 +103,10 @@ will do.
 - **Proved.** Every Thiele-complete machine hides its record and its ledger
   from its own window. From one loaded start, two runs end at the same window,
   one with the record up and one with it down, and two runs end at the same
-  window with ledgers at least one mark apart. No function of the window gives
+  window with ledgers at least one unit apart. No function of the window gives
   the record, and none gives the ledger, at the end of every run from every
   loaded start. Every window is shown, record down and ledger unchanged, one
-  base move, costing no marks, after some loaded start. Coq: `nc_hides_record`,
+  base move, costing nothing, after some loaded start. Coq: `nc_hides_record`,
   `nc_hides_ledger`, `nc_no_oracles`, `nc_every_window_printed`.
 - **Proved.** Every universal base lifts to a Thiele-complete machine: add
   marks, each costing one and latching an event of the base state into the
@@ -129,7 +129,7 @@ will do.
   claim's check can pass at one loaded start and fail at another. Coq:
   `thiele_complete_neutral`, `tc_iff_nc_plus_certification`.
 - **Refuted.** Thiele completeness implies certified Thiele completeness. The
-  paid test, a two-counter machine whose moves cost no marks plus a mark that
+  paid test, a two-counter machine whose moves cost nothing plus a mark that
   registers "A is 0" and a mark that raises the record from every state, is
   Thiele-complete and is not certified Thiele-complete; no certified
   Thiele-complete machine has a move that raises the record from every state.
@@ -137,7 +137,7 @@ will do.
 - **Proved.** Machines that fail one clause are not Thiele-complete: every
   clock (the two-counter machine with every move costing one, under any
   reading of its configuration as the record), the silent machine (whose
-  record never rises), the paid test with one more move costing no marks that
+  record never rises), the paid test with one more move costing nothing that
   lowers the record, a machine whose record no move changes while loaded
   starts disagree on it, and the paid test with every move priced one. Coq:
   `clock_not_nc`, `silent_not_nc`, `drop_not_nc`, `frozen_not_nc`,
@@ -149,11 +149,11 @@ A Thiele machine (one whose record-raising steps cost at least one, the toll)
 has a universal base when a two-counter machine runs inside it, that is, when
 some interface gives it one, with nothing asked of its record. Certified
 Thiele-complete asks for four clauses (minimal/ThieleComplete.v): a
-universal base whose moves cost no marks and cannot touch the record, and a record that stays up once it is up; a record that,
+universal base whose moves cost nothing and cannot touch the record, and a record that stays up once it is up; a record that,
 from a clean start, rises only after a passing check of a claim, a commitment
 to that same claim with nothing it is about changed in between, and a
 certificate, with the checker proved to mean what it says; exact prices, one
-mark for each of those three acts and nothing for anything else; and a claim
+unit for each of those three acts and nothing for anything else; and a claim
 whose check, commit and certificate raise the record from a loaded start
 exactly when the claim holds there, with the claim holding at some loaded
 starts and failing at others.
@@ -181,7 +181,7 @@ starts and failing at others.
   `silent_weakly_thiele_complete`, `silent_not_thiele_complete`.
 - **Proved.** Every certified Thiele-complete machine hides its record and its
   ledger from its own window: two runs from one clean start end at the same
-  window, one certified with its ledger at least three marks higher, the other
+  window, one certified with its ledger at least three units higher, the other
   uncertified with its ledger unchanged. No function of the window recovers
   either. Coq: `complete_two_runs`, `complete_hides_record`,
   `complete_hides_ledger`, `thiele_complete_hides`.
@@ -256,7 +256,7 @@ drops the rest.
   strictly increasing times. Coq: `U_neutral_universal`,
   `UP_neutral_universal`, `UN_neutral_universal`, `U_in_order`,
   `UP_in_order`.
-- **Proved.** The surcharge on a guest that raises its record for one mark is
+- **Proved.** The surcharge on a guest that raises its record for one unit is
   the price of certification. No certified Thiele-complete host with clean
   loads runs the countdown guest (count register 0 down, then mark) with a
   surcharge bound below 2, even with the order dropped, while the host with
@@ -269,7 +269,7 @@ drops the rest.
   a register, and one whose record move reads a hidden copy of the guest's
   datum, meet every other clause and fail the raise by line; so does a host
   whose record move carries out a hidden copy's own mark. A host with a move
-  at no marks that fetches, decodes and executes the guest's next instruction
+  at no cost that fetches, decodes and executes the guest's next instruction
   meets everything else and is no register host. Coq: `gstep_not_reg`,
   `oracle_y`, `mirror_y`, `mirror2_not_line`, `need_N4`.
 - **Proved.** The decode clause, as `neutral_universal` states it, lets the
@@ -286,7 +286,7 @@ drops the rest.
 - **Proved.** A guest that has paid while its record is down makes a host
   with a permanent record run a record move after which the record is still
   down, which is what PAY does. On U's host, which has no PAY, a four-line
-  loop of COMMITs on an untouched claim pays the value of a register in marks,
+  loop of COMMITs on an untouched claim pays the value of a register in units,
   without raising the record or trapping. Coq: `pay_needed`,
   `commit_pay_loop`.
 - **Proved.** The certified universal Thiele machine is the universal Thiele
@@ -300,7 +300,7 @@ drops the rest.
   `earned_part_free`.
 - **Proved.** Certified Thiele completeness of the host and an earned record
   do not by themselves stop a host that steps the guest with a built-in move:
-  U's host with three moves at no marks that fetch, decode and execute a guest
+  U's host with three moves at no cost that fetch, decode and execute a guest
   instruction is certified Thiele-complete, and the host whose paid moves
   carry out the guest's own CHECK, COMMIT and CERTIFY has, whenever its flag
   is up at a matching time, its own check, commit and certificate on a guest
@@ -330,7 +330,7 @@ The questions here ask how much of a machine the record axis pins down.
 - **Proved.** Every base can carry the axis: the base plus a latch on any
   event it reaches, charging one unit when the latch sets, is a base-driven
   record. A reversible base with unbounded memory can carry one and stay
-  reversible, paying room at every step; with finite memory a step that writes a permanent record is not
+  reversible, paying a fresh state at every step; with finite memory a step that writes a permanent record is not
   injective. Coq: `latch_core_honest`, `history_latch_honest`,
   `history_latch_injective`, `finite_reversible_cannot_write`.
 
@@ -474,11 +474,11 @@ steps on the other.
 - **Proved.** The complement of two-counter halting is undecidable, from the
   vendored two-counter result. Coq: `MM2_HALTING_compl_undec`.
 
-## The bill
+## What keeping costs
 
 The monograph's point is that nothing becomes something for free: a
 distinction that comes into being dissipates by happening, and keeping it is
-paid on top, in a merge or in room. The dissipation is physics, on two counts.
+paid on top, in a merge or in fresh states. The dissipation is physics, on two counts.
 Any real device dissipates in finite time, with one proved instance below. And
 a fixed device that sends K inputs to one output produces at least k_B ln K of
 entropy, at least k_B T ln K of dissipated work, on its worst input, however
@@ -506,12 +506,12 @@ is the sharpest case.
 - **Proved.** A biased Brownian walk produces strictly positive entropy per
   tick at any nonzero speed, and heat times time is at least the distance
   squared. Coq: `heat_at_any_speed`, `heat_time_floor`.
-- **Proved** in the monograph and in Coq: one mark per crossing of the reading
+- **Proved** in the monograph and in Coq: one unit per crossing of the reading
   from no to yes, `flips_le_cost` (coq/kernel/nfi/CostFrameworks.v).
-- **Proved** in the monograph, with no Coq counterpart: the certainty bill (under entropy pricing,
+- **Proved** in the monograph, with no Coq counterpart: the certainty bound (under entropy pricing,
   the uncertainty about the start is the part the run destroyed, at most its
-  cost in bits, plus the part the end state still holds); and the same bill at
-  every scale (a coarse merge forces a fine merge, unless the fine step leaves
+  cost in bits, plus the part the end state still holds); and every scale
+  paying the same way (a coarse merge forces a fine merge, unless the fine step leaves
   the described states or there are endlessly many of them).
 
 ## Pricing and physics
@@ -555,7 +555,7 @@ is the sharpest case.
 - **Proved.** From a known start, Landauer's premise gives no heat floor: the
   entropy before and after the step are both zero, and the premise reads heat
   at least zero. Coq: `known_state_flip_forces_no_heat`. The device floor
-  stated under "The bill" still holds for a fixed device that merges inputs,
+  stated under "What keeping costs" still holds for a fixed device that merges inputs,
   on its worst input.
 - **Proved.** A two-state calorimeter protocol: a canonical reset from
   half-excited to ground satisfies a discrete master equation exactly, and at

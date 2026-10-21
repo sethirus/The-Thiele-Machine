@@ -78,7 +78,7 @@ Proof.
 Qed.
 
 (** Why the merge clause is needed. INC A raises "A is at least one" one way,
-    yet it is injective and free: on an infinite machine a one-way step need
+    yet it is injective and costs nothing: on an infinite machine a one-way step need
     not forget anything. Read without the merge clause, the floor would
     charge a step that Landauer's principle charges nothing. *)
 Definition nec_f_a_positive (s : E.state) : bool := Nat.leb 1 (E.ca (E.core_of s)).
@@ -107,7 +107,7 @@ Proof.
   specialize (H (E.INC E.CA) (ex_intro _ _ (proj1 nec_f_one_way_injective))). simpl in H. lia.
 Qed.
 
-(** On a finite state space the merge clause comes for free: a step that
+(** On a finite state space the merge clause holds on its own: a step that
     raises a property one way sends two distinct states to one. *)
 Lemma nec_f_pigeonhole :
   forall (S : Type) (eq_dec : forall x y : S, {x = y} + {x <> y}) (f : S -> S)

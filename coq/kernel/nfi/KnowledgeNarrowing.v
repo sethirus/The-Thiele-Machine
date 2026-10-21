@@ -28,11 +28,11 @@
       machine, with different displays.
 
     That is Bennett's resolution of Maxwell's demon, stated on the logic.
-    Measuring can be done without merging. What costs is making room again:
+    Measuring can be done without merging. What costs is getting fresh states back:
     wiping the display merges states, and every merge-priced cost charges the
     wipe at least one ([wipe_costs_at_least_one]). So learning need not carry
     a positive charge, while a record the machine cannot take back cannot be
-    written for free under the stated premises.
+    written at no cost under the stated premises.
     [PermanentCertification] is the second half of that sentence for
     certificates.
 

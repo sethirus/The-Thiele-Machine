@@ -4,13 +4,13 @@
     - The board: two boxes, NO and YES, and four moves. STAY and WORK leave
       the state alone and cost nothing; VOUCH moves NO to YES and costs one;
       CHECK leaves the state alone and costs nothing. It is a certification
-      system ([nec_f_board_cs]). Raw observation is free: STAY, WORK and CHECK
+      system ([nec_f_board_cs]). Raw observation costs nothing: STAY, WORK and CHECK
       never move the reading and cost zero ([nec_f_board_raw_free]). The floor
       is one and it is reached: every run from NO to YES costs at least one
       ([nec_f_board_floor]), and the run [VOUCH] costs exactly one, so no
       hypothesis about the end state beyond its reading raises the bound
       ([nec_f_board_floor_flat]). Nothing makes the crossing wait for a
-      check: [VOUCH] crosses from NO with one mark and no CHECK before it,
+      check: [VOUCH] crosses from NO with one unit and no CHECK before it,
       and so does [CHECK; VOUCH] ([nec_f_board_no_wait]).
     - The history machine of PermanentCertification.v, which keeps every
       step, has no finite list of all its states ([nec_f_history_infinite]). *)

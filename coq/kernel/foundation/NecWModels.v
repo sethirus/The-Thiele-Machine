@@ -6,7 +6,7 @@
       the book's 20000 improves to 22100 for a fresh slot. The 20000 is the
       exact bound over every empty slot, cold or warm: an empty warm slot
       written once has net charge exactly 20000.
-    - Gas schedules. A one-step run is free exactly when the step is
+    - Gas schedules. A one-step run costs nothing exactly when the step is
       uncharged; the flip premises of the "no floor" clause and the
       "does not commit" premise of the overcharge clause are needed (the
       exact toy schedule has an uncharged non-committing step and a charged

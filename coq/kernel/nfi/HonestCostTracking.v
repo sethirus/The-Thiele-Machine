@@ -59,7 +59,7 @@ Fixpoint cb_total_cost (CB : CostBearingSystem)
     Cost:  0; the forge instruction costs nothing.
     Cert:  the identity on bool.
 
-    This is the smallest possible witness of free certification. *)
+    This is the smallest possible witness of unpaid certification. *)
 Definition dishonest_forge_system : CostBearingSystem :=
   {| cb_state := bool;
      cb_instr := unit;
@@ -71,7 +71,7 @@ Definition dishonest_forge_system : CostBearingSystem :=
     at total cost zero.  This is the "free forgery" witness. *)
 Definition dishonest_forge_trace : list (cb_instr dishonest_forge_system) := [tt].
 
-(** Free certification is reachable in the unconstrained cost-bearing world. *)
+(** Unpaid certification is reachable in the unconstrained cost-bearing world. *)
 Lemma dishonest_free_certification :
     cb_cert dishonest_forge_system false = false
   /\ cb_cert dishonest_forge_system
@@ -124,7 +124,7 @@ Qed.
     on (s, i).
 
     Operationally: "honest cost-tracking" is exactly "A2 holds."  A system
-    that exhibits free certification is, by definition, not honest. *)
+    that exhibits unpaid certification is, by definition, not honest. *)
 Theorem free_forgery_violates_A2 :
   forall (CB : CostBearingSystem) (s : cb_state CB) (i : cb_instr CB),
       cb_cert CB s = false

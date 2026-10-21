@@ -366,7 +366,7 @@ Qed.
 (** Entropy is invariant under an injective step: a step that forgets
     nothing removes no bits. This is Bennett's side of the ledger. The
     reversible [FNext] of [FiniteCertMachine] is such a step, and an
-    entropy price may leave it free. *)
+    entropy price may leave it unpriced. *)
 Theorem step_entropy_invariant_if_injective :
   forall (all : list A) (f : A -> A) (p : A -> R),
     NoDup all -> (forall a, In a all) ->

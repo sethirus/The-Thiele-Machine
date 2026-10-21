@@ -126,7 +126,7 @@ Proof.
     auto.
 Qed.
 
-(* The "earned" half of (c) is free once the host is Thiele-complete and
+(* The "earned" half of (c) already holds once the host is Thiele-complete and
    the universal loads are clean. *)
 Theorem earned_part_free : forall (I : thiele_interface (hmach H)) P tpl (code : gi C -> nat -> nat),
   thiele_complete_with I -> (forall rho, ti_clean I (tpl rho)) ->

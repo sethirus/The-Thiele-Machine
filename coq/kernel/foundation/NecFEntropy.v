@@ -169,8 +169,8 @@ Proof.
   - intro Ha. specialize (Ha false tt eq_refl H1). simpl in Ha. lia.
 Qed.
 
-(** Entropy pricing is more than A2 needs: the eight-state machine with a
-    free jump meets A2 and is not entropy priced. *)
+(** Entropy pricing is more than A2 needs: the eight-state machine with an
+    unpaid jump meets A2 and is not entropy priced. *)
 Theorem nec_f_a2_without_entropy_pricing :
   a2_holds fstep fcert nec_f_free_jump_cost /\
   ~ entropy_priced fstep fstate_eq_dec all_fstates nec_f_free_jump_cost.

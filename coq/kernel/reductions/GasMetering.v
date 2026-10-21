@@ -16,8 +16,8 @@
 
     Main theorem [gas_schedule_exactness]: any schedule satisfying the two
     conditions an honest fee market wants,
-      floor:        no state-certifying step is free, and
-      no-overcharge: nothing else is billed as a commitment,
+      floor:        no state-certifying step costs nothing, and
+      no-overcharge: nothing else is charged as a commitment,
     is extensionally the cert-flip schedule with exact unit pricing. This is
     [exact_commitment_pricing_characterization] wearing EVM vocabulary.
 
@@ -25,7 +25,7 @@
     certifying trace; charging a non-committing step breaks exactness in the
     other direction. The 2016 underpriced-opcode DoS episodes are the kind
     of mispricing the first corollary pictures. They were underpriced I/O,
-    not free certification, and no correspondence to a deployed gas schedule
+    not unpaid certification, and no correspondence to a deployed gas schedule
     is established here.
 
     The exactness boundary is the pair of stated schedule premises. A conforming
@@ -69,7 +69,7 @@ From Kernel Require Import CommitmentPredicateAdequacy.
 
     A gas schedule is then exactly a [LocalPredicatePricedSystem]: it
     picks a charging predicate [lps_charge] ("which steps cost gas?")
-    and is trusted to bill where the predicate says and nowhere else
+    and is trusted to charge where the predicate says and nowhere else
     ([lps_charged_costs] / [lps_uncharged_free]). The alias below adds
     no structure; it lets the theorems read in fee-market vocabulary. *)
 
@@ -111,13 +111,13 @@ Proof.
   exact exact_commitment_pricing_characterization.
 Qed.
 
-(** * Main 2: an undercharged opcode admits a free commitment.
+(** * Main 2: an undercharged opcode admits an unpaid commitment.
 
     If some opcode [i], executed in some uncommitted state [s], commits
     the state but the schedule does not charge it, then the one-step
     trace [[i]] from [s] certifies at total gas zero. The proof is
-    nothing but [lps_uncharged_free]: a trusted schedule bills only
-    where its predicate says, so a predicate gap is a free pass through
+    nothing but [lps_uncharged_free]: a trusted schedule charges only
+    where its predicate says, so a predicate gap is an unpaid pass through
     the commitment event.
 
     The theorem is conditional on the [GasSchedule] record: an uncharged
@@ -139,7 +139,7 @@ Qed.
 
 (** Corollary: a schedule with even one undercharged committing opcode
     fails the universal certification floor outright: some certifying
-    trace is free. One missed flip is enough; the floor is not a
+    trace costs nothing. One missed flip is enough; the floor is not a
     statistical property that survives small leaks.
 
     Instantiation note: this is [floor_necessary_for_covers_cert_flips]
@@ -196,8 +196,8 @@ Qed.
     Cert:   the flag itself.
     Charge: the canonical predicate; charge exactly when the commit
             flips the flag (committing an already-committed state is a
-            no-op and free here; the nearest EVM case, a warm SSTORE
-            writing the same value, is cheap there, not free).
+            no-op and costs nothing here; the nearest EVM case, a warm SSTORE
+            writing the same value, is cheap there, not zero-cost).
     Cost:   one unit per charged step, zero otherwise. *)
 
 Inductive toy_op : Type :=

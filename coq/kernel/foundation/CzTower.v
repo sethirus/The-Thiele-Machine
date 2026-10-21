@@ -22,7 +22,7 @@
     The surcharge per level.  A presented machine whose first raising move
     costs c, with its reading at no to begin with, is carried at surcharge
     3 - c once its latch is up, and 0 before: at most 2 because the raising
-    move pays the toll.  When every move the machine takes costs at most 1,
+    move obeys the toll.  When every move the machine takes costs at most 1,
     and a Thiele-complete machine never charges more than 1 for a move
     ([Minimal.ThieleComplete.complete_costs_at_most_one]), the surcharge is
     exactly 2:

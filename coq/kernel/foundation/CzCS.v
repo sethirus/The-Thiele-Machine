@@ -10,7 +10,7 @@
       cmpz_cs_or    "some part has certified";
       cmpz_cs_and   "every part has certified".
 
-    Both pay the toll, so both are certification systems; this is the
+    Both obey the toll, so both are certification systems; this is the
     composition that the book left open.  What the toll then says:
 
       cmpz_cs_run         a run of the composite is the pair of the runs of

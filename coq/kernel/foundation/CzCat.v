@@ -35,7 +35,7 @@
                       the unit isomorphisms, each cost-exact;
       cmpz_sim_exit_cost, cmpz_sim_cost_ge_exits
                       a simulation that reflects the order of records, into a
-                      machine that pays the toll, pays at least 1 for every
+                      machine that obeys the toll, pays at least 1 for every
                       move of the guest that leaves the down-set of its
                       record, and over a run at least the guest's number of
                       exits: the floor is scale-invariant. *)

@@ -102,7 +102,7 @@ Proof.
   pose proof (Nat.pow_gt_lin_r 2 (m + k)%nat ltac:(lia)) as Hlin. nia.
 Qed.
 
-(** One mark is one halving exactly when the squeeze is two: the logarithmic
+(** One unit is one halving exactly when the squeeze is two: the logarithmic
     floor is one bit exactly when k = m, and below one bit when k < m. *)
 Theorem nec_f_one_halving_iff :
   forall m k : nat, (0 < m)%nat -> (log2 (INR (m + k) / INR m) = 1 <-> k = m).

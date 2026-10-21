@@ -191,7 +191,7 @@ def check_step_law(N: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# Heat or room, part (1) (prop:heat-or-room)
+# Merge, or a fresh state every step, part (1) (prop:heat-or-room)
 # ---------------------------------------------------------------------------
 
 
@@ -216,7 +216,7 @@ def path_merges(xs: list[int], upto: int) -> bool:
 
 
 def check_heat_or_room_1(N: int) -> Result:
-    r = Result("Heat or room (1)", "prop:heat-or-room",
+    r = Result("Merge, or a fresh state every step (1)", "prop:heat-or-room",
                f"every map, every reading kept by it, every start on 1..{N} states")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -282,12 +282,12 @@ def check_heat_or_room_1(N: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# Heat or room, part (2): the exact room a reset needs
+# Merge, or a fresh state every step, part (2): the exact number of states a reset needs
 # ---------------------------------------------------------------------------
 
 
 def check_heat_or_room_2(N: int) -> Result:
-    r = Result("Heat or room (2), the exact bound", "prop:heat-or-room",
+    r = Result("Merge, or a fresh state every step (2), the exact bound", "prop:heat-or-room",
                f"every map and reading on 1..{N} states, every set of starts with one already set, every T")
     worst: Optional[str] = None
     for M in range(1, N + 1):
@@ -319,9 +319,9 @@ def check_heat_or_room_2(N: int) -> Result:
     for Nst in range(2, 5):
         for T in range(0, 5):
             M = 1 + (T + 1) * (Nst - 1)
-            # chair 0 holds the start that already reads the fixed value; it stays put.
+            # state 0 is the start that already reads the fixed value; it stays put.
             f = [0] * M
-            Y = 1  # only chair 0 reads the fixed value... plus the path ends below
+            Y = 1  # only state 0 reads the fixed value... plus the path ends below
             starts = [0]
             for row in range(Nst - 1):
                 base = 1 + row * (T + 1)
@@ -363,7 +363,7 @@ def check_heat_or_room_2(N: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# A permanent flip merges; a raise with no merge takes endless room
+# A permanent flip merges; a raise with no merge takes endlessly many states
 # (thm:perm-flip-merges, prop:raise-needs-room, thm:toll-derived)
 # ---------------------------------------------------------------------------
 
@@ -422,7 +422,7 @@ def check_perm_flip(N: int) -> Result:
             for Y in masks(n):
                 if permanent(f, Y) and raises_at(f, Y):
                     # without merge pricing nothing stops this move costing zero
-                    c.found = f"{fmt_map(f)} yes={fmt_mask(Y, n)} at cost 0: raises for no marks"
+                    c.found = f"{fmt_map(f)} yes={fmt_mask(Y, n)} at cost 0: raises for nothing"
                     break
             if c.found:
                 break
@@ -497,7 +497,7 @@ def check_reversible(N: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# The universal floor, one mark per crossing, and the ceiling (A1)
+# The universal floor, one unit per crossing, and the ceiling (A1)
 # ---------------------------------------------------------------------------
 
 
@@ -530,7 +530,7 @@ def min_cost_minus_crossings(fs, cs, Y, n: int, L: int) -> list[int]:
 
 
 def check_floor_and_count(N: int) -> Result:
-    r = Result("The universal floor and one mark per crossing", "thm:per-crossing",
+    r = Result("The universal floor and one unit per crossing", "thm:per-crossing",
                f"every system with two moves on 1..{N} states, prices 0..2, runs up to 5 moves")
     ctrl = Control("the toll")
     for n in range(1, N + 1):
@@ -603,7 +603,7 @@ def check_ceiling(N: int) -> Result:
                             if cost != cross:
                                 ok = False
                 if ok and c.found is None:
-                    c.found = (f"{[fmt_map(f) for f in fs]} yes={fmt_mask(Y, n)}: one mark on a raising step "
+                    c.found = (f"{[fmt_map(f) for f in fs]} yes={fmt_mask(Y, n)}: one unit on a raising step "
                                "and none elsewhere meets both")
                 if not ok:
                     c.found = None
@@ -765,7 +765,7 @@ def check_entropy(N: int, rng: random.Random, trials: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# Noisy chairs (thm:noisy-chairs), exact rational arithmetic
+# Noisy steps (thm:noisy-chairs), exact rational arithmetic
 # ---------------------------------------------------------------------------
 
 
@@ -794,7 +794,7 @@ def step_spread(P, p):
 
 
 def check_noisy(N: int, rng: random.Random, trials: int) -> Result:
-    r = Result("Noisy chairs", "thm:noisy-chairs",
+    r = Result("Noisy steps", "thm:noisy-chairs",
                f"{trials} random tables per size, 2..{N} states, every closed set, exact fractions")
     ctrl = Control("every column adds to one")
     for n in range(2, N + 1):
@@ -844,7 +844,7 @@ def check_noisy(N: int, rng: random.Random, trials: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# Quantum chairs (thm:quantum-chairs), complex arithmetic in plain Python
+# Unitary steps (thm:quantum-chairs), complex arithmetic in plain Python
 # ---------------------------------------------------------------------------
 
 
@@ -870,7 +870,7 @@ def mat_vec(cols, v):
 
 
 def check_quantum(N: int, rng: random.Random, trials: int) -> Result:
-    r = Result("Quantum chairs", "thm:quantum-chairs",
+    r = Result("Unitary steps", "thm:quantum-chairs",
                f"{trials} random unitaries per size, dimensions 2..{N}, every leading subspace")
     ctrl = Control("the step is unitary")
     eps = 1e-9
@@ -909,12 +909,12 @@ def check_quantum(N: int, rng: random.Random, trials: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# Time's bill (thm:time-bill)
+# Heat against time (thm:time-bill)
 # ---------------------------------------------------------------------------
 
 
 def check_time_bill() -> Result:
-    r = Result("Time's bill", "thm:time-bill", "p on a grid of 999 values in (0,1), distances 0..60")
+    r = Result("Heat against time", "thm:time-bill", "p on a grid of 999 values in (0,1), distances 0..60")
     for k in range(1, 1000):
         p = k / 1000
         sigma = (2 * p - 1) * math.log(p / (1 - p))
@@ -933,7 +933,7 @@ def check_time_bill() -> Result:
 
 
 # ---------------------------------------------------------------------------
-# Teaching at zero marks (thm:three-states), no level holds its own questions
+# Teaching at zero cost (thm:three-states), no level holds its own questions
 # ---------------------------------------------------------------------------
 
 
@@ -965,17 +965,17 @@ def zero_mark_teacher(n: int) -> Optional[str]:
 
 
 def check_three_states() -> Result:
-    r = Result("Three states are the minimum for teaching at zero marks", "thm:three-states",
-               "every machine of zero-mark moves on 1..3 states, every window, every candidate list, runs up to 3")
+    r = Result("Three states are the minimum for teaching at zero cost", "thm:three-states",
+               "every machine of zero-cost moves on 1..3 states, every window, every candidate list, runs up to 3")
     for n in (1, 2):
         r.cases += 1
         found = zero_mark_teacher(n)
         if found and r.counterexample is None:
-            r.counterexample = "a zero-mark teacher with too few states: " + found
+            r.counterexample = "a zero-cost teacher with too few states: " + found
     r.cases += 1
     three = zero_mark_teacher(3)
     if three is None and r.counterexample is None:
-        r.counterexample = "no zero-mark teacher on three states"
+        r.counterexample = "no zero-cost teacher on three states"
     r.note = "found on three states: " + (three or "none")
     return r
 
@@ -993,7 +993,7 @@ def check_no_self_containment(N: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# The certainty bill (thm:certainty-bill)
+# The certainty bound (thm:certainty-bill)
 # ---------------------------------------------------------------------------
 
 
@@ -1012,7 +1012,7 @@ def cond_H(pairs: list[tuple[object, object, Fraction]]) -> float:
 
 
 def check_certainty_bill(N: int, rng: random.Random, trials: int) -> Result:
-    r = Result("The certainty bill", "thm:certainty-bill",
+    r = Result("The certainty bound", "thm:certainty-bill",
                f"every pair of moves on 1..{N} states at their least halving costs, runs up to 3, "
                f"{trials} random two-valued windows and spreads")
     eps = 1e-9
@@ -1050,9 +1050,9 @@ def check_certainty_bill(N: int, rng: random.Random, trials: int) -> Result:
                         if abs(HX - (HXgZ + HZ)) > eps:
                             bad = "split fails"
                         elif HXgZ > cost + eps:
-                            bad = f"merges destroyed {HXgZ:.3f} bits for {cost} marks"
+                            bad = f"merges destroyed {HXgZ:.3f} bits for {cost} units"
                         elif HVgZ > cost + eps:
-                            bad = f"observer holds {HVgZ:.3f} bits the end state lost, for {cost} marks"
+                            bad = f"observer holds {HVgZ:.3f} bits the end state lost, for {cost} units"
                         if bad and r.counterexample is None:
                             r.counterexample = f"{[fmt_map(f) for f in fs]} run={seq} spread={p}: {bad}"
                         if ctrl.found is None and HVgZ > eps:
@@ -1063,12 +1063,12 @@ def check_certainty_bill(N: int, rng: random.Random, trials: int) -> Result:
 
 
 # ---------------------------------------------------------------------------
-# The same bill at every scale (thm:every-scale)
+# Every scale pays the same way (thm:every-scale)
 # ---------------------------------------------------------------------------
 
 
 def check_every_scale(N: int) -> Result:
-    r = Result("The same bill at every scale", "thm:every-scale",
+    r = Result("Every scale pays the same way", "thm:every-scale",
                f"every fine machine on 1..{N} states, every described set, every coarse description onto it")
     ctrl_room = Control("the fine step stays inside the described states")
     for n in range(1, N + 1):

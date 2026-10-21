@@ -17,7 +17,7 @@
       and each of the three hypotheses is needed.
     - Two records factor as two latches exactly when the pair is driven and
       each record is permanent.
-    - The event is a free choice (the corollary the book argues in the
+    - The event is an unforced choice (the corollary the book argues in the
       text). *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
@@ -132,7 +132,7 @@ Proof.
   - intros m. simpl. tauto.
 Defined.
 
-(** Elsewhere the event is free: an honest extension that factors through
+(** Elsewhere the event is unforced: an honest extension that factors through
     two events differing at base state 1. *)
 Theorem nec_w_latch_event_not_unique :
   HonestBaseExtension nec_w_early counter_base nec_w_early_cover /\
@@ -294,7 +294,7 @@ Proof.
 Qed.
 
 (* ================================================================= *)
-(** * 6. The event is a free choice                                   *)
+(** * 6. The event is an unforced choice                              *)
 (* ================================================================= *)
 
 Theorem nec_w_event_free_choice :

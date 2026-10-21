@@ -25,19 +25,19 @@ the model, which is the record and the interface.
     The monograph’s point is that nothing becomes something for free: a distinction that comes
 into being dissipates by happening (in any real device, in finite time), and keeping it is paid on
 top, in a merge, which carries Landauer’s floor (a named premise) when the merged states were
-really possible, or in room. Certification, a record that a claim was checked and closed, is the
-sharpest case. It is one example of a wider question about structural state, observation and cost.
-A window, a function from states to what can be seen of them (Chapter 5), can lose distinctions
-that the full state keeps, such as the record and the ledger; the cost laws of Chapters 3 and 4
-constrain specified events under hypotheses each theorem names. A conventional encoding can
-preserve those distinctions. A window that discards them cannot recover them in general. The
-stronger proposal that these distinctions belong in a necessary foundation of computation is a
-conjecture. The status of each result is stated below.
+really possible, or in fresh states. Certification, a record that a claim was checked and closed,
+is the sharpest case. It is one example of a wider question about structural state, observation
+and cost. A window, a function from states to what can be seen of them (Chapter 5), can lose
+distinctions that the full state keeps, such as the record and the ledger; the cost laws of Chapters 3
+and 4 constrain specified events under hypotheses each theorem names. A conventional encoding
+can preserve those distinctions. A window that discards them cannot recover them in general.
+The stronger proposal that these distinctions belong in a necessary foundation of computation is
+a conjecture. The status of each result is stated below.
 
 
 
 
-                                                1
+                                                  1
                                            Abstract
 
 This is a mathematical reference for the Thiele Machine: a model of computation in which a step
@@ -45,21 +45,21 @@ that raises a record that stays must pay into a ledger that only grows. It prese
 interfaces, the main theorems, and the definitions of the small machine from the machine-checked
 Coq corpus. The Coq source is the complete definition; this document states each result with its
 premises and names the declaration that carries it.
-     A formal proof shows that conclusions follow from premises. It does not show that premises
+    A formal proof shows that conclusions follow from premises. It does not show that premises
 model physical reality. Every result is tagged as one of three types: (S) structural theorems
 about the model or a stated machine, (C) conditional results that hold under a named premise
 no machine fact discharges, and (R) refutations, where a theorem states the negation of a
 proposed claim and a named construction supplies the counterexample. One proposal, the
 pointer criterion of Chapter 13, has no proof; it carries a fourth tag, thesis.
-     The core claims are structural (S): the universal floor for every Thiele machine; on finite
-machines, the toll derived from merge pricing for permanent certificates, and on any state space
-the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact
-retention bound for a bounded memory; the window and pricing results; the small machine’s
-earned provenance, checker soundness and minimum price; the definition of Thiele completeness,
-its floor of one and its window theorem with a gap of one mark, and the lift of every universal
-base to a Thiele-complete machine by adding marks; certified Thiele completeness of the small
-machine; the window theorem for every certified Thiele-complete machine; the lifting of every
-universal base to a certified Thiele-complete machine and its converse; the composition of
+    The core claims are structural (S): the universal floor for every Thiele machine; on finite
+machines, the toll derived from merge pricing for permanent certificates, and on any state
+space the dichotomy that a permanent flip merges or needs a fresh state every time, with
+the exact retention bound for a bounded memory; the window and pricing results; the small
+machine’s earned provenance, checker soundness and minimum price; the definition of Thiele
+completeness, its floor of one and its window theorem with a gap of one, and the lift of every
+universal base to a Thiele-complete machine by adding marks; certified Thiele completeness of
+the small machine; the window theorem for every certified Thiele-complete machine; the lifting of
+every universal base to a certified Thiele-complete machine and its converse; the composition of
 certified Thiele-complete machines; the universal machine U and the priced host’s program UP ;
 a verified compiler onto these machines; the record axis over any base and the toll over any order
 of records; the recursion theorem and Rice’s theorem (the logician Henry Rice, 1953: no program
@@ -261,16 +261,16 @@ on.
 Theorem 4.2 (A2 from merge pricing). (S) On a finite state space with
 a permanent certificate, if every non-injective instruction costs at least 1,
 A2 holds.      Coq:   a2_from_merging_price_and_permanence; the trace form is
-permanent_certification_trace_floor, and an honest erasure account gives the same bill
+permanent_certification_trace_floor, and an honest erasure account gives A2 too
 (honest_erasure_accounting_implies_a2).
 
-    Each premise is needed. Unbounded history walks past finiteness by paying in room, a
-fresh state every step (unbounded_history_escapes); a revocable certificate keeps nothing
+    Each premise is needed. Unbounded history walks past finiteness by paying in fresh states,
+a new one every step (unbounded_history_escapes); a revocable certificate keeps nothing
 (revocable_certificate_escapes); and an unpriced merge is a price list that skips the merge
 (free_merge_escapes). On any state space, a raise that merges nothing sends the certified
 states one-to-one into a proper part of themselves, so it needs infinitely many of them.
 
-Theorem 4.3 (The size of the bill). (S) On a finite state space with a permanent certifi-
+Theorem 4.3 (The squeeze bound). (S) On a finite state space with a permanent certifi-
 cate, with m certified states and k uncertified states that one instruction switches on, the
 instruction collapses at least k states (permanent_flips_collapse_at_least). Priced one
 unit per halving of the number of distinct states, its cost c satisfies m + k ≤ 2c m, so, when
@@ -296,15 +296,15 @@ ones, which keep nothing.
 Theorem 4.5 (Refutation). (R) “The forced events are exactly the permanent-record
 writes” is false: a three-state instruction flips, revokes, and merges at once. Coq:
 forced_price_without_permanent_record.
-Theorem 4.6 (Heat or room: the dichotomy). (S) On any state space, let a reading be per-
-manent under a step f , and take a run x0 , f (x0 ), f (f (x0 )), . . . in which the reading goes from
-false at step r to true at step r + 1. If no two states among the run’s first n steps merge under
-f , those states are pairwise distinct; so on a finite state space of M elements, a run that keeps
-a record and never merges has fewer than M steps. In particular, for an injective move F
-that switches the reading on at s, the iterates of s are pairwise distinct and no finite duplicate-
-free list contains them all: a permanent flip either merges or visits a fresh state every time.
-Coq: run_merges_or_fresh, run_bounded_by_room; permanent_flip_iterates_distinct,
-permanent_flip_no_finite_list.
+Theorem 4.6 (Merge, or a fresh state every step: the dichotomy). (S) On any state space,
+let a reading be permanent under a step f , and take a run x0 , f (x0 ), f (f (x0 )), . . . in which
+the reading goes from false at step r to true at step r + 1. If no two states among the run’s
+first n steps merge under f , those states are pairwise distinct; so on a finite state space
+of M elements, a run that keeps a record and never merges has fewer than M steps. In
+particular, for an injective move F that switches the reading on at s, the iterates of s are
+pairwise distinct and no finite duplicate-free list contains them all: a permanent flip either
+merges or visits a fresh state every time. Coq: run_merges_or_fresh, run_bounded_by_room;
+permanent_flip_iterates_distinct, permanent_flip_no_finite_list.
 Theorem 4.7 (Retention bound, and its exactness). (S) Let a finite implementation F : X → X
 of a reset carry an abstraction q that sends every image of F to a fixed abstract state q0 , with a
 representative of q0 and representatives of N − 1 further, pairwise distinct abstract states, and let
@@ -326,24 +326,24 @@ Theorem 4.9 (Refutation: the halting hole). (R) “Every raise of a permanent re
 finitely many states is a merge” is false for partial steps: on two states, a 7→ b with b having no
 successor raises the reading with no shared image. Totalising the halt (b 7→ b) makes the raise a
 merge. Coq: partial_raises_without_merge, totalised_halt_is_merge.
-Theorem 4.10 (The write of a cell, and the room it takes to avoid the merge). (S)
-On the states blank, zero, one with reading “definite,” the write of a 0 is permanent,
+Theorem 4.10 (The write of a cell, and the fresh states it takes to avoid the merge).
+(S) On the states blank, zero, one with reading “definite,” the write of a 0 is permanent,
 raises the reading from blank, and merges blank with zero. A fourth state remembering
-that the cell was blank does not avoid the merge: the write on four states still merges
-two distinct states. Only endless room avoids it, a fresh state every step: On the nat-
-ural numbers the write “add one” is injective and never returns to 0; on the integers
+that the cell was blank does not avoid the merge: the write on four states still merges two
+distinct states. Only endlessly many fresh states avoid it, a new one every step: On the
+natural numbers the write “add one” is injective and never returns to 0; on the integers
 “add one” is a bijection, raises “at least one” from 0, keeps it, and after k > 0 steps
 is away from its start. Coq: write_is_permanent, write_raises, write_is_a_merge,
-four_state_escape_fails,         tape_write_injective,       tape_write_never_returns,
+four_state_escape_fails,         tape_write_injective,         tape_write_never_returns,
 shift_bijective, shift_raises_and_keeps, shift_never_returns.
 
-                                                  8
+                                                 8
 Theorem 4.11 (No state space codes all its own readings; the regress has a price). (S) For
 any type X and any coding X → (X → bool), some reading X → bool is coded by no state
 (Cantor). With the entitlement count, a record that narrows N candidates to one costs at least
-⌈log2 N ⌉ marks, and for every m there is a candidate count whose rounded-up logarithm is
-at least m. Coq: no_space_holds_its_own_readings, regress_price_unbounded; the count
-itself is ent_cs_run_entitlement.
+⌈log2 N ⌉ units, and for every m there is a candidate count whose rounded-up logarithm is at least
+m. Coq: no_space_holds_its_own_readings, regress_price_unbounded; the count itself is
+ent_cs_run_entitlement.
 
 Theorem 4.12 (Nondeterministic merge). (S) Let a step relation on a finite duplicate-free list
 of states have a duplicate-free set Y of yes-states that is closed and total (every yes-state has a
@@ -355,43 +355,43 @@ list containing every state, the run from any start returns to the start after a
 steps, and any reading that is false at the start and never goes from true to false is false at every
 step. Coq: returns_to_start, reversible_keeps_nothing.
 
-Theorem 4.14 (Noisy chairs, both directions). (S) Let P be a nonnegative kernel on n
-states with rows summing to 1 and let Y be closed under P . If every column of P sums to
-1, then P (i, j) = 0 for every i ∈                          / Y , j ∈ Y has P (i, j) > 0, then
-                                    / Y , j ∈ Y . If some i ∈
-some column sum differs from 1, and the collision weight of the uniform spread after one
-step, j c2j with cj the column sums, strictly exceeds n, its value when every column sums to
-      P
+Theorem 4.14 (Noisy steps, both directions). (S) Let P be a nonnegative kernel on n states
+with rows summing to 1 and let Y be closed under P . If every column of P sums to 1, then
+P (i, j) = 0 for every i ∈                        / Y , j ∈ Y has P (i, j) > 0, then some col-
+                          / Y , j ∈ Y . If some i ∈
+umn sum differs from 1, and the collision weight of the uniform spread after one step, j c2j
+                                                                                        P
 
-1. Conversely, if every column sums to 1, then for every spread q, j (qP )2j ≤ i qi2 . Over
-                                                                        P          P
+with cj the column sums, strictly exceeds n, its value when every column sums to 1. Con-
+versely, if every column sums to 1, then for every spread q, j (qP )2j ≤ i qi2 . Over the
+                                                                P             P
 
-the reals, for a strictly positive spread q on N states, i qi ln(N qi ) = ln N − H(q) ≥ 0, with
-                                                         P
+reals, for a strictly positive spread q on N states, i qi ln(N qi ) = ln N − H(q) ≥ 0, with
+                                                      P
 
 strict inequality as soon as some qi ̸= 1/N . Coq: noisy_chairs, raise_breaks_uniform,
 colsums_total, raise_concentrates, uniform_floor, raise_concentrates_uniform,
 no_merge_no_concentration; gibbs_nonneg, gibbs_strict, relent_is_entropy_gap (the
 last three over Coq’s real numbers).
 
-Theorem 4.15 (Quantum chairs). (S) Over the algebraic closure of Q with complex conjugation,
+Theorem 4.15 (Unitary steps). (S) Over the algebraic closure of Q with complex conjugation,
 let U be an n×n matrix with U † U = 1 and P a matrix with P 2 = P , P † = P and (1−P ) U P = 0.
 Then P U (1 − P ) = 0. Stated over the Mathematical Components library; finite dimension enters
 once, as “a left inverse of a square matrix is a right inverse.” Coq: quantum_chairs.
 
-Theorem 4.16 (Time’s bill). (S) For 0 < p < 1 the biased walk’s entropy production per tick,
-                    p
-σ(p) = (2p − 1) ln 1−p , is 0 at p = 12 and strictly positive otherwise. For 0 < v < 1 and N ≥ 0,
-N ln 1+v   N      2
-     1−v · v ≥ N . Over Coq’s real numbers. Coq: heat_at_any_speed, no_heat_at_rest,
+Theorem 4.16 (Heat against time). (S) For 0 < p < 1 the biased walk’s entropy production per
+                        p
+tick, σ(p) = (2p−1) ln 1−p , is 0 at p = 12 and strictly positive otherwise. For 0 < v < 1 and N ≥ 0,
+N ln 1+v    N     2
+      1−v · v ≥ N . Over Coq’s real numbers. Coq: heat_at_any_speed, no_heat_at_rest,
 heat_time_floor.
 
 Remark 4.1. The monograph also proves, on the page, four results that have no Coq counterpart
-here: one mark per crossing (a run costs at least its number of no-to-yes steps, with no permanence
-assumed, and that bound characterizes the toll); the certainty bill (under entropy pricing, the
-uncertainty about the start equals the part the run destroyed, at most its cost in bits, plus
-the part the end state still holds); and the same bill at every scale (if a coarse description of
-a machine merges, the fine step merges two described states, leaves the described set, or the
+here: one unit per crossing (a run costs at least its number of no-to-yes steps, with no permanence
+assumed, and that bound characterizes the toll); the certainty bound (under entropy pricing,
+the uncertainty about the start equals the part the run destroyed, at most its cost in bits, plus
+the part the end state still holds); and every scale paying the same way (if a coarse description
+of a machine merges, the fine step merges two described states, leaves the described set, or the
 described set is infinite); and the device floor (a fixed device that merges K inputs produces
 at least kB ln K of entropy, at least kB T ln K of dissipated work, on its worst input, however
 slowly it runs and whatever anyone knows).
@@ -418,7 +418,7 @@ tive heat from any distribution that leaves every certified state and the flippi
 (permanent_flip_full_support_heat_positive). For a state known in advance, the premise
 is equivalent to heat ≥ 0, so it supplies no positive lower bound; it does not prove zero device heat
 (a step that happens in finite time still dissipates, and the distinction is already kept by whoever
-knows the start), and the ledger toll still charges its mark on a known run, since merge pricing
+knows the start), and the ledger toll still charges its unit on a known run, since merge pricing
 prices the instruction whatever input was prepared (known_state_flip_forces_no_heat).
 
     The monograph adds, on the page and with no Coq counterpart here, a floor that comes
@@ -464,15 +464,15 @@ shows the reading prices certification exactly (window_showing_reading_prices_ex
 
 Theorem 5.3 (Retained history). (S) Keeping the previous state in a history makes every
 deterministic step injective, and the state part of the new pair is still the original step’s result,
-so the observed transition is unchanged. The history is room, a fresh state every step; it
-walks past the finiteness premise, not past the bill. Coq: retained_history_step_injective,
+so the observed transition is unchanged. The history takes a fresh state every step; it walks past
+the finiteness premise, not past what keeping takes. Coq: retained_history_step_injective,
 history_simulates_observed_step.
 
 Theorem 5.4 (Narrowing). (S) On a finite machine priced one unit per halving of the
-number of distinct states, each halving of the machine’s own set of possible states along
-a run is paid for (run_narrowing_priced_log). What an observer knows can shrink at
-zero marks: a measurement that copies a hidden bit into a blank display forgets nothing,
-borrowing the blank display (room), and one admissible merge-priced cost assigns it zero
+number of distinct states, each halving of the machine’s own set of possible states along a
+run is paid for (run_narrowing_priced_log). What an observer knows can shrink at zero
+cost: a measurement that copies a hidden bit into a blank display forgets nothing, borrow-
+ing the blank display (fresh states), and one admissible merge-priced cost assigns it zero
 (observer_narrowing_can_be_free); wiping the display is a merge and costs at least one
 (wipe_costs_at_least_one).
 
@@ -571,10 +571,10 @@ record once up stays up; every loaded start has the record down; computing moves
 other move costs exactly 1, and the ledger grows by the cost of each move; and some run ends
 with the record up from one loaded start and down from another. Nothing in it says what the
 record is about. Coq: neutral_complete in minimal/NeutralComplete.v.
-Theorem 7.1 (Thiele-complete machines). (S) Every Thiele-complete machine obeys the toll and
-raises its record only by a mark costing exactly 1 (nc_is_weak, nc_raise_is_mark); every run
-from a state with the record down that ends with it up costs at least 1 (nc_floor_one); its window
-hides its record and its ledger, with a gap of one mark (nc_hides_record, nc_hides_ledger).
+Theorem 7.1 (Thiele-complete machines). (S) Every Thiele-complete machine obeys the toll
+and raises its record only by a mark costing exactly 1 (nc_is_weak, nc_raise_is_mark); every
+run from a state with the record down that ends with it up costs at least 1 (nc_floor_one); its
+window hides its record and its ledger, with a gap of one (nc_hides_record, nc_hides_ledger).
 A clock and a machine whose record never rises are not Thiele-complete (clock_not_nc,
 silent_not_nc), and each clause is needed (drop_not_nc, frozen_not_nc, paid_all_not_nc).
 Every universal base plus marks on an event that separates two loaded starts is Thiele-complete
@@ -627,8 +627,8 @@ Theorem 7.4 (Machines that fail it). (R) Every clock-style machine, with any rec
 versal base and obeys the toll, and is neither Thiele-complete nor certified Thiele-complete
 (clock_weakly_thiele_complete, clock_not_nc, clock_not_thiele_complete); so is a
 clock whose record is a latch on its configuration (latch_clock_weakly_thiele_complete,
-latch_clock_not_nc, latch_clock_not_thiele_complete).             A machine with a free
-base and one paid move that raises a latch meets clauses (a) and (c), and since
+latch_clock_not_nc, latch_clock_not_thiele_complete). A machine with a base that
+costs nothing and one paid move that raises a latch meets clauses (a) and (c), and since
 that move raises the record from every state, the machine is certified Thiele-complete
 through no interface (paid_latch_meets_base_and_toll, one_move_record_excluded,
 paid_latch_not_thiele_complete). A machine whose record never rises meets (a), (b) and
@@ -640,8 +640,8 @@ Theorem 7.5 (Every certified Thiele-complete machine hides its record). (S) For 
 Thiele-complete machine there are a clean start and two runs from it, the second made of base
 moves only, that end at the same base window; the first ends certified with its ledger at least 3
 above the start, and the second ends uncertified with its ledger unchanged (complete_two_runs).
-Hence no function of the base window recovers the record (complete_hides_record) or the
-ledger (complete_hides_ledger) on every reachable state (thiele_complete_hides).
+So no function of the base window recovers the record (complete_hides_record) or the ledger
+(complete_hides_ledger) on every reachable state (thiele_complete_hides).
 
 Proof. Clause (d) and clause (b) give a clean start and a certifying run. The base is universal,
 so base moves alone reach the window the certifying run ends at; base moves change neither the
@@ -698,20 +698,21 @@ the cost of its left moves plus the cost of its right moves (cmpz_cost_prod), tw
 of the same moves reach the same state at the same cost (cmpz_interleaving_invariant),
 and with record-preserving simulations as morphisms the product is the categorical product
 (cmpz_prod_universal). Running one machine and handing its two output counters to a second
-through free loading moves gives a certified Thiele-complete machine when both are (cmpz_seq_tc),
-and it computes the second program’s run on the first program’s output (cmpz_seq_composes).
+through loading moves that cost nothing gives a certified Thiele-complete machine when both
+are (cmpz_seq_tc), and it computes the second program’s run on the first program’s output
+(cmpz_seq_composes).
 Theorem 7.10 (Limits of composition). (R) From a clean start of the product, every run that
 raises the AND of the two records makes at least six record moves (cmpz_and_costs_six), and
-the point-level interface through “both flags are up” fails non-vacuity (cmpz_and_not_complete).
 
                                                   16
-The product of two clocks has a universal base and obeys the toll, and is not certified Thiele-
+the point-level interface through “both flags are up” fails non-vacuity (cmpz_and_not_complete).
+The product of two clocks has a universal base and obeys the toll, and is not certified Thiele-
 complete (cmpz_or_clocks_not_complete). A second writer that changes counter A of the small
 machine without raising its version breaks the earned-record clause (cmpz_shared_not_earned).
 Two finite machines that each have an exact shadow price through a window can collide as a
 pair (cmpz_exactness_not_preserved). If two load states of the second machine have records
-with the first not at or below the second, the second machine with free loads added fails the toll
-(cmpz_ld_unclean).
+with the first not at or below the second, the second machine with loads that cost nothing added
+fails the toll (cmpz_ld_unclean).
 
 Theorem 7.11 (Nesting). (S) If Y runs X and Z runs Y by simulation, then Z runs X with
 the record bit equal at matched points, halting and the rising of the record corresponding, and
@@ -719,7 +720,7 @@ the surcharge bounds adding (cmpz_link_compose); a tower of k links adds between
 of the lower bounds and the sum of the upper bounds (cmpz_tower). A computably presented
 machine whose reading starts at no and whose moves cost at most 1, run on UP (Chapter 8), pays
 exactly 2 more once its latch is up (cmpz_host_link_exact). A record-preserving simulation
-that reflects the order of records, into a machine that pays the toll, tracks every run of the guest
+that reflects the order of records, into a machine that obeys the toll, tracks every run of the guest
 by a host run costing at least the number of the guest run’s exits (cmpz_sim_cost_ge_exits).
 
 
@@ -734,7 +735,7 @@ and (d) and fails (b), and the machine with ZAP is certified Thiele-complete thr
 no interface (nec_t_zap_meets_all_but_chain, nec_t_zap_not_thiele_complete).                     A
 checker that accepts every claim keeps (a), (c) and (d) and loses checker soundness
 (nec_t_unsound_check_meets_all_but_soundness). A machine whose states pair one of six
-control states with a ledger, with one move that costs no marks and the ordered record moves
+control states with a ledger, with one move that costs nothing and the ordered record moves
 CHECK, COMMIT and CERTIFY, meets the loose notion, which keeps every clause except the
 universal base, and is certified Thiele-complete through no interface (nec_t_nb_loose_complete,
 nec_t_nb_not_thiele_complete). For the generic machine, the exact equality test, the exact
@@ -748,7 +749,7 @@ nec_t_generic_needs_varying_property).
 
 
 
-                                                17
+                                                 17
 Chapter 8
 
 The Universal Machine
@@ -1028,7 +1029,7 @@ below its starting record costs at least 1.
 Theorem 10.6 (The whole direction). (S) For every axis system the floor holds exactly when
 the toll holds (ax_floor_iff_a2), and under the toll every run costs at least the number of its
 steps that leave the down-set (ax_cost_ge_exits). The toll holds exactly when, for every point
-a, the bit “a is at or below the record” pays the one-bit toll (ax_a2_iff_views). A record that
+a, the bit “a is at or below the record” obeys the one-bit toll (ax_a2_iff_views). A record that
 never drops and whose next value is a function of the base state and the current record factors
 through thresholds: some event h makes a at or below the next record exactly when a is at or
 below the current record or h fires (ax_decompose). A repeat-free chain of k-bit words, each
@@ -1042,7 +1043,7 @@ window has no collision (ax_window_exact_iff_no_collision).
 Theorem 10.7 (Completeness and entropy on the axis). (S) An interface makes a machine of
 Chapter 7 certified Thiele-complete exactly when the same interface, read over the two-point order
 with false below true, meets the four clauses on the axis (ax_tc_two_point_iff). Every certified
-Thiele-complete axis machine pays the toll (ax_tc_a2), every run from a clean start that ends
+Thiele-complete axis machine obeys the toll (ax_tc_a2), every run from a clean start that ends
 with the record not at or below the floor makes at least three record moves and raises the ledger by
 at least 3 (ax_tc_certificate_three), and no function of the counter-machine window gives
 the record (ax_tc_independence). On the multi-register host, for every reading of final states
@@ -1335,8 +1336,8 @@ Thiele completeness: floor and window   (S)           The four clauses of neutra
 Certified Thiele completeness of the    (S)           The four clauses of thiele_complete
 small machine
 Clock-style machines fail               (R)           The four clauses
-Window theorem                          (S)           Thiele completeness (gap of one mark) or
-                                                      certified Thiele completeness (gap of three)
+Window theorem                          (S)           Thiele completeness (gap of one) or certified
+                                                      Thiele completeness (gap of three)
 Lifting any universal base              (S)           A universal base, a claim language with an
                                                       exact equality test and a proved checker, a fact
                                                       table with room for one fact, a claim that can

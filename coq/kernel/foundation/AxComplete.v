@@ -26,7 +26,7 @@
 
     What this file proves (closed):
 
-      ax_tc_a2                 a Thiele-complete axis machine pays the toll.
+      ax_tc_a2                 a Thiele-complete axis machine obeys the toll.
       ax_flag_view_complete    certification is one tap: reading the record
                                through "has left the floor" gives a machine
                                that is Thiele-complete in the book's sense.

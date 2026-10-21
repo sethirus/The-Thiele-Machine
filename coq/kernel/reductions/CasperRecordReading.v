@@ -12,7 +12,7 @@
 
     So Casper prices the revocation of its record, not the write. A2 prices
     the write. The two fit the finite-machine result: a record whose write
-    is free must be one that can be revoked, and Casper's finalization can
+    costs nothing must be one that can be revoked, and Casper's finalization can
     be revoked, at the price of a slashed quorum. *)
 
 (* SCOPE NOTE: standalone proof scope. It reads the Casper FFG model

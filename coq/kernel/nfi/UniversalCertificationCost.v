@@ -7,7 +7,7 @@
 
     That premise is intentionally small. It does not assume monotonicity of the
     certificate, meaningful witnesses, or tight optimal cost. It only says that
-    the instant of certification cannot be free. From that, the trace-level
+    the instant of certification cannot cost nothing. From that, the trace-level
     theorem follows by induction.
 
     The point is that this base theorem is substrate-independent. If someone has

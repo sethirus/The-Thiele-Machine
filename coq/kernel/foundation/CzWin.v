@@ -23,7 +23,7 @@
           the PAIR of windows;
       cmpz_pair_every_window_printed
           every pair of shadow states is the shadow of a state of the
-          product at the floors of both parts, one free move from a clean
+          product at the floors of both parts, one unpaid move from a clean
           start in each part.
 
     What does not survive: exactness.  Two machines whose windows both price
