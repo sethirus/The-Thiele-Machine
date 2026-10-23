@@ -33,47 +33,60 @@ no universal finite bound on its size. Which distinctions must actually be
 there is a question about the task and what must remain recoverable.
 
 
-WHAT STANDS BEHIND THE BOXES
+THE DEFINITION
 
-The boxes are the way in. The subject is an abstract model of computation,
-in the sense that Turing's machine is one. It has states, moves, a step, a
-price on each move and a yes-or-no reading, and one rule: a step that turns
-the reading from no to yes costs at least one unit. What follows from that
-is not small.
+A Thiele machine is five things and one rule: a set S of states, a set I of
+moves, a step from a state and a move to the next state, a cost on each move,
+and a yes-or-no reading of the state. The rule is the toll: a step that turns
+the reading from no to yes costs at least one unit. A ledger that only
+climbs, and a window onto what an outside observer sees, come in when a
+result needs them.
 
-It fits every machine. Take a Turing machine, a RAM, any deterministic
-machine and any event it reaches. Add a latch on that event that charges one
-unit when it sets, and you have an honest extension of the original. The
-model adds accounting and no computing power.
+The Thiele Machine is that definition. It is a machine the way Turing's
+machine is one: mathematics you can reason about, not a device, not an
+instruction set and not a book. The book is where I work out what follows.
 
-The ordinary window cannot see it. Every machine that meets the model's
-definition hides its record and its ledger from its own window. Two runs can
-look the same through the usual description of memory, registers and program
-position, and still differ in what they established and what it cost.
 
-Keeping has a price. On any machine, finite or endless, a run that keeps a
-reading up either merges two states somewhere or uses endlessly many
-distinct states. Finiteness takes the second route away. The price holds at
-every scale: when a coarse description of a machine merges, the fine machine
-merges too, unless its step leaves the described states or there are
-endlessly many of them.
+WHAT FOLLOWS FROM IT
 
-The window cannot price it. An account that charges certification exactly,
-never less and never more, cannot compute that charge from a window that
-shows a certifying step and a non-certifying step the same way.
+Each layer says what it rests on.
 
-The counts are exact. Recovering which of n editions were certified takes
-2^n states above one picture. Choosing which of m(b) checks ran takes 2^m(b)
-states above each working value.
+From the definition alone. A run that starts at no and ends at yes costs at
+least one. This is the universal floor, and it holds for every machine. The
+bar is nearly empty on purpose: a clock that charges one for every move meets
+it. The model also fits every machine. Take a Turing machine, a RAM, any
+deterministic machine and any event it reaches, add a latch on that event
+that charges one unit when it sets, and you have an honest extension of the
+original. The model adds accounting and no computing power.
 
-It is not any one machine. The model is defined over every machine that
-meets it. A small six-instruction machine appears as a minimal complete
-example, there to show the definition can be met and to give something to
-run. It is an example and not the subject.
+From counting, with no premise. On any machine with one next state for every
+state, every step lands on a fresh state, merges two states, or returns to
+its start. So a run that keeps a reading up either merges somewhere or uses
+endlessly many distinct states. On a finite machine, a step that raises a
+permanent reading merges. When a coarse description of a machine merges, the
+fine machine merges too, unless its step leaves the described states or there
+are endlessly many of them.
 
-Where a result needs a physical premise, such as a heat bound, the book
-names the premise and keeps it apart from the counting. Where something is a
-thesis and not a theorem, it says so.
+From the definition plus a price you state. If every merging instruction
+costs at least one, the toll on a finite machine follows from the merge. A
+heat bound needs one more premise, a named physical one, and the book keeps
+it apart from the counting.
+
+From stricter definitions the book gives. Thiele-complete asks that computing
+cost nothing and not touch the record, that the record stay up once it is up,
+that starts have it down, and that some run raise it from one start and not
+another. Every machine that meets it hides its record and its ledger from its
+own window. An account that prices certification exactly cannot compute the
+price from a window that shows a certifying step and a non-certifying step
+the same way. Recovering which of n editions were certified takes 2^n states
+above one picture.
+
+By construction. A small six-instruction machine and a universal program on
+it show these definitions can be met. They are examples and not the subject.
+
+Not derived. Which event deserves a record, and the pointer thesis about how
+this connects to the world, are a choice and a thesis. The book labels them
+as such.
 
 
 A RECORD THAT MEANS SOMETHING

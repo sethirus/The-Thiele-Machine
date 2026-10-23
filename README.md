@@ -1,26 +1,33 @@
 # The Thiele Machine
 
+The Thiele Machine is an abstract model of computation, a short definition. This repository is the work of finding out what follows from it.
+
+The model is developed in a monograph: [Read the monograph](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Monograph source](monograph/monograph.tex) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf)
+
+## The definition
+
+A Thiele machine is five things and one rule: a set $S$ of states, a set $I$ of moves, a step $S\times I\to S$, a cost $I\to\mathbb N$ on each move, and a yes-or-no reading $S\to\{\text{no},\text{yes}\}$. The rule is the toll: a step that turns the reading from no to yes costs at least one unit. A ledger that only climbs, and a window onto what an outside observer sees, come in when a result needs them.
+
+The Thiele Machine is that definition. It is a machine the way Turing's machine is one: mathematics you can reason about, not a device, not an instruction set and not a book. The book is where I work out what follows.
+
+## What follows from it
+
+Each layer says what it rests on.
+
+- **From the definition alone.** A run that starts at no and ends at yes costs at least one. This is the universal floor, and it holds for every machine. The bar is nearly empty on purpose: a clock that charges one for every move meets it. The model also fits every machine. Take a Turing machine, a RAM, any deterministic machine and any event it reaches, add a latch on that event that charges one unit when it sets, and you have an honest extension of the original. The model adds accounting and no computing power.
+- **From counting, with no premise.** On any machine with one next state for every state, every step lands on a fresh state, merges two states, or returns to its start. So a run that keeps a reading up either merges somewhere or uses endlessly many distinct states. On a finite machine, a step that raises a permanent reading merges. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them.
+- **From the definition plus a price you state.** If every merging instruction costs at least one, the toll on a finite machine follows from the merge. A heat bound needs one more premise, a named physical one, and the book keeps it apart from the counting.
+- **From stricter definitions the book gives.** Thiele-complete asks that computing cost nothing and not touch the record, that the record stay up once it is up, that starts have it down, and that some run raise it from one start and not another. Every machine that meets it hides its record and its ledger from its own window. An account that prices certification exactly cannot compute the price from a window that shows a certifying step and a non-certifying step the same way. Recovering which of $n$ editions were certified takes $2^n$ states above one picture.
+- **By construction.** A small six-instruction machine and a universal program on it show these definitions can be met. They are examples and not the subject.
+- **Not derived.** Which event deserves a record, and the pointer thesis about how this connects to the world, are choices and a thesis. The book labels them as such.
+
+## Where it starts
+
 **Put two boxes on the table. The tiles on top spell the same answer. One box has a stamp on its side. The other does not. A camera looking straight down gives you the same photograph.**
 
 Hand me that photograph and ask which box was stamped. Enlarging the tiles will not bring the side into view. The difference is in the boxes. The picture leaves it out.
 
 That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The Thiele Machine is an abstract model of computation, built to ask what that takes. It is a machine the way Turing's machine is one: mathematics you can reason about. It is not a device and it is not a book. The book is where I develop it.
-
-The model is developed in a monograph: [Read the monograph](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Monograph source](monograph/monograph.tex) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf)
-
-## What this is
-
-The boxes are the way in. The subject is an abstract model of computation, in the sense that Turing's machine is one. It has states, moves, a step, a price on each move and a yes-or-no reading, and one rule: a step that turns the reading from no to yes costs at least one unit. What follows from that is not small.
-
-- **It fits every machine.** Take a Turing machine, a RAM, any deterministic machine and any event it reaches. Add a latch on that event that charges one unit when it sets, and you have an honest extension of the original. The model adds accounting and no computing power.
-- **The ordinary window cannot see it.** Every machine that meets the model's definition hides its record and its ledger from its own window. Two runs can look the same through the usual description of memory, registers and program position, and still differ in what they established and what it cost.
-- **Keeping has a price.** On any machine, finite or endless, a run that keeps a reading up either merges two states somewhere or uses endlessly many distinct states. Finiteness takes the second route away.
-- **The price holds at every scale.** When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them.
-- **The window cannot price it.** An account that charges certification exactly, never less and never more, cannot compute that charge from a window that shows a certifying step and a non-certifying step the same way.
-- **The counts are exact.** Recovering which of $n$ editions were certified takes $2^n$ states above one picture. Choosing which of $m(b)$ checks ran takes $2^{m(b)}$ states above each working value.
-- **It is not any one machine.** The model is defined over every machine that meets it. A small six-instruction machine appears as a minimal complete example, there to show the definition can be met and to give something to run. It is an example and not the subject.
-
-Where a result needs a physical premise, such as a heat bound, the book names the premise and keeps it apart from the counting. Where something is a thesis and not a theorem, it says so.
 
 ## The tabletop and everything above it
 
