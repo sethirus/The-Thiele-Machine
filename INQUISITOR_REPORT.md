@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-10-15 21:39:29Z (UTC)
-Scanned: 400 Coq files across the repo
+Generated: 2026-10-23 18:22:14Z (UTC)
+Scanned: 430 Coq files across the repo
 ## Summary
-- HIGH: 0
+- HIGH: 1
 - MEDIUM: 0
 - LOW: 1
 - SCOPE NOTES: 207 in-source scope markers across 174 files (175 SCOPE NOTE, 32 SAFE markers)
@@ -83,6 +83,12 @@ Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
 | 65 | const-fun | `coq/kernel/foundation/NeutralUnivSmuggle.v` |
 
 ## Findings
+### HIGH
+
+#### `minimal/AccountingBridge.v`
+- L112: **TRUE_CONST** — Definition is constant true.
+  - `Definition reset (_ : bool) := true.`
+
 ### LOW
 
 #### `coq/kernel/foundation/NeutralUnivSmuggle.v`

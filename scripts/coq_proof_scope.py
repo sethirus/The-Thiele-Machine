@@ -18,7 +18,7 @@ Consumers
     out-of-scope set.
 - tests/test_coq_proof_scope.py
     Drift gate: enforces the structural invariants documented below.
-- build/probe/build_full_probe.py
+- scripts/build_full_probe.py
     Skips out-of-scope files when generating the comprehensive
     Print Assumptions probe (otherwise the probe would chase its own tail).
 
@@ -64,7 +64,7 @@ FULL_ASSUMPTION_PROBE = "coq/AssumptionsProbeAll.v"
 NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
     # Auto-generated comprehensive Print Assumptions probe across every
     # addressable proof-bearing declaration; produced by
-    # build/probe/build_full_probe.py. Not a proof obligation.
+    # scripts/build_full_probe.py. Not a proof obligation.
     FULL_ASSUMPTION_PROBE,
 })
 

@@ -1,6 +1,8 @@
 # Results
 
-This file states the settled results about the small machine, Thiele
+The Thiele Machine is an abstract model: states, moves, a step, a price on each move, a yes-or-no reading, and the toll (a step that turns the reading from no to yes costs at least 1). The results below hold for every machine that meets it, except the section on the small machine, which is one example built to show the definition can be met.
+
+This file states the settled results about the example machine, Thiele
 completeness over any event and with certification, the universal machine
 and its definition, the record axis and the events it can
 carry, recursion and undecidability, pricing and physics, and the real systems
@@ -40,7 +42,7 @@ axioms listed at the end) agrees with the assumption receipt in
 `artifacts/print_assumptions_all_proofs.txt`, which the receipt generator
 writes on Linux.
 
-## The small machine
+## An example: the small machine
 
 The small machine of minimal/EarnedCore.v has two counters, a table of
 checked facts, a certification flag and a ledger. Its counter instructions are

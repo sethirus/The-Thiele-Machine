@@ -1,4 +1,7 @@
-# Coq build artifacts (*.vo and *.glob are tracked as proof verification artifacts)
+# Generated compiler outputs; source and project configuration are tracked
+*.vo
+*.glob
+.Makefile.coq.d
 *.vok
 *.vos
 *.v.d
@@ -26,3 +29,6 @@ test_rewrite_pow.v
 # IDE
 .vscode/
 .idea/
+
+# Solver diagnostic serialization
+/trace

@@ -8,7 +8,7 @@
 .PHONY: coq-gate coq-core coq-kernel coq-clean proof-gate-repro proof-undeniable
 .PHONY: assumption-receipt assumption-receipt-check vacuity-audit
 .PHONY: check-sensitive-files check-sensitive-files-strict
-.PHONY: verify verify-research
+.PHONY: verify verify-research verify-holding-slice verify-manuscript-integration
 
 help:
 	@echo "Thiele Machine - Available Targets"
@@ -29,6 +29,8 @@ help:
 	@echo "  make coq-core       - Build every Coq proof in coq/_CoqProject"
 	@echo "  make coq-gate       - Build every proof and fail on any Admitted"
 	@echo "  make coq-kernel     - Build the Turing-machine kernel files"
+	@echo "  make verify-holding-slice - Build and kernel-check the Chapter 1-2 holding and slice modules"
+	@echo "  make verify-manuscript-integration - Kernel-check all promoted manuscript proof modules"
 	@echo "  make proof-gate-repro - Clean rebuild, zero-Admitted gate, coqchk of every module"
 	@echo "  make proof-undeniable - Formal proof gate (build + audit + coqchk)"
 	@echo "  make assumption-receipt - Re-derive the Print Assumptions receipt"
@@ -170,7 +172,6 @@ clean:
 	@echo "Cleaning build artifacts and cache files..."
 	@rm -rf .build_cache/ .test_artifacts/ .generated/
 	@rm -rf build/vacuity_probes/ .pytest_cache/ outputs/
-	@rm -f /tmp/*.log
 	@find coq minimal -name "*.vo" -delete
 	@find coq minimal -name "*.vos" -delete
 	@find coq minimal -name "*.vok" -delete
@@ -180,11 +181,10 @@ clean:
 	@echo "✓ Clean complete (audit artifacts preserved)"
 
 deep-clean: clean
-	@echo "Running deep clean (includes audit artifacts)..."
-	@rm -rf artifacts/
+	@echo "Removing ignored audit outputs; maintained verification records stay in place..."
+	@git clean -fdX -- artifacts/
 	@echo "✓ Deep clean complete"
 
-# Organize workspace (clean transient caches, write a folder audit)
 # Clean everything including local environments
 purge: deep-clean
 	@echo "Purging all generated files..."
@@ -192,10 +192,8 @@ purge: deep-clean
 	@make -C coq clean
 	@echo "✓ Purge complete"
 
-# Purge ONLY the project's Coq build artefacts under coq/ and minimal/ —
-# leaves vendor/ alone so the vendored library cache stays valid. Use this
-# in CI before invoking the Coq build to drop tracked-but-stale .vo files
-# (which `make` would otherwise treat as up-to-date and skip rebuilding).
+# Purge project compiler outputs before a clean rebuild. Vendor outputs are
+# ignored too, but kept here so their expensive local cache remains reusable.
 coq-clean:
 	@echo "[coq-clean] purging coq/ and minimal/ *.{vo,vos,vok,glob,aux} (vendor/ untouched)"
 	@find coq minimal -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
@@ -206,3 +204,9 @@ verify: install-hooks ## Don't take my word: compile the axiom-free Coq core and
 
 verify-research: install-hooks ## Check observation policies and the window theorem
 	$(MAKE) -C coq kernel/frontier/ObservationPolicy.vo kernel/nfi/ShadowPricing.vo ../minimal/ThieleCompleteWindow.vo
+
+verify-holding-slice: ## Production namespace, assumption probes, and coqchk for Chapters 1-2
+	python3 scripts/verify_holding_slice.py
+
+verify-manuscript-integration: ## Targeted proof build and kernel check for manuscript integration
+	python3 scripts/verify_manuscript_integration.py

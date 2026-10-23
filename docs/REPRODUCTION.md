@@ -44,3 +44,39 @@ The clean proof gate and the fresh source-only reproduction use bounded parallel
 ## Recorded output
 
 A successful run writes `result.txt` only after every requested stage passes and the captured inputs remain unchanged. Other files in the run directory are execution records: `source-manifest.json`, `reproduction.json`, tool versions, stage logs, and checker logs. They are reproducible evidence for that run and belong to no source tree.
+
+## Finite transition-system checks
+
+Run the independent small-system search from the repository root:
+
+```sh
+python3 scripts/break_it.py
+```
+
+It uses the Python standard library. For the finite scopes below it enumerates transition maps, readings, starts and prefixes as applicable; the probabilistic and unitary cases use sampled inputs. Each check compares the conclusion with the stated premises. Controls remove selected premises and exhibit cases where the conclusion fails. The manuscript supplies the general arguments; these searches exercise their finite instances.
+
+The table records the search scopes and reported outcomes. Run the command above to obtain a result for the current sources.
+
+| Result | Scope | Reported failures | Control |
+| --- | --- | --- | --- |
+| Step law | every map on up to 6 states, every start | none | one next state: fails |
+| Merge or a fresh state (1) | every map, every reading it keeps, every start, up to 6 states | none | permanence, one rule: both fail |
+| Merge or a fresh state (2), the exact bound | every map, reading, set of starts and T, up to 5 states; the bound reached | none | no merge: fails |
+| Permanent flip merges, toll from merge pricing | every map and every reading it keeps, up to 6 states | none | finiteness, permanence, merge pricing: all fail |
+| Merge or revoke | every map and reading, up to 6 states | none | finiteness: fails |
+| Reversible keeps nothing | every one-to-one map, reading and start, up to 6 states | none | finiteness, one-to-one: both fail |
+| Floor and one unit per crossing | every system of two moves on up to 3 states, prices 0 to 2, runs up to 5 | none | the toll: fails |
+| No price per move name meets floor and ceiling once the flag rises | the same systems, runs up to 3 | none | state-dependent price: meets both |
+| Squeeze bound | every map and kept reading, up to 6 states | none | permanence: fails |
+| Least halving price is the log of the largest pile | every map and every list of states, up to 5 states | none | — |
+| Own narrowing priced | every pair of moves on up to 3 states, runs up to 3, every list of starts | none | halving price: fails |
+| Entropy ceiling | every map on up to 4 states, random spreads | none | permanence: fails |
+| Noisy steps | 400 random tables per size, 2 to 4 states, every closed set | none | columns add to one: fails |
+| Unitary steps | 200 random unitaries per size, dimensions 2 to 4 | none | unitary: fails |
+| Heat against time | 999 values of p, distances up to 60 | none | — |
+| Teaching at zero cost | every zero-cost machine on up to 3 states, every window | none | — |
+| No level holds its questions | every assignment on up to 3 states | none | — |
+| Certainty bound | every pair of moves on up to 3 states, runs up to 3, random two-valued windows and random spreads | none | halving price: fails |
+| Every scale pays the same way | every fine machine on up to 4 states, every described set and coarse description | none | staying inside, finiteness: both fail |
+
+The unitary checks can detect arithmetic errors in preservation of orthogonality; their control uses an invertible map that is not unitary. The heat/time check evaluates the displayed formula. Infinite-state controls are examined on finite prefixes; the infinite claims use the manuscript's arguments. For the floor-and-ceiling result, an instruction-name price cannot charge once for a raise and then make repetitions free: charging by source state provides the stated alternative.

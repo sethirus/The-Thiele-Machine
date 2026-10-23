@@ -119,9 +119,6 @@ jobs:
           coq_makefile -f _CoqProject -o Makefile
           make -j4
           cd ..
-          git checkout -- vendor/coq-undecidability/theories/Makefile.coq \
-            vendor/coq-undecidability/theories/Makefile.coq.conf \
-            vendor/coq-undecidability/theories/.Makefile.coq.d
 
       - name: Record the build manifest
         run: python3 scripts/coq_build_manifest.py write
@@ -168,16 +165,9 @@ jobs:
           git reset --soft "$base"
           git diff --cached --stat | tail -1
 
-      - name: Stage the rebuilt tracked Coq outputs
-        # The cache restore or rebuild above rewrote tracked .vo/.glob files.
-        # Stage them with the hook's own rule, so its opening worktree check
-        # sees only the proposed commit.
-        # New .v files produce new .vo/.glob files; the repository tracks
-        # those too, so stage untracked compiler outputs under coq/ as well.
-        run: |
-          git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
-          git add -u -- 'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'
-          python3 scripts/check_hook_worktree.py --stage-generated
+      - name: Check source worktree after rebuilding
+        # Compiler objects are ignored; rebuilding must not alter source inputs.
+        run: python3 scripts/check_hook_worktree.py
 
       - name: Restore the Print Assumptions answer cache
         # Answers are keyed by each library's compiled digest (which covers its
@@ -198,6 +188,7 @@ jobs:
           # CI, dispatched on the regenerated commit below, runs the full
           # pytest suite; the hook skips its identical run here.
           THIELE_HOOK_SKIP_PYTEST: "1"
+          THIELE_HOOK_FULL: "1"
           THIELE_ASSUMPTION_BATCH_SIZE: "500"
           THIELE_ASSUMPTION_TIMEOUT: "1800"
           THIELE_ASSUMPTION_WORK_DIR: build/probe/assumption-cache

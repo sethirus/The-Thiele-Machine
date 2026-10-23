@@ -97,26 +97,16 @@ def test_guard_accepts_staged_changes_and_ignored_build_cache(repo):
     assert command(repo, sys.executable, "scripts/check_hook_worktree.py").returncode == 0
 
 
-def test_guard_stages_only_tracked_coq_compiler_outputs(repo):
+def test_guard_never_stages_rebuilt_tracked_files(repo):
     generated = repo / "coq/Generated.glob"
     generated.parent.mkdir()
     generated.write_text("original\n")
     git(repo, "add", str(generated))
-    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "generated fixture")
-
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "fixture")
     generated.write_text("rebuilt\n")
-    result = command(repo, sys.executable, "scripts/check_hook_worktree.py",
-                     "--stage-generated")
-    assert result.returncode == 0, result.stderr
-    assert git(repo, "show", ":coq/Generated.glob") == "rebuilt\n"
-
-    source = repo / "source with spaces.v"
-    source.write_text("unrelated source edit\n")
-    result = command(repo, sys.executable, "scripts/check_hook_worktree.py",
-                     "--stage-generated")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py")
     assert result.returncode == 1
-    assert "source with spaces.v" in result.stderr
-    assert git(repo, "show", ":source with spaces.v") == "original\n"
+    assert git(repo, "show", ":coq/Generated.glob") == "original\n"
 
 
 @pytest.fixture
@@ -129,8 +119,8 @@ def pipeline(repo, tmp_path):
         "CITATION.cff", "THIELE_MACHINE.txt", "monograph/monograph.tex",
         "monograph/monograph.pdf", "monograph/monograph.txt",
         "monograph/thiele_machine_math_spec.pdf", "monograph/math_spec_plaintext.txt",
-        "monograph/monograph.toc", "monograph/monograph.out",
-        "monograph/thiele_machine_math_spec.toc", "monograph/thiele_machine_math_spec.out",
+        "monograph/COMPANION_CHECKS.txt",
+
     ]
     for name in outputs:
         path = repo / name
@@ -163,10 +153,10 @@ if name == "python3":
     # check_assumption_consistency.py is not present in this fixture repo; the
     # hook's invocation of it must succeed here (the real check is exercised by
     # tests/test_assumption_consistency.py). Failure injection above still fires.
-    if args and args[0] == "build/probe/build_full_probe.py":
+    if args and args[0] == "scripts/build_full_probe.py":
         # The hook regenerates the probe before checking receipt/probe coherence.
         for name in (os.environ["HOOK_TEST_ASSUMPTION_PROBE"],
-                     "build/probe/probe_inventory.json"):
+                     "artifacts/assumptions/probe_inventory.json"):
             path = pathlib.Path(name)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("regenerated probe\n")
@@ -179,9 +169,9 @@ if name == "python3":
 elif name == "bash" and args == ["scripts/generate_assumption_receipt.sh"]:
     for name in (os.environ["HOOK_TEST_ASSUMPTION_PROBE"], "artifacts/print_assumptions_all_proofs.json",
                  "artifacts/print_assumptions_all_proofs.txt", "artifacts/print_assumptions_all_proofs.csv",
-                 "build/probe/probe_inventory.json",
-                 "build/probe/probe_all_output.txt", "build/probe/probe_all_err.txt",
-                 "build/probe/probe_batches.json"):
+                 "artifacts/assumptions/probe_inventory.json",
+                 "artifacts/assumptions/probe_all_output.txt", "artifacts/assumptions/probe_all_err.txt",
+                 "artifacts/assumptions/probe_batches.json"):
         path = pathlib.Path(name)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("fresh receipt\n")
@@ -219,13 +209,28 @@ def test_hook_refreshes_manifest_and_tests_in_ci_mode(pipeline):
     assert build < dag < tests
 
 
-@pytest.mark.parametrize("failure", ["make", "generate_proof_dependency_dag.py", "pytest",
-                                    "inquisitor.py"])
+@pytest.mark.parametrize("failure", ["make", "generate_proof_dependency_dag.py", "pytest"])
 def test_hook_blocks_tool_and_generator_failures(pipeline, failure):
     result = run_hook(pipeline, HOOK_TEST_FAIL=failure)
     assert result.returncode != 0
     assert "injected failure: " + failure in result.stderr
     assert "[pre-commit] PASS:" not in result.stdout
+
+
+def test_hook_runs_slow_gates_only_when_asked(pipeline):
+    run_hook(pipeline)
+    repo, _ = pipeline
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    assert not any("inquisitor.py" in " ".join(call[1]) for call in calls)
+    assert not any(call[0] == "bash" for call in calls)
+    pytest_call = next(call for call in calls if call[1][:2] == ["-m", "pytest"])
+    assert "tests/" not in pytest_call[1]
+    (repo / ".git/tool-log").unlink()
+    run_hook(pipeline, THIELE_HOOK_FULL="1")
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    assert any("inquisitor.py" in " ".join(call[1]) for call in calls)
+    pytest_call = next(call for call in calls if call[1][:2] == ["-m", "pytest"])
+    assert "tests/" in pytest_call[1]
 
 
 @pytest.mark.parametrize("verdict", ["error", "vacuous_true", "vacuous_hyp"])
@@ -263,7 +268,7 @@ def test_hook_regenerates_and_stages_receipt_before_consistency_check(pipeline):
     repo, _ = pipeline
     (repo / "coq/Proof.v").write_text("proof change\n")
     git(repo, "add", "coq/Proof.v")
-    result = run_hook(pipeline)
+    result = run_hook(pipeline, THIELE_HOOK_FULL="1")
     assert result.returncode == 0, result.stdout + result.stderr
     calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
     receipt = next(i for i, call in enumerate(calls)
@@ -274,19 +279,19 @@ def test_hook_regenerates_and_stages_receipt_before_consistency_check(pipeline):
     for name in (
         "artifacts/print_assumptions_all_proofs.json",
         "artifacts/print_assumptions_all_proofs.txt",
-        "build/probe/probe_all_output.txt",
-        "build/probe/probe_all_err.txt",
-        "build/probe/probe_batches.json",
+        "artifacts/assumptions/probe_all_output.txt",
+        "artifacts/assumptions/probe_all_err.txt",
+        "artifacts/assumptions/probe_batches.json",
     ):
         assert git(repo, "show", f":{name}") == "fresh receipt\n"
 
 
 def test_hook_runs_assumption_consistency_check(pipeline):
-    """The hook always checks receipt/probe coherence, and fails when it is stale."""
+    """The full hook checks receipt/probe coherence, and fails when it is stale."""
     repo, _ = pipeline
     (repo / "coq/Proof.v").write_text("proof change\n")
     git(repo, "add", "coq/Proof.v")
-    result = run_hook(pipeline)
+    result = run_hook(pipeline, THIELE_HOOK_FULL="1")
     assert result.returncode == 0, result.stdout + result.stderr
     calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
     assert any("scripts/check_assumption_consistency.py" in call[1] for call in calls)
@@ -297,7 +302,8 @@ def test_hook_blocks_stale_assumption_receipt(pipeline):
     repo, _ = pipeline
     (repo / "coq/Proof.v").write_text("proof change\n")
     git(repo, "add", "coq/Proof.v")
-    result = run_hook(pipeline, HOOK_TEST_FAIL="check_assumption_consistency.py")
+    result = run_hook(pipeline, HOOK_TEST_FAIL="check_assumption_consistency.py",
+                      THIELE_HOOK_FULL="1")
     assert result.returncode != 0
     assert "injected failure" in result.stderr
 

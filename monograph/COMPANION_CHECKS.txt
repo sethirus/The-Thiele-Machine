@@ -26,10 +26,10 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report for this revision:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 90ca2562d7d076f09d370a20bb4d0b05
-          c8141c7978088add457d21c6daa2ad16
-  corpus digest 718e07dd17e51658b5415aceea427268
-                d8bb25f7985ddfbde1d87f8faf46ec85
+  SHA-256 0e11372ff331c66b7ac27f9150b3585d
+          48afe3b408f1742765775fc4d5ad3d2c
+  corpus digest 68770e82867c708ada0f288d5720ff1f
+                3de101392bc101127fbd3c003da6fe61
 Commit the audit report was built from:
   git log -1 --format=%H v4.1.0 -- \
     artifacts/print_assumptions_all_proofs.json
@@ -107,10 +107,3 @@ Tests requiring the proof compiler skip without version 8.18 and a compiled tree
 The environment variables pointing tests at a compiled tree are documented in
 tests/realize_harness.py. The custom auditor uses heuristics: a warning requires
 inspection and is not itself evidence that a theorem is false.
-
-Source comparison material
-monograph/companion/source-statements.tex preserves the former printed source-statement
-appendix for readers comparing literal declarations. It is excluded from the book build.
-monograph/companion/citation-concordance.txt preserves the original source citations,
-including names shared by more than one module. monograph/companion/source-index.tex
-locates the formal counterparts of numbered results. This index is outside the book.

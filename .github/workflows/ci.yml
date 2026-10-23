@@ -77,7 +77,7 @@ jobs:
           echo "digest=${digest}" >> "$GITHUB_OUTPUT"
           echo "Vendor .vo digest: ${digest}"
 
-      - name: Purge stale tracked Coq .vo files
+      - name: Purge local Coq compiler outputs
         # coq/**/*.vo are tracked in git. After checkout they're on disk with
         # timestamps that make `make` skip recompilation, and they may record
         # library digests that no longer match. Start from a clean coq/ tree
@@ -160,7 +160,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Purge stale tracked Coq .vo files
+      - name: Purge local Coq compiler outputs
         run: make coq-clean
 
       - name: Restore Coq build cache (built by build-coq)
@@ -357,7 +357,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Purge stale tracked Coq .vo files
+      - name: Purge local Coq compiler outputs
         run: make coq-clean
 
       - name: Cache Coq build

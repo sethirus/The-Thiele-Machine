@@ -1,10 +1,8 @@
-     The Thiele Machine
-        A Mathematical Reference
-Derived from the Machine-Checked Coq Corpus
+The Thiele Machine
+ A Mathematical Reference
 
 
-
-               Devon Thiele
+       Devon Thiele
 Before the specification. I don’t do math by hand. I think in shapes, directions, and
 connections, and my part of this work was to see where things had to fit, to direct, and to refuse
 what didn’t fit. This document is the translation. Language models wrote the formal statements
@@ -18,10 +16,10 @@ here.
 The Thiele Machine is an abstract model of computation, and an argument made
 with it about what an account of computation should preserve.
     It is a machine in the sense a Turing machine is one: a mathematical object. No device is
-meant. The model is the abstract CertificationSystem record and the Substrate interface.
-The small machine of minimal/EarnedCore.v, a two-counter machine whose commitments are
-earned, is one instance; the universal machine U built on it is another. They are witnesses of
-the model, which is the record and the interface.
+meant. The model is a set of states, moves, a step, a price on each move, a yes-or-no reading
+and one rule, the toll. Any system with those parts is a Thiele machine. A small two-counter
+machine whose commitments are earned is one example, and a universal machine U is another.
+They show the definition can be met. They are not the model.
     The monograph’s point is that nothing becomes something for free: a distinction that comes
 into being dissipates by happening (in any real device, in finite time), and keeping it is paid on
 top, in a merge, which carries Landauer’s floor (a named premise) when the merged states were
@@ -38,20 +36,20 @@ a conjecture. The status of each result is stated below.
 
 
                                                   1
-                                           Abstract
+                                            Abstract
 
-This is a mathematical reference for the Thiele Machine: a model of computation in which a step
-that raises a record that stays must pay into a ledger that only grows. It presents the abstract
-interfaces, the main theorems, and the definitions of the small machine from the machine-checked
-Coq corpus. The Coq source is the complete definition; this document states each result with its
+This is a mathematical reference for the Thiele Machine: a model of computation in which a
+step that raises a record that stays must pay into a ledger that only grows. It states the model,
+its toll and the universal floor, then the results that hold for every machine meeting it, and gives
+one small example machine to show the definition can be met. Each result is stated with its
 premises and names the declaration that carries it.
-    A formal proof shows that conclusions follow from premises. It does not show that premises
+     A formal proof shows that conclusions follow from premises. It does not show that premises
 model physical reality. Every result is tagged as one of three types: (S) structural theorems
 about the model or a stated machine, (C) conditional results that hold under a named premise
 no machine fact discharges, and (R) refutations, where a theorem states the negation of a
 proposed claim and a named construction supplies the counterexample. One proposal, the
 pointer criterion of Chapter 13, has no proof; it carries a fourth tag, thesis.
-    The core claims are structural (S): the universal floor for every Thiele machine; on finite
+     The core claims are structural (S): the universal floor for every Thiele machine; on finite
 machines, the toll derived from merge pricing for permanent certificates, and on any state
 space the dichotomy that a permanent flip merges or needs a fresh state every time, with
 the exact retention bound for a bounded memory; the window and pricing results; the small
@@ -88,7 +86,7 @@ landauer_heat.
 
 5 Windows, Pricing and Narrowing                                                                    11
 
-6 The Small Machine                                                                                 12
+6 An Example Machine: The Small Machine                                                             12
 
 7 Thiele Completeness                                                                               14
   7.1 The window theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        15
@@ -482,9 +480,13 @@ ing the blank display (fresh states), and one admissible merge-priced cost assig
                                                  11
 Chapter 6
 
-The Small Machine
+An Example Machine: The Small
+Machine
 
-The small machine is defined in minimal/EarnedCore.v on the Coq standard library alone.
+This chapter builds one machine that meets the definition, to show it can be met. Nothing in the
+rest of the model depends on its details. The small machine is defined in minimal/EarnedCore.v
+on the Coq standard library alone.
+
 Definition 6.1 (State). A core has two counters a, b ∈ N, their versions va , vb ∈ N, a program
 counter pc ∈ N whose lines are numbered from 1 (a value with no instruction, 0 included, is a
 stop), a table of facts, a commitment channel holding at most one fact, and a trap latch. A fact
@@ -492,6 +494,7 @@ is a triple (property, counter, version); the properties are “is zero”, “i
 n”, each with a checker eval and a meaning holds tied by eval_iff. A state is a core with a
 ledger µ ∈ N and a flag P ∈ B. The table holds at most 16 facts. The start state for (a, b) has
 no facts, an empty channel, the flag down and µ = 0.
+
 Definition 6.2 (Instructions and costs). INC c adds one to counter c. DEC c j subtracts one
 and jumps to j if c > 0, and otherwise falls through. HALT stops. CHECK p c evaluates p on
 counter c and, if it holds and the table has room, writes the fact (p, c, vc ). COMMIT p c succeeds
@@ -500,6 +503,7 @@ the channel names a fact. Every failure sets the trap latch, after which no inst
 anything but the ledger. Every write to a counter adds one to its version. CHECK, COMMIT
 and CERTIFY cost 1; the others cost 0. The ledger adds the cost of every executed instruction,
 and the flag rises exactly on a passing CERTIFY.
+
 Theorem 6.1 (Universality). (S) The INC/DEC fragment is the two-counter machine step
 for step, and a program halts on the small machine exactly when it halts as a two-counter
 program. Coq: simulation_run, halting_correspondence. Its halting problem is undecidable,
@@ -510,18 +514,22 @@ a machine can be and still compute what a Turing machine computes (Annals of Mat
 re-proved here; the undecidability of two-counter halting used above is checked in Coq in the
 vendored Coq Library of Undecidability Proofs of Yannick Forster, Dominique Larchey-Wendling
 and coauthors.
+
 Theorem 6.2 (The toll). (S) The ledger is the exact sum of executed costs
 (mu_conservation_trace); only CERTIFY raises the flag (only_certify_certifies); the
 flag never drops (cert_permanent); A2 holds (a2); and a run from an uncertified state to a
 certified one pays at least 1 (nfi_floor).
-Theorem 6.3 (Earned provenance). (S) From a clean start, every certified run contains a
-passing CHECK of some claim, then a passing COMMIT of the same claim with that counter
-untouched in between, then CERTIFY. Coq: earned_certification_provenance.
-Theorem 6.4 (Checker soundness and no forging). (S) On a run from a clean start, a fact
-whose counter has not been written since its check names a true claim about that counter
+
+
 
                                                   12
-(checker_soundness), and every fact in the table was written by a passing CHECK of exactly
+Theorem 6.3 (Earned provenance). (S) From a clean start, every certified run contains a
+passing CHECK of some claim, then a passing COMMIT of the same claim with that counter
+untouched in between, then CERTIFY. Coq: earned_certification_provenance.
+
+Theorem 6.4 (Checker soundness and no forging). (S) On a run from a clean start, a fact
+whose counter has not been written since its check names a true claim about that counter
+(checker_soundness), and every fact in the table was written by a passing CHECK of exactly
 that claim (no_forging).
 
 Theorem 6.5 (Price). (S) From a clean start a certified run costs at least 3

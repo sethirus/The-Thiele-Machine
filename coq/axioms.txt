@@ -14,8 +14,8 @@ The check is interpreted together with Coq parsing: prose inside comments is
 not a declaration. There are zero project-local `Axiom` declarations in the
 live tree.
 
-"Zero axioms" here means zero project-local axioms — the same convention the
-monograph and README use. Proofs in the real-number and physics layers still
+"Zero axioms" here means zero project-local axioms. Proofs in the real-number
+and physics layers still
 lean on Coq standard-library axiom families (`functional_extensionality_dep`,
 `sig_forall_dec`, `sig_not_dec`, `classic`); the minimal core uses none of
 them. The authoritative, machine-checked ledger of every assumption behind

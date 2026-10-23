@@ -1,25 +1,27 @@
 # Commit checks and CI access
 
-Run `make install-hooks` once in each checkout. New Codespaces install the hook
-through `postCreateCommand`. The installer also supports linked Git worktrees
-and repairs a missing executable bit on an already configured hook.
+Run `make install-hooks` once in each checkout. The installer also supports
+linked Git worktrees and repairs a missing executable bit on an already
+configured hook.
 
 The hook runs local builds and tests; it does not call GitHub or need a token.
 It requires the Coq toolchain used by CI (Coq 8.18, CSDP, and MetaCoq for the
-vendored L modules; see [native reproduction](../docs/REPRODUCTION.md)), a LaTeX
-installation for the monograph, and the Python dependencies in `requirements.txt`. Stage the changes you intend to commit
+vendored L modules; see [native reproduction](../docs/REPRODUCTION.md)), the Python dependencies in `requirements.txt`. Building the book separately
+requires LaTeX. Stage the changes you intend to commit
 before committing. Since generators and tests read the working tree, the hook
 rejects unstaged tracked changes and non-ignored untracked files. Stash unrelated
 work with `git stash push --keep-index --include-untracked` if needed, and restore
 it after committing. Ignored compiler caches can remain in place.
 
-The hook builds the proofs, refreshes affected assumption/vacuity evidence and
-the audit manifests, and stages the generated outputs. It runs the full pytest suite with `CI=true --strict-backends` and the
-Inquisitor. Generator errors, bad vacuity verdicts (including probe errors),
-missing tools and test failures block the commit. Diagnostics remain visible.
-After tests, it checks manifest freshness and working-tree/index agreement again.
-If a gate fails, review its output and `git diff --cached` before retrying; outputs
-from earlier successful generators may already be staged.
+The hook builds the proofs, regenerates the dependency graph, re-probes staged
+vacuity targets and runs a fast test subset with `CI=true --strict-backends`. It
+takes minutes, not an hour. The assumption receipt, the full pytest suite and the
+Inquisitor run in CI; set `THIELE_HOOK_FULL=1` to run them in the hook as well
+(the regeneration workflow does). Generator errors, bad vacuity verdicts
+(including probe errors), missing tools and test failures block the commit.
+Diagnostics remain visible. After the tests, it checks working-tree/index
+agreement again. If a gate fails, review its output and `git diff --cached`
+before retrying; outputs from earlier successful generators may already be staged.
 
 ## Starting CI (Full)
 

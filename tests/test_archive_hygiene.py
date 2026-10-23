@@ -74,3 +74,33 @@ class TestInquisitorReport:
         assert "INQUISITOR: FAIL" not in text, (
             "INQUISITOR_REPORT.md records a FAIL verdict — re-run inquisitor."
         )
+
+
+def test_tracked_tree_excludes_build_products_and_work_sessions():
+    """The commit contains source/deliverables, not local authoring machinery."""
+    import subprocess
+
+    tracked = subprocess.check_output(
+        ['git', 'ls-files', '-z'], cwd=ROOT
+    ).decode().split('\0')
+    forbidden_roots = ('build/', '.claude/', '.codex/', 'docs/integration/',
+                       'monograph/page-composition/', 'monograph/companion/')
+    generated = {'.vo', '.vos', '.vok', '.glob', '.aux', '.toc', '.out', '.pyc'}
+    working_names = {'AGENTS.md', 'CLAUDE.md', 'STYLE_GUIDE.md'}
+    bad = [name for name in tracked if name and (
+        name.startswith(forbidden_roots) or Path(name).suffix in generated
+        or Path(name).name in working_names or '__pycache__' in Path(name).parts
+        or name.startswith('vendor/') and Path(name).name in
+        {'Makefile.coq', 'Makefile.coq.conf', '.Makefile.coq.d'}
+    )]
+    allowed_records = {
+        'print_assumptions_all_proofs.json', 'print_assumptions_all_proofs.txt',
+        'PROOF_FOUNDATION_AUDIT.md', 'proof_dependency_connectivity.json',
+        'proof_dependency_dag.json', 'proof_dependency_file_graph.mmd',
+        'vacuity_audit.json', 'assumptions/probe_inventory.json',
+        'assumptions/probe_all_output.txt', 'assumptions/probe_all_err.txt',
+        'assumptions/probe_batches.json',
+    }
+    bad += [name for name in tracked if name.startswith('artifacts/')
+            and name.removeprefix('artifacts/') not in allowed_records]
+    assert not bad, 'Working material in the tracked tree:\n' + '\n'.join(bad)

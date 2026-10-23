@@ -46,7 +46,7 @@ def test_proof_scope_consumers_use_canonical_module():
     expected_consumers = {
         REPO_ROOT / "scripts" / "inquisitor.py",
         REPO_ROOT / "tests" / "test_coq_compile_gate.py",
-        REPO_ROOT / "build" / "probe" / "build_full_probe.py",
+        REPO_ROOT / "scripts" / "build_full_probe.py",
     }
     missing: list[str] = []
     for path in sorted(expected_consumers):
@@ -74,9 +74,9 @@ def test_proof_scope_no_hardcoded_probe_paths():
     allowed = {
         REPO_ROOT / "scripts" / "coq_proof_scope.py",
         # Aggregator stores the probe target file as data, not as a scope decision.
-        REPO_ROOT / "build" / "probe" / "aggregate_full_probe.py",
+        REPO_ROOT / "scripts" / "aggregate_full_probe.py",
         # Probe builder names its output file by literal path.
-        REPO_ROOT / "build" / "probe" / "build_full_probe.py",
+        REPO_ROOT / "scripts" / "build_full_probe.py",
         # The comment scanner excludes generated probe source by literal path.
         REPO_ROOT / "scripts" / "comment_hygiene.py",
         # This test itself encodes the strings to grep for.

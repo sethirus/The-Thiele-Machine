@@ -48,7 +48,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PROBE_DIR = REPO_ROOT / "build" / "vacuity_probes"
 COQ_ROOT = REPO_ROOT / "coq"
 COQ_PROJECT = COQ_ROOT / "_CoqProject"
-SCOPE_PARSER_PATH = REPO_ROOT / "build/probe/build_full_probe.py"
+SCOPE_PARSER_PATH = REPO_ROOT / "scripts/build_full_probe.py"
 
 
 # ---------------------------------------------------------------------------

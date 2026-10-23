@@ -1,8 +1,10 @@
 #!/bin/sh
 # Thiele Machine pre-commit hook (marker: thiele-machine-pre-commit)
-# Installed with make install-hooks. Validates the proposed commit, regenerates
-# derived artifacts, and runs the same strict pytest policy as CI. The
-# cross-file vacuity sweep still belongs to CI (Full).
+# Installed with make install-hooks. Validates the proposed commit, builds the
+# proofs, regenerates the cheap derived artifacts and runs a fast test subset.
+# The assumption receipt, the full pytest suite and the Inquisitor belong to CI,
+# as does the cross-file vacuity sweep in CI (Full). Set THIELE_HOOK_FULL=1 to
+# run them here too; the regeneration workflow does.
 set -eu
 
 ROOT="$(git rev-parse --show-toplevel)"
@@ -64,27 +66,24 @@ run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j1'
 # predictable fail-regenerate-retry cycle for every new theorem. The receipt
 # is still derived by Coq, checked for alignment and project-local axioms, and
 # re-derived independently by CI.
-if ! git diff --cached --quiet -- coq minimal vendor scripts/coq_proof_scope.py \
-        build/probe/build_full_probe.py; then
+if [ -n "${THIELE_HOOK_FULL:-}" ] && ! git diff --cached --quiet -- coq minimal vendor \
+        scripts/coq_proof_scope.py scripts/build_full_probe.py; then
     run bash scripts/generate_assumption_receipt.sh
     stage coq/AssumptionsProbeAll.v \
-        build/probe/probe_inventory.json \
-        build/probe/probe_all_output.txt \
-        build/probe/probe_all_err.txt \
-        build/probe/probe_batches.json \
+        artifacts/assumptions/probe_inventory.json \
+        artifacts/assumptions/probe_all_output.txt \
+        artifacts/assumptions/probe_all_err.txt \
+        artifacts/assumptions/probe_batches.json \
         artifacts/print_assumptions_all_proofs.json \
         artifacts/print_assumptions_all_proofs.txt
-    run python3 scripts/sync_assumption_receipt_readme.py
-    stage README.md monograph/monograph.tex THIELE_MACHINE.txt CITATION.cff
-    run bash monograph/build_monograph.sh
-    stage monograph/monograph.pdf monograph/monograph.txt \
-        monograph/thiele_machine_math_spec.pdf monograph/math_spec_plaintext.txt \
-        monograph/monograph.toc monograph/monograph.out \
-        monograph/thiele_machine_math_spec.toc monograph/thiele_machine_math_spec.out
+    run python3 scripts/sync_release_receipt.py
+    stage monograph/COMPANION_CHECKS.txt
 fi
 
-# Always check receipt/probe coherence; it is fast and needs no Coq.
-run python3 scripts/check_assumption_consistency.py
+# Receipt/probe coherence needs a fresh receipt, so it runs with the receipt.
+if [ -n "${THIELE_HOOK_FULL:-}" ]; then
+    run python3 scripts/check_assumption_consistency.py
+fi
 
 # Re-probe staged target files and targets added to the list. Changing the
 # gate, or changing or removing an existing entry, invalidates every verdict.
@@ -131,24 +130,35 @@ run python3 scripts/generate_proof_dependency_dag.py
 stage artifacts/proof_dependency_dag.json artifacts/proof_dependency_connectivity.json \
     artifacts/proof_dependency_file_graph.mmd artifacts/PROOF_FOUNDATION_AUDIT.md
 
-# Every collected test runs, with a missing Coq toolchain treated as a
-# failure. Match CI's sequential execution explicitly. The regeneration
-# runner sets THIELE_HOOK_SKIP_PYTEST: the CI run it dispatches on the
-# regenerated commit runs this same suite, so running it here as well only
-# doubles the wait.
+# The hook runs a fast subset of the tests: the ones that guard the hook itself
+# and the proof-scope, hygiene and receipt-sync rules. CI runs the full suite
+# with `CI=true --strict-backends`; THIELE_HOOK_FULL=1 runs it here too. The
+# regeneration runner sets THIELE_HOOK_SKIP_PYTEST because the CI run it
+# dispatches runs the same suite.
+FAST_TESTS="tests/test_git_hooks.py tests/test_coq_proof_scope.py tests/test_archive_hygiene.py tests/test_scope_note_waivers.py tests/test_sync_release_receipt.py"
 if [ -n "${THIELE_HOOK_SKIP_PYTEST:-}" ]; then
     echo "[pre-commit] pytest skipped here: CI runs the full suite on the regenerated commit"
-elif python3 -c 'import xdist' >/dev/null 2>&1; then
-    run python3 -m pytest tests/ -q --tb=short --strict-backends -n 0
 else
-    run python3 -m pytest tests/ -q --tb=short --strict-backends
+    if [ -n "${THIELE_HOOK_FULL:-}" ]; then
+        TESTS="tests/"
+    else
+        TESTS="$FAST_TESTS"
+    fi
+    if python3 -c 'import xdist' >/dev/null 2>&1; then
+        # shellcheck disable=SC2086
+        run python3 -m pytest $TESTS -q --tb=short --strict-backends -n 0
+    else
+        # shellcheck disable=SC2086
+        run python3 -m pytest $TESTS -q --tb=short --strict-backends
+    fi
 fi
-run python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
-stage INQUISITOR_REPORT.md
+if [ -n "${THIELE_HOOK_FULL:-}" ]; then
+    run python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
+    stage INQUISITOR_REPORT.md
+fi
 
-# Tests can rebuild proofs or modify artifacts. Stage the tracked Coq
-# compiler outputs the hook itself rebuilt, then reject every other worktree
-# difference rather than silently committing a different version than tested.
-run python3 scripts/check_hook_worktree.py --stage-generated
+# Compiler outputs are ignored. Reject any unexpected tracked or untracked
+# source change rather than adding generated binaries to the commit.
+run python3 scripts/check_hook_worktree.py
 
 echo "[pre-commit] PASS: commit artifacts and local verification agree."

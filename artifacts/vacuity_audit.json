@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v2",
   "summary": {
     "error": 0,
-    "ok": 6629,
-    "total": 6629,
+    "ok": 7016,
+    "total": 7016,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -66296,6 +66296,3876 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "exists f : nat -> nat, (forall m, f m < f (S m)) /\\ (forall m, L m -> D m (f m))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Lemma",
+      "line": 25,
+      "name": "positive_filter_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs, length (filter (fun s => 0 <? charge s) xs) <= list_charge xs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 32,
+      "name": "merge_count_bounded_by_charge",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, collision_covered L -> merges eq_dec F entry L <= run_charge L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Lemma",
+      "line": 53,
+      "name": "list_charge_app",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs ys, list_charge (xs++ys)=list_charge xs+list_charge ys",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Lemma",
+      "line": 56,
+      "name": "run_charge_succ",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, run_charge (S n)=run_charge n+charge (iter F n entry)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 63,
+      "name": "cumulative_ledger_correspondence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall mu : X -> nat, (forall s, mu (F s)=mu s+charge s) -> forall L, mu (iter F L entry)=mu entry+run_charge L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 72,
+      "name": "ledger_bounds_observed_merges",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall mu : X -> nat, (forall s, mu (F s)=mu s+charge s) -> forall L, collision_covered L -> mu entry+merges eq_dec F entry L <= mu (iter F L entry)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 81,
+      "name": "finite_holding_forces_paid_run",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall (H : X -> Prop) hs L, ~H entry -> H (F entry) -> (forall s, H s -> H (F s)) -> (forall s, H s -> In s hs) -> length hs<L -> collision_covered L -> 0<run_charge L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 99,
+      "name": "aggregate_bound_does_not_imply_local_coverage",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "merges Nat.eq_dec cover_failure_step 0 3 <= run_charge cover_failure_step 0 unrelated_charge 3 /\\ ~collision_covered cover_failure_step 0 unrelated_charge 3",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 115,
+      "name": "paid_entry_free_idle",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall n, raise_ledger (raise n)=raise_ledger n+raise_charge n) /\\ collision_covered raise 0 raise_charge 2 /\\ raise_charge 1=0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "each_opcode_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i a b, op i a=op i b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 133,
+      "name": "scheduling_can_merge",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "false<>true /\\ scheduled false=scheduled true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/AccountingBridge.v",
+      "kind": "Theorem",
+      "line": 135,
+      "name": "opcode_injectivity_does_not_price_dispatch",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~collision_covered scheduled false (fun _ => 0) 2",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ArchiveBound.v",
+      "kind": "Lemma",
+      "line": 8,
+      "name": "channel_backed_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s i, channel_backed s -> channel_backed(exec s i)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ArchiveBound.v",
+      "kind": "Lemma",
+      "line": 18,
+      "name": "record_supported_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s rs i, channel_backed s -> incl rs(facts(core_of s)) -> incl (update_record s i rs)(facts(core_of(exec s i)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ArchiveBound.v",
+      "kind": "Theorem",
+      "line": 31,
+      "name": "records_supported_by_native_facts",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs, channel_backed s -> incl rs(facts(core_of s)) -> incl (snd(recorded_run word(s,rs))) (facts(core_of(run word s)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ArchiveBound.v",
+      "kind": "Lemma",
+      "line": 39,
+      "name": "native_table_cap_run",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, length(facts(core_of s))<=fact_cap -> length(facts(core_of(run word s)))<=fact_cap",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ArchiveBound.v",
+      "kind": "Theorem",
+      "line": 47,
+      "name": "clean_certified_archive_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, clean_start s -> incl(snd(recorded_run word(s,[])))(facts(core_of(run word s))) /\\ NoDup(snd(recorded_run word(s,[]))) /\\ length(snd(recorded_run word(s,[]))) <= length(facts(core_of(run word s))) /\\ length(snd(recorded_run word(s,[]))) <= 16",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Lemma",
+      "line": 8,
+      "name": "insert_membership",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall f g rs,In g(insert_fact f rs) <-> g=f \\/ In g rs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Lemma",
+      "line": 14,
+      "name": "insert_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall f rs,NoDup rs -> NoDup(insert_fact f rs)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Lemma",
+      "line": 27,
+      "name": "emit_iff_fires",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s i,coarse(match emit s i with None=>[]|Some f=>[f]end)=fires(core_of s)i",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Lemma",
+      "line": 34,
+      "name": "coarse_insert",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall f rs,coarse(insert_fact f rs)=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 39,
+      "name": "boolean_latch_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s i rs, coarse(update_record s i rs)=coarse rs || fires(core_of s)i",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 54,
+      "name": "native_projection",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs, fst(recorded_run word(s,rs))=run word s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 57,
+      "name": "exact_native_boolean_shadow",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs, coarse rs=cert s -> coarse(snd(recorded_run word(s,rs)))=cert(run word s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 64,
+      "name": "clean_boolean_shadow",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, clean_start s -> coarse(snd(recorded_run word(s,[])))=cert(run word s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 67,
+      "name": "horizontal_cannot_change_record",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s rs, cost i=0 -> snd(recorded_step i(s,rs))=rs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 77,
+      "name": "exact_history_membership",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs f, In f(snd(recorded_run word(s,rs))) <-> In f rs \\/ published_from s word f",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 91,
+      "name": "no_horizontal_forgery",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs f, (forall i,In i word -> cost i=0) -> In f(snd(recorded_run word(s,rs))) <-> In f rs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 101,
+      "name": "historical_records_persist",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs f, In f rs -> In f(snd(recorded_run word(s,rs)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 104,
+      "name": "record_remains_a_set",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s rs, NoDup rs -> NoDup(snd(recorded_run word(s,rs)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 111,
+      "name": "boolean_shadow_loses_claim_identity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "coarse [mkfact PZero CA 0]=coarse [mkfact PZero CB 0] /\\ ~In (mkfact PZero CA 0) [mkfact PZero CB 0]",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 118,
+      "name": "publication_after_edit_keeps_old_binding",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s:=recorded_run [CHECK PZero CA;COMMIT PZero CA;INC CA;CERTIFY](start 0 0,[]) in snd s=[mkfact PZero CA 0] /\\ va(core_of(fst s))=1 /\\ ~In(mkfact PZero CA 1)(snd s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 124,
+      "name": "native_checked_facts_are_not_certified_records",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s:=recorded_run [CHECK PZero CA](start 0 0,[]) in facts(core_of(fst s))=[mkfact PZero CA 0] /\\ snd s=[] /\\ cert(fst s)=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Lemma",
+      "line": 129,
+      "name": "publication_event_origin",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s f,published_from s word f -> exists pre post,word=pre++CERTIFY::post /\\ chan(core_of(run pre s))=Some f",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CertifiedHistory.v",
+      "kind": "Theorem",
+      "line": 139,
+      "name": "every_record_has_earned_check_commit_chain",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s0 f, clean_start s0 -> In f(snd(recorded_run word(s0,[]))) -> exists prepub postpub preC p c midC preCheck midCheck, word=prepub++CERTIFY::postpub /\\ prepub=preC++COMMIT p c::midC /\\ preC=preCheck++CHECK p c::midCheck /\\ check_ok(core_of(run preCheck s0))p c=true /\\ commit_ok(core_of(run preC s0))p c=true /\\ ver(core_of(run preCheck s0))c=ver(core_of(run preC s0))c /\\ f=claim(core_of(run preC s0))p c",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 26,
+      "name": "initial_early",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, In s initials -> early s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 28,
+      "name": "F_early",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, In s initials -> early (F s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 30,
+      "name": "G_early",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, In s initials -> early (G s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 37,
+      "name": "three_zero_states",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "exists l, length l=3 /\\ NoDup l /\\ (forall s, In s l -> v s=0)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 56,
+      "name": "four_zero_if_singletons",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s, v s=1 -> s=a) -> (forall s, v s=2 -> s=b) -> exists l, length l=4 /\\ NoDup l /\\ (forall s, In s l -> v s=0)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 114,
+      "name": "add_sides",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall l, NoDup l -> (forall s, In s l -> v s=0) -> NoDup (a::b::l)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Lemma",
+      "line": 123,
+      "name": "capacity_of_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall l:list X, NoDup l -> length l<=length carrier",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Theorem",
+      "line": 126,
+      "name": "unrestricted_exclusive_resets_need_five",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "5<=length carrier",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutationObstruction.v",
+      "kind": "Theorem",
+      "line": 133,
+      "name": "commuting_exclusive_resets_need_six",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "6<=length carrier",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 24,
+      "name": "steps_commute",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, left (right s)=right (left s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "left_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a b, left a=left b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 28,
+      "name": "right_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a b, right a=right b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 30,
+      "name": "left_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, view (left s)=(false,snd (view s))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 32,
+      "name": "right_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, view (right s)=(fst (view s),false)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 35,
+      "name": "initial_grid",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x y, In (Grid x y) initial <-> x+y<=1",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 44,
+      "name": "reachable_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t s, reachable t s <-> match s with Blank => True | Grid x y => x+y<=S t end",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 73,
+      "name": "diagonal_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n s, In s (diagonal n) <-> exists x y, s=Grid x y /\\ x+y=n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 82,
+      "name": "triangle_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n s, In s (triangle n) <-> exists x y, s=Grid x y /\\ x+y<=n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 96,
+      "name": "prefix_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t s, In s (prefix t) <-> reachable t s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 108,
+      "name": "map_injective_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall (A B:Type) (f:A->B) l, (forall x y, f x=f y -> x=y) -> NoDup l -> NoDup (map f l)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 115,
+      "name": "diagonal_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, NoDup (diagonal n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 121,
+      "name": "append_disjoint_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall (A:Type) (l r:list A), NoDup l -> NoDup r -> (forall x, In x l -> ~ In x r) -> NoDup (l++r)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 129,
+      "name": "triangle_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, NoDup (triangle n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 139,
+      "name": "prefix_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, NoDup (prefix t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 144,
+      "name": "diagonal_length",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, length (diagonal n)=S n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Lemma",
+      "line": 146,
+      "name": "triangle_length",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, 2 * length (triangle n)=(n+1)*(n+2)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CommutingGrid.v",
+      "kind": "Theorem",
+      "line": 153,
+      "name": "exact_reachable_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, 2*length (prefix t)=8+4*t+t*(t+1)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 12,
+      "name": "iter_add",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F : X -> X) : forall n m s, iter F (n+m) s = iter F n (iter F m s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 16,
+      "name": "iter_succ_from",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F : X -> X) : forall n s, iter F (S n) s=iter F n (F s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 24,
+      "name": "nodup_map_on",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (f : X -> Y) : forall l, NoDup l -> (forall a b, In a l -> In b l -> f a = f b -> a = b) -> NoDup (map f l)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 41,
+      "name": "positive_iter_held",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, H (iter F (S n) entry)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 48,
+      "name": "held_prefix_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, retains L -> forall i j, i <= L -> j <= L -> iter F i entry = iter F j entry -> i=j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "held_prefix_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L held, retains L -> (forall s, H s -> In s held) -> L <= length held",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 76,
+      "name": "injective_host_fresh_forever",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall a b, F a=F b -> a=b) -> forall i j, iter F i entry=iter F j entry -> i=j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 84,
+      "name": "finite_held_region_not_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall held, (forall s, H s -> In s held) -> ~ (forall a b, F a=F b -> a=b)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 94,
+      "name": "finite_hold_collision",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall held, NoDup held -> (forall s, In s held <-> H s) -> exists a b, In a (entry::held) /\\ In b (entry::held) /\\ a<>b /\\ F a=F b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 125,
+      "name": "finite_hold_run_collision",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall hs, (forall s, H s -> In s hs) -> exists a b, In a (map (fun n => iter F n entry) (seq 0 (S (length hs)))) /\\ In b (map (fun n => iter F n entry) (seq 0 (S (length hs)))) /\\ a<>b /\\ F a=F b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 154,
+      "name": "preparation_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (prepare : X -> X) : forall inputs outputs, NoDup inputs -> (forall a b, In a inputs -> In b inputs -> prepare a=prepare b -> a=b) -> (forall s, In s inputs -> In (prepare s) outputs) -> length inputs <= length outputs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 183,
+      "name": "projected_guest_trace",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, n <= S k -> view (iter F n start)=Some (trace n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 190,
+      "name": "guest_not_halted_early",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, n < S k -> trace n <> trace (S k)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 199,
+      "name": "last_running_outside",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ held last_running",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 204,
+      "name": "last_running_enters",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "held (F last_running)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Lemma",
+      "line": 206,
+      "name": "held_closed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, held s -> held (F s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 209,
+      "name": "completed_trace_stays_visible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, view (iter F n (iter F (S k) start))=Some (trace (S k))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 217,
+      "name": "all_time_projection",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, view (iter F n start)=Some (trace (Nat.min n (S k)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 227,
+      "name": "prepared_execution_prefix",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall pre, view pre=None -> F pre=start -> view pre=None /\\ forall n, n <= S k -> view (iter F (S n) pre)=Some (trace n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 236,
+      "name": "cropped_frame_finite_hold",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall hs, NoDup hs -> (forall s, In s hs <-> held s) -> (forall n, n <= S k -> view (iter F n start)=Some (trace n)) /\\ (exists a b, In a (last_running::hs) /\\ In b (last_running::hs) /\\ a<>b /\\ F a=F b)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 246,
+      "name": "cropped_frame_injective_hold",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall a b, F a=F b -> a=b) -> forall i j, iter F i last_running=iter F j last_running -> i=j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 254,
+      "name": "cropped_frame_holding_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L hs, retains F last_running L -> (forall s, held s -> In s hs) -> L <= length hs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 262,
+      "name": "complete_host_finite",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall pre hs, view pre=None -> F pre=start -> NoDup hs -> (forall s, In s hs <-> held s) -> (view pre=None /\\ forall n, n <= S k -> view (iter F (S n) pre)=Some (trace n)) /\\ (exists a b, In a (last_running::hs) /\\ In b (last_running::hs) /\\ a<>b /\\ F a=F b)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 273,
+      "name": "completed_view_cannot_decode_time",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ exists decode : option G -> nat, forall n, decode (view (iter F n (iter F (S k) start)))=n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 287,
+      "name": "preparation_has_unique_preimage",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, delayed s=Running -> s=Prep",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 289,
+      "name": "first_halt_has_unique_preimage",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, delayed s=Held1 -> s=Running",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 291,
+      "name": "delayed_collision_in_held_region",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Held1<>Held2 /\\ delayed Held1=delayed Held2 /\\ done4 Held1=true /\\ done4 Held2=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 294,
+      "name": "start_membership_not_permanent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "delayed Prep=Running /\\ delayed Running<>Running",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 297,
+      "name": "retaining_program_preserves_injectivity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (g : P -> C -> C) : (forall p x y, g p x=g p y -> x=y) -> forall a b : P*C, (fst a,g (fst a) (snd a))=(fst b,g (fst b) (snd b)) -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 305,
+      "name": "reusable_toggle_is_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a b, negb a=negb b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 307,
+      "name": "reusable_toggle_returns",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a, negb (negb a)=a",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/CompleteHost.v",
+      "kind": "Theorem",
+      "line": 310,
+      "name": "constant_view_cannot_recover_full_state",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (q : X -> O) (a b : X) : a<>b -> q a=q b -> ~ exists decode : O -> X, forall s, decode (q s)=s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Lemma",
+      "line": 29,
+      "name": "run_append",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall u v s,run(u++v)s=run v(run u s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Lemma",
+      "line": 31,
+      "name": "block_effect",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b old,run(block b)(mkstate true old Raw)=mkstate true(old++[b])Raw",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 33,
+      "name": "realize_every_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits old, run(program bits)(mkstate true old Raw)=mkstate true(old++bits)Raw",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Lemma",
+      "line": 40,
+      "name": "trailing_false_irrelevant",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits j, nth j(bits++[false])false=nth j bits false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 46,
+      "name": "exact_edition_queries",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits j, query(run(program bits)(mkstate true [] Raw))j=nth j bits false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 49,
+      "name": "common_workspace",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits, workspace(run(program bits)(mkstate true [] Raw))=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 52,
+      "name": "distinct_histories_same_workspace",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a b, a<>b -> length a=length b -> run(program a)(mkstate true [] Raw)<>run(program b)(mkstate true [] Raw)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 64,
+      "name": "edition_history_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n fibre, (forall bits,length bits=n -> In(endpoint bits)fibre) -> 2^n<=length fibre",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 78,
+      "name": "no_finite_history_cover",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~exists fibre,forall bits,In(endpoint bits)fibre",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 88,
+      "name": "model_attains_exact_profile_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, NoDup(map(fun bits=>run(program bits)(mkstate true [] Raw))(profiles n)) /\\ length(map(fun bits=>run(program bits)(mkstate true [] Raw))(profiles n))=2^n /\\ (forall bits,length bits=n -> workspace(run(program bits)(mkstate true [] Raw))=true)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 99,
+      "name": "workspace_write_preserves_historical_queries",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s b j, query(step(Write b)s)j=query s j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 105,
+      "name": "workspace_step_independent_of_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b s, workspace(step(Write b)s)=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionCapacity.v",
+      "kind": "Theorem",
+      "line": 109,
+      "name": "current_certification_is_not_the_permanent_boolean",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s:=run [Check;Commit;Certify;Write false](mkstate true [] Raw) in query s 0=true /\\ raised(stage s)=false /\\ workspace s=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionHistory.v",
+      "kind": "Lemma",
+      "line": 25,
+      "name": "journal_step_consistent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, Task.consistent (fun b=>b)(snd s) -> Task.consistent (fun b=>b)(snd(journal_step i s))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionHistory.v",
+      "kind": "Lemma",
+      "line": 28,
+      "name": "abstraction_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, Task.consistent (fun b=>b)(snd s) -> abstract_journal(journal_step i s)=EditionCapacity.step i(abstract_journal s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionHistory.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "all_program_history_refinement",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, Task.consistent (fun b=>b)(snd s) -> abstract_journal(journal_run word s)=EditionCapacity.run word(abstract_journal s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionHistory.v",
+      "kind": "Lemma",
+      "line": 44,
+      "name": "abstraction_query",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s j, EditionCapacity.query(abstract_journal s)j=nth j(fst s++[Task.published(snd s)])false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/EditionHistory.v",
+      "kind": "Theorem",
+      "line": 50,
+      "name": "exact_records_every_program",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word b0 j, EditionCapacity.query(EditionCapacity.run word(EditionCapacity.mkstate b0 [] EditionCapacity.Raw))j= let s:=journal_run word([],Task.J b0 false false false false) in nth j(fst s++[Task.published(snd s)])false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 14,
+      "name": "mixed_fibre_excludes_final_verifier",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall good bad, f good=f bad -> P good=true -> P bad=false -> ~exists verify:Y->bool,forall x,verify(f x)=P x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 22,
+      "name": "verifier_requires_fibre_constancy",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(exists verify:Y->bool,forall x,verify(f x)=P x) -> forall x z,f x=f z -> P x=P z",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 27,
+      "name": "fibre_constancy_suffices_with_representatives",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall choose:Y->X, (forall x,f(choose(f x))=f x) -> (forall x z,f x=f z -> P x=P z) -> forall x,P(choose(f x))=P x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 33,
+      "name": "searching_a_valid_preimage_is_not_actual_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall good bad, f good=f bad -> P good=true -> P bad=false -> (exists x,f x=f bad /\\ P x=true) /\\ P bad=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 39,
+      "name": "inline_reading_is_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x,snd(inspected_state x)=P x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 41,
+      "name": "mixed_fibre_forces_distinct_enriched_states",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x z, f x=f z -> P x<>P z -> inspected_state x<>inspected_state z",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 47,
+      "name": "collision_does_not_always_prevent_verification",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let f:=fun x:bool*bool=>fst x in f(true,false)=f(true,true) /\\ (forall x,fst x=f x)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 55,
+      "name": "fixed_length_injective_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall X (F:X->X), (forall x y,F x=F y -> x=y) -> forall n x y,iterate F n x=iterate F n y -> x=y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "unknown_duration_can_hide_history_under_injective_steps",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall x y:bool,negb x=negb y -> x=y) /\\ iterate negb 1 false=iterate negb 2 true /\\ false<>true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Erasure.v",
+      "kind": "Theorem",
+      "line": 65,
+      "name": "different_injective_programs_can_hide_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall x y:bool,negb x=negb y -> x=y) /\\ (forall x y:bool,(fun z=>z)x=(fun z=>z)y -> x=y) /\\ negb false=(fun z:bool=>z)true /\\ false<>true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Fibre.v",
+      "kind": "Theorem",
+      "line": 10,
+      "name": "permanent_check_in_finite_fibre_merges",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (eq_dec:forall a b:State,{a=b}+{a<>b}) (check:State->State) (observe:State->Base) (verdict:State->bool) (b:Base) (u:State) (held:list State) : observe u=b -> verdict u=false -> verdict(check u)=true -> (forall s,observe s=b -> observe(check s)=b) -> (forall s,observe s=b -> verdict s=true -> verdict(check s)=true) -> NoDup held -> (forall s,In s held <-> observe s=b /\\ verdict s=true) -> exists s t,observe s=b /\\ observe t=b /\\ s<>t /\\ check s=check t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/GeometryLimits.v",
+      "kind": "Theorem",
+      "line": 7,
+      "name": "idempotent_changed_state_collides",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F:S->S)(record:S->R)(s:S) : F(F s)=F s -> record(F s)<>record s -> s<>F s /\\ F s=F(F s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/GeometryLimits.v",
+      "kind": "Theorem",
+      "line": 16,
+      "name": "preserving_record_does_not_force_shadow_independence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "snd(steering(false,false))=false /\\ snd(steering(false,true))=true /\\ fst(false,false)=fst(false,true) /\\ fst(steering(false,false))<>fst(steering(false,true))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/GeometryLimits.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "ordinary_record_variable_is_protected",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall b s,snd(ordinary_write b s)=snd s) /\\ snd(ordinary_establish(true,false))=true /\\ (forall s,snd s=true -> snd(ordinary_establish s)=true)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/GeometryLimits.v",
+      "kind": "Theorem",
+      "line": 31,
+      "name": "including_protected_record_in_view_need_not_be_noninjective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s t:bool*bool,(fun x=>x)s=(fun x=>x)t -> s=t) /\\ ordinary_establish(true,false)<>(true,false)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/GeometryLimits.v",
+      "kind": "Theorem",
+      "line": 38,
+      "name": "native_seventeenth_check_traps",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s:=EarnedCore.run (repeat (CHECK PZero CA) 17)(start 0 0) in err(core_of s)=true /\\ length(facts(core_of s))=16",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/GeometryLimits.v",
+      "kind": "Theorem",
+      "line": 45,
+      "name": "native_fresh_edition_completeness_limit",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s:=EarnedCore.run seventeen_edition_attempts(start 0 0) in err(core_of s)=true /\\ length(facts(core_of s))=16 /\\ va(core_of s)=16 /\\ chan(core_of s)=Some(mkfact(PGe 0)CA 15)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 8,
+      "name": "filter_of_map",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs, filter p(map f xs)=map f(filter(fun x=>p(f x))xs)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 12,
+      "name": "positive_profiles_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n,length(positive_profiles n)+1=2^n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 23,
+      "name": "positive_profile_properties",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n bits, In bits(positive_profiles n) -> length bits=n /\\ chosen bits=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Theorem",
+      "line": 34,
+      "name": "all_positive_profiles_share_native_endpoint",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits, In bits(positive_profiles 16) -> fst(rich_endpoint bits)=common_endpoint",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Theorem",
+      "line": 42,
+      "name": "rich_endpoints_are_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs ys, length xs=16 -> length ys=16 -> rich_endpoint xs=rich_endpoint ys -> xs=ys",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Theorem",
+      "line": 50,
+      "name": "native_fibre_contains_65535_history_states",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup(map rich_endpoint(positive_profiles 16)) /\\ length(map rich_endpoint(positive_profiles 16))=65535 /\\ (forall s,In s(map rich_endpoint(positive_profiles 16)) -> fst s=common_endpoint)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 68,
+      "name": "memberb_spec",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall f rs,memberb f rs=true <-> In f rs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 76,
+      "name": "maps_equal_at",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs, map f xs=map g xs -> forall x,In x xs -> f x=g x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 83,
+      "name": "archive_code_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall fs rs ts, incl rs fs -> incl ts fs -> archive_code fs rs=archive_code fs ts -> forall f,In f rs <-> In f ts",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Theorem",
+      "line": 95,
+      "name": "native_history_has_a_sixteen_bit_encoding",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, clean_start s -> let finish:=run word s in let records:=snd(recorded_run word(s,[])) in length(archive_code(facts(core_of finish))records)<=16 /\\ (forall ts,incl ts(facts(core_of finish)) -> archive_code(facts(core_of finish))records=archive_code(facts(core_of finish))ts -> forall f,In f records <-> In f ts)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Lemma",
+      "line": 115,
+      "name": "code_nonempty",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall fs rs,incl rs fs -> chosen(archive_code fs rs)=coarse rs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Theorem",
+      "line": 127,
+      "name": "clean_native_history_code",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s,clean_start s -> let fs:=facts(core_of(run word s)) in let rs:=snd(recorded_run word(s,[])) in length(padded_code fs rs)=16 /\\ chosen(padded_code fs rs)=cert(run word s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HistoryCapacity.v",
+      "kind": "Theorem",
+      "line": 145,
+      "name": "at_most_65535_nonempty_native_history_codes",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s target codes, clean_start s -> cert target=true -> NoDup codes -> (forall code,In code codes -> exists word, run word s=target /\\ code=padded_code(facts(core_of target))(snd(recorded_run word(s,[])))) -> length codes<=65535",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Lemma",
+      "line": 11,
+      "name": "recorded_run_app",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs ys s, recorded_run(xs++ys)s=recorded_run ys(recorded_run xs s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Lemma",
+      "line": 15,
+      "name": "block_effect",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall j pick fs pcn ch meter flag rs, In(ge_fact j)fs -> recorded_run(block j pick)(shape fs pcn ch meter flag,rs)= (shape fs (pcn+2)(Some(ge_fact j))(meter+2)(flag||pick), if pick then insert_fact(ge_fact j)rs else rs)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Lemma",
+      "line": 35,
+      "name": "indexed_mask_member",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits start n,n<length bits -> (In(start+n,true)(combine(seq start(length bits))bits) <-> nth n bits false=true)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 59,
+      "name": "program_effect",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall qs fs pcn ch meter flag rs, (forall j b,In(j,b)qs -> In(ge_fact j)fs) -> recorded_run(program qs)(shape fs pcn ch meter flag,rs)= (shape fs (pcn+2*length qs)(last_channel qs ch) (meter+2*length qs)(flag||any_selected qs), archive qs rs)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Lemma",
+      "line": 74,
+      "name": "archive_membership",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall qs rs f, In f(archive qs rs) <-> In f rs \\/ exists j,In(j,true)qs /\\ f=ge_fact j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 91,
+      "name": "prepared_table",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "recorded_run checks(start 16 0,[])= (shape table 17 None 16 false,[])",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Lemma",
+      "line": 95,
+      "name": "table_contains",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall j,j<16 -> In(ge_fact j)table",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 105,
+      "name": "every_mask_native_effect",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits,length bits=16 -> recorded_run(selected_program bits)(start 16 0,[])= (shape table 49 (Some(ge_fact 15)) 48 (existsb(fun b=>b)bits),selected_archive bits)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 126,
+      "name": "exact_selected_membership",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bits j,length bits=16 -> j<16 -> (In(ge_fact j)(selected_archive bits) <-> nth j bits false=true)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 138,
+      "name": "distinct_masks_distinct_records",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs ys, length xs=16 -> length ys=16 -> (forall f,In f(selected_archive xs)<->In f(selected_archive ys)) -> xs=ys",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 150,
+      "name": "nonempty_masks_identical_native_state",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs ys, length xs=16 -> length ys=16 -> existsb(fun b=>b)xs=true -> existsb(fun b=>b)ys=true -> run(selected_program xs)(start 16 0)=run(selected_program ys)(start 16 0)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MaskWitness.v",
+      "kind": "Theorem",
+      "line": 162,
+      "name": "archive_cardinality_bound_attained",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length(snd(recorded_run(selected_program(repeat true 16))(start 16 0,[])))=16",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 13,
+      "name": "reset_prefix_meter_not_a_state_function",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~exists mu : bool -> nat, forall L, mu (iter (fun _ : bool => true) L false)= structural_mu Bool.bool_dec (fun _ : bool => true) false L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 21,
+      "name": "reset_prefix_merge_not_a_state_function",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~exists m : bool -> nat, forall L, m (iter (fun _ : bool => true) L false)= merges Bool.bool_dec (fun _ : bool => true) false L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 40,
+      "name": "clock_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, fst (clock_step s)=F (fst s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 42,
+      "name": "clock_orbit",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, iter clock_step n (entry,0)=(iter F n entry,n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 45,
+      "name": "clock_orbit_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j, iter clock_step i (entry,0)=iter clock_step j (entry,0) -> i=j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 50,
+      "name": "clock_run_retains",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, retains clock_step (entry,0) L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 56,
+      "name": "clock_run_no_observed_merges",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, merges clock_eq_dec clock_step (entry,0) L=0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 59,
+      "name": "clock_run_room",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, room clock_eq_dec clock_step (entry,0) L=L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 67,
+      "name": "clock_full_meter",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, structural_mu clock_eq_dec clock_step (entry,0) L=L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 73,
+      "name": "clock_can_represent_original_meter",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, projected_meter (iter clock_step L (entry,0))=structural_mu eq_dec F entry L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MeterRepresentation.v",
+      "kind": "Theorem",
+      "line": 80,
+      "name": "instrumentation_changes_full_graph_meter",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "structural_mu Bool.bool_dec (fun _ : bool=>true) false 3=2 /\\ structural_mu (clock_eq_dec Bool.bool_dec) (clock_step (fun _ : bool=>true)) (false,0) 3=3",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Lemma",
+      "line": 28,
+      "name": "step_matches_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s a, (data(step s a),valid(step s a))=specification_step(data s,valid s) a",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 31,
+      "name": "every_program_matches_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall p s, (data(run_from s p),valid(run_from s p))=specification_from(data s,valid s) p",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 34,
+      "name": "exact_historical_verdict",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall p, valid(run p)=snd(specification p)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 37,
+      "name": "truth_soundness",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s,valid s=true -> data s=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 39,
+      "name": "every_full_state_is_reachable",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s,exists p,run p=s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Lemma",
+      "line": 45,
+      "name": "unchecked_steps_keep_verdict_false",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s p, valid s=false -> ~In Check p -> valid(run_from s p)=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 52,
+      "name": "no_unchecked_forgery",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall p,~In Check p -> valid(run p)=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 54,
+      "name": "reachability_does_not_supply_unchecked_reachability",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s,exists p,run p=s) /\\ ~exists p,~In Check p /\\ run p=OneChecked",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 61,
+      "name": "two_histories_one_data_two_states",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "data(run [Write true])=data(run [Write true;Check]) /\\ valid(run [Write true])=false /\\ valid(run [Write true;Check])=true /\\ run [Write true]<>run [Write true;Check]",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 66,
+      "name": "writes_invalidate_without_versions",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s b, valid(step s (Write b))=false /\\ data(step s (Write b))=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 69,
+      "name": "current_verdict_is_not_permanent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "valid OneChecked=true /\\ valid(step OneChecked (Write true))=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 72,
+      "name": "repeated_check_merges_inside_one_fibre",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "OneUnchecked<>OneChecked /\\ data OneUnchecked=data OneChecked /\\ step OneUnchecked Check=step OneChecked Check",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 80,
+      "name": "single_fixed_map_contains_arbitrary_programs",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s a rest, autonomous(s,a::rest)=(step s a,rest)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Monitor.v",
+      "kind": "Theorem",
+      "line": 87,
+      "name": "sound_use_does_not_force_saved_record_mutation",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall b saved,use_gate b saved=true -> b=true) /\\ use_gate true true=true /\\ use_gate false true=false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 23,
+      "name": "layer_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, NoDup (layer n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 25,
+      "name": "layer_image",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n s, In s (layer n) <-> exists a, In a starts /\\ s=iter F n a",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 36,
+      "name": "size_nonincreasing",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, size (S n)<=size n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Theorem",
+      "line": 43,
+      "name": "exact_loss_telescopes",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T, total_loss T+size T=length starts",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 50,
+      "name": "final_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T held, (forall a, In a starts -> In (iter F T a) held) -> size T<=length held",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Theorem",
+      "line": 56,
+      "name": "ensemble_loss_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T held, (forall a, In a starts -> In (iter F T a) held) -> length starts<=total_loss T+length held",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 64,
+      "name": "drop_witness",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs, NoDup xs -> length (nodup eq_dec (map F xs))<length xs -> exists a b, In a xs /\\ In b xs /\\ a<>b /\\ F a=F b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 84,
+      "name": "decrease_time",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T, size T<length starts -> exists t, t<T /\\ size (S t)<size t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Theorem",
+      "line": 92,
+      "name": "execution_collision_before_deadline",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T held, (forall a, In a starts -> In (iter F T a) held) -> length held<length starts -> exists t a b, t<T /\\ In a (layer t) /\\ In b (layer t) /\\ a<>b /\\ F a=F b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Theorem",
+      "line": 104,
+      "name": "canonical_output_loss",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T h, starts<>[] -> (forall a, In a starts -> iter F T a=h) -> total_loss T=length starts-1",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Lemma",
+      "line": 124,
+      "name": "halving_edge",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, halving_at t -> size t<=2^(price t)*size (S t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/MultiExecution.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "execution_halving_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T, (forall t, t<T -> halving_at t) -> length starts<=2^(total_price T)*size T",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Lemma",
+      "line": 14,
+      "name": "mass_empty",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall targets, mass targets []=0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Lemma",
+      "line": 16,
+      "name": "mass_cons",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall targets x xs, mass targets (x::xs)=mass targets xs+count_occ eq_dec targets x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Theorem",
+      "line": 22,
+      "name": "count_partition",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall values targets, NoDup targets -> incl values targets -> mass targets values=length values",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Lemma",
+      "line": 33,
+      "name": "mass_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall targets values k, (forall y, In y targets -> count_occ eq_dec values y<=k) -> mass targets values<=k*length targets",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Theorem",
+      "line": 43,
+      "name": "bounded_multiplicity_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall values targets k, NoDup targets -> incl values targets -> (forall y, In y targets -> count_occ eq_dec values y<=k) -> length values<=k*length targets",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Theorem",
+      "line": 51,
+      "name": "overcapacity_forces_large_pile",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall values targets k, NoDup targets -> incl values targets -> k*length targets<length values -> exists y, In y targets /\\ k<count_occ eq_dec values y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Multiplicity.v",
+      "kind": "Theorem",
+      "line": 68,
+      "name": "preparation_overcapacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (eq_dec : forall a b : Y, {a=b}+{a<>b}) (f : X->Y) : forall inputs targets k, NoDup inputs -> NoDup targets -> (forall x, In x inputs -> In (f x) targets) -> k*length targets<length inputs -> exists y, In y targets /\\ k<count_occ eq_dec (map f inputs) y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 9,
+      "name": "native_rebar_witness",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "counters(run inspect_then_erase(start 1 0))=(0,0) /\\ counters(run inspect_then_erase(start 0 0))=(0,0) /\\ cert(run inspect_then_erase(start 1 0))=true /\\ cert(run inspect_then_erase(start 0 0))=false /\\ err(core_of(run inspect_then_erase(start 1 0)))=false /\\ err(core_of(run inspect_then_erase(start 0 0)))=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "native_exact_for_boolean_candidates",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall candidate:bool, let x:=if candidate then 1 else 0 in counters(run inspect_then_erase(start x 0))=(0,0) /\\ cert(run inspect_then_erase(start x 0))=candidate /\\ mu(run inspect_then_erase(start x 0))=3",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 25,
+      "name": "native_post_counter_checker_impossible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~exists verify:(nat*nat)->bool,forall candidate:bool, let x:=if candidate then 1 else 0 in verify(counters(run inspect_then_erase(start x 0)))=candidate",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 32,
+      "name": "free_native_dec_can_erase_the_counter_distinction",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "cost(DEC CA 5)=0 /\\ counters(exec(start 1 0)(DEC CA 5))=counters(exec(start 0 0)(DEC CA 5))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 37,
+      "name": "trapped_invalid_execution_does_not_perform_later_erasure",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "pc(core_of(run inspect_then_erase(start 0 0)))=1 /\\ va(core_of(run inspect_then_erase(start 0 0)))=0 /\\ pc(core_of(run inspect_then_erase(start 1 0)))=5 /\\ va(core_of(run inspect_then_erase(start 1 0)))=1",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 44,
+      "name": "native_cert_does_not_mean_all_later_checks_passed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s:=run(inspect_then_erase++[CHECK(PGe 1)CA])(start 1 0) in cert s=true /\\ err(core_of s)=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeErasure.v",
+      "kind": "Theorem",
+      "line": 49,
+      "name": "two_native_good_states_need_not_collapse_at_every_write",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "counters(exec(start 0 0)(INC CA))<>(counters(exec(start 1 0)(INC CA)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Lemma",
+      "line": 12,
+      "name": "fact_length_one_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k i, length (E.facts (E.cexec k i))=length (E.facts k)+check_gain k i",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Lemma",
+      "line": 24,
+      "name": "successful_check_is_priced",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k i, check_gain k i<=E.cost i",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Theorem",
+      "line": 33,
+      "name": "actual_fact_growth_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr s, length (E.facts (E.core_of (E.run tr s))) = length (E.facts (E.core_of s))+passing_checks tr s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Theorem",
+      "line": 46,
+      "name": "passing_checks_bounded_by_actual_cost",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr s, passing_checks tr s<=E.total_cost tr",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Theorem",
+      "line": 52,
+      "name": "actual_ledger_bounds_fact_growth",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr s, E.mu s+passing_checks tr s<=E.mu (E.run tr s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Theorem",
+      "line": 58,
+      "name": "actual_ledger_bounds_table_growth",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr s, E.mu s+length (E.facts (E.core_of (E.run tr s))) <= E.mu (E.run tr s)+length (E.facts (E.core_of s))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Theorem",
+      "line": 65,
+      "name": "stored_program_ledger_bounds_table_growth",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n P a b, length (E.facts (E.core_of (E.run_prog n P (E.start a b)))) <= E.mu (E.run_prog n P (E.start a b))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeFactAccounting.v",
+      "kind": "Theorem",
+      "line": 73,
+      "name": "table_growth_bound_is_attained",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "passing_checks [E.CHECK E.PZero E.CA] (E.start 0 0)=1 /\\ E.mu (E.run [E.CHECK E.PZero E.CA] (E.start 0 0))=1",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 16,
+      "name": "stopped_representatives_force_static_shadow",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, next i (view s) = view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Lemma",
+      "line": 27,
+      "name": "free_cannot_fire",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i k, free i -> fires k i = false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Lemma",
+      "line": 30,
+      "name": "trapped_free_step_is_full_identity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s i, err (core_of s) = true -> free i -> exec s i = s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Lemma",
+      "line": 42,
+      "name": "chosen_check_fails",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, check_ok (core_of s) (PGe (S (ca (core_of s)))) CA = false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Lemma",
+      "line": 51,
+      "name": "chosen_check_reaches_trap",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, err (core_of (exec s (bad_check s))) = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 68,
+      "name": "every_free_shadow_step_is_identity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, free i -> next i (view s) = view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 79,
+      "name": "every_free_execution_is_invisible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, free i -> view (exec s i) = view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 86,
+      "name": "every_free_program_is_invisible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, Forall free word -> view (run word s) = view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 94,
+      "name": "onto_shadow_has_only_identity_free_steps",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall b, exists s, view s = b) -> forall i b, free i -> next i b = b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 102,
+      "name": "cannot_preserve_a_changing_horizontal_observation",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ exists i s, free i /\\ view (exec s i) <> view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Lemma",
+      "line": 112,
+      "name": "reachable_after_instruction",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall initial s i, reachable initial s -> reachable initial (exec s i)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 128,
+      "name": "reachable_free_step_is_invisible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, reachable initial s -> free i -> view (exec s i) = view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 142,
+      "name": "reachable_free_program_is_invisible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s, reachable initial s -> Forall free word -> view (run word s) = view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 154,
+      "name": "certificate_is_a_silent_static_quotient",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s p c, cert (exec s (CHECK p c)) = cert s) /\\ (forall i s, free i -> cert (exec s i) = cert s) /\\ (forall b : bool, exists s, cert s = b)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/NativeSliceBoundary.v",
+      "kind": "Theorem",
+      "line": 167,
+      "name": "certificate_differs_on_reachable_clean_runs",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "cert (run [] (start 0 0)) = false /\\ cert (run earned_run (start 0 0)) = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PassiveGeometry.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "horizontal_projection",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s,view(runH word s)=runB word(view s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PassiveGeometry.v",
+      "kind": "Theorem",
+      "line": 20,
+      "name": "horizontal_preserves_record",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall word s,record(runH word s)=record s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PassiveGeometry.v",
+      "kind": "Theorem",
+      "line": 22,
+      "name": "permanent_trajectory_blindness",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, view s=view t -> record s<>record t -> forall word, view(runH word s)=view(runH word t) /\\ record(runH word s)<>record(runH word t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PassiveGeometry.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "no_in_view_decoder",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, view s=view t -> record s<>record t -> ~exists decode:B->R,forall x,decode(view x)=record x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PassiveGeometry.v",
+      "kind": "Theorem",
+      "line": 30,
+      "name": "vertical_change_forces_nontrivial_fibre",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall V:S->S, (forall s,view(V s)=view s) -> forall s, record(V s)<>record s -> s<>V s /\\ view(V s)=view s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Lemma",
+      "line": 13,
+      "name": "F_G_power",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n s, F (iter G n s)=iter G n (F s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "powers_commute",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n m s, iter F n (iter G m s)=iter G m (iter F n s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Theorem",
+      "line": 34,
+      "name": "crossing_periodicity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j, iter F i a=iter G j b -> iter F (q+i) a=iter F i a /\\ iter G (p+j) b=iter G j b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Theorem",
+      "line": 42,
+      "name": "crossing_only_in_tails",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j, i<=L -> j<=M -> iter F i a=iter G j b -> L<i+q /\\ M<j+p",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Theorem",
+      "line": 55,
+      "name": "unit_period_crossing_is_joint_end",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j, p=1 -> q=1 -> i<=L -> j<=M -> iter F i a=iter G j b -> i=L /\\ j=M /\\ F (iter F i a)=iter F i a /\\ G (iter G j b)=iter G j b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Lemma",
+      "line": 66,
+      "name": "iterate_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F:X->X) : (forall a b, F a=F b -> a=b) -> forall n a b, iter F n a=iter F n b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Theorem",
+      "line": 75,
+      "name": "global_crossing_forces_periodic_seed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F G:X->X) : (forall s, F (G s)=G (F s)) -> (forall a b, F a=F b -> a=b) -> forall a b i j q, iter F q b=b -> iter F i a=iter G j b -> iter F q a=a",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/PeriodicIntersection.v",
+      "kind": "Theorem",
+      "line": 86,
+      "name": "population_arithmetic",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T r s p q a b overlap, r<T -> s<T -> 0<p -> 0<q -> a=T-r -> b=T-s -> overlap<=p -> overlap<=q -> 2*T+Nat.max p q <= (r+p)+(s+q)+(a+b-overlap)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 19,
+      "name": "unchecked_reachability_excludes_positive_verdict",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s,exists h,endpoint h=s /\\ earned h=false) -> ~exists h,earned h=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 27,
+      "name": "same_workspace_different_history_forces_distinct_states",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall h g, observation(endpoint h)=observation(endpoint g) -> earned h<>earned g -> endpoint h<>endpoint g",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 31,
+      "name": "workspace_verdict_impossible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall h g, observation(endpoint h)=observation(endpoint g) -> earned h<>earned g -> ~exists decode,forall p,decode(observation(endpoint p))=earned p",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 43,
+      "name": "map_injective_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs, NoDup xs -> (forall a b,In a xs -> In b xs -> f a=f b -> a=b) -> NoDup(map f xs)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 52,
+      "name": "nodup_append_separate",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall xs ys:list A, NoDup xs -> NoDup ys -> (forall x,In x xs -> ~In x ys) -> NoDup(xs++ys)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 62,
+      "name": "profiles_length",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m,length(profiles m)=2^m",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 64,
+      "name": "profiles_complete",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m xs,In xs (profiles m)<->length xs=m",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 74,
+      "name": "profiles_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m,NoDup(profiles m)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 83,
+      "name": "independent_profiles_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m fibre, (forall bits,length bits=m -> observation(representative bits)=b /\\ decode(representative bits)=bits) -> (forall s,observation s=b -> In s fibre) -> 2^m<=length fibre",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 102,
+      "name": "bitmask_capacity_attained",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m, NoDup(profiles m) /\\ length(profiles m)=2^m /\\ (forall bits,length bits=m <-> In bits(profiles m))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 115,
+      "name": "legal_profiles_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall truths, length(legal_profiles truths)=2^(true_count truths)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 122,
+      "name": "legal_profiles_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall truths,NoDup(legal_profiles truths)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 140,
+      "name": "descriptions_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bases,length(descriptions bases)=capacity bases",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Lemma",
+      "line": 145,
+      "name": "descriptions_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bases,NoDup bases -> NoDup(descriptions bases)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Representation.v",
+      "kind": "Theorem",
+      "line": 156,
+      "name": "exact_profile_representation_lower_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bases all, NoDup bases -> (forall d,In d(descriptions bases) -> decode(representative d)=d) -> (forall d,In d(descriptions bases) -> In(representative d) all) -> capacity bases<=length all",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 19,
+      "name": "index_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, index s <= T+K",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 24,
+      "name": "index_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a b, index a=index b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 30,
+      "name": "index_node",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, index (node n)=Nat.min n (T+K)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 32,
+      "name": "index_node_small",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, n<=T+K -> index (node n)=n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 34,
+      "name": "node_index",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, node (index s)=s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 45,
+      "name": "step_index",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, index (step s)=Nat.min (S (index s)) (T+K)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 49,
+      "name": "step_node",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, step (node n)=node (S n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 59,
+      "name": "iter_node",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n a, iter step n (node a)=node (n+a)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 65,
+      "name": "all_states_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, In s all_states",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 70,
+      "name": "all_states_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup all_states",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 76,
+      "name": "all_states_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length all_states=1+T+K",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 78,
+      "name": "held_states_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, In s held_states <-> held s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 85,
+      "name": "held_states_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup held_states",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 91,
+      "name": "held_states_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length held_states=K",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 93,
+      "name": "entry_outside",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~held entry",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 95,
+      "name": "entry_enters",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "held (step entry)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 97,
+      "name": "held_closed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, held s -> held (step s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Theorem",
+      "line": 104,
+      "name": "retains_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "retains step entry K",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Theorem",
+      "line": 111,
+      "name": "first_collision",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "iter step (K-1) entry <> iter step K entry /\\ step (iter step (K-1) entry)=step (iter step K entry)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Theorem",
+      "line": 121,
+      "name": "fails_next_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~retains step entry (S K)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Theorem",
+      "line": 126,
+      "name": "capacity_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, retains step entry L <-> L<=K",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 147,
+      "name": "early_not_terminal",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, n<T -> trace n<>trace T",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 152,
+      "name": "view_prep",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "view prep=None",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 154,
+      "name": "prepares_start",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "step prep=start",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 156,
+      "name": "view_node_positive",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, n<=T+K -> view (node (S n))=Some (trace (Nat.min n T))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 166,
+      "name": "view_start",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "view start=Some (trace 0)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 168,
+      "name": "view_held_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, view s=Some (trace T) <-> held s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 177,
+      "name": "view_holds",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, view s=Some (trace T) -> view (step s)=Some (trace T)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 181,
+      "name": "view_simulates",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s c d, view s=Some c -> delta c=Some d -> view (step s)=Some d",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Theorem",
+      "line": 195,
+      "name": "guest_all_time",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, view (iter step n start)=Some (trace (Nat.min n T))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Lemma",
+      "line": 207,
+      "name": "entry_is_last_running",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "entry=iter step (T-1) start",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SharpHost.v",
+      "kind": "Theorem",
+      "line": 212,
+      "name": "sharp_finite_host_exists",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "exists (F : HostState -> HostState) (v : HostState -> option G) (pre a u : HostState) (all hs : list HostState), NoDup all /\\ (forall s, In s all) /\\ length all=1+T+K /\\ NoDup hs /\\ length hs=K /\\ (forall s, In s hs <-> v s=Some (trace T)) /\\ v pre=None /\\ F pre=a /\\ v a=Some (trace 0) /\\ (forall s c d, v s=Some c -> delta c=Some d -> v (F s)=Some d) /\\ (forall s, v s=Some (trace T) -> v (F s)=Some (trace T)) /\\ (forall n, v (iter F n a)=Some (trace (Nat.min n T))) /\\ u=iter F (T-1) a /\\ (forall L, retains F u L <-> L<=K) /\\ (iter F (K-1) u <> iter F K u /\\ F (iter F (K-1) u)=F (iter F K u))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 20,
+      "name": "observation_reflexive",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, ObsEq s s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 22,
+      "name": "observation_symmetric",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, ObsEq s t -> ObsEq t s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 24,
+      "name": "observation_transitive",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t u, ObsEq s t -> ObsEq t u -> ObsEq s u",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "observation_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, ObsEq s t -> forall c, ObsEq (compute c s) (compute c t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 29,
+      "name": "observation_now",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, ObsEq s t -> observe s = observe t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 33,
+      "name": "observation_greatest",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s t, R s t -> observe s = observe t) -> (forall s t, R s t -> forall c, R (compute c s) (compute c t)) -> forall s t, R s t -> ObsEq s t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 52,
+      "name": "erasure_least",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s, R s s) -> (forall s t, R s t -> R t s) -> (forall s t u, R s t -> R t u -> R s u) -> (forall s p, R s (mark p s)) -> (forall s t, R s t -> forall c, R (compute c s) (compute c t)) -> forall s t, Erase s t -> R s t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 63,
+      "name": "erasure_preserves_iff_marks_invisible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s t, Erase s t -> observe s = observe t) <-> (forall s p, ObsEq s (mark p s))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 95,
+      "name": "invisible_marks_allow_purge",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s p, ObsEq s (mark p s)) -> forall w s, observe (allrun w s) = observe (run (purge w) s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 114,
+      "name": "zero_cost_preserves_ledger",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, cost i = 0 -> mu (step i s) = mu s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 118,
+      "name": "zero_cost_preserves_record",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, cost i = 0 -> record (step i s) = record s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 129,
+      "name": "mark_immediately_silent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, fst (latch s) = fst s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "steering_exposes_mark",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "fst (steering (false,false)) <> fst (steering (latch (false,false)))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 134,
+      "name": "no_autonomous_working_projection",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ exists f : bool -> bool, forall s, fst (steering s) = f (fst s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SliceCore.v",
+      "kind": "Theorem",
+      "line": 141,
+      "name": "factorization_obstruction",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (q : S -> Q) (r : S -> A) : (exists s t, q s = q t /\\ r s <> r t) -> ~ exists d : Q -> A, forall s, d (q s) = r s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 46,
+      "name": "horizontal_trace_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, view M (hrun w s) = shadow_run w (view M s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 53,
+      "name": "horizontal_trace_preserves_verdict",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, verdict M (hrun w s) = verdict M s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "universal_window_blindness",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, view M s = view M t -> forall w, view M (hrun w s) = view M (hrun w t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 65,
+      "name": "mixed_trace_projects_after_erasure",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, view M (execute w s) = shadow_run (SliceCore.purge w) (view M s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 76,
+      "name": "vertical_raise_forces_hidden_pair",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall v s, verdict M s = false -> verdict M (vertical M v s) = true -> s <> vertical M v s /\\ view M s = view M (vertical M v s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 85,
+      "name": "vertical_raise_fibre_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall v s fibre, verdict M s = false -> verdict M (vertical M v s) = true -> (forall x, view M x = view M s -> In x fibre) -> 2 <= length fibre",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 99,
+      "name": "finite_vertical_establishment_collision",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall v s held, verdict M s = false -> In (vertical M v s) held -> NoDup held -> (forall x, In x held -> view M x = view M s /\\ verdict M x = true) -> (forall x, In x held -> In (vertical M v x) held) -> exists x y, view M x = view M s /\\ view M y = view M s /\\ x <> y /\\ vertical M v x = vertical M v y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 120,
+      "name": "abstract_establishment_necessity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall start raw checked b, view M (hrun raw start) = b -> view M (execute checked start) = b -> verdict M (hrun raw start) = false -> verdict M (execute checked start) = true -> hrun raw start <> execute checked start /\\ (forall continuation, view M (hrun continuation (hrun raw start)) = view M (hrun continuation (execute checked start)) /\\ verdict M (hrun continuation (hrun raw start)) = false /\\ verdict M (hrun continuation (execute checked start)) = true) /\\ ~ exists decode : Base -> bool, forall s, decode (view M s) = verdict M s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 145,
+      "name": "supplied_toll",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, verdict M s = false -> verdict M (transition i s) = true -> 1 <= price i",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 153,
+      "name": "supplied_toll_run_floor",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, verdict M s = false -> verdict M (execute w s) = true -> 1 <= trace_price w",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 169,
+      "name": "horizontal_ledger_preserved",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall h s, ledger L (horizontal M h s) = ledger L s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 178,
+      "name": "independent_current_profiles_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall start bases reachable, NoDup bases -> (forall d, In d (Representation.descriptions truth bases) -> (view M (execute (program_for d) start), queries (execute (program_for d) start)) = d) -> (forall d, In d (Representation.descriptions truth bases) -> In (execute (program_for d) start) reachable) -> Representation.capacity truth bases <= length reachable",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 197,
+      "name": "core_independent_of_record_and_ledger",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k m n r q i, EarnedCore.core_of (EarnedCore.exec (EarnedCore.mkst k m r) i) = EarnedCore.core_of (EarnedCore.exec (EarnedCore.mkst k n q) i)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 202,
+      "name": "stored_program_core_independence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall ticks program k m n r q, EarnedCore.core_of (EarnedCore.run_prog ticks program (EarnedCore.mkst k m r)) = EarnedCore.core_of (EarnedCore.run_prog ticks program (EarnedCore.mkst k n q))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 207,
+      "name": "native_check_not_vertical_for_core",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "EarnedCore.core_of (EarnedCore.exec (EarnedCore.start 0 0) (EarnedCore.CHECK EarnedCore.PZero EarnedCore.CA)) <> EarnedCore.core_of (EarnedCore.start 0 0)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 216,
+      "name": "hiding_guard_does_not_give_global_horizontal_autonomy",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ exists next, forall s, counters (EarnedCore.exec s (EarnedCore.INC EarnedCore.CA)) = next (counters s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 262,
+      "name": "exact_ever_checked_meaning",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w b r, verdict machine (execute machine w (b,r)) = r || successful_check_occurred w b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 275,
+      "name": "clean_start_exact_history",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w b, verdict machine (execute machine w (b,false)) = successful_check_occurred w b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SlicedEstablishment.v",
+      "kind": "Theorem",
+      "line": 279,
+      "name": "passing_check_realizes_hidden_pair",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b, predicate b = true -> view machine (execute machine [] (b,false)) = b /\\ view machine (execute machine [inr tt] (b,false)) = b /\\ verdict machine (execute machine [] (b,false)) = false /\\ verdict machine (execute machine [inr tt] (b,false)) = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Lemma",
+      "line": 34,
+      "name": "bad_pair_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall a b, bad_pair (a,b)=true <-> a<>b /\\ F a=F b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Lemma",
+      "line": 40,
+      "name": "merge_target_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L z, In z (merge_targets L) <-> exists a b, In a (sources L) /\\ In b (sources L) /\\ a<>b /\\ F a=z /\\ F b=z",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 53,
+      "name": "merges_zero_iff",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, merges L=0 <-> ~collision L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Lemma",
+      "line": 67,
+      "name": "source_member",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L n, n<L -> In (iter F n entry) (sources L)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Lemma",
+      "line": 72,
+      "name": "no_collision_retains",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, ~collision L -> retains F entry L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Lemma",
+      "line": 79,
+      "name": "retains_no_collision",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, retains F entry L -> ~collision L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 87,
+      "name": "zero_merges_iff_retains",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, merges L=0 <-> retains F entry L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Lemma",
+      "line": 95,
+      "name": "nonempty_run_has_room",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, 0<L -> 0<room L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 103,
+      "name": "any_nonempty_run_has_positive_structural_mu",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, 0<L -> 0<structural_mu L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 112,
+      "name": "zero_merges_exact_room",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, merges L=0 -> room L=L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 125,
+      "name": "merge_or_room",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, 0<merges L \\/ room L=L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "room_shortfall_forces_merge",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, room L<L -> 0<merges L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 134,
+      "name": "room_bounded_by_held_capacity",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L hs, (forall s, H s -> In s hs) -> room L<=length hs",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 142,
+      "name": "finite_room_forces_merge",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L hs, (forall s, H s -> In s hs) -> length hs<L -> 0<merges L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 148,
+      "name": "structural_mu_positive",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall L, 0<L -> 0<structural_mu L",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 154,
+      "name": "fixed_point_blocks_positive_internal_ledger",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F : X -> X) (s : X) (p : nat) : F s=s -> 0<p -> ~exists mu : X -> nat, forall x, mu (F x)=mu x+p",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/StructuralMeter.v",
+      "kind": "Theorem",
+      "line": 164,
+      "name": "structural_meter_can_plateau",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "structural_mu Bool.bool_dec (fun _ : bool => true) false 2=2 /\\ structural_mu Bool.bool_dec (fun _ : bool => true) false 3=2",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Lemma",
+      "line": 10,
+      "name": "nodup_append_disjoint",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall xs ys : list A, NoDup xs -> NoDup ys -> (forall a, In a xs -> ~In a ys) -> NoDup (xs++ys)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Lemma",
+      "line": 19,
+      "name": "nodup_product",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall xs:list A, forall ys:list B, NoDup xs -> NoDup ys -> NoDup (list_prod xs ys)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Lemma",
+      "line": 46,
+      "name": "same_time_separated",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, n<=T -> forall a b, In a starts -> In b starts -> iter F n a=iter F n b -> a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Lemma",
+      "line": 53,
+      "name": "different_times_separated",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j a b, i<j -> j<=T -> In a starts -> In b starts -> iter F i a<>iter F j b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Theorem",
+      "line": 64,
+      "name": "spacetime_embedding_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j a b, i<=T -> j<=T -> In a starts -> In b starts -> iter F i a=iter F j b -> i=j /\\ a=b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Theorem",
+      "line": 77,
+      "name": "synchronized_population_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup run_population",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Theorem",
+      "line": 86,
+      "name": "synchronized_population_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length run_population=length starts*(T+1)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/SynchronizedCapacity.v",
+      "kind": "Theorem",
+      "line": 90,
+      "name": "synchronized_capacity_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall all, (forall a, In a starts -> forall n, n<=T -> In (iter F n a) all) -> length starts*(T+1)<=length all",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 10,
+      "name": "permanent_current_truth_impossible",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (view:S->B) (cert:S->bool) (write:B->S->S) (P:B->bool) (accepted:S) (bad:B) : cert accepted=true -> P bad=false -> (forall s b,view(write b s)=b) -> (forall s b,cert s=true -> cert(write b s)=true) -> (forall s,cert s=true -> P(view s)=true) -> False",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 43,
+      "name": "run_app",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall u v s, run(u++v)s=run v(run u s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 45,
+      "name": "step_legal",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s,legal s -> legal(step i s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 51,
+      "name": "run_legal",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s,legal s -> legal(run w s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 56,
+      "name": "step_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s,fst(step i s)=upper i(fst s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 58,
+      "name": "autonomous_workspace",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s,fst(run w s)=base_run w(fst s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "writes_invalidate_before_publication",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b b' p,p<>D -> step(Write b')(b,p)=(b',U)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 62,
+      "name": "historical_certificate_survives",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "permanent=true -> forall i s, verdict s=true -> verdict(step i s)=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 65,
+      "name": "current_certificate_requires_truth",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "permanent=false -> forall s, legal s -> verdict s=true -> P(fst s)=true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 68,
+      "name": "only_certify_publishes",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i s, verdict s=false -> verdict(step i s)=true -> i=Certify",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 96,
+      "name": "journal_consistent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j,consistent j -> consistent(logstep i j)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 101,
+      "name": "compression_step",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall i j,consistent j -> compress(logstep i j)=step i(compress j)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 107,
+      "name": "journal_refinement",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w j,consistent j -> compress(logrun w j)=run w(compress j)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 113,
+      "name": "exact_history_all_programs",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w b0, verdict(run w(b0,U))=logverdict(logrun w(J b0 false false false false))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 135,
+      "name": "witness_reaches",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b p b0,legal(b,p) -> run(witness b p)(b0,U)=(b,p)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 142,
+      "name": "phases_legal",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b p,In p(phases b) <-> legal(b,p)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 144,
+      "name": "phases_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b,NoDup(phases b)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Theorem",
+      "line": 148,
+      "name": "carrier_size",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall bases,length(carrier bases)= if permanent then 2*length bases+2*positives bases else length bases+3*positives bases",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/Task.v",
+      "kind": "Lemma",
+      "line": 160,
+      "name": "signature_separates",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall b p q,signature(b,p)=signature(b,q) -> p=q",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 25,
+      "name": "commute",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, F T (G T s)=G T (F T s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 30,
+      "name": "F_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, view (F T s)=if view s =? 2 then 2 else 0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "G_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, view (G T s)=if view s =? 1 then 1 else 0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 42,
+      "name": "F_closed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, valid T s -> valid T (F T s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 47,
+      "name": "G_closed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, valid T s -> valid T (G T s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 53,
+      "name": "carrier_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, In s (carrier T) <-> valid T s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Lemma",
+      "line": 66,
+      "name": "append_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall (X:Type) (l r:list X), NoDup l -> NoDup r -> (forall s, In s l -> ~In s r) -> NoDup (l++r)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 73,
+      "name": "carrier_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T, NoDup (carrier T)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 86,
+      "name": "carrier_size",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T, length (carrier T)=2*T+2",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 92,
+      "name": "F_rank",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, rank T s<=S (rank T (F T s))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 97,
+      "name": "G_rank",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, rank T s<=S (rank T (G T s))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Lemma",
+      "line": 103,
+      "name": "initial_valid_rank",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T s, 1<=T -> In s starts -> valid T s /\\ T<=rank T s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 108,
+      "name": "reach_valid_rank",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T t s, 1<=T -> reach T t s -> valid T s /\\ T<=rank T s+t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 121,
+      "name": "F_injective_before_end",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T x y, valid T x -> valid T y -> x<>End -> y<>End -> F T x=F T y -> x=y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "G_injective_before_end",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T x y, valid T x -> valid T y -> x<>End -> y<>End -> G T x=G T y -> x=y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 141,
+      "name": "retains_through_horizon",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall T t x y, 1<=T -> t<T -> reach T t x -> reach T t y -> (F T x=F T y -> x=y) /\\ (G T x=G T y -> x=y)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 155,
+      "name": "infinite_commute",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, IF (IG s)=IG (IF s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 157,
+      "name": "infinite_F_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x y, IF x=IF y -> x=y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 159,
+      "name": "infinite_G_injective",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x y, IG x=IG y -> x=y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 161,
+      "name": "infinite_F_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, view (IF s)=if view s =? 2 then 2 else 0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/TwoArms.v",
+      "kind": "Theorem",
+      "line": 163,
+      "name": "infinite_G_projects",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, view (IG s)=if view s =? 1 then 1 else 0",
       "status": "ok"
     }
   ]

@@ -1,547 +1,130 @@
 # The Thiele Machine
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
-[![Latest release](https://img.shields.io/github/v/release/sethirus/The-Thiele-Machine?label=release)](https://github.com/sethirus/The-Thiele-Machine/releases/latest)
-[![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
-**I didn't invent a machine. I found one.**
-
-That is how I see this work.
-Take a blank cell and write a 0 in it, and keep it a 0. Something is now the case that wasn't. That moment, nothing becoming something, is always paid for, and the book is about what it pays.
-I think computation has structure that a description of what it reads and writes leaves out.
-Every computer is charged for time and space, and the bits it erases have been counted too (Li and Vitányi 1996; Demaine, Lynch, Mirano and Tyagi 2016). What no model I found charges is the moment a chosen reading goes up and stays, whichever way keeping it is paid. In any real device every change made in a finite time dissipates, less the slower it goes but never none; keeping something costs more on top, a merge, which carries a heat floor no slowness removes, or fresh states never given back, which dodges only the floor. The book proves the counting; the heat is physics, taken as a named premise.
-
-**What the Thiele Machine is.**
-It is an abstract model of computation.
-It is a machine the way Turing's machine is a machine: mathematics you can reason about.
-It is not a device.
-It is not a CPU.
-It is not an instruction set, a VM, a graph, or category theory.
-The model is small: states, moves, a step, a price on each move, and a yes-or-no reading, with one rule, the toll: a step that turns the reading from no to yes costs at least one unit. A ledger that only climbs, and a window saying what an observer sees, come in when a result needs them.
-The event it accounts for, a distinction coming to be and staying, happens on any computer, whether anybody keeps track of it or not. Certification, a record that a claim was checked, is the sharpest case the book works out, not the point.
-Turing's model has no place for the record of that event and doesn't enforce one.
-A Turing machine can be programmed to keep the record, and then it obeys the toll (the rule that a step which switches the record on has to pay) and is a Thiele machine; but when it carries another program's record as data on its tape, nothing in its own step enforces it.
-A physical heat floor needs the input distribution and explicit thermodynamic premises. The adopted form of Landauer's principle bounds mean heat by the uncertainty actually removed, so its floor is owed only when the merged states were really possible; the abstract ledger is a separate price rule.
-The record exists only if something keeps it, and keeping it, priced, is what the model adds.
-It adds accounting.
-It adds no computing power.
-
-**Names.**
-The Thiele Machine, with capitals, is the model and nothing else.
-A Thiele machine, lower case, is any particular system proved to meet the model's definition (states, moves, a step, a cost, a reading, and the toll; the Coq record is `CertificationSystem`), the way one rule table is a Turing machine.
-That bar is low on purpose: a clock bolted to a computer clears it.
-So Thiele-complete asks for four things that say nothing about what the record is about ([minimal/NeutralComplete.v](minimal/NeutralComplete.v), Coq name `neutral_complete`): a universal base whose moves can't touch the record, and a record that stays up once it's up; loaded starts with the record down; computing moves that cost nothing, every other move costing exactly one, with the ledger adding each move's cost; and some run whose record ends up from one start and down from another.
-A clock fails it, a machine whose record never rises fails it, each clause is needed, every machine that meets it hides its record and its ledger from its own window with a gap of one, and every universal base becomes Thiele-complete by adding marks, moves costing one that raise the record when an event holds (`clock_not_nc`, `silent_not_nc`, `nc_hides_record`, `nc_hides_ledger`, `every_base_lifts_neutrally`).
-Certified Thiele-complete asks for four things of its own ([minimal/ThieleComplete.v](minimal/ThieleComplete.v), Coq name `thiele_complete`), and it is exactly Thiele-complete with clean starts, the earned chain and a claim that can fail added (`tc_iff_nc_plus_certification`); the inclusion is strict (`nc_strictly_weaker`): a universal base whose moves cost nothing and can't touch the record, and a record that stays up once it's up; a record that, from a clean start, rises only after a passing check of a claim, a commitment to that same claim with nothing it's about changed in between, and a certificate, with the checker proved to mean what it says; exact prices, one unit for each of those three acts and nothing for anything else; and a claim whose check, commit and certificate raise the record from a loaded start exactly when the claim holds there, with the claim holding at some loaded starts and failing at others.
-Every clock-style machine fails that too, whatever its record (`clock_not_thiele_complete`).
-A universal Thiele machine is a Thiele-complete register host running one fixed program that runs any machine of a stated class as a guest, loaded clean into its registers and read off them in a coding fixed with the class: it halts exactly when the guest does and passes in order through the guest's observable states, matching its record and its ledger up to a fixed surcharge, with every computing step a counter move of the host and every rise of the host's record placed by its program; a certified one also earns each guest's record again by its own check, commit and certificate. U_P's own program, read on a host with no claims and no checker, meets the uncertified definition (`UN_neutral_universal`; the Coq predicate lets the decoding depend on the guest, so the coding fixed with the class is argued in the book in words).
-One is proved here for the small machine's programs: U, a fixed program of 3728 instructions of the small machine's own six kinds ([UniversalRun.v](coq/kernel/foundation/UniversalRun.v)).
-
-**What this repository is.**
-It is an argument, made with that model, about what an account of computation should preserve.
-An ordinary description of a computation says what it reads and writes: memory, registers, where the program is.
-I think that description is a shadow.
-There is another axis: what the computation established, and what establishing it cost.
-
-1. **The shadow loses something real.** Two runs can look identical through the usual window and still differ in what they established and paid. Proved, for every Thiele-complete machine and its own window, with a gap of one (`nc_hides_record`, `nc_hides_ledger`), and for every certified one with a gap of three ([ThieleCompleteWindow.v](minimal/ThieleCompleteWindow.v)).
-2. **Nothing is kept for free, and the price has stated premises.** On any machine, finite or endless, every step lands on a fresh state, merges two states into one, or goes round a loop; a run that keeps a reading up can't be on a loop through its start, so it merges somewhere or takes a fresh state at every step, and a single move that raises a kept reading without merging sends the kept states one-to-one into a proper part of themselves, which takes endlessly many of them (Dedekind's definition of infinite). In any real device every change made in a finite time also dissipates (produces entropy, which leaves as heat over a cycle); time sets how much, and only forever makes it zero. Finiteness doesn't create what keeping takes; it takes the fresh-state column away. Every scale of description pays the same way: when a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them (proved in the book). If a step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. With finitely many states reading yes, an instruction that raises a permanent reading merges some whole states; the newly entering state need not be one of that colliding pair. Charging every merging instruction at least one unit yields the toll ([PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v)). This is an abstract pricing premise. A physical heat bound additionally depends on the prepared inputs and thermodynamic conditions: a known deterministic start loses no logical entropy, so Landauer's premise puts no floor under it (the step still dissipates when it happens, and the distinction is already kept by whoever knows the start, so the heat floor sits with that knowing); the device still has one: a fixed device that merges K inputs produces at least k_B ln K of entropy, at least k_B T ln K of dissipated work, on its worst input, however slowly it runs and whatever anyone knows (proved in the book); and an equal mixture of a colliding pair loses one bit ([PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v)). The eight-state example meets the finite-state and abstract pricing conditions ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)); that does not measure a device's heat.
-3. **Leaning on a fact takes a paid history.** A computation is entitled to lean on a structural fact when it holds the evidence and a history that earned it. Defined. On the small machine it is a theorem: on a run from a clean start, a commitment goes through only on a fact a passing check wrote.
-4. **So the axis belongs in the step.** Proposed. This is the conviction the proofs are there to test. What has to be in the step is that the record stays and the computing can't reach it, since a rule the step keeps holds of every program; the count could sit in a log beside the run with the same number, and keeping it in the step is presentation. Part of it is proved. An account that prices certification exactly, never less and never more, can't compute that price from a window that shows a step that certifies and a step that doesn't the same way ([ShadowPricing.v](coq/kernel/nfi/ShadowPricing.v)); every Thiele-complete machine has the same kind of collision between runs: two runs from one loaded start that end looking the same through its own window, one with the record up and one with it down (`nc_hides_record`), and on a certified one the record is a certification (`complete_hides_record`). The exact price needs the reading in the step. And on a machine with finite memory, an account that charges one unit for every halving of the number of distinct states (the halving-price premise) already charges an instruction that writes a permanent record, switching k states on while m states are already certified, at least log2((m+k)/m) ([PermanentRecordPricing.v](coq/kernel/nfi/PermanentRecordPricing.v)). For the uniform distribution on the m certified and k switching states, the same bound holds in bits of Shannon entropy, and with Landauer's principle as a named premise and a non-negative temperature, it is at least k_B T ln((m+k)/m) of heat ([PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v)). Which physical devices meet a thermal bound is a further question; an abstract price list is chosen.
-5. **Which events every account has to price.** Certification is the one I pinned down. On any machine whose instructions have decidable equality, finite or not, the events that must be priced are the merges; on a finite machine every permanent-record write is one, and a flip avoids the price only when the same instruction switches the reading off at some other state, which keeps nothing. Proved under merge pricing. The guess that the priced events are exactly the permanent records is false; a three-state counterexample is in [PermanentRecordPricing.v](coq/kernel/nfi/PermanentRecordPricing.v) (`forced_price_without_permanent_record`). No theorem selects another universal class of priced events.
-6. **What carries the weight.** Three results. Every machine can carry the record axis: take a Turing machine, a RAM, L, any deterministic machine, and any event it reaches, and the machine plus a latch on that event, charging one unit when the latch sets, is an honest extension of it ([`latch_core_honest`](coq/kernel/foundation/RecordAxisDiscrimination.v)). The record can't be read back off the shadow: every Thiele-complete machine hides its record and its ledger from its own window (`nc_hides_record`, `nc_hides_ledger`; for certified ones `complete_hides_record`, `complete_hides_ledger`). And a step that writes a permanent record merges two states when the yes-states are finitely many, and takes endlessly many states when they aren't (`permanent_flip_is_not_injective` on a finite machine, `nec_f_perm_flip_merges_yes_finite` when only the yes-states are finitely many), so an account that prices merges already prices the write on a finite machine (`a2_from_merging_price_and_permanence`). Proved. The shape of the axis is close to definitional: a record that never switches off and is driven by the computation moves as a latch on one event (`record_axis_is_latch_holds`), and that follows from those two conditions in a few lines. The pointer question asks which event gets latched; no theorem here selects one uniquely.
-
-The machine here is the small one, [minimal/EarnedCore.v](minimal/EarnedCore.v).
-It earns its commitments: on a run from a clean start, a commitment goes through only on a fact a passing check wrote, and every certification traces back to such a check.
-It runs any two-counter program, so by Minsky's theorem, with its inputs handed to it already packed, it computes whatever a Turing machine computes: Marvin Minsky, who co-founded the artificial-intelligence project at MIT, proved in 1961 that two counters are enough, and I cite his theorem without proving it again. And it meets the four clauses: it is certified Thiele-complete (`earned_core_thiele_complete`), so Thiele-complete too (`thiele_complete_neutral`).
-It is there so the argument has something you can run and try to break.
-It is a witness.
-It is not the subject.
-
-A computation gives you an answer.
-What did it establish on the way there?
-Which distinctions did it keep?
-What did it cost to establish them?
-I want those questions inside the mathematics, where somebody can take the argument apart and check it.
-
-Certification is the sharpest case I found, and the one I could pin down: a record that a claim was checked and closed is a distinction that stays, so it's paid for the same way as the 0.
-There is more here than one point, and I am not done looking.
-I pinned down the definitions, built a small machine that meets them, and proved what happens when you throw some of that information away.
-
-I call what remains a **shadow**.
-For the projections in the proofs, the blindness is real: different executions become indistinguishable, and no clever decoder can recover a distinction the observation has erased.
-Keep the full information in another encoding and you can recover it.
-That makes the question sharper: what should an account of computation keep?
-
-I think this reaches further than a useful accounting machine.
-I think there is something foundational here.
-That is my conviction, and the larger argument is still mine to earn.
-The proofs already give you something concrete to challenge: accounting laws, pricing results, structural separation, certificate checks, and a machine you can run.
-
-## Run it. Don't take my word.
-
-The arguments are in the book, each one written out so you can follow it on the page, and they are what carries the results.
-I don't trust my own eye to catch a gap in an argument I want to believe, so I also wrote the formal claims in Coq and built tests for the prose; that's a tool for catching my mistakes, not a reason to believe anything.
-You shouldn't trust me either.
-Run it.
-
-Coq 8.18+ and Python 3, clean checkout:
-
-```bash
-make verify        # about ten seconds
-make verify-research  # observation policies and the window theorem
-```
-
-No Coq where you are?
-Most review environments, laptops and LLM sandboxes alike have none, and the argument doesn't get to hide behind a toolchain.
-There is a tier for that: Python's standard library and nothing else.
-
-```bash
-python3 scripts/break_it.py    # tries to break every Part I result on every machine up to six states; each premise dropped must break it
-python3 scripts/count_universal_run.py    # counts U's host steps on a guest exactly, the four unary loops by their closed forms, the rest stepped
-python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against the cost floor; exits 0
-python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
-```
-
-The bead erasure quoted in the book's "Going faster gives off more heat" is a simulation of a model with the numbers of Bérut and colleagues (2012), not a measurement; `python3 scripts/bead_erasure_sim.py` reruns it (it needs numpy and takes a few minutes).
-
-The third command prints the assumption receipt: 6,634 theorems probed, zero *project-local* axiom findings.
-This is a report about the formal derivations, not a premise or a source of authority for the argument.
-Some theorems do use axioms from Coq's own standard library.
-5,814 of those theorems are closed under the global context outright; the remaining 820 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
-Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
-The receipt's counts are written by the receipt generator on Linux (`make assumption-receipt`, then `scripts/sync_assumption_receipt_readme.py`), never by hand.
-Validate the committed receipt quickly with `make assumption-receipt-check`.
-If nothing the proofs depend on has changed since the receipt was made, the check reuses its theorem and axiom results; once anything they depend on changes, it derives them again from the whole corpus.
-These commands check the companion implementation and its formal dependencies. The standalone argument is in the book.
-
-`make verify` first points your clone's git hooks at the repository's `.githooks/` folder, then compiles [minimal/MuCore.v](minimal/MuCore.v) from scratch: a minimal instance of the cost and projection arguments in one file, standard library only, nothing of mine to import.
-A machine state is the classical part you already know, memory and registers and a program counter, plus two fields this bare configuration omits: a cost ledger μ, and a bit that says *certified*.
-One law, the toll (A2 in the Coq files): any single step that flips that bit from false to true costs at least 1, charged in that same step, so a permitted step cannot bypass that charge. A separate soundness condition is needed to establish what a claim means.
-The file checks ten consequences of those definitions. `Print Assumptions` reports formal dependencies; it does not remove hypotheses inside a theorem or establish that the definitions describe a physical machine.
-
-It also checks [minimal/Napkin.v](minimal/Napkin.v), which spells out the short counting argument and its consequences.
-
-`make verify` checks those two files and then runs the measurement described further down.
-The Coq files named in the next three paragraphs are compiled by `make coq-gate`, and EarnedCore.v also compiles on its own with `coqc`.
-
-[minimal/EarnedCore.v](minimal/EarnedCore.v) is the smallest machine I could build that earns its commitments as well as pricing them.
-Two counters, a table of checked facts, and three priced instructions: CHECK, COMMIT and CERTIFY.
-A COMMIT goes through only on a fact in the table for that counter at its current version, and on a run from a clean start only a passing CHECK puts a fact there; CERTIFY goes through only after a COMMIT, and anything else traps.
-From a clean start, every certified run contains a passing CHECK, then a passing COMMIT of that same claim with the counter untouched in between, then CERTIFY (`earned_certification_provenance`).
-On a run from a clean start, a fact whose counter hasn't been written since its check names a true claim about that counter (`checker_soundness`), and every fact in the table was written by a passing CHECK of exactly that claim.
-From a clean start a certified run costs at least 3 (`certified_run_min_cost`), and 3 is reached.
-The showcase check can fail, and a run whose check fails is refused forever (`earned_run_check_can_fail`, `earned_run_refused_forever`).
-The counter instructions are a two-counter machine, so it runs any two-counter program, and [EarnedCoreLinks.v](coq/kernel/foundation/EarnedCoreLinks.v) proves its halting problem undecidable from the vendored two-counter result.
-`coqc minimal/EarnedCore.v` checks it with the standard library only, every theorem closed under the global context.
-
-[minimal/NeutralComplete.v](minimal/NeutralComplete.v) states what Thiele-complete means, over any base and any event, proves what every such machine has, that every universal base lifts to one by adding marks, and that certified Thiele-complete is exactly it plus certification.
-[minimal/ThieleComplete.v](minimal/ThieleComplete.v) states what certified Thiele-complete means and proves the small machine meets it, and so does the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, sorted lists included; every clock-style machine fails it.
-[minimal/ThieleCompleteWindow.v](minimal/ThieleCompleteWindow.v) proves that every certified Thiele-complete machine hides its record and its ledger from its own window.
-[minimal/UniversalThiele.v](minimal/UniversalThiele.v) builds a host that runs any small-machine program as a guest: from a loaded host, its mirror of the guest's flag always equals that flag (`record_agreement`, `hload_agrees`), and the mirror rises only in a guest step that passed CERTIFY, charged in that same step (`no_free_host_certification_step`).
-The universal machine U goes further: one fixed program, with no guest step built into anything, runs every program of the small machine from every clean start start(x, y) ([UniversalRun.v](coq/kernel/foundation/UniversalRun.v)).
-It halts exactly when its guest halts, with the guest's answer in its first two registers (`universal_halting`, `universal_output`).
-Its flag goes up at some step of its run if and only if the guest's goes up at some step of the guest's run, by its own check, its own commit and its own certificate (`universal_flag_iff`, `universal_earned`).
-Its ledger is the guest's, unit for unit, wherever the two line up (`universal_ledger_exact`).
-And the machine it runs on is certified Thiele-complete (`universal_thiele_complete`).
-
-The record doesn't have to be one bit.
-Over any order of places, the toll holds exactly when the floor does; under the toll a run costs at least the number of steps that move its record to a place that isn't at or below the one it was in, and a straight strip of n + 1 stages needs exactly n latches (`ax_floor_iff_a2`, `ax_cost_ge_exits`, `chain_bits_exact`, in the Ax*.v files of coq/kernel/foundation).
-When there are finitely many states, the record never moves down and the ordinary machine forgets nothing, every step the toll charges collapses two different states of one fibre (two states the ordinary machine sees as the same) into one, and under the halving price (one unit per halving of the number of distinct states) the instruction price bounds the weighted conditional entropy lost inside the fibres (`ax_fibre_collapse_exit`, `ax_priced_loss_bits`).
-The base doesn't have to be two counters: any machine with a universal base, plus the earned layer over a claim language with an exact equality test and a checker proved to mean what it says, and a table with room for one fact, is certified Thiele-complete as long as some claim comes out true at one start and false at another, and the same holds in seven models of computation through the vendored library (`lift_thiele_complete`, `lift_num_models_agree`, Lift*.v); one counter is too few (`lift_oc_halts_bound`).
-Certified Thiele-complete machines compose side by side and one after another, and the failures are proved too (`cmpz_prod_tc`, `cmpz_seq_tc`, `cmpz_shared_not_earned`, Cz*.v).
-A small structured language compiles, through proved stages, all the way to a guest of U_P, a second fixed program (3735 instructions for a host with one paid move) that runs every computably presented Thiele machine, keeping the guest's ledger to within a surcharge of at most two units when the guest's reading starts at no (exactly three when it starts at yes), and, for a program whose procedures call only procedures defined before them, at every stage the compiled program halts with y exactly when the source program computes y (`cmp_final`, CmpFinal.v). The compiler and the machines are extracted to OCaml; a Python machine written by hand is checked step by step against the Coq definitions, and the extracted code is checked against that Python machine ([ocaml/](ocaml/), [thiele_small/](thiele_small/)).
-On the two-counter machine itself, Rice's theorem (the logician Henry Rice proved it in his 1951 doctoral thesis and published it in 1953: no program decides a property of what programs do, unless the property holds of every program or of none) holds on every set of inputs, Kleene's recursion theorem (stated and proved by the logician Stephen Kleene in 1938) holds with inputs written as powers of two, and with plain inputs Kleene's is false: some computable map F has no program e that is equivalent to F(e) (`tc_rice`, `tc_kleene`, `tc2_plain_recursion_false`).
-
-Then `make verify` runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the quantitative floor with none of my code anywhere near it.
-The examples compare finite-map image sizes and query costs under explicit models; they do not measure physical erasure or derive a cost law from Landauer.
-Binary search rides it at 100% efficiency, linear scan pays fifty times over for the same answer, and nothing that always gets the right answer beats it.
-The number comes out identical whoever runs it.
-That's the point of handing you a thing that runs: you can run it yourself, and then you don't have to take my word for it.
-
-The [Formal Spine](#formal-spine) table maps every load-bearing claim to its file.
-
-The ordinary Python test gate also runs `scripts/comment_hygiene.py`.
-It checks maintained project-owned comments across source, workflow, and documentation files for unfinished or historical review markers.
-Generated and vendored surfaces are governed by their own generators and are not treated as maintained source.
-
-## The argument, formally
-
-1. **A local law constrains admissible executions.**
-   The flip from uncertified to certified has to happen at some step, and wherever it happens, that step pays.
-   For any `CertificationSystem`, A2 requires positive instruction cost on a false-to-true transition of its designated predicate.
-   `universal_nfi_any_substrate` proves the corresponding trace-level floor.
-   The state space and predicate are abstract; the small machine's certified flag is one instance (`earned_core_floor`).
-2. **Pricing adequacy can be characterized.**
-   A2 sets a floor.
-   It doesn't set a price list.
-   `CommitmentPredicateAdequacy.v` proves which local charged-event predicates cover certification flips.
-   Requiring both the floor and no overcharge *relative to flip count* characterizes exact unit event pricing, for a price that can depend on where the step starts; with a price per move name, as in the model's definition, no system whose flag ever rises meets both.
-   For a finite family of unit event floors, the least joint charge is one whenever any event fires.
-   Several events can share that unit; independent coordinates alone do not force additive charges.
-   This does not derive the choice of event from A2.
-3. **Selected projections lose relevant distinctions.**
-   Two runs can look identical through a window and still need different answers.
-   The window theorems exhibit equal observations with different ledgers and certification values.
-   No decoder of those observations can recover the differing property on every state.
-   The general condition is exact: the query must be constant on each observation class (`decoding_requires_fiber_constancy`).
-   Given a representative of every class, that condition also constructs a decoder (`selected_representatives_give_decoder`).
-   It applies to arbitrary queries, including ones unrelated to certification.
-4. **A machine can earn what it certifies.**
-   A2 prices the flip. It doesn't check what was certified.
-   The small machine does: there CERTIFY needs a COMMIT, and on a run from a clean start a COMMIT needs a fact a passing CHECK wrote.
-   Payment and semantic truth are still separate claims, and each has its own theorem.
-
-## Observation, enforcement, and representation
-
-Enforcing a law, storing it, and seeing it are three different things.
-A machine can enforce a rule in every step and still show you a window that hides the evidence.
-Going the other way, having a ledger field doesn't prove every step keeps it right.
-So every comparison here names the steps allowed, the window, and what you're trusting the implementation to do.
-
-Even a reset can keep information around in a bigger state.
-Record the previous state in a history list and each fixed-instruction step becomes injective (`retained_history_step_injective`).
-That isn't a way out of what keeping takes: the history list takes a fresh state at every step, and on finite memory it runs out.
-So a program counter collapsing to one place doesn't prove anything was globally erased, and it doesn't give a physical heat floor.
-
-Ordinary encodings can hold the full state, and a particular machine can enforce an invariant just by which transitions it allows.
-Turing equivalence is about what can be computed.
-It doesn't hand you this accounting discipline, and it doesn't forbid it either.
-When this README says a ledgerless shadow, it means the specified window or fragment with those distinctions left out.
-
-The small machine's counter moves cost nothing, alongside the paid events (they still dissipate when a device runs them; the ledger counts the rise of a kept reading, not happening).
-So it doesn't prove that every observable change costs a unit.
-Its ledger starts where the run starts and adds up exactly one unit for each CHECK, COMMIT and CERTIFY.
-
-## The Core Proof
-
-Start from the empty state of [minimal/MuCore.v](minimal/MuCore.v) and run one instruction.
-One run stores and leaves the bit alone; the other certifies.
-
-The classical part, memory, registers and the program counter, is identical after both.
-The receipt is not: one is certified with μ = 1, the other is not, with μ = 0 (`receipt_separation`).
-So no function of the classical part can recover μ for all states (`no_mu_oracle`), or the certified bit (`no_cert_oracle`).
-The proof instantiates the would-be function at the two witness states.
-Since their classical parts are equal, it would have to return two different answers on the same input, and no function does that.
-
-`Print Assumptions no_mu_oracle` reports:
-
-```text
-Closed under the global context
-```
-
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 6,634 addressable theorems probed across 397 files and no user/project-local axiom findings in the committed assumption scan.
-
-## Beyond the minimal witness
-
-The minimal witness demonstrates a collision under a projection.
-The abstract accounting theorem ranges over arbitrary state and instruction types, and pricing adequacy classifies local rules relative to the designated event.
-The broader development also studies the record axis over any base, permanence and its price on finite machines, observer knowledge, quantum certificate algebra, and models of real systems.
-
-These results are reasons to keep studying the framework.
-They don't make its modeling choices for it.
-The Python examples check finite combinatorial and algorithmic cases.
-The CHSH soundness bridge adds more algebra.
-Put together, they aren't an independent derivation of A2 from physics.
-
-The pointer-observable models ask why some commitment events get recorded by other parties.
-The models and their counterexamples are part of the research argument.
-Consensus, exact observation, and a common coordinator-free update rule do not force permanence: two observers can agree while both track a bit that toggles (`toggle_game_refutes_strong_pointer_necessity`).
-Adding durable views recovers permanence (`durable_consensus_implies_permanence`), but then persistence is an explicit premise.
-Certification is one worked example.
-No necessity theorem selects it.
-
-## Formal Spine
-
-These are the load-bearing formal claims.
-The fourth column is the artifact that refutes the row, each one constructible in Coq or Python, no philosophy required.
-
-| Claim | Meaning | Main proof files | Refute it |
-|---|---|---|---|
-| Minimal core | The core accounting claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. No project-local axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s`; Coq accepts it where `no_mu_oracle` proves none exists. |
-| Earned commitments | In the small machine, every certified run from a clean start passed a CHECK, then a COMMIT of the same claim with its counter untouched in between, then CERTIFY; it costs at least 3, and 3 is reached. | [minimal/EarnedCore.v](minimal/EarnedCore.v), [EarnedCoreLinks.v](coq/kernel/foundation/EarnedCoreLinks.v) | A clean-start trace that ends certified without a passing CHECK of the committed claim before its COMMIT; `earned_certification_provenance` falls. |
-| Thiele-complete | The four clauses, with nothing about what the record is about: a universal base whose moves can't touch the record, with a record that stays up; loaded starts with the record down; computing moves cost nothing and every other move exactly one, added to the ledger; and some run whose record ends up from one start and down from another. Every clock and every machine whose record never rises fail it; each clause is needed; every universal base becomes one by adding marks; certified Thiele-complete is exactly it plus certification. | [minimal/NeutralComplete.v](minimal/NeutralComplete.v), [minimal/NeutralMore.v](minimal/NeutralMore.v) | A machine meeting the four clauses whose every move costs 1; `clock_not_nc` falls. |
-| Certified Thiele-complete | The four clauses: universal base that costs nothing with a record that stays up, earned record, exact prices, a claim that certifies on some starts and not others. The small machine, the generic machine (over any property language with an exact equality test, a proved checker and a property true of one number and false of another) and the sorted machine meet them; every clock machine fails them. | [minimal/ThieleComplete.v](minimal/ThieleComplete.v), [EarnedGenericLinks.v](coq/kernel/foundation/EarnedGenericLinks.v) | An interface for a clock machine meeting the four clauses (`clock_not_thiele_complete` falls), or a clean-start run of the small machine that certifies without its chain (`earned_core_thiele_complete` falls). |
-| The window | Every Thiele-complete machine hides its record and its ledger from its own window, with a gap of one (`nc_hides_record`, `nc_hides_ledger`), and every certified one with a gap of three: two runs agree on the window and differ on the record and the ledger. | [minimal/NeutralComplete.v](minimal/NeutralComplete.v), [minimal/ThieleCompleteWindow.v](minimal/ThieleCompleteWindow.v) | A function of the window that returns the record on every state of a certified Thiele-complete machine; `complete_no_record_oracle` falls. |
-| Universal Thiele machine | One fixed program U of 3728 instructions runs every small-machine program from every clean start start(x, y): it halts exactly when the guest halts, with the same answer, the flag raised by its own earned chain, the guest's ledger unit for unit at matching points; its host is certified Thiele-complete and its halting problem is undecidable. | [UniversalRun.v](coq/kernel/foundation/UniversalRun.v), [UniversalInterpreterLinks.v](coq/kernel/foundation/UniversalInterpreterLinks.v) | A small-machine program and start where the guest halts and U doesn't, or the reverse; `universal_halting` falls. |
-| Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same universal floor. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) | A `CertificationSystem` trace from uncertified to certified with `cs_total_cost = 0`; `universal_nfi_any_substrate` falls. |
-| Honest cost tracking | A2 is a strict well-formedness condition: some system without it certifies at zero cost, and no system with it does. | [HonestCostTracking.v](coq/kernel/nfi/HonestCostTracking.v) | A `CertificationSystem` (A2 in scope) with a non-empty cert-flip trace at total cost 0, or a proof that every `CostBearingSystem` satisfies A2; `honest_cost_tracking_strict_restriction` falls either way. |
-| The toll from permanence | On a finite machine, a permanent certificate is switched on only by a merge, so merge pricing yields A2. | [PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v), [PermanentRecordPricing.v](coq/kernel/nfi/PermanentRecordPricing.v) | A finite machine with a permanent reading switched on by an injective step; `permanent_flip_is_not_injective` falls. |
-| Merge, or a fresh state every step | On any state space a run that raises a permanent reading either merges two of its states or visits a fresh state every time; a finite memory keeps the history of a reset through at most (M−1)/(N−1) repetitions, and that bound is attained. | [HeatOrRoom.v](minimal/HeatOrRoom.v) | An injective move raising a permanent reading whose iterates repeat; `permanent_flip_iterates_distinct` falls. A retaining implementation with fewer than 1 + (T+1)(N−1) states; `retention_bound` falls. |
-| The step law | Any step on any state set, no reading and no finiteness: every step is fresh until the first return, which lands on the start or is a merge, and every later step repeats one already taken, so a run merges at most once; a merge is two distinct states with one image. | [StepLaw.v](minimal/StepLaw.v) | A step that is none of the three; `step_law` falls. |
-| The write is a merge | Writing a 0 on a blank cell merges blank with zero; a finite remembering state still merges; the endless tape and the bilateral shift avoid the merge only by paying a fresh state every step, which is the fresh-state column; no state space codes all its own readings. | [KeptDistinction.v](minimal/KeptDistinction.v) | A finite extension of the cell on which the write is one-to-one and the reading stays; `four_state_escape_fails` is the smallest case and the permanent-flip theorem the general one. |
-| Reversible keeps nothing | An injective step on finitely many states returns every run to its start, so a reading that is false at the start and never comes down stays false. | [Recurrence.v](minimal/Recurrence.v) | A one-to-one step on a finite set whose run never returns; `returns_to_start` falls. |
-| Noisy steps | A kernel preserving the uniform spread cannot enter a closed set from outside; one that can strictly concentrates the uniform spread (collision weight up, Shannon entropy down); one that preserves it never concentrates any spread. | [NoisyChairs.v](minimal/NoisyChairs.v), [GibbsGap.v](minimal/GibbsGap.v) | A doubly stochastic kernel with a positive entry into a closed set; `noisy_chairs` falls. |
-| Unitary steps | A finite-dimensional unitary that keeps a projector's range inside itself keeps the complement inside itself: a no-state never reads yes. | [QuantumChairs.v](minimal/QuantumChairs.v) | A unitary and a projector with (1−P)UP = 0 and PU(1−P) ≠ 0 in finite dimension; `quantum_chairs` falls. |
-| Heat against time | A biased walk produces strictly positive entropy per tick at any nonzero speed, and heat times time is at least the distance squared. | [BrownianComputer.v](minimal/BrownianComputer.v) | A speed off zero with zero entropy production, or heat times time under the distance squared; `heat_at_any_speed` or `heat_time_floor` falls. |
-| Threshold floor | Certifying from zero evidence, with a threshold of evidence K, costs at least K when each step's cost bounds the evidence it adds. | [QuantitativeNoFI.v](coq/kernel/nfi/QuantitativeNoFI.v) | A `QuantitativeCertificationSystem` run from zero evidence to certified with total cost below the threshold; `universal_nfi_quantitative` falls. |
-| The record axis | A record driven by the computation that never switches off is a latch on one event, over any base; every base carries one. | [StructuralRecordAxis.v](coq/kernel/foundation/StructuralRecordAxis.v), [RecordAxisDiscrimination.v](coq/kernel/foundation/RecordAxisDiscrimination.v) | An honest extension whose record is not a latch on any event; `record_axis_is_latch_holds` falls. |
-| Shadow pricing | No account that prices from a window with a collision prices certification exactly; a window that shows the reading can. | [ShadowPricing.v](coq/kernel/nfi/ShadowPricing.v) | A shadow price meeting the floor and never overcharging on a window with a collision; `shadow_cannot_price_exactly` falls. |
-| Which narrowing is priced | The machine's own spread can't shrink without being charged; an observer's knowledge can shrink at zero cost, by borrowing a blank page (fresh states) that is paid for when it is wiped. | [KnowledgeNarrowing.v](coq/kernel/nfi/KnowledgeNarrowing.v) | A run, priced one unit per halving of the number of distinct states, whose image shrinks by more than its cost allows; `run_narrowing_priced_log` falls. |
-| Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [TsirelsonGeneral.v](coq/kernel/quantum/TsirelsonGeneral.v) | An `algebraically_coherent` correlator with `S² > 8`; `algebraically_coherent_tsirelson_general` falls. |
-| CHSH integer check | An integer check on the eight trial counts entails that the counts' zero-marginal NPA moment matrix is PSD, and with it the Tsirelson bound. | [CHSHColumnCheck.v](coq/kernel/quantum/CHSHColumnCheck.v) | Counts on which `column_contractive_check_witness` returns true while the moment matrix is not PSD; `column_contractive_check_witness_npa_psd` falls. |
-| Elliptope completion | The completion-based PSD correlator model (physical quantum identification uses external mathematics): every LHV correlator inside (deterministic + n-ary mixtures), Tsirelson `S² ≤ 8` for the whole set, PR box excluded, classical ⊂ elliptope strict. | [ElliptopeCompletion.v](coq/kernel/quantum/ElliptopeCompletion.v) | An elliptope-realizable tuple with `S² > 8` (`elliptope_tsirelson` falls), a sign pattern whose completed Gram form goes negative (`deterministic_strategy_elliptope` falls), or a PSD completion of the PR box (`pr_box_not_elliptope` falls). |
-| Elliptope gate | Decidable Z-arithmetic membership check, two branches (fraction-free Sylvester for strict interior, rational LDL^T certificate reaching singular and boundary completions); passing provably entails elliptope membership; the Pythagorean point (3/5,4/5,4/5,−3/5) on the Tsirelson curve accepted by computation; the PR box never accepted. | [ElliptopeGate.v](coq/kernel/quantum/ElliptopeGate.v) | Inputs making `elliptope_check_full` return true with correlators outside the set; `elliptope_check_full_sound` falls. |
-| The whole direction | Over any preorder of record values the floor is equivalent to the toll; under the toll, cost is at least the number of exits; a chain of n + 1 stages needs exactly n latches; and on a finite machine whose record never moves down, every step the toll charges collapses two states of one fibre when the classical step forgets nothing. | [AxCore.v](coq/kernel/foundation/AxCore.v), [AxMerge.v](coq/kernel/foundation/AxMerge.v), [AxShadow.v](coq/kernel/foundation/AxShadow.v), [AxLatch2.v](coq/kernel/foundation/AxLatch2.v) | A run that leaves the down-set and costs nothing under the toll; `ax_floor_iff_a2` falls. |
-| Every model | Any universal base plus the earned layer, over a claim language with an exact equality test and a proved checker, a table with room for one fact and some claim true at one loaded start and false at another, is certified Thiele-complete, and any universal base plus marks on an event that separates two starts is Thiele-complete (`every_base_lifts_neutrally`); the base moves of any certified Thiele-complete machine form a universal base; bases with only finitely many possible next states at each state, and bases whose moves ignore their state, fail the direct one-move universal-base requirement (a macro interface can group several base steps); one counter is decidable. | [LiftCore.v](minimal/LiftCore.v), [LiftConverse.v](minimal/LiftConverse.v), [LiftModelsAll.v](coq/kernel/foundation/LiftModelsAll.v), [LiftOneCounter.v](minimal/LiftOneCounter.v) | A universal base whose lift fails a clause; `lift_thiele_complete` falls. |
-| Built from parts | Products and sequential hand-offs of certified Thiele-complete machines are certified Thiele-complete; tolls add; a shared value written without raising its version breaks the earned clause; nesting by simulation costs at least the guest's exits. | [CzProdTC.v](coq/kernel/foundation/CzProdTC.v), [CzSeq.v](coq/kernel/foundation/CzSeq.v), [CzShared.v](minimal/CzShared.v), [CzLink.v](minimal/CzLink.v), [CzProd.v](coq/kernel/foundation/CzProd.v), [CzCat.v](coq/kernel/foundation/CzCat.v) | Two certified Thiele-complete machines whose product fails a clause; `cmpz_prod_tc` falls. |
-| Verified compiler | A non-recursive structured program computes y exactly when the extracted runner, the host program, the two-counter guest and U_P running it all halt with y. | [CmpFinal.v](coq/kernel/foundation/CmpFinal.v), [CmpRun.v](coq/kernel/foundation/CmpRun.v) | A program and input where the runner's answer differs from the source's; `cmp_final` falls. |
-| Two-counter recursion | Rice on every set of inputs; Kleene with inputs written as powers of two; no plain-input recursion theorem, because no program multiplies every input by a number fixed by its own length (`tc2_c` of that length, the factorial of a bound on its control size, plus 1). | [TcRice.v](coq/kernel/foundation/TcRice.v), [TcPacked.v](coq/kernel/foundation/TcPacked.v), [Tc2Plain.v](coq/kernel/foundation/Tc2Plain.v), [Tc2Mult.v](minimal/Tc2Mult.v) | A two-counter program P that multiplies every plain input by `tc2_c` of the length of P; `tc2_no_mult` falls. |
-| Pointer-observable criterion | Observer ecosystems, redundant records, and uniqueness relative to rivals, with five minimal model instances. A two-observer ecosystem proves that consensus, exact observation, and coordinator-free updates do not force the recorded event to be permanent. Event and observer choices are modeling inputs. | [PointerObservable.v](coq/kernel/frontier/PointerObservable.v), [EcosystemGame.v](coq/kernel/frontier/EcosystemGame.v) | Any necessity claim without a durability premise is refuted by `toggle_game_refutes_strong_pointer_necessity`; with durability added, persistence is built into the premise. |
-| Counterexamples to stronger criteria | The adversarial search refutes implications from forgery resistance to metering or to record proliferation. The refutations rest on prose arguments about the real designs; the Coq models fix only the observer maps behind them. The public-record criterion is a proposal: public verifiability alone does not imply actual storage. | [PointerObservableCounterexamples.v](coq/kernel/frontier/PointerObservableCounterexamples.v) | Show a candidate's observer map is unfaithful to the real design in a way that changes its verdict; that candidate's refutation falls. |
-| PoS finality reduction | Finalizing with nothing at stake is forging with nothing at stake: a zero-stake-at-finalize gadget admits no A2 field, and any slashing gadget (finalize risks ≥ 1) pays the finality floor: `universal_nfi_any_substrate` instantiated. The gadget is a synthetic Boolean model. It does not model Casper's accountable safety. | [PoSFinality.v](coq/kernel/reductions/PoSFinality.v) | A zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a finalizing trace of total stake-at-risk 0; `nothing_at_stake_is_free_forgery` or `slashing_finality_floor` falls. |
-| Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; a concrete schedule inhabits the class. The schedule is an abstract local charging law; no EVM opcode table is modeled. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
-| TPM quote | A function of the two-field modeled quote cannot decide a runtime label that was never measured into the PCRs; it decides any claim about the retained digest. A scoped abstraction of TPM quote fields. It models no TPM security property. | [TPMQuoteGap.v](coq/kernel/reductions/TPMQuoteGap.v) | A decider on the modeled quote that returns the runtime label for every platform; `quote_cannot_attest_unmeasured_state` falls. |
-
-## Scope
-
-| Result | Scope |
-|---|---|
-| Universal certification floor | Every system satisfying the specified A2 premise. |
-| Exact event pricing | Relative to certification-flip count and the stated local-pricing interface. |
-| Certified Thiele-completeness | The four clauses of `thiele_complete`, for the machines named in [ThieleComplete.v](minimal/ThieleComplete.v). The definition does not ask the checker to be computable. |
-| The universal machine | Guests are small-machine programs started clean from `start x y`; the whole-run theorems are about loaded hosts. A guest with a different property language needs a different host property. |
-| Irrecoverability | For projections and windows that identify witnesses disagreeing on the queried property. |
-| Quantum certificate soundness | Specified slice or completion PSD conditions. Physical entanglement generation is outside it. |
-| Which narrowing is priced | On a finite machine priced one unit per halving of the number of distinct states, the machine's own spread of possible states can't shrink without being charged (`run_narrowing_priced_log`). Observer knowledge need not be charged anything: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, which merges nothing and borrows a blank display (fresh states), while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is a distinction made to stay; certification is the sharpest case. What an observer learns by watching the run, from the first look to the end, can also cost nothing (`demon_refutes_incremental`); the smallest machine that teaches with no merge has three states (`free_incremental_narrowing_with_three`, `no_free_incremental_narrowing_below_three`). Under entropy pricing, whatever the end state can't tell an observer about what the window showed was paid for in units (the certainty bound, proved in the book). |
-| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). The small machine's halting problem is undecidable (`earned_core_halting_undecidable`), and so is U's (`interp_halting_undecidable`). On the two-counter machine: Rice on every set of inputs (`tc_rice`), Kleene with inputs written as powers of two (`tc_kleene`), and Kleene refuted for plain inputs: some computable map F has no program e equivalent to F(e), that is, computing the same plain function (`tc2_plain_recursion_false`). |
-| Every model | Lifting needs a universal base in the sense of `thiele_complete` clause (a); the seven models enter through what their step relations compute. The lift keeps one version number for the whole machine. |
-| Composition | Products and hand-offs under the product interface; nesting deeper than two levels is stated under the premise that each level's host run is presented (`cmpz_tower_presented_exact`). |
-| Running it | Extraction to OCaml with nat as unbounded integers; the hand-written mapping lines and the two drivers are trusted without proof. U on a guest that certifies is proved and not run (that guest's code is near 2^100). No chip was built for the small machine and no board was run. |
-| Structural core | Over any base, a record driven by the computation that never switches off is a latch on one event (`record_axis_is_latch_holds`); a revocable record is not (`toggle_not_latch`). |
-| Physical interpretation | A closed two-state discrete master-equation protocol computes bath heat as `Delta / 2`. Choosing `Delta = 2 k_B T ln 2` gives the Landauer value, but changing only the gap changes the heat with identical population dynamics (`master_equation_does_not_fix_heat_scale`). The protocol is an exact calorimeter blueprint. Calibration of one μ to joules requires thermal-admissibility and device-correspondence premises. |
-
-The classical embedding results describe the formal fragments and simulation contracts in their cited files.
-Multiple preimages rule out recovering the original full state from the projection.
-They do not rule out a section that chooses default metadata, or a different encoding that preserves the metadata.
-
-## Exact scope
-
-The book's point is that nothing becomes something for free: anything kept is
-paid in a merge or in fresh states, on top of the dissipation of its happening. The central
-structural result is the record axis. A permanent record driven by a base
-computation is a latch on an event; on a finite machine, writing it merges
-states; and a Thiele-complete machine's own window does not recover it.
-Certification is one instance of the event. No theorem selects it uniquely.
-
-A monotone record driven by the base computation decomposes into threshold
-latches, over any partial order of values. It does not in general decompose
-into one latch. Revocable and probabilistic records do not inherit the same
-uniqueness theorem. The two-state calorimeter protocol fixes distributions, a
-Hamiltonian, a discrete master equation, and exact bath heat, but also proves
-that those dynamics do not determine the energy gap. So the ledger has
-no intrinsic joule value without thermal and device premises
-(`mu_has_no_intrinsic_joule_value`).
-
-The RFC 9162 verifier covers the iterative inclusion and consistency control
-flow and executable examples. Collision resistance and signed-tree-head
-authenticity are outside it. The PCC checker is a small memory-bounds model,
-the RAM result covers addressed list memory, the reversible-machine result
-covers arithmetic update cores, and the TPM theorem is a countermodel to
-authenticity from an unconstrained signature interface. None is presented as a
-complete deployed security system. The graded, writer, potential, and linear-
-resource results are comparisons. None is a full cost-framework embedding.
-
-The twelve-event observer-map survey proves its formal classifications and the
-expected behavior under an event swap. Its MAC-labelled counterexample is a
-fact about the chosen observer map; its real-system interpretation depends on
-that modeling choice. More generally, a closed two-observer toggle game
-refutes the claim that consensus, exact observation, and coordinator-free
-evolution force permanent commits. Adding durable observation makes permanence
-immediate, so it does not select certification independently. Five narrow
-real-system consequences reduce to known local indistinguishability or
-durability arguments, while five stronger candidates lack the required
-protocol or hardware semantics. None supplies a novel result that both needs
-the record axis and is ready for external use. The pointer criterion is a
-thesis, in the Church-Turing sense: two of its terms tie it to the world and
-cannot be defined. Its proposed strong necessity theorem is refuted.
-
-## Repository Layout
-
-```text
-minimal/                 the small machine and its standalone Coq files (MuCore, Napkin,
-                         EarnedCore, EarnedGeneric, EarnedMulti, EarnedPriced,
-                         EarnedMultiPriced, PricedComplete, Presented, ThieleComplete,
-                         ThieleCompleteWindow, UniversalThiele, UniversalCodes,
-                         UniversalNoCopy, VerifierSmall, the Sm files, the BitSearch files and the
-                         other small-machine examples, AxDgBlock, TimeTax2, and the Lift,
-                         Cz, Tc, Tc2 and Nec files that need nothing beyond them)
-                         + the clean-room demo
-coq/kernel/foundation/   record-carrying machines, the record axis (Ax*), the Turing kernel,
-                         L's recursion theorem, the universal machines U and U_P, lifting
-                         (Lift*), composition (Cz*), the compiler (Cmp*), the two-counter
-                         theorems (Tc*), the necessity checks (Nec*), extraction support
-                         (Realize*), and the Links files
-ocaml/                   extraction roots and drivers for the small machine, U, U_P and the compiler
-thiele_small/            the hand-written Python machine the extracted code is checked against
-coq/kernel/nfi/          Thiele machines (`CertificationSystem`), the universal floor, permanence and its
-                         price, shadow pricing, narrowing, the threshold floor
-coq/kernel/category/     the algebraic Tsirelson bound (AlgebraicCoherence)
-coq/kernel/quantum/      CHSH algebra, the integer check, NPA, the elliptope
-coq/kernel/frontier/     pointer observables, observation policy, the ecosystem game
-coq/kernel/reductions/   models of real systems (Casper, RFC 9162, PCC, TPM, gas, RAM)
-coq/kernel/thermodynamic/ the two-state calorimeter protocol
-vendor/coq-undecidability/ the pinned undecidability library (Minsky machines, L)
-scripts/                 build, audit, assumption-receipt and hygiene scripts
-tests/                   proof-scope, citation, receipt, hook and model tests
-artifacts/               committed receipts and generated audit outputs
-monograph/               narrative monograph and mathematical specification
-```
-
-## Quick Start
-
-Clone the repository.
-
-```bash
-git clone https://github.com/sethirus/The-Thiele-Machine.git
-```
-
-Verify the core claim first (Coq 8.18+ and Python 3 only):
-
-```bash
-make verify
-```
-
-Then the full development environment:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pip install -e . --no-deps
-pytest -q
-```
-
-The full proof build needs Coq 8.18 with CSDP, and MetaCoq for the vendored L modules the build compiles.
-The exact versions are the ones CI earns its badges with: plain apt on `ubuntu-latest`, Ubuntu 24.04, which ships Coq 8.18.0.
-
-```bash
-sudo apt-get install -y coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
-sudo apt-get install -y libcoq-core-ocaml-dev libcoq-equations libstdlib-shims-ocaml-dev
-bash scripts/install_metacoq.sh                                # MetaCoq 1.2.1 for the vendored L modules
-```
-
-`coinor-csdp` is not garnish: the algebraic Tsirelson theorem closes its sum-of-squares certificate through `psatz`, and `psatz` asks CSDP for the certificate.
-
-`libcoq-mathcomp-field` is there for one file: the unitary-steps theorem in `minimal/QuantumChairs.v` is stated on matrices over the algebraic numbers with complex conjugation, and that algebra comes from the Mathematical Components library.
-
-### Full proof build (the `coq-gate`)
-
-The project uses native tools and repository sources.
-Docker, container images, and a container daemon are not part of the build or review workflow.
-
-For a complete source-only rebuild with dependency checking:
-
-```bash
-python3 scripts/reproduce_coq.py --jobs 1
-```
-
-This copies only source/configuration into a fresh directory under `artifacts/reproduction/`.
-It builds the project, including the pinned undecidability modules it imports, and checks every compiled module with `coqchk`.
-It records input hashes, native tool versions, commands, individual exit codes, and raw logs.
-It does not install libraries globally or download anything.
-The native prerequisites above must already be available.
-The project ships its own sources only; it bundles no operating system or compiler.
-See [native reproduction](docs/REPRODUCTION.md).
-
-For incremental development in the checkout:
-
-```bash
-make coq-gate
-```
-
-`make verify` and `pytest` alone do not compile the full Coq corpus.
-
-## Useful Make Targets
-
-| Target | Purpose |
-|---|---|
-| `make verify` | One-command verification of the core claim (minimal Coq core + clean-room measurement). |
-| `make test` | Run the pytest suite. |
-| `make coq-gate` | Build every proof and fail on any `Admitted`. |
-| `make proof-gate-repro` | Clean rebuild, zero-`Admitted` gate, and `coqchk` of every module. |
-| `make proof-undeniable` | Run the stronger proof hygiene gate with the Inquisitor and `coqchk`. |
-| `make assumption-receipt-check` | Validate the committed assumption receipt. |
-| `make vacuity-audit` | Kernel-conversion vacuity gate over `scripts/vacuity_targets.json`. |
-
-Use `make help` for the complete target list.
-
-## Proof Hygiene
-
-Two independent receipts track proof assumptions.
-
-- [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues such as admitted proofs, undeclared axioms, vacuous theorem shapes, phantom imports, and circular claim patterns, and checks that every proof file connects to the foundation chain (the Thiele machine, the record-carrying machine, the substrate, the Turing kernel, and the small machine) or says why it stands alone.
-- [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
-
-The vacuity gate probes the compiled theorem types, preserving their section binders and module scope. An unresolved theorem, failed import, or timeout is an audit error, not a passing result. Version-two receipts replace older receipts that did not distinguish these failures. Definitional transport helpers are labeled `Definition`; they are not counted as new theorems.
-
-The generated assumption receipt reports 6,634 addressable theorems probed across 397 files and no user/project-local axiom findings.
-The split: 5,814 close under the global context outright, and the remaining 820 lean only on Coq-stdlib axiom families.
-Those families are `functional_extensionality_dep` (784), the classical-reals pair `sig_forall_dec` (806) and `sig_not_dec` (285), and `classic` (187). No theorem uses `eq_rect_eq` (0).
-Those families enter through the real-number layers; the minimal core uses none of them.
-These counts are written by the receipt generator on Linux, never by hand.
-"Zero axioms" here means zero project-local axioms, the convention the companion release record uses.
-The receipt is what enforces that count.
-A test ([tests/test_proof_hygiene_numbers.py](tests/test_proof_hygiene_numbers.py)) holds this paragraph to the committed artifact, number by number.
-
-Run the hygiene pass directly:
-
-```bash
-python scripts/inquisitor.py
-```
-
-Run the stronger formal gate:
-
-```bash
-make proof-undeniable
-```
-
-## Reading Path
-
-| Document | Role |
-|---|---|
-| [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph (716 pages), in the order of its point: the opening (a blank cell becoming a 0, why that is always paid for, why no standard cost model counts it, what I found, what I assumed and what I chose, what structure is made of, and established as the sharpest case); Part I, what keeping costs (a distinction that stays, the toll, why it isn't arbitrary, learning borrows and committing pays); Part II, what structure is made of (structure, the counter, windows, entitlement, insight, the latch, the whole direction, the shadow, the diagonal); Part III, established (what established means, the smallest honest machine, how far it reaches, five small models, the pointer thesis, the counter against physics); Part IV, checking it (how to break it, the claim ledger, scope, conclusion) and an afterword, how I got here. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the universal machines, every model, building from parts, running it, the CHSH check and its derivation, the construction of the quoting operation, computing with counters, the universal program in blocks, a methodology note, and the sources. |
-| [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
-| [docs/THEOREM_MEANINGS.md](docs/THEOREM_MEANINGS.md) | What each theorem the README, the specification, the disclosure and `THIELE_MACHINE.txt` cite says, in plain words. |
-| [docs/RESULTS.md](docs/RESULTS.md) | The settled questions and their exact statements. |
-| [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
-| [TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) | Prior-art disclosure for the public technical concepts. |
-| [PATENT_PLEDGE.md](PATENT_PLEDGE.md) | Non-assertion pledge for repository concepts. |
-
-## IP And Prior Art
-
-The software in this repository is Apache 2.0 licensed, including the license's patent grant for contributor-owned claims. [PATENT_PLEDGE.md](PATENT_PLEDGE.md) adds an explicit non-assertion commitment for the concepts in this repository.
-
-[TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) records the public prior-art surface for the core concepts: the `mu` ledger (Concept 1, as the virtual machine of release v3.3.0 carried it), the universal floor for the abstract model (Concept 2), earned certification (Concept 16), Thiele-completeness and the universal machine U (Concept 17), the record axis (Concept 18), and the other results added in this version (Concepts 19 to 24).
-It also keeps the disclosure of the hardware embodiment (certification opcodes, partition state, witness counters and the proof-to-RTL pipeline), which is published at release v3.3.0 and its Zenodo version; that build is not in this tree.
-
-## Citation
-
-```bibtex
-@misc{thielemachine2026,
-  title        = {The Thiele Machine: No Free Insight},
-  author       = {Thiele, Devon},
-  year         = {2026},
-  version      = {4.1.0},
-  note         = {Version 4.1.0 is the current tree; the latest version deposited at this DOI is the tagged release v3.3.0},
-  doi          = {10.5281/zenodo.17316437},
-  publisher    = {Zenodo},
-  howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}
-}
-```
-
-## Contact
-
-To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com, or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
-A submission that names a theorem gets, within 14 days, one of exactly two replies: "correct, fixing it," or the line where the construction fails.
-
-The abstract model's definitions and the small machine's semantics define what is studied here.
-The elliptope gate, pointer-observable definitions, and selected model instances are characterization tiers over that model; they do not alter it. The general pointer criterion is a thesis.
-Different machine semantics belong in separate repositories citing this one.
-
-## License
-
-The software is licensed Apache-2.0; see [LICENSE](LICENSE).
-The monograph and THIELE_MACHINE.txt are licensed CC-BY-SA-4.0.
-That split is intentional: the code carries a patent grant, and the writing carries share-alike.
+**Put two boxes on the table. The tiles on top spell the same answer. One box has a stamp on its side. The other does not. A camera looking straight down gives you the same photograph.**
+
+Hand me that photograph and ask which box was stamped. Enlarging the tiles will not bring the side into view. The difference is in the boxes. The picture leaves it out.
+
+That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The Thiele Machine is the theory and architecture I use to ask what that takes.
+
+[Read the book](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Book source](monograph/monograph.tex)
+
+## What this is
+
+The boxes are the way in. The subject is an abstract model of computation, in the sense that Turing's machine is one. It has states, moves, a step, a price on each move and a yes-or-no reading, and one rule: a step that turns the reading from no to yes costs at least one unit. What follows from that is not small.
+
+- **It fits every machine.** Take a Turing machine, a RAM, any deterministic machine and any event it reaches. Add a latch on that event that charges one unit when it sets, and you have an honest extension of the original. The model adds accounting and no computing power.
+- **The ordinary window cannot see it.** Every machine that meets the model's definition hides its record and its ledger from its own window. Two runs can look the same through the usual description of memory, registers and program position, and still differ in what they established and what it cost.
+- **Keeping has a price.** On any machine, finite or endless, a run that keeps a reading up either merges two states somewhere or uses endlessly many distinct states. Finiteness takes the second route away.
+- **The price holds at every scale.** When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them.
+- **The window cannot price it.** An account that charges certification exactly, never less and never more, cannot compute that charge from a window that shows a certifying step and a non-certifying step the same way.
+- **The counts are exact.** Recovering which of $n$ editions were certified takes $2^n$ states above one picture. Choosing which of $m(b)$ checks ran takes $2^{m(b)}$ states above each working value.
+- **It is not any one machine.** The model is defined over every machine that meets it. A small six-instruction machine appears as a minimal complete example, there to show the definition can be met and to give something to run. It is an example and not the subject.
+
+Where a result needs a physical premise, such as a heat bound, the book names the premise and keeps it apart from the counting. Where something is a thesis and not a theorem, it says so.
+
+## The tabletop and everything above it
+
+Gather every box that gives the same photograph. Their tops agree. Their insides and their side stamps can still differ. I want to keep that whole collection in view, even when the photograph cannot tell its members apart.
+
+Now give the pieces names. $S$ is the collection of full states, and $B$ is the collection of pictures they give. Taking the photograph is a map called $\pi$:
+
+$$\pi:S\twoheadrightarrow B.$$
+
+The arrow says every picture we are counting comes from some full state. Choose one picture and call it $b$. All the full states that give that picture form its **fibre**, written $\pi^{-1}(b)$. That notation names the collection we just gathered.
+
+The tiles can agree while the boxes differ in which checks ran, which claims were certified, and what survived when an earlier page was wiped. A yes-or-no stamp reads one distinction in that collection. It does not measure the whole collection.
+
+There is no fixed ceiling on the number of states a fibre can contain. To force it to be infinite, give one machine an unlimited obligation: after any number $n$ of editions, it must return to the same picture $b$ and still answer exactly which editions were certified, with each choice independently available. One edition gives two choices: certified or not. A second doubles the lists to four; a third doubles them to eight. Each further edition doubles them again. After $n$ editions there are $2^n$ possible answer lists. Two different lists cannot end at the same full state, because that state would have to give opposite answers to one edition's question. Every finite allowance is eventually exceeded.
+
+That is where the infinity comes from: a task that keeps demanding recoverable distinctions above one unchanged picture.
+
+## A record has to be earned
+
+Give a worker a whiteboard. Ask for an answer and the words “CHECKED = YES” underneath. The worker can write both without checking anything.
+
+A variable with a reassuring name has the same problem. To make acceptance mean that a check happened, the machine's permitted operations must close the unchecked route into the accepting state. If a checked and an unchecked history can reach that same state, its verdict cannot tell them apart.
+
+## What the window can tell you
+
+For the abstract sliced interface, horizontal moves evolve the tabletop by a rule depending only on its current picture and leave the record alone. Vertical establishment leaves the picture fixed and can raise the record. Give two states the same picture and the same horizontal instruction sequence: their pictures agree after every step, even if their records differ throughout.
+
+Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction.
+
+## What keeping takes
+
+Give the box three full configurations in which it holds the answer. Once it enters any of them, every later tick must leave it in one of those three. Now include the unfinished configuration that first enters them. Four sources have their next states among three places. At least two arrows meet.
+
+Nothing depends on the number three. With $K$ held configurations and one unfinished entrant, there are $K+1$ sources and only $K$ landing places.
+
+Suppose instead that the rule always gives different successors to different full states. Its holding run cannot revisit a state. If it did, walk backwards from the two equal visits. Their predecessors must agree too, because different predecessors never land together. Keep going until the earlier visit reaches the unfinished state. The later visit is still holding the answer, so it cannot be that same unfinished state. Avoiding the merge therefore requires an endless supply of distinct holding configurations.
+
+For a finite holding interval the count is sharp. Line up $K$ held states after the unfinished state and fix the last one. The first $K$ sources have distinct successors. Include the next source and the final two arrows meet. Keeping the answer visible can hide that merger from the tabletop camera.
+
+Now put a price rule beside the arrows. The abstract model's toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. The price premise is written beside the count; a physical heat bound additionally needs a physical model.
+
+## Open the gauge wider
+
+These counts are worked out on the example machine described below. The counting is the point; the example gives it something to run.
+
+Three measurements in the book ask different questions of their chosen windows:
+
+- **Current checks.** Leave the working value fixed and choose which checks to run. One available successful check gives two histories to distinguish: ran it or did not. Two independently available checks give four choices; each further check doubles them. If $m(b)$ checks can succeed at value $b$, and the machine must report exactly which ran, it needs $2^{m(b)}$ full states above that value. Keeping the value and the chosen set of checks uses exactly that many. Do the count separately for every working value and add: the total minimum is $\sum_b2^{m(b)}$.
+- **Completed editions.** Independently chosen, recoverable certification answers for $n$ editions require $2^n$ states at a common final working view. One machine meeting that task for every $n$ needs an infinite reachable fibre there.
+- **The concrete publication file.** One entire native state can sit below **65,535** different nonempty sets of published claim/edition entries. Sixteen checked facts supply sixteen independent publication choices. Give every choice two instructions and the same charge, and all nonempty selections finish with the same native counters, table, channel, line number, ledger and flag. Sixteen extra bits beside the existing table distinguish the sets. Fifteen bits have only 32,768 values and cannot.
+
+The last count looks through a different camera: it sees the entire native machine and forgets an added publication archive. The native Boolean flag says that some certification occurred. The archive says which claims and editions were certified.
+
+## Look before the value disappears
+
+Suppose a good earlier value and a bad one give exactly the same remaining observation. A final verifier receiving only that observation must give both the same answer. It cannot identify which earlier value actually occurred.
+
+If the question is known while the value is live, inspect it then and keep the answer. For a succession of known checks, start an indicator at YES. Leave it there when a check passes and turn it to NO when one fails. Once down, keep it down. At the end it says YES exactly when every check passed. If the questions arrive only later, more information may have to survive. The book counts that information from the questions the observer is entitled to ask.
+
+The machine can be implemented with ordinary computation. What matters is which information remains available and which operations are permitted to change an accepting record. A comparison of implementations has to give both sides the same task and access to the same evidence.
+
+## An example machine
+
+This is an example and not the Thiele Machine. The model is defined over every machine that meets it. This small machine is here to show that the definition can be met, and to give the argument something to run.
+
+The example has two natural-number counters, their edition numbers, a sixteen-entry fact table, a commitment channel, a trap, a permanent certificate and a ledger. Its instructions are INC, DEC, HALT, CHECK, COMMIT and CERTIFY. The last three each cost one unit; the counter moves cost zero in that ledger.
+
+The book gives the transition rules, derives the earned chain, builds universal host programs, and follows how a guest's computation and accounting appear in its host. It also studies composition, observation, retention and the cost of preserving relations between instructions. The constructions and arguments are in the text.
+
+The [Python implementation](thiele_small/) lets you explore the small machine. [Running and reproduction instructions](docs/REPRODUCTION.md) cover the development environment. The [mathematical specification](monograph/thiele_machine_math_spec.tex) gives a compact reference, while the book walks through why the definitions and arguments fit together.
+
+### Its earned chain
+
+It enforces an order:
+
+1. **CHECK** tests a claim and records the claim together with the edition of the counter it concerns.
+2. **COMMIT** selects a matching fact only while that edition is still current.
+3. **CERTIFY** requires a commitment and raises the permanent flag.
+
+A counter write advances its edition. An old check cannot then be presented as a check of the newly written counter. Starting with an empty table, empty channel and flag down, any run that raises the flag must contain the three successful acts in order: only CERTIFY raises it, only COMMIT fills its channel, and only CHECK supplies the fact COMMIT requires.
+
+Storing a representation is part of implementing this machine. Preserving those rules through every allowed program is the part that makes the representation authoritative.
+
+### Its trap
+
+It also has a trap. A failed CHECK blows the fuse, and later free instructions cannot turn its gears. That effect matters to future computation. The book's computational slice follows live states; the failure leaves that domain. A view that hid every failed check on every state while predicting later free moves would have to make those moves look stationary too.
+
+## The wider argument
+
+The book also follows a growing record through its threshold readings: each threshold asks whether a particular level has been reached. It treats the recursion theorem and its input conventions, and compares accounting through cost-framework correspondences with the premises stated beside each comparison.
+
+The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument. The general pointer criterion is a thesis. The book gives its proposed connection to the world separately from the counting theorems.
+
+## Follow the machine
+
+Start with the boxes and the camera. Follow the holding count, put the price rule beside the arrows, and watch CHECK, COMMIT and CERTIFY earn the record. Then open the gauge wider: ask which checks ran, which editions were certified, and how many distinguishable histories must still fit above one picture.
+
+Each construction gives you something to follow one move at a time. The book develops the objects first, names the pieces, and walks through why the result follows. The appendices carry the full host constructions and the conditions used by each argument.
+
+## Publication and license
+
+Devon Thiele, *The Thiele Machine: No Free Insight* (2026).
+[Publication record](https://doi.org/10.5281/zenodo.17316437) · [Tagged releases](https://github.com/sethirus/The-Thiele-Machine/releases)
+
+The software is licensed under [Apache 2.0](LICENSE). The monograph and `THIELE_MACHINE.txt` are licensed under CC-BY-SA-4.0. The [patent pledge](PATENT_PLEDGE.md) states the non-assertion commitment; the [technical disclosure](TECHNICAL_DISCLOSURE.md) records the published concepts and earlier embodiments.
+
+Questions, objections and corrections: thethielemachine@gmail.com, or [open an issue](https://github.com/sethirus/The-Thiele-Machine/issues).

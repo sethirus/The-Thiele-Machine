@@ -312,11 +312,17 @@ Require Kernel.RelaxationEntropy.
 Require Kernel.RelaxationStretch.
 Require Kernel.RelaxationStretchContinuous.
 Require TestFixtures.VacuitySmoke.
+Require Minimal.AccountingBridge.
+Require Minimal.ArchiveBound.
 Require Minimal.AxDgBlock.
 Require Minimal.BitSearch2.
 Require Minimal.BitSearchMember2.
 Require Minimal.BitSearchObserved2.
 Require Minimal.BrownianComputer.
+Require Minimal.CertifiedHistory.
+Require Minimal.CommutationObstruction.
+Require Minimal.CommutingGrid.
+Require Minimal.CompleteHost.
 Require Minimal.CompressionSmall2.
 Require Minimal.ConsensusSeparation.
 Require Minimal.CoveringNeeded2.
@@ -327,20 +333,34 @@ Require Minimal.EarnedGeneric.
 Require Minimal.EarnedMulti.
 Require Minimal.EarnedMultiPriced.
 Require Minimal.EarnedPriced.
+Require Minimal.EditionCapacity.
+Require Minimal.EditionHistory.
 Require Minimal.EntitlementMore2.
 Require Minimal.EntitlementSmall.
+Require Minimal.Erasure.
+Require Minimal.Fibre.
 Require Minimal.FragmentSmall.
+Require Minimal.GeometryLimits.
 Require Minimal.GibbsGap.
 Require Minimal.HaltingHole.
 Require Minimal.HeatOrRoom.
+Require Minimal.HistoryCapacity.
 Require Minimal.KeptDistinction.
 Require Minimal.LiftConverse.
 Require Minimal.LiftCore.
 Require Minimal.LiftMacro.
 Require Minimal.LiftOneCounter.
 Require Minimal.LiftPigeon.
+Require Minimal.MaskWitness.
+Require Minimal.MeterRepresentation.
+Require Minimal.Monitor.
 Require Minimal.MonotoneConsensus.
+Require Minimal.MultiExecution.
 Require Minimal.MultiThiele2.
+Require Minimal.Multiplicity.
+Require Minimal.NativeErasure.
+Require Minimal.NativeFactAccounting.
+Require Minimal.NativeSliceBoundary.
 Require Minimal.NecEEnt.
 Require Minimal.NecESearch.
 Require Minimal.NecSChain.
@@ -365,13 +385,19 @@ Require Minimal.NeutralMore.
 Require Minimal.NoisyChairs.
 Require Minimal.NondetChairs.
 Require Minimal.PartitionReading.
+Require Minimal.PassiveGeometry.
 Require Minimal.PayAny.
 Require Minimal.PayFree.
+Require Minimal.PeriodicIntersection.
 Require Minimal.Presented.
 Require Minimal.PricedComplete.
 Require Minimal.QuantumChairs.
 Require Minimal.RecordMerge.
 Require Minimal.Recurrence.
+Require Minimal.Representation.
+Require Minimal.SharpHost.
+Require Minimal.SliceCore.
+Require Minimal.SlicedEstablishment.
 Require Minimal.SmCodes.
 Require Minimal.SmHostBlocks.
 Require Minimal.SmInterp.
@@ -381,7 +407,10 @@ Require Minimal.SmLoops3.
 Require Minimal.SmTally.
 Require Minimal.SmallConsensus.
 Require Minimal.StepLaw.
+Require Minimal.StructuralMeter.
+Require Minimal.SynchronizedCapacity.
 Require Minimal.TCDeps.
+Require Minimal.Task.
 Require Minimal.Tc2Am.
 Require Minimal.Tc2Chain.
 Require Minimal.Tc2Collision.
@@ -396,6 +425,7 @@ Require Minimal.ThieleCompleteIndependent.
 Require Minimal.ThieleCompleteScaled.
 Require Minimal.ThieleCompleteWindow.
 Require Minimal.TimeTax2.
+Require Minimal.TwoArms.
 Require Minimal.UniversalCodes.
 Require Minimal.UniversalNoCopy.
 Require Minimal.UniversalThiele.
@@ -5441,6 +5471,25 @@ Print Assumptions TestFixtures.VacuitySmoke.smoke_addnSm.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_succ_nonzero.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_genuine_equality.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_modus_ponens.
+(* === Minimal.AccountingBridge : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.AccountingBridge.positive_filter_count.
+Print Assumptions Minimal.AccountingBridge.merge_count_bounded_by_charge.
+Print Assumptions Minimal.AccountingBridge.list_charge_app.
+Print Assumptions Minimal.AccountingBridge.run_charge_succ.
+Print Assumptions Minimal.AccountingBridge.cumulative_ledger_correspondence.
+Print Assumptions Minimal.AccountingBridge.ledger_bounds_observed_merges.
+Print Assumptions Minimal.AccountingBridge.finite_holding_forces_paid_run.
+Print Assumptions Minimal.AccountingBridge.aggregate_bound_does_not_imply_local_coverage.
+Print Assumptions Minimal.AccountingBridge.paid_entry_free_idle.
+Print Assumptions Minimal.AccountingBridge.each_opcode_injective.
+Print Assumptions Minimal.AccountingBridge.scheduling_can_merge.
+Print Assumptions Minimal.AccountingBridge.opcode_injectivity_does_not_price_dispatch.
+(* === Minimal.ArchiveBound : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.ArchiveBound.channel_backed_step.
+Print Assumptions Minimal.ArchiveBound.record_supported_step.
+Print Assumptions Minimal.ArchiveBound.records_supported_by_native_facts.
+Print Assumptions Minimal.ArchiveBound.native_table_cap_run.
+Print Assumptions Minimal.ArchiveBound.clean_certified_archive_bound.
 (* === Minimal.AxDgBlock : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.AxDgBlock.ax_dg_blind_shift.
 Print Assumptions Minimal.AxDgBlock.ax_dg_shift_eqb.
@@ -5519,6 +5568,87 @@ Print Assumptions Minimal.BrownianComputer.no_heat_at_rest.
 Print Assumptions Minimal.BrownianComputer.ln_le_minus1.
 Print Assumptions Minimal.BrownianComputer.ln_ratio_ge_v.
 Print Assumptions Minimal.BrownianComputer.heat_time_floor.
+(* === Minimal.CertifiedHistory : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.CertifiedHistory.insert_membership.
+Print Assumptions Minimal.CertifiedHistory.insert_nodup.
+Print Assumptions Minimal.CertifiedHistory.emit_iff_fires.
+Print Assumptions Minimal.CertifiedHistory.coarse_insert.
+Print Assumptions Minimal.CertifiedHistory.boolean_latch_step.
+Print Assumptions Minimal.CertifiedHistory.native_projection.
+Print Assumptions Minimal.CertifiedHistory.exact_native_boolean_shadow.
+Print Assumptions Minimal.CertifiedHistory.clean_boolean_shadow.
+Print Assumptions Minimal.CertifiedHistory.horizontal_cannot_change_record.
+Print Assumptions Minimal.CertifiedHistory.exact_history_membership.
+Print Assumptions Minimal.CertifiedHistory.no_horizontal_forgery.
+Print Assumptions Minimal.CertifiedHistory.historical_records_persist.
+Print Assumptions Minimal.CertifiedHistory.record_remains_a_set.
+Print Assumptions Minimal.CertifiedHistory.boolean_shadow_loses_claim_identity.
+Print Assumptions Minimal.CertifiedHistory.publication_after_edit_keeps_old_binding.
+Print Assumptions Minimal.CertifiedHistory.native_checked_facts_are_not_certified_records.
+Print Assumptions Minimal.CertifiedHistory.publication_event_origin.
+Print Assumptions Minimal.CertifiedHistory.every_record_has_earned_check_commit_chain.
+(* === Minimal.CommutationObstruction : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.CommutationObstruction.initial_early.
+Print Assumptions Minimal.CommutationObstruction.F_early.
+Print Assumptions Minimal.CommutationObstruction.G_early.
+Print Assumptions Minimal.CommutationObstruction.three_zero_states.
+Print Assumptions Minimal.CommutationObstruction.four_zero_if_singletons.
+Print Assumptions Minimal.CommutationObstruction.add_sides.
+Print Assumptions Minimal.CommutationObstruction.capacity_of_distinct.
+Print Assumptions Minimal.CommutationObstruction.unrestricted_exclusive_resets_need_five.
+Print Assumptions Minimal.CommutationObstruction.commuting_exclusive_resets_need_six.
+(* === Minimal.CommutingGrid : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.CommutingGrid.steps_commute.
+Print Assumptions Minimal.CommutingGrid.left_injective.
+Print Assumptions Minimal.CommutingGrid.right_injective.
+Print Assumptions Minimal.CommutingGrid.left_projects.
+Print Assumptions Minimal.CommutingGrid.right_projects.
+Print Assumptions Minimal.CommutingGrid.initial_grid.
+Print Assumptions Minimal.CommutingGrid.reachable_exact.
+Print Assumptions Minimal.CommutingGrid.diagonal_exact.
+Print Assumptions Minimal.CommutingGrid.triangle_exact.
+Print Assumptions Minimal.CommutingGrid.prefix_exact.
+Print Assumptions Minimal.CommutingGrid.map_injective_nodup.
+Print Assumptions Minimal.CommutingGrid.diagonal_nodup.
+Print Assumptions Minimal.CommutingGrid.append_disjoint_nodup.
+Print Assumptions Minimal.CommutingGrid.triangle_nodup.
+Print Assumptions Minimal.CommutingGrid.prefix_nodup.
+Print Assumptions Minimal.CommutingGrid.diagonal_length.
+Print Assumptions Minimal.CommutingGrid.triangle_length.
+Print Assumptions Minimal.CommutingGrid.exact_reachable_capacity.
+(* === Minimal.CompleteHost : 32 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.CompleteHost.iter_add.
+Print Assumptions Minimal.CompleteHost.iter_succ_from.
+Print Assumptions Minimal.CompleteHost.nodup_map_on.
+Print Assumptions Minimal.CompleteHost.positive_iter_held.
+Print Assumptions Minimal.CompleteHost.held_prefix_distinct.
+Print Assumptions Minimal.CompleteHost.held_prefix_capacity.
+Print Assumptions Minimal.CompleteHost.injective_host_fresh_forever.
+Print Assumptions Minimal.CompleteHost.finite_held_region_not_injective.
+Print Assumptions Minimal.CompleteHost.finite_hold_collision.
+Print Assumptions Minimal.CompleteHost.finite_hold_run_collision.
+Print Assumptions Minimal.CompleteHost.preparation_capacity.
+Print Assumptions Minimal.CompleteHost.projected_guest_trace.
+Print Assumptions Minimal.CompleteHost.guest_not_halted_early.
+Print Assumptions Minimal.CompleteHost.last_running_outside.
+Print Assumptions Minimal.CompleteHost.last_running_enters.
+Print Assumptions Minimal.CompleteHost.held_closed.
+Print Assumptions Minimal.CompleteHost.completed_trace_stays_visible.
+Print Assumptions Minimal.CompleteHost.all_time_projection.
+Print Assumptions Minimal.CompleteHost.prepared_execution_prefix.
+Print Assumptions Minimal.CompleteHost.cropped_frame_finite_hold.
+Print Assumptions Minimal.CompleteHost.cropped_frame_injective_hold.
+Print Assumptions Minimal.CompleteHost.cropped_frame_holding_capacity.
+Print Assumptions Minimal.CompleteHost.complete_host_finite.
+Print Assumptions Minimal.CompleteHost.completed_view_cannot_decode_time.
+Print Assumptions Minimal.CompleteHost.preparation_has_unique_preimage.
+Print Assumptions Minimal.CompleteHost.first_halt_has_unique_preimage.
+Print Assumptions Minimal.CompleteHost.delayed_collision_in_held_region.
+Print Assumptions Minimal.CompleteHost.start_membership_not_permanent.
+Print Assumptions Minimal.CompleteHost.retaining_program_preserves_injectivity.
+Print Assumptions Minimal.CompleteHost.reusable_toggle_is_injective.
+Print Assumptions Minimal.CompleteHost.reusable_toggle_returns.
+Print Assumptions Minimal.CompleteHost.constant_view_cannot_recover_full_state.
 (* === Minimal.CompressionSmall2 : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.CompressionSmall2.ent2_nodup_app_disjoint.
 Print Assumptions Minimal.CompressionSmall2.ent2_flips_compression_bound.
@@ -5957,6 +6087,26 @@ Print Assumptions Minimal.EarnedPriced.pr_sorted_run_refused_forever.
 Print Assumptions Minimal.EarnedPriced.pr_sorted_demo_certifies.
 Print Assumptions Minimal.EarnedPriced.pr_sorted_demo_refused_forever.
 Print Assumptions Minimal.EarnedPriced.pr_sorted_paid_demo.
+(* === Minimal.EditionCapacity : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.EditionCapacity.run_append.
+Print Assumptions Minimal.EditionCapacity.block_effect.
+Print Assumptions Minimal.EditionCapacity.realize_every_history.
+Print Assumptions Minimal.EditionCapacity.trailing_false_irrelevant.
+Print Assumptions Minimal.EditionCapacity.exact_edition_queries.
+Print Assumptions Minimal.EditionCapacity.common_workspace.
+Print Assumptions Minimal.EditionCapacity.distinct_histories_same_workspace.
+Print Assumptions Minimal.EditionCapacity.edition_history_capacity.
+Print Assumptions Minimal.EditionCapacity.no_finite_history_cover.
+Print Assumptions Minimal.EditionCapacity.model_attains_exact_profile_count.
+Print Assumptions Minimal.EditionCapacity.workspace_write_preserves_historical_queries.
+Print Assumptions Minimal.EditionCapacity.workspace_step_independent_of_history.
+Print Assumptions Minimal.EditionCapacity.current_certification_is_not_the_permanent_boolean.
+(* === Minimal.EditionHistory : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.EditionHistory.journal_step_consistent.
+Print Assumptions Minimal.EditionHistory.abstraction_step.
+Print Assumptions Minimal.EditionHistory.all_program_history_refinement.
+Print Assumptions Minimal.EditionHistory.abstraction_query.
+Print Assumptions Minimal.EditionHistory.exact_records_every_program.
 (* === Minimal.EntitlementMore2 : 24 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.EntitlementMore2.ent2_sum_split.
 Print Assumptions Minimal.EntitlementMore2.ent2_sum_pos.
@@ -6044,6 +6194,19 @@ Print Assumptions Minimal.EntitlementSmall.ent_cs_passes_sound.
 Print Assumptions Minimal.EntitlementSmall.ent_cs_run_entitlement.
 Print Assumptions Minimal.EntitlementSmall.ent_small_run_narrowing.
 Print Assumptions Minimal.EntitlementSmall.ent_share_needed.
+(* === Minimal.Erasure : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Erasure.mixed_fibre_excludes_final_verifier.
+Print Assumptions Minimal.Erasure.verifier_requires_fibre_constancy.
+Print Assumptions Minimal.Erasure.fibre_constancy_suffices_with_representatives.
+Print Assumptions Minimal.Erasure.searching_a_valid_preimage_is_not_actual_history.
+Print Assumptions Minimal.Erasure.inline_reading_is_exact.
+Print Assumptions Minimal.Erasure.mixed_fibre_forces_distinct_enriched_states.
+Print Assumptions Minimal.Erasure.collision_does_not_always_prevent_verification.
+Print Assumptions Minimal.Erasure.fixed_length_injective_history.
+Print Assumptions Minimal.Erasure.unknown_duration_can_hide_history_under_injective_steps.
+Print Assumptions Minimal.Erasure.different_injective_programs_can_hide_history.
+(* === Minimal.Fibre : 1 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Fibre.permanent_check_in_finite_fibre_merges.
 (* === Minimal.FragmentSmall : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.FragmentSmall.frag_up_spec.
 Print Assumptions Minimal.FragmentSmall.frag_flip_merges.
@@ -6072,6 +6235,13 @@ Print Assumptions Minimal.FragmentSmall.frag_small_certify_merges.
 Print Assumptions Minimal.FragmentSmall.frag_small_certifying_step_priced_merge.
 Print Assumptions Minimal.FragmentSmall.frag_small_dec_free_merge.
 Print Assumptions Minimal.FragmentSmall.frag_small_not_merge_priced.
+(* === Minimal.GeometryLimits : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.GeometryLimits.idempotent_changed_state_collides.
+Print Assumptions Minimal.GeometryLimits.preserving_record_does_not_force_shadow_independence.
+Print Assumptions Minimal.GeometryLimits.ordinary_record_variable_is_protected.
+Print Assumptions Minimal.GeometryLimits.including_protected_record_in_view_need_not_be_noninjective.
+Print Assumptions Minimal.GeometryLimits.native_seventeenth_check_traps.
+Print Assumptions Minimal.GeometryLimits.native_fresh_edition_completeness_limit.
 (* === Minimal.GibbsGap : 15 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.GibbsGap.Rsum_map_plus.
 Print Assumptions Minimal.GibbsGap.Rsum_map_scale.
@@ -6136,6 +6306,20 @@ Print Assumptions Minimal.HeatOrRoom.reached_shape.
 Print Assumptions Minimal.HeatOrRoom.tight_retain.
 Print Assumptions Minimal.HeatOrRoom.tight_merges_next.
 Print Assumptions Minimal.HeatOrRoom.tight_exact.
+(* === Minimal.HistoryCapacity : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.HistoryCapacity.filter_of_map.
+Print Assumptions Minimal.HistoryCapacity.positive_profiles_count.
+Print Assumptions Minimal.HistoryCapacity.positive_profile_properties.
+Print Assumptions Minimal.HistoryCapacity.all_positive_profiles_share_native_endpoint.
+Print Assumptions Minimal.HistoryCapacity.rich_endpoints_are_distinct.
+Print Assumptions Minimal.HistoryCapacity.native_fibre_contains_65535_history_states.
+Print Assumptions Minimal.HistoryCapacity.memberb_spec.
+Print Assumptions Minimal.HistoryCapacity.maps_equal_at.
+Print Assumptions Minimal.HistoryCapacity.archive_code_exact.
+Print Assumptions Minimal.HistoryCapacity.native_history_has_a_sixteen_bit_encoding.
+Print Assumptions Minimal.HistoryCapacity.code_nonempty.
+Print Assumptions Minimal.HistoryCapacity.clean_native_history_code.
+Print Assumptions Minimal.HistoryCapacity.at_most_65535_nonempty_native_history_codes.
 (* === Minimal.KeptDistinction : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.KeptDistinction.write_is_permanent.
 Print Assumptions Minimal.KeptDistinction.write_raises.
@@ -6241,6 +6425,46 @@ Print Assumptions Minimal.LiftOneCounter.lift_oc_embed_halts.
 Print Assumptions Minimal.LiftPigeon.lift_pigeon_dec.
 Print Assumptions Minimal.LiftPigeon.lift_inj_le.
 Print Assumptions Minimal.LiftPigeon.lift_pigeon.
+(* === Minimal.MaskWitness : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.MaskWitness.recorded_run_app.
+Print Assumptions Minimal.MaskWitness.block_effect.
+Print Assumptions Minimal.MaskWitness.indexed_mask_member.
+Print Assumptions Minimal.MaskWitness.program_effect.
+Print Assumptions Minimal.MaskWitness.archive_membership.
+Print Assumptions Minimal.MaskWitness.prepared_table.
+Print Assumptions Minimal.MaskWitness.table_contains.
+Print Assumptions Minimal.MaskWitness.every_mask_native_effect.
+Print Assumptions Minimal.MaskWitness.exact_selected_membership.
+Print Assumptions Minimal.MaskWitness.distinct_masks_distinct_records.
+Print Assumptions Minimal.MaskWitness.nonempty_masks_identical_native_state.
+Print Assumptions Minimal.MaskWitness.archive_cardinality_bound_attained.
+(* === Minimal.MeterRepresentation : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.MeterRepresentation.reset_prefix_meter_not_a_state_function.
+Print Assumptions Minimal.MeterRepresentation.reset_prefix_merge_not_a_state_function.
+Print Assumptions Minimal.MeterRepresentation.clock_projects.
+Print Assumptions Minimal.MeterRepresentation.clock_orbit.
+Print Assumptions Minimal.MeterRepresentation.clock_orbit_distinct.
+Print Assumptions Minimal.MeterRepresentation.clock_run_retains.
+Print Assumptions Minimal.MeterRepresentation.clock_run_no_observed_merges.
+Print Assumptions Minimal.MeterRepresentation.clock_run_room.
+Print Assumptions Minimal.MeterRepresentation.clock_full_meter.
+Print Assumptions Minimal.MeterRepresentation.clock_can_represent_original_meter.
+Print Assumptions Minimal.MeterRepresentation.instrumentation_changes_full_graph_meter.
+(* === Minimal.Monitor : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Monitor.step_matches_history.
+Print Assumptions Minimal.Monitor.every_program_matches_history.
+Print Assumptions Minimal.Monitor.exact_historical_verdict.
+Print Assumptions Minimal.Monitor.truth_soundness.
+Print Assumptions Minimal.Monitor.every_full_state_is_reachable.
+Print Assumptions Minimal.Monitor.unchecked_steps_keep_verdict_false.
+Print Assumptions Minimal.Monitor.no_unchecked_forgery.
+Print Assumptions Minimal.Monitor.reachability_does_not_supply_unchecked_reachability.
+Print Assumptions Minimal.Monitor.two_histories_one_data_two_states.
+Print Assumptions Minimal.Monitor.writes_invalidate_without_versions.
+Print Assumptions Minimal.Monitor.current_verdict_is_not_permanent.
+Print Assumptions Minimal.Monitor.repeated_check_merges_inside_one_fibre.
+Print Assumptions Minimal.Monitor.single_fixed_map_contains_arbitrary_programs.
+Print Assumptions Minimal.Monitor.sound_use_does_not_force_saved_record_mutation.
 (* === Minimal.MonotoneConsensus : 35 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.MonotoneConsensus.mc_run_app.
 Print Assumptions Minimal.MonotoneConsensus.mc_loc_set_same.
@@ -6277,6 +6501,19 @@ Print Assumptions Minimal.MonotoneConsensus.mc_guard_mono.
 Print Assumptions Minimal.MonotoneConsensus.mc_eff_rel.
 Print Assumptions Minimal.MonotoneConsensus.mc_mono_interfere.
 Print Assumptions Minimal.MonotoneConsensus.mc_mono_no_consensus.
+(* === Minimal.MultiExecution : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.MultiExecution.layer_distinct.
+Print Assumptions Minimal.MultiExecution.layer_image.
+Print Assumptions Minimal.MultiExecution.size_nonincreasing.
+Print Assumptions Minimal.MultiExecution.exact_loss_telescopes.
+Print Assumptions Minimal.MultiExecution.final_capacity.
+Print Assumptions Minimal.MultiExecution.ensemble_loss_bound.
+Print Assumptions Minimal.MultiExecution.drop_witness.
+Print Assumptions Minimal.MultiExecution.decrease_time.
+Print Assumptions Minimal.MultiExecution.execution_collision_before_deadline.
+Print Assumptions Minimal.MultiExecution.canonical_output_loss.
+Print Assumptions Minimal.MultiExecution.halving_edge.
+Print Assumptions Minimal.MultiExecution.execution_halving_bound.
 (* === Minimal.MultiThiele2 : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.MultiThiele2.ent2_run_mmachine.
 Print Assumptions Minimal.MultiThiele2.ent2_msim.
@@ -6288,6 +6525,47 @@ Print Assumptions Minimal.MultiThiele2.ent2_mmachine_complete.
 Print Assumptions Minimal.MultiThiele2.ent2_claim_eqb_spec.
 Print Assumptions Minimal.MultiThiele2.ent2_same_keeps.
 Print Assumptions Minimal.MultiThiele2.ent2_mmachine_complete_over.
+(* === Minimal.Multiplicity : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Multiplicity.mass_empty.
+Print Assumptions Minimal.Multiplicity.mass_cons.
+Print Assumptions Minimal.Multiplicity.count_partition.
+Print Assumptions Minimal.Multiplicity.mass_bound.
+Print Assumptions Minimal.Multiplicity.bounded_multiplicity_capacity.
+Print Assumptions Minimal.Multiplicity.overcapacity_forces_large_pile.
+Print Assumptions Minimal.Multiplicity.preparation_overcapacity.
+(* === Minimal.NativeErasure : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NativeErasure.native_rebar_witness.
+Print Assumptions Minimal.NativeErasure.native_exact_for_boolean_candidates.
+Print Assumptions Minimal.NativeErasure.native_post_counter_checker_impossible.
+Print Assumptions Minimal.NativeErasure.free_native_dec_can_erase_the_counter_distinction.
+Print Assumptions Minimal.NativeErasure.trapped_invalid_execution_does_not_perform_later_erasure.
+Print Assumptions Minimal.NativeErasure.native_cert_does_not_mean_all_later_checks_passed.
+Print Assumptions Minimal.NativeErasure.two_native_good_states_need_not_collapse_at_every_write.
+(* === Minimal.NativeFactAccounting : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NativeFactAccounting.fact_length_one_step.
+Print Assumptions Minimal.NativeFactAccounting.successful_check_is_priced.
+Print Assumptions Minimal.NativeFactAccounting.actual_fact_growth_exact.
+Print Assumptions Minimal.NativeFactAccounting.passing_checks_bounded_by_actual_cost.
+Print Assumptions Minimal.NativeFactAccounting.actual_ledger_bounds_fact_growth.
+Print Assumptions Minimal.NativeFactAccounting.actual_ledger_bounds_table_growth.
+Print Assumptions Minimal.NativeFactAccounting.stored_program_ledger_bounds_table_growth.
+Print Assumptions Minimal.NativeFactAccounting.table_growth_bound_is_attained.
+(* === Minimal.NativeSliceBoundary : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NativeSliceBoundary.stopped_representatives_force_static_shadow.
+Print Assumptions Minimal.NativeSliceBoundary.Native.free_cannot_fire.
+Print Assumptions Minimal.NativeSliceBoundary.Native.trapped_free_step_is_full_identity.
+Print Assumptions Minimal.NativeSliceBoundary.Native.chosen_check_fails.
+Print Assumptions Minimal.NativeSliceBoundary.Native.chosen_check_reaches_trap.
+Print Assumptions Minimal.NativeSliceBoundary.Native.every_free_shadow_step_is_identity.
+Print Assumptions Minimal.NativeSliceBoundary.Native.every_free_execution_is_invisible.
+Print Assumptions Minimal.NativeSliceBoundary.Native.every_free_program_is_invisible.
+Print Assumptions Minimal.NativeSliceBoundary.Native.onto_shadow_has_only_identity_free_steps.
+Print Assumptions Minimal.NativeSliceBoundary.Native.cannot_preserve_a_changing_horizontal_observation.
+Print Assumptions Minimal.NativeSliceBoundary.Native.reachable_after_instruction.
+Print Assumptions Minimal.NativeSliceBoundary.Native.reachable_free_step_is_invisible.
+Print Assumptions Minimal.NativeSliceBoundary.Native.reachable_free_program_is_invisible.
+Print Assumptions Minimal.NativeSliceBoundary.Native.certificate_is_a_silent_static_quotient.
+Print Assumptions Minimal.NativeSliceBoundary.Native.certificate_differs_on_reachable_clean_runs.
 (* === Minimal.NecEEnt : 47 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.NecEEnt.nec_e_cover_bits_any.
 Print Assumptions Minimal.NecEEnt.nec_e_cs_count_any.
@@ -6613,6 +6891,12 @@ Print Assumptions Minimal.PartitionReading.pr_reading_entitles_only.
 Print Assumptions Minimal.PartitionReading.pr_toll.
 Print Assumptions Minimal.PartitionReading.p_cinv_step.
 Print Assumptions Minimal.PartitionReading.pr_reading_costs_three.
+(* === Minimal.PassiveGeometry : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.PassiveGeometry.horizontal_projection.
+Print Assumptions Minimal.PassiveGeometry.horizontal_preserves_record.
+Print Assumptions Minimal.PassiveGeometry.permanent_trajectory_blindness.
+Print Assumptions Minimal.PassiveGeometry.no_in_view_decoder.
+Print Assumptions Minimal.PassiveGeometry.vertical_change_forces_nontrivial_fibre.
 (* === Minimal.PayAny : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.PayAny.erase_app.
 Print Assumptions Minimal.PayAny.erase_mid.
@@ -6634,6 +6918,15 @@ Print Assumptions Minimal.PayFree.pf_rep_same.
 Print Assumptions Minimal.PayFree.pf_bound.
 Print Assumptions Minimal.PayFree.pf_bound_start.
 Print Assumptions Minimal.PayFree.pf_no_repeat_bound.
+(* === Minimal.PeriodicIntersection : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.PeriodicIntersection.F_G_power.
+Print Assumptions Minimal.PeriodicIntersection.powers_commute.
+Print Assumptions Minimal.PeriodicIntersection.crossing_periodicity.
+Print Assumptions Minimal.PeriodicIntersection.crossing_only_in_tails.
+Print Assumptions Minimal.PeriodicIntersection.unit_period_crossing_is_joint_end.
+Print Assumptions Minimal.PeriodicIntersection.iterate_injective.
+Print Assumptions Minimal.PeriodicIntersection.global_crossing_forces_periodic_seed.
+Print Assumptions Minimal.PeriodicIntersection.population_arithmetic.
 (* === Minimal.Presented : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Presented.presented_scode_inj.
 Print Assumptions Minimal.Presented.presented_icode_inj.
@@ -6722,6 +7015,91 @@ Print Assumptions Minimal.Recurrence.nodup_or_collision.
 Print Assumptions Minimal.Recurrence.some_revisit.
 Print Assumptions Minimal.Recurrence.returns_to_start.
 Print Assumptions Minimal.Recurrence.reversible_keeps_nothing.
+(* === Minimal.Representation : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Representation.unchecked_reachability_excludes_positive_verdict.
+Print Assumptions Minimal.Representation.same_workspace_different_history_forces_distinct_states.
+Print Assumptions Minimal.Representation.workspace_verdict_impossible.
+Print Assumptions Minimal.Representation.map_injective_nodup.
+Print Assumptions Minimal.Representation.nodup_append_separate.
+Print Assumptions Minimal.Representation.profiles_length.
+Print Assumptions Minimal.Representation.profiles_complete.
+Print Assumptions Minimal.Representation.profiles_nodup.
+Print Assumptions Minimal.Representation.independent_profiles_capacity.
+Print Assumptions Minimal.Representation.bitmask_capacity_attained.
+Print Assumptions Minimal.Representation.legal_profiles_count.
+Print Assumptions Minimal.Representation.legal_profiles_distinct.
+Print Assumptions Minimal.Representation.descriptions_count.
+Print Assumptions Minimal.Representation.descriptions_distinct.
+Print Assumptions Minimal.Representation.exact_profile_representation_lower_bound.
+(* === Minimal.SharpHost : 32 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.SharpHost.index_bound.
+Print Assumptions Minimal.SharpHost.index_injective.
+Print Assumptions Minimal.SharpHost.index_node.
+Print Assumptions Minimal.SharpHost.index_node_small.
+Print Assumptions Minimal.SharpHost.node_index.
+Print Assumptions Minimal.SharpHost.step_index.
+Print Assumptions Minimal.SharpHost.step_node.
+Print Assumptions Minimal.SharpHost.iter_node.
+Print Assumptions Minimal.SharpHost.all_states_exact.
+Print Assumptions Minimal.SharpHost.all_states_nodup.
+Print Assumptions Minimal.SharpHost.all_states_count.
+Print Assumptions Minimal.SharpHost.held_states_exact.
+Print Assumptions Minimal.SharpHost.held_states_nodup.
+Print Assumptions Minimal.SharpHost.held_states_count.
+Print Assumptions Minimal.SharpHost.entry_outside.
+Print Assumptions Minimal.SharpHost.entry_enters.
+Print Assumptions Minimal.SharpHost.held_closed.
+Print Assumptions Minimal.SharpHost.retains_capacity.
+Print Assumptions Minimal.SharpHost.first_collision.
+Print Assumptions Minimal.SharpHost.fails_next_capacity.
+Print Assumptions Minimal.SharpHost.capacity_exact.
+Print Assumptions Minimal.SharpHost.early_not_terminal.
+Print Assumptions Minimal.SharpHost.view_prep.
+Print Assumptions Minimal.SharpHost.prepares_start.
+Print Assumptions Minimal.SharpHost.view_node_positive.
+Print Assumptions Minimal.SharpHost.view_start.
+Print Assumptions Minimal.SharpHost.view_held_exact.
+Print Assumptions Minimal.SharpHost.view_holds.
+Print Assumptions Minimal.SharpHost.view_simulates.
+Print Assumptions Minimal.SharpHost.guest_all_time.
+Print Assumptions Minimal.SharpHost.entry_is_last_running.
+Print Assumptions Minimal.SharpHost.sharp_finite_host_exists.
+(* === Minimal.SliceCore : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.SliceCore.observation_reflexive.
+Print Assumptions Minimal.SliceCore.observation_symmetric.
+Print Assumptions Minimal.SliceCore.observation_transitive.
+Print Assumptions Minimal.SliceCore.observation_step.
+Print Assumptions Minimal.SliceCore.observation_now.
+Print Assumptions Minimal.SliceCore.observation_greatest.
+Print Assumptions Minimal.SliceCore.erasure_least.
+Print Assumptions Minimal.SliceCore.erasure_preserves_iff_marks_invisible.
+Print Assumptions Minimal.SliceCore.invisible_marks_allow_purge.
+Print Assumptions Minimal.SliceCore.zero_cost_preserves_ledger.
+Print Assumptions Minimal.SliceCore.zero_cost_preserves_record.
+Print Assumptions Minimal.SliceCore.mark_immediately_silent.
+Print Assumptions Minimal.SliceCore.steering_exposes_mark.
+Print Assumptions Minimal.SliceCore.no_autonomous_working_projection.
+Print Assumptions Minimal.SliceCore.factorization_obstruction.
+(* === Minimal.SlicedEstablishment : 19 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.SlicedEstablishment.horizontal_trace_projects.
+Print Assumptions Minimal.SlicedEstablishment.horizontal_trace_preserves_verdict.
+Print Assumptions Minimal.SlicedEstablishment.universal_window_blindness.
+Print Assumptions Minimal.SlicedEstablishment.mixed_trace_projects_after_erasure.
+Print Assumptions Minimal.SlicedEstablishment.vertical_raise_forces_hidden_pair.
+Print Assumptions Minimal.SlicedEstablishment.vertical_raise_fibre_capacity.
+Print Assumptions Minimal.SlicedEstablishment.finite_vertical_establishment_collision.
+Print Assumptions Minimal.SlicedEstablishment.abstract_establishment_necessity.
+Print Assumptions Minimal.SlicedEstablishment.supplied_toll.
+Print Assumptions Minimal.SlicedEstablishment.supplied_toll_run_floor.
+Print Assumptions Minimal.SlicedEstablishment.horizontal_ledger_preserved.
+Print Assumptions Minimal.SlicedEstablishment.independent_current_profiles_capacity.
+Print Assumptions Minimal.SlicedEstablishment.Native.core_independent_of_record_and_ledger.
+Print Assumptions Minimal.SlicedEstablishment.Native.stored_program_core_independence.
+Print Assumptions Minimal.SlicedEstablishment.Native.native_check_not_vertical_for_core.
+Print Assumptions Minimal.SlicedEstablishment.Native.hiding_guard_does_not_give_global_horizontal_autonomy.
+Print Assumptions Minimal.SlicedEstablishment.Witness.exact_ever_checked_meaning.
+Print Assumptions Minimal.SlicedEstablishment.Witness.clean_start_exact_history.
+Print Assumptions Minimal.SlicedEstablishment.Witness.passing_check_realizes_hidden_pair.
 (* === Minimal.SmCodes : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.SmCodes.sm_hb_correct.
 Print Assumptions Minimal.SmCodes.sm_hb_unique.
@@ -6876,6 +7254,33 @@ Print Assumptions Minimal.StepLaw.merge_is_collision.
 Print Assumptions Minimal.StepLaw.revisit_means_loop.
 Print Assumptions Minimal.StepLaw.first_revisit_start_or_merge.
 Print Assumptions Minimal.StepLaw.later_steps_repeat.
+(* === Minimal.StructuralMeter : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.StructuralMeter.bad_pair_exact.
+Print Assumptions Minimal.StructuralMeter.merge_target_exact.
+Print Assumptions Minimal.StructuralMeter.merges_zero_iff.
+Print Assumptions Minimal.StructuralMeter.source_member.
+Print Assumptions Minimal.StructuralMeter.no_collision_retains.
+Print Assumptions Minimal.StructuralMeter.retains_no_collision.
+Print Assumptions Minimal.StructuralMeter.zero_merges_iff_retains.
+Print Assumptions Minimal.StructuralMeter.nonempty_run_has_room.
+Print Assumptions Minimal.StructuralMeter.any_nonempty_run_has_positive_structural_mu.
+Print Assumptions Minimal.StructuralMeter.zero_merges_exact_room.
+Print Assumptions Minimal.StructuralMeter.merge_or_room.
+Print Assumptions Minimal.StructuralMeter.room_shortfall_forces_merge.
+Print Assumptions Minimal.StructuralMeter.room_bounded_by_held_capacity.
+Print Assumptions Minimal.StructuralMeter.finite_room_forces_merge.
+Print Assumptions Minimal.StructuralMeter.structural_mu_positive.
+Print Assumptions Minimal.StructuralMeter.fixed_point_blocks_positive_internal_ledger.
+Print Assumptions Minimal.StructuralMeter.structural_meter_can_plateau.
+(* === Minimal.SynchronizedCapacity : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.SynchronizedCapacity.nodup_append_disjoint.
+Print Assumptions Minimal.SynchronizedCapacity.nodup_product.
+Print Assumptions Minimal.SynchronizedCapacity.same_time_separated.
+Print Assumptions Minimal.SynchronizedCapacity.different_times_separated.
+Print Assumptions Minimal.SynchronizedCapacity.spacetime_embedding_injective.
+Print Assumptions Minimal.SynchronizedCapacity.synchronized_population_distinct.
+Print Assumptions Minimal.SynchronizedCapacity.synchronized_population_count.
+Print Assumptions Minimal.SynchronizedCapacity.synchronized_capacity_bound.
 (* === Minimal.TCDeps : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.TCDeps.clauses_split.
 Print Assumptions Minimal.TCDeps.dep_toll.
@@ -6889,6 +7294,26 @@ Print Assumptions Minimal.TCDeps.dep_raise_not_base.
 Print Assumptions Minimal.TCDeps.dep_free_move.
 Print Assumptions Minimal.TCDeps.dep_one_move.
 Print Assumptions Minimal.TCDeps.dep_every_window.
+(* === Minimal.Task : 19 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Task.permanent_current_truth_impossible.
+Print Assumptions Minimal.Task.run_app.
+Print Assumptions Minimal.Task.step_legal.
+Print Assumptions Minimal.Task.run_legal.
+Print Assumptions Minimal.Task.step_projects.
+Print Assumptions Minimal.Task.autonomous_workspace.
+Print Assumptions Minimal.Task.writes_invalidate_before_publication.
+Print Assumptions Minimal.Task.historical_certificate_survives.
+Print Assumptions Minimal.Task.current_certificate_requires_truth.
+Print Assumptions Minimal.Task.only_certify_publishes.
+Print Assumptions Minimal.Task.journal_consistent.
+Print Assumptions Minimal.Task.compression_step.
+Print Assumptions Minimal.Task.journal_refinement.
+Print Assumptions Minimal.Task.exact_history_all_programs.
+Print Assumptions Minimal.Task.witness_reaches.
+Print Assumptions Minimal.Task.phases_legal.
+Print Assumptions Minimal.Task.phases_distinct.
+Print Assumptions Minimal.Task.carrier_size.
+Print Assumptions Minimal.Task.signature_separates.
 (* === Minimal.Tc2Am : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Tc2Am.am_run_add.
 Print Assumptions Minimal.Tc2Am.am_run_S_l.
@@ -7279,6 +7704,28 @@ Print Assumptions Minimal.TimeTax2.ent2_tax_ratio_grows.
 Print Assumptions Minimal.TimeTax2.ent2_tax_last_saves_zero.
 Print Assumptions Minimal.TimeTax2.ent2_tax_sighted_wins.
 Print Assumptions Minimal.TimeTax2.ent2_tax_sighted_loses_at_zero.
+(* === Minimal.TwoArms : 21 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.TwoArms.commute.
+Print Assumptions Minimal.TwoArms.F_projects.
+Print Assumptions Minimal.TwoArms.G_projects.
+Print Assumptions Minimal.TwoArms.F_closed.
+Print Assumptions Minimal.TwoArms.G_closed.
+Print Assumptions Minimal.TwoArms.carrier_exact.
+Print Assumptions Minimal.TwoArms.append_nodup.
+Print Assumptions Minimal.TwoArms.carrier_nodup.
+Print Assumptions Minimal.TwoArms.carrier_size.
+Print Assumptions Minimal.TwoArms.F_rank.
+Print Assumptions Minimal.TwoArms.G_rank.
+Print Assumptions Minimal.TwoArms.initial_valid_rank.
+Print Assumptions Minimal.TwoArms.reach_valid_rank.
+Print Assumptions Minimal.TwoArms.F_injective_before_end.
+Print Assumptions Minimal.TwoArms.G_injective_before_end.
+Print Assumptions Minimal.TwoArms.retains_through_horizon.
+Print Assumptions Minimal.TwoArms.infinite_commute.
+Print Assumptions Minimal.TwoArms.infinite_F_injective.
+Print Assumptions Minimal.TwoArms.infinite_G_injective.
+Print Assumptions Minimal.TwoArms.infinite_F_projects.
+Print Assumptions Minimal.TwoArms.infinite_G_projects.
 (* === Minimal.UniversalCodes : 56 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.UniversalCodes.unpair_zero.
 Print Assumptions Minimal.UniversalCodes.pow2_pos.

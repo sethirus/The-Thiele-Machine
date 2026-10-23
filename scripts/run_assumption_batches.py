@@ -236,8 +236,9 @@ def main() -> None:
     coq_args = args.coq_args[1:] if args.coq_args[:1] == ["--"] else args.coq_args
     root = Path(__file__).resolve().parents[1]
     coq_dir = root / "coq"
-    build = root / "build/probe"
-    cache = Path(args.work_dir) if args.work_dir else build / "assumption-cache"
+    build = root / "artifacts/assumptions"
+    build.mkdir(parents=True, exist_ok=True)
+    cache = Path(args.work_dir) if args.work_dir else root / "build/probe/assumption-cache"
     if not cache.is_absolute():
         cache = root / cache
     prefix, queries = split_probe((root / FULL_ASSUMPTION_PROBE).read_text())

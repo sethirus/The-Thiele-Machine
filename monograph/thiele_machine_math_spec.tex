@@ -18,7 +18,7 @@
 
 \DeclareUnicodeCharacter{2014}{, }
 
-\title{\textbf{The Thiele Machine}\\ \large A Mathematical Reference\\[6pt] \normalsize Derived from the Machine-Checked Coq Corpus}
+\title{\textbf{The Thiele Machine}\\ \large A Mathematical Reference}
 \author{Devon Thiele}
 \date{}
 
@@ -52,12 +52,12 @@
 
 \noindent\textbf{The Thiele Machine is an abstract model of computation, and an argument made with it about what an account of computation should preserve.}
 
-It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model is the abstract \texttt{CertificationSystem} record and the \texttt{Substrate} interface. The small machine of \texttt{minimal/EarnedCore.v}, a two-counter machine whose commitments are earned, is one instance; the universal machine U built on it is another. They are witnesses of the model, which is the record and the interface.
+It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model is a set of states, moves, a step, a price on each move, a yes-or-no reading and one rule, the toll. Any system with those parts is a Thiele machine. A small two-counter machine whose commitments are earned is one example, and a universal machine U is another. They show the definition can be met. They are not the model.
 
 The monograph's point is that nothing becomes something for free: a distinction that comes into being dissipates by happening (in any real device, in finite time), and keeping it is paid on top, in a merge, which carries Landauer's floor (a named premise) when the merged states were really possible, or in fresh states. Certification, a record that a claim was checked and closed, is the sharpest case. It is one example of a wider question about structural state, observation and cost. A window, a function from states to what can be seen of them (Chapter~\ref{ch:windows}), can lose distinctions that the full state keeps, such as the record and the ledger; the cost laws of Chapters~\ref{ch:nfi} and~\ref{ch:finite} constrain specified events under hypotheses each theorem names. A conventional encoding can preserve those distinctions. A window that discards them cannot recover them in general. The stronger proposal that these distinctions belong in a necessary foundation of computation is a conjecture. The status of each result is stated below.
 
 \begin{abstract}
-This is a mathematical reference for the Thiele Machine: a model of computation in which a step that raises a record that stays must pay into a ledger that only grows. It presents the abstract interfaces, the main theorems, and the definitions of the small machine from the machine-checked Coq corpus. The Coq source is the complete definition; this document states each result with its premises and names the declaration that carries it.
+This is a mathematical reference for the Thiele Machine: a model of computation in which a step that raises a record that stays must pay into a ledger that only grows. It states the model, its toll and the universal floor, then the results that hold for every machine meeting it, and gives one small example machine to show the definition can be met. Each result is stated with its premises and names the declaration that carries it.
 
 A formal proof shows that conclusions follow from premises. It does \emph{not} show that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, thesis.
 
@@ -291,9 +291,9 @@ On a finite machine priced one unit per halving of the number of distinct states
 \end{theorem}
 
 %=============================================================================
-\chapter{The Small Machine}\label{ch:small}
+\chapter{An Example Machine: The Small Machine}\label{ch:small}
 
-The small machine is defined in \texttt{minimal/EarnedCore.v} on the Coq standard library alone.
+This chapter builds one machine that meets the definition, to show it can be met. Nothing in the rest of the model depends on its details. The small machine is defined in \texttt{minimal/EarnedCore.v} on the Coq standard library alone.
 
 \begin{definition}[State]
 A core has two counters $a, b \in \N$, their versions $v_a, v_b \in \N$, a program counter $\mathit{pc} \in \N$ whose lines are numbered from $1$ (a value with no instruction, $0$ included, is a stop), a table of facts, a commitment channel holding at most one fact, and a trap latch. A fact is a triple (property, counter, version); the properties are ``is zero'', ``is even'' and ``is at least $n$'', each with a checker \texttt{eval} and a meaning \texttt{holds} tied by \texttt{eval\_iff}. A state is a core with a ledger $\mu \in \N$ and a flag $\cert \in \B$. The table holds at most $16$ facts. The start state for $(a, b)$ has no facts, an empty channel, the flag down and $\mu = 0$.

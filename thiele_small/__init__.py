@@ -1,4 +1,4 @@
-"""A Python realisation of the small Thiele machine, its multi-register host
+"""A Python realisation of the small example machine (a minimal machine meeting the Thiele Machine's definition), its multi-register host
 and the universal program U, written directly from the Coq definitions.
 
 Every function's docstring names the Coq definition it mirrors. The Coq

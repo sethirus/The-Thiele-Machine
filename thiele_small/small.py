@@ -1,4 +1,4 @@
-"""The small Thiele machine: two counters, versions, a fact table of cap 16,
+"""The small example machine: two counters, versions, a fact table of cap 16,
 a commitment channel, a trap latch, a ledger mu and a certified flag.
 
 Mirrors minimal/EarnedCore.v (module E). The same semantics, with a

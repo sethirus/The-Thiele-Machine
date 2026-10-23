@@ -1,6 +1,6 @@
 # Coq Proofs for the Thiele Machine
 
-This directory contains the active Coq proof tree for the Thiele Machine: the abstract model and its results, and the links that tie the small machine of [`minimal/`](../minimal/) and the universal machine U to them.
+This directory contains the active Coq proof tree for the Thiele Machine: the abstract model and its results, and the links to the example machines (the small machine of [`minimal/`](../minimal/) and the universal machine U) that show the definition can be met.
 
 The proof gates check that the active tree builds, that no proof is admitted, and that no project-local axiom appears in any theorem's dependencies (`artifacts/print_assumptions_all_proofs.json`, written on Linux by `make assumption-receipt`).
 
@@ -25,6 +25,6 @@ For a fresh source-only rebuild, see [docs/REPRODUCTION.md](../docs/REPRODUCTION
 | `INQUISITOR_ASSUMPTIONS.json` | The Inquisitor's allow list of standard-library axioms, its assumption-audit targets and its paper map |
 | `axioms.txt` | The project-local axiom policy, pointing to the receipt |
 
-The small machine itself lives outside this directory, in [`minimal/`](../minimal/): `EarnedCore.v`, `EarnedGeneric.v`, `EarnedMulti.v`, `ThieleComplete.v`, `ThieleCompleteWindow.v`, `UniversalThiele.v`, `UniversalCodes.v`, `UniversalNoCopy.v`, `EarnedPriced.v`, `PricedComplete.v`, `Presented.v` and `EarnedMultiPriced.v`, all on the Coq standard library alone.
+The example machines live outside this directory, in [`minimal/`](../minimal/): `EarnedCore.v`, `EarnedGeneric.v`, `EarnedMulti.v`, `ThieleComplete.v`, `ThieleCompleteWindow.v`, `UniversalThiele.v`, `UniversalCodes.v`, `UniversalNoCopy.v`, `EarnedPriced.v`, `PricedComplete.v`, `Presented.v` and `EarnedMultiPriced.v`, all on the Coq standard library alone.
 
 See the `README.md` in each subdirectory for details on its contents.

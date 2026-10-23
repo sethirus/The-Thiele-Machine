@@ -15,7 +15,7 @@ if ! command -v coqtop >/dev/null 2>&1; then
 fi
 
 echo "[assumption-receipt] 1/3 generating probe from corpus..."
-python3 build/probe/build_full_probe.py
+python3 scripts/build_full_probe.py
 
 # Build the load-path flags from coq/Makefile.conf's COQMF_COQLIBS_NOML, which
 # is what coq_makefile actually passes to coqc. Reading _CoqProject directly is
@@ -89,7 +89,7 @@ fi
 python3 scripts/run_assumption_batches.py "${batch_args[@]}" -- "${COQ_ARGS[@]}"
 
 echo "[assumption-receipt] 3/3 aggregating into artifacts/..."
-python3 build/probe/aggregate_full_probe.py
+python3 scripts/aggregate_full_probe.py
 
 echo "[assumption-receipt] done. Artifacts:"
 ls -1 artifacts/print_assumptions_all_proofs.* 2>/dev/null || true

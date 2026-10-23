@@ -11,7 +11,7 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
-from build.probe.build_full_probe import parse_theorems, qualified_module_name
+from scripts.build_full_probe import parse_theorems, qualified_module_name
 
 ROOT = Path(__file__).resolve().parents[1]
 MEANINGS = ROOT / "docs" / "THEOREM_MEANINGS.md"
