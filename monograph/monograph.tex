@@ -1037,23 +1037,23 @@ allowed to be infinite, the orbit from $u$ never repeats.
 \begin{proof}
 Suppose the same full state occurs twice in the displayed stretch, first
 at position $i$ and later at position $j$. If the earlier position is the
-start, we have already equated the unfinished state $u$ with a held state,
+start, I have already equated the unfinished state $u$ with a held state,
 which is impossible.
 
 Otherwise look one tick behind both occurrences. Those two predecessors
 belong to $D_L$, and they have the same successor. The one-to-one rule on
 $D_L$ says that the predecessors must therefore be equal. Move back another
-tick on both sides and repeat. We eventually reach position zero on the
+tick on both sides and repeat. You eventually reach position zero on the
 earlier side and position $j-i>0$ on the later side. In symbols, the repeated
 backward comparison has given $u=F^{j-i}(u)$. The left side is unfinished;
 the right side has entered $H$ and stayed there. That is the contradiction.
 
 So all $L$ held samples are distinct. There are only $K$ states available
 in $H$, giving $L\le K$. If the sources through $F^K(u)$ had no shared
-successor, use $L=K+1$: we would need $K+1$ held states where only $K$ exist.
+successor, use $L=K+1$: you would need $K+1$ held states where only $K$ exist.
 Finally, when the step is one-to-one everywhere, the backward comparison
 works for any two finite positions in the run. No repetition is possible,
-no matter how long we keep watching.
+no matter how long you keep watching.
 \end{proof}
 
 Draw the smallest delayed example:
@@ -1294,11 +1294,11 @@ H(q)=-\sum_{j:q_j>0}q_j\ln q_j.
 \]
 The sum leaves out states with zero chance; they contribute nothing. An even
 spread has $N$ equal terms, giving $H=\ln N$. Subtract the new entropy from
-that value. Since the chances add to one, we can put $\ln N$ inside the sum:
+that value. Since the chances add to one, you can put $\ln N$ inside the sum:
 \[
 \ln N-H(q)=\sum_{j:q_j>0}q_j\ln(Nq_j).
 \]
-We need to show that this difference is positive, even though some individual
+I need to show that this difference is positive, even though some individual
 terms may be negative.
 
 Use the elementary logarithm inequality $\ln y\le y-1$, with equality only
@@ -1371,7 +1371,7 @@ which no unitary step can raise in finite dimension, is paid for either by fresh
 of states that never comes back around, or by a step that squeezes the even spread, which, when
 the squeezed states were really possible, owes Landauer's floor. Not every step that fails to be
 unitary squeezes: one that keeps the even spread, as pure dephasing and an unread measurement do,
-can't raise a reading that stays either. The balance argument is the same one we used for noisy steps. Choose a complete
+can't raise a reading that stays either. The balance argument is the same one used for noisy steps. Choose a complete
 set of mutually perpendicular directions, some filling the YES subspace and
 the rest filling its orthogonal complement. Spread the chances equally over
 those directions. This is the fully mixed state: choosing a different complete
@@ -1382,7 +1382,7 @@ mixture has chance $m/N$ of YES. A step that preserves this mixture must leave
 that chance at $m/N$. But the YES part already supplies all of it: it started
 with weight $m/N$, and permanence keeps that whole weight inside YES. Every
 contribution from the other directions is nonnegative, so none can contribute
-any chance of entering YES. We can include any chosen NO vector among the
+any chance of entering YES. You can include any chosen NO vector among the
 perpendicular directions of the complement. The same balance then rules out
 entry from that vector. That is why the outside cannot get in. In finite dimension nothing is kept without
 one of the two. Which way a quantum measurement pays when its outcome is kept isn't settled
@@ -1410,7 +1410,7 @@ brackets, so
 \]
 The last equality holds because $x$ is orthogonal to every vector in $Y$,
 including $z$. The choice of $y$ was arbitrary, so $Ux$ is orthogonal to all
-of $Y$. This is the same condition we started with, and it survives every
+of $Y$. This is the same condition I started with, and it survives every
 further step.
 \end{proof}
 
@@ -2053,7 +2053,7 @@ costing 0.
 \end{definition}
 
 I write the yes-or-no reading as $\mathrm{cert}$. It names the flag whose rise
-we are counting. What earns that flag its meaning will depend on the machine's rules.
+I am counting. What earns that flag its meaning will depend on the machine's rules.
 
 
 A word on the label before the first result. I call a result an \emph{observation} when its proof
@@ -2070,13 +2070,13 @@ $\mathrm{cert}(\mathrm{run}(t, s_0)) = \mathrm{yes}$, then $\mathrm{cost}(t) \ge
 \begin{proof}
 Read the states of the run from left to right. The first reads no and the last
 reads yes, so there is a first state on this list that reads yes. It cannot be
-the starting state. The state immediately before it reads no: otherwise our chosen
+the starting state. The state immediately before it reads no: otherwise the chosen
 YES would not be the first. The move between them therefore costs at least one,
 by the toll.
 
 Now add the charges for the whole run. That one charge is already at least one,
 and none of the other charges is negative. The total is at least one. The flag
-may come down later and go up again; that cannot remove the charge we have found.
+may come down later and go up again; that cannot remove the charge I have found.
 \end{proof}
 
 \subsubsection*{The tabletop and the stamp}
@@ -2158,14 +2158,14 @@ changes $r$ supplies such a pair: $s$ and $F_v(s)$.
 \begin{proof}
 Start with two states showing the same picture. Give them the first horizontal
 move. Its rule chooses the next picture from the current picture alone, so the
-next pictures agree too. Neither record changes. We are back in the same
+next pictures agree too. Neither record changes. You are back in the same
 situation, ready for the second move. Repeating this argument covers every move
 in the word, including a word with no moves. On each side the picture follows
 the corresponding $h_i$, and the original record stays put.
 
 A proposed reader of the picture now receives the same input from both states.
 It must give the same answer to that input, so it cannot return two different
-records correctly. Finally, a vertical move that changes the record gives us
+records correctly. Finally, a vertical move that changes the record gives you
 exactly such a pair: before and after, the picture agrees and the record differs.
 Those must be different full states.
 \end{proof}
@@ -2618,7 +2618,7 @@ enough times and every state comes home; all but the last repetition therefore u
 application. So the undoing sequence needed in that argument is available. Morgan Rogers
 studies systems of composable moves in his 2019 and 2021 papers on toposes of monoid actions.
 That more general language gives this fact another home. Here the chairs and the undoing
-sequence already show us why it holds.
+sequence already show why it holds.
 
 Going quantum doesn't get around the automata version either. Alex Brodsky and Nicholas
 Pippenger (2002) showed that a quantum finite automaton that measures only once, at the very
@@ -2997,7 +2997,7 @@ wipes only $2$ to $0$. They commute on the tabletop. Choose one starting full st
 each value and allow every word of at most $T$ lever pulls. Call everything reached by
 depth $t$ $R_t$. Through the promised horizon, each lever must give different successors
 to different states in $R_{T-1}$, even if those states were reached at different times.
-We know which lever was pulled, so the two levers may reuse a landing state.
+You know which lever was pulled, so the two levers may reuse a landing state.
 
 \begin{proposition}[The exact room for exclusive resets]\label{prop:exclusive-room}
 For $T\ge1$, the minimum finite installed carrier has $T+3$ states without a commutation
@@ -3046,7 +3046,7 @@ Eventually the earlier entry would reach the nonzero seed while the later one st
 read zero. That is impossible. The rows therefore contain $L$ and $M$ states.
 
 Can the rows cross? Suppose their $i$th and $j$th entries are the same state.
-Pull $F$ another $q$ times. Seen from the second row, commutation lets us do those
+Pull $F$ another $q$ times. Seen from the second row, commutation lets you do those
 pulls at $\beta$ before its $j$ pulls of $G$. They take $\beta$ once around its loop
 and bring it back. So the shared state returns to itself after those $q$ pulls of $F$.
 The same argument, exchanging the levers, returns it after $p$ pulls of $G$:
@@ -3054,7 +3054,7 @@ The same argument, exchanging the levers, returns it after $p$ pulls of $G$:
 F^{i+q}(\alpha)=F^i(\alpha),\qquad
 G^{j+p}(\beta)=G^j(\beta).
 \]
-We have just proved there are no repeats within either displayed row. The returns must
+I have just proved there are no repeats within either displayed row. The returns must
 therefore lie beyond their ends: $i+q>L$ and $j+p>M$. Only the last $q$ entries
 of the first row and the last $p$ of the second can be shared. There are at most
 $\min(p,q)$ shared states.
@@ -3077,18 +3077,18 @@ Thus $z$ lies outside both rows. Count it, and the total is $2T+2$ again.
 
 Finally strengthen the promise: each lever keeps different sources apart everywhere,
 even beyond the horizon. A crossing would give the return
-$F^{i+q}(\alpha)=F^i(\alpha)$ above. Now we may walk backwards all $i$ steps,
+$F^{i+q}(\alpha)=F^i(\alpha)$ above. Now you may walk backwards all $i$ steps,
 without a horizon restriction, giving $F^q(\alpha)=\alpha$. The left side reads zero
 and the right side reads $1$. So in this case the rows cannot cross at all.
 Their count with the nonzero lists is $2T+p+q$, which is at least $2T+3$ unless
 both loop lengths are one.
 
-In that last case we need one more state. If $z$ is outside the rows, it is the extra
+In that last case you need one more state. If $z$ is outside the rows, it is the extra
 state. If it lies at $F^i(\alpha)$ on the first row, pull $F$ from $z$ another $T$
 times. This is allowed from an initial state and reaches $F^{T+i}(\alpha)$.
 The whole zero row can never repeat under the global promise, by the same backward
 argument used earlier. This new state lies past its displayed end. It cannot be on
-the other row either, because the crossing argument still applies, however far we go.
+the other row either, because the crossing argument still applies, however far you go.
 Its zero reading also keeps it off the two nonzero lists. If $z$ lies on the second
 row, pull $G$ instead and make the same count. Every case gives at least $2T+3$.
 \end{proof}
@@ -3520,7 +3520,7 @@ C to Y and D to Z. Beforehand each card has chance $1/4$, so the four terms in
 the sum are each $1/2$: two bits. Afterward the box chances are $1/2,1/4,1/4$,
 and the three terms are each $1/2$: one and a half bits. Half a bit was lost on
 average. You can see where: half the time the box is X and leaves one binary
-question unanswered---A or B? The other half of the time Y or Z tells you the
+question unanswered: A or B? The other half of the time Y or Z tells you the
 starting card exactly. An actual draw never loses half a card; the half belongs
 to the average uncertainty over repeated draws.
 
@@ -3580,7 +3580,7 @@ yes-state where it is and send an equal number of newcomers to each. The landing
 chances are then even too, so this bound is reached.
 
 For the other bound, count one landing pile at a time. A pile of $s$ equally likely
-starts receives chance $s/(m+k)$. Once we know that pile was reached, there are still
+starts receives chance $s/(m+k)$. Once you know that pile was reached, there are still
 $s$ equally likely origins to distinguish: $\log_2s$ bits have disappeared there.
 Its share of the total loss is therefore $s\log_2s/(m+k)$.
 
@@ -3722,7 +3722,7 @@ chance sits on at most two states. The first of those two equivalences uses no f
 \begin{proof}
 (1) Sort the possible starts into piles according to where the move sends them.
 Suppose the landing place is $y$ and its total chance is $q(y)>0$.
-Knowing that we landed there leaves only the starts in that pile in question.
+Knowing that you landed there leaves only the starts in that pile in question.
 Their chances, now measured within the pile, are $p(x)/q(y)$.
 They add to one, and there are at most $K$ of them.
 The logarithm argument in the preceding entropy bound says their uncertainty
@@ -6027,7 +6027,7 @@ Section~\ref{sec:entitlement}'s question, and it needs a witness on top of the l
 
 Draw the arrows of one run and put a receipt beside each departure. Charge on entry
 into a parked state and let the parked state idle free. The charge now depends on where
-the step begins. We can check exactly which mergers those receipts cover.
+the step begins. You can check exactly which mergers those receipts cover.
 
 Start at $u$ and follow $L$ steps. The source positions are
 $u,F(u),\ldots,F^{L-1}(u)$. Mark a landing state if two different sources in that stretch
@@ -6262,9 +6262,9 @@ potential it drops. Go through the four cases. Down to down and up to up drop no
 cost zero. Down to up drops one, so it costs exactly one. Up to down would have to cost minus
 one, and no step costs less than nothing, so the flag never comes down. So the two together
 hold exactly when raising the flag costs exactly one, everything else costs zero, and the flag
-never comes down. Those prices, a cost of one per raise and nothing on any other step, are rise-only pricing in its tightest form, and I'll call them the \emph{exact schedule}. The flag staying up comes from this ceiling, not from the prices: a ceiling that counts raises instead, which Section~\ref{sec:windows} uses, leaves the same prices and lets the flag come down at cost zero. Notice that Section~\ref{sec:toll}'s toy doesn't meet it: the toy's
+never comes down. Those prices, a cost of one per raise and nothing on any other step, are rise-only pricing in its tightest form, and I'll call them the \emph{exact schedule}. The flag staying up comes from this ceiling, not from the prices: a ceiling that counts raises instead, which Section~\ref{sec:windows} uses, leaves the same prices and lets the flag come down at cost zero. Notice that Section~\ref{sec:toll}'s two-move illustration doesn't meet it: its
 VOUCH move, played from YES, costs one unit although it raises nothing, which the floor allows
-and the exact schedule forbids. The small machine of Part~III (Section~\ref{sec:smallest}) doesn't meet it either, and can't: its CHECK and COMMIT, the check and the commitment that must come before its flag goes up, raise no flag, and each sends two states with the same counters and line to one (a COMMIT lands an empty channel with one already naming its claim, and a CHECK that fails lands with the same state already trapped), so pricing the merges in the record's part of the state charges each of them one. It charges every instruction a
+and the exact schedule forbids. Part~III's example (Section~\ref{sec:smallest}) doesn't meet it either, and can't; both are still Thiele machines, since the toll is all the model asks. The reason: its CHECK and COMMIT, the check and the commitment that must come before its flag goes up, raise no flag, and each sends two states with the same counters and line to one (a COMMIT lands an empty channel with one already naming its claim, and a CHECK that fails lands with the same state already trapped), so pricing the merges in the record's part of the state charges each of them one. It charges every instruction a
 fixed listed price, which is a different job for the word exact (instruction-exact pricing),
 and it breaks no rule. (These two facts hold even if the price depends on the state as well as
 the move's name, which is wider than Section~\ref{sec:toll}'s per-name cost; a per-name cost
@@ -6726,7 +6726,7 @@ wrong on me.
 The machine carries the check across the room and runs it on a specified checker. Its
 correctness proof says that YES means the claim holds. That proof is supplied once, outside
 the individual runs. In Burrows, Abadi and Needham's terms, the checker is the named
-authority. Here we can examine its rules and the proof of what they mean. That is the
+authority. Here you can examine its rules and the proof of what they mean. That is the
 connection between the event the machine records and the claim the event supports.
 
 Only Burrows, Abadi and Needham write about machines passing messages, and even
@@ -6855,7 +6855,7 @@ contains a pair like that one can't carry it. Whether a particular
 machine has such a pair, for a particular window, has to be checked machine by machine and
 window by window; the observation tells you a window prices exactly just when it has no such pair.
 
-We can also find the best cautious prices the clerk could use. Put all the steps
+You can also find the best cautious prices the clerk could use. Put all the steps
 that give one pair of photographs in a tray. Each step ought to cost one if it
 raises the flag and zero otherwise.
 
@@ -6871,7 +6871,7 @@ The two tests are ``some member'' and ``every member'' applied to the same tray.
 F. William Lawvere studied this movement of logical questions along maps in
 ``Adjointness in foundations'' (1969). Robin Cockett, Isabelle Geng, Carlo Maria
 Scandolo and Priyaa Srinivasan (2023) use the same kind of construction to extend
-resource measures along a map. Here we can see the whole calculation in the
+resource measures along a map. Here you can see the whole calculation in the
 tray: take its highest required charge or its lowest. Exact pricing is possible
 precisely when those two numbers agree for every attainable pair of photographs.
 
@@ -7094,7 +7094,7 @@ that's sound and complete for the claim can't be one that looks only at the bare
 three escapes get past that by adding full states, a bit that keeps the contract, or a truthful
 answer.
 
-On the machines Part III (Section~\ref{sec:smallest}) calls certified Thiele-complete, the collision is a theorem too, and it doesn't depend on the toy. Certified Thiele-complete is a definition Part~III gives in full; on such a machine, computing costs nothing and never touches the record, and from a clean start the record goes up only on an earned check, commitment and certificate. Give a run from a loaded start (Part III's word for a start at line 1
+On the machines Part III (Section~\ref{sec:smallest}) calls certified Thiele-complete, the collision is a theorem too, and it doesn't depend on the two-move illustration or on any one machine. Certified Thiele-complete is a definition Part~III gives in full; on such a machine, computing costs nothing and never touches the record, and from a clean start the record goes up only on an earned check, commitment and certificate. Give a run from a loaded start (Part III's word for a start at line 1
 with the two counters set to $a$ and $b$, written $(1, a, b)$) the \emph{bare transcript} made of $a$, $b$ and the base window the run
 ends with, and say a state \emph{explains} a bare transcript when some run from that start ends
 at it showing that window.
@@ -7184,8 +7184,8 @@ parties who don't trust each other (the computer scientists Alessandro Chiesa an
 stays behind. The proof shows the answer is right for that input.
 It doesn't show which machine did the work, or when, and any box with the input can make one.
 Nothing in this book supplies any of these escapes. The model's record is local to the machine
-that keeps it, and the small machine of Part III keeps its record in its state with no signature
-on it at all.
+that keeps it. The example of Part III keeps its record in its state with no signature
+on it at all, as a bare example would.
 
 
 
@@ -7199,11 +7199,11 @@ which part reached the reader.
 Taking more photographs from the same position only helps if something different eventually
 comes into view. When the two runs give the same picture at every step, a longer album keeps
 the same ambiguity. Kalman's unobservable states give that situation for an entire trajectory.
-The question is which window we have, and which distinctions it keeps.
+The question is which window you have, and which distinctions it keeps.
 
 Rice's theorem asks a different question about programs. Henry Rice proved in 1953 that no
 program can decide every instance of a nontrivial property of the partial function another
-program computes. Here we can use a box with just two states. Hand the reader one identical
+program computes. Here you can use a box with just two states. Hand the reader one identical
 picture for both, and a question whose answers differ: the reader has one input and would
 need two answers. That argument finishes before any question about an algorithm's time or
 computability arises.
@@ -7949,7 +7949,7 @@ tick must no longer authorize the copy. The machine's SET rule below does that b
 clearing the current table and channel. A record already kept remains about the
 old colours, which it keeps with the grouping.
 
-The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
+Here is one example machine that meets the model, the smallest I know that makes a record from a checked claim. It is an illustration; the theorem above holds of any Thiele machine. The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
 latch and a ledger. SET costs nothing; it replaces the key and throws away the table and the channel,
 which were checked against the old key. CHECK $g$ costs one and passes when $g$ is sound for the
 current key, and, when it passes, writes $g$ in the table. COMMIT $g$ costs one and passes when the table holds a
@@ -8163,7 +8163,7 @@ depth.
 I'll state them exactly now, for any Thiele machine (Definition~\ref{def:certsys}).
 A run is still just a list of moves, carried out in the order written. The
 question is which of those moves crosses from no to yes, and what that crossing
-lets us conclude about the total charge.
+lets you conclude about the total charge.
 
 \begin{definition}[Raise, non-raising move]\label{def:u09-events}
 In a Thiele machine, a step from state $s$ by move $i$ is a \emph{raise}
@@ -8415,7 +8415,7 @@ event $h(b) = f(b, \mathrm{off})$. In particular every base-driven record factor
 
 \begin{proof}
 Ask the extension what it would do with the record off above each base state $b$.
-Call its answer $h(b)$. Rule (R1) lets us ask that as one function of $b$:
+Call its answer $h(b)$. Rule (R1) lets you ask that as one function of $b$:
 no other hidden field is allowed to change the answer.
 
 Now take an actual state. If its record is off, (R1) gives exactly that answer
@@ -8424,7 +8424,7 @@ whatever $h(b)$ says. Together those two cases say ``keep an existing on,
 otherwise use $h(b)$,'' which is $r\lor h(b)$.
 
 The cover already says that the base part takes its own next step.
-Put that base step beside the record rule just obtained and we have the stated
+Put that base step beside the record rule just obtained and I have the stated
 latch equation. No charge or starting condition entered the argument.
 \end{proof}
 
@@ -8501,7 +8501,7 @@ record over $B$. (2) With finitely many states reading on, a single injective st
 \end{theorem}
 
 \begin{proof}
-(1) Suppose two full states have the same successor. Can we recover what they
+(1) Suppose two full states have the same successor. Can you recover what they
 were? Their successor base states agree. The base keeps different sources
 apart, so their earlier base states agreed too. Their new history strips
 also agree. The first entry of each strip is the old record, so the old
@@ -9207,7 +9207,7 @@ doesn't care what the base is. What a particular machine adds on top of the latc
 \emph{choice of price list} and a \emph{choice of event}, and both are choices. That is why the permanent-flip theorem in Section~\ref{sec:a2-not-arbitrary} never needed the word certify: it forces a
 merge in whatever stays. The surcharged cup
 shows the first: the cost can change and the record not notice. The two cups on one die show
-the second: the rules are happy with either event. Any machine I build will have to make both
+the second: the rules are happy with either event. Any machine that meets the model will have to make both
 choices, and whether its choice of event is the right one is a question I'll get to
 (Section~\ref{sec:pointer}), and won't claim to have settled. Before that, a record can have
 more than two positions. Earlier in this section a record that rises got cut into one cup
@@ -9385,8 +9385,8 @@ that run any machine a program can describe, in order, carrying its reading as a
 computing step done by counter moves on the host and every rise of the host's record placed by its
 program. None of that needs certification: the presented host's own program, read on a host with no claims, no checker and no table of facts, and one paid mark that raises the record when a register is at least 1, meets the definition too.
 
-The rest of the book holds machines to this bar. Part~III builds one machine that clears it,
-and asks for more: that from a clean start its record go up only on a claim that was checked, by a
+The rest of the book holds machines to this bar. Part~III gives one example that clears it,
+and then asks for the stricter certified bar: that from a clean start its record go up only on a claim that was checked, by a
 checker proved to mean it, and then committed, and that some claim's check can come out either
 way. Asking that is a choice of what the record answers to, the second of the latch's two open
 choices, made one way, with clean starts and three priced acts added (Theorem~\ref{thm:tc-decomposition}).
@@ -9838,7 +9838,7 @@ $c$ bits and attains that bound.
 \begin{proof}
 Look at one landing spot. Suppose the sources that land there carry total
 weight $w>0$. Divide each source's weight by $w$. Those shares now add to one:
-they describe our uncertainty about the source once we know this landing spot.
+they describe the uncertainty about the source once you know this landing spot.
 There are at most $N$ possible sources. The logarithm argument in
 Section~\ref{sec:a2-not-arbitrary} says the uncertainty is greatest when those
 possibilities have equal shares, and is then at most $\log_2 N$ bits.
@@ -9850,7 +9850,7 @@ so the same $\log_2 N$ multiplies that total. Under the halving price,
 $N=2^{\mathrm{cost}}$, whose base-two logarithm is exactly the cost.
 
 Infinitely many piles cause no subtraction of one infinite entropy from
-another. We are adding the nonnegative uncertainties inside the piles.
+another. I am adding the nonnegative uncertainties inside the piles.
 Every finite collection contributes at most its weight times the bound,
 and its weight is at most the total. Taking the largest value approached
 by those finite sums keeps the same bound.
@@ -10279,14 +10279,14 @@ that behaves exactly as its own flip tells it to behave. Now ask the judge
 about that particular program.
 
 If the judge says yes, the flip sends $p$ to the no-example $n$. Thus $p$
-and $n$ behave alike. Our question depends only on behaviour, and $n$ fails
+and $n$ behave alike. The question depends only on behaviour, and $n$ fails
 it, so $p$ fails it too. The judge's yes is wrong.
 
 If the judge says no, the flip sends $p$ to the yes-example $y$. Now $p$
 and $y$ behave alike. Since $y$ passes, $p$ passes too. The judge's no is
 wrong. Those are its only answers.
 
-We used the recursion theorem to obtain this one self-matching program,
+I used the recursion theorem to obtain this one self-matching program,
 the two examples to give the flip somewhere to go, and the rule that alike
 behaviour gets the same verdict. The counter, the step relation and the
 encoding played no part. Any setting supplying that same fixed point for
@@ -10418,7 +10418,7 @@ some value.
 
 \begin{proof}
 (1) First build a program that can assemble the code of the very application
-we are about to run. The quoting program $Q$ takes a term's code and returns
+I am about to run. The quoting program $Q$ takes a term's code and returns
 the code of that code. Appendix~\ref{sec:quoting-construction} gives its
 construction and follows it through the three kinds of term. The program
 $\mathrm{mkapp}$ takes two codes and joins them into the code of an application.
@@ -10439,7 +10439,7 @@ behaviour is exactly $f(t)$.
 
 (2) Suppose a closed program $D$ decides $P$. Build another program that asks
 $D$ about the code it receives, then runs the no-example $n$ after yes and
-the yes-example $y$ after no. In this language we must keep the two branches
+the yes-example $y$ after no. In this language you must keep the two branches
 wrapped as functions until the answer chooses one; otherwise call-by-value
 would try to run them before choosing. The following term does that:
 \[
@@ -10513,7 +10513,7 @@ candidate is a closed term and the question is a nontrivial extensional property
 terms. The reduction rules and recursion argument give Rice's theorem there.
 
 The pencil calculation on $N_d$ is useful precisely because it is outside that substrate.
-To run the diagonal inside, we need the representability and recursion conditions stated
+To run the diagonal inside, I need the representability and recursion conditions stated
 in the theorem.
 
 \subsection{What this does to the book}
@@ -10652,7 +10652,7 @@ between the runs? The rest of this chapter takes that question apart.
 
 It belongs in a book about a 0 because a record that the check ran would be a distinction that
 stays, a 0 in some cell that says ``checked.'' These two computers did not keep that
-record. A machine that does keep it gives us something more to inspect.
+record. A machine that does keep it gives you something more to inspect.
 
 \subsection{Look harder}
 
@@ -10772,7 +10772,7 @@ can be the same whether that second check happened or not. One lamp saying ``che
 will not tell me which work was done.
 
 Put a sheet beside the scratchpad, with a named box for each check. Order gets a box.
-Membership gets a box. Each other check we want to remember gets its own. When I come
+Membership gets a box. Each other check you want to remember gets its own. When I come
 back, I want to know which boxes were ticked. If two runs tick different boxes and leave
 the same working value, the full machine has to leave me something that tells them apart.
 That is more of the fibre above the same tabletop picture, brought within the question.
@@ -10806,8 +10806,8 @@ the first-only case and the second-only case cannot finish at the same full
 state: ask whether the first check ran, and that one state would have to answer
 both yes and no.
 
-Each further check that would pass doubles the choices. For every sheet we
-already had, we can leave its new box blank or run that check and tick it.
+Each further check that would pass doubles the choices. For every sheet you
+already had, you can leave its new box blank or run that check and tick it.
 Starting from one empty sheet, $m(b)$ such choices give $2^{m(b)}$ sheets. Every
 sheet is reachable: WRITE the value $b$, then perform exactly the checks whose
 boxes it ticks. Any two different sheets disagree at some named box, so they
@@ -10826,7 +10826,7 @@ a repeated success changes nothing further. A failed CHECK adds nothing, and
 IDLE adds nothing. If the sheet described the history correctly before a
 command, it therefore describes it correctly afterward. Following any finite
 list of commands proves the promised answers. The WRITE-and-check runs above
-reach every state we included. The lower count is attained.
+reach every state I included. The lower count is attained.
 \end{proof}
 
 Try it with just one box. The workspace holds false or true, and CHECK asks whether it
@@ -11196,7 +11196,7 @@ check establishes is whatever it's honest about.
 
 Put that next to the empty no pile and the two fit together: a check establishes what it's honest
 about, and a check with an empty no pile is honest only about what you already had. One
-thing I'll say plainly now, so it doesn't ambush you in the next chapter: the small machine I build there
+thing I'll say plainly now, so it doesn't ambush you in the next chapter: the example I build there
 doesn't police this. Its step makes sure a commit was checked first, about the same thing, by a
 checker proved honest. It doesn't stop you asking a question that can't come out no, like ``is this
 number at least zero.'' Ask one and the whole chain runs, it costs three, and nothing is
@@ -11396,7 +11396,7 @@ the same squares and the possible moves of all the pieces of both players are th
 out that a king that could still castle and one that can't are in different positions, even on an
 identical board. That passes the perfect-vision test. And the official text says why it passes: the
 castling right changes which moves are legal. So the hidden part steers the game: it decides what can
-happen next. In the machine I'm building, the flag never steers. It never touches the ordinary computing at
+happen next. In the example machine, the flag never steers. It never touches the ordinary computing at
 all. The table and the trap that give the flag its meaning do steer, and Section~\ref{sec:smallest}
 says where that line falls. Each of these got something right and missed something else.
 
@@ -11452,7 +11452,7 @@ now: the check that got Kempe's proof accepted, Story's note, went through the c
 examined the double swap. A check that never looked at a step can't have said no to that step. In the
 sense of the previous few pages, the part that fell was never earned in the first place. I'm aware
 that's a convenient reading for me, and I'm wary of convenient readings, especially my own. Take it as
-where I ended up. It isn't a settled answer. It is, though, the reason the machine in the next
+where I ended up. It isn't a settled answer. It is, though, the reason the example machine in the next
 chapter only lets its record go up after a passing, sound check and a matching commitment.
 
 And then came the part I didn't expect. The four-colour statement was true all along. Kenneth Appel and
@@ -11466,8 +11466,8 @@ less than anyone thought.
 
 Laying all of that out together is what changed my picture. If there are stages, then at each one
 there's a line, and the line has two sides: not this far yet, and at least this far. Each line amounts to
-its own yes-or-no question. But choose the question carefully. ``Do we still trust this
-proof?'' can turn back to no, as Kempe's did. ``Did we carry out this particular check?''
+its own yes-or-no question. But choose the question carefully. ``Do I still trust this
+proof?'' can turn back to no, as Kempe's did. ``Did I carry out this particular check?''
 asks about a completed act. Cross out the acceptance and the act still happened.
 To keep that answer, the machine has to keep a record of it and have no move that knocks
 the record down. A check that could have failed doesn't give you that by itself.
@@ -11811,7 +11811,7 @@ and its history is a few sections back.
 \subsection{The record, the checker and the host}
 
 Take the flag and ledger off the small machine's drawing. The core follows the same steps:
-neither field tells it what to do next. Put them back and we can read whether certification
+neither field tells it what to do next. Put them back and you can read whether certification
 occurred and what the instruction schedule charged. That is the passive record's job. The
 latch argument in Section~\ref{sec:latch} gives its form over any fixed base when the record
 is driven by that base and never comes down.
@@ -11887,8 +11887,8 @@ and it never means the side of a simulation doing the stepping; for that I say `
 doing the stepping,'' as against ``the program it runs.''
 
 So the book keeps the two apart: Parts~I and~II were about any system with the
-pieces each result names, and their pictures were toys you could hold (two boxes on a sheet of
-paper, chairs in a room, a row of dots). My machine wasn't one of them; where they said something
+pieces each result names, and their pictures were small worked instances you could hold (two boxes on a sheet of
+paper, chairs in a room, a row of dots). The example machine wasn't one of them; where they said something
 about it, they pointed ahead, and the next chapter builds it. Every Part~II claim that has a machine instance gets that instance there
 (Section~\ref{sec:part3-on-machine}) or in Appendix~\ref{sec:universal-host}, with
 its own theorem, and Part~II said so in one sentence at most. When the origin story
@@ -11900,7 +11900,7 @@ And when it lists what the model asks for (a state, a step, a record, a ledger, 
 ledger and the window as two of the extra pieces: a result asks for them only if it uses
 them.
 
-The build is one piece of scaffolding, and I'd rather you know up front how small it is.
+The build is one piece of scaffolding, and I'd rather you know up front that it is one instance, chosen to be small enough to inspect.
 Section~\ref{sec:smallest} builds the smallest honest machine I could: two counters, six
 instructions, a table of checked facts, a ledger and a flag. Earned commitments are proved there
 (a flag raised from a clean start was
@@ -12080,9 +12080,9 @@ picture alone too. Written as one chain,
  h_i(\pi(s))=h_i(\pi(t))=\pi(\mathrm{exec}(t,i))=\pi(t)=\pi(s).
 \]
 
-We could begin at any $s$ and choose any free $i$, so every free projected
+You could begin at any $s$ and choose any free $i$, so every free projected
 move is still on the whole image. If every base picture occurs, that is
-the whole base. We did choose a different failing question for different
+the whole base. I did choose a different failing question for different
 counter values; the premise allows every CHECK at every state, so it
 allows each of those choices. Finally, if $s$ was reached from the fixed
 start, append this CHECK to that run to reach $t$. Both boxes remain inside
@@ -12632,7 +12632,7 @@ the compiled INC $c$ adds one to $c$ and goes to the next line, which is exactly
 window's move (the version also moves, but the window doesn't show versions). If it's MDEC
 $c$ $j$, split on whether $c$ is 0, and both sides do the same thing in each case. Neither
 instruction can trap. After that move the windows agree again and the trap is still down. Those
-are exactly the conditions we began with, so the next instruction can be
+are exactly the conditions I began with, so the next instruction can be
 compared in the same way. Repeat until the chosen $n$ steps have been counted;
 if either side stops earlier, both stay put for the remaining comparisons.
 \end{proof}
@@ -14359,7 +14359,7 @@ From any loaded start, the first CHECK passes exactly when $a$ is even.
 If it passes, the second has room in the table and passes exactly when $a\ge2$.
 Nothing has changed $A$, so their matching COMMIT and CERTIFY then succeed.
 If either check fails, the trap prevents certification. This proves the
-claim for every $a,b$. Within our eight rivals, $a$ can only be $0,1,2,3$;
+claim for every $a,b$. Within the eight rivals, $a$ can only be $0,1,2,3$;
 of those, only $2$ is even and at least $2$, whatever $b$. From $(2, 0)$ and $(2, 1)$ the
 COMMIT then finds its fact with $A$'s version unchanged, nothing having written $A$, and the CERTIFY
 raises the flag; from every other start the first failing CHECK traps the machine, and a trapped
@@ -14643,7 +14643,7 @@ machine's, hold it up against Section~\ref{sec:toll}'s definition of a Thiele ma
 Section~\ref{sec:latch}, the four clauses of Thiele-complete, and the four of certified
 Thiele-complete. What follows from those holds of
 every machine that meets them; the rest (a table of sixteen facts, three properties) is this machine's choice. The flat price of one is clause (c), and at least one of it is what the record-layer premise asks of each act on this machine. There are six instruction kinds, and a seventh, PAY, for a host that has to charge
-somebody else's prices (Appendix~\ref{sec:presented-universal}). If the machine needs more than that, this is where it'll show.
+somebody else's prices (Appendix~\ref{sec:presented-universal}). If the model needs more than the five parts and the toll, this is where it will show.
 
 %===========================================================================
 \section{How far it reaches}
@@ -15958,7 +15958,7 @@ is needed for that multiplication.
 
 (2) Choose a scale of one and a scale of two. The same ledger reading of
 one is assigned energy one by the first choice and energy two by the
-second. The ledger has not changed; only the conversion we supplied has.
+second. The ledger has not changed; only the conversion I supplied has.
 Thus that conversion was not determined by the counter.
 \end{proof}
 
@@ -16219,7 +16219,7 @@ $(b-a)(\pi(a)-\pi(b))$. If the raise is at most $h$, that excess is at
 most $h(\pi(a)-\pi(b))$.
 
 Add those bounds over the schedule. Intermediate free energies cancel,
-and intermediate populations cancel in the excess bound. We obtain work
+and intermediate populations cancel in the excess bound. I obtain work
 between $F(g_n)-F(g_0)$ and that amount plus
 $h(\pi(g_0)-\pi(g_n))$.
 
@@ -16334,7 +16334,7 @@ physics that wants to be precise. On the list: system, apparatus, environment, i
 information, and measurement, which he called the worst of all. I used half of them in the last few
 paragraphs. To turn that suspicion into a physical claim, each of those words would need a
 specified meaning and a connection to the device. The proofs here work with the models and
-machines we have defined; the physical applications state the further premises they use.
+machines I have defined; the physical applications state the further premises they use.
 
 
 
@@ -16351,23 +16351,23 @@ reader receives. The earned chain says how the flag got there.
 \label{sec:falsification}
 %===========================================================================
 
-Start with a box holding an answer. We need to know which full states count as holding it,
+Start with a box holding an answer. I need to know which full states count as holding it,
 which moves keep it there, and whether the box has finitely many such states. Those choices
 make the counting argument possible. Add a price on merging and the same count gives a
-charge. Give a reader only the tabletop picture and we have another question: how much of
+charge. Give a reader only the tabletop picture and there is another question: how much of
 that event reaches the reader?
 
 Here I put the connections in one place. The statements and their proofs stay in the
-chapters where we built them; this is a way to follow what each piece contributes to the next.
+chapters where I built them; this is a way to follow what each piece contributes to the next.
 
 \subsection{Keeping a distinction}
 
 \emph{One next state.} Follow one deterministic rule from a start. Until the first repeated
-state, every visit is new. At the first repeat, either we have returned to the start, or two
+state, every visit is new. At the first repeat, either you have returned to the start, or two
 different predecessors have reached the same state. From then on the rule repeats the same
 successors. Those are the three columns of the step law
 (Section~\ref{sec:what-a-chair-is}). A choice between several successors would change the
-argument at precisely the point where we follow the next arrow.
+argument at precisely the point where you follow the next arrow.
 
 \emph{A finite place to hold the answer.} Suppose a move keeps every YES state at YES and
 brings a NO state in. With $K$ YES states, those states and the entrant give $K+1$ sources
@@ -16391,7 +16391,7 @@ the count left out.
 
 \subsection{Putting a price beside the arrows}
 
-A graph tells us which states meet. A price schedule tells us what a move costs. The finite
+A graph tells you which states meet. A price schedule tells you what a move costs. The finite
 holding count and a rule charging merging moves together force a charge on a permanent
 raise. Once the one-step toll is part of the machine, every run from NO to YES includes a
 charged crossing; adding nonnegative costs gives the universal floor
@@ -17529,7 +17529,7 @@ was kept and what it cost, and every Thiele-complete machine has such a slice
 Thiele machine only as a clock or with a reading that never rises.
 The small machine and its interpreters are things you can take apart. Each theorem
 answers a stated question under stated premises. Put the computation, the record and its
-account on the same drawing, and we can follow what changes, what stays, and what the next
+account on the same drawing, and you can follow what changes, what stays, and what the next
 reader has to work with.
 
 %===========================================================================
@@ -18078,7 +18078,7 @@ Recursion (generic) & every transformation the substrate can represent has a fix
 Commitment contract & a commitment bit is set only when the claim holds, and whenever it holds & the commitment escape, Section~\ref{sec:windows} \\
 Computably presented & four programs compute the driver, the step, the price and the reading, each halting on every input & the universal host for presented machines, Appendix~\ref{sec:presented-universal} \\
 Clean start & an empty fact table, an empty channel and the flag down & every provenance theorem about the small machine, Section~\ref{sec:smallest}; the floor of three needs less, and that section says exactly what \\
-Record-layer merge pricing & a move that sends two different states with the same base part to one state costs at least one & the toll on the small machine, Theorem~\ref{thm:record-merge-toll} \\
+Record-layer merge pricing & a move that sends two different states with the same base part to one state costs at least one & the toll on the example machine, Theorem~\ref{thm:record-merge-toll} \\
 Structural dissipation pricing & every collapsing instruction dissipates at least one unit, and dissipation is at most cost & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
 Covering tree, paid steps & a decision tree whose leaves cover the narrowing, and at least as many steps charged at least one as the tree is deep & entitlement, Theorems~\ref{thm:u08-count}, \ref{thm:ent-cs} and~\ref{thm:ent-machine} \\
 Share kept by a test & each passed test keeps at least a $2^{-k}$ share of the candidates, for a $k$ fixed before the run; every run meets it for $k$ its own biggest test & entitlement made by the run, Theorems~\ref{thm:ent-run} and~\ref{thm:ent-run-machine} \\
@@ -19076,7 +19076,7 @@ and both tables and channels are empty, so the matching conditions hold before
 any step. Now take one guest instruction. The matching stretch just described
 ends either at the next matching point or with both machines stopped. In the
 first case its slot and mirror conditions are exactly what the following
-instruction needs, so we can do the next stretch. Repeat this for the first
+instruction needs, so you can do the next stretch. Repeat this for the first
 $m$ guest steps. Each running stretch takes at least one host step; if neither
 machine has stopped, the accumulated host count is therefore at least $m$.
 If they stop earlier, both remain stopped with the matching final fields.
@@ -20452,7 +20452,7 @@ two runs whose ends it sends to one box state, with different ledgers.
 When there's a slice, I'll say the box is a slice of the machine. The first two clauses say the slice
 runs as the box runs. Start with a working state and pull one computing lever.
 Clause (ii) says that its picture moves exactly as the box moves, and that the
-full state is working again. That last part lets us apply the same rule to the
+full state is working again. That last part lets you apply the same rule to the
 next lever, then the next. A whole run therefore follows the box's run, move
 for move. Clause (i) puts the two at matching starts, so they finish at matching
 pictures too. The third clause
@@ -20737,7 +20737,7 @@ counter. That coarser tally is enough for the lift's arguments. To run the lifte
 inside the presented-machine interpreter, supply the four computability relations for
 its chosen presentation.
 
-The construction lets us follow the box and the panel separately: the base provides its
+The construction lets you follow the box and the panel separately: the base provides its
 computing moves, the panel earns its record, and the live projection recovers the box's
 working run.
 
@@ -21299,7 +21299,7 @@ settles the main program.
 
 The comparison works backward as well. Whenever an expanded call finishes,
 its four pieces have run in their written order. The middle piece is the
-expanded lower procedure, whose terminating runs we have already matched to
+expanded lower procedure, whose terminating runs I have already matched to
 the original lower procedure. Its preparation and copy-back are just the
 original call's input and output operations. Replace that finished four-piece
 execution by the call it implements. The surrounding assignments, branches
@@ -21334,7 +21334,7 @@ loop, the run's first step is the test. If it is false, the run jumps to the end
 derivation is the one with a false test. If it is true, the run enters the body's code, which it
 can leave only through its end at $a + l + 1$ (the body's own backward statement), where the jump
 returns it to $a$ with a strictly shorter run left. Read the next iteration the same way.
-This cannot continue beyond the finite run we started with: its final test must
+This cannot continue beyond the finite run I started with: its final test must
 be false, giving the last piece of the structured loop execution. So the
 flat program at address 1 halts exactly when the structured statement has a derivation, with the
 same final variables.
@@ -21453,7 +21453,7 @@ that they mean what the source meant.
 
 \subsection{What wasn't built}
 
-There's no chip. The design was never cut into metal: there's no circuit for the small machine, no
+There's no chip. The model is not a circuit, and the lack of one says nothing about it. The example was never cut into metal: there's no circuit for the small machine, no
 simulation of one at the level of gates, and no board ever ran any of this. The small machine exists
 as mathematical definitions and executable implementations that
 agree on every tested step. That's the whole of what ``it runs'' means in this book.
@@ -21468,7 +21468,7 @@ A board with nothing to hold it up against isn't, and that's the trade I made.
 \label{sec:chsh}
 %===========================================================================
 
-The small machine checks whether a number is zero, even, or at least something. That's a
+The example machine checks whether a number is zero, even, or at least something. That's a
 fine way to show the chain, and a modest thing to certify. This appendix builds a check worth earning
 from zero, and then shows the one thing the small machine's host does with it, which is smaller and more
 exact than ``it checks for quantum behaviour,'' a sentence that's tempting and wrong.
@@ -22276,7 +22276,7 @@ settings.
 For example, three agreements and one disagreement give a total of two over
 four rounds, hence an average of one half. The four averages make a little
 square table: Alice's setting chooses the row, Bob's chooses the column.
-The score we will study adds three cells of that table and subtracts the
+The score I will study adds three cells of that table and subtracts the
 bottom-right one. Here are the names for those quantities.
 
 \begin{definition}[Settings, outcomes, correlators]\label{def:chsh-setting}
@@ -22339,7 +22339,7 @@ You can also just list the sixteen sign choices and add each one up. Nothing in 
 numbers: the signs are whole numbers, so the bound holds the same way whether you read the
 correlators as rationals (what a counter gives) or as reals.
 
-A fixed card is only the first case. We can shuffle among several cards,
+A fixed card is only the first case. You can shuffle among several cards,
 perhaps using some more often than others. Every card still tells each player
 an answer using that player's setting alone. The shuffle changes how often
 each card contributes; it does not change the score that a particular card
@@ -22417,7 +22417,7 @@ pile, the score cannot outrun the allowance.
 
 The identity below is the receipt for that trick. The letters $a,b,c,d$ are
 the four entries read across the first row, then across the second. It holds
-for any four real numbers. After proving it, we will put in the two bounds
+for any four real numbers. After proving it, I will put in the two bounds
 on row length that this part of the checker supplies.
 
 \begin{lemma}[The six-square identity]\label{lem:chsh-sos}
@@ -22499,7 +22499,7 @@ The four averages fill only the Alice--Bob part of a larger table. Give that
 table five labels: a constant reading 1, Alice's two possible readings, and
 Bob's two. Each cell records an average product of its row and column
 readings. A reading multiplied by itself is 1, so the diagonal is all ones.
-The four averages we measured fill the cross-player cells and their reflected
+The four averages measured fill the cross-player cells and their reflected
 partners.
 
 Other cells are still empty. This particular check fills them with zero:
@@ -22564,7 +22564,7 @@ together.
 
 The next operation is completing a square, with several numbers at once.
 For one number, $u^2+2uw+rw^2$ becomes $(u+w)^2+(r-1)w^2$.
-The first square cannot hurt us, and choosing $u=-w$ makes it vanish.
+The first square cannot hurt, and choosing $u=-w$ makes it vanish.
 So the whole expression stays nonnegative for every choice exactly when
 the remaining part does. The matrix formula below does the same job for
 two groups of numbers.
@@ -22755,7 +22755,7 @@ the completion's Gram vectors (Section~\ref{sub:four-vectors}).
 \label{sub:chsh-integer}
 
 The machine has whole-number tallies. The three conditions above were written
-using averages, which are fractions. We can test the same conditions without
+using averages, which are fractions. You can test the same conditions without
 ever dividing: first make sure each denominator is positive, then multiply
 it away. Multiplying by a positive number cannot turn a passing inequality
 into a failing one or a failing one into a passing one.
@@ -22869,7 +22869,7 @@ slack, at $S = 2.8$.
 The first table had one place for each player's answer. Enlarge it by giving
 each Alice--Bob product a place too. There are four such products, so the
 five places become nine. A cell still asks for the average product of its
-row and column labels. Some of those products reduce to entries we already
+row and column labels. Some of those products reduce to entries I already
 have; five more numbers are needed for the particular filling below.
 Call them $\gamma_1$ through $\gamma_5$. The longer labels say which
 products they stand for.
@@ -22922,7 +22922,7 @@ I want to test this larger table with the same operation as before:
 put a weight beside each row and column and add the weighted cells. The
 first three weights will each be collected into one completed square.
 Everything involving the other six will be left over. That leftover is
-what I call the residual; it is the part whose sign we still need to settle.
+what I call the residual; it is the part whose sign I still need to settle.
 
 Write a vector as $(v_I, v_{A_0}, v_{A_1}, v_{B_0}, v_{B_1}, v_{00}, v_{01}, v_{10}, v_{11})$,
 where $v_{xy}$ is the coordinate of $A_xB_y$. Put
@@ -23194,7 +23194,7 @@ level-1 check and inherits $S^2 \le 8$ from Section~\ref{sub:chsh-integer}. This
 \subsection{The elliptope completion}
 \label{sub:chsh-elliptope}
 
-Go back to the two within-player cells we filled with zero. Leave them blank
+Go back to the two within-player cells I filled with zero. Leave them blank
 this time. Keep all four measured cross-player averages fixed, and ask whether
 there is any way to fill those two blanks that makes the table pass. A failure
 with zeros no longer settles the question; another filling may work.
@@ -23799,7 +23799,7 @@ The quoting procedure will have to call itself on the smaller pieces of a
 description. There is a catch: this language works out an argument before
 handing it to a function. Hand over the recursive calculation itself and it
 starts calculating at once, before the receiving function has decided whether
-it needs it. That can send us straight back into the same calculation forever.
+it needs it. That can send you straight back into the same calculation forever.
 
 Instead, hand over a recipe waiting for an ingredient. In this language a
 lambda is such a recipe, and it counts as a finished value even though its
@@ -23905,8 +23905,8 @@ builder written out, every piece of the self-referential term there is on the pa
 Put a few beans in one cup and leave a second empty. Write a short list of orders:
 add one, take one away if there is one, go to this line, stop. A finger on the page
 keeps your place. Carry out the orders literally. The question in this appendix
-is how to give the same job to another person with different equipment---a strip
-of paper, stacks of cards, or a different set of cups---and get the same answer
+is how to give the same job to another person with different equipment (a strip
+of paper, stacks of cards, or a different set of cups) and get the same answer
 whenever the first person stops.
 
 Agree on how the input is laid out and how to read the output before either starts.
@@ -24514,7 +24514,7 @@ for every run, the argument has to explain why the next step preserves it. A suc
 example cannot carry that claim, and a name attached to a proof cannot fill a missing step.
 
 The same demand applies to the picture around the mathematics. A definition has to say
-what I meant, and a model of a device has to fit that device. Those questions belong beside the premises and the argument, where we can examine the fit.
+what I meant, and a model of a device has to fit that device. Those questions belong beside the premises and the argument, where you can examine the fit.
 
 \section{Sources}
 \label{sec:bibliography}
