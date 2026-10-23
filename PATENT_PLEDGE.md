@@ -2,7 +2,9 @@
 
 **Devon Thiele, April 2026**
 
-I will not sue anyone for patent infringement based on their use, modification, manufacture, or distribution of the Thiele Machine software, hardware designs, or documentation.
+I will not sue anyone for patent infringement based on their use, modification, manufacture, or distribution of the Thiele Machine software, hardware designs, or documentation, or of any system that implements or describes the Thiele Machine model.
+
+The Thiele Machine is an abstract model of computation, and this commitment covers the model as well as every build of it.
 
 This commitment covers all patent claims I hold or obtain in the future that read on any method, system, apparatus, or algorithm described in this repository, including the µ-ledger, No Free Insight theorem, partition graph machine state, CERTIFY opcode, LASSERT instruction, CHSH_TRIAL instruction, cross-layer refinement pipeline (Coq to OCaml to Verilog), and any other concept described in `TECHNICAL_DISCLOSURE.md`.
 
