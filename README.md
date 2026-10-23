@@ -4,9 +4,9 @@
 
 Hand me that photograph and ask which box was stamped. Enlarging the tiles will not bring the side into view. The difference is in the boxes. The picture leaves it out.
 
-That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The Thiele Machine is the theory and architecture I use to ask what that takes.
+That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The Thiele Machine is an abstract model of computation, built to ask what that takes. It is a machine the way Turing's machine is one: mathematics you can reason about. It is not a device and it is not a book. The book is where I develop it.
 
-[Read the book](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Book source](monograph/monograph.tex)
+The model is developed in a monograph: [Read the monograph](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Monograph source](monograph/monograph.tex) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf)
 
 ## What this is
 
@@ -114,7 +114,7 @@ The book also follows a growing record through its threshold readings: each thre
 
 The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument. The general pointer criterion is a thesis. The book gives its proposed connection to the world separately from the counting theorems.
 
-## Follow the machine
+## Follow the argument
 
 Start with the boxes and the camera. Follow the holding count, put the price rule beside the arrows, and watch CHECK, COMMIT and CERTIFY earn the record. Then open the gauge wider: ask which checks ran, which editions were certified, and how many distinguishable histories must still fit above one picture.
 
@@ -122,7 +122,7 @@ Each construction gives you something to follow one move at a time. The book dev
 
 ## Publication and license
 
-Devon Thiele, *The Thiele Machine: No Free Insight* (2026).
+The monograph that develops the model: Devon Thiele, *The Thiele Machine: No Free Insight* (2026).
 [Publication record](https://doi.org/10.5281/zenodo.17316437) · [Tagged releases](https://github.com/sethirus/The-Thiele-Machine/releases)
 
 The software is licensed under [Apache 2.0](LICENSE). The monograph and `THIELE_MACHINE.txt` are licensed under CC-BY-SA-4.0. The [patent pledge](PATENT_PLEDGE.md) states the non-assertion commitment; the [technical disclosure](TECHNICAL_DISCLOSURE.md) records the published concepts and earlier embodiments.
