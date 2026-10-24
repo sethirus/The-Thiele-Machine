@@ -10,9 +10,18 @@ A Thiele machine is five things and one rule: a set $S$ of states, a set $I$ of 
 
 The Thiele Machine is that definition. It is a machine the way Turing's machine is one: mathematics you can reason about, not a device, not an instruction set and not a book. The book is where I work out what follows.
 
+To ask what a computation hides, add a window. A **sliced** Thiele machine is a Thiele machine with an onto view $\pi:S\to B$, what an outside observer sees, and its moves split in two. Horizontal moves cost nothing, move the view by a rule that uses only the view, and leave the reading alone. Vertical moves leave the view alone and can raise the reading, never lower it. The toll still holds.
+
 ## What follows from it
 
-Each layer says what it rests on.
+It is one story with four steps, and each step says what it rests on.
+
+1. Keeping a reading up cannot be free in state space. That is counting.
+2. The toll is where the model writes a price on the step that raises the reading.
+3. In a sliced machine with a raise in it, the window cannot see that step, because the free moves never touch the reading.
+4. The stricter definitions and the examples show how far this reaches.
+
+The layers below fill that in.
 
 - **From the definition alone.** A run that starts at no and ends at yes costs at least one. This is the universal floor, and it holds for every machine. The bar is nearly empty on purpose: a clock that charges one for every move meets it. The model also fits every machine. Take a Turing machine, a RAM, any deterministic machine and any event it reaches, add a latch on that event that charges one unit when it sets, and you have an honest extension of the original. The model adds accounting and no computing power.
 - **From counting, with no premise.** On any machine with one next state for every state, every step lands on a fresh state, merges two states, or returns to its start. So a run that keeps a reading up either merges somewhere or uses endlessly many distinct states. On a finite machine, a step that raises a permanent reading merges. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them.
