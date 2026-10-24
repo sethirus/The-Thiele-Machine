@@ -48,7 +48,8 @@ instruction set and not a book. The book is where I work out what follows.
 
 To ask what a computation hides, add a window. A sliced Thiele machine is a
 Thiele machine with an onto view pi: S -> B, what an outside observer sees,
-and its moves split in two. Horizontal moves cost nothing, move the view by a
+and its moves split in two. It sits over an ordinary deterministic machine,
+the tabletop B. Horizontal moves cost nothing, move the view by a
 rule that uses only the view, and leave the reading alone. Vertical moves
 leave the view alone and can raise the reading, never lower it. The toll
 still holds.
@@ -56,53 +57,67 @@ still holds.
 
 WHAT FOLLOWS FROM IT
 
-It is one story with four steps, and each step says what it rests on.
+It is one story, in four parts, and each part says what it rests on.
 
-1. Keeping a reading up cannot be free in state space. That is counting.
-2. The toll is where the model writes a price on the step that raises the
-   reading.
-3. In a sliced machine with a raise in it, the window cannot see that step,
-   because the free moves never touch the reading.
-4. The stricter definitions and the examples show how far this reaches.
+1. The definition is more general than any mechanism. It assumes no tape, no
+head and no counters. Every deterministic machine is already a Thiele
+machine: let the reading never rise and every move cost nothing. Add a latch
+on any event the machine reaches, charging one unit when it sets, and you
+have a Thiele machine with a real record that does not change which functions
+the machine computes. A run that starts at no and ends at yes costs at least
+one. That universal floor holds for every machine, and the bar is nearly
+empty on purpose: a clock that charges one for every move meets it. The
+theorems with teeth come when you add one next state for every state (part 2)
+or a window (part 3).
 
-The layers below fill that in.
+2. Keeping costs something on every machine. This is counting, with no
+premise and no physics. On any machine with one next state for every state,
+every step lands on a fresh state, merges two states, or returns to its
+start. So a run that raises a reading and keeps it up either merges somewhere
+or uses endlessly many distinct states. A machine with endlessly many states
+can avoid the merge on paper by paying in fresh states. A machine with
+finitely many states cannot: when only finitely many states read yes, the
+raising step itself merges. Whether a real device has finitely many
+distinguishable states is a physical assumption, and the book names it as one. When a coarse description of a machine
+merges, the fine machine merges too, unless its step leaves the described
+states or there are endlessly many of them. The toll is where the model
+writes a price on that step, and the price is a choice: if every merging
+instruction costs at least one, the toll on a finite machine follows from the
+merge. A heat bound needs one more premise, a named physical one, and the
+book keeps it apart from the counting.
 
-From the definition alone. A run that starts at no and ends at yes costs at
-least one. This is the universal floor, and it holds for every machine. The
-bar is nearly empty on purpose: a clock that charges one for every move meets
-it. The model also fits every machine. Take a Turing machine, a RAM, any
-deterministic machine and any event it reaches, add a latch on that event
-that charges one unit when it sets, and you have an honest extension of the
-original. The model adds accounting and no computing power.
+3. The ordinary machine and the full machine, in both directions.
+In a sliced machine, the view pi(S) = B with its horizontal moves is an
+ordinary deterministic machine. Any deterministic machine arises this way:
+put a bit beside its states. The view cannot see the record, because the free
+moves never touch it and the picture follows the computation step for step.
+That needs a raise to exist, and nothing else: no universal base and no
+premise about the control.
+Thiele-complete is stricter, and unlike the sliced machine it does ask for
+universality. It needs a universal base, so the machine can be read as one
+that runs every program, as a Turing machine can. On top of that it asks that
+computing cost nothing and never touch the record, that the record stay up
+once it is up, that starts have it down, that marks cost exactly one, and
+that some run raise it from one start and not another. Every machine that
+meets it hides its record and its ledger from its own window. Any machine
+with a universal base lifts to one by adding the record layer, and the
+ordinary computer is then the slice that is left when the layer is forgotten. An account that prices
+certification exactly cannot compute the price from a window that shows a
+certifying step and a non-certifying step the same way.
+Recovering which of n editions were certified takes 2^n states above one
+picture.
+A small six-instruction machine and a universal program on it show these
+definitions can be met. They are examples and not the subject.
 
-From counting, with no premise. On any machine with one next state for every
-state, every step lands on a fresh state, merges two states, or returns to
-its start. So a run that keeps a reading up either merges somewhere or uses
-endlessly many distinct states. On a finite machine, a step that raises a
-permanent reading merges. When a coarse description of a machine merges, the
-fine machine merges too, unless its step leaves the described states or there
-are endlessly many of them.
-
-From the definition plus a price you state. If every merging instruction
-costs at least one, the toll on a finite machine follows from the merge. A
-heat bound needs one more premise, a named physical one, and the book keeps
-it apart from the counting.
-
-From stricter definitions the book gives. Thiele-complete asks that computing
-cost nothing and not touch the record, that the record stay up once it is up,
-that starts have it down, and that some run raise it from one start and not
-another. Every machine that meets it hides its record and its ledger from its
-own window. An account that prices certification exactly cannot compute the
-price from a window that shows a certifying step and a non-certifying step
-the same way. Recovering which of n editions were certified takes 2^n states
-above one picture.
-
-By construction. A small six-instruction machine and a universal program on
-it show these definitions can be met. They are examples and not the subject.
-
-Not derived. Which event deserves a record, and the pointer thesis about how
-this connects to the world, are a choice and a thesis. The book labels them
-as such.
+4. What is argued and what is proved. The counting, the floor, the window
+results, the lift and the slice are theorems under the hypotheses they state.
+The book has 206 numbered statements; 205 are closed by a proof on the page,
+and the one that is not is the pointer thesis. It proposes certification as
+the event worth recording, because certified records get copied and relied on
+by parties who did not produce them. Separately, and unnumbered, the book argues
+that the record and its price are part of computation itself and not
+something added afterwards, and states the Thiele thesis, a claim about
+physical processes. Neither is presented as a theorem.
 
 
 A RECORD THAT MEANS SOMETHING
@@ -228,10 +243,71 @@ positive charge, a fixed full state could not hold its own ledger: it would
 require the same number to equal itself plus a positive amount.
 
 
+AN EXAMPLE MACHINE
+
+This is an example and not the Thiele Machine. The model is defined over every
+machine that meets it. This small machine is here to show that the
+definition can be met, and to give the argument something to run.
+
+The example's state contains two natural-number counters, their edition
+numbers, a sixteen-entry fact table, a commitment channel, a trap, a ledger
+and a permanent flag. INC and DEC compute. CHECK, COMMIT and CERTIFY enforce
+the earned chain and cost one each. HALT stops the guest program. The full
+rules, including failure and idle behavior, are in the book.
+
+From a clean start, certification costs at least three because its three
+required acts each cost one. A true claim checked, committed and certified
+without an intervening write attains three. A ready-made commitment or an
+already raised flag changes that starting task; the proof uses the empty
+channel and flag-down premises explicitly.
+
+The book builds universal host programs, follows the guest through the
+host's instructions, and compares their records and ledgers at the matching
+points. It studies composition and the boundaries where one component can
+invalidate another's earned claim. A shared writer that changes a counter
+without advancing its edition opens precisely the stale-check route the
+machine was meant to close.
+
+The mathematics specifies the operations that must be preserved. A software
+implementation must implement those operations through every allowed path.
+Keeping a copy of their names or values alone does not establish that.
+
+Its earned chain.
+
+It uses an earned chain. CHECK tests a claim about a
+counter and enters a fact naming the claim, the counter and its current
+edition. COMMIT selects a matching fact only while that edition is current.
+CERTIFY requires a commitment and raises the permanent flag. Writing a
+counter advances its edition, so an earlier check cannot be presented as a
+check of that newly written counter.
+
+Start with an empty table, empty channel and flag down. If the flag goes up,
+CERTIFY must have succeeded: no other instruction raises it. Its channel
+must have been filled by COMMIT. That commitment must have found a fact
+supplied by CHECK. Between that check and commitment the counter's edition
+must still match. Following the three entry points backwards gives the
+check, commitment and certification in their required order.
+
+An instruction word may ask for any of these actions. It cannot dictate a
+successful checker result or directly manufacture an accepting channel.
+That boundary is part of this machine's rules.
+
+Its trap.
+
+It has one more moving part: a trap. A failed CHECK blows
+the fuse, and later free moves leave the whole state still. Hide that failed
+check under pi and demand autonomous free moves on every state. A live
+state and its trapped successor now have the same picture. Since the trapped
+one cannot move, their common projected next step must also stand still.
+A failing predicate can be chosen at every native state, so every free move
+becomes identity on the image of pi. The live-state slice avoids that
+collapse by making its computational promise only while the machine is live.
+A failed check leaves that domain.
+
+
 OPEN THE GAUGE WIDER
 
-These counts are worked out on the example machine described at the end of
-this document. The counting is the point; the example gives it something to
+These counts are worked out on the example machine described above. The counting is the point; the example gives it something to
 run.
 
 First ask which checks passed on the current page. At working value b, let
@@ -336,71 +412,9 @@ conventions, and makes cost-framework comparisons under their stated rules.
 
 Its protocol examples, including RFC 9162, concern specified parts of those
 systems. An observer model says what a particular window reveals. The
-pointer criterion is a thesis about how that picture connects to the world.
+pointer thesis is a thesis about how that picture connects to the world.
 Its proposed interpretation and the mathematical implications of a chosen
 model have different jobs, and the book states both.
-
-
-AN EXAMPLE MACHINE
-
-This is an example and not the Thiele Machine. The model is defined over every
-machine that meets it. This small machine is here to show that the
-definition can be met, and to give the argument something to run.
-
-The example's state contains two natural-number counters, their edition
-numbers, a sixteen-entry fact table, a commitment channel, a trap, a ledger
-and a permanent flag. INC and DEC compute. CHECK, COMMIT and CERTIFY enforce
-the earned chain and cost one each. HALT stops the guest program. The full
-rules, including failure and idle behavior, are in the book.
-
-From a clean start, certification costs at least three because its three
-required acts each cost one. A true claim checked, committed and certified
-without an intervening write attains three. A ready-made commitment or an
-already raised flag changes that starting task; the proof uses the empty
-channel and flag-down premises explicitly.
-
-The book builds universal host programs, follows the guest through the
-host's instructions, and compares their records and ledgers at the matching
-points. It studies composition and the boundaries where one component can
-invalidate another's earned claim. A shared writer that changes a counter
-without advancing its edition opens precisely the stale-check route the
-machine was meant to close.
-
-The mathematics specifies the operations that must be preserved. A software
-implementation must implement those operations through every allowed path.
-Keeping a copy of their names or values alone does not establish that.
-
-Its earned chain.
-
-It uses an earned chain. CHECK tests a claim about a
-counter and enters a fact naming the claim, the counter and its current
-edition. COMMIT selects a matching fact only while that edition is current.
-CERTIFY requires a commitment and raises the permanent flag. Writing a
-counter advances its edition, so an earlier check cannot be presented as a
-check of that newly written counter.
-
-Start with an empty table, empty channel and flag down. If the flag goes up,
-CERTIFY must have succeeded: no other instruction raises it. Its channel
-must have been filled by COMMIT. That commitment must have found a fact
-supplied by CHECK. Between that check and commitment the counter's edition
-must still match. Following the three entry points backwards gives the
-check, commitment and certification in their required order.
-
-An instruction word may ask for any of these actions. It cannot dictate a
-successful checker result or directly manufacture an accepting channel.
-That boundary is part of this machine's rules.
-
-Its trap.
-
-It has one more moving part: a trap. A failed CHECK blows
-the fuse, and later free moves leave the whole state still. Hide that failed
-check under pi and demand autonomous free moves on every state. A live
-state and its trapped successor now have the same picture. Since the trapped
-one cannot move, their common projected next step must also stand still.
-A failing predicate can be chosen at every native state, so every free move
-becomes identity on the image of pi. The live-state slice avoids that
-collapse by making its computational promise only while the machine is live.
-A failed check leaves that domain.
 
 
 HOW TO READ THE ARGUMENT
