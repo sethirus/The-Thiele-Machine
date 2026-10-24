@@ -134,6 +134,13 @@ Start with the boxes and the camera. Follow the holding count, put the price rul
 
 Each construction gives you something to follow one move at a time. The book develops the objects first, names the pieces, and walks through why the result follows. The appendices carry the full host constructions and the conditions used by each argument.
 
+## Where things live
+
+Most of the repository's volume is the example, because an example that runs needs a host, a universal program and a checker. That is not where the model is.
+
+- **The model and what follows from it:** monograph Parts I and II, and the chapters on every model of computation. In the proofs: `coq/kernel/nfi/` (the universal floor, the finite-machine results, pricing) and the model-level files in `minimal/` (`StepLaw`, `KeptDistinction`, `HeatOrRoom`, `NeutralComplete`, `ThieleCompleteWindow`, the `Lift*` files).
+- **The example machine and its hosts:** monograph Part III and the appendices on the universal host and the CHSH check. In the proofs: `minimal/EarnedCore*.v` and the files built on it. In code: `thiele_small/`, a Python version of the example and nothing else.
+
 ## Publication and license
 
 The monograph that develops the model: Devon Thiele, *The Thiele Machine: No Free Insight* (2026).
