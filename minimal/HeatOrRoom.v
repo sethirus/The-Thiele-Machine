@@ -29,8 +29,8 @@
         q0 and a list of others for pairwise distinct abstract states
         different from q0. Retention: F is injective on the states reached
         from the representatives in fewer than T applications. Then
-        |X| >= 1 + (T+1) * (number of others) ([retention_bound]), so a
-        bounded memory keeps the history through at most (|X|-N)/(N-1) resets
+        |X| >= 1 + (T+1) * (number of others) ([retention_bound]). For N >= 2, bounded memory keeps the history through at most
+        floor((|X|-N)/(N-1)) resets
         ([retention_horizon]). A bounded memory delays the merge and does
         not avoid it.
 
@@ -41,7 +41,7 @@
         closed under F ([tight_closed]), satisfies the reset and
         representative hypotheses of (2) ([tight_reset],
         [tight_others_not_q0], [tight_others_distinct]), retains through T
-        repetitions ([tight_retain]), and merges on the next
+        repetitions ([tight_retain]), and, when n >= 1, merges on the next
         ([tight_merges_next]).
 
     The fibre form of the bound, M >= N + T (N - L) for an operation with L

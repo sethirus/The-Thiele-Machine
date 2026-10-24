@@ -12,13 +12,19 @@ The Thiele Machine is that definition. It is a machine the way Turing's machine 
 
 To ask what a computation hides, add a window. A **sliced** Thiele machine is a Thiele machine with an onto view $\pi:S\to B$, what an outside observer sees, and its moves split in two. It sits over an ordinary deterministic machine, the tabletop $B$. Horizontal moves cost nothing, move the view by a rule that uses only the view, and leave the reading alone. Vertical moves leave the view alone and can raise the reading, never lower it. The toll still holds.
 
+For an example without certification, take $S=\mathbb Z_4\times\{0,1,2\}$, view $\pi(b,k)=b$, and reading $r(b,k)=[k=2]$. ROTATE sends $(b,k)$ to $(b+1\bmod4,k)$ at cost zero. ADVANCE sends it to $(b,\min(k+1,2))$ at cost one. These are horizontal and vertical moves respectively, and ADVANCE raises the reading at $k=1$. It still costs one at $k=2$: the definition prices instruction names independently of their source states.
+
+The basic reading is arbitrary and need not be permanent or take both values. Permanence follows from the sliced rules. Source-dependent charges $c(s,i)$, used in the later accounting comparisons, are an explicitly broader interface; the definition above and its Coq record use $c(i)$.
+
+The generalization is structural: any deterministic base lifts to a sliced machine by adding a record and a ledger. Projection forgets those coordinates; embedding a base state with record down and ledger zero preserves every computing run exactly. A mark can distinguish states above the same view. This lift preserves base transitions, not any previous price or reading. With an effective base and event, ordinary computation can encode all these coordinates. “Dimension” describes distinctions within a fibre; it does not assert more computable functions. The formal bridges and their counterexamples are in `coq/audit/`.
+
 ## What follows from it
 
 It is one story, in four parts, and each part says what it rests on.
 
-**1. The definition is more general than any mechanism.** It assumes no tape, no head and no counters. Every deterministic machine is already a Thiele machine: let the reading never rise and every move cost nothing. Add a latch on any event the machine reaches, charging one unit when it sets, and you have a Thiele machine with a real record that does not change which functions the machine computes. A run that starts at no and ends at yes costs at least one. That universal floor holds for every machine, and the bar is nearly empty on purpose: a clock that charges one for every move meets it. The theorems with teeth come when you add one next state for every state (part 2) or a window (part 3).
+**1. The definition is more general than any mechanism.** It assumes no tape, no head and no counters. Every deterministic machine is already a Thiele machine: let the reading never rise and every move cost nothing. Add a latch on an event of its transition rule, and charge one for every use of any instruction that can set it. This gives a Thiele machine with a record while preserving the underlying computation. A run that starts at no and ends at yes costs at least one. That universal floor holds for every machine, and the bar is nearly empty on purpose: a clock that charges one for every move meets it. The theorems with teeth come when you add one next state for every state (part 2) or a window (part 3).
 
-**2. Keeping costs something on every machine.** This is counting, with no premise and no physics. On any machine with one next state for every state, every step lands on a fresh state, merges two states, or returns to its start. So a run that raises a reading and keeps it up either merges somewhere or uses endlessly many distinct states. A machine with endlessly many states can avoid the merge on paper by paying in fresh states. A machine with finitely many states cannot: when only finitely many states read yes, the raising step itself merges. Whether a real device has finitely many distinguishable states is a physical assumption, and the book names it as one. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them. The toll is where the model writes a price on that step, and the price is a choice: if every merging instruction costs at least one, the toll on a finite machine follows from the merge. A heat bound needs one more premise, a named physical one, and the book keeps it apart from the counting.
+**2. Keeping requires a merge or fresh states.** This is counting under a total deterministic next-state rule and a reading held after entry; it uses no physics. Before the first revisit each step is fresh. The first revisit returns to the start or merges two distinct sources; later steps repeat. A run that raises a reading and keeps it up therefore merges somewhere or uses endlessly many distinct states. When only finitely many states read yes, a holding run must eventually merge. The instruction that raises and preserves the reading is non-injective, but its collision need not involve the entry state or its destination. Whether a real device has finitely many distinguishable states is a physical assumption, and the book names it as one. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them. The toll is where the model writes a price on the raising instruction, and the price is a choice: if every non-injective instruction costs at least one, the toll for a permanent reading on a finite machine follows. A heat bound needs an additional physical premise.
 
 **3. The ordinary machine and the full machine, in both directions.**
 - In a sliced machine, the view $\pi(S)=B$ with its horizontal moves is an ordinary deterministic machine. Any deterministic machine arises this way: put a bit beside its states. The view cannot see the record, because the free moves never touch it and the picture follows the computation step for step. That needs a raise to exist, and nothing else: no universal base and no premise about the control.
@@ -26,7 +32,7 @@ It is one story, in four parts, and each part says what it rests on.
 - Recovering which of $n$ editions were certified takes $2^n$ states above one picture.
 - A small six-instruction machine and a universal program on it show these definitions can be met. They are examples and not the subject.
 
-**4. What is argued and what is proved.** The counting, the floor, the window results, the lift and the slice are theorems under the hypotheses they state. The book has 206 numbered statements; 205 are closed by a proof on the page, and the one that is not is the pointer thesis. It proposes certification as the event worth recording, because certified records get copied and relied on by parties who did not produce them. Separately, and unnumbered, the book argues that the record and its price are part of computation itself and not something added afterwards, and states the Thiele thesis, a claim about physical processes. Neither is presented as a theorem.
+**4. What is argued and what is proved.** The counting, the floor, the window results, the lift and the slice are theorems under the hypotheses they state. The mathematical claims have their hypotheses and arguments on the page. The pointer thesis is explicitly unproved. It proposes certification as the event worth recording, because certified records get copied and relied on by parties who did not produce them. Separately, and unnumbered, the book argues that the record and its price are part of computation itself and not something added afterwards, and states the Thiele thesis, a claim about physical processes. Neither is presented as a theorem.
 
 ## Where it starts
 
@@ -76,7 +82,7 @@ For a finite holding interval the count is sharp. Line up $K$ held states after 
 
 Now put a price rule beside the arrows. The abstract model's toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. The price premise is written beside the count; a physical heat bound additionally needs a physical model.
 
-## An example machine
+## The earned-chain counter example
 
 This is an example and not the Thiele Machine. The model is defined over every machine that meets it. This small machine is here to show that the definition can be met, and to give the argument something to run.
 
@@ -92,11 +98,11 @@ It enforces an order:
 
 1. **CHECK** tests a claim and records the claim together with the edition of the counter it concerns.
 2. **COMMIT** selects a matching fact only while that edition is still current.
-3. **CERTIFY** requires a commitment and raises the permanent flag.
+3. **CERTIFY** requires a commitment, preserves the channel, and raises the permanent flag.
 
 A counter write advances its edition. An old check cannot then be presented as a check of the newly written counter. Starting with an empty table, empty channel and flag down, any run that raises the flag must contain the three successful acts in order: only CERTIFY raises it, only COMMIT fills its channel, and only CHECK supplies the fact COMMIT requires.
 
-Storing a representation is part of implementing this machine. Preserving those rules through every allowed program is the part that makes the representation authoritative.
+Storing a representation is part of implementing this machine. Preserving those rules through every allowed program is the part that makes the representation authoritative. This guarantee concerns the specified clean starts and permitted operations. The abstract toll requires payment for a raise; it does not assign the record an earned-history meaning.
 
 ### Its trap
 
@@ -104,7 +110,7 @@ It also has a trap. A failed CHECK blows the fuse, and later free instructions c
 
 ## Open the gauge wider
 
-These counts are worked out on the example machine above. The counting is the point; the example gives it something to run.
+The first two counts concern tasks with their own operations and recovery requirements. The third concerns a publication-file extension of the counter example. They count fibres of different projections.
 
 Three measurements in the book ask different questions of their chosen windows:
 
@@ -113,6 +119,8 @@ Three measurements in the book ask different questions of their chosen windows:
 - **The concrete publication file.** One entire native state can sit below **65,535** different nonempty sets of published claim/edition entries. Sixteen checked facts supply sixteen independent publication choices. Give every choice two instructions and the same charge, and all nonempty selections finish with the same native counters, table, channel, line number, ledger and flag. Sixteen extra bits beside the existing table distinguish the sets. Fifteen bits have only 32,768 values and cannot.
 
 The last count looks through a different camera: it sees the entire native machine and forgets an added publication archive. The native Boolean flag says that some certification occurred. The archive says which claims and editions were certified.
+
+The construction starts with counters $(16,0)$, both editions zero, line 1, ledger zero, empty table and channel, and trap and flag down. These are initial values. Sixteen CHECKs reach line 17 and ledger 16; sixteen blocks of COMMIT/CERTIFY or COMMIT/COMMIT reach line 49 and ledger 48. CERTIFY preserves the channel, so either final block leaves the same commitment. The [review audit](scripts/audit_root_review.py) reproduces all 65,536 choices using the Python implementation and checks the finite holding graphs separately.
 
 ## Look before the value disappears
 
@@ -126,7 +134,7 @@ The machine can be implemented with ordinary computation. What matters is which 
 
 The book also follows a growing record through its threshold readings: each threshold asks whether a particular level has been reached. It treats the recursion theorem and its input conventions, and compares accounting through cost-framework correspondences with the premises stated beside each comparison.
 
-The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument. The pointer thesis is a thesis, and it carries no proof. The book gives its proposed connection to the world separately from the counting theorems.
+The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument. The general pointer criterion is a thesis. It carries no proof. The book gives its proposed connection to the world separately from the counting theorems.
 
 ## Follow the argument
 

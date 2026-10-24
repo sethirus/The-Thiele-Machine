@@ -1,21 +1,12 @@
-(**
-    PROPER SUBSUMPTION: Turing ⊂ Thiele (Non-Circular)
-    
-    This file provides a NON-CIRCULAR proof that Turing computation is
-    strictly contained in Thiele computation.
-    
-    KEY INSIGHT: The distinction is NOT computational power (both are
-    Turing-complete), but COST ACCOUNTING. Thiele tracks μ-cost for every
-    operation, enabling provable complexity bounds.
+(** Turing simulation with an explicit cost counter.
 
-    1. Full Turing machine (read/write any symbol, move, branch)
-    2. Thiele machine (same operations + μ-cost tracking)
-    3. Simulation: every Turing computation can be simulated in Thiele
-    4. Strict extension: Thiele provides cost certificates Turing cannot
-    
-    NO CIRCULAR DEFINITIONS. The Turing machine is not artificially limited.
-    
-    *)
+    This standalone model pairs a Turing configuration with a natural-number
+    ledger and proves projection of runs plus an upper bound on the recorded
+    charge. These are simulation and accounting results. They do not prove
+    that Turing machines cannot encode ledgers or produce cost certificates,
+    nor a strict separation of computable functions. The historical filename
+    and theorem identifier are retained for compatibility; read their types.
+*)
 
 (* SCOPE NOTE: standalone proof scope; this file is not bridged to
    the kernel, and imports none of it.
@@ -276,14 +267,8 @@ Proof.
 Qed.
 
 
-(** The Thiele machine strictly extends Turing by providing:
-    1. All Turing-computable functions (simulation theorem)
-    2. Verifiable cost certificates (strict extension)
-    
-    This is NOT circular: Turing machines are not defined as "lacking cost
-    tracking" and then proved to lack it. Cost tracking is a property the
-    local Thiele record has and the Turing configuration does not.
-*)
+(** Local simulation with cost. No impossibility theorem about ordinary
+    Turing computation is asserted by the conjunction below. *)
 
 Definition TM_computes (delta : TM_Delta) (c_init c_final : TM_Config) : Prop :=
   exists fuel, tm_run fuel delta c_init = c_final.
@@ -293,7 +278,7 @@ Definition Thiele_computes_with_cost (delta : TM_Delta) (c_init : Thiele_Config)
   exists fuel, thiele_run fuel delta c_init = c_final /\
                c_final.(th_mu) - c_init.(th_mu) = cost.
 
-(** Main theorem: Thiele strictly extends Turing *)
+(** Historical identifier: simulation together with a cost-certificate bound. *)
 Theorem thiele_strictly_extends_turing :
   (** Simulation: every Turing computation has a Thiele simulation *)
   (forall delta c_init c_final,
@@ -321,28 +306,9 @@ Proof.
 Qed.
 
 
-(** 
-    This file establishes:
-    
-    1. SIMULATION: Thiele can compute everything Turing can compute
-       (thiele_simulates_turing)
-    
-    2. STRICT EXTENSION: Thiele provides verifiable cost certificates
-       that Turing machines cannot produce (cost_certificate_valid)
-    
-    3. NON-CIRCULAR: Turing machines are not artificially limited.
-       They have full read/write/move capability on an infinite tape.
-       The extension is about OBSERVABLE PROPERTIES, not raw power.
-    
-    The μ-ledger is not about computing different functions - it's about
-    CERTIFYING computational complexity with machine-checked proofs.
-    
-    This is analogous to:
-    - Turing machines compute functions
-    - Thiele machines compute functions AND certify their complexity
-    
-    Both compute the same class of functions (Turing-computable).
-    Only Thiele provides complexity certificates.
-*)
+(** The two conjuncts establish projection-preserving simulation and the
+    validity of the chosen cost bound in this local model. A Turing machine
+    can also encode and compute these data. Connecting this development to
+    the abstract toll or to a particular host requires a separate bridge. *)
 
 End ProperSubsumption.

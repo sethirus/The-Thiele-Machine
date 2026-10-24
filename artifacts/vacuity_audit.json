@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v2",
   "summary": {
     "error": 0,
-    "ok": 7016,
-    "total": 7016,
+    "ok": 7092,
+    "total": 7092,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -9466,446 +9466,6 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "ent_strictly_stronger (ent_member ent_bools_eqb ent_obs ent_post) (ent_member ent_bools_eqb ent_obs ent_prior) /\\ Nat.log2_up (length ent_prior) - Nat.log2_up (length ent_post) = 2 /\\ E.mu (run earned_machine ent2_obs_trace ent_s0) - E.mu ent_s0 = 2 /\\ Nat.log2_up (length ent_prior) - Nat.log2_up (length ent_post) <= E.mu (run earned_machine ent2_obs_trace ent_s0) - E.mu ent_s0 /\\ E.cert (E.run ent2_obs_trace ent_s0) = false /\\ ~ earned_chain earned_interface ent_s0 ent2_obs_trace /\\ ~ (ti_ledger earned_interface ent_s0 + 3 <= ti_ledger earned_interface (run earned_machine ent2_obs_trace ent_s0))",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 65,
-      "name": "nodup_app_disjoint",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "Type} : forall (l m : list X), NoDup l -> NoDup m -> (forall z, In z l -> ~ In z m) -> NoDup (l ++ m)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 77,
-      "name": "nodup_flat_map",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "Type} : forall (f : Y -> list X) (l : list Y), NoDup l -> (forall a, In a l -> NoDup (f a)) -> (forall a b, In a l -> In b l -> a <> b -> forall z, In z (f a) -> ~ In z (f b)) -> NoDup (flat_map f l)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 94,
-      "name": "nodup_map_inj_on",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "Type} : forall (f : X -> Y) (l : list X), NoDup (map f l) -> forall a b, In a l -> In b l -> f a = f b -> a = b",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 106,
-      "name": "nodup_map_of_inj_on",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "Type} : forall (f : X -> Y) (l : list X), (forall a b, In a l -> In b l -> f a = f b -> a = b) -> NoDup l -> NoDup (map f l)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 117,
-      "name": "length_flat_map_const",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "Type} : forall (f : Y -> list X) (l : list Y) (n : nat), (forall a, In a l -> length (f a) = n) -> length (flat_map f l) = length l * n",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 137,
-      "name": "iterF_add",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "Type} (F : X -> X) : forall a b x, iterF F (a + b) x = iterF F a (iterF F b x)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 161,
-      "name": "iter_pos_yes",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t, 1 <= t -> P (iterF F t s) = true",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 168,
-      "name": "cancel_iter",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k a b, iterF F (k + a) s = iterF F (k + b) s -> iterF F a s = iterF F b s",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 175,
-      "name": "permanent_flip_iterates_distinct",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall j k, iterF F j s = iterF F k s -> j = k",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 196,
-      "name": "permanent_flip_no_finite_list",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall all : list X, NoDup all -> (forall x, In x all) -> False",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 231,
-      "name": "run_yes_after",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t, S r <= t -> P (iterF f t x0) = true",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 238,
-      "name": "run_no_before",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t, t <= r -> P (iterF f t x0) = false",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 254,
-      "name": "run_cancel",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall n k a b, ~ run_merges n -> k + a <= n -> k + b <= n -> iterF f (k + a) x0 = iterF f (k + b) x0 -> iterF f a x0 = iterF f b x0",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 267,
-      "name": "run_merges_or_fresh",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall n, ~ run_merges n -> forall i j, i <= n -> j <= n -> iterF f i x0 = iterF f j x0 -> i = j",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 343,
-      "name": "run_bounded_by_room",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall (all : list X), NoDup all -> (forall x, In x all) -> forall n, ~ run_merges n -> n < length all",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 375,
-      "name": "iter_pos_q0",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t x, 1 <= t -> q (iter t x) = q0",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 398,
-      "name": "cancel",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k s t r r', In r reps -> In r' reps -> s + k <= T -> t + k <= T -> iter (s + k) r = iter (t + k) r' -> iter s r = iter t r'",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 414,
-      "name": "nodes_separate",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall s t r r', In r others -> In r' others -> s <= T -> t <= T -> iter s r = iter t r' -> s = t /\\ r = r'",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 440,
-      "name": "in_traj",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall z r, In z (traj r) <-> exists t, t <= T /\\ z = iter t r",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 447,
-      "name": "traj_length",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall r, length (traj r) = S T",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 450,
-      "name": "traj_nodup",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall r, In r others -> NoDup (traj r)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 458,
-      "name": "traj_disjoint",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall r r', In r others -> In r' others -> r <> r' -> forall z, In z (traj r) -> ~ In z (traj r')",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 470,
-      "name": "others_nodup",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "NoDup others",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 477,
-      "name": "nodes_nodup",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "NoDup nodes",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 483,
-      "name": "nodes_length",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "length nodes = length others * S T",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 489,
-      "name": "extra_not_node",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "~ In extra nodes",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 515,
-      "name": "retention_bound",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "1 + (S T) * length others <= length all",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Corollary",
-      "line": 523,
-      "name": "retention_horizon",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "length others >= 1 -> T <= (length all - 1) / length others - 1 \\/ T = 0",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 561,
-      "name": "tight_reset",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall x, qt (Ft x) = None",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 567,
-      "name": "tight_x0_q0",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "qt Z = None",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 570,
-      "name": "tight_others_not_q0",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall r, In r others_t -> qt r <> None",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 576,
-      "name": "tight_others_distinct",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "NoDup (map qt others_t)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 583,
-      "name": "tight_length",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "length all_t = 1 + S T * n",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 591,
-      "name": "tight_length_others",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "length others_t = n",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 594,
-      "name": "in_path",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall z i, In z (path i) <-> exists t, t <= T /\\ z = Node i t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 601,
-      "name": "tight_nodup",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "NoDup all_t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 614,
-      "name": "tight_closed",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall x, In x all_t -> In (Ft x) all_t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 625,
-      "name": "tight_reps_in",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "In Z all_t /\\ (forall r, In r others_t -> In r all_t)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 633,
-      "name": "iter_node",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t i, t <= T -> iterF Ft t (Node i 0) = Node i t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 641,
-      "name": "iter_Z",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t, iterF Ft t Z = Z",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Lemma",
-      "line": 648,
-      "name": "reached_shape",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall z, reached z -> z = Z \\/ exists i t, t < T /\\ z = Node i t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 657,
-      "name": "tight_retain",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall x y, reached x -> reached y -> Ft x = Ft y -> x = y",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 670,
-      "name": "tight_merges_next",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "1 <= n -> iterF Ft T (Node 0 0) <> iterF Ft T Z /\\ Ft (iterF Ft T (Node 0 0)) = Ft (iterF Ft T Z)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/HeatOrRoom.v",
-      "kind": "Theorem",
-      "line": 679,
-      "name": "tight_exact",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "length all_t = 1 + S T * length others_t",
       "status": "ok"
     },
     {
@@ -31691,7 +31251,7 @@
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
       "kind": "Lemma",
-      "line": 168,
+      "line": 159,
       "name": "thiele_simulates_turing_gen",
       "probe_a": null,
       "probe_b": null,
@@ -31701,7 +31261,7 @@
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
       "kind": "Theorem",
-      "line": 201,
+      "line": 192,
       "name": "thiele_simulates_turing",
       "probe_a": null,
       "probe_b": null,
@@ -31711,7 +31271,7 @@
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
       "kind": "Corollary",
-      "line": 210,
+      "line": 201,
       "name": "turing_computable_implies_thiele_computable",
       "probe_a": null,
       "probe_b": null,
@@ -31721,7 +31281,7 @@
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
       "kind": "Lemma",
-      "line": 246,
+      "line": 237,
       "name": "thiele_run_mu_bound",
       "probe_a": null,
       "probe_b": null,
@@ -31731,7 +31291,7 @@
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
       "kind": "Lemma",
-      "line": 266,
+      "line": 257,
       "name": "cost_certificate_valid",
       "probe_a": null,
       "probe_b": null,
@@ -31741,7 +31301,7 @@
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
       "kind": "Theorem",
-      "line": 297,
+      "line": 282,
       "name": "thiele_strictly_extends_turing",
       "probe_a": null,
       "probe_b": null,
@@ -32121,7 +31681,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Lemma",
-      "line": 69,
+      "line": 70,
       "name": "certified_states_spec",
       "probe_a": null,
       "probe_b": null,
@@ -32131,7 +31691,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Lemma",
-      "line": 79,
+      "line": 80,
       "name": "certified_states_nodup",
       "probe_a": null,
       "probe_b": null,
@@ -32141,7 +31701,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Lemma",
-      "line": 87,
+      "line": 88,
       "name": "permanent_image_incl",
       "probe_a": null,
       "probe_b": null,
@@ -32151,7 +31711,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 105,
+      "line": 106,
       "name": "permanent_flip_is_not_injective",
       "probe_a": null,
       "probe_b": null,
@@ -32161,7 +31721,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 137,
+      "line": 138,
       "name": "permanent_flips_collapse_at_least",
       "probe_a": null,
       "probe_b": null,
@@ -32171,7 +31731,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 177,
+      "line": 178,
       "name": "a2_from_merging_price_and_permanence",
       "probe_a": null,
       "probe_b": null,
@@ -32181,7 +31741,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 214,
+      "line": 215,
       "name": "permanent_certification_trace_floor",
       "probe_a": null,
       "probe_b": null,
@@ -32191,7 +31751,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 242,
+      "line": 243,
       "name": "honest_erasure_accounting_implies_a2",
       "probe_a": null,
       "probe_b": null,
@@ -32201,7 +31761,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 262,
+      "line": 263,
       "name": "commit_without_erasure_system_is_not_honest",
       "probe_a": null,
       "probe_b": null,
@@ -32211,7 +31771,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Lemma",
-      "line": 271,
+      "line": 272,
       "name": "commit_without_erasure_system_finite_permanent",
       "probe_a": null,
       "probe_b": null,
@@ -32221,7 +31781,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 294,
+      "line": 295,
       "name": "unbounded_history_escapes",
       "probe_a": null,
       "probe_b": null,
@@ -32231,7 +31791,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 308,
+      "line": 309,
       "name": "revocable_certificate_escapes",
       "probe_a": null,
       "probe_b": null,
@@ -32241,7 +31801,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Lemma",
-      "line": 326,
+      "line": 327,
       "name": "sheets_finite",
       "probe_a": null,
       "probe_b": null,
@@ -32251,7 +31811,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Lemma",
-      "line": 333,
+      "line": 334,
       "name": "stamp_is_permanent",
       "probe_a": null,
       "probe_b": null,
@@ -32261,7 +31821,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 338,
+      "line": 339,
       "name": "priced_reset_satisfies_premises",
       "probe_a": null,
       "probe_b": null,
@@ -32271,7 +31831,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
       "kind": "Theorem",
-      "line": 349,
+      "line": 350,
       "name": "free_merge_escapes",
       "probe_a": null,
       "probe_b": null,
@@ -48749,46 +48309,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/foundation/TcCompile0.v",
-      "kind": "Lemma",
-      "line": 146,
-      "name": "tc_code0_indep",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall (k : nat) (gc : godel_coding k) P i res H, gc_code (tc_comp0 gc res H) (1, P) i = tc_code0 gc P i",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcCompile0.v",
-      "kind": "Theorem",
-      "line": 152,
-      "name": "tc_comp0_halts",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k (gc : godel_coding k) P v j v', sss_output (@mma_sss k) (1, P) (1, v) (j, v') -> forall res (Hres : forall p, Nat.gcd (gc_pr gc p) res = 1) i, sss_output (@mma_sss 2) (i, tc_code0 gc P i) (i, tc_st2 (res * gc_enc gc v)) (i + length (tc_code0 gc P i), tc_st2 (res * gc_enc gc v'))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcCompile0.v",
-      "kind": "Theorem",
-      "line": 164,
-      "name": "tc_comp0_terminates",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k (gc : godel_coding k) P v, forall res (Hres : forall p, Nat.gcd (gc_pr gc p) res = 1) i, sss_terminates (@mma_sss k) (1, P) (1, v) <-> sss_terminates (@mma_sss 2) (i, tc_code0 gc P i) (i, tc_st2 (res * gc_enc gc v))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcCompile0.v",
-      "kind": "Theorem",
-      "line": 174,
-      "name": "tc_comp0_complete",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k (gc : godel_coding k) P v, forall res (Hres : forall p, Nat.gcd (gc_pr gc p) res = 1) i j w, sss_output (@mma_sss 2) (i, tc_code0 gc P i) (i, tc_st2 (res * gc_enc gc v)) (j, w) -> exists j' v', sss_output (@mma_sss k) (1, P) (1, v) (j', v') /\\ w = tc_st2 (res * gc_enc gc v')",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/foundation/TcGodel.v",
       "kind": "Lemma",
       "line": 40,
@@ -50116,26 +49636,6 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "forall k m0 m1 m2 (ms : vec nat k) a b c, tc_enc (m0 ## m1 ## m2 ## ms) (a ## b ## c ## vec_zero (n := k)) = m0 ^ a * (m1 ^ b * (m2 ^ c * 1))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcNorm.v",
-      "kind": "Theorem",
-      "line": 87,
-      "name": "tc_normcode_halts",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall P v j w, sss_output (@mma_sss n) (1, P) (1, v) (j, w) -> forall i, sss_output (@mma_sss n) (i, tc_normcode P i) (i, v) (i + length (tc_normcode P i), w)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcNorm.v",
-      "kind": "Theorem",
-      "line": 96,
-      "name": "tc_normcode_terminates",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall P v i, sss_terminates (@mma_sss n) (i, tc_normcode P i) (i, v) <-> sss_terminates (@mma_sss n) (1, P) (1, v)",
       "status": "ok"
     },
     {
@@ -70166,6 +69666,1266 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "forall s, view (IG s)=if view s =? 1 then 1 else 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ConcreteClosureBridge.v",
+      "kind": "Lemma",
+      "line": 15,
+      "name": "repeated_ticks_match_guest",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n P g, R.guest_run tick (repeat tt n) (P,g) = (P,E.run_prog n P g)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ConcreteClosureBridge.v",
+      "kind": "Theorem",
+      "line": 21,
+      "name": "existing_host_meets_all_action_contract",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall g h, related g h -> forall i, exists w, related (R.guest_run tick w g) (U.hexec h i)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ConcreteClosureBridge.v",
+      "kind": "Theorem",
+      "line": 38,
+      "name": "every_existing_host_trace_refines",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr g h, related g h -> exists w, related (R.guest_run tick w g) (U.hrun tr h)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ControlBoundary.v",
+      "kind": "Lemma",
+      "line": 14,
+      "name": "word_is_iteration",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, T.run M w s = H.iter f (length w) s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ControlBoundary.v",
+      "kind": "Theorem",
+      "line": 22,
+      "name": "fixed_words_commute",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w v s, T.run M v (T.run M w s) = T.run M w (T.run M v s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ControlBoundary.v",
+      "kind": "Theorem",
+      "line": 28,
+      "name": "one_rule_has_no_fixed_word_simulation",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ inhabited (L.sim_base M)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ExistingHostAudit.v",
+      "kind": "Theorem",
+      "line": 10,
+      "name": "combined_reading_is_not_guest_acceptance",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let h := U.hrun (map U.OWN [E.CHECK E.PZero E.CA; E.COMMIT E.PZero E.CA; E.CERTIFY]) (U.hload 0 0 [] 0 0) in U.hread h = true /\\ U.mrec h = false /\\ E.cert (U.gst h) = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ExistingHostAudit.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "provenance_needs_a_start_condition",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "let s := E.mkst (E.start_core 0 0) 0 true in E.cert (E.run [] s) = true /\\ E.total_cost [] = 0 /\\ ~ E.clean_start s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/InterfaceSeparation.v",
+      "kind": "Theorem",
+      "line": 22,
+      "name": "fixed_rule_lift_is_not_neutral_complete",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ N.neutral_complete (N.nlift fixed_rule_base K event)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/InterfaceSeparation.v",
+      "kind": "Theorem",
+      "line": 33,
+      "name": "sliced_does_not_require_this_completeness",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "inhabited (S.SlicedInterface (N.nstate fixed_rule_base) State unit K) /\\ ~ N.neutral_complete (N.nlift fixed_rule_base K event)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/MacroBoundary.v",
+      "kind": "Theorem",
+      "line": 29,
+      "name": "every_macro_boundary_matches",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w, C.cs_run host (concat (map (C.scs_decode simulation) w)) false = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/MacroBoundary.v",
+      "kind": "Theorem",
+      "line": 37,
+      "name": "macro_prefix_exposes_unmatched_acceptance",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "C.cs_cert guest tt = false /\\ C.cs_cert host (C.cs_run host [Raise] false) = true /\\ C.cs_cert host (C.cs_run host [Raise;Reset] false) = false /\\ C.cs_total_cost host [Raise] = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/MacroBoundary.v",
+      "kind": "Theorem",
+      "line": 46,
+      "name": "this_host_is_not_permanent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ (forall s i, C.cs_cert host s = true -> C.cs_cert host (C.cs_step host s i) = true)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/MacroBoundary.v",
+      "kind": "Lemma",
+      "line": 54,
+      "name": "permanent_trace",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, C.cs_cert machine s = true -> C.cs_cert machine (C.cs_run machine w s) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/MacroBoundary.v",
+      "kind": "Theorem",
+      "line": 58,
+      "name": "false_endpoint_excludes_accepting_prefix",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall prefix suffix s, C.cs_cert machine (C.cs_run machine (prefix++suffix) s) = false -> C.cs_cert machine (C.cs_run machine prefix s) = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/NeutralBoundary.v",
+      "kind": "Theorem",
+      "line": 33,
+      "name": "complete_with_changing_mark",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "N.neutral_complete_with interface",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/NeutralBoundary.v",
+      "kind": "Theorem",
+      "line": 44,
+      "name": "chosen_window_is_not_mark_silent",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "window (step (load 0 0) Mark) <> window (load 0 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/NeutralBoundary.v",
+      "kind": "Theorem",
+      "line": 49,
+      "name": "neutral_interface_does_not_imply_vertical_silence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "N.neutral_complete_with interface /\\ ~ (forall s, window (step s Mark) = window s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "original_traces_are_preserved",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr h, C.cs_run extended_system (map Existing tr) h = U.hrun tr h",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 40,
+      "name": "original_costs_are_preserved",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr, C.cs_total_cost extended_system (map Existing tr) = U.htotal_cost tr",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 44,
+      "name": "extension_has_exact_ledger",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall h i, U.hmu (extended_step h i) = U.hmu h + extended_cost i",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 48,
+      "name": "extension_has_permanent_record",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall h i, U.mrec h = true -> U.mrec (extended_step h i) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 58,
+      "name": "paid_raise_without_guest_establishment",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "U.mrec bypassed = true /\\ E.cert (U.gst bypassed) = false /\\ E.clean_start (U.gst bypassed) /\\ U.hmu bypassed = 1 /\\ extended_cost ForceMirror = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 64,
+      "name": "empty_guest_cannot_supply_accepting_execution",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, E.cert (E.run_prog n [] (E.start 0 0)) = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PaidBypassBoundary.v",
+      "kind": "Theorem",
+      "line": 68,
+      "name": "no_original_host_trace_reaches_bypassed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall tr, U.hrun tr loaded_empty <> bypassed",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/StructuralBridge.v",
+      "kind": "Theorem",
+      "line": 37,
+      "name": "projection_is_retraction",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x, base_view (embed x) = x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/StructuralBridge.v",
+      "kind": "Theorem",
+      "line": 40,
+      "name": "full_horizontal_embedding",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w x, T.run (N.nlift M K event) (map (@N.NBase M K) w) (embed x) = embed (T.run M w x)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/StructuralBridge.v",
+      "kind": "Theorem",
+      "line": 50,
+      "name": "mixed_projection_erases_only_marks",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w x r l, base_view (T.run (N.nlift M K event) w (x,r,l)) = T.run M (N.nbases M K w) x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/StructuralBridge.v",
+      "kind": "Theorem",
+      "line": 55,
+      "name": "exact_ledger",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s i, snd (N.nstep M K event s i) = snd s + N.ncost M K i",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/StructuralBridge.v",
+      "kind": "Theorem",
+      "line": 59,
+      "name": "raised_record_cannot_be_decoded_from_base",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k x, event k x = true -> ~ exists decode : T.m_state M -> bool, forall s, decode (base_view s) = record_view s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/StructuralBridge.v",
+      "kind": "Theorem",
+      "line": 72,
+      "name": "repeated_mark_states_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k x r l n m, T.run (N.nlift M K event) (repeat (N.NMark k) n) (x,r,l) = T.run (N.nlift M K event) (repeat (N.NMark k) m) (x,r,l) -> n=m",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/TuringStructuralBridge.v",
+      "kind": "Lemma",
+      "line": 27,
+      "name": "tape_run_is_native",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n c, T.run tape_base (repeat tt n) c = P.tm_run n delta c",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/TuringStructuralBridge.v",
+      "kind": "Theorem",
+      "line": 39,
+      "name": "native_tape_runs_embed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n c, T.run tape_lift (map (@N.NBase tape_base unit) (repeat tt n)) (B.embed tape_base c) = B.embed tape_base (P.tm_run n delta c)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/TuringStructuralBridge.v",
+      "kind": "Theorem",
+      "line": 47,
+      "name": "hidden_tape_record",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall c, event c = true -> ~ exists decode : P.TM_Config -> bool, forall s : T.m_state tape_lift, decode (B.base_view tape_base s) = B.record_view tape_base s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/AdaptiveBlindness.v",
+      "kind": "Theorem",
+      "line": 27,
+      "name": "adaptive_observer_stays_blind",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall fuel s t mem, view s = view t -> visible (probe fuel s mem) = visible (probe fuel t mem)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/AdaptiveBlindness.v",
+      "kind": "Theorem",
+      "line": 38,
+      "name": "adaptive_decision_stays_equal",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall fuel s t mem (decide : Base * Memory -> bool), view s = view t -> decide (visible (probe fuel s mem)) = decide (visible (probe fuel t mem))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/AdaptiveBlindness.v",
+      "kind": "Theorem",
+      "line": 47,
+      "name": "adaptive_probe_preserves_record",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall fuel s mem, record (fst (probe fuel s mem)) = record s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/AdaptiveBlindness.v",
+      "kind": "Theorem",
+      "line": 54,
+      "name": "adaptive_probe_keeps_hidden_distinction",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall fuel s t mem, view s = view t -> record s <> record t -> visible (probe fuel s mem) = visible (probe fuel t mem) /\\ record (fst (probe fuel s mem)) <> record (fst (probe fuel t mem))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/AdaptiveBlindness.v",
+      "kind": "Theorem",
+      "line": 69,
+      "name": "hidden_access_can_signal",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall i s, fst (write_visible i s) = i /\\ snd (write_visible i s) = snd s) /\\ fst (false,false) = fst (false,true) /\\ fst (privileged_control (false,false)) <> fst (privileged_control (false,true))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/EnforcedRefinement.v",
+      "kind": "Lemma",
+      "line": 25,
+      "name": "guest_run_append",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall u v g, guest_run (u++v) g = guest_run v (guest_run u g)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/EnforcedRefinement.v",
+      "kind": "Theorem",
+      "line": 29,
+      "name": "every_host_trace_refines",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w g h, related g h -> exists v, related (guest_run v g) (host_run w h)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/EnforcedRefinement.v",
+      "kind": "Lemma",
+      "line": 46,
+      "name": "guest_trace_preserves",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w g, guest_invariant g -> guest_invariant (guest_run w g)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/EnforcedRefinement.v",
+      "kind": "Theorem",
+      "line": 50,
+      "name": "all_host_programs_preserve",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w g h, related g h -> guest_invariant g -> host_invariant (host_run w h)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/EnforcedRefinement.v",
+      "kind": "Theorem",
+      "line": 65,
+      "name": "accepted_host_run_has_guest_evidence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall g h (evidence : list GuestMove -> Prop), related g h -> (forall v, guest_accepts (guest_run v g) = true -> evidence v) -> forall w, host_accepts (host_run w h) = true -> exists v, related (guest_run v g) (host_run w h) /\\ evidence v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "kind": "Theorem",
+      "line": 28,
+      "name": "output_factorization_iff",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "output_factors <-> output_constant",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "transition_factorization_iff",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "step_factors <-> step_stable",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "kind": "Theorem",
+      "line": 44,
+      "name": "base_only_implementation_iff",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(output_factors /\\ step_factors) <-> (output_constant /\\ step_stable)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "kind": "Theorem",
+      "line": 64,
+      "name": "encoding_preserves_runs",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall w s, encode (run w s) = host_run w (encode s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "kind": "Theorem",
+      "line": 68,
+      "name": "encoding_cannot_merge_distinguishable_states",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t w, answer (run w s) <> answer (run w t) -> encode s <> encode t",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "kind": "Theorem",
+      "line": 79,
+      "name": "hidden_pair_survives_view_preserving_encoding",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t, view s = view t -> answer s <> answer t -> encode s <> encode t /\\ host_view (encode s) = host_view (encode t) /\\ host_answer (encode s) <> host_answer (encode t)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PricingBoundary.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "permanence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, reading s = true -> reading (step s) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PricingBoundary.v",
+      "kind": "Theorem",
+      "line": 21,
+      "name": "exact_accounting",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, ledger (step s) = ledger s + charge s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PricingBoundary.v",
+      "kind": "Theorem",
+      "line": 24,
+      "name": "every_collision_has_paid_source",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x y, x <> y -> step x = step y -> 1 <= charge x + charge y",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PricingBoundary.v",
+      "kind": "Theorem",
+      "line": 28,
+      "name": "entry_is_free",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "reading unfinished = false /\\ reading (step unfinished) = true /\\ charge unfinished = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/PricingBoundary.v",
+      "kind": "Theorem",
+      "line": 32,
+      "name": "entry_has_no_competing_source",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s, step s = step unfinished -> s = unfinished",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/RepresentationCapacity.v",
+      "kind": "Theorem",
+      "line": 23,
+      "name": "faithful_encoding_preserves_fibre_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m b fibre, (forall bits, length bits = m -> view (realize bits) = b /\\ profile (realize bits) = bits) -> (forall h, host_view h = b -> In h fibre) -> 2^m <= length fibre",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/RepresentationCapacity.v",
+      "kind": "Theorem",
+      "line": 44,
+      "name": "ordinary_bits_attain_the_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall m, NoDup (bit_states m) /\\ length (bit_states m) = 2^m /\\ (forall bits, length bits = m -> In (b,bits) (bit_states m) /\\ fst (b,bits) = b /\\ snd (b,bits) = bits)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/RepresentationCapacity.v",
+      "kind": "Theorem",
+      "line": 62,
+      "name": "one_latch_does_not_require_history_recovery",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "any_record [true;false] = any_record [false;true] /\\ [true;false] <> [false;true]",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ValuationBoundary.v",
+      "kind": "Theorem",
+      "line": 15,
+      "name": "toll_and_permanence",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "(forall s, reading s = false -> reading (step s) = true -> 1 <= price) /\\ (forall s, reading s = true -> reading (step s) = true)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/audit/ValuationBoundary.v",
+      "kind": "Theorem",
+      "line": 20,
+      "name": "no_boolean_shadow_rule",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ exists g : bool -> bool, forall s, reading (step s) = g (reading s)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 65,
+      "name": "nodup_app_disjoint",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall (l m : list X), NoDup l -> NoDup m -> (forall z, In z l -> ~ In z m) -> NoDup (l ++ m)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 77,
+      "name": "nodup_flat_map",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall (f : Y -> list X) (l : list Y), NoDup l -> (forall a, In a l -> NoDup (f a)) -> (forall a b, In a l -> In b l -> a <> b -> forall z, In z (f a) -> ~ In z (f b)) -> NoDup (flat_map f l)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 94,
+      "name": "nodup_map_inj_on",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall (f : X -> Y) (l : list X), NoDup (map f l) -> forall a b, In a l -> In b l -> f a = f b -> a = b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 106,
+      "name": "nodup_map_of_inj_on",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall (f : X -> Y) (l : list X), (forall a b, In a l -> In b l -> f a = f b -> a = b) -> NoDup l -> NoDup (map f l)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 117,
+      "name": "length_flat_map_const",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} : forall (f : Y -> list X) (l : list Y) (n : nat), (forall a, In a l -> length (f a) = n) -> length (flat_map f l) = length l * n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 137,
+      "name": "iterF_add",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "Type} (F : X -> X) : forall a b x, iterF F (a + b) x = iterF F a (iterF F b x)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 161,
+      "name": "iter_pos_yes",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, 1 <= t -> P (iterF F t s) = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 168,
+      "name": "cancel_iter",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k a b, iterF F (k + a) s = iterF F (k + b) s -> iterF F a s = iterF F b s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 175,
+      "name": "permanent_flip_iterates_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall j k, iterF F j s = iterF F k s -> j = k",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 196,
+      "name": "permanent_flip_no_finite_list",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall all : list X, NoDup all -> (forall x, In x all) -> False",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 231,
+      "name": "run_yes_after",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, S r <= t -> P (iterF f t x0) = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 238,
+      "name": "run_no_before",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, t <= r -> P (iterF f t x0) = false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 254,
+      "name": "run_cancel",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n k a b, ~ run_merges n -> k + a <= n -> k + b <= n -> iterF f (k + a) x0 = iterF f (k + b) x0 -> iterF f a x0 = iterF f b x0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 267,
+      "name": "run_merges_or_fresh",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n, ~ run_merges n -> forall i j, i <= n -> j <= n -> iterF f i x0 = iterF f j x0 -> i = j",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 343,
+      "name": "run_bounded_by_room",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall (all : list X), NoDup all -> (forall x, In x all) -> forall n, ~ run_merges n -> n < length all",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 375,
+      "name": "iter_pos_q0",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t x, 1 <= t -> q (iter t x) = q0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 398,
+      "name": "cancel",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k s t r r', In r reps -> In r' reps -> s + k <= T -> t + k <= T -> iter (s + k) r = iter (t + k) r' -> iter s r = iter t r'",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 414,
+      "name": "nodes_separate",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s t r r', In r others -> In r' others -> s <= T -> t <= T -> iter s r = iter t r' -> s = t /\\ r = r'",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 440,
+      "name": "in_traj",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall z r, In z (traj r) <-> exists t, t <= T /\\ z = iter t r",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 447,
+      "name": "traj_length",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall r, length (traj r) = S T",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 450,
+      "name": "traj_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall r, In r others -> NoDup (traj r)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 458,
+      "name": "traj_disjoint",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall r r', In r others -> In r' others -> r <> r' -> forall z, In z (traj r) -> ~ In z (traj r')",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 470,
+      "name": "others_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup others",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 477,
+      "name": "nodes_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup nodes",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 483,
+      "name": "nodes_length",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length nodes = length others * S T",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 489,
+      "name": "extra_not_node",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "~ In extra nodes",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 515,
+      "name": "retention_bound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "1 + (S T) * length others <= length all",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Corollary",
+      "line": 523,
+      "name": "retention_horizon",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length others >= 1 -> T <= (length all - 1) / length others - 1 \\/ T = 0",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 561,
+      "name": "tight_reset",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x, qt (Ft x) = None",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 567,
+      "name": "tight_x0_q0",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "qt Z = None",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 570,
+      "name": "tight_others_not_q0",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall r, In r others_t -> qt r <> None",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 576,
+      "name": "tight_others_distinct",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup (map qt others_t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 583,
+      "name": "tight_length",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length all_t = 1 + S T * n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 591,
+      "name": "tight_length_others",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length others_t = n",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 594,
+      "name": "in_path",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall z i, In z (path i) <-> exists t, t <= T /\\ z = Node i t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 601,
+      "name": "tight_nodup",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "NoDup all_t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 614,
+      "name": "tight_closed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x, In x all_t -> In (Ft x) all_t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 625,
+      "name": "tight_reps_in",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "In Z all_t /\\ (forall r, In r others_t -> In r all_t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 633,
+      "name": "iter_node",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t i, t <= T -> iterF Ft t (Node i 0) = Node i t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 641,
+      "name": "iter_Z",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t, iterF Ft t Z = Z",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Lemma",
+      "line": 648,
+      "name": "reached_shape",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall z, reached z -> z = Z \\/ exists i t, t < T /\\ z = Node i t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 657,
+      "name": "tight_retain",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall x y, reached x -> reached y -> Ft x = Ft y -> x = y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 670,
+      "name": "tight_merges_next",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "1 <= n -> iterF Ft T (Node 0 0) <> iterF Ft T Z /\\ Ft (iterF Ft T (Node 0 0)) = Ft (iterF Ft T Z)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/HeatOrRoom.v",
+      "kind": "Theorem",
+      "line": 679,
+      "name": "tight_exact",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length all_t = 1 + S T * length others_t",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 48,
+      "name": "gcr_succ",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "gc_pr gc p * (res * gc_enc gc v) = res * gc_enc gc (v[(S (v#>p))/p])",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 51,
+      "name": "gcr_not_div",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "v#>p = 0 -> ~ divides (gc_pr gc p) (res * gc_enc gc v)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 61,
+      "name": "pr_not_zero",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "0 < \u27e8x\u27e9",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 94,
+      "name": "icomp_length_eq",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "length (icomp i \u03c1) = ilen \u03c1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 102,
+      "name": "icomp_eq_1",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "icomp i (INC\u2090 (pos_left _ x)) = mma_mult_cst_with_zero r s \u27e8x\u27e9 (lnk i)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 106,
+      "name": "icomp_eq_2",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "icomp i (INC\u2090 (pos_right _ x)) = INC\u2090 (pos_nxt (pos_nxt x)) :: nil",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 110,
+      "name": "icomp_eq_3",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "icomp i (DEC\u2090 (pos_left _ x) j) = mma_div_branch r s \u27e8x\u27e9 (lnk i) (lnk j)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Fact",
+      "line": 114,
+      "name": "icomp_eq_4",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "icomp i (DEC\u2090 (pos_right _ x) j) = DEC\u2090 (pos_nxt (pos_nxt x)) (lnk j) :: nil",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile.v",
+      "kind": "Lemma",
+      "line": 127,
+      "name": "icomp_sound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "instruction_compiler_sound icomp (@mma_sss (k+n)) (@mma_sss (2+n)) simul",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Fact",
+      "line": 63,
+      "name": "icomp0_len",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall lnk i x, length (icomp0 lnk i x) = ilen0 x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Fact",
+      "line": 74,
+      "name": "gcr_succ",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "gc_pr gc p * (res * gc_enc gc v) = res * gc_enc gc (v[(S (v#>p))/p])",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Fact",
+      "line": 77,
+      "name": "gcr_not_div",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "v#>p = 0 -> ~ divides (gc_pr gc p) (res * gc_enc gc v)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Fact",
+      "line": 85,
+      "name": "vec_change_back",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "v#>p = S a -> (v[a/p])[(S ((v[a/p])#>p))/p] = v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Lemma",
+      "line": 93,
+      "name": "icomp0_sound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "instruction_compiler_sound icomp0 (@mma_sss k) (@mma_sss 2) simul",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Lemma",
+      "line": 146,
+      "name": "tc_code0_indep",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall (k : nat) (gc : godel_coding k) P i res H, gc_code (tc_comp0 gc res H) (1, P) i = tc_code0 gc P i",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Theorem",
+      "line": 152,
+      "name": "tc_comp0_halts",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k (gc : godel_coding k) P v j v', sss_output (@mma_sss k) (1, P) (1, v) (j, v') -> forall res (Hres : forall p, Nat.gcd (gc_pr gc p) res = 1) i, sss_output (@mma_sss 2) (i, tc_code0 gc P i) (i, tc_st2 (res * gc_enc gc v)) (i + length (tc_code0 gc P i), tc_st2 (res * gc_enc gc v'))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Theorem",
+      "line": 164,
+      "name": "tc_comp0_terminates",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k (gc : godel_coding k) P v, forall res (Hres : forall p, Nat.gcd (gc_pr gc p) res = 1) i, sss_terminates (@mma_sss k) (1, P) (1, v) <-> sss_terminates (@mma_sss 2) (i, tc_code0 gc P i) (i, tc_st2 (res * gc_enc gc v))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcCompile0.v",
+      "kind": "Theorem",
+      "line": 174,
+      "name": "tc_comp0_complete",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall k (gc : godel_coding k) P v, forall res (Hres : forall p, Nat.gcd (gc_pr gc p) res = 1) i j w, sss_output (@mma_sss 2) (i, tc_code0 gc P i) (i, tc_st2 (res * gc_enc gc v)) (j, w) -> exists j' v', sss_output (@mma_sss k) (1, P) (1, v) (j', v') /\\ w = tc_st2 (res * gc_enc gc v')",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcNorm.v",
+      "kind": "Fact",
+      "line": 46,
+      "name": "nicomp_len",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall lnk i x, length (nicomp lnk i x) = nilen x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcNorm.v",
+      "kind": "Lemma",
+      "line": 49,
+      "name": "nicomp_sound",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "instruction_compiler_sound nicomp (@mma_sss n) (@mma_sss n) simul",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcNorm.v",
+      "kind": "Theorem",
+      "line": 87,
+      "name": "tc_normcode_halts",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall P v j w, sss_output (@mma_sss n) (1, P) (1, v) (j, w) -> forall i, sss_output (@mma_sss n) (i, tc_normcode P i) (i, v) (i + length (tc_normcode P i), w)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcNorm.v",
+      "kind": "Theorem",
+      "line": 96,
+      "name": "tc_normcode_terminates",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall P v i, sss_terminates (@mma_sss n) (i, tc_normcode P i) (i, v) <-> sss_terminates (@mma_sss n) (1, P) (1, v)",
       "status": "ok"
     }
   ]

@@ -3,6 +3,21 @@
     coq/archive/). Generated; do not edit. Functor and Module-Type interiors
     are skipped here and recorded separately in the inventory. *)
 
+Require Audit.AdaptiveBlindness.
+Require Audit.ConcreteClosureBridge.
+Require Audit.ControlBoundary.
+Require Audit.EnforcedRefinement.
+Require Audit.ExistingHostAudit.
+Require Audit.InterfaceSeparation.
+Require Audit.MacroBoundary.
+Require Audit.NeutralBoundary.
+Require Audit.ObservationContract.
+Require Audit.PaidBypassBoundary.
+Require Audit.PricingBoundary.
+Require Audit.RepresentationCapacity.
+Require Audit.StructuralBridge.
+Require Audit.TuringStructuralBridge.
+Require Audit.ValuationBoundary.
 Require Kernel.AlgebraicCoherence.
 Require Kernel.AxCgkAxis.
 Require Kernel.AxCgkBoundary.
@@ -355,9 +370,11 @@ Require Minimal.MaskWitness.
 Require Minimal.MeterRepresentation.
 Require Minimal.Monitor.
 Require Minimal.MonotoneConsensus.
+Require Minimal.MuCore.
 Require Minimal.MultiExecution.
 Require Minimal.MultiThiele2.
 Require Minimal.Multiplicity.
+Require Minimal.Napkin.
 Require Minimal.NativeErasure.
 Require Minimal.NativeFactAccounting.
 Require Minimal.NativeSliceBoundary.
@@ -431,6 +448,81 @@ Require Minimal.UniversalNoCopy.
 Require Minimal.UniversalThiele.
 Require Minimal.VerifierSmall.
 
+(* === Audit.AdaptiveBlindness : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.AdaptiveBlindness.adaptive_observer_stays_blind.
+Print Assumptions Audit.AdaptiveBlindness.adaptive_decision_stays_equal.
+Print Assumptions Audit.AdaptiveBlindness.adaptive_probe_preserves_record.
+Print Assumptions Audit.AdaptiveBlindness.adaptive_probe_keeps_hidden_distinction.
+Print Assumptions Audit.AdaptiveBlindness.hidden_access_can_signal.
+(* === Audit.ConcreteClosureBridge : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.ConcreteClosureBridge.repeated_ticks_match_guest.
+Print Assumptions Audit.ConcreteClosureBridge.existing_host_meets_all_action_contract.
+Print Assumptions Audit.ConcreteClosureBridge.every_existing_host_trace_refines.
+(* === Audit.ControlBoundary : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.ControlBoundary.word_is_iteration.
+Print Assumptions Audit.ControlBoundary.fixed_words_commute.
+Print Assumptions Audit.ControlBoundary.one_rule_has_no_fixed_word_simulation.
+(* === Audit.EnforcedRefinement : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.EnforcedRefinement.guest_run_append.
+Print Assumptions Audit.EnforcedRefinement.every_host_trace_refines.
+Print Assumptions Audit.EnforcedRefinement.guest_trace_preserves.
+Print Assumptions Audit.EnforcedRefinement.all_host_programs_preserve.
+Print Assumptions Audit.EnforcedRefinement.accepted_host_run_has_guest_evidence.
+(* === Audit.ExistingHostAudit : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.ExistingHostAudit.combined_reading_is_not_guest_acceptance.
+Print Assumptions Audit.ExistingHostAudit.provenance_needs_a_start_condition.
+(* === Audit.InterfaceSeparation : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.InterfaceSeparation.fixed_rule_lift_is_not_neutral_complete.
+Print Assumptions Audit.InterfaceSeparation.sliced_does_not_require_this_completeness.
+(* === Audit.MacroBoundary : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.MacroBoundary.every_macro_boundary_matches.
+Print Assumptions Audit.MacroBoundary.macro_prefix_exposes_unmatched_acceptance.
+Print Assumptions Audit.MacroBoundary.this_host_is_not_permanent.
+Print Assumptions Audit.MacroBoundary.permanent_trace.
+Print Assumptions Audit.MacroBoundary.false_endpoint_excludes_accepting_prefix.
+(* === Audit.NeutralBoundary : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.NeutralBoundary.complete_with_changing_mark.
+Print Assumptions Audit.NeutralBoundary.chosen_window_is_not_mark_silent.
+Print Assumptions Audit.NeutralBoundary.neutral_interface_does_not_imply_vertical_silence.
+(* === Audit.ObservationContract : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.ObservationContract.output_factorization_iff.
+Print Assumptions Audit.ObservationContract.transition_factorization_iff.
+Print Assumptions Audit.ObservationContract.base_only_implementation_iff.
+Print Assumptions Audit.ObservationContract.encoding_preserves_runs.
+Print Assumptions Audit.ObservationContract.encoding_cannot_merge_distinguishable_states.
+Print Assumptions Audit.ObservationContract.hidden_pair_survives_view_preserving_encoding.
+(* === Audit.PaidBypassBoundary : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.PaidBypassBoundary.original_traces_are_preserved.
+Print Assumptions Audit.PaidBypassBoundary.original_costs_are_preserved.
+Print Assumptions Audit.PaidBypassBoundary.extension_has_exact_ledger.
+Print Assumptions Audit.PaidBypassBoundary.extension_has_permanent_record.
+Print Assumptions Audit.PaidBypassBoundary.paid_raise_without_guest_establishment.
+Print Assumptions Audit.PaidBypassBoundary.empty_guest_cannot_supply_accepting_execution.
+Print Assumptions Audit.PaidBypassBoundary.no_original_host_trace_reaches_bypassed.
+(* === Audit.PricingBoundary : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.PricingBoundary.permanence.
+Print Assumptions Audit.PricingBoundary.exact_accounting.
+Print Assumptions Audit.PricingBoundary.every_collision_has_paid_source.
+Print Assumptions Audit.PricingBoundary.entry_is_free.
+Print Assumptions Audit.PricingBoundary.entry_has_no_competing_source.
+(* === Audit.RepresentationCapacity : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.RepresentationCapacity.faithful_encoding_preserves_fibre_bound.
+Print Assumptions Audit.RepresentationCapacity.ordinary_bits_attain_the_bound.
+Print Assumptions Audit.RepresentationCapacity.one_latch_does_not_require_history_recovery.
+(* === Audit.StructuralBridge : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.StructuralBridge.projection_is_retraction.
+Print Assumptions Audit.StructuralBridge.full_horizontal_embedding.
+Print Assumptions Audit.StructuralBridge.mixed_projection_erases_only_marks.
+Print Assumptions Audit.StructuralBridge.exact_ledger.
+Print Assumptions Audit.StructuralBridge.raised_record_cannot_be_decoded_from_base.
+Print Assumptions Audit.StructuralBridge.repeated_mark_states_distinct.
+(* === Audit.TuringStructuralBridge : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.TuringStructuralBridge.tape_run_is_native.
+Print Assumptions Audit.TuringStructuralBridge.native_tape_runs_embed.
+Print Assumptions Audit.TuringStructuralBridge.hidden_tape_record.
+(* === Audit.ValuationBoundary : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Audit.ValuationBoundary.toll_and_permanence.
+Print Assumptions Audit.ValuationBoundary.no_boolean_shadow_rule.
 (* === Kernel.AlgebraicCoherence : 19 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.AlgebraicCoherence.Qabs_bound.
 Print Assumptions Kernel.AlgebraicCoherence.chsh_bound_4.
@@ -6501,6 +6593,19 @@ Print Assumptions Minimal.MonotoneConsensus.mc_guard_mono.
 Print Assumptions Minimal.MonotoneConsensus.mc_eff_rel.
 Print Assumptions Minimal.MonotoneConsensus.mc_mono_interfere.
 Print Assumptions Minimal.MonotoneConsensus.mc_mono_no_consensus.
+(* === Minimal.MuCore : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.MuCore.mu_conservation.
+Print Assumptions Minimal.MuCore.mu_conservation_trace.
+Print Assumptions Minimal.MuCore.a2.
+Print Assumptions Minimal.MuCore.nfi_floor.
+Print Assumptions Minimal.MuCore.only_certify_certifies.
+Print Assumptions Minimal.MuCore.receipt_separation.
+Print Assumptions Minimal.MuCore.no_mu_oracle.
+Print Assumptions Minimal.MuCore.no_cert_oracle.
+Print Assumptions Minimal.MuCore.run_cons.
+Print Assumptions Minimal.MuCore.crun_cons.
+Print Assumptions Minimal.MuCore.classical_conservativity.
+Print Assumptions Minimal.MuCore.classical_embedding.
 (* === Minimal.MultiExecution : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.MultiExecution.layer_distinct.
 Print Assumptions Minimal.MultiExecution.layer_image.
@@ -6533,6 +6638,15 @@ Print Assumptions Minimal.Multiplicity.mass_bound.
 Print Assumptions Minimal.Multiplicity.bounded_multiplicity_capacity.
 Print Assumptions Minimal.Multiplicity.overcapacity_forces_large_pile.
 Print Assumptions Minimal.Multiplicity.preparation_overcapacity.
+(* === Minimal.Napkin : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Napkin.cost_blind_admits_free_cert.
+Print Assumptions Minimal.Napkin.gate_step_is_substrate.
+Print Assumptions Minimal.Napkin.forge_step_not_substrate.
+Print Assumptions Minimal.Napkin.shadows_agree.
+Print Assumptions Minimal.Napkin.no_mu_oracle.
+Print Assumptions Minimal.Napkin.no_cert_oracle.
+Print Assumptions Minimal.Napkin.free_run_forges.
+Print Assumptions Minimal.Napkin.substrate_forbids_free_flip.
 (* === Minimal.NativeErasure : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.NativeErasure.native_rebar_witness.
 Print Assumptions Minimal.NativeErasure.native_exact_for_boolean_candidates.

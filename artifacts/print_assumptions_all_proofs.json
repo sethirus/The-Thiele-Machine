@@ -1,23 +1,23 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-23T21:00:08.593580+00:00",
+  "generated": "2026-10-24T07:40:06.372449+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "68770e82867c708ada0f288d5720ff1f3de101392bc101127fbd3c003da6fe61",
-  "probe_digest": "8a1bd171425846fbe19fc3aed1c267c5b9843399cfdeb31da78cf51a4c03dc1d",
+  "corpus_digest": "a07788592a7a6d3a499053ec424333cff1f72c168cded7a278f9a096fae1c992",
+  "probe_digest": "1fcea92253be22cc2311d3ae44ba8ccf1e615cd155ce3f55e598cbc91bfc33aa",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "f817874f8d158eeefe460c06da87ef2deef18c3a32b519d0523724c164340e4b",
-  "files_probed": 427,
-  "addressable_theorems_probed": 7021,
-  "blocks_parsed": 7021,
+  "raw_output_sha256": "557289aeea495390feb7603a45b843ba662bd900b651e261552ecc5acc782dbc",
+  "files_probed": 444,
+  "addressable_theorems_probed": 7101,
+  "blocks_parsed": 7101,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 7021,
-    "closed_under_global_context": 6201,
+    "theorems_probed": 7101,
+    "closed_under_global_context": 6281,
     "depend_on_axioms": 820,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 187,
@@ -222,6 +222,12 @@
   ],
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
+    "Audit": {
+      "theorems": 60,
+      "closed": 60,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "Kernel": {
       "theorems": 4744,
       "closed": 3959,
@@ -234,8 +240,8 @@
       ]
     },
     "Minimal": {
-      "theorems": 2268,
-      "closed": 2233,
+      "theorems": 2288,
+      "closed": 2253,
       "with_axioms": 35,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -252,6 +258,96 @@
     }
   },
   "by_file": {
+    "coq/audit/AdaptiveBlindness.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/ConcreteClosureBridge.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/ControlBoundary.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/EnforcedRefinement.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/ExistingHostAudit.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/InterfaceSeparation.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/MacroBoundary.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/NeutralBoundary.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/ObservationContract.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/PaidBypassBoundary.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/PricingBoundary.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/RepresentationCapacity.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/StructuralBridge.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/TuringStructuralBridge.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/ValuationBoundary.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/category/AlgebraicCoherence.v": {
       "theorems": 19,
       "closed": 19,
@@ -2422,6 +2518,12 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "minimal/MuCore.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/MultiExecution.v": {
       "theorems": 12,
       "closed": 12,
@@ -2437,6 +2539,12 @@
     "minimal/Multiplicity.v": {
       "theorems": 7,
       "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Napkin.v": {
+      "theorems": 8,
+      "closed": 8,
       "with_axioms": 0,
       "axiom_set": []
     },

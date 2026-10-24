@@ -150,6 +150,23 @@ def test_uninstantiated_module_is_not_silently_probed_as_a_global_name():
                             "Proof. exact I. Qed.\nEnd F.\n")
 
 
+@pytest.mark.parametrize("prefix", ["Local", "Global", "Polymorphic", "Monomorphic",
+                                    "Private", "#[local]", "Program"])
+def test_prefixed_declarations_are_not_silently_skipped(prefix):
+    from scripts import vacuity_gate as gate
+    declarations = gate.parse_theorems(
+        f"Module Inner.\n{prefix} Lemma identity : forall P : Prop, P -> P.\n"
+        "Proof. auto. Qed.\nEnd Inner.\n")
+    assert len(declarations) == 1
+    assert declarations[0].qualified_name == "Inner.identity"
+
+
+def test_unparsed_declaration_type_is_a_coverage_error():
+    from scripts import vacuity_gate as gate
+    with pytest.raises(ValueError, match="coverage mismatch"):
+        gate.parse_theorems("Lemma alias := Nat.add_0_r.\n")
+
+
 def test_merge_does_not_replace_an_unreadable_audit_with_partial_results(tmp_path):
     output = tmp_path / "audit.json"
     output.write_text("not json")
@@ -178,6 +195,8 @@ def test_gate_matches_smoke_expectations(tmp_path: Path) -> None:
         "TestFixtures.VacuitySmoke",
         "--output",
         str(report_path),
+        "--probe-dir",
+        "build/vacuity_smoke_relative",
     ]
     proc = subprocess.run(cmd, cwd=str(REPO_ROOT), capture_output=True, text=True)
     assert proc.returncode == 0, (

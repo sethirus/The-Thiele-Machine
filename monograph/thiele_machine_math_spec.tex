@@ -46,7 +46,7 @@
 
 \maketitle
 
-\noindent\textbf{Before the specification.} I don't do math by hand. I think in shapes, directions, and connections, and my part of this work was to see where things had to fit, to direct, and to refuse what didn't fit. This document is the translation. Language models wrote the formal statements and the proofs, Coq checked every one of them, and I read the statements to make sure they say what the shape says. The arguments that carry the results are in the monograph, on the page; the formal versions here are their counterparts, and compiling them is a tool for catching mistakes, not the reason to believe them. So nothing below is in my voice, on purpose. It's the reference layer: exact statements, exact premises, and where each one lives. If you want the pictures, the monograph starts with them. If you want to know exactly what is claimed, it's here.
+\noindent\textbf{Before the specification.} I don't do math by hand. I think in shapes, directions, and connections, and my part of this work was to see where things had to fit, to direct, and to refuse what didn't fit. This document is the translation. Language models wrote the formal statements and the proofs, and I read the statements to make sure they say what the shape says. Coq checks the formal counterparts identified below; some on-page arguments have no Coq counterpart here, as noted where they occur. The arguments that carry the results are in the monograph, on the page; the formal versions here are their counterparts, and compiling them is a tool for catching mistakes, not the reason to believe them. So nothing below is in my voice, on purpose. It's the reference layer: exact statements, exact premises, and where each one lives. If you want the pictures, the monograph starts with them. If you want to know exactly what is claimed, it's here.
 
 \medskip
 
@@ -54,10 +54,10 @@
 
 It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model is a set of states, moves, a step, a price on each move, a yes-or-no reading and one rule, the toll. Any system with those parts is a Thiele machine. A small two-counter machine whose commitments are earned is one example, and a universal machine U is another. They show the definition can be met. They are not the model.
 
-The monograph's point is that nothing becomes something for free: a distinction that comes into being dissipates by happening (in any real device, in finite time), and keeping it is paid on top, in a merge, which carries Landauer's floor (a named premise) when the merged states were really possible, or in fresh states. Certification, a record that a claim was checked and closed, is the sharpest case. It is one example of a wider question about structural state, observation and cost. A window, a function from states to what can be seen of them (Chapter~\ref{ch:windows}), can lose distinctions that the full state keeps, such as the record and the ledger; the cost laws of Chapters~\ref{ch:nfi} and~\ref{ch:finite} constrain specified events under hypotheses each theorem names. A conventional encoding can preserve those distinctions. A window that discards them cannot recover them in general. The stronger proposal that these distinctions belong in a necessary foundation of computation is a conjecture. The status of each result is stated below.
+The structural question is what a total deterministic process needs to raise a reading and keep it: a merge along the run or endlessly fresh states. A physical price needs separate hypotheses. Landauer bounds depend on the physical model and input distribution; finite-time entropy-production bounds here concern specified thermal stochastic dynamics, not every physical state change. Certification, a record that a claim was checked and closed, is the sharpest case. It is one example of a wider question about structural state, observation and cost. A window, a function from states to what can be seen of them (Chapter~\ref{ch:windows}), can lose distinctions that the full state keeps, such as the record and the ledger; the cost laws of Chapters~\ref{ch:nfi} and~\ref{ch:finite} constrain specified events under hypotheses each theorem names. A conventional encoding can preserve those distinctions. A window that discards them cannot recover them in general. The stronger proposal that these distinctions belong in a necessary foundation of computation is a conjecture. The status of each result is stated below.
 
 \begin{abstract}
-This is a mathematical reference for the Thiele Machine: a model of computation in which a step that raises a record that stays must pay into a ledger that only grows. It states the model, its toll and the universal floor, then the results that hold for every machine meeting it, and gives one small example machine to show the definition can be met. Each result is stated with its premises and names the declaration that carries it.
+This is a mathematical reference for the Thiele Machine: a deterministic transition system with instruction prices, a Boolean reading, and a toll on every false-to-true crossing. Permanence and an internal ledger are additional conditions used by particular results. It states the model, its toll and the universal floor, then the results that hold for every machine meeting it, and gives one small example machine to show the definition can be met. Each result is stated with its premises and names the declaration that carries it.
 
 A formal proof shows that conclusions follow from premises. It does \emph{not} show that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, thesis.
 
@@ -98,7 +98,54 @@ A Thiele machine is a tuple $(S, I, \mathrm{step}, \cost, \cert)$ with $\mathrm{
 \textbf{A2:}\quad \forall s\, i,\ \cert(s) = \mathrm{false} \wedge \cert(\mathrm{step}(s,i)) = \mathrm{true} \implies \cost(i) \ge 1.
 \]
 Coq: the record \texttt{CertificationSystem}, with A2 as its field \texttt{cs\_cert\_costs}.
+The name of that record does not restrict the interpretation of $\cert$: it is an
+arbitrary Boolean reading. Neither permanence, occurrence of both values, nor an
+internal ledger is required by this definition.
 \end{definition}
+
+\paragraph{Sliced interface.}
+A sliced Thiele machine additionally has a surjection $\pi:S\to B$ and a partition
+$I=I_H\sqcup I_V$. Write $F_i(s)=\mathrm{step}(s,i)$. For every $i\in I_H$ there
+is $h_i:B\to B$ with
+\[
+\pi(F_i(s))=h_i(\pi(s)),\qquad \cert(F_i(s))=\cert(s),\qquad \cost(i)=0.
+\]
+For every $v\in I_V$, require $\pi(F_v(s))=\pi(s)$ and
+$\cert(s)\le\cert(F_v(s))$, ordering false below true. A2 still applies.
+These equations hold on all states of the stated domain; they imply permanence.
+They do not require a product state space or a universal base.
+
+For a non-certification instance, use $S=\mathbb Z_4\times\{0,1,2\}$,
+$\pi(b,k)=b$ and $\cert(b,k)=[k=2]$. The horizontal instruction
+$R(b,k)=(b+1\bmod4,k)$ costs zero; the vertical instruction
+$V(b,k)=(b,\min(k+1,2))$ costs one. Projection and reading preservation for $R$
+are immediate; $V$ preserves the projection, never lowers the reading, and pays
+one on its crossing from $k=1$ to $k=2$. It also costs one at $k=2$.
+
+\paragraph{Structural generalization.}
+For any deterministic base $(B,J,d)$ and event $E:B\to\B$, put
+$S=B\times\B\times\N$. Computing sends $(b,r,l)$ to $(d(b,i),r,l)$
+at price zero; a mark sends it to $(b,r\lor E(b),l+1)$ at price one.
+Projection to $B$ has the section $b\mapsto(b,\mathrm{false},0)$ and
+commutes with every computing run. An event witness supplies a same-view pair
+with different readings. This preserves base transitions, not a base's previous
+price or reading. Coq: \texttt{coq/audit/StructuralBridge.v}; its specialization
+to the repository's tape model is \texttt{coq/audit/TuringStructuralBridge.v}.
+No effectivity is assumed by this structural theorem. Ordinary encodings can
+retain the added coordinates when effective presentations are supplied.
+A Boolean valuation need not itself be an autonomous two-state quotient:
+\texttt{coq/audit/ValuationBoundary.v} gives a counterexample.
+
+\paragraph{Cost interfaces.}
+The definition uses instruction costs $\cost:I\to\N$, so a trace's cost is
+independent of its initial state. Later source-charge results use a broader
+interface $a:S\to\N$ for one autonomous step, or $\widetilde c:S\times I\to\N$
+with instructions. Their trace cost is the sum of charges along the actual run.
+The same first-crossing proof gives a floor if each crossing costs at least one,
+but instruction-priced theorems retain their stated signature and hypotheses.
+In particular, a single instruction with one fixed price cannot charge one at
+entry and zero at idle. The latter construction is the source-charge example
+\texttt{paid\_entry\_free\_idle} in \texttt{minimal/AccountingBridge.v}.
 
 \begin{theorem}[The universal floor]\label{thm:nfi} \textbf{(S)}
 In every Thiele machine, if $\cert(s_0) = \mathrm{false}$ and $\cert(\mathrm{run}(\tau, s_0)) = \mathrm{true}$, then $\cost(\tau) \ge 1$.
@@ -113,6 +160,14 @@ Induction on $\tau$. Since $\cert$ is false at the start and true at the end, so
 Let a base Thiele machine be simulated by a host: an embedding of base states into host states, a decoding of each base instruction into a list of host instructions, a commuting step law, and certification reflected by the embedding (record \texttt{SimulatingCertificationSystem}). A base trace from uncertified to certified costs at least $1$ in the base, the host run of its decoded trace ends certified, and that host run costs at least $1$.
 Coq: \texttt{host\_represents\_simulating\_cert\_system}.
 \end{theorem}
+
+The commuting law compares endpoints of complete translated instruction blocks.
+The host's cost floor uses its own toll axiom. This theorem alone neither constrains
+intermediate block states nor establishes an earned history for arbitrary host
+programs. Such guarantees require preservation over the host's permitted operations
+and initial states. The checked counterexamples in \texttt{coq/audit/MacroBoundary.v}
+and \texttt{coq/audit/PaidBypassBoundary.v} separate these claims; the latter
+extends the host with a hypothetical instruction, not an instruction of the original host.
 
 \begin{theorem}[Quantitative form] \textbf{(S)}
 Extend a Thiele machine with a witness $w : S \to \N$ and a threshold $k$ such that each step raises $w$ by at most its cost and every certified state has $w \ge k$ (record \texttt{QuantitativeCertificationSystem}). A trace from a state with $w = 0$ to a certified state costs at least $k$.
@@ -162,6 +217,15 @@ Coq: \texttt{permanent\_flip\_is\_not\_injective}.
 If the instruction were injective it would map the certified states injectively into the certified states, so onto them, leaving no certified image for the uncertified state it switches on.
 \end{proof}
 
+This asserts non-injectivity of the instruction, not a collision at the entry
+destination. For $u\notin H$, $f(u)\in H$, and $f(H)\subseteq H$ with $|H|=K$,
+the path $u\to h_1\to\cdots\to h_K\to h_K$ delays the orbit's collision until
+the $(K+1)$st transition. The entry shares its destination with a source in $H$
+exactly when $f(u)\in f(H)$. Surjectivity of $f|_H$ is sufficient, not necessary,
+for this condition at a particular entry. Instruction pricing charges every use
+of a non-injective instruction under the merge-pricing premise, regardless of
+where its collision occurs.
+
 \begin{theorem}[A2 from merge pricing] \textbf{(S)}
 On a finite state space with a permanent certificate, if every non-injective instruction costs at least $1$, A2 holds.
 Coq: \texttt{a2\_from\_merging\_price\_and\_permanence}; the trace form is \texttt{permanent\_certification\_trace\_floor}, and an honest erasure account gives A2 too (\texttt{honest\_erasure\_accounting\_implies\_a2}).
@@ -191,7 +255,7 @@ Coq: \texttt{run\_merges\_or\_fresh}, \texttt{run\_bounded\_by\_room}; \texttt{p
 \end{theorem}
 
 \begin{theorem}[Retention bound, and its exactness] \textbf{(S)}
-Let a finite implementation $F : X \to X$ of a reset carry an abstraction $q$ that sends every image of $F$ to a fixed abstract state $q_0$, with a representative of $q_0$ and representatives of $N - 1$ further, pairwise distinct abstract states, and let $F$ be injective on the states reached from the representatives in fewer than $T$ applications. Then $|X| \ge 1 + (T+1)(N-1)$, so the history is kept through at most $(|X|-N)/(N-1)$ resets. The bound is attained: one fixed state and $N - 1$ paths of $T + 1$ states, with $F$ walking each path and sending its last state to the fixed one, has exactly $1 + (T+1)(N-1)$ states, is closed under $F$, meets the reset and representative premises, is injective through $T$ repetitions, and merges on the next.
+Let a finite implementation $F : X \to X$ of a reset carry an abstraction $q$ that sends every image of $F$ to a fixed abstract state $q_0$, with a representative of $q_0$ and representatives of $N - 1$ further, pairwise distinct abstract states, and let $F$ be injective on the states reached from the representatives in fewer than $T$ applications. Then $|X| \ge 1 + (T+1)(N-1)$, for $N \ge 2$, the history is therefore kept through at most $\lfloor(|X|-N)/(N-1)\rfloor$ resets. For $N=1$ the bound is only $|X| \ge 1$ and gives no finite retention horizon. The bound is attained: one fixed state and $N - 1$ paths of $T + 1$ states, with $F$ walking each path and sending its last state to the fixed one, has exactly $1 + (T+1)(N-1)$ states, is closed under $F$, meets the reset and representative premises, is injective through $T$ repetitions, and, when $N \ge 2$, merges on the next.
 Coq: \texttt{retention\_bound}, \texttt{retention\_horizon}; \texttt{tight\_exact}, \texttt{tight\_closed}, \texttt{tight\_retain}, \texttt{tight\_merges\_next}.
 \end{theorem}
 
@@ -296,11 +360,11 @@ On a finite machine priced one unit per halving of the number of distinct states
 This chapter builds one machine that meets the definition, to show it can be met. Nothing in the rest of the model depends on its details. The small machine is defined in \texttt{minimal/EarnedCore.v} on the Coq standard library alone.
 
 \begin{definition}[State]
-A core has two counters $a, b \in \N$, their versions $v_a, v_b \in \N$, a program counter $\mathit{pc} \in \N$ whose lines are numbered from $1$ (a value with no instruction, $0$ included, is a stop), a table of facts, a commitment channel holding at most one fact, and a trap latch. A fact is a triple (property, counter, version); the properties are ``is zero'', ``is even'' and ``is at least $n$'', each with a checker \texttt{eval} and a meaning \texttt{holds} tied by \texttt{eval\_iff}. A state is a core with a ledger $\mu \in \N$ and a flag $\cert \in \B$. The table holds at most $16$ facts. The start state for $(a, b)$ has no facts, an empty channel, the flag down and $\mu = 0$.
+A core has two counters $a, b \in \N$, their versions $v_a, v_b \in \N$, a program counter $\mathit{pc} \in \N$ whose lines are numbered from $1$ (a value with no instruction, $0$ included, is a stop), a table of facts, a commitment channel holding at most one fact, and a trap latch. A fact is a triple (property, counter, version); the properties are ``is zero'', ``is even'' and ``is at least $n$'', each with a checker \texttt{eval} and a meaning \texttt{holds} tied by \texttt{eval\_iff}. A state is a core with a ledger $\mu \in \N$ and a flag $\cert \in \B$. The table holds at most $16$ facts. The start state for $(a, b)$ initializes those counter values without executing a write; both versions are zero, the line is $1$, the table and channel are empty, the trap and flag are down, and $\mu=0$.
 \end{definition}
 
 \begin{definition}[Instructions and costs]
-$\texttt{INC}\ c$ adds one to counter $c$. $\texttt{DEC}\ c\ j$ subtracts one and jumps to $j$ if $c > 0$, and otherwise falls through. \texttt{HALT} stops. $\texttt{CHECK}\ p\ c$ evaluates $p$ on counter $c$ and, if it holds and the table has room, writes the fact $(p, c, v_c)$. $\texttt{COMMIT}\ p\ c$ succeeds only if the fact $(p, c, v_c)$ is in the table, and then sets the channel to it. \texttt{CERTIFY} succeeds only if the channel names a fact. Every failure sets the trap latch, after which no instruction changes anything but the ledger. Every write to a counter adds one to its version. CHECK, COMMIT and CERTIFY cost $1$; the others cost $0$. The ledger adds the cost of every executed instruction, and the flag rises exactly on a passing CERTIFY.
+$\texttt{INC}\ c$ adds one to counter $c$. $\texttt{DEC}\ c\ j$ subtracts one and jumps to $j$ if $c > 0$, and otherwise falls through. \texttt{HALT} stops. $\texttt{CHECK}\ p\ c$ evaluates $p$ on counter $c$ and, if it holds and the table has room, writes the fact $(p, c, v_c)$. $\texttt{COMMIT}\ p\ c$ succeeds only if the fact $(p, c, v_c)$ is in the table, and then sets the channel to it. \texttt{CERTIFY} succeeds only if the channel names a fact; success preserves the channel and advances the line. Every failure sets the trap latch, after which no instruction changes anything but the ledger. Every write to a counter adds one to its version and preserves the table and channel. CHECK, COMMIT and CERTIFY cost $1$; the others cost $0$. The ledger adds the cost of every executed instruction, and the flag rises exactly on a passing CERTIFY.
 \end{definition}
 
 \begin{theorem}[Universality] \textbf{(S)}

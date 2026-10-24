@@ -36,7 +36,8 @@ there is a question about the task and what must remain recoverable.
 THE DEFINITION
 
 A Thiele machine is five things and one rule: a set S of states, a set I of
-moves, a step from a state and a move to the next state, a cost on each move,
+moves, a step from a state and a move to the next state, a nonnegative
+whole-number cost c(i) on each instruction i, independent of the source state,
 and a yes-or-no reading of the state. The rule is the toll: a step that turns
 the reading from no to yes costs at least one unit. A ledger that only
 climbs, and a window onto what an outside observer sees, come in when a
@@ -54,6 +55,32 @@ rule that uses only the view, and leave the reading alone. Vertical moves
 leave the view alone and can raise the reading, never lower it. The toll
 still holds.
 
+For a small example with no checking or certification, take states (b,k),
+where b is 0, 1, 2 or 3 and k is 0, 1 or 2. The view is b; the reading is
+yes exactly when k=2. ROTATE sends (b,k) to ((b+1) mod 4,k) and costs zero.
+ADVANCE sends (b,k) to (b,min(k+1,2)) and costs one. ROTATE is horizontal;
+ADVANCE is vertical. Both obey the sliced rules, and a raise occurs from
+k=1 to k=2. ADVANCE still costs one at k=2: this definition prices instruction
+names, including uses that do not raise the reading.
+
+The reading may be any Boolean-valued function; neither value has to occur.
+It need not be permanent in the basic model. The sliced rules make it
+permanent. A ledger is additional structure, not one of the five parts.
+
+The generalization is structural. For a base step d(b,i), use full states
+(b,r,l), let a computing move send them to (d(b,i),r,l), and let a mark
+chosen by an event E send them to (b,r OR E(b),l+1). Computing costs zero;
+marks cost one. Projection to b has the section b -> (b,no,0), and every
+computing run preserves that section exactly. If E holds somewhere, a mark
+gives two states above the same b with different readings. This construction
+preserves the base transitions; it does not preserve an old price or reading
+that the base may already have had. Its added coordinates can be encoded by
+ordinary computation whenever the base and event are effectively presented.
+The dimension here means distinctions within a fibre, not a new class of
+computable functions. A bare Boolean reading need not itself define an
+autonomous two-state machine.
+
+
 
 WHAT FOLLOWS FROM IT
 
@@ -62,22 +89,25 @@ It is one story, in four parts, and each part says what it rests on.
 1. The definition is more general than any mechanism. It assumes no tape, no
 head and no counters. Every deterministic machine is already a Thiele
 machine: let the reading never rise and every move cost nothing. Add a latch
-on any event the machine reaches, charging one unit when it sets, and you
-have a Thiele machine with a real record that does not change which functions
-the machine computes. A run that starts at no and ends at yes costs at least
-one. That universal floor holds for every machine, and the bar is nearly
+on an event of its transition rule, and charge one for every use of any
+instruction that can set it. This gives a Thiele machine with a record while
+preserving the underlying computation. A run that starts at no and ends at
+yes costs at least one. That universal floor holds for every machine, and the bar is nearly
 empty on purpose: a clock that charges one for every move meets it. The
 theorems with teeth come when you add one next state for every state (part 2)
 or a window (part 3).
 
-2. Keeping costs something on every machine. This is counting, with no
-premise and no physics. On any machine with one next state for every state,
-every step lands on a fresh state, merges two states, or returns to its
-start. So a run that raises a reading and keeps it up either merges somewhere
+2. Keeping requires a merge or fresh states. This is counting under a total,
+deterministic next-state rule and a reading held after entry; it uses no
+physics. Before the first revisit each step is fresh. The first revisit
+returns to the start or merges two distinct sources; later steps repeat.
+So a run that raises a reading and keeps it up either merges somewhere
 or uses endlessly many distinct states. A machine with endlessly many states
 can avoid the merge on paper by paying in fresh states. A machine with
-finitely many states cannot: when only finitely many states read yes, the
-raising step itself merges. Whether a real device has finitely many
+finitely many states cannot: when only finitely many states read yes, a
+holding run must eventually merge. The instruction that raises and preserves
+the reading is non-injective, but the collision need not involve the entry
+state or its destination. Whether a real device has finitely many
 distinguishable states is a physical assumption, and the book names it as one. When a coarse description of a machine
 merges, the fine machine merges too, unless its step leaves the described
 states or there are endlessly many of them. The toll is where the model
@@ -111,8 +141,8 @@ definitions can be met. They are examples and not the subject.
 
 4. What is argued and what is proved. The counting, the floor, the window
 results, the lift and the slice are theorems under the hypotheses they state.
-The book has 206 numbered statements; 205 are closed by a proof on the page,
-and the one that is not is the pointer thesis. It proposes certification as
+The mathematical claims have their hypotheses and arguments on the page.
+The pointer thesis is explicitly unproved. It proposes certification as
 the event worth recording, because certified records get copied and relied on
 by parties who did not produce them. Separately, and unnumbered, the book argues
 that the record and its price are part of computation itself and not
@@ -136,6 +166,12 @@ there to read. It cannot do both.
 This is why representing a record and enforcing its meaning are separate
 jobs. The representation keeps a distinction. The instruction rules govern
 how a program can reach it. An implementation has to preserve both.
+
+The allowed moves and the starting states matter. Correctly translating a
+program proves a simulation. To preserve a guarantee through every allowed
+host program, the proof must cover every host move from the stated starts.
+Paying to raise a record does not, by itself, establish what that record
+means.
 
 
 THE HORIZONTAL MOVES AND THE VERTICAL MOVES
@@ -198,8 +234,9 @@ never land together. Walk back until the earlier visit reaches the unfinished
 start. The later visit is still holding the answer. They cannot be the same
 state. So every later holding tick needs another full configuration.
 
-For a finite interval, K holding states suffice for exactly K distinct-source
-transitions from the unfinished state. Draw
+For a finite interval, K holding states permit at most K transitions from
+distinct sources without a collision, starting at the unfinished state.
+This maximum is attainable. Draw
 
   u -> h_1 -> h_2 -> ... -> h_K -> h_K.
 
@@ -207,6 +244,11 @@ The first K sources have different successors. Include h_K as a source and
 its arrow meets the arrow from its predecessor. With K>1 this happens after
 entry. A visible answer can stay fixed while the hidden configuration changes
 and the eventual merge happens behind it.
+
+For the entry arrow u -> f(u) itself to share its destination with an arrow
+from H, the exact condition is f(u) in f(H). Surjectivity of f on H is
+sufficient, as is a single holding state. Neither is necessary for a
+particular entry to collide.
 
 These are full configurations. A fixed array of bits can have many different
 configurations without acquiring a new memory cell on every tick.
@@ -236,14 +278,16 @@ Write the pricing premise beside the bound. A natural-number ledger is not
 a temperature or a heat measurement. A thermal conclusion needs the device,
 input preparation and physical law stated too.
 
-A source-dependent price can pay at entry and let a fixed held state idle
-free. On no -> yes -> yes, charge one at no and zero at yes. A ledger with
-values zero and one obeys both updates. If instead every tick had the same
+A different accounting interface allows a source-dependent charge a(s), or
+c(s,i) when instructions are supplied. This extends the instruction-price
+definition above; it does not change the meaning of c(i) there. Its toll
+must be stated on each actual crossing. On no -> yes -> yes, charge one at
+no and zero at yes. A ledger with values zero and one obeys both updates. If instead every tick had the same
 positive charge, a fixed full state could not hold its own ledger: it would
 require the same number to equal itself plus a positive amount.
 
 
-AN EXAMPLE MACHINE
+THE EARNED-CHAIN COUNTER EXAMPLE
 
 This is an example and not the Thiele Machine. The model is defined over every
 machine that meets it. This small machine is here to show that the
@@ -277,9 +321,9 @@ Its earned chain.
 It uses an earned chain. CHECK tests a claim about a
 counter and enters a fact naming the claim, the counter and its current
 edition. COMMIT selects a matching fact only while that edition is current.
-CERTIFY requires a commitment and raises the permanent flag. Writing a
-counter advances its edition, so an earlier check cannot be presented as a
-check of that newly written counter.
+CERTIFY requires a commitment, preserves the channel and raises the permanent
+flag. Writing a counter advances its edition, so an earlier check cannot be
+presented as a check of that newly written counter.
 
 Start with an empty table, empty channel and flag down. If the flag goes up,
 CERTIFY must have succeeded: no other instruction raises it. Its channel
@@ -307,8 +351,9 @@ A failed check leaves that domain.
 
 OPEN THE GAUGE WIDER
 
-These counts are worked out on the example machine described above. The counting is the point; the example gives it something to
-run.
+The first two counts concern tasks with their own stated operations and
+recovery requirements. The third concerns a publication-file extension of
+the counter example. They count fibres of different projections.
 
 First ask which checks passed on the current page. At working value b, let
 m(b) named predicates be true. Allow each successful check to be requested
@@ -342,9 +387,11 @@ entries CERTIFY published. The native flag is exactly the file's nonempty
 reading on clean runs: successful CERTIFY both inserts a fact and raises
 the flag; every other instruction preserves both readings.
 
-Set A=16 and check A>=0 through A>=15. All sixteen checks pass on edition
-zero. Starting at line 1 with ledger zero, the resulting line is 17, the
-ledger is 16, the table has all sixteen entries and the flag is still down.
+Initialize A=16, B=0, both editions zero, line 1, ledger zero, an empty
+table and channel, and both trap and flag down. This is the initial state,
+not an executed write. Check A>=0 through A>=15. All sixteen checks pass on
+edition zero. The resulting line is 17, the ledger is 16, the table has all
+sixteen entries and the flag is still down.
 For each fact choose one of two blocks:
 
   publish:      COMMIT fact; CERTIFY

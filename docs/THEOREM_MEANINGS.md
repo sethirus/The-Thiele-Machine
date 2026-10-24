@@ -27,6 +27,7 @@ An explicitly qualified citation keeps its own module identity.
 
 ## Pricing the event
 
+- `paid_entry_free_idle` (`Minimal.AccountingBridge.paid_entry_free_idle`): For the natural-number step that sends zero to one and fixes every positive number, charging one at zero and zero elsewhere has an exact zero-or-one ledger, covers collisions among the first two source states of the run from zero, and lets state one idle for free.
 - `exact_commitment_pricing_characterization`: In a `LocalPredicatePricedSystem`, a charge meets the certification floor and never overcharges exactly when it charges on the certification flips and nowhere else, one unit each.
 - `substitution_test_rejects_non_a2_exact_substitute`: A charging predicate that differs from the certification-flip predicate cannot both meet the floor and never overcharge.
 - `joint_floor_is_least`: A cost meets every event floor in a finite family exactly when it is at least the joint floor, which is one when any event fires and zero otherwise.

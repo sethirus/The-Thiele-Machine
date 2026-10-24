@@ -10,6 +10,7 @@
 -Q ../vendor/coq-undecidability/theories Undecidability
 -Q ../minimal Minimal
 -R test_fixtures TestFixtures
+-Q audit Audit
 
 # File listing
 kernel/foundation/Substrate.v
@@ -55,6 +56,8 @@ kernel/foundation/CrossBaseGranularityRAM.v
 ../minimal/AccountingBridge.v
 ../minimal/MeterRepresentation.v
 ../minimal/Monitor.v
+../minimal/MuCore.v
+../minimal/Napkin.v
 ../minimal/Fibre.v
 ../minimal/EditionCapacity.v
 ../minimal/EditionHistory.v
@@ -441,3 +444,20 @@ kernel/foundation/NeutralUnivU.v
 kernel/foundation/NeutralUnivUP.v
 kernel/foundation/NeutralUnivShadow.v
 kernel/foundation/NeutralUnivInOrderLink.v
+
+# Foundation bridges and counterexamples against stronger interpretations.
+audit/StructuralBridge.v
+audit/ControlBoundary.v
+audit/NeutralBoundary.v
+audit/InterfaceSeparation.v
+audit/PricingBoundary.v
+audit/ValuationBoundary.v
+audit/ObservationContract.v
+audit/RepresentationCapacity.v
+audit/AdaptiveBlindness.v
+audit/EnforcedRefinement.v
+audit/MacroBoundary.v
+audit/PaidBypassBoundary.v
+audit/ExistingHostAudit.v
+audit/ConcreteClosureBridge.v
+audit/TuringStructuralBridge.v
