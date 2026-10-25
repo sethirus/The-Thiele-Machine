@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 444,
-  "total_addressable": 7101,
+  "files_probed": 450,
+  "total_addressable": 7168,
   "total_unaddressable": 0,
   "extras_addressable_via_instantiation": [],
   "files": [
@@ -35,6 +35,95 @@
           "local_name": "hidden_access_can_signal",
           "kind": "Theorem",
           "full_name": "Audit.AdaptiveBlindness.hidden_access_can_signal"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/audit/CanonicalObservation.v",
+      "qualified_module": "Audit.CanonicalObservation",
+      "addressable_count": 16,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "run_append",
+          "kind": "Lemma",
+          "full_name": "Audit.CanonicalObservation.run_append"
+        },
+        {
+          "local_name": "future_equivalence_laws",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.future_equivalence_laws"
+        },
+        {
+          "local_name": "future_equivalence_preserves_observation",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.future_equivalence_preserves_observation"
+        },
+        {
+          "local_name": "future_equivalence_stable",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.future_equivalence_stable"
+        },
+        {
+          "local_name": "future_equivalence_coarsest",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.future_equivalence_coarsest"
+        },
+        {
+          "local_name": "coarsest_relation_unique",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.coarsest_relation_unique"
+        },
+        {
+          "local_name": "canonical_preserves_future",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_preserves_future"
+        },
+        {
+          "local_name": "canonical_preserves_output",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_preserves_output"
+        },
+        {
+          "local_name": "canonical_preserves_start",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_preserves_start"
+        },
+        {
+          "local_name": "canonical_preserves_step",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_preserves_step"
+        },
+        {
+          "local_name": "canonical_preserves_run",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_preserves_run"
+        },
+        {
+          "local_name": "canonical_merges_exactly_equivalent_states",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_merges_exactly_equivalent_states"
+        },
+        {
+          "local_name": "canonical_unique",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_unique"
+        },
+        {
+          "local_name": "canonical_surjective",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_surjective"
+        },
+        {
+          "local_name": "canonical_injective",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.canonical_injective"
+        },
+        {
+          "local_name": "minimal_realizations_uniquely_isomorphic",
+          "kind": "Theorem",
+          "full_name": "Audit.CanonicalObservation.minimal_realizations_uniquely_isomorphic"
         }
       ],
       "unaddressable": []
@@ -160,6 +249,237 @@
       "unaddressable": []
     },
     {
+      "file": "coq/audit/IntrinsicBoundary.v",
+      "qualified_module": "Audit.IntrinsicBoundary",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "every_base_has_a_slice_without_hidden_distinctions",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.every_base_has_a_slice_without_hidden_distinctions"
+        },
+        {
+          "local_name": "identity_slice_never_raises",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.identity_slice_never_raises"
+        },
+        {
+          "local_name": "identity_slice_has_zero_vertical_price",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.identity_slice_has_zero_vertical_price"
+        },
+        {
+          "local_name": "identity_slice_preserves_every_base_step",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.identity_slice_preserves_every_base_step"
+        },
+        {
+          "local_name": "identical_dynamics_do_not_determine_price",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.identical_dynamics_do_not_determine_price"
+        },
+        {
+          "local_name": "both_slices_have_a_raise",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.both_slices_have_a_raise"
+        },
+        {
+          "local_name": "three_states_reachable",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.three_states_reachable"
+        },
+        {
+          "local_name": "collapse_preserves_slice_operations",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.collapse_preserves_slice_operations"
+        },
+        {
+          "local_name": "no_injection_from_three_to_two",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.no_injection_from_three_to_two"
+        },
+        {
+          "local_name": "toggle_symmetry_forces_constant_reading",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.toggle_symmetry_forces_constant_reading"
+        },
+        {
+          "local_name": "no_nonconstant_renaming_invariant_toggle_reading",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.no_nonconstant_renaming_invariant_toggle_reading"
+        },
+        {
+          "local_name": "finite_observations_do_not_establish_permanence",
+          "kind": "Theorem",
+          "full_name": "Audit.IntrinsicBoundary.finite_observations_do_not_establish_permanence"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/audit/LeastToll.v",
+      "qualified_module": "Audit.LeastToll",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "free_reading_invariance",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.free_reading_invariance"
+        },
+        {
+          "local_name": "can_raise_exact",
+          "kind": "Lemma",
+          "full_name": "Audit.LeastToll.can_raise_exact"
+        },
+        {
+          "local_name": "least_price_satisfies_toll",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.least_price_satisfies_toll"
+        },
+        {
+          "local_name": "toll_exactly_dominates_least_price",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.toll_exactly_dominates_least_price"
+        },
+        {
+          "local_name": "trace_floor_exactly_dominates_least_price",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.trace_floor_exactly_dominates_least_price"
+        },
+        {
+          "local_name": "unique_least_valid_price",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.unique_least_valid_price"
+        },
+        {
+          "local_name": "every_reading_toll_prices_every_change",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.every_reading_toll_prices_every_change"
+        },
+        {
+          "local_name": "every_reading_toll_iff_free_moves_are_identity",
+          "kind": "Theorem",
+          "full_name": "Audit.LeastToll.every_reading_toll_iff_free_moves_are_identity"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/audit/LiftProposalBoundary.v",
+      "qualified_module": "Audit.LiftProposalBoundary",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "competing_extension_laws",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftProposalBoundary.competing_extension_laws"
+        },
+        {
+          "local_name": "canonical_horizontal_loop",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftProposalBoundary.canonical_horizontal_loop"
+        },
+        {
+          "local_name": "competing_horizontal_loop_never_closes",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftProposalBoundary.competing_horizontal_loop_never_closes"
+        },
+        {
+          "local_name": "no_map_even_on_reachable_states",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftProposalBoundary.no_map_even_on_reachable_states"
+        },
+        {
+          "local_name": "forgetting_extra_history_commutes",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftProposalBoundary.forgetting_extra_history_commutes"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/audit/LiftTerminal.v",
+      "qualified_module": "Audit.LiftTerminal",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "horizontal_reading_derived",
+          "kind": "Lemma",
+          "full_name": "Audit.LiftTerminal.horizontal_reading_derived"
+        },
+        {
+          "local_name": "projection_commutes",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.projection_commutes"
+        },
+        {
+          "local_name": "projection_preserves_runs",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.projection_preserves_runs"
+        },
+        {
+          "local_name": "projection_unique_over_coordinates",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.projection_unique_over_coordinates"
+        },
+        {
+          "local_name": "lift_terminal_over_exact_coordinates",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.lift_terminal_over_exact_coordinates"
+        },
+        {
+          "local_name": "observable_equivalence_exactly_projection_kernel",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.observable_equivalence_exactly_projection_kernel"
+        },
+        {
+          "local_name": "projection_clean_start",
+          "kind": "Lemma",
+          "full_name": "Audit.LiftTerminal.projection_clean_start"
+        },
+        {
+          "local_name": "projection_onto_reachable",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.projection_onto_reachable"
+        },
+        {
+          "local_name": "reachable_maps_pointwise_unique",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.reachable_maps_pointwise_unique"
+        },
+        {
+          "local_name": "trace_extension_factorization",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.trace_extension_factorization"
+        },
+        {
+          "local_name": "separated_reachable_extension_has_no_projection_collisions",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.separated_reachable_extension_has_no_projection_collisions"
+        },
+        {
+          "local_name": "reachable_minimal_realization",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.reachable_minimal_realization"
+        },
+        {
+          "local_name": "canonical_satisfies_contract",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.canonical_satisfies_contract"
+        },
+        {
+          "local_name": "canonical_unit_price_is_least_when_events_possible",
+          "kind": "Theorem",
+          "full_name": "Audit.LiftTerminal.canonical_unit_price_is_least_when_events_possible"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/audit/MacroBoundary.v",
       "qualified_module": "Audit.MacroBoundary",
       "addressable_count": 5,
@@ -220,7 +540,7 @@
     {
       "file": "coq/audit/ObservationContract.v",
       "qualified_module": "Audit.ObservationContract",
-      "addressable_count": 6,
+      "addressable_count": 9,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -252,6 +572,21 @@
           "local_name": "hidden_pair_survives_view_preserving_encoding",
           "kind": "Theorem",
           "full_name": "Audit.ObservationContract.hidden_pair_survives_view_preserving_encoding"
+        },
+        {
+          "local_name": "operational_adequacy_iff",
+          "kind": "Theorem",
+          "full_name": "Audit.ObservationContract.operational_adequacy_iff"
+        },
+        {
+          "local_name": "branching_answers_exclude_exact_deterministic_encoding",
+          "kind": "Theorem",
+          "full_name": "Audit.ObservationContract.branching_answers_exclude_exact_deterministic_encoding"
+        },
+        {
+          "local_name": "hidden_bit_blocks_visible_only_dynamics",
+          "kind": "Theorem",
+          "full_name": "Audit.ObservationContract.hidden_bit_blocks_visible_only_dynamics"
         }
       ],
       "unaddressable": []
@@ -393,6 +728,60 @@
           "local_name": "repeated_mark_states_distinct",
           "kind": "Theorem",
           "full_name": "Audit.StructuralBridge.repeated_mark_states_distinct"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/audit/TraceFactorization.v",
+      "qualified_module": "Audit.TraceFactorization",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "morphism_runs",
+          "kind": "Lemma",
+          "full_name": "Audit.TraceFactorization.morphism_runs"
+        },
+        {
+          "local_name": "morphism_requires_kernel_inclusion",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.morphism_requires_kernel_inclusion"
+        },
+        {
+          "local_name": "factor_on_words",
+          "kind": "Lemma",
+          "full_name": "Audit.TraceFactorization.factor_on_words"
+        },
+        {
+          "local_name": "factor_is_morphism",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.factor_is_morphism"
+        },
+        {
+          "local_name": "reachable_morphism_unique",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.reachable_morphism_unique"
+        },
+        {
+          "local_name": "morphism_exists_iff_kernel_inclusion",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.morphism_exists_iff_kernel_inclusion"
+        },
+        {
+          "local_name": "unique_factorization_iff_kernel_inclusion",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.unique_factorization_iff_kernel_inclusion"
+        },
+        {
+          "local_name": "factor_surjective_on_target_reachable",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.factor_surjective_on_target_reachable"
+        },
+        {
+          "local_name": "trace_evaluation_uniquely_preserves_steps",
+          "kind": "Theorem",
+          "full_name": "Audit.TraceFactorization.trace_evaluation_uniquely_preserves_steps"
         }
       ],
       "unaddressable": []

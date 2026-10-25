@@ -20,7 +20,7 @@ Gather every full state that gives the same picture. The tiles agree, but
 the stamps and whatever else the camera misses can differ. That collection
 is what I call the fibre above the picture.
 
-The letters give us short names for what we just did. S names all the full
+The letters give short names for what just happened. S names all the full
 states, B names their pictures, and pi names the act of taking the picture.
 Writing pi: S -> B says where that act starts and where it lands. Every
 picture in B comes from a full state; that is what "onto" means. For one
@@ -35,67 +35,78 @@ there is a question about the task and what must remain recoverable.
 
 THE DEFINITION
 
-A Thiele machine is five things and one rule: a set S of states, a set I of
-moves, a step from a state and a move to the next state, a nonnegative
-whole-number cost c(i) on each instruction i, independent of the source state,
-and a yes-or-no reading of the state. The rule is the toll: a step that turns
-the reading from no to yes costs at least one unit. A ledger that only
-climbs, and a window onto what an outside observer sees, come in when a
-result needs them.
+A Thiele machine is a thing, the directions it can move in, and a price on
+each direction. A direction turns the thing into the next thing. A direction
+that makes a distinction stay is never free.
+
+That is the whole definition. Ordinary computation is the special case. Tear
+off the price column, forget which distinctions stayed, and what is left is
+a Turing machine. The forgetting is the slice. The book is the account of
+what the forgetting throws away.
+
+Now the same thing with names. S is the set of states and I the set of
+moves. The step takes a state and a move to the next state. Each move i has
+a nonnegative whole-number price c(i), the same wherever it is taken. The
+record is a reading of the state into an ordered set: for any two records
+you can ask whether one sits at or below the other. A move makes a
+distinction stay when it carries the record somewhere not at or below where
+it was. The one rule is the toll: such a move costs at least one. Nothing
+else is assumed of the order, and nothing says what the record is about. A
+ledger that only climbs, and a window onto what an outside observer sees,
+come in when a result needs them.
+
+The smallest record has two positions, no and yes. Then the record is a
+yes-or-no reading of the state, making a distinction stay is turning no into
+yes, and the toll says that move costs at least one. Most of the book is
+stated on this smallest case, because it is the one you can point at: a lamp
+beside a box, a stamp on its side, a flag that goes up. The flag is not the
+record. It is the smallest question you can ask of one. The proofs state
+the general case first and derive the flag as its two-point instance.
 
 The Thiele Machine is that definition. It is a machine the way Turing's
 machine is one: mathematics you can reason about, not a device, not an
 instruction set and not a book. The book is where I work out what follows.
 
+Every deterministic machine is already a Thiele machine: let the record
+stand still and every move cost nothing. The ordinary computer sits inside
+the definition as the case where nothing is kept and nothing is charged.
+The computer is the shadow of the machine, not the floor it is built on.
+
 To ask what a computation hides, add a window. A sliced Thiele machine is a
-Thiele machine with an onto view pi: S -> B, what an outside observer sees,
+Thiele machine on the two-position record, with an onto view pi: S -> B,
+what an outside observer sees,
 and its moves split in two. It sits over an ordinary deterministic machine,
 the tabletop B. Horizontal moves cost nothing, move the view by a
 rule that uses only the view, and leave the reading alone. Vertical moves
 leave the view alone and can raise the reading, never lower it. The toll
 still holds.
 
-For a small example with no checking or certification, take states (b,k),
-where b is 0, 1, 2 or 3 and k is 0, 1 or 2. The view is b; the reading is
-yes exactly when k=2. ROTATE sends (b,k) to ((b+1) mod 4,k) and costs zero.
-ADVANCE sends (b,k) to (b,min(k+1,2)) and costs one. ROTATE is horizontal;
-ADVANCE is vertical. Both obey the sliced rules, and a raise occurs from
-k=1 to k=2. ADVANCE still costs one at k=2: this definition prices instruction
-names, including uses that do not raise the reading.
+Put a dial with four positions beside a slider with three stops. ROTATE
+moves the dial one position around for free and leaves the slider alone.
+ADVANCE moves the slider toward its last stop, leaves the dial alone and
+costs one. At the last stop the reading is yes; at the other two it is no.
+ADVANCE pays when it first reaches yes and still costs one when pressed
+at the last stop. The price belongs to the button. Look only at the dial:
+ROTATE moves the picture and ADVANCE leaves it alone. Those are the
+horizontal and vertical moves, before any checking enters the story.
 
-The reading may be any Boolean-valued function; neither value has to occur.
-It need not be permanent in the basic model. The sliced rules make it
-permanent. A ledger is additional structure, not one of the five parts.
-
-The generalization is structural. For a base step d(b,i), use full states
-(b,r,l), let a computing move send them to (d(b,i),r,l), and let a mark
-chosen by an event E send them to (b,r OR E(b),l+1). Computing costs zero;
-marks cost one. Projection to b has the section b -> (b,no,0), and every
-computing run preserves that section exactly. If E holds somewhere, a mark
-gives two states above the same b with different readings. This construction
-preserves the base transitions; it does not preserve an old price or reading
-that the base may already have had. Its added coordinates can be encoded by
-ordinary computation whenever the base and event are effectively presented.
-The dimension here means distinctions within a fibre, not a new class of
-computable functions. A bare Boolean reading need not itself define an
-autonomous two-state machine.
-
-
+On the two-position record the toll asks nothing of the reading beyond the
+price of turning it on. Permanence is what the sliced rules add. A ledger
+is additional structure, not part of the definition.
 
 WHAT FOLLOWS FROM IT
 
 It is one story, in four parts, and each part says what it rests on.
 
 1. The definition is more general than any mechanism. It assumes no tape, no
-head and no counters. Every deterministic machine is already a Thiele
-machine: let the reading never rise and every move cost nothing. Add a latch
-on an event of its transition rule, and charge one for every use of any
-instruction that can set it. This gives a Thiele machine with a record while
-preserving the underlying computation. A run that starts at no and ends at
-yes costs at least one. That universal floor holds for every machine, and the bar is nearly
-empty on purpose: a clock that charges one for every move meets it. The
-theorems with teeth come when you add one next state for every state (part 2)
-or a window (part 3).
+head and no counters. Above any deterministic machine stands a Thiele
+machine with a record: latch an event of its transition rule, and charge one
+for every use of any instruction that can set it. The computation underneath
+is unchanged. A run that starts at no and ends at yes costs at least one.
+That universal floor holds for every machine, and the bar is nearly empty
+on purpose: a clock that charges one for every move meets it. The theorems
+with teeth come when you add one next state for every state (part 2) or a
+window (part 3).
 
 2. Keeping requires a merge or fresh states. This is counting under a total,
 deterministic next-state rule and a reading held after entry; it uses no
@@ -118,9 +129,10 @@ book keeps it apart from the counting.
 
 3. The ordinary machine and the full machine, in both directions.
 In a sliced machine, the view pi(S) = B with its horizontal moves is an
-ordinary deterministic machine. Any deterministic machine arises this way:
-put a bit beside its states. The view cannot see the record, because the free
-moves never touch it and the picture follows the computation step for step.
+ordinary deterministic machine. Every deterministic machine is such a view:
+it is the shadow of the machine that keeps one bit above it. The view cannot
+see the record, because the free moves never touch it and the picture follows
+the computation step for step.
 That needs a raise to exist, and nothing else: no universal base and no
 premise about the control.
 Thiele-complete is stricter, and unlike the sliced machine it does ask for
@@ -134,8 +146,9 @@ with a universal base lifts to one by adding the record layer, and the
 ordinary computer is then the slice that is left when the layer is forgotten. An account that prices
 certification exactly cannot compute the price from a window that shows a
 certifying step and a non-certifying step the same way.
-Recovering which of n editions were certified takes 2^n states above one
-picture.
+If all choices of which of n editions were certified are independently
+possible and exactly recoverable above one final picture, they require
+2^n full states there.
 A small six-instruction machine and a universal program on it show these
 definitions can be met. They are examples and not the subject.
 
@@ -148,6 +161,140 @@ by parties who did not produce them. Separately, and unnumbered, the book argues
 that the record and its price are part of computation itself and not
 something added afterwards, and states the Thiele thesis, a claim about
 physical processes. Neither is presented as a theorem.
+
+
+WHAT A FREE MOVE CAN CHANGE
+
+Slide a tile to the right without paying. Ask whether it is in the place
+it just reached. The answer was no and is now yes. If the toll charged
+every question, that slide could not be free. Do this with any changed
+full state: ask whether it is the destination. Where states can be tested
+for equality, charging every Boolean question would freeze every free
+move. The definition has to name the reading its toll belongs to.
+
+Now keep that reading permanent. A free move cannot raise it, because a
+raise costs at least one. It cannot lower it, because a yes stays yes.
+It must leave it alone. That explains the reading part of the horizontal
+rule. The window adds another requirement: the next picture comes from
+the present picture and the button pressed. Permanence by itself does
+not choose a picture or make a paid move leave that picture alone.
+
+There are two ways to state the same reading requirement for a sliced
+machine. Leave it alone on horizontal moves and never lower it on vertical
+moves, and it is permanent through all moves. Start instead with permanence,
+the toll and free horizontal moves, and the two sentences above force
+horizontal preservation. Neither route has to assume its own conclusion.
+
+
+PUT THE PRICE ON THE BUTTON
+
+Put price cards zero, one and two beside a button. If pressing it can raise
+the lamp from some state, zero fails there. One works. Two works too, but
+one is the least. If the button never raises the lamp from any state,
+zero works. Give each button its least card and you have the least valid
+schedule, one instruction at a time. Any other least schedule must have
+the same cards: neither can be smaller than the other.
+
+For a finite machine, inspect a list covering all its states to decide
+which card each button needs. On an infinite machine that search need not
+finish. For the lift there is a direct witness: if each mark's event holds
+somewhere, put the lamp down over that base state and press the mark. It
+raises the lamp, so one is necessary. Computing leaves the lamp alone,
+so zero suffices. A mark whose event never holds needs no positive toll;
+charging one for every use then comes from the chosen accounting rule.
+
+The price stays on the instruction. It does not disappear when you press
+the same button with the lamp already on. Every run from no to yes contains
+a crossing and pays at least one; conversely a single crossing is already
+a run. The step toll and the floor from every start give the same minimum.
+That is a minimum in the definition's units. Measuring a device's heat
+requires a physical account of the device.
+
+
+BUILD THE BOX, THEN FORGET WHAT THE TASK DOES NOT ASK FOR
+
+The smallest machine above an ordinary computing box has a lamp beside it
+and a tally under it. Computing buttons follow the old rule, cost nothing,
+and leave the lamp and tally alone. A mark leaves the computing picture
+alone, adds one to the tally, and turns the lamp on if its named event holds.
+Once on, it stays on. Begin with the lamp down and the tally at zero.
+
+Run only computing buttons and the old machine runs exactly as before.
+Forget the lamp and tally afterward and you recover its computation.
+The larger description contains it. An event that holds somewhere gives
+a visible difference between before and after marking even when the
+computing picture stays the same. An ordinary computer can store the
+picture, lamp and tally when their rules are effectively given.
+
+Now let two builders implement those instructions differently. One keeps
+every button press on a tape. The other uses a few extra counters. Ask
+each for the computing picture, lamp and exact tally. Require computing
+to follow the base rule, marks to latch exactly the named event without
+changing the picture, and each move to add its zero-or-one charge to the
+tally. The reading must obey the toll and permanence.
+
+Read those three things from either implementation. After a computing
+move, the picture follows the old rule; the free move cannot change the
+permanent lamp; adding zero leaves the tally alone. After a mark, the
+picture stays put, the lamp latches the event and the tally rises by one.
+Those are precisely the simple box's rules. Repeat this for every button
+in a list and the readings agree for the whole run. Any list reaching a
+state of the simple box reaches an implementation state with those same
+readings. Starting together gives all the same reachable triples.
+
+That makes three stages: write a button list, run it on the builder's
+box, then read the picture, lamp and tally. The last step forgets whatever
+extra history the builder kept. There is only one way to do it while
+preserving those three readings: report their actual values.
+
+Try running that last step backward. Turn the simple box halfway around,
+then turn it again. The picture is back, and the lamp and tally never
+changed. Give the other box a separate counter that counts free turns.
+Its counter is now two larger. Which counter value should the simple
+box's one state turn into? Preserving the turns would require both.
+There is no such map. Forgetting the extra counter works; recovering it
+from the three readings does not.
+
+To see what has to be kept, give two states the same future button list.
+If a required answer differs, those states cannot share one full state
+in a faithful implementation. That one state would have to give two
+answers to the same continuation. Include the empty list: reading now
+counts as a test. Group states only when every such test agrees. Once
+grouped, pressing a common button keeps them grouped, because that button
+can be put in front of every remaining test. Every grouping that preserves
+answers and steps must respect these tests. This is the coarsest one.
+
+For the picture, lamp and tally, equal current readings already give
+identical future readings: their next values follow exactly the rules
+above. Different triples are distinguished by reading them now. Remove
+states that differ only in history these questions can never reveal,
+and every reachable triple has exactly one remaining state. Any two
+implementations with no such redundancy differ only in the names of
+those states. A button list reaching a state fixes its partner in the
+other implementation, so even that renaming is forced.
+
+The questions do work here. Ask for the extra turn count and it has to
+survive too. Stop asking for the tally and repeated failed marks can
+become indistinguishable. If no mark event ever holds, a clean run never
+reaches a lamp-up state. The minimum concerns what can be reached and
+what the chosen questions can distinguish. It does not select the event.
+The book develops this familiar idea from minimal automata for
+the actual lift, with the observations and accounting kept explicit.
+
+
+Put a hidden switch behind a dark lamp. Pressing the button copies the
+switch to the lamp. Both boxes can look dark now and give different next
+answers. Keep only the lamp and the next step cannot be predicted from
+that picture. Keep the switch too and it can. The book proves the exact
+test: equal pictures must give equal required answers now and equal next
+pictures under every permitted use of the same button, with explicit
+representatives and successor choices for the converse construction.
+
+The arrows do not always choose which question matters. Nor does a finite
+watch prove that a lamp stays lit forever: a reset can sit just past the
+last tick anyone watched. These boundaries have checked counterexamples.
+Showing that real equipment follows the chosen model needs evidence
+about that equipment as well as a proof about the model.
 
 
 A RECORD THAT MEANS SOMETHING
@@ -183,8 +330,8 @@ tiles. The move also leaves the side record alone. That is the horizontal
 rule I want.
 
 Now shorten it. Call the full move F_i, its tile rule h_i, and the record
-reading r. Starting from a full state s, we can either move the box and
-then photograph it, or photograph it and apply the tile rule. The pictures
+reading r. Starting from a full state s, either move the box and then
+photograph it, or photograph it and apply the tile rule. The pictures
 must agree:
 
   pi(F_i(s)) = h_i(pi(s)).
@@ -373,7 +520,7 @@ all the command cases, so the claim holds for every finite program. Every
 legal state is reachable by the realizing word already given. For finite B,
 the exact total is the sum of 2^m(b) over its working values.
 
-Next keep the answers across wiped editions. On each edition we may publish or leave it alone. The first edition gives
+Next keep the answers across wiped editions. On each edition, publish or leave it alone. The first edition gives
 two histories, the second four, the third eight. If n independent publication
 choices must remain readable when the workspace returns to one picture b,
 there are 2^n distinguishable histories above that picture. For one machine

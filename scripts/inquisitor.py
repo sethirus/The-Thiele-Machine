@@ -119,6 +119,9 @@ _FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
         "KernelTM",
         "EarnedCore",
         "ThieleComplete",
+        # Defines the sliced interface itself, independently of the native
+        # certification witness; imports are still checked for actual use.
+        "SlicedEstablishment",
     }
 )
 
@@ -5067,6 +5070,7 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         "ThieleCompleteWindow", "UniversalThiele", "UniversalCodes",
         "UniversalNoCopy", "EarnedPriced", "PricedComplete", "Presented",
         "EarnedMultiPriced",
+        "SlicedEstablishment",
     }
 
     # The small machine in minimal/ is held to the same rule as coq/.

@@ -93,3 +93,73 @@ Print Assumptions base_only_implementation_iff.
 Print Assumptions encoding_preserves_runs.
 Print Assumptions encoding_cannot_merge_distinguishable_states.
 Print Assumptions hidden_pair_survives_view_preserving_encoding.
+
+(* A supplied operational model may have several successors. A deterministic
+   observation-level description is adequate exactly when neither its answers
+   nor its next observations depend on the distinctions the view discards.
+   A representative and a permitted successor are explicit constructive data;
+   no choice or empirical adequacy of the operational model is inferred. *)
+Section OperationalAdequacy.
+Context {Physical Visible Input Output : Type}.
+Variable next : Input -> Physical -> Physical -> Prop.
+Variable visible : Physical -> Visible.
+Variable observe : Physical -> Output.
+Variable represent : Visible -> Physical.
+Variable choose_next : Input -> Physical -> Physical.
+Hypothesis represent_correct : forall b, visible (represent b) = b.
+Hypothesis choose_permitted : forall i s, next i s (choose_next i s).
+
+Theorem operational_adequacy_iff :
+  (exists (decode : Visible -> Output) (shadow : Input -> Visible -> Visible),
+    (forall s, decode (visible s) = observe s) /\
+    (forall i s t, next i s t -> visible t = shadow i (visible s))) <->
+  ((forall s t, visible s = visible t -> observe s = observe t) /\
+   (forall i s s' t t', visible s = visible s' ->
+     next i s t -> next i s' t' -> visible t = visible t')).
+Proof.
+  split.
+  - intros [decode [shadow [Ho Hs]]]; split.
+    + intros s t E; rewrite <- (Ho s), <- (Ho t), E; reflexivity.
+    + intros i s s' t t' E H H'.
+      rewrite (Hs i s t H), (Hs i s' t' H'), E; reflexivity.
+  - intros [Ho Hs].
+    exists (fun b => observe (represent b)).
+    exists (fun i b => visible (choose_next i (represent b))); split.
+    + intro s; apply Ho; apply represent_correct.
+    + intros i s t H; apply (Hs i s (represent (visible s)) t).
+      * symmetry; apply represent_correct.
+      * exact H.
+      * apply choose_permitted.
+Qed.
+End OperationalAdequacy.
+
+Section ObservableBranching.
+Context {Physical Input Output Host : Type}.
+Variable next : Input -> Physical -> Physical -> Prop.
+Variable answer : Physical -> Output.
+
+Theorem branching_answers_exclude_exact_deterministic_encoding :
+  forall i s t u, next i s t -> next i s u -> answer t <> answer u ->
+  ~ exists (encode : Physical -> Host) (step : Input -> Host -> Host)
+           (decode : Host -> Output),
+      (forall x, decode (encode x) = answer x) /\
+      (forall j x y, next j x y -> encode y = step j (encode x)).
+Proof.
+  intros i s t u Ht Hu Hneq [encode [step [decode [Ho Hs]]]].
+  apply Hneq. rewrite <- (Ho t), <- (Ho u), (Hs i s t Ht), (Hs i s u Hu).
+  reflexivity.
+Qed.
+End ObservableBranching.
+
+Theorem hidden_bit_blocks_visible_only_dynamics :
+  ~ exists shadow : bool -> bool,
+    forall s : bool * bool, shadow (fst s) = fst (snd s, snd s).
+Proof.
+  intros [shadow H].
+  pose proof (H (false,false)) as H0; pose proof (H (false,true)) as H1.
+  cbn in H0,H1; congruence.
+Qed.
+
+Print Assumptions operational_adequacy_iff.
+Print Assumptions branching_answers_exclude_exact_deterministic_encoding.
+Print Assumptions hidden_bit_blocks_visible_only_dynamics.

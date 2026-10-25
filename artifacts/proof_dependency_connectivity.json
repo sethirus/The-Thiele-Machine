@@ -6,8 +6,8 @@
     "coq/kernel/nfi/UniversalCertificationCost.v",
     "minimal/EarnedCore.v"
   ],
-  "file_node_count": 422,
-  "file_edge_count": 8496,
+  "file_node_count": 428,
+  "file_edge_count": 9284,
   "disconnected_file_count": 1,
   "disconnected_files": [
     "coq/kernel/foundation/MM2ComplementUndec.v"
@@ -27,84 +27,18 @@
       "out_edges": 7
     },
     {
+      "file": "coq/audit/CanonicalObservation.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 28
+    },
+    {
       "file": "coq/audit/ConcreteClosureBridge.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 25
-    },
-    {
-      "file": "coq/audit/ControlBoundary.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 22
-    },
-    {
-      "file": "coq/audit/EnforcedRefinement.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 5
-    },
-    {
-      "file": "coq/audit/ExistingHostAudit.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 23
-    },
-    {
-      "file": "coq/audit/InterfaceSeparation.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 9
-    },
-    {
-      "file": "coq/audit/MacroBoundary.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 12
-    },
-    {
-      "file": "coq/audit/NeutralBoundary.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/KernelTM.v",
-        "coq/kernel/foundation/StructuralCore.v",
-        "coq/kernel/nfi/UniversalCertificationCost.v",
-        "minimal/EarnedCore.v"
-      ],
-      "out_edges": 22
-    },
-    {
-      "file": "coq/audit/ObservationContract.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/KernelTM.v",
@@ -115,6 +49,127 @@
       "out_edges": 26
     },
     {
+      "file": "coq/audit/ControlBoundary.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 24
+    },
+    {
+      "file": "coq/audit/EnforcedRefinement.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/audit/ExistingHostAudit.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 25
+    },
+    {
+      "file": "coq/audit/InterfaceSeparation.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/audit/IntrinsicBoundary.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 18
+    },
+    {
+      "file": "coq/audit/LeastToll.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 23
+    },
+    {
+      "file": "coq/audit/LiftProposalBoundary.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 28
+    },
+    {
+      "file": "coq/audit/LiftTerminal.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 36
+    },
+    {
+      "file": "coq/audit/MacroBoundary.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/audit/NeutralBoundary.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 23
+    },
+    {
+      "file": "coq/audit/ObservationContract.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 29
+    },
+    {
       "file": "coq/audit/PaidBypassBoundary.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
@@ -123,7 +178,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 18
     },
     {
       "file": "coq/audit/PricingBoundary.v",
@@ -145,7 +200,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     },
     {
       "file": "coq/audit/StructuralBridge.v",
@@ -156,7 +211,18 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 20
+    },
+    {
+      "file": "coq/audit/TraceFactorization.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/KernelTM.v",
+        "coq/kernel/foundation/StructuralCore.v",
+        "coq/kernel/nfi/UniversalCertificationCost.v",
+        "minimal/EarnedCore.v"
+      ],
+      "out_edges": 27
     },
     {
       "file": "coq/audit/TuringStructuralBridge.v",
@@ -167,7 +233,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 24
     },
     {
       "file": "coq/audit/ValuationBoundary.v",
@@ -200,7 +266,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 13
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/AxCgkBoundary.v",
@@ -211,7 +277,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/AxCgkGuest.v",
@@ -222,7 +288,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 35
+      "out_edges": 37
     },
     {
       "file": "coq/kernel/foundation/AxCgkHost.v",
@@ -233,7 +299,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/foundation/AxCgkLang.v",
@@ -244,7 +310,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 26
     },
     {
       "file": "coq/kernel/foundation/AxCgkRun.v",
@@ -255,7 +321,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/AxChain.v",
@@ -266,7 +332,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/AxComplete.v",
@@ -277,7 +343,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/foundation/AxComplete2.v",
@@ -288,7 +354,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/foundation/AxCore.v",
@@ -299,7 +365,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 7
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/foundation/AxDgFixed.v",
@@ -310,7 +376,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 44
+      "out_edges": 45
     },
     {
       "file": "coq/kernel/foundation/AxDgLoops.v",
@@ -321,7 +387,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/foundation/AxDgPhase.v",
@@ -332,7 +398,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/foundation/AxDgPre.v",
@@ -343,7 +409,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/AxHost.v",
@@ -354,7 +420,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/AxHostClaims.v",
@@ -365,7 +431,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/foundation/AxInfinite.v",
@@ -376,7 +442,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/AxLatch.v",
@@ -387,7 +453,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/foundation/AxLatch2.v",
@@ -398,7 +464,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/AxMerge.v",
@@ -409,7 +475,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/AxNecessity.v",
@@ -420,7 +486,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 13
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/AxProb.v",
@@ -431,7 +497,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 13
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/AxRice.v",
@@ -453,7 +519,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/AxSmall.v",
@@ -464,7 +530,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 36
     },
     {
       "file": "coq/kernel/foundation/AxTwoPoint.v",
@@ -475,7 +541,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 25
     },
     {
       "file": "coq/kernel/foundation/AxUniversal.v",
@@ -486,7 +552,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/AxWindow.v",
@@ -497,7 +563,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/ClockHost.v",
@@ -508,7 +574,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/CmpBlocks.v",
@@ -519,7 +585,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/CmpCompile.v",
@@ -530,7 +596,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/CmpExpr.v",
@@ -563,7 +629,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/CmpGuest.v",
@@ -574,7 +640,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/foundation/CmpHost.v",
@@ -585,7 +651,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/CmpInline.v",
@@ -596,7 +662,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/foundation/CmpLang.v",
@@ -607,7 +673,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/CmpMM.v",
@@ -618,7 +684,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/CmpPipeline.v",
@@ -629,7 +695,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 28
     },
     {
       "file": "coq/kernel/foundation/CmpRun.v",
@@ -640,7 +706,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/CompilerChecker.v",
@@ -651,7 +717,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/CompilerCodes.v",
@@ -662,7 +728,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/foundation/CompilerGuest.v",
@@ -673,7 +739,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 37
+      "out_edges": 39
     },
     {
       "file": "coq/kernel/foundation/CompilerGuestRun.v",
@@ -684,7 +750,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 34
     },
     {
       "file": "coq/kernel/foundation/CompilerIcomp.v",
@@ -695,7 +761,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/CompilerInstrument.v",
@@ -717,7 +783,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/CompilerRaBridge.v",
@@ -728,7 +794,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 5
+      "out_edges": 6
     },
     {
       "file": "coq/kernel/foundation/CrossBaseGranularity.v",
@@ -739,7 +805,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/foundation/CrossBaseGranularityL.v",
@@ -750,7 +816,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/foundation/CrossBaseGranularityRAM.v",
@@ -761,7 +827,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/CzCS.v",
@@ -772,7 +838,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/foundation/CzCat.v",
@@ -783,7 +849,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/CzCounter.v",
@@ -805,7 +871,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/CzLoad.v",
@@ -816,7 +882,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/CzProd.v",
@@ -827,7 +893,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/foundation/CzProdTC.v",
@@ -838,7 +904,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 36
     },
     {
       "file": "coq/kernel/foundation/CzSelf.v",
@@ -849,7 +915,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 20
     },
     {
       "file": "coq/kernel/foundation/CzSeq.v",
@@ -860,7 +926,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/CzShadow.v",
@@ -871,7 +937,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/CzTower.v",
@@ -882,7 +948,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 41
+      "out_edges": 42
     },
     {
       "file": "coq/kernel/foundation/CzWin.v",
@@ -893,7 +959,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/EarnedCoreLinks.v",
@@ -904,7 +970,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 35
+      "out_edges": 37
     },
     {
       "file": "coq/kernel/foundation/EarnedGenericLinks.v",
@@ -915,7 +981,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 34
     },
     {
       "file": "coq/kernel/foundation/FiniteSums.v",
@@ -926,7 +992,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/GrowingRecord.v",
@@ -937,7 +1003,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/KernelTM.v",
@@ -948,7 +1014,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/foundation/LRecursion.v",
@@ -959,7 +1025,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/foundation/LatchConst.v",
@@ -981,7 +1047,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/LiftExec.v",
@@ -992,7 +1058,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 13
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/LiftHeadline.v",
@@ -1003,7 +1069,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 41
+      "out_edges": 43
     },
     {
       "file": "coq/kernel/foundation/LiftModels.v",
@@ -1014,7 +1080,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/LiftModelsAll.v",
@@ -1025,7 +1091,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/foundation/LiftRAM.v",
@@ -1053,7 +1119,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 28
     },
     {
       "file": "coq/kernel/foundation/NecEChsh.v",
@@ -1064,7 +1130,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 39
+      "out_edges": 42
     },
     {
       "file": "coq/kernel/foundation/NecEChshEquality.v",
@@ -1086,7 +1152,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/NecEFine.v",
@@ -1097,7 +1163,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/foundation/NecEHost.v",
@@ -1108,7 +1174,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 38
+      "out_edges": 40
     },
     {
       "file": "coq/kernel/foundation/NecFCalorimeter.v",
@@ -1130,7 +1196,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 34
+      "out_edges": 37
     },
     {
       "file": "coq/kernel/foundation/NecFCups.v",
@@ -1141,7 +1207,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 2
+      "out_edges": 3
     },
     {
       "file": "coq/kernel/foundation/NecFEntropy.v",
@@ -1152,7 +1218,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 13
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/NecFEntropyTight.v",
@@ -1163,7 +1229,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 13
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/NecFExtra.v",
@@ -1174,7 +1240,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/NecFFloor.v",
@@ -1185,7 +1251,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 28
     },
     {
       "file": "coq/kernel/foundation/NecFGibbs.v",
@@ -1196,7 +1262,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/NecFGrade.v",
@@ -1218,7 +1284,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 26
     },
     {
       "file": "coq/kernel/foundation/NecFNarrowing.v",
@@ -1229,7 +1295,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 26
     },
     {
       "file": "coq/kernel/foundation/NecFPaperToys.v",
@@ -1251,7 +1317,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 32
     },
     {
       "file": "coq/kernel/foundation/NecFQuant.v",
@@ -1262,7 +1328,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/NecFRepeat.v",
@@ -1273,7 +1339,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 25
     },
     {
       "file": "coq/kernel/foundation/NecFSqueeze.v",
@@ -1284,7 +1350,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/NecFSqueezeLog.v",
@@ -1317,7 +1383,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 31
     },
     {
       "file": "coq/kernel/foundation/NecSPoints.v",
@@ -1339,7 +1405,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/foundation/NecSU.v",
@@ -1350,7 +1416,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/foundation/NecSUndec.v",
@@ -1361,7 +1427,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 2
+      "out_edges": 3
     },
     {
       "file": "coq/kernel/foundation/NecWArgued.v",
@@ -1372,7 +1438,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/NecWCT.v",
@@ -1394,7 +1460,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/foundation/NecWDiagonal.v",
@@ -1405,7 +1471,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/foundation/NecWGrowing.v",
@@ -1416,7 +1482,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/NecWLRice.v",
@@ -1427,7 +1493,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/NecWLatch.v",
@@ -1438,7 +1504,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/NecWModels.v",
@@ -1449,7 +1515,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/foundation/NecWPointer.v",
@@ -1471,7 +1537,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 34
     },
     {
       "file": "coq/kernel/foundation/NeutralHostUP.v",
@@ -1493,7 +1559,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivCanon.v",
@@ -1504,7 +1570,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivCert.v",
@@ -1515,7 +1581,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivDef.v",
@@ -1526,7 +1592,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivFloor.v",
@@ -1537,7 +1603,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivGstep.v",
@@ -1548,7 +1614,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 35
+      "out_edges": 37
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivInOrderLink.v",
@@ -1581,7 +1647,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 23
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivNeed.v",
@@ -1592,7 +1658,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 42
+      "out_edges": 45
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivPay.v",
@@ -1603,7 +1669,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 34
+      "out_edges": 36
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivPhantom.v",
@@ -1614,7 +1680,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivRobust.v",
@@ -1625,7 +1691,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivShadow.v",
@@ -1636,7 +1702,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 38
+      "out_edges": 40
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivSmuggle.v",
@@ -1647,7 +1713,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivTools.v",
@@ -1658,7 +1724,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivU.v",
@@ -1669,7 +1735,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 38
+      "out_edges": 40
     },
     {
       "file": "coq/kernel/foundation/NeutralUnivUP.v",
@@ -1680,7 +1746,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 50
+      "out_edges": 52
     },
     {
       "file": "coq/kernel/foundation/Presentation.v",
@@ -1691,7 +1757,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/PresentedDemo.v",
@@ -1702,7 +1768,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/PresentedUniversal.v",
@@ -1713,7 +1779,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 49
+      "out_edges": 51
     },
     {
       "file": "coq/kernel/foundation/PricedHostLinks.v",
@@ -1724,7 +1790,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 41
+      "out_edges": 44
     },
     {
       "file": "coq/kernel/foundation/ProbabilisticRecord.v",
@@ -1735,7 +1801,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/foundation/ProperSubsumption.v",
@@ -1757,7 +1823,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 34
+      "out_edges": 36
     },
     {
       "file": "coq/kernel/foundation/RealizeCompact.v",
@@ -1779,7 +1845,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/foundation/RealizePrograms.v",
@@ -1801,7 +1867,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/SmBlock.v",
@@ -1812,7 +1878,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/SmChain.v",
@@ -1823,7 +1889,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/SmDecider.v",
@@ -1834,7 +1900,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 28
     },
     {
       "file": "coq/kernel/foundation/SmFixed.v",
@@ -1867,7 +1933,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/SmGuestRice.v",
@@ -1878,7 +1944,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/foundation/SmHostRice.v",
@@ -1889,7 +1955,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 40
+      "out_edges": 43
     },
     {
       "file": "coq/kernel/foundation/SmKleene.v",
@@ -1900,7 +1966,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 26
     },
     {
       "file": "coq/kernel/foundation/SmMMAHost.v",
@@ -1911,7 +1977,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 18
     },
     {
       "file": "coq/kernel/foundation/SmMMAOff.v",
@@ -1922,7 +1988,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/SmNoExact.v",
@@ -1933,7 +1999,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/foundation/SmSmnAll.v",
@@ -1944,7 +2010,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 32
     },
     {
       "file": "coq/kernel/foundation/SmTallyL.v",
@@ -1955,7 +2021,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/foundation/SmallChshLinks.v",
@@ -1966,7 +2032,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/foundation/SmallChshTolerance.v",
@@ -1977,7 +2043,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "coq/kernel/foundation/StructuralClockSync.v",
@@ -1988,7 +2054,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/StructuralRecordAxis.v",
@@ -1999,7 +2065,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/foundation/Substrate.v",
@@ -2022,7 +2088,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 25
     },
     {
       "file": "coq/kernel/foundation/Tc2PlainAdd.v",
@@ -2033,7 +2099,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/TcBridge.v",
@@ -2044,7 +2110,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/TcCodes.v",
@@ -2055,7 +2121,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 18
     },
     {
       "file": "coq/kernel/foundation/TcCompile.v",
@@ -2066,7 +2132,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 6
+      "out_edges": 7
     },
     {
       "file": "coq/kernel/foundation/TcCompile0.v",
@@ -2077,7 +2143,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 5
+      "out_edges": 7
     },
     {
       "file": "coq/kernel/foundation/TcCompose.v",
@@ -2088,7 +2154,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/foundation/TcEpi.v",
@@ -2099,7 +2165,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/foundation/TcFuel.v",
@@ -2110,7 +2176,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/foundation/TcGadget.v",
@@ -2132,7 +2198,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 7
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/foundation/TcInterp.v",
@@ -2143,7 +2209,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 18
     },
     {
       "file": "coq/kernel/foundation/TcMod.v",
@@ -2165,7 +2231,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 34
     },
     {
       "file": "coq/kernel/foundation/TcNorm.v",
@@ -2176,7 +2242,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 3
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/foundation/TcPacked.v",
@@ -2187,7 +2253,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 25
     },
     {
       "file": "coq/kernel/foundation/TcPackedMMA.v",
@@ -2198,7 +2264,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/TcPlain.v",
@@ -2209,7 +2275,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 23
     },
     {
       "file": "coq/kernel/foundation/TcPrefix.v",
@@ -2231,7 +2297,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 32
     },
     {
       "file": "coq/kernel/foundation/TcRiceMM.v",
@@ -2242,7 +2308,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     },
     {
       "file": "coq/kernel/foundation/UMachCheatSmall.v",
@@ -2253,7 +2319,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 38
+      "out_edges": 40
     },
     {
       "file": "coq/kernel/foundation/UMachDef.v",
@@ -2264,7 +2330,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/foundation/UMachHybrid.v",
@@ -2275,7 +2341,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 45
+      "out_edges": 48
     },
     {
       "file": "coq/kernel/foundation/UMachInOrderGen.v",
@@ -2286,7 +2352,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 7
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/foundation/UMachInOrderU.v",
@@ -2297,7 +2363,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 34
+      "out_edges": 36
     },
     {
       "file": "coq/kernel/foundation/UMachInOrderUP.v",
@@ -2308,7 +2374,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 35
+      "out_edges": 37
     },
     {
       "file": "coq/kernel/foundation/UMachInert.v",
@@ -2330,7 +2396,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 32
     },
     {
       "file": "coq/kernel/foundation/UMachMeetsUP.v",
@@ -2341,7 +2407,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/UMachMirror.v",
@@ -2352,7 +2418,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 42
+      "out_edges": 45
     },
     {
       "file": "coq/kernel/foundation/UMachPresented.v",
@@ -2363,7 +2429,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/foundation/UMachRegHost.v",
@@ -2374,7 +2440,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 49
+      "out_edges": 51
     },
     {
       "file": "coq/kernel/foundation/UMachShadowU.v",
@@ -2385,7 +2451,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 35
     },
     {
       "file": "coq/kernel/foundation/UMachStrengthened.v",
@@ -2407,7 +2473,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/foundation/UMachTrivialUP.v",
@@ -2418,7 +2484,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 45
+      "out_edges": 47
     },
     {
       "file": "coq/kernel/foundation/UMachVersionsObs.v",
@@ -2429,7 +2495,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 44
+      "out_edges": 47
     },
     {
       "file": "coq/kernel/foundation/UniversalBlocks.v",
@@ -2440,7 +2506,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 23
     },
     {
       "file": "coq/kernel/foundation/UniversalBridge.v",
@@ -2451,7 +2517,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 36
+      "out_edges": 38
     },
     {
       "file": "coq/kernel/foundation/UniversalInterpreterLinks.v",
@@ -2462,7 +2528,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 39
+      "out_edges": 42
     },
     {
       "file": "coq/kernel/foundation/UniversalLayout.v",
@@ -2484,7 +2550,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/foundation/UniversalPBridge.v",
@@ -2495,7 +2561,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 35
     },
     {
       "file": "coq/kernel/foundation/UniversalPCodes.v",
@@ -2506,7 +2572,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/UniversalPLayout.v",
@@ -2528,7 +2594,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/UniversalPRun.v",
@@ -2539,7 +2605,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 49
+      "out_edges": 51
     },
     {
       "file": "coq/kernel/foundation/UniversalPSim.v",
@@ -2550,7 +2616,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 38
+      "out_edges": 39
     },
     {
       "file": "coq/kernel/foundation/UniversalPhases.v",
@@ -2561,7 +2627,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "coq/kernel/foundation/UniversalRun.v",
@@ -2572,7 +2638,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 47
+      "out_edges": 49
     },
     {
       "file": "coq/kernel/foundation/UniversalSim.v",
@@ -2583,7 +2649,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 37
+      "out_edges": 38
     },
     {
       "file": "coq/kernel/foundation/UniversalThieleLinks.v",
@@ -2594,7 +2660,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 26
     },
     {
       "file": "coq/kernel/frontier/EcosystemGame.v",
@@ -2616,7 +2682,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 18
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/frontier/PointerObservable.v",
@@ -2627,7 +2693,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 7
+      "out_edges": 9
     },
     {
       "file": "coq/kernel/frontier/PointerObservableCounterexamples.v",
@@ -2649,7 +2715,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 7
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/frontier/RecordProliferationSurvey.v",
@@ -2693,7 +2759,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/nfi/CostSemanticsComparison.v",
@@ -2704,7 +2770,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/nfi/DecisionTreeBound.v",
@@ -2726,7 +2792,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/nfi/HonestCostTracking.v",
@@ -2748,7 +2814,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
@@ -2759,7 +2825,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/nfi/PermanentCertification.v",
@@ -2770,7 +2836,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 25
     },
     {
       "file": "coq/kernel/nfi/PermanentCertificationEntropy.v",
@@ -2781,7 +2847,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/nfi/PermanentRecordPricing.v",
@@ -2792,7 +2858,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "coq/kernel/nfi/PricingOnePremise.v",
@@ -2803,7 +2869,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 31
     },
     {
       "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
@@ -2814,7 +2880,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/nfi/QuantitativeNoFI.v",
@@ -2825,7 +2891,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "coq/kernel/nfi/ShadowPricing.v",
@@ -2836,7 +2902,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 18
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/nfi/StructuralUndecidability.v",
@@ -2858,7 +2924,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 26
     },
     {
       "file": "coq/kernel/quantum/ArcsineBoundary.v",
@@ -2869,7 +2935,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/quantum/BoxCHSH.v",
@@ -2891,7 +2957,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/quantum/CHSHCouplingBridge.v",
@@ -2924,7 +2990,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/quantum/ElliptopeCompletion.v",
@@ -2935,7 +3001,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/quantum/ElliptopeGate.v",
@@ -2946,7 +3012,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 21
     },
     {
       "file": "coq/kernel/quantum/GenRealizability.v",
@@ -2957,7 +3023,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
@@ -2968,7 +3034,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
@@ -2990,7 +3056,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 35
     },
     {
       "file": "coq/kernel/quantum/QuantumStrategies.v",
@@ -3001,7 +3067,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/quantum/QuantumStrategiesComplex.v",
@@ -3012,7 +3078,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/quantum/SchurComplement.v",
@@ -3023,7 +3089,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/quantum/SmallChshCheck.v",
@@ -3034,7 +3100,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/quantum/SmallChshMachine.v",
@@ -3045,7 +3111,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 35
     },
     {
       "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
@@ -3056,7 +3122,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/quantum/TsirelsonFromAlgebra.v",
@@ -3089,7 +3155,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/quantum/ValidCorrelation.v",
@@ -3111,7 +3177,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/reductions/CasperForkWitness.v",
@@ -3122,7 +3188,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/reductions/CasperRecordReading.v",
@@ -3133,7 +3199,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 6
     },
     {
       "file": "coq/kernel/reductions/ConcreteRAM.v",
@@ -3155,7 +3221,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 3
+      "out_edges": 4
     },
     {
       "file": "coq/kernel/reductions/EVMStorageGas.v",
@@ -3166,7 +3232,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 3
+      "out_edges": 4
     },
     {
       "file": "coq/kernel/reductions/GasMetering.v",
@@ -3199,7 +3265,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 6
+      "out_edges": 7
     },
     {
       "file": "coq/kernel/reductions/RFC9162Merkle.v",
@@ -3210,7 +3276,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     },
     {
       "file": "coq/kernel/reductions/RealSystemConsequences.v",
@@ -3254,7 +3320,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/thermodynamic/RelaxationContinuous.v",
@@ -3265,7 +3331,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/thermodynamic/RelaxationContinuousLimit.v",
@@ -3276,7 +3342,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 23
     },
     {
       "file": "coq/kernel/thermodynamic/RelaxationConvergence.v",
@@ -3287,7 +3353,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "coq/kernel/thermodynamic/RelaxationEntropy.v",
@@ -3298,7 +3364,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 7
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/thermodynamic/RelaxationStretch.v",
@@ -3309,7 +3375,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     },
     {
       "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
@@ -3320,7 +3386,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/test_fixtures/VacuitySmoke.v",
@@ -3331,7 +3397,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "minimal/AccountingBridge.v",
@@ -3342,7 +3408,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "minimal/ArchiveBound.v",
@@ -3353,7 +3419,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 28
     },
     {
       "file": "minimal/AxDgBlock.v",
@@ -3364,7 +3430,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 27
     },
     {
       "file": "minimal/BitSearch2.v",
@@ -3375,7 +3441,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 18
     },
     {
       "file": "minimal/BitSearchMember2.v",
@@ -3386,7 +3452,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 31
     },
     {
       "file": "minimal/BitSearchObserved2.v",
@@ -3397,7 +3463,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 26
     },
     {
       "file": "minimal/BrownianComputer.v",
@@ -3408,7 +3474,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 1
+      "out_edges": 2
     },
     {
       "file": "minimal/CertifiedHistory.v",
@@ -3419,7 +3485,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "minimal/CommutationObstruction.v",
@@ -3430,7 +3496,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "minimal/CommutingGrid.v",
@@ -3441,7 +3507,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "minimal/CompleteHost.v",
@@ -3452,7 +3518,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 18
     },
     {
       "file": "minimal/CompressionSmall2.v",
@@ -3463,7 +3529,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "minimal/ConsensusSeparation.v",
@@ -3474,7 +3540,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "minimal/CoveringNeeded2.v",
@@ -3485,7 +3551,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "minimal/CzLink.v",
@@ -3496,7 +3562,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 10
     },
     {
       "file": "minimal/CzShared.v",
@@ -3507,7 +3573,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 28
     },
     {
       "file": "minimal/EarnedCore.v",
@@ -3518,7 +3584,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 36
+      "out_edges": 38
     },
     {
       "file": "minimal/EarnedGeneric.v",
@@ -3529,7 +3595,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 34
     },
     {
       "file": "minimal/EarnedMulti.v",
@@ -3540,7 +3606,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 35
+      "out_edges": 37
     },
     {
       "file": "minimal/EarnedMultiPriced.v",
@@ -3551,7 +3617,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "minimal/EarnedPriced.v",
@@ -3562,7 +3628,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 34
+      "out_edges": 36
     },
     {
       "file": "minimal/EditionCapacity.v",
@@ -3573,7 +3639,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "minimal/EditionHistory.v",
@@ -3584,7 +3650,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 27
     },
     {
       "file": "minimal/EntitlementMore2.v",
@@ -3595,7 +3661,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 34
     },
     {
       "file": "minimal/EntitlementSmall.v",
@@ -3606,7 +3672,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 35
+      "out_edges": 38
     },
     {
       "file": "minimal/Erasure.v",
@@ -3617,7 +3683,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 5
+      "out_edges": 6
     },
     {
       "file": "minimal/Fibre.v",
@@ -3639,7 +3705,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "minimal/GeometryLimits.v",
@@ -3650,7 +3716,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "minimal/GibbsGap.v",
@@ -3683,7 +3749,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 32
     },
     {
       "file": "minimal/HistoryCapacity.v",
@@ -3694,7 +3760,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 34
     },
     {
       "file": "minimal/KeptDistinction.v",
@@ -3705,7 +3771,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 9
+      "out_edges": 10
     },
     {
       "file": "minimal/LiftConverse.v",
@@ -3716,7 +3782,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 31
     },
     {
       "file": "minimal/LiftCore.v",
@@ -3727,7 +3793,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 31
     },
     {
       "file": "minimal/LiftMacro.v",
@@ -3738,7 +3804,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 28
     },
     {
       "file": "minimal/LiftOneCounter.v",
@@ -3749,7 +3815,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "minimal/LiftPigeon.v",
@@ -3760,7 +3826,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     },
     {
       "file": "minimal/MaskWitness.v",
@@ -3771,7 +3837,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 31
     },
     {
       "file": "minimal/MeterRepresentation.v",
@@ -3782,7 +3848,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "minimal/Monitor.v",
@@ -3793,7 +3859,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 26
     },
     {
       "file": "minimal/MonotoneConsensus.v",
@@ -3804,7 +3870,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 16
     },
     {
       "file": "minimal/MuCore.v",
@@ -3815,7 +3881,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 31
     },
     {
       "file": "minimal/MultiExecution.v",
@@ -3826,7 +3892,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "minimal/MultiThiele2.v",
@@ -3837,7 +3903,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 33
     },
     {
       "file": "minimal/Multiplicity.v",
@@ -3848,7 +3914,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "minimal/Napkin.v",
@@ -3859,7 +3925,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "minimal/NativeErasure.v",
@@ -3870,7 +3936,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 25
     },
     {
       "file": "minimal/NativeFactAccounting.v",
@@ -3881,7 +3947,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 27
     },
     {
       "file": "minimal/NativeSliceBoundary.v",
@@ -3892,7 +3958,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 31
     },
     {
       "file": "minimal/NecEEnt.v",
@@ -3903,7 +3969,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 38
+      "out_edges": 41
     },
     {
       "file": "minimal/NecESearch.v",
@@ -3914,7 +3980,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 20
     },
     {
       "file": "minimal/NecSChain.v",
@@ -3925,7 +3991,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 18
     },
     {
       "file": "minimal/NecSClean.v",
@@ -3936,7 +4002,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 34
     },
     {
       "file": "minimal/NecSHost.v",
@@ -3947,7 +4013,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 25
     },
     {
       "file": "minimal/NecSNoCopy.v",
@@ -3958,7 +4024,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 25
     },
     {
       "file": "minimal/NecSWindow.v",
@@ -3969,7 +4035,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 34
     },
     {
       "file": "minimal/NecTEarned.v",
@@ -3980,7 +4046,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 32
     },
     {
       "file": "minimal/NecTGeneric.v",
@@ -3991,7 +4057,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 25
     },
     {
       "file": "minimal/NecTLoop.v",
@@ -4002,7 +4068,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 27
     },
     {
       "file": "minimal/NecTLoose.v",
@@ -4013,7 +4079,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 27
     },
     {
       "file": "minimal/NecTPartition.v",
@@ -4024,7 +4090,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 2
+      "out_edges": 4
     },
     {
       "file": "minimal/NecTToll.v",
@@ -4035,7 +4101,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 23
     },
     {
       "file": "minimal/NecTUnclean.v",
@@ -4046,7 +4112,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 20
+      "out_edges": 22
     },
     {
       "file": "minimal/NecTVerifier.v",
@@ -4057,7 +4123,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "minimal/NeutralChain.v",
@@ -4068,7 +4134,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 23
+      "out_edges": 26
     },
     {
       "file": "minimal/NeutralComplete.v",
@@ -4079,7 +4145,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 33
+      "out_edges": 36
     },
     {
       "file": "minimal/NeutralHost.v",
@@ -4101,7 +4167,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "minimal/NeutralMerge.v",
@@ -4123,7 +4189,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 29
     },
     {
       "file": "minimal/NoisyChairs.v",
@@ -4145,7 +4211,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "minimal/PartitionReading.v",
@@ -4156,7 +4222,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "minimal/PassiveGeometry.v",
@@ -4167,7 +4233,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 12
     },
     {
       "file": "minimal/PayAny.v",
@@ -4178,7 +4244,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 25
+      "out_edges": 28
     },
     {
       "file": "minimal/PayFree.v",
@@ -4189,7 +4255,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 32
     },
     {
       "file": "minimal/PeriodicIntersection.v",
@@ -4200,7 +4266,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 8
+      "out_edges": 10
     },
     {
       "file": "minimal/Presented.v",
@@ -4211,7 +4277,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 29
     },
     {
       "file": "minimal/PricedComplete.v",
@@ -4222,7 +4288,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 31
     },
     {
       "file": "minimal/QuantumChairs.v",
@@ -4233,7 +4299,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 6
+      "out_edges": 8
     },
     {
       "file": "minimal/RecordMerge.v",
@@ -4244,7 +4310,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 29
     },
     {
       "file": "minimal/Recurrence.v",
@@ -4255,7 +4321,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 32
     },
     {
       "file": "minimal/Representation.v",
@@ -4266,7 +4332,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "minimal/SharpHost.v",
@@ -4277,7 +4343,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "minimal/SliceCore.v",
@@ -4288,7 +4354,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 29
     },
     {
       "file": "minimal/SlicedEstablishment.v",
@@ -4299,7 +4365,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 40
+      "out_edges": 43
     },
     {
       "file": "minimal/SmCodes.v",
@@ -4310,7 +4376,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 11
+      "out_edges": 12
     },
     {
       "file": "minimal/SmHostBlocks.v",
@@ -4321,7 +4387,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "minimal/SmInterp.v",
@@ -4332,7 +4398,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 18
+      "out_edges": 19
     },
     {
       "file": "minimal/SmLoops.v",
@@ -4343,7 +4409,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "minimal/SmLoops2.v",
@@ -4354,7 +4420,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "minimal/SmLoops3.v",
@@ -4365,7 +4431,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "minimal/SmTally.v",
@@ -4376,7 +4442,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 25
     },
     {
       "file": "minimal/SmallConsensus.v",
@@ -4387,7 +4453,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 24
+      "out_edges": 25
     },
     {
       "file": "minimal/StepLaw.v",
@@ -4398,7 +4464,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 30
     },
     {
       "file": "minimal/StructuralMeter.v",
@@ -4409,7 +4475,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "minimal/SynchronizedCapacity.v",
@@ -4431,7 +4497,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 21
     },
     {
       "file": "minimal/Task.v",
@@ -4442,7 +4508,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 32
+      "out_edges": 35
     },
     {
       "file": "minimal/Tc2Am.v",
@@ -4453,7 +4519,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "minimal/Tc2Chain.v",
@@ -4464,7 +4530,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 20
     },
     {
       "file": "minimal/Tc2Collision.v",
@@ -4475,7 +4541,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "minimal/Tc2Embed.v",
@@ -4486,7 +4552,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 19
+      "out_edges": 20
     },
     {
       "file": "minimal/Tc2Forced.v",
@@ -4497,7 +4563,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "minimal/Tc2Mult.v",
@@ -4530,7 +4596,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "minimal/TcBlocks.v",
@@ -4541,7 +4607,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 26
+      "out_edges": 28
     },
     {
       "file": "minimal/ThieleComplete.v",
@@ -4552,7 +4618,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 39
+      "out_edges": 42
     },
     {
       "file": "minimal/ThieleCompleteIndependent.v",
@@ -4563,7 +4629,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 28
+      "out_edges": 31
     },
     {
       "file": "minimal/ThieleCompleteScaled.v",
@@ -4574,7 +4640,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 22
+      "out_edges": 24
     },
     {
       "file": "minimal/ThieleCompleteWindow.v",
@@ -4585,7 +4651,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 21
+      "out_edges": 24
     },
     {
       "file": "minimal/TimeTax2.v",
@@ -4596,7 +4662,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 27
+      "out_edges": 29
     },
     {
       "file": "minimal/TwoArms.v",
@@ -4607,7 +4673,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "minimal/UniversalCodes.v",
@@ -4618,7 +4684,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 29
+      "out_edges": 31
     },
     {
       "file": "minimal/UniversalNoCopy.v",
@@ -4629,7 +4695,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 30
+      "out_edges": 33
     },
     {
       "file": "minimal/UniversalThiele.v",
@@ -4640,7 +4706,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 47
+      "out_edges": 49
     },
     {
       "file": "minimal/VerifierSmall.v",
@@ -4651,7 +4717,7 @@
         "coq/kernel/nfi/UniversalCertificationCost.v",
         "minimal/EarnedCore.v"
       ],
-      "out_edges": 31
+      "out_edges": 34
     }
   ]
 }

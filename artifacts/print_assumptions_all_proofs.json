@@ -1,23 +1,23 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-24T07:40:06.372449+00:00",
+  "generated": "2026-10-24T23:23:06.029523+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "a07788592a7a6d3a499053ec424333cff1f72c168cded7a278f9a096fae1c992",
-  "probe_digest": "1fcea92253be22cc2311d3ae44ba8ccf1e615cd155ce3f55e598cbc91bfc33aa",
+  "corpus_digest": "58511c48c7135dffaa310fa517d35a1f30a931ca4bbd3c1b6095933c0fd7973e",
+  "probe_digest": "10666b8c3a2172c1a047c34dd937ecda21edc0b1875cd3b8d61be1034aee8cc0",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "557289aeea495390feb7603a45b843ba662bd900b651e261552ecc5acc782dbc",
-  "files_probed": 444,
-  "addressable_theorems_probed": 7101,
-  "blocks_parsed": 7101,
+  "raw_output_sha256": "7775aa49cfe9bceb4f536a07214ce114a69fab97732891743cf0398d7fcffd14",
+  "files_probed": 450,
+  "addressable_theorems_probed": 7168,
+  "blocks_parsed": 7168,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 7101,
-    "closed_under_global_context": 6281,
+    "theorems_probed": 7168,
+    "closed_under_global_context": 6348,
     "depend_on_axioms": 820,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 187,
@@ -223,8 +223,8 @@
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
     "Audit": {
-      "theorems": 60,
-      "closed": 60,
+      "theorems": 127,
+      "closed": 127,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -264,6 +264,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/audit/CanonicalObservation.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/audit/ConcreteClosureBridge.v": {
       "theorems": 3,
       "closed": 3,
@@ -294,6 +300,30 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/audit/IntrinsicBoundary.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/LeastToll.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/LiftProposalBoundary.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/LiftTerminal.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/audit/MacroBoundary.v": {
       "theorems": 5,
       "closed": 5,
@@ -307,8 +337,8 @@
       "axiom_set": []
     },
     "coq/audit/ObservationContract.v": {
-      "theorems": 6,
-      "closed": 6,
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -333,6 +363,12 @@
     "coq/audit/StructuralBridge.v": {
       "theorems": 6,
       "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/audit/TraceFactorization.v": {
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
