@@ -4746,7 +4746,7 @@ change it? That's the counter, and it's the next thing I have to build.
 Part~I found what keeping takes on a single cell and wrote it into a step. Part~II is step three: the rest of
 structure is the same thing at a bigger size. It starts with the word itself, structure, and
 what the people who wrestled with it left behind, and comes out where Part~I started, at a sorting of a
-pile into groups, a distinction held. Then it asks what follows, on any machine, once a distinction
+pile with a door across it, a distinction held. Then it asks what follows, on any machine, once a distinction
 is kept and the keeping is charged, before I build one. The counter is the ledger, and it uses up states
 too: a number that only climbs takes a fresh value for every unit of cost. A window is what's left when you
 stop looking at some parts of the state, and it can hide the very distinction that was paid for. Entitlement and
@@ -4763,8 +4763,11 @@ sort all its programs, from inside, by a question about what they do that some p
 %===========================================================================
 
 Part~I put a charge beside a new permanent reading under explicit pricing
-rules. This chapter starts with one yes-or-no question, states the ruler
-under which it is the smallest way to sort, and goes after the rest of it. This whole section is about one word, and I'll give it to you now,
+rules. This chapter starts with one yes-or-no question, a cut with a direction across it, states
+two rulers under which it is the smallest way to sort, and goes after the rest of it. The
+direction is the part the toll prices. Drop it and what is left is a sorting, which is where the
+usual account of sameness starts, and the sorting turns out to be the symmetric half of the thing
+the record reads into. This whole section is about one word, and I'll give it to you now,
 so you can decide whether to stay: structure.
 
 I used that word for most of my life without once looking at it, which I suspect is true of
@@ -4829,12 +4832,20 @@ question: ``is it this one?'' splits a pile into that thing and the rest, which 
 single thing. Plain ``smallest'' would be false. And one question only splits the domain
 into two groups when some things answer yes and some answer no; if they all agree there's
 one group and nothing was sorted. With those limits said, and with the ruler said: by the
-count of names, the smallest structure that sorts anything is one question. Someone with a
-different ruler might land somewhere else, and I'd want to see where. Least information lands
-one bit lower, on the partition this section ends up starting from: on a nonempty pile of $n$ things a
+count of names, the smallest structure that sorts anything is one question. Here is a second
+ruler, which counts the rules a relation has to obey instead of the names, and it lands in the
+same place. A sameness, ``these two count as the same,'' obeys three: everything is the same as
+itself, the same both ways, and the same across a third. An order, ``this one is at or below that
+one,'' obeys two, the first and the last, and drops the middle one; that two-rule order is the
+preorder the record of Section~\ref{sec:toll} already reads into. One question is such an order
+on the pile: a thing that says no is at or below a thing that says yes, two things that say the
+same are at or below each other both ways, and nothing else. So by the count of rules the smallest
+structure that sorts is again the one question, read as a two-place order with one door in it,
+and the three-rule sameness sits above it. Least information lands
+one bit lower, on the partition: on a nonempty pile of $n$ things a
 question can come out $2^n$ ways, and a split into at most two groups with neither one called yes can
-come out half as many. The bit between them is the label, which group says yes. Keep it. It's about to turn into the whole
-section.
+come out half as many. The bit between them is the label, which group says yes, and it's the door.
+Keep it. It's about to turn into the whole section.
 
 \subsection{Laying them all down}
 
@@ -4925,8 +4936,8 @@ out, and what's ruled out is what you get to skip later. And because the moves w
 all of it is relative. Read that way, the fourth thing sits in the middle: it's where the
 first three turn into something you can write down, and where the last three get their start.
 
-That's my reason for starting the next subsection with a sorting, and I want to be exact about
-what kind of reason it is, because it's mine. None of these people said
+That's my reason for starting the next subsection with a sorting and a door across it, and I
+want to be exact about what kind of reason it is, because it's mine. None of these people said
 ``start with a partition.'' Klein would tell you to start with the moves, Eilenberg and Mac Lane
 with the arrows, Shannon with the probabilities. What I can actually point at is narrower. In
 the framings about when two things are the same shape or the same kind (Euclid laying one
@@ -4935,7 +4946,8 @@ where somebody decides what counts as the same, and that decision, written down,
 of a pile. In Shannon, Rissanen and Noether I can't find that moment as cleanly, and I'm not
 going to bend them until I do. So the overlay doesn't prove that a sorting comes first. It
 shows me where the framings I trust most keep putting their first foot down, and I'm putting
-mine there too.
+mine there too, with one thing added that none of them needed and the toll does: a direction
+across the sorting.
 
 I looked for a framing that denies any of the seven and didn't find one, which could mean
 there isn't one or could mean I didn't look where it lives. If you know of one, I'd like to
@@ -4945,7 +4957,9 @@ see it.
 
 Now the sentence I wanted to say at the top and had no right to until here, and even here I
 have to split it in two, because half of it is a textbook fact and the other half is me. The
-piece of structure I'm going to start from is a partition.
+piece of structure I'm going to start from is a cut: a pile sorted in two, with a door between
+the halves that swings one way. A partition is the cut with the door taken off, and the
+partition comes with a textbook fact, so I'll do that half first.
 
 The textbook half: a partition and an equivalence relation are the same object. That's Paul
 Halmos, \emph{Naive Set Theory}, 1960, section seven, and you could read that section before
@@ -5011,24 +5025,80 @@ set theorist's first step and the logician's first step are the same step, and n
 pick a side, which is a relief, because it's an argument you can lose with yourself for a long
 time.
 
+Now put the door back, exactly. An \emph{order} on a pile, ``$x$ is at or below $y$,'' written
+$x \le y$, has to obey only two of sameness's three rules: everything is at or below itself, and
+at or below carries across a third. It need not go both ways. That is the preorder of
+Section~\ref{sec:toll}, the thing the record reads into, and here is what it is made of.
+
+\begin{definition}[Preorder, its sameness and its doors]\label{def:preorder-parts}
+A relation $\le$ on $X$ is a \emph{preorder} when it is reflexive ($x \le x$) and transitive
+($x \le y$ and $y \le z$ imply $x \le z$). Its \emph{symmetric part} is $x \approx y$ when
+$x \le y$ and $y \le x$; its \emph{strict part} is $x < y$ when $x \le y$ and not $y \le x$. A
+\emph{cut} is the preorder a reading $P: X \to \{\mathrm{no}, \mathrm{yes}\}$ puts on $X$:
+$x \le y$ when $P(x) = \mathrm{no}$ or $P(y) = \mathrm{yes}$.
+\end{definition}
+
+\begin{theorem}[An order is a sorting with doors]\label{thm:preorder-partition}
+(1) The symmetric part of a preorder is an equivalence relation, so it sorts $X$ into buckets
+(Theorem~\ref{thm:equiv-partition}); two things share a bucket exactly when each is at or below
+the other. (2) Whether $x \le y$ depends only on the buckets of $x$ and $y$, and on the buckets
+``at or below'' is an order that goes one way: two buckets each at or below the other are one
+bucket. (3) So a preorder is exactly a partition of $X$ together with a one-way order on its
+blocks, and a preorder with an empty strict part is exactly a partition. (4) A cut has at most
+two buckets, the things that say no and the things that say yes, with the first at or below the
+second and not the other way round; forget which bucket is yes and what remains is the partition
+of the question.
+\end{theorem}
+
+\begin{proof}
+(1) Everything is at or below itself both ways. The symmetric part is the same both ways by how
+it's written. If $x \approx y$ and $y \approx z$, then $x \le z$ and $z \le x$ by carrying across
+$y$. (2) If $x \approx x'$, $y \approx y'$ and $x \le y$, then $x' \le x \le y \le y'$, so
+$x' \le y'$. On the buckets, at or below is reflexive and transitive because it is on the
+things, and if the bucket of $x$ is at or below the bucket of $y$ and back again, then
+$x \approx y$ and the buckets are one. (3) From a partition and a one-way order on its blocks,
+say $x \le y$ when the block of $x$ is at or below the block of $y$: reflexive and transitive come
+from the order on the blocks, its symmetric part puts $x$ and $y$ together exactly when their
+blocks are at or below each other, which by one-wayness is when they share a block, and its order
+on the buckets is the one given. The other direction is (1) and (2). If the strict part is
+empty, $x \le y$ always comes with $y \le x$, so the preorder is its own symmetric part and
+(1) makes it a partition. (4) A thing that says no is at or below everything, a thing that says
+yes is at or below exactly the things that say yes, two things with the same answer are at or
+below each other, and a thing that says yes is not at or below a thing that says no.
+\end{proof}
+
+And here is why this chapter's start and the book's definition are one thing. Pull the record's
+order back to the states: say $s$ is at or below $t$ when $\mathrm{rec}(s) \le \mathrm{rec}(t)$.
+That is a preorder on the states, reflexive and transitive because the order of records is. Its
+buckets are the states the record can't tell apart, and inside a bucket the toll never speaks:
+a move that stays in its bucket lands at or below where it started, and so does a move down.
+Its doors are where the toll speaks: a move that lands somewhere not at or below where it
+started is a climb, and the toll charges it. The flat case of Part~I is a machine whose moves
+never go through a door upward. The two-place record is the cut, one door, and the first
+chapter of this book was the smallest instance of exactly this: a cell going from blank to 0
+is a move through the one door of a cut, and what Part~I found keeping takes is what it costs
+to go through and not come back.
+
 So much for the textbook half. The other half is mine, so hold it looser, because Halmos says
 nothing about ``smallest'' or ``first'' and I'd be lying if I let his page number carry my
-sentence. In what I'm going to build, the order goes: a pile, then groups in the pile, then
-whatever connects one group to another, and the groups come first because a question needs
-something to be about and a connection needs somewhere to land. That's an order for
+sentence. In what I'm going to build, the order goes: a pile, then a cut in the pile with its
+door, then more cuts at once, which is an order, and the groups come first because a question
+needs something to be about and a door needs two sides to stand between. That's an order for
 \emph{my} construction. It is not a law that every account of structure has to start by
-sorting. You could start with an ordering instead (``this one comes before that one''), or with
-arrows between the things themselves and no groups at all, and people do, and nothing I've
-shown you rules that out. So the honest sentence is: a partition is where I chose to start, it
-is the smallest start by the ruler I gave you, and I chose it because it's the first thing that
-can be right or wrong about a pile and the last thing I could take away without everything I
-build on it coming down. If you have a smaller start by a ruler you can state, I want to see
-it. It would change this book.
+sorting. You could start with arrows between the things themselves and no groups at all, and
+people do, and nothing I've shown you rules that out. So the honest sentence is: a cut is where
+I chose to start, it is the smallest start by both rulers I gave you, the partition is its
+symmetric case, and I chose it because it's the first thing that can be right or wrong about a
+pile and the last thing I could take away without everything I build on it coming down. The
+question I used to leave open here, whether there is a smaller start than a partition, has its
+answer from inside the definition: drop symmetry, and the two-rule order the record already
+reads into is that start, with the partition as the case where every door is off. If you have a
+start smaller than that, by a ruler you can state, I want to see it. It would change this book.
 
 \subsection{Buckets}
 
-So I'll do the smallest piece once, for real. Take everything in front of you and sort
-it into buckets, with nothing in two buckets and nothing left on the floor, and that's the whole
+So I'll do the symmetric half once, for real, because it's the half you can do with your
+hands. Take everything in front of you and sort it into buckets, with nothing in two buckets and nothing left on the floor, and that's the whole
 of the definition. It's the thing you do with a kindergartner and a pile of blocks, and I am aware
 that I've just marched you past two thousand years of people to arrive at a
 pile of blocks. Keep the blocks anyway. They're about to cost you something.
@@ -9133,8 +9203,9 @@ why a finite machine that prices its merges can't make the price of a record tha
 
 \subsection{What settling looks like}
 
-The chapter on what structure is (Section~\ref{sec:structure}) ends with a pile of things sorted
-into buckets. Settling a question is that, plus one more thing, and it's the 0 from the start of
+The chapter on what structure is (Section~\ref{sec:structure}) started with a cut, a pile sorted
+in two with a door between the halves, and ended with a pile of things sorted into buckets.
+Settling a question is the cut with its door locked, and it's the 0 from the start of
 the book at a bigger size.
 
 Picture every state the machine could be in as a field of dots. A yes-or-no question about the state
@@ -9142,7 +9213,8 @@ splits the field into two parts: yes and no. That split is a sorting, the smalle
 remember the no pile: if one of the parts is empty, there's no sorting at all, just a field. Now the
 extra thing that makes it a settlement: once the machine is in the yes part, \emph{no step it can take
 leads back out}. The door opens one way. A settled question is a sorting plus a door that only
-swings in.
+swings in. In the cut of Section~\ref{sec:structure} the door said which way costs; settling
+shuts the other way.
 
 At its best, what goes through the door is a relation: these numbers are in this order, these two
 things belong together. Sultan, the chimpanzee of Section~\ref{sec:insight}, fitted two short
@@ -12290,7 +12362,9 @@ Structure: relations, kept under chosen changes, carried by any stuff, relative 
 Turing's four parts have no slot for ``these belong together'' & not claimed; I looked and didn't find one, which is weaker & Section~\ref{sec:structure} \\
 Equivalence relation, partition & definition & Section~\ref{sec:structure}, Definition~\ref{def:equiv-partition} \\
 Sameness and sorting are one object & proved (textbook, Halmos) & Section~\ref{sec:structure}, Theorem~\ref{thm:equiv-partition} \\
-A partition is the start, smallest by the count of names & choice & Section~\ref{sec:structure} \\
+Preorder, symmetric part, strict part, cut & definition & Section~\ref{sec:structure}, Definition~\ref{def:preorder-parts} \\
+An order is a sorting with doors: a preorder is exactly a partition with a one-way order on its blocks, a cut has two buckets and one door, and the record's order pulled back to the states is a preorder whose buckets the toll ignores and whose climbs it charges & proved & Section~\ref{sec:structure}, Theorem~\ref{thm:preorder-partition} \\
+A cut, a sorting with one door, is the start, smallest by the count of names and by the count of rules; a partition is its symmetric case & choice, with both rulers stated & Section~\ref{sec:structure} \\
 Nobody prices vouching for a sorting & not claimed; only that I found no one who does & Section~\ref{sec:structure} \\
 A counter kept by a price list & definition & Section~\ref{sec:counter}, Definition~\ref{def:u06-counter} \\
 Conservation & proved  & Section~\ref{sec:counter}, Theorem~\ref{thm:conservation} \\
@@ -12512,8 +12586,9 @@ And there are three things this book doesn't settle, each with what would settle
 right, which would leave every theorem standing and one premise unowned by the world: that takes
 measurements of real devices (Section~\ref{sec:a2-not-arbitrary}). Whether certification really is the
 pointer event: that takes a way to tie the definitions to the systems the thesis is about, and Section~\ref{sec:pointer}
-sets out the three comparisons needed. And whether there's a smaller start than a partition: that takes a ruler
-someone can state and a smaller structure measured by it (Section~\ref{sec:structure}).
+sets out the three comparisons needed. Whether there's a smaller start than a partition has its answer inside
+the definition, the two-rule order with the partition as its symmetric case (Section~\ref{sec:structure});
+whether anything sits below that takes a ruler someone can state and a smaller structure measured by it.
 
 That's the whole ledger. If you find a claim in this book that isn't on it, or a line that
 says more than its home does, that's my mistake, and I'd want to hear about it.
@@ -12775,7 +12850,7 @@ that far.
 
 Part II gave the triangle and the cups their words: structure is relations among things, kept under
 the changes you choose, carried by whatever stuff happens to be there, relative to a
-frame. A partition turned out to be the smallest sorting by the ruler I picked, and a cell that goes from blank to 0 and stays is that smallest sorting, one yes-or-no question, kept. And making
+frame. A cut, a sorting with a door that swings one way, turned out to be the smallest structure by the rulers I picked, a partition is the cut with its door taken off, and a cell that goes from blank to 0 and stays is that smallest cut, one yes-or-no question, kept. And making
 a grouping, keeping it, checking it and standing behind it came apart into four different
 acts. So the question became how an account of
 computation could carry what keeping the cell's 0 takes, and the difference between those acts, in its step.
@@ -12871,8 +12946,11 @@ five real systems mostly built a
 wall or a penalty for contradiction.
 It doesn't settle whether certification is the pointer event. And it doesn't settle whether Landauer's critics
 are right, which would leave every theorem standing and one premise unowned by the world.
-And the question I'd most like someone to take from me: is there a smaller start than a
-partition, by a ruler they can state? I said in Section~\ref{sec:structure} it would change this book, and it would.
+And the question I used to leave open, whether there is a smaller start than a partition, has its
+answer from inside the definition: drop symmetry, and the two-rule order the record already reads
+into is the smaller start, with the partition as its symmetric case (Section~\ref{sec:structure}).
+What I'd most like someone to take from me now is whether anything sits below that, by a ruler
+they can state. It would change this book.
 
 One more claim ties the counting to the world, the way Church and Turing's ties computing to it,
 and I'll state it as what it is, a thesis, the \emph{Thiele thesis}: every physical process that
@@ -13068,7 +13146,9 @@ A computer running the small machine isn't the small machine; it implements it, 
 to only one of the two layers, the entry says which.
 
 A \emph{partition} is a sorting of a pile into groups, nothing in two groups and nothing left
-over (Section~\ref{sec:structure}). A \emph{Thiele machine} is a state type, moves, a step, a cost per move, and a
+over; a \emph{cut} is a sorting in two with a door between the halves that swings one way, the
+order a yes-or-no reading puts on the pile; and an \emph{order}, a preorder, is a partition with a
+one-way order on its blocks, the thing the record reads into (Section~\ref{sec:structure}). A \emph{Thiele machine} is a state type, moves, a step, a cost per move, and a
 record read into an order, plus one rule, the \emph{toll}: a move that carries the record somewhere
 not at or below where it stood costs at least one; on the two-place record, a move that turns no
 into yes (Section~\ref{sec:toll}). The rule is called A2 in the conditions table (Appendix~\ref{sec:assumptions}). A move \emph{merges} when two different starting states land on
