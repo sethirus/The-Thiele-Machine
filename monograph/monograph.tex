@@ -383,92 +383,13 @@ they leave the answer readable? In the mathematical examples I can require a
 yes to stay yes under every allowed move. The bead is a physical example of
 retention for a time, with a chance of failure.
 
-Now for the moment itself: the cell is blank and you write a 0. Everything that step can take comes next, and
+Now for the moment itself: the cell is blank and you write a 0. Everything that step can take comes next, in Part~I, and
 the rest of the book only ever adds detail to it.
-
-The physical question needs more than a state change. For the thermal Markov
-jump and overdamped diffusion models discussed in Part~I, changing the probability
-distribution in finite time has a positive entropy-production bound under the
-stated dynamical assumptions and finite activity or mobility. That is the sense
-of dissipation used here. It is not a theorem about every physical device or
-every individual trajectory. Over a cycle that brings the device back to where it
-started it all leaves as heat; within a single step the heat that leaves can even be negative, when
-the device's own entropy goes up.
-
-Now separate two experiments. In the first, hand the writer a cell specified
-to be blank. In the second, hand it either blank or zero, with equal chances,
-without telling it which. Let the same write send both blank and zero to zero.
-The first experiment starts and ends with one certain logical state. The
-second starts with two possibilities and ends with one.
-
-\begin{center}
-\begin{tikzpicture}[thiele]
-\node[pipe,text width=3.5cm,minimum width=0pt] (known) at (0,0)
-  {Supplied start: blank\\Chance one};
-\node[pipe,text width=3.5cm,minimum width=0pt] (knownend) at (6,0)
-  {End: zero\\Chance one};
-\draw[pipearrow] (known) -- node[above=7pt]{write} (knownend);
-\node[pipe,text width=3.5cm,minimum width=0pt] (spread) at (0,-2)
-  {Possible starts: blank or zero\\Half the chance on each};
-\node[pipe,text width=3.5cm,minimum width=0pt] (spreadend) at (6,-2)
-  {End: zero\\Chance one};
-\draw[pipearrow] (spread) -- node[above=7pt]{same write} (spreadend);
-\end{tikzpicture}
-
-\small The first preparation loses no uncertainty. The second loses one bit.
-The transition rule is the same; the input preparation is different.
-\end{center}
-
-Landauer's entropy-loss premise gives the second preparation a one-bit floor.
-It gives the first no positive floor. That does not measure either device's
-actual heat. If the supplied blank was made by resetting an uncertain memory,
-that earlier reset has its own account. If somebody retains information about
-the input, include that memory and its correlations when analysing its later
-reset. Neither an earlier payment nor a later one follows merely from saying
-that the cell starts blank.
-
-Or you never merge at all: you write every 0 on a fresh cell and never reuse one. That way pays in fresh states,
-and they never come back. An endless tape can do it forever. A real one runs out, because a real
-device can tell apart only finitely many states in a bounded place. That's a premise about the
-world, not a theorem, and nobody has measured where its ceiling sits.
-
-The count I will prove concerns a new reading that stays under a fixed,
-total next-state rule: the run eventually joins two of its states, or keeps
-visiting fresh full states. A supplied blank and a machine that stops need
-their own treatment. The count does not show that somebody paid heat before
-the run began. It tells us what must be included when we describe the whole
-run and what it keeps.
 
 \subsection*{Why it has to cost}
 
 Now what it takes to keep that 0, made exact, and it's the part I'm proudest of, because once something
 stays, the choosing stops and the counting takes over. And the counting is the one behind musical chairs.
-
-Take any machine at all, with any number of states, finite or endless, and one rule that gives the next
-state. Each state is one way the whole machine can be held, and the machine moves from state to state, one
-step at a time. Watch one run and keep a list of the states it has been in. Now look at the next
-step. There are exactly three things it can do. It can land on a state this run hasn't used yet,
-which spends a fresh state, there and then. It can come back, for the first time, to a state the run
-has used, other than the one it started on, and then it comes from a different state than the one
-that got there first, so two states land on one. That's a
-\emph{merge}: two different states with the same next state, and afterward the state they landed on can't tell
-you which one it came from. Or it can go round a loop: land back on the very state it started
-from, or take a step it has already taken, which is all a run does after its first return. A loop
-makes nothing new. There is no fourth
-thing a step can do, a run merges at most once, and it doesn't matter how many states there are.
-
-Now make the machine keep something. Pick a yes-or-no reading of the state and make it
-permanent: no step ever turns a yes back into a no. Start on a state that reads no and let some
-step raise it to yes. From then on the run can never come back to its start, because the start
-reads no and the yes never comes down. So the run can't be a loop through its start, and the
-first time it comes back to any state it has used, that step is a merge. Either somewhere along
-the run two states land on one, or it never comes back to a state it has used and takes a fresh one at
-every step, forever. Raising something to keep can't be done going round a loop,
-the only kind of step that spends neither a merge nor a fresh state, because the loop is exactly the
-step that makes nothing new. Keeping isn't the only thing that pays this, though. Any run that
-never comes back to its start merges or takes fresh states, whatever it keeps; what keeping adds is
-that coming back is ruled out. The sharper fact is about the move, and the chairs below show it:
-when fresh states run out, the move that raises a reading that stays has to merge two states itself.
 
 Do it with chairs when the room runs out. Draw a box on the floor, three chairs inside, one chair
 outside by the door. Four people, one per chair: the four states the machine could be in. The
@@ -483,88 +404,14 @@ which is old and not mine, and the chapter ``Why the toll isn't arbitrary''
 (Section~\ref{sec:a2-not-arbitrary}) proves it with exactly three conditions on a rule that gives every state a next one: finitely many states that read yes, a yes that stays, and one flip. There's no physics
 in it anywhere, only counting.
 
-(How old is it? I went looking. A French Jesuit, Jean Leurechon, used it in 1622 to argue
-that two people somewhere must have exactly the same number of hairs on their heads, which is the
-kind of thing you can be completely sure of and never check. The first name for it I can find came two centuries later, from the German mathematician
-Peter Gustav Lejeune Dirichlet, who used it in print in 1842 without naming it and in later work
-called it the drawer principle, the \emph{Schubfachprinzip}; the pigeons came later still.
-Benoît Rittaud and Albrecht Heeffer, who wrote a short paper in 2014 on what came before
-Dirichlet, looked for a source for the year 1834 that turns up next to his name and found none,
-and neither have I. Is 1622 the bottom? I can't
-tell you. History is like that: it's where you start digging.)
-
-Now give the room endless chairs inside, numbered 1, 2, 3 and on with no end, every one taken, and
-the newcomer still gets a seat: everybody inside moves up one, from chair $n$ to chair $n+1$, and
-chair 1 is left empty. Nobody shares. That's David Hilbert's hotel, from a lecture in the 1920s, and
-it's no trick. Look at what it took: every single person inside had to get up and move one over, into a chair that was taken a moment before, to leave one gap. Any way of doing it moves an endless line of them, the person in the chair the newcomer takes, the one whose chair that person took, and on with no end, and that only works because the building has a chair past every chair.
-That's the fresh-state column, paid in full on every raise. Richard
-Dedekind, the German mathematician, made it the definition of infinite in 1888: a collection is
-infinite exactly when it can be moved one-to-one into a proper part of itself. So finiteness
-doesn't create what keeping takes. Keeping is paid for in merges or in fresh states however many states there are, as
-long as every state has a next one.
-What finiteness does is take fresh states off the table, and then keeping has to be paid for in a merge.
-
-Turn it around and it says the same thing from the other side. A \emph{reversible} computer, one
-where every step can be run backwards, never merges anything, because a step you can undo never
-lands two states on one. So it can only pay for keeping in fresh states. Charles Bennett, at IBM, showed in 1973
-that any computation can be done reversibly if you give it fresh states to keep its own history in while it
-works, and that's the fresh-state column, written out as a construction. Give a reversible computer finitely
-many states and it runs out. A one-to-one shuffle of finitely many states always comes back around to
-where it started, so it cannot raise a flag from down and keep it up forever; whatever it raises comes back down, as long as
-every state has a next one. A reversible machine that stops slips past this, as Part~I shows exactly,
-and Klaus-Jörn Lange, Pierre McKenzie and Alain Tapp (2000) built such machines: reversible ones that
-do what any deterministic machine does in the same space, up to a constant factor, and stop with the
-answer, paying in time. Give it an
-endless tape to keep its history on and it keeps everything, never comes back, and pays a fresh
-stretch of tape at every step. Logical reversibility alone settles no physical dissipation bound. Bennett's
-Brownian walker has positive forward drift only if it is biased, and at any speed above nothing the push dissipates, and in his walker, in the long run, all of it leaves as heat. Go slower
-and the mean dissipation per net step drops. Zero drift has no directed progress on average, though individual walks can reach a target. Part~I proves the positive-drift bound for his walker, with Schnakenberg's formula taken as the model (Theorem~\ref{thm:time-bill}), and the physicists who study changes made in a finite time (Tim Schmiedl and
-Udo Seifert for a dragged bead; Naoto Shiraishi, Ken Funo and Keiji Saito for jump processes) find the same
-for any change in the chances of a device's states that finishes, when those states jump or drift at
-random in surroundings at a fixed temperature. In those models the bound concerns a change of probability distribution,
-with the specified dynamics, not every microscopic move. What a merge adds is a floor under its heat that no slowness removes, and
-what fresh states buy is a way around the floor, without deciding the implementation's finite-time dissipation. For a fixed nonzero distribution change in the stated finite-activity model,
-the time bound stays positive at finite duration. This is a conditional
-physical result, not a theorem about every implementation of an abstract step.
-
-Now comes the physics, as an assumption with its name on it. Rolf Landauer, at IBM, 1961, said that a step
-that can't be run backwards, that merges, ``requires a minimal heat generation.'' That's the rule
-people call Landauer's principle: when a merge wipes out a difference the machine really could
-have been holding, its heat has a floor, on average at least $k_B T \ln 2$ for every bit of
-difference lost, however slowly it's done. Landauer stated it for a memory whose states are alike
-apart from what they record, a symmetric memory; when the states differ in their own entropy the
-floor moves, and in a lopsided double well the work to erase has been measured below $k_B T \ln 2$. It's physics, it's a premise, and no proof in this book reaches it.
-
-And his next sentence is the whole problem step four is about.
-That heat, he wrote, ``serves the purpose of standardizing signals and making them independent of
-their exact logical history.'' Ordinary machines spend their merges, and their heat, on
-\emph{forgetting how the bits got there}, on purpose, so a 1 is a 1 no matter what path made it.
-You'll see in step four what that does to two computers that end up holding the same bits. And the
-very same kind of step, a merge, is what it takes, on any machine that keeps running and whose fresh states run out, to make something stay for good.
-
 So, the deepest thing I can say about keeping: not every forgetting keeps anything, and
 wiping a scratch pad keeps nothing. But every keeping pays. On a finite machine that keeps running, keeping pays by forgetting: the step that makes something stay for good lands two states on one,
 somewhere, maybe not where you happen to be standing, and afterward nothing can tell which one it
 was. With endless fresh states it can dodge the merge only by spending fresh states it never gets back. A verdict
 keeps the decision and lets go of the arguing.
 
-It's worth seeing where that payment can go and where it can't, so you know exactly what you're being asked to
-accept. Give the machine unlimited memory and it never has to merge, but it hasn't got out of
-anything: it pays in fresh states, at every step, forever, with physical dissipation considered separately under the stated thermal assumptions, and the chapter ``Why the toll isn't arbitrary'' builds that machine and counts its
-fresh states. Let the flag come back down and nothing is kept, so
-there's no payment for keeping; the steps can dissipate under the stated thermal-model assumptions. Start the machine from a state you already know and Landauer's
-principle, in the form Part~I adopts, puts no heat floor under the merge at all
-(Theorem~\ref{thm:known-state}), because no uncertainty is wiped. It's the known blank from a couple of pages back, and what keeping takes
-sits where it sat there: the step can dissipate under the stated thermal-model assumptions, and the difference was
-already being kept, by whoever knows the start. The toll I build in Part~I charges that step
-anyway, because it charges the raise, whichever way the raise is paid, for every state the step could
-be handed. That's a rule of the ledger, not a claim about heat. The heat itself is physics. In 2012 a group in Lyon
-erased one bit held in a tiny bead, kept in place by a laser, and found the average heat it gave
-off coming down toward Landauer's floor as the erasing was slowed; the principle also has serious
-critics, the philosopher John Norton among them. So the counting is proved, on any machine, the
-floor in heat is an assumption, and I never let those two swap places.
-Section~\ref{sec:what-a-chair-is} goes all the way down: what a distinction that stays is, why writing a single 0
-on a blank cell is already a merge, and what the lab has measured.
+Part~I proves the count on any machine, prices it on finite ones, and keeps the heat floor as an
+assumption with its name on it. I never let those two swap places.
 
 An ordinary computational model need not carry a record of which checks ran or
 an account of establishing that record. Ordinary computers can implement both.
@@ -727,25 +574,16 @@ lean on it, and every theorem here about records gets its arrow from an assumed 
 
 \emph{Chosen: what the model adds, each of which could have gone another way.}
 \begin{itemize}
-\item To put the account inside the step, as part of what a step is. Two things go there. That the record stays and the computing can't reach it has to: the record is one of the five parts, a reading of the state, and a rule about the state kept by the step holds of every program, where a log a program keeps holds of that program only. The count can go there or not: it isn't one of the five parts, it's the sum of the prices along the run, so a log of the run holds the same number. I keep it in the step so every state carries its own count. That preserves the sum along each run, but it changes what counts as the full
-state. Two endpoints with different totals are now different even if their old
-parts agree. With an instruction price independent of the source, two old
-sources that collide still collide when both are supplied the same ledger:
-the instruction adds the same amount to each. Different starting ledgers need
-not meet. The count has moved from the log into the state, and its distinctions
-have moved with it. On the
-certified machine of Part~III the step also keeps the order, check, then commit, then certify, for
-the same reason.
+\item To put the account inside the step, as part of what a step is. Two things go there. That the record stays and the computing can't reach it has to: the record is one of the five parts, a reading of the state, and a rule about the state kept by the step holds of every program, where a log a program keeps holds of that program only.
 \item The toll itself: a whole unit, at least one, on the step that raises a reading, whichever way
-keeping is paid. On a machine with finitely many states reading yes, for a reading that stays, it follows from a price on merging, and that price is a choice too. On a machine that pays in fresh states it would follow from a price on taking them, on a move that takes a fresh state every time it's played, but counting up is such a move, so that price charges computing. Where computing costs nothing, a raise paid in fresh states, and the rise of a reading that can come down, carry the toll because I declare it.
+keeping is paid. On a machine with finitely many states reading yes, for a reading that stays, it follows from a price on merging, and that price is a choice too.
 \item Which readings matter: the ones that never come down. The toll charges any reading's rise;
 permanence is what makes the rise a case of keeping, and permanence is a choice. So is one next state for every state,
 the condition the stopping hole gets around.
 \item Which event gets a record, and what price list the record pays. The latch leaves both unforced.
 And on a machine that pays in fresh states, where the write merges nothing, the record stays up because I
 declare that it does (Theorem~\ref{thm:u11-reversible}).
-\item On the machine of Part~III, where its ordinary computer ends and its record begins, and that its step never reads the flag: the rest of the state moves by its own rule and the ledger adds the instruction's price, whichever way the flag reads. Part of the first is forced: the line, and each counter or its version, have to be on the computer's side, and the flag or the trap on the record's. The certifying move's form isn't a second choice, and neither is its merge. With nowhere in the step for a copy of the old reading to go, the flag's two readings go to one, and the state with the flag down and the same state with it up land together. A record kept as a list that only grows keeps the copy, raises its reading with no merge,
-and pays in fresh states instead.
+\item On the machine of Part~III, where its ordinary computer ends and its record begins, and that its step never reads the flag: the rest of the state moves by its own rule and the ledger adds the instruction's price, whichever way the flag reads.
 \end{itemize}
 
 The machine Part~III builds is one worked demonstration of the third list, on one reading. Nothing
@@ -801,96 +639,14 @@ kept distinction, a 0 in some cell that says ``checked,'' and it's paid for the 
 Part~III opens by taking that apart (Section~\ref{sec:established}): what ``could have said no'' means, what settling a question is, and why
 the people who thought hardest about knowledge kept landing near it.
 
-Then it builds one example that meets the definition, in two layers. Underneath is an ordinary computer, as small as I could
-make it: two counters that add one and take one away, which Marvin Minsky proved can compute anything a Turing machine can, once the input is handed to them packed. Its own merges are an ordinary computer's merges, and the ledger leaves them
-alone. On top sits a record layer whose flag is the blank cell. Raising the flag is the write of a 0:
-the state with the flag down and the same state with it already up both land on one state. That
-landing is a merge, the one step one is about, and once merges in that layer are priced, the toll on the flag
-follows as a theorem (Theorem~\ref{thm:record-merge-toll}). The example's toll charges the 0 in the
-step itself.
-
-What makes a raised flag \emph{mean} something is the lock, and it's one rule: no flag without a
-commitment, and no commitment without a passing check of that same claim at
-the counter's current edition. A write advances the edition, so an old fact
-cannot be newly committed as though it had just been checked. Once committed,
-the channel keeps that edition. CERTIFY can raise the flag from the retained
-channel even after a later counter write. The flag records that history; it
-does not promise that the old claim still holds of the new counter value.
-Part~III calls the edition the counter's version. The rule is in the step, so, from a clean start, it holds of every program anybody can write for the example, buggy and hostile ones included. A log a program keeps tells you about that
-program. A rule in the step tells you about all of them.
-
 How far the example reaches, to other models of computation and to universal machines that run it
 as a guest and earn its flag again, is proved too; Part~III states it (Section~\ref{sec:reach}) and the
 appendices build it. That's the reach of the case, not what the book is about.
 
 \subsection*{The four steps of the argument}
 
-Here are the four steps together. The proofs establish the counts and constructions; the
-argument for carrying this account inside the machine explains why I built them.
-
-Proved, step one, on any machine with one next state for every state, finite or endless: every
-step lands on a fresh state, merges two states into one, or goes round a loop, and a run that raises a reading and keeps it up can't be on a loop through its start, so it merges somewhere or takes a fresh state at
-every step: a merge or a fresh state. On finitely many states, a noisy step that keeps the even spread and a
-quantum step that keeps lengths can't raise a reading that stays up either. And a coarse merge
-forces something at every finer zoom it's exact about (when a coarse picture merges, a finer picture it's exact about merges too, steps
-out of the states the picture describes, or has no end), and for a bounded memory the fresh states run out at an exact count. With
-finitely many states reading yes and a reading that never comes down, every move that raises it
-merges states, which is Part~I's counting of states. That a merge of states that were really possible carries a heat floor is Landauer's premise, and
-finite-time dissipation bounds for specified thermal stochastic models are cited physics; neither is proved here.
-
-Proved, step two: with finitely many states reading yes, every schedule that prices merges charges
-the move that raises a kept reading,
-which is the toll, derived; and anything that obeys the toll pays at least one unit of cost every time its
-reading goes from no to yes, which is the universal floor. Finding out doesn't have to merge: add what you see onto a blank page, so that doing it again clears the page, and you learn something with no two states landing on one, so a price
-list on merges can charge it nothing. That doesn't mean it takes nothing: it borrows fresh states, the blank page, and the copy can
-be handed back while the original's still there. A commitment can't be handed back, so the toll lands
-on committing. Put a number on that, on a finite machine whose price list charges every bit a move
-removes, and it's the certainty bound: what anyone learns about where a
-machine started is either still held in its state or was paid for in units of cost, at most one bit a unit.
-
-Proved, step three: a window that shows a step raising a kept reading and a quiet one alike, before
-and after, can't price the raise exactly, however clever it is. Over any machine, a reading the machine's
-own events turn on and nothing turns off is a latch on one event, with two unforced choices: the
-price list and which event. And no state codes every question about the states.
-
-Proved, step four, inside its one case, on a minimal example, six instruction kinds
-on two counters, there to show the definition can be met and the record earned: for every program anybody can write, from a clean start, a raised flag always went through a passing
-check, then a commitment, then a certificate, of exactly the same claim about exactly the same
-edition, with claims about any property that comes with a checker proved to mean it and an exact test
-for telling properties apart, ``sorted'' included (Section~\ref{sec:smallest}). Every such run
-incurred a cost of at least three, and three is reached. The example meets a definition I call
-certified Thiele-complete, which asks that the record be earned, on top of everything the bar
-below asks.
-
-Defined, and proved about, over any base and any event: a machine is Thiele-complete when its
-computing is universal, costs nothing and can't touch the record, every other move costs one, the record stays, starts are blank, and some run's record tells two starts apart (Section~\ref{sec:complete}). A clock fails it,
-every machine that meets it hides its record and its ledger from its own window, and any universal
-base becomes one by adding marks, all by theorem. Certified Thiele-complete is exactly
-Thiele-complete with clean starts, an earned record (the chain, a checker proved sound, claims that
-stay true while what they're about is unchanged) and a claim that could have failed added
-(Theorem~\ref{thm:tc-decomposition}).
-
-Proved, over any computer that shows two counters and a line, with a move for each two-counter
-instruction and a start for any two counters, about where ordinary computation sits: it's the
-slice. Put a record layer on such a computer, a tally, a table with room
-for a fact, a channel, a trap, a ledger and a flag, with check, commit and certify its only priced
-moves and ``this counter is at least $n$'' as its claims, and the result is certified
-Thiele-complete. Forget the layer and what's left runs as the
-computer runs until a record move fails, reaches exactly what the computer reaches, is never moved
-by a check, a commitment or a certificate, and can't see the record or the ledger: from one start,
-two runs end on the same state of the computer with the record up in one and down in the other and
-ledgers exactly three apart. With no room in the table, no way of reading the result meets the
-definition. The other way round, the moves of a Thiele-complete machine that cost nothing are the
-same however you read it as Thiele-complete, and its window is a slice of it onto two counters. And
-a machine run as one rule has no universal base and no universal-base slice, and is a Thiele machine only as a
-clock or with a reading that never rises (Theorem~\ref{thm:slice}). Not all of that could have
-failed. That the slice runs as the computer runs and that the record moves leave it alone hold by
-construction, and its blindness follows from the second once the layer is certified. The other way
-round holds by construction too, apart from the window being blind, which Part~II proves. What
-could have failed is that the layer is certified at all, that every Thiele-complete machine's
-window is blind, and that a table with no room certifies under no reading. The one-rule result is
-short, and it rests on one choice in the toll: the price sits on the move, the same from every
-state.
+The four steps above are the argument. The proofs establish the counts and constructions; the
+claims section at the back lists them with what each stands on.
 
 Argued only: that the structure a computation makes is kept distinctions, priced by the toll, while
 a reading that undoable moves keep never rises and is never charged; that's a choice of what to
@@ -1274,6 +1030,24 @@ must handle both blank and 0 with one protocol faces a different question:
 under the uniform two-input distribution its logical map removes one bit,
 so Landauer's premises give an average heat bound. This does not charge
 that average to every particular input.
+
+\begin{center}
+\begin{tikzpicture}[thiele]
+\node[pipe,text width=3.5cm,minimum width=0pt] (known) at (0,0)
+  {Supplied start: blank\\Chance one};
+\node[pipe,text width=3.5cm,minimum width=0pt] (knownend) at (6,0)
+  {End: zero\\Chance one};
+\draw[pipearrow] (known) -- node[above=7pt]{write} (knownend);
+\node[pipe,text width=3.5cm,minimum width=0pt] (spread) at (0,-2)
+  {Possible starts: blank or zero\\Half the chance on each};
+\node[pipe,text width=3.5cm,minimum width=0pt] (spreadend) at (6,-2)
+  {End: zero\\Chance one};
+\draw[pipearrow] (spread) -- node[above=7pt]{same write} (spreadend);
+\end{tikzpicture}
+
+\small The first preparation loses no uncertainty. The second loses one bit.
+The transition rule is the same; the input preparation is different.
+\end{center}
 
 Keeping an exact answer among $N$ independently possible alternatives needs
 at least $N$ representational states, or $\lceil\log_2 N\rceil$ bits in a
@@ -17015,62 +16789,7 @@ execution monitors (Schneider), and monitors checked at every instruction and pr
 recurrence, as Zermelo used it. The seL4 and CompCert discipline. The facts under the permanence results are Landauer's own example and Shannon's
 bounds, and ``set a bit to one whatever it held'' is my way of saying his RESTORE TO ONE.
 
-\emph{What I proved, each inside its stated interfaces.} First what keeping takes, with no price list, and with a reading and finiteness only where each is named: the step law, that every run of a machine with one next state for every state takes fresh
-states until its first return, which lands on its start or is a merge, and after it only repeats
-steps it already took; the write of a 0 as a merge, with every finite extension
-of the cell still merging and only the endless tape, paying in fresh states, avoiding it; recurrence for
-reversible finite machines; the noisy and the unitary steps; heat against time on the
-biased walk; and every scale pays the same way. Beside them, the lab's measurements of each, cited
-and not reproved, and, as a simulation and not a proof, the bead's erasure law. Then the toll: the
-abstract floor, which is the potential method with one particular potential, and its count of one unit per crossing. The derivation of the toll from finiteness,
-permanence, and a named price, in counted states and in bits, with each premise's
-counterexample built. The eight-state machine on which every one of those premises is a theorem.
-The dichotomy under the derivation, on any state space, that a run which keeps a record either merges two
-of its own states or never repeats a state, so time cannot replace fresh states; its one-move form, that a
-raise which merges nothing needs endlessly many yes-states, which is Hilbert's hotel; its exact
-bound on how long a bounded memory can put the merge off; and the reading of it as a merge or a fresh state
-with time setting how much heat the happening gives off, with Bennett's trade of space for time cited rather than reproved.
-The four-state demon that learns with no merge and pays when it wipes, and the certainty bound.
-The window that can't price the flag exactly, and the small machine's own colliding pair. The
-latch form over any base, with its two counterexamples and converse. The definition of
-Thiele-complete over any base and any event, with the clock and the silent machine failing it, each
-clause needed, the window blindness with a gap of one, every universal base lifted by marks, and the
-theorem that certified Thiele-complete is exactly it with certification added. The small machine's earned record from a clean
-start (checked, then committed, then certified, about
-the same edition, nothing forged, three at least), its exact ledger, its universality through Minsky, the definition of certified Thiele-complete that
-every clock fails and the window blindness of every machine meeting it, the universal program $U$ with its guest's halting and flag matched exactly, its ledger equal to
-the guest's at every matching point, and its own flag earned, the priced
-program $U_P$ that runs every computably presented Thiele machine with its reading latched, its
-flag earned on the guest's own reading and its ledger within two of the guest's when the
-reading starts at no, a surcharge no program on that host, run from a clean start, can avoid when the guest certifies
-with its whole ledger below three,
-and the simpler host's mirror, its isolation and its refusal to certify at no cost. The substrate
-diagonal and the L results, with Rice's and Kleene's theorems on the machine's host and Rice's from
-the clean start on the two-counter machine. The integer check, exact for every pair being sampled and the pinned matrix being PSD
-(and so a sufficient test for the bound, which tells you nothing about quantum behaviour), the equivalence with
-contraction, Tsirelson's bound from PSD, which is known mathematics proved again here, and the
-check earned on the host, a raised flag standing on it. Structural entitlement for every
-certified Thiele-complete machine, with its worked members, its floor that takes no supplied tree and its
-proof that the covering can't be dropped; the eight-state machine run by the small machine; the time
-a check saves; and the collision of every bare-transcript verifier on every certified Thiele-complete machine.
-All of it comes with its premises printed.
-Of
-that list, the toll derivation on a reading that stays, from a price on merging moves
-(Ouldridge and Wolpert priced the same merge in entropy first, and Li and Vitányi had assumed a unit
-price per erased bit), the pricing form of the window fact, and the latch form are
-the only pieces I'd call new statements, and only in the sense that I didn't find them stated
-where I looked. The mathematics under Section~\ref{sec:what-a-chair-is} is old: the step law is
-the first-return argument every textbook on dynamics makes, recurrence is Poincar\'e's and
-Zermelo's, the noisy steps are the fact that a doubly stochastic chain has no closed class
-reachable from outside, the unitary steps are that a unitary preserving a finite-dimensional
-subspace preserves its complement, the entropy gap is Gibbs's inequality, and the entropy the walker
-hands its surroundings is Schnakenberg's. What's mine there is the reading, that the write of a 0 is
-the merge and the toll is the price of something being the case, the assembly of those facts as
-instances of one law, a merge or fresh states for anything kept, beside the cited finite-time dissipation bounds under the specified stochastic-model hypotheses, and a short proof of each, on the
-page. The fourth thing I'd name is something built, and its idea isn't new: a
-record that's priced, and on the small machine earned, under the reference monitor's
-every-program move, which is old and isn't mine. Appendix~\ref{sec:whats-mine} names the same four the same
-way, with the prior work beside each.
+\emph{What I proved, each inside its stated interfaces,} is listed in the claims section (Section~\ref{sec:ledger}) with what each stands on.
 
 \emph{Interpretation, which is mine and not proved.} That structure is what a computation
 establishes and the toll is the right thing to price. That certification is the pointer
@@ -17339,25 +17058,7 @@ would need protocol or hardware semantics I haven't formalised, and I've proved 
 them. So none of this yields a new outside result that both needs the record axis and is ready
 to use.
 
-\emph{Where each result lives.} Every deterministic machine, finite or endless: the step law, a merge
-or fresh states for a kept reading, and the endless supply of fresh states a raise of a kept reading with no merge needs. Every system that
-follows the toll, whatever its states: the
-floor, at most as many certifications as cost, and the potential-method reading. Every
-machine with finitely many yes-states whose price covers merges: the toll for permanent records.
-Every machine, finite or not: which
-instructions every price that covers merges must charge, namely the merging ones. Every machine paying per halving, finite or not: the machine's own narrowing bound. Every machine extending a base with a driven, permanent
-record: the latch. Every window through which a certifying and a non-certifying step look
-alike: no exact price from the window. Every machine meeting the definition of Thiele-complete: a
-move that costs nothing, a cost of at least one on any run from a state with the record down that ends with it up, and a final
-window that doesn't determine the record or the ledger. Every machine meeting the definition of certified Thiele-complete: a move that costs nothing, a cost of at least
-three on any run from a clean state that ends certified, and a final window that doesn't
-determine the record or the ledger. Every box with a universal base: a slice of its lift with the window
-claims and room for a fact, blind to the flag and the ledger. Every Thiele-complete machine: its moves that cost nothing are the same
-through every interface, and its window is a slice onto two counters. Every machine run as one rule:
-no universal base, no universal-base slice, and a Thiele machine only as a clock or with a reading that never rises.
-Any eight counts: the integer check and its PSD bridge, which are mathematics.
-This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
-pair, and the encodings its universal programs use.
+\emph{Where each result lives} is the premise column of the claims section (Section~\ref{sec:ledger}).
 
 \emph{Models and processes.} For a model of computation written down as states, a step and a reading
 that stays, what keeping takes is a theorem about the model, not a thesis. The thesis in the
@@ -21875,8 +21576,6 @@ are where the pointer thesis got its shape; none of them proves it.
 
 \subsection{Structure, information and knowledge}
 
-
-
 \noindent Edwin A. Abbott (1884). Flatland: A Romance of Many Dimensions, by A Square. Seeley and Co., London.
 \par\medskip
 
@@ -22270,8 +21969,6 @@ The table of contents already rules out saying Bourbaki omitted maps.
 \par\medskip
 
 \subsection{Cost, records and thermodynamics}
-
-
 
 \noindent American Physical Society (2006). May, 1911: Rutherford and the Discovery of the Atomic Nucleus. APS News 15(5), This Month in Physics History. \href{https://www.aps.org/publications/apsnews/200605/history.cfm}{Article}.
 \par\medskip
@@ -22825,8 +22522,6 @@ Version at commit d8fe05df57e59909bf5c3392579e66ac1b78dab8.
 \par\medskip
 
 \subsection{Computation, self-reference and checking}
-
-
 
 \noindent Martín Abadi and Leslie Lamport (1991). The Existence of Refinement Mappings. Theoretical Computer Science 82(2), pp. 253--284. Earlier versions appeared at LICS 1988 and as SRC Research Report 29. \href{https://lamport.azurewebsites.net/pubs/abadi-existence.pdf}{Author report}; \href{https://doi.org/10.1016/0304-3975(91)90224-P}{DOI: 10.1016/0304-3975(91)90224-P}.
 \par\medskip
@@ -23408,8 +23103,6 @@ Version at commit d8fe05df57e59909bf5c3392579e66ac1b78dab8.
 \par\medskip
 
 \subsection{Correlations and environmental records}
-
-
 
 \noindent Rotem Arnon-Friedman, Fr\'ed\'eric Dupuis, Omar Fawzi, Renato Renner and Thomas Vidick (2018). Practical device-independent quantum cryptography via entropy accumulation. Nature Communications 9, 459. \href{https://doi.org/10.1038/s41467-017-02307-4}{DOI: 10.1038/s41467-017-02307-4}.
 \par\medskip
