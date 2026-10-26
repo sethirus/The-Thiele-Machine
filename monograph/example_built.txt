@@ -4091,7 +4091,7 @@ A finite local model       proved; Fine’s theorem in        Appendix H, Theore
 meets the bound            correlation form is proved as an Section H.10
                            iff, and the converse of the
                            single-bound statement is false
-The elliptope gate is      proved                           Appendix H, Theorem H.12
+The elliptope gate is      proved                           Appendix H, Theorem H.13
 sound; the PR box
 fails it
 106   10 The claim ledger
@@ -4415,7 +4415,7 @@ Proof.
 Remark 11.2 (Where equality can happen). Equality S2 = 8 under the row bounds
 forces equality in both steps of the proof above: the six squares must all vanish,
 which gives a = b = c = −d, and the rows must be tight, which gives 2a2 = 1.
-So the point of Theorem H.4 and its negative are the only places the bound is
+So the point of Theorem H.5 and its negative are the only places the bound is
 reached. A tally’s correlators are ratios of whole numbers and 2a2 = 1 has no
 such solution, so no tally reaches the bound; the integer check’s passing tallies stay
 strictly below it and come as near as you like. (Take rational a, b with a2 + b2 = 1,
@@ -4625,7 +4625,7 @@ and positive semidefinite at E00 , E01 , E10 , E11 , then S ≤ 8 and |S| ≤ 8.
                                                                             01       00     01
                      2 − E2 (the B B cell is 0), so E2 + E2 ≤ 1. The vector that is 1 at A ,
                1 − E00     01       0 1               00    01                                 1
-                                                  2 + E2 ≤ 1 the same way. Then Theorem 11.5
+                                                  2 + E2 ≤ 1 the same way. Then Theorem H.4
                − E10 at B0 and − E11 at B1 gives E10   11
                applies.
                   Here are the three conditions and the score
@@ -4683,7 +4683,7 @@ because both sides have had the same positive denominator removed. Four positive
 bucket sizes and these three comparisons make seven checks. Here are the products
 to calculate.
 
-Definition 11.7 (The seven-integer check). From the counters of Definition 11.2,
+Definition 11.7 (The seven-integer check). From the counters of Definition H.2,
 with all arithmetic in Z, let
                           2   2     2   2     2   2
                      A = N00 N10 − D00 N10 − D10 N00 ,
@@ -4698,7 +4698,7 @@ The check is the conjunction of seven facts, in this order: 0 < N00 , 0 < N01 ,
 
 Lemma 11.15 (The seven facts are the three conditions with denominators cleared).
 Assume N00 , N01 , N10 , N11 > 0 and put Exy = Dxy /Nxy . Then, with p, q, s as in
-Definition H.2,
+Definition H.6,
                     A                        B                     C
              p=    2 N2
                            ,       q=    2 N2
@@ -4745,7 +4745,7 @@ C2 ≤ AB ⇐⇒ s2 ≤ pq.
 
                Corollary 11.17 (A passed check implies the Tsirelson bound). If a tally w passes
                the seven-integer check, the correlators of w satisfy S2 ≤ 8. It is the composition of
-               Theorem H.9, Corollary H.6 and Theorem H.7.
+               Theorem H.10, Corollary H.7 and Theorem H.8.
 
                   Two of the seven facts carry the bound by themselves. With every pair sampled,
                0 ≤ A and 0 ≤ B are p ≥ 0 and q ≥ 0, so the four squared correlators add to
@@ -4848,7 +4848,7 @@ among them, read off the lower right 6 × 6 block.
 
 
 Theorem 11.19 (PSD at level 1+AB). For all real Exy and γ1 , . . . , γ5 , the matrix of
-Definition H.3 is positive semidefinite if and only if the residual R is nonnegative for
+Definition H.7 is positive semidefinite if and only if the residual R is nonnegative for
 every choice of its six real inputs.
 
 Proof. If R ≥ 0 everywhere, Lemma 11.18 writes the form as three squares plus R.
@@ -4975,13 +4975,13 @@ strict positivities, namely KH11 > 0, K2 S22 > 0, and the four leading minors of
 
                Theorem 11.22 (The full 1+AB check implies PSD). Let the counts make every
                Nxy and every Dgk positive, and let the decider just defined pass on them. Then the
-               matrix of Definition H.3 at the four correlators and γk = Ngk /Dgk is symmetric and
+               matrix of Definition H.7 at the four correlators and γk = Ngk /Dgk is symmetric and
                positive semidefinite.
 
                Proof. The bucket conjuncts make every denominator positive, the scaling re-
                mark just above carries the six integer positivities over to the real cascade, and
                Lemma 11.20 twice plus Lemma 11.21 give R ≥ 0, and so positive semidefiniteness
-               by Theorem H.11.
+               by Theorem H.12.
 
                Remark 11.4 (Interior only). Every test in the cascade is strict, so a passing check
                certifies that H is positive definite, which is stronger than semidefinite. A point
@@ -5053,7 +5053,7 @@ four v xy , where J is I4 with γ5 at (00, 11) and −γ5 at (01, 10). For −1 
                is positive definite, and the second form is nonnegative
                                                                !            exactly when eT J −1 e ≤ 1:
                                                         1 e  T
-               apply Lemma H.5 to the block matrix               once with the corner 1 as P and once,
+               apply Lemma H.6 to the block matrix               once with the corner 1 as P and once,
                                                         e J
                rows reordered, with J as P. Inverting the two 2 × 2 blocks of J and multiplying out,
                that is
@@ -5516,7 +5516,7 @@ correlators are in [−1, 1] and the eight inequalities hold.
                proved for strategies in finite dimension, with real amplitudes and with complex
                ones, and in any dimension, marginals included, for any expectation on an algebra
                of observables.
-                   Achievability. Theorem H.4 is a point of R4 . A state       √ and measurements that
+                   Achievability. Theorem H.5 is a point of R4 . A state       √ and measurements that
                reach it are explicit:
                                  √    the two-qubit  state (|
                                                            √  00 ⟩ + | 11 ⟩) /  2 with√A0 = √

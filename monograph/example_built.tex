@@ -3077,7 +3077,7 @@ square table: Alice's setting chooses the row, Bob's chooses the column.
 The score I will study adds three cells of that table and subtracts the
 bottom-right one. Here are the names for those quantities.
 
-\begin{definition}[Settings, outcomes, correlators]\label{def:chsh-setting}
+\begin{definition}[Settings, outcomes, correlators]
 Alice receives a setting $x \in \{0,1\}$ and Bob a setting $y \in \{0,1\}$. Each answers a
 bit, recoded as an outcome $a, b \in \{+1, -1\}$ (bit 0 becomes $+1$, bit 1 becomes $-1$).
 The correlator $E_{xy}$ is the average of the product $ab$ over the rounds with settings
@@ -3094,7 +3094,7 @@ $(E_{00}, E_{01})$ and $(E_{10}, E_{11})$; the columns are $(E_{00}, E_{10})$ an
 $(E_{01}, E_{11})$.
 \end{definition}
 
-\begin{definition}[Counters]\label{def:chsh-counters}
+\begin{definition}[Counters]
 There are eight counts: for each setting pair, $\mathrm{same}_{xy}$ counts rounds
 whose two answer bits matched and $\mathrm{diff}_{xy}$ counts rounds whose bits differed. A
 round adds one to exactly one of the eight. Write
@@ -3145,7 +3145,7 @@ would produce. Since each card's score lies between minus two and two, their
 average must stay between those same ends. The following definition writes
 out that weighted shuffle.
 
-\begin{definition}[Finite factorizable model]\label{def:chsh-factorizable}
+\begin{definition}[Finite factorizable model]
 Four real correlators $E_{00}, E_{01}, E_{10}, E_{11}$ are factorizable when there are a
 natural number $\lambda_{\max}$, weights $p(\lambda)$ and response signs $A(x, \lambda)$,
 $B(y, \lambda)$ for $\lambda = 0, \ldots, \lambda_{\max}$ such that:
@@ -3180,7 +3180,7 @@ local model. The preceding theorem is stated for finitely many hidden cards ($\l
 
 The finite-tally statement concerns one fixed strategy replayed on every recorded round.
 
-\begin{definition}[A tally consistent with one local plan]\label{def:chsh-wclc}
+\begin{definition}[A tally consistent with one local plan]
 For bits $a_0, a_1, b_0, b_1 \in \{0, 1\}$ and a counter record $w$, $w$ is locally consistent with
 $(a_0, a_1, b_0, b_1)$ when, for each setting pair $(x, y)$: if $a_x = b_y$ then
 $\mathrm{diff}_{xy} = 0$, otherwise $\mathrm{same}_{xy} = 0$; and every bucket is sampled,
@@ -3244,7 +3244,7 @@ $+2bd$ from $(b+d)^2$ and $+2cd$ from $(c+d)^2$. Both sides agree term by term.
 
 Since the right side is a sum of squares, $S^2 \le 4 \sum_{xy} E_{xy}^2$ for any four reals.
 
-\begin{theorem}[Row-bound form of Tsirelson's bound]\label{thm:chsh-row-tsirelson}
+\begin{theorem}[Row-bound form of Tsirelson's bound]
 For all real $E_{00}, E_{01}, E_{10}, E_{11}$ with $E_{00}^2 + E_{01}^2 \le 1$ and
 $E_{10}^2 + E_{11}^2 \le 1$, $S^2 \le 8$. The absolute form $|S| \le \sqrt 8 = 2\sqrt 2$ follows.
 \end{theorem}
@@ -3732,7 +3732,7 @@ L_3 &= E_{10} v_{B_0} + E_{11} v_{B_1} + \gamma_1 v_{00} + \gamma_2 v_{01}.
 \end{aligned}
 \]
 
-\begin{definition}[The residual]\label{def:chsh-residual}
+\begin{definition}[The residual]
 \[
 \begin{aligned}
 R ={}& v_{B_0}^2 + v_{B_1}^2 + v_{00}^2 + v_{01}^2 + v_{10}^2 + v_{11}^2 \\
@@ -4003,7 +4003,7 @@ admit a passing filling has a name, the \emph{elliptope} completion set.
 Membership means that at least one choice of those two numbers works. It
 does not require every choice to work, or require the zero choice to work.
 
-\begin{definition}[Completion and membership]\label{def:chsh-elliptope}
+\begin{definition}[Completion and membership]
 Complete the matrix of Section~\ref{sub:chsh-five} by setting the
 within-party entries to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the
 $(B_0, B_1)$ cells, marginals still zero. The correlators are elliptope realizable
@@ -4115,7 +4115,7 @@ The elliptope gate is an integer decider with a soundness proof. Its
 completion entries arrive as bucket pairs, and an empty bucket is read as $0/1$,
 so unlike Section~\ref{sub:chsh-integer} it does not require every pair to be sampled.
 
-\begin{definition}[The two branches]\label{def:chsh-gate}
+\begin{definition}[The two branches]
 The positive-minor branch: with the completion supplied as buckets and all
 entries scaled to integers by a positive common factor $K$, the four leading minors of
 the $4 \times 4$ block on $A_0, A_1, B_0, B_1$ are strictly positive. The factorization branch: with the completion and a rational certificate supplied (six subdiagonal entries over

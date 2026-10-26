@@ -211,7 +211,7 @@ I   What keeping costs                                                       27
                   15.2 Where the counters come from                             344
                   15.3 The example machine, piece by piece                      346
                   15.4 It computes everything two counters can                  357
-                  15.5 It’s a Thiele machine, and the flag is a latch           359
+                  15.5 It’s a Thiele machine, and the flag is a latch           360
                   15.6 Commitments are earned                                   362
                   15.7 What a passing check means                               365
                   15.8 Nothing gets forged                                      368
@@ -329,30 +329,30 @@ G     The CHSH check                                             561
     G.10 Any number of levels, and one converse that fails       581
 H     The CHSH derivation, in full                               583
     H.1 Setting and notation                                     583
-    H.2 The classical bound                                      583
-    H.3 Tsirelson’s bound from algebra                           584
-    H.4 The zero-marginal 5 × 5 moment matrix                    584
-    H.5 The integer check                                        585
-    H.6 Level 1+AB                                               586
-    H.7 The elliptope completion                                 587
-    H.8 The four-vector construction                             587
-    H.9 The arcsine boundary, in both directions                 587
-    H.10 The finite local model, in both directions              588
-    H.11 Scope of the constructions                              588
-    H.12 Prior work                                              589
-I     Constructing the quoting operation                         591
+    H.2 The classical bound                                      584
+    H.3 Tsirelson’s bound from algebra                           585
+    H.4 The zero-marginal 5 × 5 moment matrix                    586
+    H.5 The integer check                                        587
+    H.6 Level 1+AB                                               588
+    H.7 The elliptope completion                                 589
+    H.8 The four-vector construction                             590
+    H.9 The arcsine boundary, in both directions                 590
+    H.10 The finite local model, in both directions              590
+    H.11 Scope of the constructions                              591
+    H.12 Prior work                                              592
+I     Constructing the quoting operation                         593
 14   CONTENTS
 
 
-            J      Computing with counters                      592
-                J.1   Packing finitely many counters into two   592
-            K     The universal program in blocks               593
-            L     Methodology note                              594
-            M     Sources                                       595
-                M.1 Structure, information and knowledge        595
-                M.2 Cost, records and thermodynamics            606
-                M.3 Computation, self-reference and checking    622
-                M.4 Correlations and environmental records      638
+            J      Computing with counters                      594
+                J.1   Packing finitely many counters into two   594
+            K     The universal program in blocks               595
+            L     Methodology note                              596
+            M     Sources                                       597
+                M.1 Structure, information and knowledge        597
+                M.2 Cost, records and thermodynamics            608
+                M.3 Computation, self-reference and checking    624
+                M.4 Correlations and environmental records      640
 The point
 
 The whole book is four steps, and I’ll set them out first so you know what you’re
@@ -11910,12 +11910,12 @@ with p ≡ f ( p). (2) Let P be extensional, with P(y) and not P(n) for closed t
 y and n. Then no closed term decides P. (3) No closed term decides halting, the
 property of evaluating to some value.
 
-Proof. (1) First build a program that can assemble the code of the very application I
-am about to run. The quoting program Q takes a term’s code and returns the code
-of that code. Appendix I gives its construction and follows it through the three kinds
-of term. The program mkapp takes two codes and joins them into the code of an
-application.
-    Make A do this when handed a code x: quote x, put that quoted code beside x
+Proof. (1) First build a program that can assemble the code of the very application
+I am about to run. The quoting program Q takes a term’s code and returns the
+code of that code. Appendix I gives the idea of its construction, and the companion
+volume follows it through the three kinds of term. The program mkapp takes two
+codes and joins them into the code of an application.
+   Make A do this when handed a code x: quote x, put that quoted code beside x
 using mkapp, and hand the result to s. Written out,
 
                              A = λx. s (mkapp x ( Q x )).
@@ -11952,8 +11952,8 @@ halting has no closed decider either.
               application, is my mkapp. They say they follow the proof in the Dutch logician Henk
               Barendregt’s textbook on the lambda calculus (1984), where statement (1) is the
               full lambda calculus’s second fixed-point theorem, and part (2) is what they call
-              Scott’s theorem. The term construction is given in Appendix I; the route is theirs,
-              and Barendregt’s before them.
+              Scott’s theorem. The term construction is given in the companion volume, with its
+              idea in Appendix I; the route is theirs, and Barendregt’s before them.
                   So I’ve given the wall on paper, on a family built to fit it, and on one outside
               model. The machine built in Part III (Section 15) fills in this same shape: on its
               host machine, the one the universal program of Appendix C.1 runs on, which has a
@@ -14471,10 +14471,10 @@ step of compile( M ) from k lands on a core with window y and the trap still dow
               several other models. The counter convention matters: DEC at zero goes on to
               the next instruction; otherwise it takes one off and jumps, the convention used
               in Andrej Dudenhefner’s certified decision procedures for two-counter machines
-              (2022). Appendix J builds the route from a tape to counters, packs finitely many
-              counters into two, and gives the halting diagonal. The remaining step here is to
-              match that two-counter machine to this machine’s INC/DEC fragment, instruction
-              for instruction.
+              (2022). The companion volume builds the route from a tape to counters, packs
+              finitely many counters into two, and gives the halting diagonal (Appendix J points to
+              it). The remaining step here is to match that two-counter machine to this machine’s
+              INC/DEC fragment, instruction for instruction.
                    I want to be exact about what “undecidable” means in the theorem below, because
               it’s stated as a connection between two problems. Suppose you had a procedure that
               answered the halting question for this machine. Then you could write a program
@@ -14483,7 +14483,7 @@ step of compile( M ) from k lands on a core with window y and the trap still dow
               a time, and call out each one as it stops), and with both lists running side by side
               you’d have a halting decider. So the theorem says: a decider here would give you
               that impossible list.
-                                                   15.5 It’s a Thiele machine, and the flag is a latch   359
+                                                      15.4 It computes everything two counters can   359
 
 
 
@@ -14499,8 +14499,9 @@ complement of single-tape binary Turing machine halting enumerable.
 Proof. The agreement is a case split on the counter-machine instruction at the
 current line, and then induction along the run, ending in Theorem 15.4. Composing
 a proposed decider for the compiled program with the compile map would decide
-two-counter halting. The tape-to-counter reduction in Appendix J would then decide
-single-tape binary halting and so list its complement, as claimed.
+two-counter halting. The tape-to-counter reduction of the companion volume
+(Appendix J) would then decide single-tape binary halting and so list its complement,
+as claimed.
    What that buys is that the base of this machine is a universal machine in Minsky’s
 sense, and that no algorithm can predict in general what it’ll do. What it doesn’t
 buy is a fast machine, or one where your input arrives conveniently. The counters
@@ -14521,15 +14522,12 @@ hand it the inputs already packed and it computes anything a Turing machine can.
 That’s no contradiction with the undecidability above, which ranges over every
 program and every starting pair, packed ones included. The base hides nothing; it
 just needs its input pre-chewed, and the chewing is somebody else’s.
-
-
-15.5 It’s a Thiele machine, and the flag is a latch
-
-Now it’s the record’s turn. There are three facts to state first, and all of them read
-straight off the step line.
 360   15 The earned-chain counter example
 
 
+              15.5 It’s a Thiele machine, and the flag is a latch
+              Now it’s the record’s turn. There are three facts to state first, and all of them read
+              straight off the step line.
 
 
               Theorem 15.6 (Ledger, toll, permanence). For every state s and instruction i,
@@ -16167,7 +16165,8 @@ its flag goes up exactly when the guest’s reading is yes at some state of its 
 a chain whose check is the guest’s own reading, and its ledger is the guest’s prices
 plus a surcharge of at most two at the raise when the guest’s reading starts at no,
 and exactly three when it starts at yes, a surcharge that no program on that host,
-run from a clean start, can always avoid. Appendix C has both, with their proofs.
+run from a clean start, can always avoid. Appendix C has both; their proofs are in
+the companion volume.
     Other models of computation. Lay the toll over a register machine, a Turing
 machine (with one move for each whole program, not one for each row of one fixed
 table, which provably can’t serve as a base) or the lambda calculus and none of
@@ -16176,13 +16175,13 @@ carries over from any base, what never does, and why the small machine uses two
 counters, are in Appendix D.
     Machines from parts. Wired side by side, end to end, or one inside the other, a
 Thiele machine stays a Thiele machine, and the tolls add the way money adds. What
-breaks, breaks for reasons you could name in advance: a single flag for two claims
 
 
                                 398
                                                                                             399
 
 
+breaks, breaks for reasons you could name in advance: a single flag for two claims
 costs two claims’ worth, a clock is still a clock, a shared value without a version can’t
 be trusted, and a hand-off that costs nothing can’t be allowed to carry a certificate
 (Appendix E).
@@ -16190,7 +16189,7 @@ be trusted, and a hand-off that costs nothing can’t be allowed to carry a cert
 hand, and the two are compared after every step; U and UP have run on guests
 small enough to finish; a compiler from a small programming language to the host
 is proved correct stage by stage, and Ackermann’s function at (3, 5) comes out of
-nothing but INC and DEC (Appendix F).
+nothing but INC and DEC (Appendix F and the companion volume).
     A check worth earning. A flag is only as interesting as the claim under it. The
 CHSH game, the two-player game behind Bell’s theorem, gives a claim whose check
 is a piece of real mathematics: an integer test on the game’s tally whose passing
@@ -18249,17 +18248,17 @@ arguments I’ve given, and the proposals are where I’d aim first if I were yo
 
 The claim ledger
 
-This section lists everything this book claims, one line each, with what kind of
-claim it is and where it lives. “Proved” means proved under the premises printed
-in that section, and nothing more. If a line here ever says more than its section
-does, the section is right and the line is wrong. “Directly from the rules” means the
-claim can be read off the stated operations by checking their cases. “Directly from
-the interface” means its requirements already include the claimed behavior. These
-claims are true, but carry almost nothing beyond what those definitions already say.
-If you’re counting results, count those differently. I mark them so they don’t pad the
-list, and where they’re stated in the book they carry the label observation, with three
-exceptions: Theorem 15.6, part (3) of Theorem C.8, and the parts of Theorem D.4
-its line names.
+The full ledger, in the companion volume, lists everything this book claims, one line
+each, with what kind of claim it is and where it lives; this section places the headline
+results. “Proved” means proved under the premises printed in that section, and
+nothing more. If a line here ever says more than its section does, the section is right
+and the line is wrong. “Directly from the rules” means the claim can be read off
+the stated operations by checking their cases. “Directly from the interface” means
+its requirements already include the claimed behavior. These claims are true, but
+carry almost nothing beyond what those definitions already say. If you’re counting
+results, count those differently. I mark them so they don’t pad the list, and where
+they’re stated in the book they carry the label observation, with three exceptions:
+Theorem 15.6, part (3) of Theorem C.8, and the parts of Theorem D.4 its line names.
     Ledger is a good word for it, and it’s older than bookkeeping. Around 1400 a
 ledger was a book that lay permanently in one place, a big church breviary, say, from
 the old verb leggen, to lay; the account-book sense turns up in the 1500s. Staying
@@ -18270,7 +18269,9 @@ left it.
 carries and the premise it stands on. (S) is a structural theorem about the model
 or a stated machine, (C) a conditional result under a named premise no machine
 fact discharges, (R) a refutation by a named construction; the pointer criterion is a
-thesis.
+thesis. A2 is the toll’s name in the mathematical specification; neutral_complete,
+thiele_complete and landauer_heat are the Coq names of the two completeness
+definitions and the heat premise.
 
 Result                                Status   Key premise
 The definition and the price in the move
@@ -18278,14 +18279,14 @@ The floor is the toll                 (S)      A preorder of records; nothing el
 Thresholds are one-bit machines       (S)      A2; antisymmetry for the thresholds to
                                                determine the record
 Universal floor                      (S)       A2 on the two-point order
-All readings and free moves          (S)       Decidable state equality; one schedule for
-                                               every Boolean reading
 
 
                                     452
                                                                                         453
 
 
+All readings and free moves         (S)   Decidable state equality; one schedule for
+                                          every Boolean reading
 Least instruction price             (S)   Fixed dynamics and reading; finite
                                           covering list
 Least unit lift price               (S)   An event witness for every mark; all-state
@@ -18323,14 +18324,14 @@ window
 Certified Thiele completeness of    (S)   The four clauses of thiele_complete
 the small machine
 Clock-style machines fail           (R)   The four clauses
-Lifting any universal base          (S)   A universal base, a claim language with an
-                                          exact equality test and a proved checker, a
-                                          fact table with room for one fact, a claim
-                                          that can come out either way
-Composition                         (S)   Certified Thiele completeness of both parts
 454   21 The claim ledger
 
 
+               Lifting any universal base       (S)         A universal base, a claim language with an
+                                                            exact equality test and a proved checker, a
+                                                            fact table with room for one fact, a claim
+                                                            that can come out either way
+               Composition                      (S)         Certified Thiele completeness of both parts
                Each clause is needed            (R)         One clause weakened
                U                                (S)         Small-machine programs
                UP                               (S)         Priced guests, computably presented
@@ -18721,9 +18722,9 @@ universal under Minsky’s packing.
               two line up. With PAY added, UP runs every computably presented Thiele machine,
               latches the guest’s reading through its own earned chain, and carries the guest’s
               ledger to within the stated surcharge: at most two at the raise when the reading
-              starts at no. The theorems say which states match; the appendix on running it
-              (Appendix F) says how long this particular build takes to get there, which is a long
-              time.
+              starts at no. The theorems say which states match; the companion volume, in its
+              section on running it, says how long this particular build takes to get there, which is
+              a long time.
                   Then I changed the base and joined machines up, to see what carried over. The
               panel bolts onto any box with a universal base, with the boxes it won’t fit named
               (Appendix D). Two machines side by side need both records kept; one total loses
@@ -19279,7 +19280,7 @@ bound uses two of the three-by-three ones (Appendix H.4). The Schur complement
 turns a question about a block matrix into a question about a smaller one. For a
 symmetric block matrix with corner block P, off-diagonal block Q and other corner
 R, it’s R − QT P−1 Q, and when P is positive definite the whole matrix is PSD exactly
-when that complement is (Lemma H.5). Positive definite matters; invertible isn’t
+when that complement is (Lemma H.6). Positive definite matters; invertible isn’t
 enough. Take P = −1 and every other entry zero: the complement is zero, which is
 PSD, and the whole matrix isn’t.
 478   A Things I had to learn first
@@ -19399,19 +19400,20 @@ ledger from its own window.
                    A partition is a sorting of a pile into groups, nothing in two groups and nothing
                left over (Section 5). A Thiele machine is a state type, moves, a step, a cost per move,
                and a yes-or-no reading, plus one rule, the toll: a move that turns the reading from
-               no to yes costs at least one (Section 2). The rule is called A2 in the conditions table
-               (Appendix 21). A move merges when two different starting states land on the same
-               end; one that never does is injective, it forgets nothing. A reading is permanent when
-               no move turns it from yes back to no (Section 3).
+               no to yes costs at least one (Section 2). The rule is called A2 in the mathematical
+               specification and in the conditions table of the companion volume. A move merges
+               when two different starting states land on the same end; one that never does is
+               injective, it forgets nothing. A reading is permanent when no move turns it from yes
+               back to no (Section 3).
                    A distinction that stays is something the world tells apart from something else
                and keeps telling apart: a cell that reads 0 and not 1 and not blank, a bead in the
                left well and not the right, a flag that’s up (Section 1). The step law says what any
                step of any machine with one next state for each state does to the states its run
                has used, with no finiteness anywhere (Theorem 1.1). It lands on a state the run
-               hasn’t used yet, which uses up a fresh state. Or, the first time it comes back to a
                                                                         A.8 Words this book builds   481
 
 
+hasn’t used yet, which uses up a fresh state. Or, the first time it comes back to a
 used state other than the start, it comes from a different state than the one that first
 got there, which is a merge, two states sharing a next state, and under Landauer’s
 premise a merge of states that were really possible carries a heat floor. Or it comes
@@ -19451,10 +19453,10 @@ or else go on to the next line; already enough that nobody can decide in general
 whether one halts. The small machine is a two-counter machine plus HALT and
 three instructions for the record, six in all: INC, DEC, HALT, CHECK, COMMIT and
 CERTIFY. A counter’s version is its edition number: it starts at 0 and goes up by
-one every time the counter is written, so an edition never comes back. A fact is
 482   A Things I had to learn first
 
 
+               one every time the counter is written, so an edition never comes back. A fact is
                a property, a counter and a version together, such as “A is even, as of edition 3”;
                the properties come from a fixed language with three forms, is zero, is even and is
                at least n. The same theorems also hold for any property language with an exact
@@ -19494,10 +19496,10 @@ one every time the counter is written, so an edition never comes back. A fact is
                a checked relation between that object and a claim, and a paid event that put the
                object in place: a license to lean on the claim. It doesn’t prove the claim true
                (Section 8). A latch is a record that switches on the first time some event holds and
-               never switches off (Section 10). The diagonal’s substrate (Section 13) is the model’s
                                                                      A.8 Words this book builds   483
 
 
+never switches off (Section 10). The diagonal’s substrate (Section 13) is the model’s
 shape extended with programs, a run that may give nothing back, a counter that
 never falls, a way to write programs as states, the transformations the substrate
 counts as its own, and its own recursion theorem for those; the proof of the diagonal
@@ -20640,6 +20642,7 @@ rules out that and nothing more, and the pigeonhole is what rules it out.
               steps from every start, while on every host state with the trap down and room in
               its table, and some register holding a number at least n, the translated CHECK and
               COMMIT on that register both pass and put the committed claim in the channel.
+
                   So the host keeps the guest’s facts somewhere else: in slots, extra registers
               used for nothing but holding facts, one per checked fact, each holding the pair
               (property number, value) that the guest checked. The pigeonhole doesn’t bite a slot,
@@ -20662,17 +20665,18 @@ rules out that and nothing more, and the pigeonhole is what rules it out.
               COMMIT and CHECK on a slot. The host isn’t copying a bit; it runs the same chain
               on its own registers.
 
-              Definition C.3 (The program U, and loading a guest). U is the fixed list of 3728
-              host instructions specified by the block expansions in Appendix K, starting at line
-              1 and mentioning registers 0 to 80; exactly 69 of them cost anything. For a guest
-              program P and a start ( x, y), the loaded host hload( P, x, y) has register 0 at x,
-              register 1 at y, register 2 at the number of P, register 3 at 1 and every other register
-              at 0, every version 0, line 1, an empty table and channel, the trap down, ledger
+              Definition C.3 (The program U, and loading a guest). U is the fixed list of 3728 host
+              instructions specified by the block expansions in the companion volume (Appendix K
+              points to them), starting at line 1 and mentioning registers 0 to 80; exactly 69
+              of them cost anything. For a guest program P and a start ( x, y), the loaded host
+              hload( P, x, y) has register 0 at x, register 1 at y, register 2 at the number of P,
+              register 3 at 1 and every other register at 0, every version 0, line 1, an empty
+              table and channel, the trap down, ledger 0 and flag down. Write grun(m) for m
                                                               C.1 One machine that runs them all   513
 
 
-0 and flag down. Write grun(m) for m program steps of P from start( x, y), and
-hrun(n) for n program steps of U from hload( P, x, y).
+program steps of P from start( x, y), and hrun(n) for n program steps of U from
+hload( P, x, y).
 
 
 
@@ -20733,7 +20737,7 @@ held ⟨number of p, v⟩ at the CHECK, with holds( p, v). And the guest’s own
               too, and the universal floor of 1 holds there directly. (3) U halts from hload( P, x, y)
               exactly when P halts from start( x, y), so the question “does U halt from this loaded
               host?” is undecidable in the reduction sense of Theorem 15.5.
-                 Put it together, plainly. One fixed program, 3728 instructions of the small
+                  Put it together, plainly. One fixed program, 3728 instructions of the small
               machine’s six kinds, with no guest step built into anything, runs every program of
               the small machine from every clean start start( x, y). It halts exactly when its guest
               halts, with the guest’s answer in its first two registers. Its flag goes up at some
@@ -20746,20 +20750,21 @@ held ⟨number of p, v⟩ at the CHECK, with holds( p, v). And the guest’s own
               and the definition allows any other host that meets it; the next subsection carries it
               to every computably presented Thiele machine whose reading a program decides on
               every state.
-                 There’s fine print, and it comes before you take that anywhere. The guests start
+                  There’s fine print, and it comes before you take that anywhere. The guests start
               clean, from start( x, y); the whole-run theorems are about loaded hosts, and only
               the one-step theorem is about any related pair. The host’s property reads the small
               machine’s three-word language, so a guest with a different property language needs
               a different host property; the host of the next subsection has one, a single property
               that reads a universal claim language. Sixteen slots per counter is the guest’s whole
               table size, reserved for each counter in case every fact is about that one. And it’s
-              slow: for every guest step it unpacks the program number from the front again,
-              and it copies a number one pebble at a time. That’s where the running time in
+              slow: for every guest step it unpacks the program number from the front again, and
+              it copies a number one pebble at a time. That’s where the running time reported in
 C.2 Every computably presented Thiele machine, on one host: driven, decided, priced in whole units, carried as a latch
                                                                                                                   515
 
-Appendix F comes from. The theorems above say nothing about time; they match
-states and ledgers at the points where the two line up.
+the companion volume’s section on running it comes from. The theorems above say
+nothing about time; they match states and ledgers at the points where the two line
+up.
     Enforcement in the step is the reference monitor’s move from Section 14, An-
 derson’s 1972 move: one mechanism everything has to pass through. What’s put
 together here is a priced, earned record under that move, carried to every guest by
@@ -21454,11 +21459,11 @@ with inputs and outputs written as powers of two. (2) The fixed point is of the
 function only: there’s such an F for which no e behaves the same as F (e) once the
 properties and counters of the recorded facts count.
     The counterexample in (2) is short. Number the programs the way U numbers
-its guests (Appendix K), so a program’s number is above the code of every property
-it names. Let F ( p) be the one-line program that checks that bin A holds at least the
-number of p plus one. A program can only record facts about properties it names,
-so no e can record the fact F (e) records, and from a large enough input F (e) does
-record it.
+its guests (Appendix K, in the companion volume), so a program’s number is above
+the code of every property it names. Let F ( p) be the one-line program that checks
+that bin A holds at least the number of p plus one. A program can only record facts
+about properties it names, so no e can record the fact F (e) records, and from a large
+enough input F (e) does record it.
     Even with Schroeppel in hand, my first guess about Kleene was that the powers
 of two were a convenience, and that plain inputs would only take more work. They
 don’t take more work: with plain inputs, Kleene’s theorem is false. A transformation
@@ -22024,7 +22029,7 @@ these states, it never comes down from any state.
               insides in a row: one with a tape, one rewriting lambda terms, one with bins. Is a
               panel riding on one of them the same as a panel riding on another? The honest way
               to ask is whether the boxes agree on what they compute.
-                                                                  D.4 The same thing, in seven models   545
+                                                               D.4 The same thing, in seven models   545
 
 
     My first idea was to wire the boxes to each other myself, two at a time, with a
@@ -22036,7 +22041,7 @@ lambda calculus L, Turing machines, two Minsky instruction conventions, binary
 stack machines, Conway’s FRACTRAN, and the µ-recursive functions, and that they
 all compute the same things is Minsky’s, Shepherdson and Sturgis’s, and Forster,
 Larchey-Wendling and their coauthors’ work. The translations, with how each one
-writes its inputs and reads its outputs, are in Appendix J.
+writes its inputs and reads its outputs, are in the companion volume (Appendix J).
 
 
 Theorem D.6 (The base doesn’t matter). (1) A relation on numbers that’s com-
@@ -22050,19 +22055,19 @@ lift is certified Thiele-complete. (4) Any box on numbers with a universal base 
 to a certified Thiele-complete machine, and its step, computable in one model, is
 computable in all seven.
 
-Proof. (1) Compose the translations of Appendix J. (2) Encode a configuration as
-⟨ℓ, ⟨ a, b⟩⟩. Decoding, performing one INC or DEC, and encoding the result are the
-total finite arithmetic operations constructed there. So the window follows each
-instruction exactly; loading is the encoding of (1, a, b). (3) Let RAM registers 0, 1
-and 2 hold the simulated line, A and B, and keep register 3 equal to 1. To increment
-counter register r, add register 3 to r and then to register 0. To decrement it with
-target j, use these five lines, numbered 0 to 4: if r > 0 jump to 3; add register 3 to
-register 0; jump to 5; subtract register 3 from r; set register 0 to j. At line 5 the finite
-block has ended. A base move restarts a block at its first line, runs it for its length,
-and keeps the resulting registers; an ended block stays put. The zero and positive
-cases give exactly the required window, and neither changes register 3. Loading
-puts (1, a, b, 1) in registers 0 to 3. (4) Apply the lift theorem to that universal base
-and apply (1) to its step function.
+Proof. (1) Compose the translations of the companion volume (Appendix J). (2)
+Encode a configuration as ⟨ℓ, ⟨ a, b⟩⟩. Decoding, performing one INC or DEC, and
+encoding the result are the total finite arithmetic operations constructed there. So
+the window follows each instruction exactly; loading is the encoding of (1, a, b). (3)
+Let RAM registers 0, 1 and 2 hold the simulated line, A and B, and keep register 3
+equal to 1. To increment counter register r, add register 3 to r and then to register 0.
+To decrement it with target j, use these five lines, numbered 0 to 4: if r > 0 jump to
+3; add register 3 to register 0; jump to 5; subtract register 3 from r; set register 0 to
+j. At line 5 the finite block has ended. A base move restarts a block at its first line,
+runs it for its length, and keeps the resulting registers; an ended block stays put.
+The zero and positive cases give exactly the required window, and neither changes
+register 3. Loading puts (1, a, b, 1) in registers 0 to 3. (4) Apply the lift theorem to
+that universal base and apply (1) to its step function.
    So the answer to the worry is that the record doesn’t care. A box with a universal
 base, described in any of the models people have used to say what computing is,
 takes the same panel, becomes the same kind of machine, and pays the same price,
@@ -22127,9 +22132,9 @@ stretch at level b: every counter value is larger by b − a, so still positive,
 goes the same way, and the run comes back to line ℓ at level 2b − a. Repeat forever.
 Either way a run still live at time T never stops, so a run that stops does so within T
 steps, and running P for T steps decides it. (2) The tape simulation, prime packing
-and halting diagonal of Appendix J, carried over to the book’s instruction set line by
-line. (3) Such a translation, followed by the test in (1), would decide two-counter
-halting, against (2).
+and halting diagonal of the companion volume (Appendix J), carried over to the
+book’s instruction set line by line. (3) Such a translation, followed by the test in (1),
+would decide two-counter halting, against (2).
    So two counters are the fewest in exactly this sense: one counter can’t compute
 everything, because its halting can be decided, and two, handed their inputs packed,
 can. I like where the answer came from. The pigeonhole that left no spare chair in
@@ -22144,12 +22149,12 @@ base moves. The obstruction results also identify two kinds of base that never
 lift. Together these describe the coverage proved here. Two further classification
 questions concern bases outside those classes and the possibility of certification
 through an interface other than the lift’s own.
-    The tape-to-counter construction of Appendix J connects bases through what
-they compute. The lift then supplies the record operations. Its tally is one edition
-number for the whole box, whereas the small machine keeps an edition per counter.
-That coarser tally is enough for the lift’s arguments. To run the lifted machine inside
-the presented-machine interpreter, supply the four computability relations for its
-chosen presentation.
+    The tape-to-counter construction of the companion volume (Appendix J) connects
+bases through what they compute. The lift then supplies the record operations. Its
+tally is one edition number for the whole box, whereas the small machine keeps
+an edition per counter. That coarser tally is enough for the lift’s arguments. To
+run the lifted machine inside the presented-machine interpreter, supply the four
+computability relations for its chosen presentation.
 548   D Every model
 
 
@@ -23053,7 +23058,7 @@ N10 squared minus D00 squared N10 squared minus D10 squared N00 squared, is
              and a question pair xy, let Exy = (samexy − diffxy )/(samexy + diffxy ), read as
              0 when both are 0. For reals Exy , M ( E) is the symmetric five-by-five matrix on
              I, A0 , A1 , B0 , B1 with ones on the diagonal, Exy in the cells ( A x , By ) and ( By , A x ),
-             and zero everywhere else (Definition H.1). M is PSD when vT Mv ≥ 0 for every real
+             and zero everywhere else (Definition H.5). M is PSD when vT Mv ≥ 0 for every real
              vector v, and S( E) = E00 + E01 + E10 − E11 .
 
 
@@ -23065,9 +23070,9 @@ N10 squared minus D00 squared N10 squared minus D10 squared N00 squared, is
 
 Proof. The four positivity facts make every denominator positive, so each Exy is
 Dxy /Nxy , and dividing the other three facts by positive squares turns them into the
-three contraction inequalities (Lemma H.8). Contraction is equivalent to PSD of
-M ( E) by a Schur complement on the four-by-four block (Corollary H.6).
-   In the appendix this is Theorem H.9, and Corollary H.6 gives the equivalence of
+three contraction inequalities (Lemma H.9). Contraction is equivalent to PSD of
+M ( E) by a Schur complement on the four-by-four block (Corollary H.7).
+   In the appendix this is Theorem H.10, and Corollary H.7 gives the equivalence of
 contraction and PSD in both directions.
 
 
@@ -23087,7 +23092,7 @@ To check it, each squared letter occurs three times on either expanded side; the
 terms are −2ab, −2ac, +2ad, −2bc, +2bd, +2cd on both. The difference cannot be
 negative because it is a sum of squares. Thus the squared score is at most four times
 two, which is eight.
-   This is Theorem H.7 in the appendix.
+   This is Theorem H.8 in the appendix.
 
 
 Corollary G.3 (A passed check means the bound). If eight counts pass the seven
@@ -23095,11 +23100,12 @@ integer facts, their correlators satisfy S2 ≤ 8. In fact S2 < 8, and passing t
 come as close to 8 as you like.
 
 Proof. Theorem G.1 makes the pinned matrix of these four correlators PSD, and
-Theorem H.7 in the appendix, which holds of every such matrix, gives S2 ≤ 8; the
-calculation with the quadratic form is printed there. The score is a ratio of whole
-numbers, and no such ratio squares to 8, so the bound is strict. The tallies whose
-four correlators√are n/q, n/q, n/q, −n/q with 2n2 ≤ q2 pass, and their scores 4n/q
-come as near 2 2 as you like.
+Theorem H.8 in the appendix, which holds of every such matrix, gives S2 ≤ 8; the
+calculation with the quadratic form is printed in the companion volume. The score
+is a ratio of whole numbers, and no such ratio squares to 8, so the bound is strict.
+                                  are n/q, n/q, n/q, −n/q with 2n2 ≤ q2 pass, and
+The tallies whose four correlators√
+their scores 4n/q come as near 2 2 as you like.
 572   G The CHSH check
 
 
@@ -23186,9 +23192,9 @@ facts hold,  the score of the tally satisfies S 2 ≤ 8 and | S | ≤ 2 2; in fa
 |S| < 2 2, and passing tallies come as close to 8 as you like.
 
 Proof. (1) The forward half is Theorem G.1. For the backward half, PSD gives the
-three contraction inequalities (Corollary H.6); with every N positive, multiplying
+three contraction inequalities (Corollary H.7); with every N positive, multiplying
 them through by the squares of the denominators gives A ≥ 0, B ≥ 0 and C2 ≤ AB,
-which is Lemma H.8 read the other way. (2) is (1) with the packing, since every
+which is Lemma H.9 read the other way. (2) is (1) with the packing, since every
 574   G The CHSH check
 
 
@@ -23244,14 +23250,14 @@ has S = 2: refused forever.
 
 Proof. A pair’s correlator is (same − diff)/(same + diff), and S adds the first three
 and subtracts the fourth. (4, 1) gives 3/5 and (1, 4) gives −3/5, so S = 12/5; the
-seven facts are the worked tally after Corollary H.10, with A = B = 175 and C = 0,
+seven facts are the worked tally after Corollary H.11, with A = B = 175 and C = 0,
 so the check passes, and Theorem G.5 gives the flag and the ledger at 3. (17, 3) gives
 7/10 and (3, 17) gives −7/10, so S = 14/5 and S2 = 196/25 = 7.84; with N = 20
 in every pair and D = 14, 14, 14, −14, A = B = 400 · 400 − 196 · 400 − 196 · 400 =
 3200 and C = 14 · 14 · 400 − 14 · 14 · 400 = 0, so the seven facts hold and the
 same theorem applies. (9, 1) gives 4/5, so S = 16/5 and S2 = 256/25 > 8; the
 PR box gives 1, 1, 1, −1 and S = 4; both fail the check, because a tally that passes
-has S2 ≤ 8 (Corollary H.10), and a failed check traps at the CHECK, after which no
+has S2 ≤ 8 (Corollary H.11), and a failed check traps at the CHECK, after which no
 step raises the flag (Theorem G.5). The all-ones plan gives N = D = 1 in every pair,
 S = 2, and A = 1 − 1 − 1 < 0, the worked tally’s second computation, so it fails
 the check and is refused the same way.
@@ -23422,9 +23428,9 @@ The same holds at size nine for the level-1+AB contraction condition and its cla
 Proof. Top index 4 means the five indices 0, 1, 2, 3, 4. The double sum visits each
 of their twenty-five cells once, multiplies it by its row and column weights, and
 adds the results. That is precisely the weighted-total test for the five-by-five matrix.
-The completed-square calculation in Corollary H.6 equates that test with the three
+The completed-square calculation in Corollary H.7 equates that test with the three
 contraction inequalities. Top index 8 similarly visits the eighty-one cells of the nine-
-by-nine matrix. Theorem H.11 writes its total as three squares plus the residual and
+by-nine matrix. Theorem H.12 writes its total as three squares plus the residual and
 proves that its test is exactly the residual condition. The same definition therefore
 asks the same question at either size.
     The third thing is the elliptope, the set of correlators for which some choice of
@@ -23453,7 +23459,7 @@ properties is the elliptope check.
              are the same set, for strategies on finitely many levels, and the next subsection takes
              away the “finitely”. Each piece is taken in turn below, because the constructions are
              the part worth seeing.
-                Quantum tables are inside the completion set. A strategy’s correlator is the inner
+                 Quantum tables are inside the completion set. A strategy’s correlator is the inner
              product of two unit vectors: Alice’s observable applied to the shared state, and Bob’s
              applied to it. Four unit vectors always have a PSD table of inner products, so every
              quantum table has a completion, and Tsirelson’s bound follows from that: S2 ≤ 8
@@ -23463,28 +23469,28 @@ properties is the elliptope check.
              2n, its real parts followed by its imaginary parts, and the real part of a complex
              inner product is the ordinary inner product of those longer real vectors. So the
              real argument
-                       √ runs unchanged. The two-qubit strategy written out in Appendix H
+                        √ runs unchanged. The two-qubit strategy written out in Appendix H
              reaches 2 2 in both readings.
-                The completion set is inside the quantum tables. This direction is Tsirelson’s
+                 The completion set is inside the quantum tables. This direction is Tsirelson’s
              representation, and the construction is his. Take a table with a PSD completion. A
-             PSD matrix is a table of inner products of vectors, always: peel off one row at a time,
-             and a zero on the diagonal forces its whole row to zero. So the completion hands
-             over four unit vectors, a0 , a1 for Alice and b0 , b1 for Bob, with a x · by equal to the
-             table’s entries, and they fit in three dimensions: slide one of the two entries the table
-             leaves open to the end of the range that keeps the completion PSD, and there the
-             completion is singular, which puts the four vectors in a space of three dimensions.
-             Appendix H, Section H.8, gives the factorization and the measurements explicitly.
-             Now comes the trick. There are three real four-by-four matrices, built from the
-             two-by-two ones that swap two entries or flip the sign of one, that each square to
-             the identity and anticommute in pairs: multiply any two of them in either order
-             and the answers differ only in sign. Use a vector’s three components to mix those
-             three matrices, and you get an observable that squares to the identity, a legitimate
-             measurement. Give Alice and Bob a maximally entangled pair of four-level systems,
-             and the correlator of two such observables comes out as exactly the inner product of
-             their vectors. So the strategy built from the four vectors produces the table, for both
-             real and complex amplitudes. Four levels on each side is always enough, and with
-             complex amplitudes two are.
-                The curved edge is the same set again. Each correlator is the cosine of an angle,
+             PSD matrix is a table of inner products of vectors, always: peel off one row at a
+             time, and a zero on the diagonal forces its whole row to zero. So the completion
+             hands over four unit vectors, a0 , a1 for Alice and b0 , b1 for Bob, with a x · by equal
+             to the table’s entries, and they fit in three dimensions: slide one of the two entries
+             the table leaves open to the end of the range that keeps the completion PSD, and
+             there the completion is singular, which puts the four vectors in a space of three
+             dimensions. The companion volume’s four-vector construction (Section H.8 points
+             to it) gives the factorization and the measurements explicitly. Now comes the trick.
+             There are three real four-by-four matrices, built from the two-by-two ones that swap
+             two entries or flip the sign of one, that each square to the identity and anticommute
+             in pairs: multiply any two of them in either order and the answers differ only in
+             sign. Use a vector’s three components to mix those three matrices, and you get an
+             observable that squares to the identity, a legitimate measurement. Give Alice and
+             Bob a maximally entangled pair of four-level systems, and the correlator of two such
+             observables comes out as exactly the inner product of their vectors. So the strategy
+             built from the four vectors produces the table, for both real and complex amplitudes.
+             Four levels on each side is always enough, and with complex amplitudes two are.
+                 The curved edge is the same set again. Each correlator is the cosine of an angle,
              the angle between one of Alice’s vectors and one of Bob’s. Walk the loop a0 , b0 , a1 , b1
                                               G.10 Any number of levels, and one converse that fails   581
 
@@ -23501,7 +23507,7 @@ triangle exists comes out nonnegative. So a table has a PSD completion exactly w
 its arcsines pass the four inequalities, and those are exactly the quantum tables. The
 point (3/5, 4/5, 4/5, −3/5) sits on the edge, because arcsin 35 + arcsin 45 = π2 by
 the 3-4-5 triangle, and so does Tsirelson’s point. The interval construction, including
-both endpoint cases, is in Section H.9.
+both endpoint cases, is in the companion volume (Section H.9 points to it).
 
 
 G.10 Any number of levels, and one converse that fails
@@ -23526,17 +23532,17 @@ model satisfies the bound, and its converse as stated is false: a table with S =
 no local model produces. Fine’s own theorem, in the form that speaks of correlations,
 is proved separately as an equivalence: a table of four correlators comes from a local
 model exactly when each is between −1 and 1 and all eight CHSH inequalities hold.
-Section H.10 constructs the finite distribution. And one more thing about tallies,
-which the guarantee paragraph above already used: a tally loaded at no charge is
-not thereby classical (the four rounds with S equal to four). The correlators (one,
-one, one, minus one) are the PR box, which no classical model has as its averages,
+The companion volume constructs the finite distribution (Section H.10 points to it).
+And one more thing about tallies, which the guarantee paragraph above already
+used: a tally loaded at no charge is not thereby classical (the four rounds with S
+equal to four). The correlators (one, one, one, minus one) are the PR box, which no
 582   G The CHSH check
 
 
-             though coin-flip play lands on that four-round tally one time in sixteen; the classical
-             vertex this appendix used, which fails the check like every plan, is (one, one, one,
-             one).
-                That covers the game, the number, the two walls, and the check. The derivations
+             classical model has as its averages, though coin-flip play lands on that four-round
+             tally one time in sixteen; the classical vertex this appendix used, which fails the
+             check like every plan, is (one, one, one, one).
+                 That covers the game, the number, the two walls, and the check. The derivations
              come in full in the next appendix, Appendix H; what all this costs against physics
              was Section 19.
 APPENDIX H
@@ -23560,20 +23566,24 @@ score of +1 and disagreement a score of −1. In each pile, add the scores and d
 by the number of rounds. That pile’s average is its correlator. It says how strongly
 the two answers agree for that pair of settings.
 
+Definition H.1 (Settings, outcomes, correlators). Alice receives a setting x ∈ {0, 1}
+and Bob a setting y ∈ {0, 1}. Each answers a bit, recoded as an outcome a, b ∈
+{+1, −1} (bit 0 becomes +1, bit 1 becomes −1). The correlator Exy is the average
+of the product ab over the rounds with settings ( x, y). The CHSH quantity is
 
-H.2 The classical bound
+                             S = E00 + E01 + E10 − E11 .
+I collect the four correlators into the 2 × 2 matrix
+                                                  !
+                                          E00 E01
+                                   E=                ,
+                                          E10 E11
 
-Write a fixed plan on a card: Alice’s answer to setting zero, her answer to setting one,
-and Bob’s two answers. Each answer is a sign, plus or minus. Before multiplying
-anything, look at Bob’s pair. Either the signs agree or they differ. If they agree,
-adding them gives plus or minus two and subtracting them gives zero. If they differ,
-the sum is zero and the difference is plus or minus two. One of those two quantities
-vanishes; the other cannot exceed two in size. The next calculation uses exactly that
-split.
+whose rows are indexed by Alice’s setting and whose columns by Bob’s. The rows of
+E are ( E00 , E01 ) and ( E10 , E11 ); the columns are ( E00 , E10 ) and ( E01 , E11 ).
 
 
-Theorem H.1 (The classical bound for a finite local model). If E is factorizable,
-then −2 ≤ E00 + E01 + E10 − E11 ≤ 2.
+Definition H.2 (Counters). There are eight counts: for each setting pair, samexy
+counts rounds whose two answer bits matched and diffxy counts rounds whose bits
 
 
 
@@ -23582,187 +23592,305 @@ then −2 ≤ E00 + E01 + E10 − E11 ≤ 2.
 584   H The CHSH derivation, in full
 
 
+               differed. A round adds one to exactly one of the eight. Write
+                                                                                              Dxy
+                       Nxy = samexy + diffxy ,        Dxy = samexy − diffxy ,         Exy =       .
+                                                                                              Nxy
+                   A matched round contributes ab = +1 and a differing round ab = −1, so Dxy
+               is the sum of the products and Dxy /Nxy is their average. Since | Dxy | ≤ Nxy , every
+               correlator from counters lies in [−1, 1]. When a bucket is empty, its correlator is
+               defined as 0. The score is E00 + E01 + E10 − E11 .
 
 
-               Theorem H.2 (A tally above 2 is not one replayed strategy). Let w be a counter
-               record whose rational score S(w) is greater than 2. Then for all bits a0 , a1 , b0 , b1 ,
-               w is not locally consistent with ( a0 , a1 , b0 , b1 ). Every locally consistent record has
-               S(w) = 2 or S(w) = −2; the first statement is that fact turned around.
+               H.2 The classical bound
+
+               Write a fixed plan on a card: Alice’s answer to setting zero, her answer to setting one,
+               and Bob’s two answers. Each answer is a sign, plus or minus. Before multiplying
+               anything, look at Bob’s pair. Either the signs agree or they differ. If they agree,
+               adding them gives plus or minus two and subtracting them gives zero. If they differ,
+               the sum is zero and the difference is plus or minus two. One of those two quantities
+               vanishes; the other cannot exceed two in size. The next calculation uses exactly that
+               split.
+
+               Definition H.3 (Finite factorizable model). Four real correlators E00 , E01 , E10 , E11
+               are factorizable when there are a natural number λmax , weights p(λ) and re-
+               sponse signs A( x, λ), B(y, λ) for λ = 0, . . . , λmax such that: 0 ≤ p(λ) ≤ 1;
+               ∑λmax
+                 λ
+                   =0 p (λ ) = 1; every A ( x, λ ) and every B (y, λ ) is −1 or +1; and for all x, y,
+               Exy = ∑λλmax
+                          =0 p (λ ) A ( x, λ ) B ( y, λ ). In words: a hidden card λ is drawn with probabil-
+               ity p(λ), and each player reads an answer off the card using only their own setting.
+               Only the correlators are modelled.
 
 
-               H.3 Tsirelson’s bound from algebra
-               Now put the cards aside and look just at four numbers in the square. I want to
-               bound their three-plus-one-minus score from their squared sizes. The useful trick
-               is to write the proposed allowance minus the squared score as a pile of squares.
-               A square cannot be negative. If the difference really is that pile, the score cannot
-               outrun the allowance.
+
+               Theorem H.1 (The classical bound for a finite local model). If E is factorizable,
+               then −2 ≤ E00 + E01 + E10 − E11 ≤ 2.
 
 
-               Lemma H.3 (The six-square identity). For all real a, b, c, d,
-                       4( a2 + b2 + c2 + d2 ) − ( a + b + c − d )2
-                          = ( a − b )2 + ( a − c )2 + ( a + d )2 + ( b − c )2 + ( b + d )2 + ( c + d )2 .
+               Definition H.4 (A tally consistent with one local plan). For bits a0 , a1 , b0 , b1 ∈ {0, 1}
+               and a counter record w, w is locally consistent with ( a0 , a1 , b0 , b1 ) when, for each
+               setting pair ( x, y): if a x = by then diffxy = 0, otherwise samexy = 0; and every
+               bucket is sampled, N00 , N01 , N10 , N11 > 0.
+                                                                       H.3 Tsirelson’s bound from algebra   585
 
 
-                                                                        √            √
-               Theorem H.4 (Tightness). The point √ E00 = E01 = E10 = 1/ 2, E11 = −1/ 2
-               satisfies both row bounds and has S = 8.
 
-               Remark H.1 (Where equality can happen). Equality S2 = 8 under the row bounds
-               forces equality in both steps of the proof, in the companion volume: the six squares
-               must all vanish, which gives a = b = c = −d, and the rows must be tight, which
-               gives 2a2 = 1. So the point of Theorem H.4 and its negative are the only places
-               the bound is reached. A tally’s correlators are ratios of whole numbers and 2a2 = 1
-               has no such solution, so no tally reaches the bound; the integer check’s passing
-               tallies stay strictly below it and come as near as you like. (Take rational a, b with
-               a2 + b2 = 1, from a Pythagorean triple, and the correlators ( a, b, b, − a): they pass
-               the
-                √ check of Section H.5 with no slack, and S = 2( a + b), which gets as close to
-               2 2 as you like as a/b approaches 1.)
+
+Theorem H.2 (A tally above 2 is not one replayed strategy). Let w be a counter
+record whose rational score S(w) is greater than 2. Then for all bits a0 , a1 , b0 , b1 ,
+w is not locally consistent with ( a0 , a1 , b0 , b1 ). Every locally consistent record has
+S(w) = 2 or S(w) = −2; the first statement is that fact turned around.
+
+
+H.3 Tsirelson’s bound from algebra
+Now put the cards aside and look just at four numbers in the square. I want to
+bound their three-plus-one-minus score from their squared sizes. The useful trick
+is to write the proposed allowance minus the squared score as a pile of squares.
+A square cannot be negative. If the difference really is that pile, the score cannot
+outrun the allowance.
+
+
+Lemma H.3 (The six-square identity). For all real a, b, c, d,
+       4( a2 + b2 + c2 + d2 ) − ( a + b + c − d )2
+          = ( a − b )2 + ( a − c )2 + ( a + d )2 + ( b − c )2 + ( b + d )2 + ( c + d )2 .
+
+
+
+Theorem H.4 (Row-bound form of Tsirelson’s bound). For all real E00 , E√
+                                                                       01 , E10 , √
+                                                                                  E11
+      2     2           2     2        2
+with E00 + E01 ≤ 1 and E10 + E11 ≤ 1, S ≤ 8. The absolute form |S| ≤ 8 = 2 2
+follows.
+
+
+                                                         √            √
+Theorem H.5 (Tightness). The point √ E00 = E01 = E10 = 1/ 2, E11 = −1/ 2
+satisfies both row bounds and has S = 8.
+
+Remark H.1 (Where equality can happen). Equality S2 = 8 under the row bounds
+forces equality in both steps of the proof, in the companion volume: the six squares
+must all vanish, which gives a = b = c = −d, and the rows must be tight, which
+gives 2a2 = 1. So the point of Theorem H.5 and its negative are the only places
+the bound is reached. A tally’s correlators are ratios of whole numbers and 2a2 = 1
+has no such solution, so no tally reaches the bound; the integer check’s passing
+tallies stay strictly below it and come as near as you like. (Take rational a, b with
+a2 + b2 = 1, from a Pythagorean triple, and the correlators ( a, b, b, − a): they pass
+the
+ √ check of Section H.5 with no slack, and S = 2( a + b), which gets as close to
+2 2 as you like as a/b approaches 1.)
+586   H The CHSH derivation, in full
 
 
                H.4 The zero-marginal 5 × 5 moment matrix
-
                The four averages fill only the Alice–Bob part of a larger table. Give that table five
                labels: a constant reading 1, Alice’s two possible readings, and Bob’s two. Each cell
-                                                                              H.5 The integer check   585
+               records an average product of its row and column readings. A reading multiplied by
+               itself is 1, so the diagonal is all ones. The four averages measured fill the cross-player
+               cells and their reflected partners.
+
+               Definition H.5 (The pinned level-1 matrix). Take rows and columns
+               I, A0 , A1 , B0 , B1 . Put 1 on the diagonal and the four correlators in the Alice–
+               Bob cells, and set the four one-party entries (each player’s own average answer) and
+               the two within-party entries (A0 against A1 , B0 against B1 ) to zero. The resulting
+               matrix is:
 
 
-records an average product of its row and column readings. A reading multiplied by
-itself is 1, so the diagonal is all ones. The four averages measured fill the cross-player
-cells and their reflected partners.
-
-Definition H.1 (The pinned level-1 matrix). Take rows and columns
-I, A0 , A1 , B0 , B1 . Put 1 on the diagonal and the four correlators in the Alice–
-Bob cells, and set the four one-party entries (each player’s own average answer) and
-the two within-party entries (A0 against A1 , B0 against B1 ) to zero. The resulting
-matrix is:
-
-
-
-Lemma H.5 (Schur complement, the standard!form). Let P be symmetric positive
-                                     P Q
-definite. The symmetric block matrix        is PSD if and only if R − QT P−1 Q
-                                     QT R
-is PSD.
-
-
-Definition H.2 (Column contractive). Write p = 1 − E00 2 − E2 , q = 1 − E2 − E2
-                                                             10          01   11
-and s = E00 E01 + E10 E11 . The correlators are column contractive when
-                         p ≥ 0,       q ≥ 0,      p q − s2 ≥ 0.
+                                                       I A0 A1 B0 B1 
+                                                I       1 0    0   0   0
+                                               A0     0 1     0  E   E   
+                                                                   00  01 
+                                  M( E) =             
+                                               A1     0 0     1 E10 E11 
+                                                                         
+                                                      0 E00 E10 1     0 
+                                                                         
+                                               B0
+                                               B1       0 E01 E11 0    1
 
 
 
-Corollary H.6 (The equivalence). For all real E00 , E01 , E10 , E11 , the symmetric
-matrix M ( E) is positive semidefinite if and only if the correlators are column
-contractive.
+               Lemma H.6 (Schur complement, the standard!form). Let P be symmetric positive
+                                                    P Q
+               definite. The symmetric block matrix        is PSD if and only if R − QT P−1 Q
+                                                    QT R
+               is PSD.
+
+
+               Definition H.6 (Column contractive). Write p = 1 − E00 2 − E2 , q = 1 − E2 − E2
+                                                                            10          01   11
+               and s = E00 E01 + E10 E11 . The correlators are column contractive when
+                                        p ≥ 0,       q ≥ 0,      p q − s2 ≥ 0.
 
 
 
-Theorem H.7 (PSD implies Tsirelson). If the pinned matrix M ( E)√     is symmetric and
-                                                       2
-positive semidefinite at E00 , E01 , E10 , E11 , then S ≤ 8 and |S| ≤ 8.
+               Corollary H.7 (The equivalence). For all real E00 , E01 , E10 , E11 , the symmetric
+               matrix M ( E) is positive semidefinite if and only if the correlators are column
+               contractive.
+                                                                               H.5 The integer check   587
+
+
+
+
+Theorem H.8 (PSD implies Tsirelson). If the pinned matrix M ( E)√      is symmetric and
+positive semidefinite at E00 , E01 , E10 , E11 , then S2 ≤ 8 and |S| ≤ 8.
 
 
 H.5 The integer check
+
 The machine has whole-number tallies. The three conditions above were written
 using averages, which are fractions. You can test the same conditions without
 ever dividing: first make sure each denominator is positive, then multiply it away.
 Multiplying by a positive number cannot turn a passing inequality into a failing one
 or a failing one into a passing one.
-586   H The CHSH derivation, in full
+
+
+Lemma H.9 (The seven facts are the three conditions with denominators cleared).
+Assume N00 , N01 , N10 , N11 > 0 and put Exy = Dxy /Nxy . Then, with p, q, s as in
+Definition H.6,
+                    A                   B                        C
+             p=    2 N2
+                         ,       q=    2 N2
+                                             ,        s=                   ,
+                  N00 10              N01 11
+                                                           N00 N01 N10 N11
+                                               AB − C2
+                             pq − s2 =                        .
+                                         ( N00 N01 N10 N11 )2
+Because every denominator is positive, 0 ≤ A ⇐⇒ p ≥ 0, 0 ≤ B ⇐⇒ q ≥ 0 and
+C2 ≤ AB ⇐⇒ s2 ≤ pq.
 
 
 
-
-               Lemma H.8 (The seven facts are the three conditions with denominators cleared).
-               Assume N00 , N01 , N10 , N11 > 0 and put Exy = Dxy /Nxy . Then, with p, q, s as in
-               Definition H.2,
-                                       A                     B                     C
-                             p=    2 N2
-                                           ,       q=    2 N2
-                                                                  ,     s=                   ,
-                                  N00 10                N01 11
-                                                                             N00 N01 N10 N11
-                                                                 AB − C2
-                                               pq − s2 =                        .
-                                                           ( N00 N01 N10 N11 )2
-               Because every denominator is positive, 0 ≤ A ⇐⇒ p ≥ 0, 0 ≤ B ⇐⇒ q ≥ 0 and
-               C2 ≤ AB ⇐⇒ s2 ≤ pq.
+Theorem H.10 (Soundness of the integer check). If a tally w passes the seven-
+integer check, then its four correlators Exy = Dxy /Nxy are column contractive.
+Consequently its pinned matrix is positive semidefinite.
 
 
 
-               Theorem H.9 (Soundness of the integer check). If a tally w passes the seven-
-               integer check, then its four correlators Exy = Dxy /Nxy are column contractive.
-               Consequently its pinned matrix is positive semidefinite.
+Corollary H.11 (A passed check implies the Tsirelson bound). If a tally w passes
+the seven-integer check, the correlators of w satisfy S2 ≤ 8. It is the composition of
+Theorem H.10, Corollary H.7 and Theorem H.8.
 
-
-
-               Corollary H.10 (A passed check implies the Tsirelson bound). If a tally w passes
-               the seven-integer check, the correlators of w satisfy S2 ≤ 8. It is the composition of
-               Theorem H.9, Corollary H.6 and Theorem H.7.
-                  Two of the seven facts carry the bound by themselves. With every pair sampled,
-               0 ≤ A and 0 ≤ B are p ≥ 0 and q ≥ 0, so the four squared correlators add to
-               at most 2 and Lemma H.3 gives S2 ≤ 8. The fact C · C ≤ A · B is what positive
-               semidefiniteness adds, and the bound doesn’t use it. For the form this takes on the
-               small machine, where a raised flag has to stand on a passing
+   Two of the seven facts carry the bound by themselves. With every pair sampled,
+0 ≤ A and 0 ≤ B are p ≥ 0 and q ≥ 0, so the four squared correlators add to
+at most 2 and Lemma H.3 gives S2 ≤ 8. The fact C · C ≤ A · B is what positive
+semidefiniteness adds, and the bound doesn’t use it. For the form this takes on the
+small machine, where a raised flag has to stand on a passing check, see Appendix G.
+588   H The CHSH derivation, in full
 
 
                H.6 Level 1+AB
-
                The first table had one place for each player’s answer. Enlarge it by giving each
                Alice–Bob product a place too. There are four such products, so the five places
                become nine. A cell still asks for the average product of its row and column labels.
                Some of those products reduce to entries I already have; five more numbers are
                needed for the particular filling below. Call them γ1 through γ5 . The longer labels
                say which products they stand for.
-                                                                       H.7 The elliptope completion   587
+
+               Definition H.7 (The level-1+AB matrix). The 9 × 9 real matrix on rows and
+               columns I, A0 , A1 , B0 , B1 , A0 B0 , A0 B1 , A1 B0 , A1 B1 , with the following entries:
 
 
-Definition H.3 (The level-1+AB matrix). The 9 × 9 real matrix on rows and
-columns I, A0 , A1 , B0 , B1 , A0 B0 , A0 B1 , A1 B0 , A1 B1 , with the following entries:
+                                        I A0 A1 B0 B1 A0 B0 A0 B1 A1 B0 A1 B1
+                                 I      1  0   0  0   0  E00 E01   E10   E11
+                                A0      0  1   0 E00 E01  0   0    γ1    γ2
+                                A1      0  0   1 E10 E11 γ1   γ2    0     0
+                                B0      0 E00 E10 1   0   0   γ3    0    γ4
+                                B1      0 E01 E11 0   1  γ3   0    γ4     0
+                               A0 B0   E00 0 γ1 0 γ3      1   0     0    γ5
+                               A0 B1   E01 0 γ2 γ3 0      0   1   −γ5     0
+                               A1 B0   E10 γ1 0   0 γ4    0  −γ5    1     0
+                               A1 B1   E11 γ2 0 γ4 0     γ5   0     0     1
+                  Write a vector as (v I , v A0 , v A1 , v B0 , v B1 , v00 , v01 , v10 , v11 ), where v xy is the coor-
+               dinate of A x By . Put
+
+                                        L1 = E00 v00 + E01 v01 + E10 v10 + E11 v11 ,
+                                        L2 = E00 v B0 + E01 v B1 + γ1 v10 + γ2 v11 ,
+                                        L3 = E10 v B0 + E11 v B1 + γ1 v00 + γ2 v01 .
+
+
+               Definition H.8 (The residual).
+                                  R = v2B0 + v2B1 + v200 + v201 + v210 + v211
+                                        + 2v B0 (γ3 v01 + γ4 v11 ) + 2v B1 (γ3 v00 + γ4 v10 )
+                                        + 2γ5 (v00 v11 − v01 v10 ) − L21 − L22 − L23 .
+               The condition called column contractivity at level 1+AB is R ≥ 0 for all six real
+               inputs.
+                                                                        H.7 The elliptope completion   589
 
 
 
-Theorem H.11 (PSD at level 1+AB). For all real Exy and γ1 , . . . , γ5 , the matrix of
-Definition H.3 is positive semidefinite if and only if the residual R is nonnegative for
+
+Theorem H.12 (PSD at level 1+AB). For all real Exy and γ1 , . . . , γ5 , the matrix of
+Definition H.7 is positive semidefinite if and only if the residual R is nonnegative for
 every choice of its six real inputs.
 
 
 H.7 The elliptope completion
-
 Go back to the two within-player cells I filled with zero. Leave them blank this time.
 Keep all four measured cross-player averages fixed, and ask whether there is any
 way to fill those two blanks that makes the table pass. A failure with zeros no longer
 settles the question; another filling may work.
 
+Definition H.9 (Completion and membership). Complete the matrix of Section H.4
+by setting the within-party entries to free reals: x in the ( A0 , A1 ) cells and y in the
+( B0 , B1 ) cells, marginals still zero. The correlators are elliptope realizable when
+some x, y make the completed matrix symmetric and PSD.
 
-Theorem H.12 (Soundness of the gate). If the full gate returns yes on a counter
-record, any completion buckets and any certificate, then the four correlators of the
-record are elliptope realizable. On the PR box tally the gate returns no for every
-choice of the remaining arguments.
+                                                                  
+                                       1 0         0      0     0
+                                     0 1          x     E00   E01 
+                                                                  
+                      M ( E; x, y) = 0 x          1     E10   E11 
+                                                                  
+                                     0 E00               1
+                                                                  
+                                                  E10           y 
+                                       0 E01      E11     y     1
+
+   Its quadratic form at v = (v0 , . . . , v4 ) is ∑k v2k + 2xv1 v2 + 2yv3 v4 + 2E00 v1 v3 +
+2E01 v1 v4 + 2E10 v2 v3 + 2E11 v2 v4 . The pinned matrix is the case x = y = 0, so PSD
+of M ( E) implies membership.
+
+Definition H.10 (The two branches). The positive-minor branch: with the com-
+pletion supplied as buckets and all entries scaled to integers by a positive common
+factor K, the four leading minors of the 4 × 4 block on A0 , A1 , B0 , B1 are strictly
+positive. The factorization branch: with the completion and a rational certificate
+supplied (six subdiagonal entries over a common positive denominator, four pivots
+dk ≥ 0 over another), the ten entry equations of M = LDLT hold in cross-multiplied
+integer arithmetic. The full gate is their disjunction.
+590   H The CHSH derivation, in full
 
 
-H.8 The four-vector construction
-Put two equal-length pencils down with their ends together, and draw a line along
-one of them. Keep that pencil still and turn the other. Use the square corner of a
-sheet of paper to bring the moving pencil’s tip straight across to the line, and mark
-where it lands. The mark moves from a full pencil-length forward, through the
-joined ends when the pencils make a square corner, to a full pencil-length backward.
-Call those readings 1, 0 and −1. That is the signed shadow I want. Between
-those positions the reading is the cosine of the angle. A dot product of unit vectors
-measures that shadow.
 
 
-H.9 The arcsine boundary, in both directions
+               Theorem H.13 (Soundness of the gate). If the full gate returns yes on a counter
+               record, any completion buckets and any certificate, then the four correlators of the
+               record are elliptope realizable. On the PR box tally the gate returns no for every
+               choice of the remaining arguments.
 
-Keep Bob’s two directions hinged at one end. Alice’s first direction has to make a
-specified angle with each. How far can Bob’s hinge open while that is possible? Hold
-Alice’s direction upright and sweep each of Bob’s around it at its required angle.
-Point them towards the same side to close the hinge as far as it will go; point them
-towards opposite sides to open it as far as it will go. There is a whole interval of
-openings between those limits. Alice’s second direction asks for another interval.
-588   H The CHSH derivation, in full
+
+               H.8 The four-vector construction
+               Put two equal-length pencils down with their ends together, and draw a line along
+               one of them. Keep that pencil still and turn the other. Use the square corner of a
+               sheet of paper to bring the moving pencil’s tip straight across to the line, and mark
+               where it lands. The mark moves from a full pencil-length forward, through the
+               joined ends when the pencils make a square corner, to a full pencil-length backward.
+               Call those readings 1, 0 and −1. That is the signed shadow I want. Between
+               those positions the reading is the cosine of the angle. A dot product of unit vectors
+               measures that shadow.
+
+
+               H.9 The arcsine boundary, in both directions
+
+               Keep Bob’s two directions hinged at one end. Alice’s first direction has to make a
+               specified angle with each. How far can Bob’s hinge open while that is possible? Hold
+               Alice’s direction upright and sweep each of Bob’s around it at its required angle.
+               Point them towards the same side to close the hinge as far as it will go; point them
+               towards opposite sides to open it as far as it will go. There is a whole interval of
+               openings between those limits. Alice’s second direction asks for another interval.
 
 
                H.10 The finite local model, in both directions
@@ -23776,39 +23904,38 @@ openings between those limits. Alice’s second direction asks for another inter
               Example, Built (its section “The CHSH derivation, in full”) and in
               Coq in coq/kernel/quantum/TsirelsonGeneral.v,                  CHSHColumnCheck.v,
               QuantumPartitionPSD_1AB.v, ElliptopeCompletion.v and ArcsineBoundary.v.
+                                                                  H.11 Scope of the constructions   591
 
 
-               H.11 Scope of the constructions
-
-               The constructions of this appendix, carried in full in the companion volume, pin
-               down the correlators. What follows is where they stop: they aren’t a completeness
-               claim for the integer check, they say nothing about full behaviours with marginals,
-               and they say nothing about data from a lab.
-                  The arcsine boundary. For two settings and two outcomes per side, Tsirelson,
-               Landau (1988) and Masanes (2003) give theorems characterizing the correla-
-               tors reachable by quantum measurements: | arcsin E00 + arcsin E01 + arcsin E10 −
-               arcsin E11 | ≤ π and its sign variants. The characterization holds as an if and only if
-               with the completion set and, through Tsirelson’s representation, with the quantum
-               set. The point (3/5, 4/5, 4/5, −3/5) is on the boundary: arcsin 53 + arcsin 45 = π2
-               by the 3-4-5 triangle, so the sum is π; Tsirelson’s point is on it too. The necessary
-               direction holds in any dimension, for any expectation on an algebra of observables
-               in which Alice’s commute with Bob’s.
-                  Equality with the quantum set. That the completion set of Section H.7 is exactly
-               the set of quantum correlators is Tsirelson’s representation theorem, and it is proved
-               in finite dimension: for both real and complex amplitudes, with two four-level
-               systems enough for every point, and two two-level ones with complex amplitudes.
-               That PSD of the level-1 moment matrix is necessary for quantum behaviour is
-               proved for strategies in finite dimension, with real amplitudes and with complex
-               ones, and in any dimension, marginals included, for any expectation on an algebra
-               of observables.
-                  Achievability. Theorem H.4 is a point of R4 . A state   √ and measurements that
-               reach it are explicit:
-                                √ the two-qubit state √   (|00⟩ + |11⟩)/ 2 with√A0 = √    Z, A1 =√X,
-               B0 =√( Z + X )/ 2√and B1 = ( Z − X )/ 2 has correlators 1/ 2, 1/ 2, 1/ 2,
-               −1/ 2 and S = 2 2, and every strategy in finite dimension has S2 ≤ 8, with real
-                                                                                H.12 Prior work   589
-
-
+H.11 Scope of the constructions
+The constructions of this appendix, carried in full in the companion volume, pin
+down the correlators. What follows is where they stop: they aren’t a completeness
+claim for the integer check, they say nothing about full behaviours with marginals,
+and they say nothing about data from a lab.
+    The arcsine boundary. For two settings and two outcomes per side, Tsirelson,
+Landau (1988) and Masanes (2003) give theorems characterizing the correla-
+tors reachable by quantum measurements: | arcsin E00 + arcsin E01 + arcsin E10 −
+arcsin E11 | ≤ π and its sign variants. The characterization holds as an if and only if
+with the completion set and, through Tsirelson’s representation, with the quantum
+set. The point (3/5, 4/5, 4/5, −3/5) is on the boundary: arcsin 35 + arcsin 45 = π2
+by the 3-4-5 triangle, so the sum is π; Tsirelson’s point is on it too. The necessary
+direction holds in any dimension, for any expectation on an algebra of observables
+in which Alice’s commute with Bob’s.
+    Equality with the quantum set. That the completion set of Section H.7 is exactly
+the set of quantum correlators is Tsirelson’s representation theorem, and it is proved
+in finite dimension: for both real and complex amplitudes, with two four-level
+systems enough for every point, and two two-level ones with complex amplitudes.
+That PSD of the level-1 moment matrix is necessary for quantum behaviour is
+proved for strategies in finite dimension, with real amplitudes and with complex
+ones, and in any dimension, marginals included, for any expectation on an algebra
+of observables.
+    Achievability. Theorem H.5 is a point of R4 . A state       √ and measurements that
+reach it are explicit:
+                  √    the two-qubit  state (|
+                                            √  00 ⟩ + | 11 ⟩) /  2 with√A0 = √
+                                                                             Z, A1 =√X,
+B0 =√( Z + X )/ 2√and B1 = ( Z − X )/ 2 has correlators 1/ 2, 1/ 2, 1/ 2,
+−1/ 2 and S = 2 2, and every strategy in finite dimension has S2 ≤ 8, with real
 amplitudes and with complex ones. Both are arithmetic about the model. How close
 a real laboratory comes, and what that costs in loopholes closed, is the story told in
 Appendix G.
@@ -23822,38 +23949,38 @@ The 1+AB cascade is strict and misses boundary points. The two 1+AB checks
 don’t sit inside one another. The full check accepts the 12/5 tally above, which the
 zero-moment check refuses, and it refuses the tally with E00 = 1 and the other three
 correlators 0, where H11 = 0, which the zero-moment check accepts.
-    Finite levels. For full behaviours, marginals included, the NPA levels are relax-
-ations. Chaturvedi (arXiv 2607.14569, 2026) argues, in a preprint, that no finite
-NPA level characterizes the complete quantum set even in this simplest Bell scenario.
-I haven’t gone through that proof, and nothing here rests on it.
-    Statistics and physics. Nothing here says how many rounds make a tally infor-
-mative, and nothing says the counters came from honest play; a program can INC
-whatever counts it likes.
+592   H The CHSH derivation, in full
 
 
-H.12 Prior work
-                                              √
-Tsirelson’s 1980 paper gives the bound 2 2 for quantum correlations, and his
-theorem says that quantum two-outcome correlators are inner products of real unit
-vectors. Landau (1988) and Masanes (2003, arXiv quant-ph/0309137) each give a
-condition that, by their proofs, characterizes the quantum correlators exactly for two
-settings and two outcomes. Wehner (2006, arXiv quant-ph/0510076) gets Tsirelson
-bounds, CHSH among them, from a semidefinite program on the 4 × 4 Gram matrix
-of those vectors. Navascués, Pironio and Acín (2007, arXiv quant-ph/0607119;
-2008, arXiv 0803.4290) built the hierarchy of moment-matrix tests; their 2008
-paper applies a Schur complement to the level-1 matrix of this scenario, recovers
-the arcsine condition, and discusses the 1+AB level. I went back to each of those
-papers for these points, and that is what I found in them. The results are theirs.
-Two of them are proved again here, in finite dimension: Tsirelson’s representation
-and the arcsine characterization; the rest of their proofs are not redone. Echenim
-and Mhalla give a detailed derivation of Tsirelson’s bound (arXiv 2306.12535), and
-exact rational sum-of-squares certificates
-                                   √       go back at least to Peyrl and Parrilo (2008).
-So the moment-matrix route to 2 2 is standard. What is specific here is narrower:
-an integer certificate computed from outcome counts, and the argument from “the
-590   H The CHSH derivation, in full
+                  Finite levels. For full behaviours, marginals included, the NPA levels are relax-
+               ations. Chaturvedi (arXiv 2607.14569, 2026) argues, in a preprint, that no finite
+               NPA level characterizes the complete quantum set even in this simplest Bell scenario.
+               I haven’t gone through that proof, and nothing here rests on it.
+                  Statistics and physics. Nothing here says how many rounds make a tally infor-
+               mative, and nothing says the counters came from honest play; a program can INC
+               whatever counts it likes.
 
 
+               H.12 Prior work
+                                                             √
+               Tsirelson’s 1980 paper gives the bound 2 2 for quantum correlations, and his
+               theorem says that quantum two-outcome correlators are inner products of real unit
+               vectors. Landau (1988) and Masanes (2003, arXiv quant-ph/0309137) each give a
+               condition that, by their proofs, characterizes the quantum correlators exactly for two
+               settings and two outcomes. Wehner (2006, arXiv quant-ph/0510076) gets Tsirelson
+               bounds, CHSH among them, from a semidefinite program on the 4 × 4 Gram matrix
+               of those vectors. Navascués, Pironio and Acín (2007, arXiv quant-ph/0607119;
+               2008, arXiv 0803.4290) built the hierarchy of moment-matrix tests; their 2008
+               paper applies a Schur complement to the level-1 matrix of this scenario, recovers
+               the arcsine condition, and discusses the 1+AB level. I went back to each of those
+               papers for these points, and that is what I found in them. The results are theirs.
+               Two of them are proved again here, in finite dimension: Tsirelson’s representation
+               and the arcsine characterization; the rest of their proofs are not redone. Echenim
+               and Mhalla give a detailed derivation of Tsirelson’s bound (arXiv 2306.12535), and
+               exact rational sum-of-squares certificates
+                                                  √       go back at least to Peyrl and Parrilo (2008).
+               So the moment-matrix route to 2 2 is standard. What is specific here is narrower:
+               an integer certificate computed from outcome counts, and the argument from “the
                counts pass” to PSD of the pinned matrix and on to S2 ≤ 8. I did not find that chain
                elsewhere, and I make no claim beyond it. On the host machine, the same chain
                is earned: a raised flag from a clean start stands on a passing check of the packed
@@ -23886,7 +24013,7 @@ coq/kernel/foundation/LRecursion.v.
 
 
 
-                                                 591
+                                                 593
 APPENDIX J
 
 
@@ -23927,7 +24054,7 @@ LiftModelsAll.v and MM2ComplementUndec.v.
 
 
 
-                                 592
+                                 594
 APPENDIX K
 
 
@@ -23951,7 +24078,7 @@ UniversalBlocks.v, UniversalPLayout.v and UniversalPBlocks.v.
 
 
 
-                                                 593
+                                                 595
 APPENDIX L
 
 
@@ -23978,7 +24105,7 @@ the fit.
 
 
 
-                                594
+                                596
 APPENDIX M
 
 
@@ -24017,8 +24144,8 @@ would equal even ones.
 
 
 
-                                                 595
-596   M Sources
+                                                 597
+598   M Sources
 
 
              Sergei N. Artemov (1995). Operational Modal Logic. Technical Report MSI 95-29,
@@ -24055,7 +24182,7 @@ would equal even ones.
              (ed.), The Universal Turing Machine: A Half-Century Survey, Oxford University Press,
              pp. 227–257.
              Max Black (1952). The Identity of Indiscernibles. Mind 61(242), pp. 153–164.
-                                                       M.1 Structure, information and knowledge   597
+                                                       M.1 Structure, information and knowledge   599
 
 
 Boston University (2019). Leonid Levin, BU computer scientist, elected to National
@@ -24094,7 +24221,7 @@ Synthese 92(3), pp. 315–348. The sentence quoted, “plays no actual role in t
 presentation of theories within the treatise,” I read in Chapter 7 of his book Modern
 Algebra and the Rise of Mathematical Structures (Birkhäuser), p. 338 of the chapter
 as posted on his website. Author’s chapter.
-598   M Sources
+600   M Sources
 
 
              Claude Crépeau, Rafael Dowsley and Anderson C. A. Nascimento (2020). On
@@ -24132,7 +24259,7 @@ as posted on his website. Author’s chapter.
              parallel lines.
              Gottlob Frege (1903). Grundgesetze der Arithmetik, vol. II. Hermann Pohle, Jena.
              The appendix answering Russell’s paradox.
-                                                       M.1 Structure, information and knowledge   599
+                                                       M.1 Structure, information and knowledge   601
 
 
 Milton Friedman (1975). There’s No Such Thing as a Free Lunch: Essays on Public
@@ -24170,7 +24297,7 @@ Paul R. Halmos (1960). Naive Set Theory. D. Van Nostrand. Section 7, Relations:
 equivalence relations and partitions.
 C. L. Hamblin (1970). Fallacies. Methuen, London. Chapter 8, formal dialectic,
 where each speaker has a commitment store.
-600   M Sources
+602   M Sources
 
 
              G. H. Hardy (1940). A Mathematician’s Apology. Cambridge University Press. The
@@ -24209,7 +24336,7 @@ where each speaker has a commitment store.
              Iamblichus (c. AD 300). On the Pythagorean Life. Translated by Thomas Taylor as
              Iamblichus’ Life of Pythagoras (1818), chapters XVIII and XXXIV. Project Gutenberg
              63300.
-                                                       M.1 Structure, information and knowledge   601
+                                                       M.1 Structure, information and knowledge   603
 
 
 Christoph Jäger and Nicholas Shackel (2025). Testimonial authority and
@@ -24248,7 +24375,7 @@ Georg Kreisel (1967). Informal rigour and completeness proofs. In Imre Lakatos
 (ed.), Problems in the Philosophy of Mathematics, North-Holland, Amsterdam, pp.
 138–186. DOI: 10.1016/S0049-237X(08)71525-8. The creating subject’s evidence
 at a stage.
-602   M Sources
+604   M Sources
 
 
              Saul Kripke (1975). Outline of a theory of truth. Journal of Philosophy 72(19), pp.
@@ -24286,7 +24413,7 @@ at a stage.
              Christian List and Philip Pettit (2002). Aggregating sets of judgments: an
              impossibility result. Economics and Philosophy 18(1), pp. 89–110. DOI:
              10.1017/S0266267102001098.
-                                                     M.1 Structure, information and knowledge   603
+                                                     M.1 Structure, information and knowledge   605
 
 
 John Locke (1690). An Essay Concerning Human Understanding, Book I, chapter iv,
@@ -24324,7 +24451,7 @@ Charles S. Peirce (1877). The Fixation of Belief. Popular Science Monthly 12, pp
 Plato. Meno 97d–98a: Daedalus’s statues, and true opinions tied down by reasoning;
 trans. W. R. M. Lamb, Plato in Twelve Volumes, vol. 3, Harvard University Press,
 1967. Republic III, 403e: Glaucon on a guardian needing a guardian; trans. Paul
-604   M Sources
+606   M Sources
 
 
              Shorey, Plato in Twelve Volumes, vols. 5–6, Harvard University Press, 1969, text.
@@ -24363,7 +24490,7 @@ trans. W. R. M. Lamb, Plato in Twelve Volumes, vol. 3, Harvard University Press,
              Claude E. Shannon (1948). A Mathematical Theory of Communication. Bell System
              Technical Journal 27, pp. 379–423 and 623–656. Bell Labs publication record.
              Quoted: “irrelevant to the engineering problem,” p. 379; “allows one to make a
-                                                        M.1 Structure, information and knowledge   605
+                                                        M.1 Structure, information and knowledge   607
 
 
 saving in time,” p. 385; half of English “determined by the structure of the language,”
@@ -24401,7 +24528,7 @@ Professor at Cambridge, and the 1940 essay.
 Anne S. Troelstra (1969). Principles of Intuitionism. Lecture Notes in Mathematics
 95, Springer, Berlin. DOI: 10.1007/BFb0080643. The creating subject who never
 forgets.
-606   M Sources
+608   M Sources
 
 
              Nikolai K. Vereshchagin and Paul M. B. Vitányi (2004). Kolmogorov’s Structure
@@ -24439,7 +24566,7 @@ forgets.
              John C. Baez, Tobias Fritz and Tom Leinster (2011). A characterization of en-
              tropy in terms of information loss. Entropy 13(11), pp. 1945–1957. DOI:
              10.3390/e13111945; arXiv: 1106.1791.
-                                                           M.2 Cost, records and thermodynamics   607
+                                                           M.2 Cost, records and thermodynamics   609
 
 
 Mihir Bellare and Bennet S. Yee (1997). Forward integrity for secure audit logs.
@@ -24479,7 +24606,7 @@ Computing Systems 9(2), pp. 131–152. PDF.
 Thomas Blanchard (2024). Causation and the Time-Asymmetry of Knowl-
 edge.   Australasian Journal of Philosophy 102(4), pp. 959–977. DOI:
 10.1080/00048402.2024.2328629.
-608   M Sources
+610   M Sources
 
 
              P. Bocchieri and A. Loinger (1957). Quantum Recurrence Theorem. Physical Review
@@ -24518,7 +24645,7 @@ edge.   Australasian Journal of Philosophy 102(4), pp. 959–977. DOI:
              Wikipedia, Programmable ROM, History section, entry.
              Byung-Gon Chun, Petros Maniatis, Scott Shenker and John Kubiatowicz (2007).
              Attested append-only memory: making adversaries stick to their word. Proceedings
-                                                         M.2 Cost, records and thermodynamics   609
+                                                         M.2 Cost, records and thermodynamics   611
 
 
 of the 21st ACM Symposium on Operating Systems Principles (SOSP ’07), pp. 189–
@@ -24557,7 +24684,7 @@ David Deutsch and Chiara Marletto (2025). Constructor theory of time. Preprint.
 arXiv: 2505.08692.
 Sandro Donadi, Kristian Piscicchia, Catalina Curceanu, Lajos Diósi, Matthias Lauben-
 stein and Angelo Bassi (2021). Underground test of gravity-related wave function
-610   M Sources
+612   M Sources
 
 
              collapse. Nature Physics 17, pp. 74–78. DOI: 10.1038/s41567-020-1008-4. The
@@ -24596,7 +24723,7 @@ stein and Angelo Bassi (2021). Underground test of gravity-related wave function
              Gaius. Institutes, book 2, sections 104, 119 and 147 (second century). The will by
              bronze and balance before five witnesses, a scale-holder and the buyer of the estate
              (104); a will sealed by seven witnesses (119, 147). Text and translation.
-                                                          M.2 Cost, records and thermodynamics   611
+                                                          M.2 Cost, records and thermodynamics   613
 
 
 Momčilo Gavrilov and John Bechhoefer (2016). Erasure without Work in an
@@ -24634,7 +24761,7 @@ Consistency Is Easy. Communications of the ACM 63(9), pp. 72–81. DOI:
 10.1145/3369736.
 Maurice Herlihy (1991). Wait-free synchronization. ACM Transactions on Program-
 ming Languages and Systems 13(1), pp. 124–149. DOI: 10.1145/114005.102808.
-612   M Sources
+614   M Sources
 
 
              Yoichi Hirai (2017). Development of accountable safety for one-message Casper.
@@ -24672,7 +24799,7 @@ ming Languages and Systems 13(1), pp. 124–149. DOI: 10.1145/114005.102808.
              Data Access in Shared Memory Multiprocessors. Technical Report UCRL-97663,
              Lawrence Livermore National Laboratory, November 1987. The load-linked and
              store-conditional pair.
-                                                         M.2 Cost, records and thermodynamics   613
+                                                         M.2 Cost, records and thermodynamics   615
 
 
 Yonggun Jun, Momčilo Gavrilov and John Bechhoefer (2014). High-precision test of
@@ -24711,7 +24838,7 @@ nism” is on p. 559.
 Leslie Lamport (1983). What Good Is Temporal Logic? In R. E. A. Mason (ed.),
 Information Processing 83, Elsevier, pp. 657–668. Author paper. The paper that
 introduces invariance under stuttering.
-614   M Sources
+616   M Sources
 
 
              Leslie Lamport (n.d.). The Writings of Leslie Lamport, note on “Time, Clocks and the
@@ -24750,7 +24877,7 @@ introduces invariance under stuttering.
              the Inquiry Board. Paris, 19 July 1996. Copy of the report.
              Josef Loschmidt (1876). Über den Zustand des Wärmegleichgewichtes eines Systems
              von Körpern mit Rücksicht auf die Schwerkraft. Sitzungsberichte der Kaiserlichen
-                                                            M.2 Cost, records and thermodynamics   615
+                                                            M.2 Cost, records and thermodynamics   617
 
 
 Akademie der Wissenschaften in Wien, Mathematisch-Naturwissenschaftliche Classe
@@ -24790,7 +24917,7 @@ Text of the letter.
 Ralph C. Merkle (1979). Secrecy, Authentication, and Public Key Systems. PhD
 thesis, Stanford University. Thesis. Where tree authentication, now called the Merkle
 tree, is introduced.
-616   M Sources
+618   M Sources
 
 
              Alfred Mitchell-Innes (1913). What is Money? The Banking Law Journal, May 1913,
@@ -24828,7 +24955,7 @@ tree, is introduced.
              John D. Norton (2026). Too good to be true: entropy, information, computation,
              and the uninformed thermodynamics of erasure. Philosophy of Science, published
              online 22 May 2026; manuscript dated 2025. DOI: 10.1017/psa.2026.10221.
-                                                          M.2 Cost, records and thermodynamics   617
+                                                          M.2 Cost, records and thermodynamics   619
 
 
 Daniel Oberhaus (2018). The World’s Oldest Blockchain Has Been Hiding in the
@@ -24868,7 +24995,7 @@ dynamique. Acta Mathematica 13, pp. 1–270.
 Luciano Pomatto, Philipp Strack and Omer Tamuz (2023). The cost of information:
 the case of constant marginal costs. American Economic Review 113(5), pp. 1360–
 1393. DOI: 10.1257/aer.20190185.
-618   M Sources
+620   M Sources
 
 
              Jenny M. Poulton, Pieter Rein ten Wolde and Thomas E. Ouldridge (2019). Nonequi-
@@ -24906,7 +25033,7 @@ the case of constant marginal costs. American Economic Review 113(5), pp. 1360�
              “Stabilization must be irreversible” is on p. 3 of the arXiv preprint.
              The Royal Society. History of the Royal Society. Web page. First meeting 28
              November 1660; the motto adopted in the First Charter, 1662.
-                                                         M.2 Cost, records and thermodynamics   619
+                                                         M.2 Cost, records and thermodynamics   621
 
 
 Runtime Verification, Inc. and The University of Texas at Austin (2018). casper-
@@ -24943,7 +25070,7 @@ James Six (1782). Account of an improved Thermometer. Philosophical Transactions
 of the Royal Society of London 72, pp. 72–81. DOI: 10.1098/rstl.1782.0012.
 Quoted: “if it be not immediately noticed, it can never after be known,” p. 72.
 Rob Smart (2021). Anti-rollback explained. PSA Certified, 27 April 2021. Article.
-620   M Sources
+622   M Sources
 
 
              Raoul Strackx and Frank Piessens (2016). Ariadne: a minimal approach to state
@@ -24980,7 +25107,7 @@ Rob Smart (2021). Anti-rollback explained. PSA Certified, 27 April 2021. Article
              operation. Specification page.
              U.S. Department of Justice (2002). Press release, 15 June 2002, on the jury verdict
              against Arthur Andersen LLP. Press release.
-                                                         M.2 Cost, records and thermodynamics   621
+                                                         M.2 Cost, records and thermodynamics   623
 
 
 U.S. Department of Justice (2002). Press release, 2 October 2002, on the criminal
@@ -25020,7 +25147,7 @@ Time, and the Second Law. Entropy 26(2), article 170. DOI: 10.3390/e26020170.
 David H. Wolpert and William G. Macready (1997). No free lunch theorems for
 optimization. IEEE Transactions on Evolutionary Computation 1(1), pp. 67–82.
 DOI: 10.1109/4235.585893.
-622   M Sources
+624   M Sources
 
 
              Gavin Wood (2014). Ethereum: A Secure Decentralised Generalised Transaction
@@ -25059,7 +25186,7 @@ DOI: 10.1109/4235.585893.
              2001, pp. 247–256. DOI: 10.1109/LICS.2001.932501.
              Kenneth Appel and Wolfgang Haken (1976). Every planar map is four colorable.
              Bulletin of the American Mathematical Society 82(5), pp. 711–712.
-                                                   M.3 Computation, self-reference and checking   623
+                                                   M.3 Computation, self-reference and checking   625
 
 
 François Bancilhon and Nicolas Spyratos (1981). Update semantics of rela-
@@ -25099,7 +25226,7 @@ logic. Methods for Modalities (M4M9), EPTCS 243, pp. 59–74. arXiv: 1703.02195.
 John P. Burgess (1986). The truth is never simple. Journal of Symbolic Logic 51(3),
 pp. 663–681. DOI: 10.2307/2274021. Quasi-inductive definitions, in the setting of
 revision theories of truth.
-624   M Sources
+626   M Sources
 
 
              Michael Burrows, Martin Abadi and Roger Needham (1990). A logic of au-
@@ -25137,7 +25264,7 @@ revision theories of truth.
              10.23638/LMCS-16(1:32)2020. Journal version of the CALCO 2017 paper.
              Stephen A. Cook (1971). The complexity of theorem-proving procedures. Proceed-
              ings of STOC 1971, pp. 151–158. DOI: 10.1145/800157.805047.
-                                                      M.3 Computation, self-reference and checking   625
+                                                      M.3 Computation, self-reference and checking   627
 
 
 Stephen A. Cook and Robert A. Reckhow (1973). Time bounded random access
@@ -25175,7 +25302,7 @@ totic density and the Ershov hierarchy. arXiv: 1309.0137. States that the 1-c.e.
 Andrej Dudenhefner (2022). Certified Decision Procedures for Two-Counter Ma-
 chines. FSCD 2022, LIPIcs 228, article 16. The successful-decrement jump conven-
 tion used in the counter guest. DOI: 10.4230/LIPIcs.FSCD.2022.16.
-626   M Sources
+628   M Sources
 
 
              W. H. Eccles and F. W. Jordan (1919). A trigger relay utilizing three-electrode
@@ -25214,7 +25341,7 @@ tion used in the counter guest. DOI: 10.4230/LIPIcs.FSCD.2022.16.
              Project, Rice University: page. The words quoted are from the English translation in
              Laura Fermi and Gilberto Bernardini, Galileo and the Scientific Revolution, Basic
              Books, 1961, as reproduced at math.nyu.edu; I didn’t see the printed page.
-                                                     M.3 Computation, self-reference and checking   627
+                                                     M.3 Computation, self-reference and checking   629
 
 
 The Galileo Project. Galileo Galilei. Rice University. Biography.
@@ -25252,7 +25379,7 @@ protocols. Journal of Computer Security 11(4), pp. 451–519. DOI: 10.3233/JCS-
 Michael J. C. Gordon, Robin Milner and Christopher P. Wadsworth (1979). Edin-
 burgh LCF: A Mechanised Logic of Computation. Lecture Notes in Computer Science
 78, Springer. DOI: 10.1007/3-540-09724-4.
-628   M Sources
+630   M Sources
 
 
              Michael J. C. Gordon (2000). From LCF to HOL: a short history. In Gordon Plotkin,
@@ -25291,7 +25418,7 @@ burgh LCF: A Mechanised Logic of Computation. Lecture Notes in Computer Science
              Gesellschaft der Wissenschaften zu Göttingen, pp. 253–297. English translation by
              Mary Winston Newson, Mathematical Problems, Bulletin of the American Mathe-
              matical Society 8 (1902), pp. 437–479.
-                                                     M.3 Computation, self-reference and checking   629
+                                                     M.3 Computation, self-reference and checking   631
 
 
 C. A. R. Hoare (1969). An Axiomatic Basis for Computer Programming. Communi-
@@ -25328,7 +25455,7 @@ stated and proved at the end of section 2.
 Stephen Cole Kleene (1952). Introduction to Metamathematics. North-Holland
 and D. Van Nostrand. Partial recursive functions, parameterisation and recursion
 theorems.
-630   M Sources
+632   M Sources
 
 
              Gerwin Klein, Kevin Elphinstone, Gernot Heiser, June Andronick, David Cock,
@@ -25366,7 +25493,7 @@ theorems.
              Leonid A. Levin (1973). Universal sequential search problems. Problemy Peredachi
              Informatsii 9(3), pp. 115–116; English translation in Problems of Information
              Transmission 9(3), pp. 265–266. Record.
-                                                    M.3 Computation, self-reference and checking   631
+                                                    M.3 Computation, self-reference and checking   633
 
 
 Orna Lichtenstein, Amir Pnueli and Lenore Zuck (1985). The glory of the past.
@@ -25403,7 +25530,7 @@ culus.   Journal of Functional Programming 2(3), pp.        345–364.     DOI:
 themselves.
 Liesbeth De Mol (2008). Tag systems and Collatz-like functions. Theoretical Com-
 puter Science 390(1), pp. 92–101. DOI: 10.1016/j.tcs.2007.10.020.
-632   M Sources
+634   M Sources
 
 
              Edward F. Moore (1956). Gedanken-Experiments on Sequential Machines. In
@@ -25441,7 +25568,7 @@ puter Science 390(1), pp. 92–101. DOI: 10.1016/j.tcs.2007.10.020.
              pp. 143–159. DOI: 10.1007/s11238-018-9679-3.
              Susan Owicki and David Gries (1976). An axiomatic proof technique for parallel
              programs I. Acta Informatica 6(4), pp. 319–340. DOI: 10.1007/BF00268134.
-                                                    M.3 Computation, self-reference and checking   633
+                                                    M.3 Computation, self-reference and checking   635
 
 
 Catuscia Palamidessi, Vijay Saraswat, Frank D. Valencia and Björn Victor (2006).
@@ -25480,7 +25607,7 @@ alizable Third Generation Architectures. Communications of the ACM 17(7), pp.
 412–421.
 Emil L. Post (1947). Recursive Unsolvability of a Problem of Thue. Journal of Sym-
 bolic Logic 12(1), pp. 1–11. The defect in Turing’s appendix and its correction are
-634   M Sources
+636   M Sources
 
 
              described in Liesbeth De Mol, Turing Machines, Stanford Encyclopedia of Philosophy,
@@ -25519,7 +25646,7 @@ bolic Logic 12(1), pp. 1–11. The defect in Turing’s appendix and its correct
              Morgan Rogers (2021). Toposes of monoid actions. arXiv: 2112.10198.
              J. Barkley Rosser (1936). Extensions of some theorems of Gödel and Church. Journal
              of Symbolic Logic 1(3), pp. 87–91. DOI: 10.2307/2269028. Rosser’s trick, which
-                                                       M.3 Computation, self-reference and checking   635
+                                                       M.3 Computation, self-reference and checking   637
 
 
 weakens Gödel’s ω-consistency premise to consistency. Rosser as a student of Alonzo
@@ -25557,7 +25684,7 @@ Research Report RR-7506. HAL: inria-00555588.
 J. C. Shepherdson and H. E. Sturgis (1963). Computability of recursive functions.
 Journal of the ACM 10(2), pp. 217–255. DOI: 10.1145/321160.321170. The
 unlimited register machine.
-636   M Sources
+638   M Sources
 
 
              Geoffrey Smith (2009). On the foundations of quantitative information flow. Foun-
@@ -25595,7 +25722,7 @@ unlimited register machine.
              Alan M. Turing (1949). Checking a large routine. In Report of a Conference on
              High Speed Automatic Calculating Machines, University Mathematical Laboratory,
              Cambridge, pp. 67–69. Turing Digital Archive. “Definite assertions which can be
-                                                    M.3 Computation, self-reference and checking   637
+                                                    M.3 Computation, self-reference and checking   639
 
 
 checked individually” is in the opening paragraph; I read it in the reprint by F. L.
@@ -25634,7 +25761,7 @@ arXiv: math/0305282; DOI: 10.2178/bsl/1058448677.
 Andrew Chi-Chih Yao (1981). Should tables be sorted? Journal of the ACM 28(3),
 pp. 615–628. DOI: 10.1145/322261.322274. The cell-probe model; an earlier
 version appeared at FOCS 1978.
-638   M Sources
+640   M Sources
 
 
              Eliezer Yudkowsky and Marcello Herreshoff (2013). Tiling agents for self-modifying
@@ -25674,7 +25801,7 @@ version appeared at FOCS 1978.
              Nicolas Brunner, Daniel Cavalcanti, Stefano Pironio, Valerio Scarani and Stephanie
              Wehner (2014). Bell nonlocality. Reviews of Modern Physics 86, pp. 419–478. arXiv:
              1303.2849.
-                                                      M.4 Correlations and environmental records   639
+                                                      M.4 Correlations and environmental records   641
 
 
 Anubhav Chaturvedi (2026). No Finite NPA Level Characterizes the Complete
@@ -25712,7 +25839,7 @@ Murray Gell-Mann and James B. Hartle (1995, printed 1998). Strong decoherence.
 In D.-H. Feng and B.-L. Hu (eds.), Proceedings of the 4th Drexel Conference on
 Quantum Non-Integrability: The Quantum-Classical Correspondence, International
 Press, Hong Kong. arXiv: gr-qc/9509054. The permanence of the past.
-640   M Sources
+642   M Sources
 
 
              Iulia Georgescu (2026). John Bell and the most obscure journal in physics. Physics
@@ -25750,7 +25877,7 @@ Press, Hong Kong. arXiv: gr-qc/9509054. The permanence of the past.
              of Physics 18, pp. 449–460. DOI: 10.1007/BF00732549. Landau’s 1969 Berkeley
              thesis, “Some Aspects of the Quantum Theory of Local Observables”: Mathematics
              Genealogy Project.
-                                                      M.4 Correlations and environmental records   641
+                                                      M.4 Correlations and environmental records   643
 
 
 Harold Ollivier, David Poulin and Wojciech H. Zurek (2004). Objective Properties
@@ -25788,7 +25915,7 @@ Boris Tsirelson. Wikipedia. Article. Born in Leningrad in 1950; professor at Tel
 University from 1991 to 2017.
 Jean Ville (1939). Étude critique de la notion de collectif. Gauthier-Villars, Paris.
 The maximal inequality for nonnegative martingales.
-642   M Sources
+644   M Sources
 
 
              Stephanie Wehner (2006). Tsirelson bounds for generalized Clauser-Horne-Shimony-

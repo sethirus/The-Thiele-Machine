@@ -10999,8 +10999,8 @@ some value.
 \begin{proof}
 (1) First build a program that can assemble the code of the very application
 I am about to run. The quoting program $Q$ takes a term's code and returns
-the code of that code. Appendix~\ref{sec:quoting-construction} gives its
-construction and follows it through the three kinds of term. The program
+the code of that code. Appendix~\ref{sec:quoting-construction} gives the idea of its
+construction, and the companion volume follows it through the three kinds of term. The program
 $\mathrm{mkapp}$ takes two codes and joins them into the code of an application.
 
 Make $A$ do this when handed a code $x$: quote $x$, put that quoted code
@@ -11048,7 +11048,7 @@ their $t$ is $C\,\ulcorner C \urcorner$ with $C = \lambda x.\, s\,(A\,x\,(Q\,x))
 my $A$, and their $A$, which builds the code of an application, is my $\mathrm{mkapp}$. They say they
 follow the proof in the Dutch logician Henk Barendregt's textbook on the lambda calculus (1984),
 where statement (1) is the full lambda calculus's second fixed-point theorem, and part (2) is what
-they call Scott's theorem. The term construction is given in Appendix~\ref{sec:quoting-construction};
+they call Scott's theorem. The term construction is given in the companion volume, with its idea in Appendix~\ref{sec:quoting-construction};
 the route is theirs, and Barendregt's before them.
 
 So I've given the wall on paper, on a family built to fit it, and on one outside model.
@@ -13255,9 +13255,9 @@ Now comes the part that isn't mine. Two-counter universality is Minsky's, and th
 of Forster, Larchey-Wendling and their coauthors connect it to several other models.
 The counter convention matters: DEC at zero goes on to the next instruction; otherwise
 it takes one off and jumps, the convention used in Andrej Dudenhefner's certified decision procedures
-for two-counter machines (2022). Appendix~\ref{sec:counter-constructions} builds the route
+for two-counter machines (2022). The companion volume builds the route
 from a tape to counters, packs finitely many counters into two, and gives the halting
-diagonal. The remaining step here is to match that two-counter machine to this
+diagonal (Appendix~\ref{sec:counter-constructions} points to it). The remaining step here is to match that two-counter machine to this
 machine's INC/DEC fragment, instruction for instruction.
 
 I want to be exact about what ``undecidable'' means in the theorem below, because it's
@@ -13282,7 +13282,7 @@ halting enumerable.
 The agreement is a case split on the counter-machine instruction at the current line,
 and then induction along the run, ending in Theorem~\ref{thm:u34-halting}. Composing a
 proposed decider for the compiled program with the compile map would decide two-counter
-halting. The tape-to-counter reduction in Appendix~\ref{sec:counter-constructions} would then
+halting. The tape-to-counter reduction of the companion volume (Appendix~\ref{sec:counter-constructions}) would then
 decide single-tape binary halting and so list its complement, as claimed.
 \end{proof}
 
@@ -14860,7 +14860,7 @@ program, $U_P$, runs every Thiele machine whose next move, step, prices and read
 programs that always answer: it halts when the guest's run stops, its flag goes up exactly when the
 guest's reading is yes at some state of its run, on a chain whose check is the guest's own reading,
 and its ledger is the guest's prices plus a surcharge of at most two at the raise when the guest's
-reading starts at no, and exactly three when it starts at yes, a surcharge that no program on that host, run from a clean start, can always avoid. Appendix~\ref{sec:universal-machines} has both, with their proofs.
+reading starts at no, and exactly three when it starts at yes, a surcharge that no program on that host, run from a clean start, can always avoid. Appendix~\ref{sec:universal-machines} has both; their proofs are in the companion volume.
 
 \emph{Other models of computation.} Lay the toll over a register machine, a Turing machine (with one
 move for each whole program, not one for each row of one fixed table, which provably can't serve as a base) or the
@@ -14876,7 +14876,7 @@ to carry a certificate (Appendix~\ref{sec:parts}).
 
 \emph{Running it.} The machine is built twice, once from the definitions and once by hand, and the two
 are compared after every step; $U$ and $U_P$ have run on guests small enough to finish; a compiler from a small programming language to the host is proved correct stage by stage,
-and Ackermann's function at $(3,5)$ comes out of nothing but INC and DEC (Appendix~\ref{sec:running}).
+and Ackermann's function at $(3,5)$ comes out of nothing but INC and DEC (Appendix~\ref{sec:running} and the companion volume).
 
 \emph{A check worth earning.} A flag is only as interesting as the claim under it. The CHSH game, the
 two-player game behind Bell's theorem, gives a claim whose check is a piece of real mathematics: an
@@ -16802,8 +16802,8 @@ I've given, and the proposals are where I'd aim first if I were you.
 \label{sec:ledger}
 %===========================================================================
 
-This section lists everything this book claims, one line each, with what kind of claim it is and
-where it lives. ``Proved'' means proved under the premises printed in that section, and nothing more.
+The full ledger, in the companion volume, lists everything this book claims, one line each, with what kind of claim it is and
+where it lives; this section places the headline results. ``Proved'' means proved under the premises printed in that section, and nothing more.
 If a line here ever says more than its section does, the section is right and the line is
 wrong. ``Directly from the rules'' means the claim can be read off the stated
 operations by checking their cases. ``Directly from the interface'' means its
@@ -16820,7 +16820,7 @@ the job here too. The home sections are long and they wander, and this is the on
 every claim lies still, so you can come back and find it where you left it.
 \label{sec:assumptions}
 
-The claims below are placed by where they sit in the model, with the status each carries and the premise it stands on. (S) is a structural theorem about the model or a stated machine, (C) a conditional result under a named premise no machine fact discharges, (R) a refutation by a named construction; the pointer criterion is a thesis.
+The claims below are placed by where they sit in the model, with the status each carries and the premise it stands on. (S) is a structural theorem about the model or a stated machine, (C) a conditional result under a named premise no machine fact discharges, (R) a refutation by a named construction; the pointer criterion is a thesis. A2 is the toll's name in the mathematical specification; \texttt{neutral\_complete}, \texttt{thiele\_complete} and \texttt{landauer\_heat} are the Coq names of the two completeness definitions and the heat premise.
 
 \begingroup\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\linewidth}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{\dimexpr0.50\linewidth-4\tabcolsep\relax}@{}}
@@ -17197,8 +17197,8 @@ starts, halts when they halt with their answers, earns its own flag exactly when
 raises one, and matches the ledger wherever the two line up. With PAY added, $U_P$ runs
 every computably presented Thiele machine, latches the guest's reading through its own
 earned chain, and carries the guest's ledger to within the stated surcharge: at most two at
-the raise when the reading starts at no. The theorems say which states match; the appendix
-on running it (Appendix~\ref{sec:running}) says how long this particular build takes to get there, which is a long time.
+the raise when the reading starts at no. The theorems say which states match; the companion
+volume, in its section on running it, says how long this particular build takes to get there, which is a long time.
 
 Then I changed the base and joined machines up, to see what carried over. The panel bolts onto any box with a universal base, with the boxes it won't fit named
 (Appendix~\ref{sec:every-model}). Two machines side by side need both records kept; one
@@ -17718,7 +17718,7 @@ to only one of the two layers, the entry says which.
 A \emph{partition} is a sorting of a pile into groups, nothing in two groups and nothing left
 over (Section~\ref{sec:structure}). A \emph{Thiele machine} is a state type, moves, a step, a cost per move, and a
 yes-or-no reading, plus one rule, the \emph{toll}: a move that turns the reading from no to yes
-costs at least one (Section~\ref{sec:toll}). The rule is called A2 in the conditions table (Appendix~\ref{sec:assumptions}). A move \emph{merges} when two different starting states land on
+costs at least one (Section~\ref{sec:toll}). The rule is called A2 in the mathematical specification and in the conditions table of the companion volume. A move \emph{merges} when two different starting states land on
 the same end; one that never does is \emph{injective}, it forgets nothing. A reading is
 \emph{permanent} when no move turns it from yes back to no (Section~\ref{sec:a2-not-arbitrary}).
 
@@ -18662,7 +18662,7 @@ CHECK on a slot. The host isn't copying a bit; it runs the same chain on its own
 
 \begin{definition}[The program $U$, and loading a guest]\label{def:u34-U}
 $U$ is the fixed list of 3728 host instructions specified by the block expansions in
-Appendix~\ref{sec:universal-blocks}, starting at line 1 and
+the companion volume (Appendix~\ref{sec:universal-blocks} points to them), starting at line 1 and
 mentioning registers 0 to 80; exactly 69 of them cost anything. For a guest program $P$ and a
 start $(x, y)$, the \emph{loaded host} $\mathrm{hload}(P, x, y)$ has register 0 at $x$, register 1
 at $y$, register 2 at the number of $P$, register 3 at 1 and every other register at 0, every
@@ -18742,8 +18742,8 @@ a different property language needs a different host property; the host of the n
 has one, a single property that reads a universal claim language. Sixteen slots per counter is
 the guest's whole table size, reserved for each counter in case every fact is about that one.
 And it's slow: for every guest step it unpacks the program number from the front again,
-and it copies a number one pebble at a time. That's where the running time in
-Appendix~\ref{sec:running} comes from. The theorems above say nothing about time; they match
+and it copies a number one pebble at a time. That's where the running time reported in
+the companion volume's section on running it comes from. The theorems above say nothing about time; they match
 states and ledgers at the points where the two line up.
 
 Enforcement in the step is the reference monitor's move from Section~\ref{sec:established}, Anderson's 1972
@@ -19352,7 +19352,7 @@ as $F(e)$ once the properties and counters of the recorded facts count.
 \end{theorem}
 
 The counterexample in (2) is short. Number the programs the way $U$ numbers its guests
-(Appendix~\ref{sec:universal-blocks}), so a program's number is above the code of every property
+(Appendix~\ref{sec:universal-blocks}, in the companion volume), so a program's number is above the code of every property
 it names. Let $F(p)$ be the one-line program that checks that bin A holds at least the number of
 $p$ plus one. A program can only record facts about properties it names, so no $e$ can record the
 fact $F(e)$ records, and from a large enough input $F(e)$ does record it.
@@ -19858,7 +19858,7 @@ are the weak call-by-value lambda calculus L, Turing machines, two Minsky instru
 conventions, binary stack machines, Conway's FRACTRAN, and the $\mu$-recursive functions,
 and that they all compute the same things is Minsky's, Shepherdson and Sturgis's, and Forster,
 Larchey-Wendling and their coauthors' work. The translations, with how each one writes its
-inputs and reads its outputs, are in Appendix~\ref{sec:counter-constructions}.
+inputs and reads its outputs, are in the companion volume (Appendix~\ref{sec:counter-constructions}).
 
 \begin{theorem}[The base doesn't matter]\label{thm:lift-models}
 (1) A relation on numbers that's computable in any one of those seven models is computable in all
@@ -19871,7 +19871,7 @@ computable in all seven.
 \end{theorem}
 
 \begin{proof}
-(1) Compose the translations of Appendix~\ref{sec:counter-constructions}.
+(1) Compose the translations of the companion volume (Appendix~\ref{sec:counter-constructions}).
 (2) Encode a configuration as $\langle\ell,\langle a,b\rangle\rangle$.
 Decoding, performing one INC or DEC, and encoding the result are the total finite
 arithmetic operations constructed there. So the window follows
@@ -19940,7 +19940,7 @@ the counter positive. Start that same stretch at level $b$: every counter value 
 $b-a$, so still positive, every DEC goes the same way, and the run comes back to line $\ell$ at
 level $2b-a$. Repeat forever. Either way a run still live at time $T$ never stops, so a run that
 stops does so within $T$ steps, and running $P$ for $T$ steps decides it. (2) The tape simulation,
-prime packing and halting diagonal of Appendix~\ref{sec:counter-constructions}, carried over to the
+prime packing and halting diagonal of the companion volume (Appendix~\ref{sec:counter-constructions}), carried over to the
 book's instruction set line by line. (3) Such a translation, followed by the test in (1), would
 decide two-counter halting, against (2).
 \end{proof}
@@ -19956,7 +19956,7 @@ these describe the coverage proved here. Two further classification questions co
 bases outside those classes and the possibility of certification through an interface
 other than the lift's own.
 
-The tape-to-counter construction of Appendix~\ref{sec:counter-constructions} connects
+The tape-to-counter construction of the companion volume (Appendix~\ref{sec:counter-constructions}) connects
 bases through what they compute. The lift then supplies the record operations. Its tally
 is one edition number for the whole box, whereas the small machine keeps an edition per
 counter. That coarser tally is enough for the lift's arguments. To run the lifted machine
@@ -20782,7 +20782,7 @@ $S^2 < 8$, and passing tallies come as close to 8 as you like.
 \begin{proof}
 Theorem~\ref{thm:u23-notrap-psd} makes the pinned matrix of these four correlators PSD, and
 Theorem~\ref{thm:chsh-psd-tsirelson} in the appendix, which holds of every such matrix, gives
-$S^2\le8$; the calculation with the quadratic form is printed there. The score is a ratio of whole numbers, and no such ratio
+$S^2\le8$; the calculation with the quadratic form is printed in the companion volume. The score is a ratio of whole numbers, and no such ratio
 squares to 8, so the bound is strict. The tallies whose four correlators are
 $n/q, n/q, n/q, -n/q$ with $2n^2 \le q^2$ pass, and their scores $4n/q$ come as near
 $2\sqrt 2$ as you like.
@@ -21135,7 +21135,7 @@ whole row to zero. So the completion hands over four unit vectors,
 $a_0, a_1$ for Alice and $b_0, b_1$ for Bob, with $a_x \cdot b_y$ equal to the table's
 entries, and they fit in three dimensions: slide one of the two entries the table leaves open to
 the end of the range that keeps the completion PSD, and there the completion is singular, which
-puts the four vectors in a space of three dimensions. Appendix~\ref{sec:chsh-derivation}, Section~\ref{sub:four-vectors}, gives the
+puts the four vectors in a space of three dimensions. The companion volume's four-vector construction (Section~\ref{sub:four-vectors} points to it) gives the
 factorization and the measurements explicitly. Now comes the trick. There are three real four-by-four matrices, built from the two-by-two ones that swap
 two entries or flip the sign of one, that each square to the identity and anticommute in pairs:
 multiply any two of them in either order and the answers differ only in sign. Use a vector's three components to mix
@@ -21155,7 +21155,7 @@ build each of Alice's from the two angles it has to make with them, and check th
 out nonnegative. So a table has a PSD completion exactly when its arcsines pass the four
 inequalities, and those are exactly the quantum tables. The point $(3/5, 4/5, 4/5, -3/5)$ sits on the edge, because
 $\arcsin\tfrac35 + \arcsin\tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 triangle, and so does Tsirelson's point. The interval construction, including both endpoint cases,
-is in Section~\ref{sub:arcsine-construction}.
+is in the companion volume (Section~\ref{sub:arcsine-construction} points to it).
 
 \subsection{Any number of levels, and one converse that fails}
 
@@ -21180,8 +21180,8 @@ proves only one direction, that a finite local model satisfies the bound, and it
 stated is false: a table with $S = 0$ that no local model produces.
 Fine's own theorem, in the form that speaks of correlations, is proved separately as an
 equivalence: a table of four correlators comes from a local model exactly when each is between
-$-1$ and $1$ and all eight CHSH inequalities hold. Section~\ref{sub:finite-local-construction}
-constructs the finite distribution. And one more thing about tallies, which the guarantee paragraph above already used: a tally loaded at no charge
+$-1$ and $1$ and all eight CHSH inequalities hold. The companion volume
+constructs the finite distribution (Section~\ref{sub:finite-local-construction} points to it). And one more thing about tallies, which the guarantee paragraph above already used: a tally loaded at no charge
 is not thereby classical (the four rounds with S equal to four). The correlators (one, one, one, minus one) are the PR box, which no classical model has as its averages, though coin-flip play lands on that four-round tally one time in sixteen; the classical vertex this
 appendix used, which fails the check like every plan, is (one, one, one, one).
 
@@ -21209,6 +21209,39 @@ add the scores and divide by the number of rounds. That pile's average is its
 \emph{correlator}. It says how strongly the two answers agree for that pair of
 settings.
 
+\begin{definition}[Settings, outcomes, correlators]\label{def:chsh-setting}
+Alice receives a setting $x \in \{0,1\}$ and Bob a setting $y \in \{0,1\}$. Each answers a
+bit, recoded as an outcome $a, b \in \{+1, -1\}$ (bit 0 becomes $+1$, bit 1 becomes $-1$).
+The correlator $E_{xy}$ is the average of the product $ab$ over the rounds with settings
+$(x, y)$. The CHSH quantity is
+\[
+S = E_{00} + E_{01} + E_{10} - E_{11}.
+\]
+I collect the four correlators into the $2 \times 2$ matrix
+\[
+E = \begin{pmatrix} E_{00} & E_{01} \\ E_{10} & E_{11} \end{pmatrix},
+\]
+whose rows are indexed by Alice's setting and whose columns by Bob's. The rows of $E$ are
+$(E_{00}, E_{01})$ and $(E_{10}, E_{11})$; the columns are $(E_{00}, E_{10})$ and
+$(E_{01}, E_{11})$.
+\end{definition}
+
+\begin{definition}[Counters]\label{def:chsh-counters}
+There are eight counts: for each setting pair, $\mathrm{same}_{xy}$ counts rounds
+whose two answer bits matched and $\mathrm{diff}_{xy}$ counts rounds whose bits differed. A
+round adds one to exactly one of the eight. Write
+\[
+N_{xy} = \mathrm{same}_{xy} + \mathrm{diff}_{xy}, \qquad
+D_{xy} = \mathrm{same}_{xy} - \mathrm{diff}_{xy}, \qquad
+E_{xy} = \frac{D_{xy}}{N_{xy}}.
+\]
+\end{definition}
+
+A matched round contributes $ab = +1$ and a differing round $ab = -1$, so $D_{xy}$ is the sum
+of the products and $D_{xy}/N_{xy}$ is their average. Since $|D_{xy}| \le N_{xy}$, every
+correlator from counters lies in $[-1,1]$. When a bucket is empty, its correlator is defined
+as 0. The score is $E_{00}+E_{01}+E_{10}-E_{11}$.
+
 \subsection{The classical bound}
 \label{sub:chsh-classical}
 Write a fixed plan on a card: Alice's answer to setting zero, her answer to
@@ -21219,9 +21252,28 @@ them gives zero. If they differ, the sum is zero and the difference is plus
 or minus two. One of those two quantities vanishes; the other cannot exceed
 two in size. The next calculation uses exactly that split.
 
+\begin{definition}[Finite factorizable model]\label{def:chsh-factorizable}
+Four real correlators $E_{00}, E_{01}, E_{10}, E_{11}$ are factorizable when there are a
+natural number $\lambda_{\max}$, weights $p(\lambda)$ and response signs $A(x, \lambda)$,
+$B(y, \lambda)$ for $\lambda = 0, \ldots, \lambda_{\max}$ such that:
+$0 \le p(\lambda) \le 1$;
+$\sum_{\lambda = 0}^{\lambda_{\max}} p(\lambda) = 1$; every $A(x, \lambda)$ and every
+$B(y, \lambda)$ is $-1$ or $+1$; and for all $x, y$,
+$E_{xy} = \sum_{\lambda=0}^{\lambda_{\max}} p(\lambda) A(x, \lambda) B(y, \lambda)$.
+In words: a hidden card $\lambda$ is drawn with probability $p(\lambda)$, and each player reads
+an answer off the card using only their own setting. Only the correlators are modelled.
+\end{definition}
+
 \begin{theorem}[The classical bound for a finite local model]\label{thm:chsh-fine}
 If $E$ is factorizable, then $-2 \le E_{00} + E_{01} + E_{10} - E_{11} \le 2$.
 \end{theorem}
+
+\begin{definition}[A tally consistent with one local plan]\label{def:chsh-wclc}
+For bits $a_0, a_1, b_0, b_1 \in \{0, 1\}$ and a counter record $w$, $w$ is locally consistent with
+$(a_0, a_1, b_0, b_1)$ when, for each setting pair $(x, y)$: if $a_x = b_y$ then
+$\mathrm{diff}_{xy} = 0$, otherwise $\mathrm{same}_{xy} = 0$; and every bucket is sampled,
+$N_{00}, N_{01}, N_{10}, N_{11} > 0$.
+\end{definition}
 
 \begin{theorem}[A tally above 2 is not one replayed strategy]\label{thm:chsh-tally}
 Let $w$ be a counter record whose rational score $S(w)$ is greater than 2.
@@ -21247,6 +21299,11 @@ For all real $a, b, c, d$,
 \]
 
 \end{lemma}
+
+\begin{theorem}[Row-bound form of Tsirelson's bound]\label{thm:chsh-row-tsirelson}
+For all real $E_{00}, E_{01}, E_{10}, E_{11}$ with $E_{00}^2 + E_{01}^2 \le 1$ and
+$E_{10}^2 + E_{11}^2 \le 1$, $S^2 \le 8$. The absolute form $|S| \le \sqrt 8 = 2\sqrt 2$ follows.
+\end{theorem}
 
 \begin{theorem}[Tightness]\label{thm:chsh-tight}
 The point $E_{00} = E_{01} = E_{10} = 1/\sqrt 2$, $E_{11} = -1/\sqrt 2$ satisfies both row
@@ -21280,6 +21337,21 @@ the Alice--Bob cells, and set the four one-party entries (each player's own aver
 the two within-party entries ($A_0$ against $A_1$, $B_0$ against $B_1$) to zero. The resulting
 matrix is:
 \end{definition}
+
+\[
+M(E) \;=\;
+\begin{array}{c@{\quad}c}
+ & \begin{array}{ccccc} I & A_0 & A_1 & B_0 & B_1 \end{array} \\
+\begin{array}{c} I \\ A_0 \\ A_1 \\ B_0 \\ B_1 \end{array} &
+\begin{pmatrix}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & E_{00} & E_{01} \\
+0 & 0 & 1 & E_{10} & E_{11} \\
+0 & E_{00} & E_{10} & 1 & 0 \\
+0 & E_{01} & E_{11} & 0 & 1
+\end{pmatrix}
+\end{array}
+\]
 
 \begin{lemma}[Schur complement, the standard form]\label{lem:chsh-schur}
 Let $P$ be symmetric positive definite. The symmetric block matrix
@@ -21339,6 +21411,8 @@ If a tally $w$ passes the seven-integer check, the correlators of $w$ satisfy
 $S^2 \le 8$. It is the composition of Theorem~\ref{thm:chsh-check-sound},
 Corollary~\ref{cor:chsh-iff} and Theorem~\ref{thm:chsh-psd-tsirelson}.\proofclosed \end{corollary} Two of the seven facts carry the bound by themselves. With every pair sampled, $0\le A$ and $0\le B$ are $p\ge0$ and $q\ge0$, so the four squared correlators add to at most 2 and Lemma~\ref{lem:chsh-sos} gives $S^2\le8$. The fact $C\cdot C\le A\cdot B$ is what positive semidefiniteness adds, and the bound doesn't use it.
 For the form this takes on the small machine, where a raised flag has to stand on a passing
+check, see Appendix~\ref{sec:chsh}.
+
 \subsection{Level 1+AB}
 \label{sub:chsh-q1ab}
 The first table had one place for each player's answer. Enlarge it by giving
@@ -21354,6 +21428,43 @@ The $9 \times 9$ real matrix on rows and
 columns $I, A_0, A_1, B_0, B_1, A_0B_0, A_0B_1, A_1B_0, A_1B_1$, with the following entries:
 \end{definition}
 
+\[
+\setlength{\arraycolsep}{3.2pt}
+\begin{array}{c|ccccccccc}
+ & I & A_0 & A_1 & B_0 & B_1 & A_0B_0 & A_0B_1 & A_1B_0 & A_1B_1 \\ \hline
+I      & 1 & 0 & 0 & 0 & 0 & E_{00} & E_{01} & E_{10} & E_{11} \\
+A_0    & 0 & 1 & 0 & E_{00} & E_{01} & 0 & 0 & \gamma_1 & \gamma_2 \\
+A_1    & 0 & 0 & 1 & E_{10} & E_{11} & \gamma_1 & \gamma_2 & 0 & 0 \\
+B_0    & 0 & E_{00} & E_{10} & 1 & 0 & 0 & \gamma_3 & 0 & \gamma_4 \\
+B_1    & 0 & E_{01} & E_{11} & 0 & 1 & \gamma_3 & 0 & \gamma_4 & 0 \\
+A_0B_0 & E_{00} & 0 & \gamma_1 & 0 & \gamma_3 & 1 & 0 & 0 & \gamma_5 \\
+A_0B_1 & E_{01} & 0 & \gamma_2 & \gamma_3 & 0 & 0 & 1 & -\gamma_5 & 0 \\
+A_1B_0 & E_{10} & \gamma_1 & 0 & 0 & \gamma_4 & 0 & -\gamma_5 & 1 & 0 \\
+A_1B_1 & E_{11} & \gamma_2 & 0 & \gamma_4 & 0 & \gamma_5 & 0 & 0 & 1
+\end{array}
+\]
+
+Write a vector as $(v_I, v_{A_0}, v_{A_1}, v_{B_0}, v_{B_1}, v_{00}, v_{01}, v_{10}, v_{11})$,
+where $v_{xy}$ is the coordinate of $A_xB_y$. Put
+\[
+\begin{aligned}
+L_1 &= E_{00} v_{00} + E_{01} v_{01} + E_{10} v_{10} + E_{11} v_{11}, \\
+L_2 &= E_{00} v_{B_0} + E_{01} v_{B_1} + \gamma_1 v_{10} + \gamma_2 v_{11}, \\
+L_3 &= E_{10} v_{B_0} + E_{11} v_{B_1} + \gamma_1 v_{00} + \gamma_2 v_{01}.
+\end{aligned}
+\]
+
+\begin{definition}[The residual]\label{def:chsh-residual}
+\[
+\begin{aligned}
+R ={}& v_{B_0}^2 + v_{B_1}^2 + v_{00}^2 + v_{01}^2 + v_{10}^2 + v_{11}^2 \\
+&+ 2 v_{B_0} (\gamma_3 v_{01} + \gamma_4 v_{11}) + 2 v_{B_1} (\gamma_3 v_{00} + \gamma_4 v_{10}) \\
+&+ 2 \gamma_5 (v_{00} v_{11} - v_{01} v_{10}) - L_1^2 - L_2^2 - L_3^2.
+\end{aligned}
+\]
+The condition called column contractivity at level 1+AB is $R \ge 0$ for all six real inputs.
+\end{definition}
+
 \begin{theorem}[PSD at level 1+AB]\label{thm:chsh-nine-iff}
 For all real $E_{xy}$ and $\gamma_1, \ldots, \gamma_5$,
 the matrix of Definition~\ref{def:chsh-nine} is positive semidefinite if and only if
@@ -21366,6 +21477,37 @@ Go back to the two within-player cells I filled with zero. Leave them blank
 this time. Keep all four measured cross-player averages fixed, and ask whether
 there is any way to fill those two blanks that makes the table pass. A failure
 with zeros no longer settles the question; another filling may work.
+
+\begin{definition}[Completion and membership]\label{def:chsh-elliptope}
+Complete the matrix of Section~\ref{sub:chsh-five} by setting the
+within-party entries to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the
+$(B_0, B_1)$ cells, marginals still zero. The correlators are elliptope realizable
+ when some $x, y$ make the completed matrix symmetric and PSD.
+\end{definition}
+
+\[
+M(E; x, y) \;=\;
+\begin{pmatrix}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & x & E_{00} & E_{01} \\
+0 & x & 1 & E_{10} & E_{11} \\
+0 & E_{00} & E_{10} & 1 & y \\
+0 & E_{01} & E_{11} & y & 1
+\end{pmatrix}
+\]
+
+Its quadratic form at $v = (v_0, \ldots, v_4)$ is
+$\sum_k v_k^2 + 2x v_1 v_2 + 2y v_3 v_4 + 2E_{00} v_1 v_3 + 2E_{01} v_1 v_4 + 2E_{10} v_2 v_3
++ 2E_{11} v_2 v_4$. The pinned matrix is the case $x = y = 0$,
+so PSD of $M(E)$ implies membership.
+
+\begin{definition}[The two branches]\label{def:chsh-gate}
+The positive-minor branch: with the completion supplied as buckets and all
+entries scaled to integers by a positive common factor $K$, the four leading minors of
+the $4 \times 4$ block on $A_0, A_1, B_0, B_1$ are strictly positive. The factorization branch: with the completion and a rational certificate supplied (six subdiagonal entries over
+a common positive denominator, four pivots $d_k \ge 0$ over another), the ten entry equations
+of $M = L D L^{\mathsf T}$ hold in cross-multiplied integer arithmetic. The full gate is their disjunction.
+\end{definition}
 
 \begin{theorem}[Soundness of the gate]\label{thm:chsh-gate-sound}
 If the full gate returns yes on a counter record, any
