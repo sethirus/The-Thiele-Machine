@@ -2,7 +2,7 @@
 
 A Thiele machine is a thing, the directions it can move in, and a price on each direction. A direction turns the thing into the next thing. A direction that makes a distinction stay is never free.
 
-That is the whole definition. Ordinary computation is the special case. Tear off the price column, forget which distinctions stayed, and what is left is a Turing machine. The forgetting is the slice. This repository is the account of what the forgetting throws away.
+That is the whole definition. A machine whose directions never make a distinction stay is the flat case, and the rule has nothing to say to it: a clock is one, a reversible process is one, and so is ordinary computation. Tear off the price column, forget which distinctions stayed, and what is left is a Turing machine. This repository is the account of what that forgetting throws away.
 
 The model is developed in a monograph: [Read the monograph](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Monograph source](monograph/monograph.tex) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf)
 
@@ -22,7 +22,7 @@ The smallest record has two positions, no and yes. Then the record is a yes-or-n
 
 The Thiele Machine is that definition. It is a machine the way Turing's machine is one: mathematics you can reason about, not a device, not an instruction set and not a book. The book is where I work out what follows.
 
-Every deterministic machine is already a Thiele machine: let the record stand still and every move cost nothing. The ordinary computer sits inside the definition as the case where nothing is kept and nothing is charged. Keep that direction in mind throughout. The computer is the shadow of the machine, not the floor it is built on.
+Every machine whose moves never climb the order is a Thiele machine in the flat case, where the toll never charges: a clock, a reversible process, any deterministic machine with its record standing still. The ordinary computer is one member of that case, and only one. Keep that direction in mind throughout. The computer is a shadow of the machine, not the floor it is built on.
 
 One theorem comes with the definition and nothing else. A run that starts with the record at no and ends with it at yes pays at least one. That is the universal floor, and it holds for every machine that meets the definition. The bar is nearly empty on purpose: a clock that charges one for every move clears it. The theorems with teeth come when the record has to stay, when the states run out, or when a window is added.
 
@@ -30,7 +30,7 @@ To ask what a computation hides, add a window. A **sliced** Thiele machine is a 
 
 Put a dial with four positions beside a slider with three stops. ROTATE moves the dial one position around for free and leaves the slider alone. ADVANCE moves the slider toward its last stop, leaves the dial alone and costs one. At the last stop the reading is yes; at the other two it is no. ADVANCE pays when it first reaches yes, and still costs one when pressed at the last stop. The price belongs to the button. Look only at the dial: ROTATE moves the picture and ADVANCE leaves it alone. That is a sliced machine before any checking or certification enters the story.
 
-Every ordinary machine is the shadow of a sliced machine, and the book builds the one that stands above it: the machine's own picture, a record, and a ledger, with a charge of one on every move that can set the record. Projection forgets those coordinates; embedding a base state with record down and ledger zero preserves every computing run exactly. A mark can distinguish states above the same view. The lift preserves base transitions, not any previous price or reading, and it adds no computable functions: with an effective base and event, ordinary computation can encode all these coordinates. What it adds is distinctions within a fibre. The formal bridges and their counterexamples are in `coq/audit/`.
+Every flat machine is the shadow of a sliced machine, and the book builds the one that stands above it: the machine's own picture, a record, and a ledger, with a charge of one on every move that can set the record. Projection forgets those coordinates; embedding a base state with record down and ledger zero preserves every computing run exactly. A mark can distinguish states above the same view. The lift preserves base transitions, not any previous price or reading, and it adds no computable functions: with an effective base and event, ordinary computation can encode all these coordinates. What it adds is distinctions within a fibre. The formal bridges and their counterexamples are in `coq/audit/`.
 
 ## The tabletop and everything above it
 
@@ -78,9 +78,9 @@ A variable with a reassuring name has the same problem. To make acceptance mean 
 
 For the abstract sliced interface, horizontal moves evolve the tabletop by a rule depending only on its current picture and leave the record alone. Vertical establishment leaves the picture fixed and can raise the record. Give two states the same picture and the same horizontal instruction sequence: their pictures agree after every step, even if their records differ throughout.
 
-Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. For that to happen a raise has to exist, and nothing else is needed: no universal base and no premise about the control.
+Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. For that to happen a raise has to exist, and nothing else is needed: no premise about what the tabletop computes and none about the control.
 
-Thiele-complete is the stricter notion, and it does ask for universality. The picture must run every program, as a Turing machine can. On top of that, computing costs nothing and never touches the record, the record stays up once it is up, starts have it down, marks cost exactly one, and some run raises the record from one start and not another. Every machine that meets it hides its record and its ledger from its own window. Every machine with a universal base is the shadow of one. An account that prices certification exactly cannot compute the price from a window that shows a certifying step and a non-certifying step the same way.
+The book holds its example to more than the definition asks, and calls that **certified**: the moves of its flat part cost nothing and never touch the record; the record stays up once it is up; from a clean start it rises only after a passing check of a claim, a commitment to the same claim with the thing unchanged in between, and a certificate, at one unit each; and some claim's chain raises the record from one start and not another. A machine that meets all four hides its record and its ledger from a window on its flat part. An account that prices certification exactly cannot compute the price from a window that shows a certifying step and a non-certifying step the same way. The specification carries the same four things under their Coq names, Thiele completeness and certified Thiele completeness, stated over one flat case, a two-counter computing part.
 
 ## What keeping takes
 
@@ -148,7 +148,7 @@ The book also follows a growing record through its threshold readings: each thre
 
 The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument.
 
-The counting, the floor, the window results, the lift and the slice are theorems under the hypotheses they state. Two things in the book are not. The general pointer criterion is a thesis. It carries no proof. It proposes certification as the event worth recording, because certified records get copied and relied on by parties who did not produce them. Separately, and unnumbered, the book argues that the record and its price are part of computation itself and not something added afterwards, and states the Thiele thesis, a claim about physical processes. The book gives both separately from the counting theorems, and presents neither as a theorem.
+The counting, the floor, the window results and the flat case are theorems under the hypotheses they state. Two things in the book are not. The general pointer criterion is a thesis. It carries no proof. It proposes certification as the event worth recording, because certified records get copied and relied on by parties who did not produce them. Separately, and unnumbered, the book argues that the record and its price are part of computation itself and not something added afterwards, and states the Thiele thesis, a claim about physical processes. The book gives both separately from the counting theorems, and presents neither as a theorem.
 
 ## Follow the argument
 
@@ -164,11 +164,11 @@ Most of the repository's volume is the example, because an example that runs nee
 - **What stays.** Latches, the record over any base, growing records, and the earned chain that makes a raised record mean a check happened: `coq/kernel/foundation/StructuralRecordAxis.v`, `AxLatch.v`, `GrowingRecord.v`, `minimal/CertifiedHistory.v`.
 - **What a window forgets.** Observation contracts, the terminal lift, shadow pricing, and the window theorems: `coq/audit/`, `coq/kernel/foundation/AxWindow.v`, `minimal/ThieleCompleteWindow.v`, `minimal/SliceCore.v`.
 - **The room a kept distinction needs.** Merge or fresh states, retention bounds, fibre counts, and the stochastic and unitary forms: `minimal/StepLaw.v`, `HeatOrRoom.v`, `KeptDistinction.v`, `EditionCapacity.v`, `NoisyChairs.v`, `QuantumChairs.v`, `coq/kernel/foundation/AxMerge.v`.
-- **Computation as the special case.** Universal bases, the lift of every model, Thiele completeness, composition, the universal machines U and U_P, the verified compiler, the recursion theorem and Rice: `minimal/LiftCore.v`, `NeutralComplete.v`, `ThieleComplete.v`, `coq/kernel/foundation/Universal*.v`, `Cmp*.v`, `Cz*.v`, `*Rice.v`.
+- **Computation as the flat case.** A flat part fitted with a record (the lift of every model), completeness over a two-counter flat part, composition, the universal machines U and U_P, the verified compiler, the recursion theorem and Rice: `minimal/LiftCore.v`, `NeutralComplete.v`, `ThieleComplete.v`, `coq/kernel/foundation/Universal*.v`, `Cmp*.v`, `Cz*.v`, `*Rice.v`.
 - **The example running.** The small machine's programs, host layouts, blocks and arithmetic: `minimal/EarnedCore.v`, `coq/kernel/foundation/UniversalLayout.v`, `UniversalBlocks.v`, `Sm*.v`, `minimal/Tc2*.v`. In code: `thiele_small/`, a Python version of the example and nothing else.
 - **The world.** Heat, entropy, the CHSH and Tsirelson mathematics, external systems, and the pointer thesis: `coq/kernel/thermodynamic/`, `coq/kernel/quantum/`, `coq/kernel/reductions/`, `coq/kernel/frontier/`.
 
-In the book: the drawing is Parts I and II; computation as the special case is the chapters on every model of computation; the example running is Part III and the appendices.
+In the book: the drawing is Parts I and II, with the flat case stated beside the definition; the example running is Part III and the appendices.
 
 ## Publication and license
 

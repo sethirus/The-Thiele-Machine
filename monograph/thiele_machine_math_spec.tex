@@ -52,7 +52,7 @@
 
 \noindent\textbf{The Thiele Machine is an abstract model of computation, and an argument made with it about what an account of computation should preserve.}
 
-It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model is a set of states, moves, a step, a price on each move, a record that can be compared, and one rule, the toll: a move that takes the record out of the down-set of where it stood pays at least one. Any system with those parts is a Thiele machine. A yes-or-no reading is the smallest record, and most of what follows is stated on it. Forget the prices and the record and what is left is an ordinary deterministic machine; the results below are about what that forgetting throws away. A small two-counter machine whose commitments are earned is one example, and a universal machine U is another. They show the definition can be met. They are not the model.
+It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model is a set of states, moves, a step, a price on each move, a record that can be compared, and one rule, the toll: a move that takes the record out of the down-set of where it stood pays at least one. Any system with those parts is a Thiele machine. A yes-or-no reading is the smallest record, and most of what follows is stated on it. A machine whose moves never leave the down-set is the flat case, where the toll asks nothing: a clock, a reversible process and every ordinary deterministic machine are members of it. Forget the prices and the record of any Thiele machine and what is left is one of them; the results below are about what that forgetting throws away. A small two-counter machine whose commitments are earned is one example, and a universal machine U is another. They show the definition can be met. They are not the model.
 
 The structural question is what a total deterministic process needs to raise a reading and keep it: a merge along the run or endlessly fresh states. A physical price needs separate hypotheses. Landauer bounds depend on the physical model and input distribution; finite-time entropy-production bounds here concern specified thermal stochastic dynamics, not every physical state change. Certification, a record that a claim was checked and closed, is the sharpest case. It is one example of a wider question about structural state, observation and cost. A window, a function from states to what can be seen of them (Chapter~\ref{ch:windows}), can lose distinctions that the full state keeps, such as the record and the ledger; the cost laws of Chapters~\ref{ch:nfi} and~\ref{ch:finite} constrain specified events under hypotheses each theorem names. A conventional encoding can preserve those distinctions. A window that discards them cannot recover them in general. The stronger proposal that these distinctions belong in a necessary foundation of computation is a conjecture. The status of each result is stated below.
 
@@ -67,7 +67,7 @@ The structural results (S), by where they sit in the model:
   \item \emph{What stays.} A free move cannot touch a permanent reading. The record axis over any base is a latch, and a growing record decomposes into threshold latches. The small machine's earned provenance, checker soundness and minimum price.
   \item \emph{What a window forgets.} The coarsest observational identification and the terminal lift. The window theorem for every Thiele-complete machine, with a gap of one, and for every certified Thiele-complete machine, with a gap of three.
   \item \emph{The room a kept distinction needs.} On any state space a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory, and the stochastic and unitary forms of the same count.
-  \item \emph{Computation as the special case.} Thiele completeness and certified Thiele completeness; the lift of every universal base to a certified Thiele-complete machine and its converse; composition; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself.
+  \item \emph{Computation as the flat case.} Over one flat case, a machine with a universal two-counter computing part: Thiele completeness and certified Thiele completeness; the lift of every such flat part to a certified Thiele-complete machine and its converse; composition; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself.
   \item \emph{The world.} The classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix.
 \end{itemize}
 The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
@@ -80,7 +80,7 @@ The failure of every clock-style machine, the limits of lifting and of compositi
 
 The Thiele Machine describes a computation by what it reads and writes, by a record of what the computation established, and by a ledger of what establishing it cost, with a rule tying the last two together: the step that raises the record pays. The chapters below state that rule, derive its consequences, show which machines carry it, and prove where a window that hides the record and the ledger loses information.
 
-Chapter~\ref{ch:nfi} states the model, its toll and the universal floor. Chapter~\ref{ch:finite} derives the toll on finite machines from the price of merging states and checks which premises are needed. Chapter~\ref{ch:windows} states what a window can decide and price. Chapter~\ref{ch:small} defines the small machine. Chapter~\ref{ch:complete} defines Thiele completeness and certified Thiele completeness, states the window theorem for each, lifts any universal base of any model of computation to a certified Thiele-complete machine, composes certified Thiele-complete machines, and shows each clause is needed. Chapter~\ref{ch:universal} states the universal host, the universal machine U, the priced host's program U\textsubscript{P}, a verified compiler onto these machines and the extraction to OCaml. Chapter~\ref{ch:undecidability} states the recursion and undecidability results, for L and for the two-counter machine itself. Chapter~\ref{ch:record} states the record axis over any base and the latch decomposition of growing records. Chapter~\ref{ch:chsh} states the CHSH and Tsirelson mathematics. Chapter~\ref{ch:physics} states the physical boundary. Chapter~\ref{ch:external} states the models of external systems and the pointer thesis.
+Chapter~\ref{ch:nfi} states the model, its toll and the universal floor. Chapter~\ref{ch:finite} derives the toll on finite machines from the price of merging states and checks which premises are needed. Chapter~\ref{ch:windows} states what a window can decide and price. Chapter~\ref{ch:small} defines the small machine. Chapter~\ref{ch:complete} takes one flat case, a machine with a universal two-counter computing part, defines Thiele completeness and certified Thiele completeness over it, states the window theorem for each, lifts any such flat part, from any model of computation, to a certified Thiele-complete machine, composes certified Thiele-complete machines, and shows each clause is needed. Chapter~\ref{ch:universal} states the universal host, the universal machine U, the priced host's program U\textsubscript{P}, a verified compiler onto these machines and the extraction to OCaml. Chapter~\ref{ch:undecidability} states the recursion and undecidability results, for L and for the two-counter machine itself. Chapter~\ref{ch:record} states the record axis over any base and the latch decomposition of growing records. Chapter~\ref{ch:chsh} states the CHSH and Tsirelson mathematics. Chapter~\ref{ch:physics} states the physical boundary. Chapter~\ref{ch:external} states the models of external systems and the pointer thesis.
 
 %=============================================================================
 \chapter{Notation and Conventions}
@@ -109,12 +109,14 @@ record along steps, not finiteness. Neither permanence nor an internal ledger
 is part of the definition; the results that use them say so.
 \end{definition}
 
-\paragraph{Computation as the special case.}
-Forget $\cost$ and $\mathrm{rec}$ and what remains is $(S, I, \mathrm{step})$, a
-deterministic transition system. Every such system is a Thiele machine: give
-it a constant record and price zero on every instruction. No step leaves the
-down-set, so A2 holds. This is immediate from the definition and has no
-separate Coq counterpart. The theorems of this reference are about what that
+\paragraph{The flat case, and computation as one of its members.}
+A Thiele machine is \emph{flat} when no step leaves the down-set of its record,
+so A2 holds with nothing to charge. A clock is flat, a reversible process is
+flat, and so is any deterministic transition system $(S, I, \mathrm{step})$
+given a constant record: forget $\cost$ and $\mathrm{rec}$ from any Thiele
+machine and what remains is a flat one. This is immediate from the definition
+and has no separate Coq counterpart. Ordinary computation is one flat case
+among others, and the theorems of this reference are about what the
 forgetting throws away.
 
 \paragraph{The one-bit instance.}
@@ -673,7 +675,7 @@ From any state of the small machine, every run that ends certified costs at leas
 A machine is a state type, a move type, a step, a cost per move and a record $\cert : S \to \B$ (record \texttt{machine}). It is the one-bit instance of the definition in Chapter~\ref{ch:nfi}.
 \end{definition}
 
-The toll and a universal base alone are a low bar: a two-counter machine that charges $1$ for every move has a universal base and obeys the toll for any record (\texttt{clock\_weakly\_thiele\_complete}).
+This chapter is about one flat case: a machine whose computing part runs every two-counter program. Nothing in it is the definition of a Thiele machine, which Chapter~\ref{ch:nfi} stated over any order; the flat case already meets that definition, and completeness names what a record over this particular flat part adds. The toll and a universal base alone are a low bar: a two-counter machine that charges $1$ for every move has a universal base and obeys the toll for any record (\texttt{clock\_weakly\_thiele\_complete}).
 
 \begin{definition}[Thiele complete]
 A machine is Thiele-complete when it can be read through a universal base (as in clause (a) below, without clean starts), a split of its moves into computing moves and marks, and a ledger, such that: computing moves never change the record and the record once up stays up; every loaded start has the record down; computing moves cost $0$, every other move costs exactly $1$, and the ledger grows by the cost of each move; and some run ends with the record up from one loaded start and down from another. Nothing in it says what the record is about.
@@ -1075,7 +1077,7 @@ Merge or fresh states & \textbf{(S)} & Total deterministic step, permanent raise
 Sharp retention bound & \textbf{(S)} & Finite implementation, distinct representatives, reset and injectivity through the specified horizon \\
 Stochastic and unitary holding & \textbf{(S)} & Finite stochastic kernel with column constraints, or finite unitary dynamics and invariant projection \\
 \hline
-\multicolumn{3}{@{}l}{\textit{Computation as the special case}} \\
+\multicolumn{3}{@{}l}{\textit{Computation as the flat case}} \\
 Thiele completeness: floor and window & \textbf{(S)} & The four clauses of \texttt{neutral\_complete} \\
 Certified Thiele completeness of the small machine & \textbf{(S)} & The four clauses of \texttt{thiele\_complete} \\
 Clock-style machines fail & \textbf{(R)} & The four clauses \\

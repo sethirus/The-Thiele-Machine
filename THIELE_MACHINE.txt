@@ -39,10 +39,11 @@ A Thiele machine is a thing, the directions it can move in, and a price on
 each direction. A direction turns the thing into the next thing. A direction
 that makes a distinction stay is never free.
 
-That is the whole definition. Ordinary computation is the special case. Tear
-off the price column, forget which distinctions stayed, and what is left is
-a Turing machine. The forgetting is the slice. The book is the account of
-what the forgetting throws away.
+That is the whole definition. A machine whose directions never make a
+distinction stay is the flat case, and the rule has nothing to say to it: a
+clock is one, a reversible process is one, and so is ordinary computation.
+Tear off the price column, forget which distinctions stayed, and what is
+left is a Turing machine. What follows is the account of what that forgetting throws away.
 
 Now the same thing with names. S is the set of states and I the set of
 moves. The step takes a state and a move to the next state. Each move i has
@@ -57,20 +58,20 @@ come in when a result needs them.
 
 The smallest record has two positions, no and yes. Then the record is a
 yes-or-no reading of the state, making a distinction stay is turning no into
-yes, and the toll says that move costs at least one. Most of the book is
-stated on this smallest case, because it is the one you can point at: a lamp
+yes, and the toll says that move costs at least one. Most of what follows is stated on this smallest case, because it is the one you can point at: a lamp
 beside a box, a stamp on its side, a flag that goes up. The flag is not the
 record. It is the smallest question you can ask of one. The proofs state
 the general case first and derive the flag as its two-point instance.
 
 The Thiele Machine is that definition. It is a machine the way Turing's
 machine is one: mathematics you can reason about, not a device, not an
-instruction set and not a book. The book is where I work out what follows.
+instruction set and not a document. What follows is what I work out from it.
 
-Every deterministic machine is already a Thiele machine: let the record
-stand still and every move cost nothing. The ordinary computer sits inside
-the definition as the case where nothing is kept and nothing is charged.
-The computer is the shadow of the machine, not the floor it is built on.
+Every machine whose moves never climb the order is a Thiele machine in the
+flat case, where the toll never charges: a clock, a reversible process, any
+deterministic machine with its record standing still. The ordinary computer
+is one member of that case, and only one. The computer is a shadow of the
+machine, not the floor it is built on.
 
 To ask what a computation hides, add a window. A sliced Thiele machine is a
 Thiele machine on the two-position record, with an onto view pi: S -> B,
@@ -119,13 +120,12 @@ finitely many states cannot: when only finitely many states read yes, a
 holding run must eventually merge. The instruction that raises and preserves
 the reading is non-injective, but the collision need not involve the entry
 state or its destination. Whether a real device has finitely many
-distinguishable states is a physical assumption, and the book names it as one. When a coarse description of a machine
+distinguishable states is a physical assumption, and I name it as one. When a coarse description of a machine
 merges, the fine machine merges too, unless its step leaves the described
 states or there are endlessly many of them. The toll is where the model
 writes a price on that step, and the price is a choice: if every merging
 instruction costs at least one, the toll on a finite machine follows from the
-merge. A heat bound needs one more premise, a named physical one, and the
-book keeps it apart from the counting.
+merge. A heat bound needs one more premise, a named physical one, and I keep it apart from the counting.
 
 3. The ordinary machine and the full machine, in both directions.
 In a sliced machine, the view pi(S) = B with its horizontal moves is an
@@ -133,19 +133,17 @@ ordinary deterministic machine. Every deterministic machine is such a view:
 it is the shadow of the machine that keeps one bit above it. The view cannot
 see the record, because the free moves never touch it and the picture follows
 the computation step for step.
-That needs a raise to exist, and nothing else: no universal base and no
-premise about the control.
-Thiele-complete is stricter, and unlike the sliced machine it does ask for
-universality. It needs a universal base, so the machine can be read as one
-that runs every program, as a Turing machine can. On top of that it asks that
-computing cost nothing and never touch the record, that the record stay up
-once it is up, that starts have it down, that marks cost exactly one, and
-that some run raise it from one start and not another. Every machine that
-meets it hides its record and its ledger from its own window. Any machine
-with a universal base lifts to one by adding the record layer, and the
-ordinary computer is then the slice that is left when the layer is forgotten. An account that prices
-certification exactly cannot compute the price from a window that shows a
-certifying step and a non-certifying step the same way.
+That needs a raise to exist, and nothing else: no premise about what the
+view computes and none about the control.
+I hold the example machine to more than the definition asks, and call that certified: the moves of its flat part cost nothing and never touch the
+record; the record stays up once it is up; from a clean start it rises only
+after a passing check of a claim, a commitment to the same claim with the
+thing unchanged in between, and a certificate, at one unit each; and some
+claim's chain raises the record from one start and not another. A machine
+that meets all four hides its record and its ledger from a window on its
+flat part. An account that prices certification exactly cannot compute the
+price from a window that shows a certifying step and a non-certifying step
+the same way. The same four things, stated over one flat case, a two-counter computing part, are what the proofs call Thiele completeness and certified Thiele completeness.
 If all choices of which of n editions were certified are independently
 possible and exactly recoverable above one final picture, they require
 2^n full states there.
@@ -153,12 +151,11 @@ A small six-instruction machine and a universal program on it show these
 definitions can be met. They are examples and not the subject.
 
 4. What is argued and what is proved. The counting, the floor, the window
-results, the lift and the slice are theorems under the hypotheses they state.
+results and the flat case are theorems under the hypotheses they state.
 The mathematical claims have their hypotheses and arguments on the page.
 The pointer thesis is explicitly unproved. It proposes certification as
 the event worth recording, because certified records get copied and relied on
-by parties who did not produce them. Separately, and unnumbered, the book argues
-that the record and its price are part of computation itself and not
+by parties who did not produce them. Separately, and unnumbered, I argue that the record and its price are part of computation itself and not
 something added afterwards, and states the Thiele thesis, a claim about
 physical processes. Neither is presented as a theorem.
 
@@ -278,15 +275,14 @@ survive too. Stop asking for the tally and repeated failed marks can
 become indistinguishable. If no mark event ever holds, a clean run never
 reaches a lamp-up state. The minimum concerns what can be reached and
 what the chosen questions can distinguish. It does not select the event.
-The book develops this familiar idea from minimal automata for
+I develop this familiar idea from minimal automata for
 the actual lift, with the observations and accounting kept explicit.
 
 
 Put a hidden switch behind a dark lamp. Pressing the button copies the
 switch to the lamp. Both boxes can look dark now and give different next
 answers. Keep only the lamp and the next step cannot be predicted from
-that picture. Keep the switch too and it can. The book proves the exact
-test: equal pictures must give equal required answers now and equal next
+that picture. Keep the switch too and it can. The exact test is proved: equal pictures must give equal required answers now and equal next
 pictures under every permitted use of the same button, with explicit
 representatives and successor choices for the converse construction.
 
@@ -443,8 +439,7 @@ definition can be met, and to give the argument something to run.
 The example's state contains two natural-number counters, their edition
 numbers, a sixteen-entry fact table, a commitment channel, a trap, a ledger
 and a permanent flag. INC and DEC compute. CHECK, COMMIT and CERTIFY enforce
-the earned chain and cost one each. HALT stops the guest program. The full
-rules, including failure and idle behavior, are in the book.
+the earned chain and cost one each. HALT stops the guest program. The full rules, including failure and idle behavior, are proved move by move.
 
 From a clean start, certification costs at least three because its three
 required acts each cost one. A true claim checked, committed and certified
@@ -452,9 +447,7 @@ without an intervening write attains three. A ready-made commitment or an
 already raised flag changes that starting task; the proof uses the empty
 channel and flag-down premises explicitly.
 
-The book builds universal host programs, follows the guest through the
-host's instructions, and compares their records and ledgers at the matching
-points. It studies composition and the boundaries where one component can
+Universal host programs follow the guest through the host's instructions and compare their records and ledgers at the matching points. The constructions study composition and the boundaries where one component can
 invalidate another's earned claim. A shared writer that changes a counter
 without advancing its edition opens precisely the stale-check route the
 machine was meant to close.
@@ -600,20 +593,17 @@ the accepting record faithful to what actually passed.
 THE WIDER ARGUMENT
 
 A growing ordered record has threshold readings: ask whether a particular
-level has been reached, and once the answer becomes yes it stays yes. The
-book follows those latches, studies the recursion theorem with its input
-conventions, and makes cost-framework comparisons under their stated rules.
+level has been reached, and once the answer becomes yes it stays yes. I follow those latches, study the recursion theorem with its input conventions, and make cost-framework comparisons under their stated rules.
 
 Its protocol examples, including RFC 9162, concern specified parts of those
 systems. An observer model says what a particular window reveals. The
 pointer thesis is a thesis about how that picture connects to the world.
 Its proposed interpretation and the mathematical implications of a chosen
-model have different jobs, and the book states both.
+model have different jobs, and I state both.
 
 
 HOW TO READ THE ARGUMENT
 
-The book is monograph/monograph.pdf; its text is monograph/monograph.txt.
 Start with the boxes and the camera, then follow the holding count, the toll,
 the window and the earned chain. The later history counts open the gauge to
 more questions. Their proofs show why each extra recoverable answer needs
@@ -621,8 +611,7 @@ room in the full state.
 
 Follow a move through the full state, then look at what reaches the window.
 Put the price beside that move and add it to the ledger. Finally follow the
-earned chain backwards from the raised flag to its check. These are the
-connections the book builds, with the constructions and their reasons on
+earned chain backwards from the raised flag to its check. These are the connections built here, with the constructions and their reasons on
 the page.
 
 ------------------------------------------------------------
