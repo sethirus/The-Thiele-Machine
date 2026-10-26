@@ -116,10 +116,12 @@ pays for it.
 
 2. Keeping requires a merge or fresh states. This is counting under a total,
 deterministic next-state rule and a reading held after entry; it uses no
-physics. Before the first revisit each step is fresh. The first revisit
-returns to the start or merges two distinct sources; later steps repeat.
-So a run that raises a reading and keeps it up either merges somewhere
-or uses endlessly many distinct states. A machine with endlessly many states
+physics. Before the first revisit each step is fresh: the first column. The
+first revisit returns to the start or merges two distinct sources, the third
+column or the second; later steps repeat. A run that raises a reading and
+keeps it up cannot take the third column, because its start read no and
+every later state reads yes, so a return to the start would bring the
+reading down. That leaves the merge or endlessly many distinct states. A machine with endlessly many states
 can avoid the merge on paper by paying in fresh states. A machine with
 finitely many states cannot: when only finitely many states read yes, a
 holding run must eventually merge. The instruction that raises and preserves
@@ -482,6 +484,14 @@ THE WIDER ARGUMENT
 
 A growing ordered record has threshold readings: ask whether a particular
 level has been reached, and once the answer becomes yes it stays yes. I follow those latches, study the recursion theorem with its input conventions, and make cost-framework comparisons under their stated rules.
+
+The count in part 2 does not need the step to be deterministic. A noisy
+step on finitely many states that keeps the even spread cannot raise a
+reading that stays, and one that can raise it strictly concentrates the
+spread. A unitary step on a finite-dimensional space that keeps a subspace
+keeps its complement too, so no such step raises a reading that stays.
+Each is the same obstruction in its own setting, and endless room is the
+only way past it in each.
 
 Its protocol examples, including RFC 9162, concern specified parts of those
 systems. An observer model says what a particular window reveals. The
