@@ -15489,15 +15489,16 @@ there, and some run from some loaded state raises the record. (5) On a run from 
               more than certified Thiele-complete does. “Certified Thiele-complete over L,” for an
               L written down without looking at the checker, says that what the machine certifies
               is what L says. Every instance below is stated that way.
-                 Each item in the proof names the clause it comes from, and that’s all the definition
-              gives. A certified Thiele-complete machine needn’t have a fact table, a CHECK that
-              traps when it fails, a COMMIT that looks anything up, or claims about counters.
-              The definition asks for an earned chain on the runs that raise the record and leaves
-              the rest to the machine. So the small machine’s table provenance, its trap, and its
-              channel are facts about that machine, and they don’t carry over to every machine
-              that meets the definition. Through a plain interface its claims can be any labels
-              the interface names; over a claim language they are the language’s. Either way its
-              checker can be an oracle, as the halting-function checker above shows.
+                 Each item in the proof, in the companion volume, names the clause it comes
+              from, and that’s all the definition gives. A certified Thiele-complete machine needn’t
+              have a fact table, a CHECK that traps when it fails, a COMMIT that looks anything
+              up, or claims about counters. The definition asks for an earned chain on the runs
+              that raise the record and leaves the rest to the machine. So the small machine’s table
+              provenance, its trap, and its channel are facts about that machine, and they don’t
+              carry over to every machine that meets the definition. Through a plain interface its
+              claims can be any labels the interface names; over a claim language they are the
+              language’s. Either way its checker can be an oracle, as the halting-function checker
+              above shows.
                  The second half of (6) in Theorem 15.25, that some move costs 0, is the one
               that rules out the clock: a machine that charges every move. It doesn’t rule out a
               program that makes the ledger tick. On the host of Appendix C.1, a program that
@@ -15505,21 +15506,21 @@ there, and some run from some loaded state raises the record. (5) On a run from 
               two-counter program with the flag down and pays one unit a step, plus one for the
               check: the checked fact is about a counter the program never writes, so its edition
               never changes, and every COMMIT finds it.
-              Observation 15.27 (A clock is a Thiele machine and isn’t certified Thiele-complete).
-              Take the two-counter machine, let every move cost 1, and take as the record any yes/no
                                                                   15.12 What it takes to be certified   383
 
 
+Observation 15.27 (A clock is a Thiele machine and isn’t certified Thiele-complete).
+Take the two-counter machine, let every move cost 1, and take as the record any yes/no
 question about its configuration whatsoever; or take a flag that switches on, and stays
 on, the first time any chosen test of the configuration says yes. Either way the machine
 obeys the toll and has a two-counter machine running inside it, and it is not certified
 Thiele-complete. More generally, no machine whose every move costs at least 1 is
 certified Thiele-complete.
-   (It also follows from Observation 10.13 and Theorem 15.23(2).) The proof is
-short, and it’s short because clause (c) does exactly the job it was written for: it
-says computing costs nothing, and a clock charges for computing. The other clauses
-do work too, and that’s worth checking, because a definition with a clause nothing
-needs is a definition hiding something.
+   (It also follows from Observation 10.13 and Theorem 15.23(2).) The proof, in
+the companion volume, is short, and it’s short because clause (c) does exactly the
+job it was written for: it says computing costs nothing, and a clock charges for
+computing. The other clauses do work too, and that’s worth checking, because a
+definition with a clause nothing needs is a definition hiding something.
 
 
 Theorem 15.28 (Each clause does work). (1) Take a two-counter base priced 0
@@ -15530,6 +15531,7 @@ no machine with a move that puts the record up from every state is. (2) Take a
 two-counter base priced 0 and a record that is down at every state, so it never rises.
 It obeys the toll and meets clauses (a), (b) and (c); it is not certified Thiele-complete,
 and more generally no machine whose record never rises is.
+
     The paid latch, the TICK machine of (1), is the receipt for nothing from Section 14,
 wearing a universal base: honest about the price, silent about what was bought. The
 definition throws it out.
@@ -15548,11 +15550,11 @@ any interface at all. (a) fails for this chapter’s machine with one more move,
 priced 0 and read as a base move, which lowers the flag and trips the trap latch.
 (b) fails for this chapter’s machine with one more move, FORGE, costing one and
 read as a CERTIFY, which raises the flag on any state whose trap is down, with no
-commitment behind it. (c) fails for this chapter’s machine with every move costing
-one. (d) fails for the silent machine of Theorem 15.28(2).
 384   15 The earned-chain counter example
 
 
+              commitment behind it. (c) fails for this chapter’s machine with every move costing
+              one. (d) fails for the silent machine of Theorem 15.28(2).
                  Three of the four are this chapter’s machine with one thing changed, and in each
               case the one clause it fails is the only thing keeping it out. Clause (c) also fixes
               something it has no business fixing: the size of the unit. Double every price on the
@@ -15591,12 +15593,12 @@ one. (d) fails for the silent machine of Theorem 15.28(2).
               Thiele-complete). (1) This chapter’s machine is certified Thiele-complete, read with
               INC, DEC and HALT as base moves, CHECK p c and COMMIT p c as record moves on
               the claim “p holds of c,” CERTIFY as CERTIFY, the checker as eval on the value of c,
-              the window as (line, A, B), live states as those with the trap down, start( a, b) as the
-              loaded state for (1, a, b), “unchanged” as “same value and same version of c,” clean
-              states as in Definition 15.2 and the ledger as µ. (2) So is the same machine over
                                                                   15.12 What it takes to be certified   385
 
 
+the window as (line, A, B), live states as those with the trap down, start( a, b) as the
+loaded state for (1, a, b), “unchanged” as “same value and same version of c,” clean
+states as in Definition 15.2 and the ledger as µ. (2) So is the same machine over
 any property language with an exact equality test and a checker proved to say yes
 exactly when the claim holds, as long as some property is true of one number and
 false of another. (3) In particular the machine whose property is “this counter, read
@@ -15633,25 +15635,26 @@ is also handed the program and the start, is a different observer, and the colli
 says nothing about them; given the program and the start, the run is fixed and so is
 its record. The theorem’s two runs also start from the same loaded state, so they’re
 reachable witnesses, which is stronger than two arbitrary states that happen to look
-alike. And “no function of the window gives the record” is all it says. It doesn’t say
-the window tells you nothing about it.
-    Notice how little that took, and say it out loud so nobody mistakes it for more.
-It’s the fibre fact from Section 7 plus one observation: a universal base can print
 386   15 The earned-chain counter example
 
 
+              alike. And “no function of the window gives the record” is all it says. It doesn’t say
+              the window tells you nothing about it.
+                  Notice how little that took, and say it out loud so nobody mistakes it for more.
+              It’s the fibre fact from Section 7 plus one observation: a universal base can print
               any window at no cost, and that is the point. The window here is everything a
               Turing machine would call the machine, the line and the counters. On a certified
               Thiele-complete machine, that’s never enough to tell you what was established or
               what it cost, and it can’t be, because computing costs nothing and can’t touch the
               record. A richer window, one that shows the flag, is a different window, and nothing
               above says it fails.
-                 The proofs of this subsection are in the companion volume The Thiele Machine:
+                  The proofs of this subsection are in the companion volume The Thiele Machine:
               The Example, Built (its section “Proofs for What it takes to be certified”) and in Coq
               in minimal/ThieleComplete.v and minimal/ThieleCompleteIndependent.v.
 
 
               15.13 The machine versus the program it runs
+
               The three hosts of Appendix C (the simpler host, U and UP ) all come down to one
               distinction, and it’s worth saying on its own, because the two halves are easy to run
               together: the machine doing the stepping (what the machine is) and the program it
@@ -15676,13 +15679,13 @@ It’s the fibre fact from Section 7 plus one observation: a universal base can 
               of land-grabbing with all its usual outcomes and consequences.” Darrow sold his
               version to Parker Brothers in 1935, and the company bought Magie’s patent for
               a few hundred dollars, five hundred by the accounts I found. A story told by the
-              company selling the product is a lead to check, every time. It changes nothing about
-              banks. It’s a good reminder of who writes the story on the box.)
-                  A fixed machine can enforce an invariant in its own transition table, and that
-              includes a Turing machine. Give its tape a ledger track and a certification cell, and
                                                       15.13 The machine versus the program it runs   387
 
 
+company selling the product is a lead to check, every time. It changes nothing about
+banks. It’s a good reminder of who writes the story on the box.)
+    A fixed machine can enforce an invariant in its own transition table, and that
+includes a Turing machine. Give its tape a ledger track and a certification cell, and
 write a table that never sets the cell without bumping the ledger: that machine keeps
 the invariant in its step relation. The ledger track is part of its state, though, and a
 ledger kept in the state isn’t a price on the move. The toll of Definition 2.2 puts the
@@ -15718,14 +15721,14 @@ the things the host has to keep for itself, and privileged if running it outside
 host’s own mode makes the machine stop and hand control to the host, which is
 called a trap. For the kind of machine they modelled: if every sensitive instruction is
 privileged, a host can be built. The guest runs at full speed, and whenever it touches
-something that matters, the machine itself stops it and lets the host decide, and a
-host like that is one whose step has an opinion.
-    Then the obvious next question: did the machines people actually bought pass
-the test? The most common one didn’t. In 2000 John Scott Robin, an Air Force
-officer, and Cynthia Irvine, a computer-security researcher at the Naval Postgraduate
 388   15 The earned-chain counter example
 
 
+              something that matters, the machine itself stops it and lets the host decide, and a
+              host like that is one whose step has an opinion.
+                  Then the obvious next question: did the machines people actually bought pass
+              the test? The most common one didn’t. In 2000 John Scott Robin, an Air Force
+              officer, and Cynthia Irvine, a computer-security researcher at the Naval Postgraduate
               School, went through every instruction of Intel’s Pentium and found seventeen that
               are sensitive and not privileged; POPF, which loads the processor’s flags, is the one
               usually pointed at. A guest could run them and the host would never hear about
@@ -15761,13 +15764,13 @@ officer, and Cynthia Irvine, a computer-security researcher at the Naval Postgra
               more. Its counter is kept in the state, and a ledger kept in the state isn’t a price on
               the move: Definition 2.2 puts the cost on the move’s name, and this counter’s charge
               depends on what the step writes. This theorem therefore does not supply exact
-              accounting for the basic instruction-price signature, or a reading with an earned-
-              history meaning. It does not rule out equipping the same state space with other
-              instruction prices and a Boolean reading satisfying the basic toll. The projection
-              claim is simply that this additional count leaves the tape computation alone.
                                                    15.14 Parts I and II, run on the example machine   389
 
 
+accounting for the basic instruction-price signature, or a reading with an earned-
+history meaning. It does not rule out equipping the same state space with other
+instruction prices and a Boolean reading satisfying the basic toll. The projection
+claim is simply that this additional count leaves the tape computation alone.
    One limit on all of this needs saying, so it isn’t read as more. Certification is one
 event. If you wanted a machine to carry some other kind of reading, you’d need an
 event for it, evidence for it and a price law for it, and nothing here supplies any of
@@ -15803,16 +15806,16 @@ DEC B a. The setup is the two instructions CHECK (A ≥ 0) A; COMMIT (A ≥ 0) A
 each costs one, which is where the jump’s price of two comes from. The INC makes
 B positive, so the DEC takes one off and jumps to line a at no cost, and B is back
 where it was.
-
-
-Theorem 15.34 (The small machine runs the eight-state machine). (1) For every
-live state s and every move m of the eight-state machine, running m’s instructions
-from s ends in a live state whose window is the eight-state machine’s step of s’s
-window by m, and the ledger has risen by exactly m’s charge: one for stamp, two
-for jump, zero for next-slot. (2) The same holds for any list of moves: the window
 390   15 The earned-chain counter example
 
 
+
+
+              Theorem 15.34 (The small machine runs the eight-state machine). (1) For every
+              live state s and every move m of the eight-state machine, running m’s instructions
+              from s ends in a live state whose window is the eight-state machine’s step of s’s
+              window by m, and the ledger has risen by exactly m’s charge: one for stamp, two
+              for jump, zero for next-slot. (2) The same holds for any list of moves: the window
               after the compiled list is the eight-state machine’s run of the list, the state is live,
               and the ledger has risen by the sum of the charges. (3) So a run of compiled moves
               from a live state that takes the flag from down to up has raised the ledger by at least
@@ -15845,15 +15848,15 @@ for jump, zero for next-slot. (2) The same holds for any list of moves: the wind
               is a piece. The record layer closes the rest: asked only of merges between states
               with the same line and counters, the merge premise holds for this machine’s own
               prices and forces the toll on it with no finiteness premise (Theorem 3.19).
-                  Structural entitlement, for every certified Thiele-complete machine. The-
-              orem 8.3 was about any Thiele machine, and what the run paid went in as a
-              hypothesis. For a certified Thiele-complete machine (Definition 15.7) what the run
-              pays is known. Call the CHECK, COMMIT and CERTIFY moves of a run its record
-              moves; each costs exactly one, so the ledger rises by the number of record moves,
-              and clause (b) says what a raised record must contain.
                                                     15.14 Parts I and II, run on the example machine   391
 
 
+   Structural entitlement, for every certified Thiele-complete machine. The-
+orem 8.3 was about any Thiele machine, and what the run paid went in as a
+hypothesis. For a certified Thiele-complete machine (Definition 15.7) what the run
+pays is known. Call the CHECK, COMMIT and CERTIFY moves of a run its record
+moves; each costs exactly one, so the ledger rises by the number of record moves,
+and clause (b) says what a raised record must contain.
 
 
 Theorem 15.36 (Structural entitlement represented). Let a machine be certified
@@ -15887,22 +15890,22 @@ two rival states answer alike when every one of those claims gets the same verdi
 at both (each verdict taken at the rival itself, as it starts; the states the run passed
 through don’t enter). If, for a list Ω of rival states and a number m > 0, the rivals of
 Ω that answer alike with any one rival, itself included, are never more than m, then
-⌈log2 |Ω|⌉ −̇ ⌈log2 m⌉ is at most the number of CHECK moves of the run, which is
-at most its number of record moves, which is the ledger’s rise.
-
-   The tree has gone, and the run’s own questions stand in its place. There are
-limits, and they’re the ones in the statement. The verdicts are taken at the rivals
-as they start, and the states the run had reached when it asked don’t come into it.
-A branch that costs nothing, DEC on zero, can still narrow a list without adding
 392   15 The earned-chain counter example
 
 
+              ⌈log2 |Ω|⌉ −̇ ⌈log2 m⌉ is at most the number of CHECK moves of the run, which is
+              at most its number of record moves, which is the ledger’s rise.
+                 The tree has gone, and the run’s own questions stand in its place. There are
+              limits, and they’re the ones in the statement. The verdicts are taken at the rivals
+              as they start, and the states the run had reached when it asked don’t come into it.
+              A branch that costs nothing, DEC on zero, can still narrow a list without adding
               anything to the ledger. So the theorem prices a narrowing that the paid checks
               explain, and no more.
                  The next statement takes the verdicts where the run took them. A rival is a state
               the run could have started from; a CHECK the run passed is asked of a rival by
               running the moves before it from the rival and checking the same claim at the state
               that reaches. Nothing is supplied but the prior.
+
 
 
               Theorem 15.38 (Structural entitlement, with the narrowing made by the run). Let
@@ -15928,21 +15931,22 @@ A branch that costs nothing, DEC on zero, can still narrow a list without adding
               Here the run does the narrowing, every candidate dropped was dropped by a check
               the run paid for, and what stays a premise is the prior and the share, a bound fixed
               in advance; part (6) shows what the run pays without one.
-
-
-              Proposition 15.39 (One CHECK can take four bits). Take the sixteen starts ( a, 0)
-              with a = 0, . . . , 15, and the run CHECK (A ≥ 15) A; COMMIT (A ≥ 15) A;
-              CERTIFY from (15, 0). It raises the record. Its one passing CHECK keeps one rival
-              of sixteen, so the posterior is (15, 0) alone and the index bits are 4, while the
-              run has 3 record moves. So index bits at most the record moves, the bound of
-              Theorem 15.38(4) read with k = 1, fails here.
                                                      15.14 Parts I and II, run on the example machine   393
 
 
+
+
+Proposition 15.39 (One CHECK can take four bits). Take the sixteen starts ( a, 0)
+with a = 0, . . . , 15, and the run CHECK (A ≥ 15) A; COMMIT (A ≥ 15) A;
+CERTIFY from (15, 0). It raises the record. Its one passing CHECK keeps one rival
+of sixteen, so the posterior is (15, 0) alone and the index bits are 4, while the
+run has 3 record moves. So index bits at most the record moves, the bound of
+Theorem 15.38(4) read with k = 1, fails here.
    The share here is 2−4 , and with k = 4 part (4) reads 4 ≤ 4. It’s the example of
 Section 8 that showed the covering can’t be dropped, seen from the run’s side: one
 test can take many bits, and the bound of part (4) covers the bits per test times the
 tests.
+
 
 
 Theorem 15.40 (What the record adds). Let a machine be certified Thiele-complete
@@ -15952,7 +15956,6 @@ the ledger by at least 3. (2) Conclusions (1), (3) and (4) of Theorem 15.36 hold
 without a clean start and without the record being up, for a machine that only meets
 the exact-prices clause (c): the hypotheses (M1), (M2), (M4), (M5) and (M6), and
 the decoded run being shown by some survivor, are all it needs.
-
     So the record doesn’t make narrowing cost more. It adds the earned chain and
 a floor of 3, and that’s all it adds: a run meeting the same counting and payment
 hypotheses is still bound by that index-bit floor even if it never raises the record,
@@ -15971,17 +15974,17 @@ times that mass is at most the weighted sum. Divide by the total mass and you’
 have an average rise; I leave the weights as whole numbers, cross-multiplied, so no
 probability comes into it. Second, a way to meet the covering (M6) that you can see.
 Give each survivor a little crowd of rivals, its fibre, no bigger than the tree has leaves,
-and let the fibres’ sizes add up to at least the prior. Then |Ω| is at most the sum of
-the fibres, which is at most L( T ) times the number of survivors, and that’s (M6).
-Third, a plainer way to get fibres. Pick a representative observation of each rival, and
-say the rivals are partitioned by it when every rival looks like some survivor under it
-and no observation class, counted inside the prior, has more than L( T ) members.
-Take each survivor’s class as its fibre: every rival is in the class of some survivor, so
-the fibres add up to at least the prior, and (M6) holds. The converse is false: take
-four rivals that all look alike, two survivors and a tree with two leaves, and give
 394   15 The earned-chain counter example
 
 
+              and let the fibres’ sizes add up to at least the prior. Then |Ω| is at most the sum of
+              the fibres, which is at most L( T ) times the number of survivors, and that’s (M6).
+              Third, a plainer way to get fibres. Pick a representative observation of each rival, and
+              say the rivals are partitioned by it when every rival looks like some survivor under it
+              and no observation class, counted inside the prior, has more than L( T ) members.
+              Take each survivor’s class as its fibre: every rival is in the class of some survivor, so
+              the fibres add up to at least the prior, and (M6) holds. The converse is false: take
+              four rivals that all look alike, two survivors and a tree with two leaves, and give
               each survivor two of the four as its fibre. That covers, but the one class has four
               members, more than two.
                  A worked member on the small machine. Eight rivals: the starts ( a, b) with
@@ -16002,7 +16005,6 @@ four rivals that all look alike, two survivors and a tree with two leaves, and g
               (Theorem 15.37) are its 2 CHECKs, so the floor is met with equality. With the two
               CHECKs alone, the record stays down, the ledger rises by 2, and the bound 2 ≤ 2
               still holds.
-
                   It’s a real narrowing, and not the cups of Section 8 sitting under it in a costume.
               The posterior is exactly the set of rivals the run certifies, so here a proof ties the
               lists to the run, and nobody supplies them. Read with Theorem 15.38, the run’s two
@@ -16014,15 +16016,15 @@ four rivals that all look alike, two survivors and a tree with two leaves, and g
               number, with the small machine’s property language of Zero, Even and At-least-n,
               read at registers, in place of Slot. That machine is certified Thiele-complete too,
               by the argument of Theorem C.6 with these three properties in place of Slot. Hide
-              n = k + m bits, one in each of registers 0 to n − 1. The program asks k questions,
-              one per bit of the first k: CHECK “at least 1” of register i for a 1, CHECK “is 0” for a
-              0. Then it COMMITs the first claim and CERTIFYs. The prior is every n-bit value;
-              the posterior is the 2m values that begin with the answers; the tree is the complete
-              tree of depth k; and a survivor’s fibre is the 2k values that agree with it on the m bits
-              nobody asked about.
                                                      15.14 Parts I and II, run on the example machine   395
 
 
+n = k + m bits, one in each of registers 0 to n − 1. The program asks k questions,
+one per bit of the first k: CHECK “at least 1” of register i for a 1, CHECK “is 0” for a
+0. Then it COMMITs the first claim and CERTIFYs. The prior is every n-bit value;
+the posterior is the 2m values that begin with the answers; the tree is the complete
+tree of depth k; and a survivor’s fibre is the 2k values that agree with it on the m bits
+nobody asked about.
 
 
 Theorem 15.42 (A search through n bits). For 1 ≤ k ≤ 16 and any m: from a
@@ -16038,14 +16040,14 @@ start can execute more than 16 CHECKs before its first successful CERTIFY: a fai
 CHECK would trap, and the table holds only 16 passing ones. Thus this program
 with 17 questions followed by its first COMMIT and CERTIFY certifies from no start.
 A trace that certified earlier can keep its flag up even after later failed instructions.
-    The sixteen belongs to the machine, and the program has no say in it: it’s the
+   The sixteen belongs to the machine, and the program has no say in it: it’s the
 same ceiling as the item “Sixteen checks per run, ever” in the list of what the machine
 doesn’t do, near the end of this chapter, and it’s why this search never asks more
 than sixteen questions however many bits are hidden. Unasked bits can be any
 number. The lists, the tree and the fibres are supplied here, as in the representation
 theorem, and tied to the run only for this member. The covering still prices only the
 size of the drop, and its reason goes unpriced.
-    The covering can’t be dropped. It’s a hypothesis, and you’d hope it’s a nuisance
+   The covering can’t be dropped. It’s a hypothesis, and you’d hope it’s a nuisance
 you could remove. It isn’t, and the small machine shows it. Fix n ≥ 4, take the 2n
 starts ( a, 0) with a below 2n as the rivals, and run the three-move chain on the claim
 “A ≥ 2n − 1”: CHECK, COMMIT, CERTIFY. It certifies exactly from A = 2n − 1, so
@@ -16055,15 +16057,15 @@ and no tree of depth at most 3 covers the narrowing: (M6) would need 2n ≤ 8 ·
 One property with a big constant in it carries n bits in a single yes-or-no question;
 what the bound prices is a narrowing whose classes are balanced, a tree with enough
 leaves. A narrowing of any other shape is outside it.
-    The time a check saves. The question is whether counter A is at least m. There
-are two ways to find out. The unpaid way uses base moves only, INC and DEC,
-which add nothing to the ledger. But a base move reads A one pebble at a time: a
-DEC takes a pebble off A or finds it empty. After n moves, a run that started with A
-at least n has never seen A empty, so it can’t have behaved differently for different
-such A except by a constant shift in A itself. The paid way is one CHECK (A ≥ m):
 396   15 The earned-chain counter example
 
 
+                  The time a check saves. The question is whether counter A is at least m. There
+              are two ways to find out. The unpaid way uses base moves only, INC and DEC,
+              which add nothing to the ledger. But a base move reads A one pebble at a time: a
+              DEC takes a pebble off A or finds it empty. After n moves, a run that started with A
+              at least n has never seen A empty, so it can’t have behaved differently for different
+              such A except by a constant shift in A itself. The paid way is one CHECK (A ≥ m):
               one move, a ledger of one, and the line it ends on says which way it went. Certifying
               the answer takes the whole chain, CHECK, COMMIT and CERTIFY.
 
@@ -16085,6 +16087,7 @@ such A except by a constant shift in A itself. The paid way is one CHECK (A ≥ 
               ledger is worth λ moves, the paid route to deciding costs 1 + λ and the unpaid route
               costs at least m, and the paid route is cheaper exactly when 1 + λ < m; the paid
               route to certifying costs 3 + 3λ.
+
                   When 3 + 3λ < m, the paid chain both answers and certifies within a combined
               budget smaller than the unpaid lower bound for answering alone. That compares
               different guarantees; the unpaid route never certifies. For a bare answer on both
@@ -16097,20 +16100,21 @@ such A except by a constant shift in A itself. The paid way is one CHECK (A ≥ 
               forbid a base move that changes a counter by more than one pebble, and such a
               machine is a different machine, one the bound doesn’t speak for. And the two routes
               put their answers in different places, both bare decisions in the line number, with
-              the paid chain also putting a historical record in the flag; this compares two ways to
-              answer one question, not two certifications. Zero cost isn’t zero heat, either: every
-              move on either route is an event, and the moves are what λ prices.
-                  The proofs and the worked runs of this subsection are in the compan-
-              ion volume The Thiele Machine: The Example, Built (its section “Proofs
-              and worked runs for Parts I and II, run on the example machine”)
                                                                15.15 Reading the instruction rules   397
 
 
+the paid chain also putting a historical record in the flag; this compares two ways to
+answer one question, not two certifications. Zero cost isn’t zero heat, either: every
+move on either route is an event, and the moves are what λ prices.
+   The proofs and the worked runs of this subsection are in the compan-
+ion volume The Thiele Machine: The Example, Built (its section “Proofs
+and worked runs for Parts I and II, run on the example machine”)
 and in Coq in minimal/FragmentSmall.v, minimal/EntitlementSmall.v,
 minimal/BitSearchMember2.v and minimal/TimeTax2.v.
 
 
 15.15 Reading the instruction rules
+
 The instruction rules settle some concrete questions about running this machine.
 Follow them through a check, a zero decrement and a trapped trace.
    The walk through a check, a zero decrement and a trapped trace is in the
@@ -16119,7 +16123,6 @@ instruction rules”) and in Coq in minimal/EarnedCore.v.
 
 
 15.16 What this chapter adds up to
-
 So this chapter has one machine, and it isn’t the model. It’s a Thiele machine in
 the opening’s sense, a Thiele machine with the toll proved (Theorem 15.7), and
 its toll charges the blank cell’s 0: raising its flag is a merge in its record layer
@@ -21354,18 +21357,15 @@ facts in the table, and whether the channel is empty, and the same the other way
 round. So e stops on x exactly when F (e) does, and the ledgers are equal exactly,
 with no surcharge. T may itself check, commit and certify.
 
-   Each table has one fact and each channel is nonempty. The counts of the
-individual acts differ; the selected final summary agrees.
-   In the replay, the trap latch is up exactly when the fifth number is 1, and the
-flag exactly when the fourth is positive. Look only at the function computed and
-you get the usual fixed-point statement back. There are two limits, and the second
-one is a theorem. First, e pays after it has computed everything. It is not the way
-U runs a guest, mirroring every move: e pays the counts, CHECKs, then COMMITs,
-then the CERTIFY, whatever order F (e) used, so the order of the record’s events isn’t
-preserved, and for a program F (e) that never stops, e never stops and pays nothing,
-though F (e) may pay without bound. The relation says nothing about states in the
-middle of a run. Second, no fixed point agrees on every register, or on what the
-facts name.
+   Look only at the function computed and you get the usual fixed-point statement
+back. There are two limits, and the second one is a theorem. First, e pays after it
+has computed everything. It is not the way U runs a guest, mirroring every move: e
+pays the counts, CHECKs, then COMMITs, then the CERTIFY, whatever order F (e)
+used, so the order of the record’s events isn’t preserved, and for a program F (e) that
+never stops, e never stops and pays nothing, though F (e) may pay without bound.
+The relation says nothing about states in the middle of a run. Second, no fixed point
+agrees on every register, or on what the facts name.
+
 
 
 Theorem C.19 (No fixed point of full behaviour). There is a transformation F of
@@ -21389,13 +21389,12 @@ Theorem C.20 (The diagonal on the host machine). Let Π be a functional property
 of host programs that some program has and some program lacks. (1) Read “ f is
 representable” as “some host program carries f out on numbers.” Then no function
 d from programs to Booleans whose flip is representable is right about Π on every
+program: this is the argument of Theorem 13.1, reproved for host programs, with its
+recursion premise a theorem here. (2) No host program decides Π outright: there
+is no program D that, on the number of every program, halts with a number in
+register 0 that’s 1 exactly when the program has Π.
 530   C The universal machines
 
-
-              program: this is the argument of Theorem 13.1, reproved for host programs, with its
-              recursion premise a theorem here. (2) No host program decides Π outright: there
-              is no program D that, on the number of every program, halts with a number in
-              register 0 that’s 1 exactly when the program has Π.
 
                   Rice and Kleene are the ingredients the diagonal of Section 13 asks a substrate for,
               and the wall they put up doesn’t care about the record: the base does the computing
@@ -21432,14 +21431,14 @@ d from programs to Booleans whose flip is representable is right about Π on eve
               program to any program that behaves the same on X is undecidable in the reduction
               sense of Theorem 15.5, unless every program has it or none does, and then it’s
               decidable. X can be every input, the powers of two, or {0}.
+                  So 6n + 5 is the place to keep the input that two counters seemed not to have.
+              It isn’t beside the work but inside it, in a factor the work never touches. I like that
+              one more than I can justify: the input hides in the leftover that every halving and
+              thirding walks straight past.
                                                       C.4 The diagonal, on this machine’s programs   531
 
 
-    So 6n + 5 is the place to keep the input that two counters seemed not to have.
-It isn’t beside the work but inside it, in a factor the work never touches. I like that
-one more than I can justify: the input hides in the leftover that every halving and
-thirding walks straight past.
-    Kleene needs more than keeping an input. It needs a program that runs a
+   Kleene needs more than keeping an input. It needs a program that runs a
 program. So write a number x as 2x pebbles and read a result as the exponent of 2,
 the way Minsky did. With inputs written that way, there’s one two-counter program,
 call it U2 , that, started on 2x · 3e , stops with 2y exactly when the program numbered
@@ -21454,7 +21453,6 @@ on program numbers, there’s a program e that computes the same function as F (
 with inputs and outputs written as powers of two. (2) The fixed point is of the
 function only: there’s such an F for which no e behaves the same as F (e) once the
 properties and counters of the recorded facts count.
-
     The counterexample in (2) is short. Number the programs the way U numbers
 its guests (Appendix K), so a program’s number is above the code of every property
 it names. Let F ( p) be the one-line program that checks that bin A holds at least the
@@ -21473,14 +21471,15 @@ stops with c · x pebbles in bin A, started on x pebbles in bin A and none in bi
 every x, where c is the least prime above N = 16(n + 1)(4n + 1)16 . (2) So there’s
 a carried-out transformation F such that no program e computes the same plain
 function as F (e).
-   Nothing in that proof used more than this: two bins that move one pebble at a
-time, finitely many controls, a next step fixed by the control and the bins, and bins
+
+   Nothing in that proof, which the companion volume carries, used more than this:
+two bins that move one pebble at a time, finitely many controls, a next step fixed
+by the control and the bins, and bins that, above some threshold, are read only
+through their parity. Any machine like that has the same obstruction, and the same
+computable transformation F with no program e equivalent to F (e) on plain inputs.
 532   C The universal machines
 
 
-              that, above some threshold, are read only through their parity. Any machine like
-              that has the same obstruction, and the same computable transformation F with no
-              program e equivalent to F (e) on plain inputs.
                   I went looking for Schroeppel’s own memo and found a scan of it. As I read it, his
               route is close in spirit: he trades a two-counter machine that starts with one counter
               empty for a machine with one register that can only add, multiply and divide by
@@ -21512,18 +21511,17 @@ time, finitely many controls, a next step fixed by the control and the bins, and
 
 
               C.5 The universal machine’s guest interface
-
               I’ll say what the two universal programs cover plainly, a sentence at a time. The
               stated class of guests of U is the small machine’s programs, every one of them, from
               every clean start start( x, y). The whole-run theorems don’t cover a guest handed
               facts in its table, a commitment in its channel or a raised flag at the start; the
               one-step simulation, by itself, works from any related pair. It’s the same kind of class
               Turing’s universal machine has: a fixed instruction set, and a finite program held
+              as data, here packed into one number the way Turing packed his into a description
+              number. Each guest keeps its computation, its halting, its answer, its record and its
                                                          C.5 The universal machine’s guest interface   533
 
 
-as data, here packed into one number the way Turing packed his into a description
-number. Each guest keeps its computation, its halting, its answer, its record and its
 prices, exactly: the host halts when it halts, its flag goes up when the guest’s would,
 on a chain of its own, and its ledger is the guest’s.
     The guests of UP are every Thiele machine whose driver, step, prices and reading
@@ -23610,16 +23608,16 @@ then −2 ≤ E00 + E01 + E10 − E11 ≤ 2.
                satisfies both row bounds and has S = 8.
 
                Remark H.1 (Where equality can happen). Equality S2 = 8 under the row bounds
-               forces equality in both steps of the proof above: the six squares must all vanish,
-               which gives a = b = c = −d, and the rows must be tight, which gives 2a2 = 1.
-               So the point of Theorem H.4 and its negative are the only places the bound is
-               reached. A tally’s correlators are ratios of whole numbers and 2a2 = 1 has no
-               such solution, so no tally reaches the bound; the integer check’s passing tallies stay
-               strictly below it and come as near as you like. (Take rational a, b with a2 + b2 = 1,
-               from a Pythagorean triple, and the correlators ( a, b, b, − a): they pass
-                                                                                      √ the check of
-               Section H.5 with no slack, and S = 2( a + b), which gets as close to 2 2 as you like
-               as a/b approaches 1.)
+               forces equality in both steps of the proof, in the companion volume: the six squares
+               must all vanish, which gives a = b = c = −d, and the rows must be tight, which
+               gives 2a2 = 1. So the point of Theorem H.4 and its negative are the only places
+               the bound is reached. A tally’s correlators are ratios of whole numbers and 2a2 = 1
+               has no such solution, so no tally reaches the bound; the integer check’s passing
+               tallies stay strictly below it and come as near as you like. (Take rational a, b with
+               a2 + b2 = 1, from a Pythagorean triple, and the correlators ( a, b, b, − a): they pass
+               the
+                √ check of Section H.5 with no slack, and S = 2( a + b), which gets as close to
+               2 2 as you like as a/b approaches 1.)
 
 
                H.4 The zero-marginal 5 × 5 moment matrix
@@ -23782,9 +23780,10 @@ openings between those limits. Alice’s second direction asks for another inter
 
                H.11 Scope of the constructions
 
-               The constructions above pin down the correlators. What follows is where they stop:
-               they aren’t a completeness claim for the integer check, they say nothing about full
-               behaviours with marginals, and they say nothing about data from a lab.
+               The constructions of this appendix, carried in full in the companion volume, pin
+               down the correlators. What follows is where they stop: they aren’t a completeness
+               claim for the integer check, they say nothing about full behaviours with marginals,
+               and they say nothing about data from a lab.
                   The arcsine boundary. For two settings and two outcomes per side, Tsirelson,
                Landau (1988) and Masanes (2003) give theorems characterizing the correla-
                tors reachable by quantum measurements: | arcsin E00 + arcsin E01 + arcsin E10 −
@@ -23802,17 +23801,15 @@ openings between those limits. Alice’s second direction asks for another inter
                proved for strategies in finite dimension, with real amplitudes and with complex
                ones, and in any dimension, marginals included, for any expectation on an algebra
                of observables.
-                  Achievability. Theorem H.4 is a point of R4 . A state        √ and measurements that
+                  Achievability. Theorem H.4 is a point of R4 . A state   √ and measurements that
                reach it are explicit:
-                                √     the two-qubit  state (|
-                                                           √  00 ⟩ + | 11 ⟩) /  2 with√A0 = √
-                                                                                            Z, A1 =√X,
+                                √ the two-qubit state √   (|00⟩ + |11⟩)/ 2 with√A0 = √    Z, A1 =√X,
                B0 =√( Z + X )/ 2√and B1 = ( Z − X )/ 2 has correlators 1/ 2, 1/ 2, 1/ 2,
                −1/ 2 and S = 2 2, and every strategy in finite dimension has S2 ≤ 8, with real
-               amplitudes and with complex ones. Both are arithmetic about the model. How close
                                                                                 H.12 Prior work   589
 
 
+amplitudes and with complex ones. Both are arithmetic about the model. How close
 a real laboratory comes, and what that costs in loopholes closed, is the story told in
 Appendix G.
     Completeness of the checks. The 1+AB cascade and the elliptope gate are proved
@@ -23854,10 +23851,10 @@ exact rational sum-of-squares certificates
                                    √       go back at least to Peyrl and Parrilo (2008).
 So the moment-matrix route to 2 2 is standard. What is specific here is narrower:
 an integer certificate computed from outcome counts, and the argument from “the
-counts pass” to PSD of the pinned matrix and on to S2 ≤ 8. I did not find that chain
 590   H The CHSH derivation, in full
 
 
+               counts pass” to PSD of the pinned matrix and on to S2 ≤ 8. I did not find that chain
                elsewhere, and I make no claim beyond it. On the host machine, the same chain
                is earned: a raised flag from a clean start stands on a passing check of the packed
                counts, and the check passes exactly when the pinned matrix is positive semidefinite
@@ -23873,15 +23870,15 @@ Constructing the quoting
 operation
 
 The proof in Section 13 uses a program that takes the code of a term and returns
-the code of that code. Here’s how to build it.
+the code of that code. Here’s the idea; the companion volume builds it.
    Draw the instruction “add one” on a card. Now make a second card describing
 the first card’s marks, rather than carrying out the addition. The count has not risen:
 you have described an instruction. Describe the second card in turn and you have
-a description of a description. Quoting does that second job mechanically. In the
-language below, take the variable of index 0. Its code is a tree with three lambda
-nodes, then an application of variable 2 to the numeral for 0. Quoting that code
-builds a description of those three lambdas and that application; it does not look up
-variable 0 or execute the term it describes.
+a description of a description. Quoting does that second job mechanically. In that
+language, take the variable of index 0. Its code is a tree with three lambda nodes,
+then an application of variable 2 to the numeral for 0. Quoting that code builds a
+description of those three lambdas and that application; it does not look up variable
+0 or execute the term it describes.
    The construction is in the companion volume The Thiele Machine: The Ex-
 ample, Built (its section “Constructing the quoting operation”) and in Coq in
 coq/kernel/foundation/LRecursion.v.
@@ -23903,16 +23900,18 @@ keeps your place. Carry out the orders literally. The question in this appendix 
 to give the same job to another person with different equipment (a strip of paper,
 stacks of cards, or a different set of cups) and get the same answer whenever the
 first person stops.
-    Agree on how the input is laid out and how to read the output before either
-starts. One person must not quietly solve the problem while preparing the other’s
-cups. The reductions in this appendix concern functions on natural numbers. To
-compute a relation R(⃗x, y) means to halt with output y exactly when R(⃗x, y) holds,
-and to produce only numerical outputs on halting runs. The machines below are
-deterministic, so any relation they compute is the graph of a partial function. A
-translation must preserve both the output and whether the run terminates.
+    Agree on how the input is laid out and how to read the output before either starts.
+One person must not quietly solve the problem while preparing the other’s cups.
+The reductions in this appendix concern functions on natural numbers. To compute
+a relation R(⃗x, y) means to halt with output y exactly when R(⃗x, y) holds, and to
+produce only numerical outputs on halting runs. The machines the companion
+volume builds are deterministic, so any relation they compute is the graph of a
+partial function. A translation must preserve both the output and whether the run
+terminates.
 
 
 J.1 Packing finitely many counters into two
+
 Try holding two counts in one pile of eighteen beans. Count how many times you
 can halve eighteen exactly: once. Count how many times you can divide it exactly
 by three: twice. Reassemble the eighteen beans after each reading. Those are the
@@ -23942,7 +23941,8 @@ as many of its smaller instructions as it needs, then returns to the head of its
 Compare the two arrangements there: counts, live facts, commitment, flag and
 ledger. The host is allowed to do more work between comparisons. It is not allowed
 to lose a fact, revive a dead one, or charge another unit for its bookkeeping. The
-lists below let you carry out that comparison instruction by instruction.
+lists in the companion volume let you carry out that comparison instruction by
+instruction.
     The blocks of U and UP , their addresses and their specifications are in the
 companion volume The Thiele Machine: The Example, Built (its section “The universal
 program in blocks”) and in Coq in coq/kernel/foundation/UniversalLayout.v,

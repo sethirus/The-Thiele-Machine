@@ -14249,7 +14249,7 @@ be turned into a language when its claims come with an exact equality test, so f
 the checker, says that what the machine certifies is what $L$ says. Every instance below is
 stated that way.
 
-Each item in the proof names the clause it comes from, and that's all the definition gives.
+Each item in the proof, in the companion volume, names the clause it comes from, and that's all the definition gives.
 A certified Thiele-complete machine needn't have a fact table, a CHECK that traps when it fails, a COMMIT
 that looks anything up, or claims about counters. The definition asks for an earned chain on the
 runs that raise the record and leaves the rest to the machine. So the small machine's table
@@ -14273,7 +14273,7 @@ and has a two-counter machine running inside it, and it is not certified Thiele-
 generally, no machine whose every move costs at least 1 is certified Thiele-complete.
 \end{observation}
 
-(It also follows from Observation~\ref{obs:tc-clock} and Theorem~\ref{thm:tc-decomposition}(2).) The proof is short, and it's short because clause (c) does exactly the job it was written for: it
+(It also follows from Observation~\ref{obs:tc-clock} and Theorem~\ref{thm:tc-decomposition}(2).) The proof, in the companion volume, is short, and it's short because clause (c) does exactly the job it was written for: it
 says computing costs nothing, and a clock charges for computing. The other clauses do work
 too, and that's worth checking, because a definition with a clause nothing needs is a
 definition hiding something.
@@ -19264,11 +19264,7 @@ on $x$ exactly when $F(e)$ does, and the ledgers are equal exactly, with no surc
 check, commit and certify.
 \end{theorem}
 
-Each table has one fact and each channel is nonempty. The counts of the
-individual acts differ; the selected final summary agrees.
-
-In the replay, the trap latch is up exactly when the fifth number is 1, and the flag
-exactly when the fourth is positive. Look only at the function computed and you get the
+Look only at the function computed and you get the
 usual fixed-point statement back. There are two limits, and the second one is a theorem. First, $e$ pays
 after it has computed everything. It is not the way $U$ runs a guest, mirroring every move: $e$ pays
 the counts, CHECKs, then COMMITs, then the CERTIFY, whatever order $F(e)$ used, so the order of the
@@ -19372,7 +19368,7 @@ and none in bin B, for every $x$, where $c$ is the least prime above $N = 16(n+1
 carried-out transformation $F$ such that no program $e$ computes the same plain function as $F(e)$.
 \end{theorem}
 
-Nothing in that proof used more than this: two bins that move one pebble at a time, finitely many controls, a next step fixed by the control and the bins, and bins that, above some threshold, are read only through their parity. Any
+Nothing in that proof, which the companion volume carries, used more than this: two bins that move one pebble at a time, finitely many controls, a next step fixed by the control and the bins, and bins that, above some threshold, are read only through their parity. Any
 machine like that has the same obstruction, and the same computable transformation $F$ with no
 program $e$ equivalent to $F(e)$ on plain inputs.
 
@@ -21259,7 +21255,7 @@ bounds and has $S = \sqrt 8$.
 
 \begin{remark}[Where equality can happen]\label{rem:chsh-equality}
 Equality $S^2 = 8$ under the row bounds forces
-equality in both steps of the proof above: the six squares must all vanish, which gives
+equality in both steps of the proof, in the companion volume: the six squares must all vanish, which gives
 $a = b = c = -d$, and the rows must be tight, which gives $2a^2 = 1$. So the point of
 Theorem~\ref{thm:chsh-tight} and its negative are the only places the bound is reached. A tally's correlators are
 ratios of whole numbers and $2a^2 = 1$ has no such solution, so no tally reaches the bound; the integer
@@ -21412,7 +21408,7 @@ Every proof of this appendix, the worked tallies and the level-1+AB cascade are 
 \subsection{Scope of the constructions}
 \label{sub:chsh-not-proved}
 
-The constructions above pin down the correlators. What follows is where they stop: they
+The constructions of this appendix, carried in full in the companion volume, pin down the correlators. What follows is where they stop: they
 aren't a completeness claim for the integer check, they say nothing about full behaviours
 with marginals, and they say nothing about data from a lab.
 
@@ -21491,13 +21487,13 @@ integers from PSD, is proved there too, and there too I make no claim beyond the
 %===========================================================================
 
 The proof in Section~\ref{sec:diagonal} uses a program that takes the code of a term
-and returns the code of that code. Here's how to build it.
+and returns the code of that code. Here's the idea; the companion volume builds it.
 
 Draw the instruction ``add one'' on a card. Now make a second card describing the
 first card's marks, rather than carrying out the addition. The count has not risen:
 you have described an instruction. Describe the second card in turn and you have
-a description of a description. Quoting does that second job mechanically. In the
-language below, take the variable of index 0. Its code is a tree with three lambda
+a description of a description. Quoting does that second job mechanically. In that
+language, take the variable of index 0. Its code is a tree with three lambda
 nodes, then an application of variable 2 to the numeral for 0. Quoting that code
 builds a description of those three lambdas and that application; it does not
 look up variable 0 or execute the term it describes.
@@ -21517,7 +21513,7 @@ Agree on how the input is laid out and how to read the output before either star
 One person must not quietly solve the problem while preparing the other's cups.
 The reductions in this appendix concern functions on natural numbers. To compute a
 relation $R(\vec x,y)$ means to halt with output $y$ exactly when $R(\vec x,y)$ holds,
-and to produce only numerical outputs on halting runs. The machines below are
+and to produce only numerical outputs on halting runs. The machines the companion volume builds are
 deterministic, so any relation they compute is the graph of a partial function.
 A translation must preserve both the output and whether the run terminates.
 
@@ -21541,7 +21537,7 @@ as many of its smaller instructions as it needs, then returns to the head of its
 sheet. Compare the two arrangements there: counts, live facts, commitment, flag
 and ledger. The host is allowed to do more work between comparisons. It is not
 allowed to lose a fact, revive a dead one, or charge another unit for its bookkeeping.
-The lists below let you carry out that comparison instruction by instruction.
+The lists in the companion volume let you carry out that comparison instruction by instruction.
 
 The blocks of $U$ and $U_P$, their addresses and their specifications are in the companion volume \emph{The Thiele Machine: The Example, Built} (its section ``The universal program in blocks'') and in Coq in \texttt{coq/kernel/foundation/UniversalLayout.v}, \texttt{UniversalBlocks.v}, \texttt{UniversalPLayout.v} and \texttt{UniversalPBlocks.v}.
 \section{Methodology note}

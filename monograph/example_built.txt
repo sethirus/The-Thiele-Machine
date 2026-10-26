@@ -982,6 +982,10 @@ after the raise would bring the surcharge back to zero once the guest had paid t
                             Run         checks    commits    certificates   total paid   final flag
                             Original      1          1            2             4           up
                             Replay        1          2            1             4           up
+                   Each table has one fact and each channel is nonempty. The counts of the
+               individual acts differ; the selected final summary agrees. In the replay, the trap latch
+               is up exactly when the fifth number is 1, and the flag exactly when the fourth is
+               positive.
 
                A worked packing, with its table. Try input 2 while the simulated counters hold
                1 and 2. The pile is 17 · 2 · 9 = 306. Raising the first simulated counter doubles it to
