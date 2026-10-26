@@ -12100,6 +12100,116 @@ Put a hidden switch behind a dark lamp. The next button press copies the switch 
 
 \end{verbatim}\end{small}
 
+%===========================================================================
+\section{From the plain-text statement and the README, second pass}
+%===========================================================================
+
+These passages were taken out of \texttt{THIELE\_MACHINE.txt} and the README when the two were rebuilt as the argument, and are kept here as they stood.
+
+\begin{small}\begin{verbatim}
+WHAT A FREE MOVE CAN CHANGE
+
+Slide a tile to the right without paying. Ask whether it is in the place
+it just reached. The answer was no and is now yes. If the toll charged
+every question, that slide could not be free. Do this with any changed
+full state: ask whether it is the destination. Where states can be tested
+for equality, charging every Boolean question would freeze every free
+move. The definition has to name the reading its toll belongs to.
+
+Now keep that reading permanent. A free move cannot raise it, because a
+raise costs at least one. It cannot lower it, because a yes stays yes.
+It must leave it alone. That explains the reading part of the horizontal
+rule. The window adds another requirement: the next picture comes from
+the present picture and the button pressed. Permanence by itself does
+not choose a picture or make a paid move leave that picture alone.
+
+There are two ways to state the same reading requirement for a sliced
+machine. Leave it alone on horizontal moves and never lower it on vertical
+moves, and it is permanent through all moves. Start instead with permanence,
+the toll and free horizontal moves, and the two sentences above force
+horizontal preservation. Neither route has to assume its own conclusion.
+
+
+PUT THE PRICE ON THE BUTTON
+
+Put price cards zero, one and two beside a button. If pressing it can raise
+the lamp from some state, zero fails there. One works. Two works too, but
+one is the least. If the button never raises the lamp from any state,
+zero works. Give each button its least card and you have the least valid
+schedule, one instruction at a time. Any other least schedule must have
+the same cards: neither can be smaller than the other.
+
+For a finite machine, inspect a list covering all its states to decide
+which card each button needs. On an infinite machine that search need not
+finish. For the lift there is a direct witness: if each mark's event holds
+somewhere, put the lamp down over that base state and press the mark. It
+raises the lamp, so one is necessary. Computing leaves the lamp alone,
+so zero suffices. A mark whose event never holds needs no positive toll;
+charging one for every use then comes from the chosen accounting rule.
+
+The price stays on the instruction. It does not disappear when you press
+the same button with the lamp already on. Every run from no to yes contains
+a crossing and pays at least one; conversely a single crossing is already
+a run. The step toll and the floor from every start give the same minimum.
+That is a minimum in the definition's units. Measuring a device's heat
+requires a physical account of the device.
+
+
+The allowed moves and the starting states matter. Correctly translating a
+program proves a simulation. To preserve a guarantee through every allowed
+host program, the proof must cover every host move from the stated starts.
+Paying to raise a record does not, by itself, establish what that record
+means.
+
+This does not require the full states to form a literal product. It only
+requires the two readings and the displayed equations. If someone reads
+the hidden record and chooses a different instruction because of it, the
+two executions no longer receive the same horizontal word.
+
+For the entry arrow u -> f(u) itself to share its destination with an arrow
+from H, the exact condition is f(u) in f(H). Surjectivity of f on H is
+sufficient, as is a single holding state. Neither is necessary for a
+particular entry to collide.
+
+These are full configurations. A fixed array of bits can have many different
+configurations without acquiring a new memory cell on every tick.
+
+A different accounting interface allows a source-dependent charge a(s), or
+c(s,i) when instructions are supplied. This extends the instruction-price
+definition above; it does not change the meaning of c(i) there. Its toll
+must be stated on each actual crossing. On no -> yes -> yes, charge one at
+no and zero at yes. A ledger with values zero and one obeys both updates. If instead every tick had the same
+positive charge, a fixed full state could not hold its own ledger: it would
+require the same number to equal itself plus a positive amount.
+
+The mathematics specifies the operations that must be preserved. A software
+implementation must implement those operations through every allowed path.
+Keeping a copy of their names or values alone does not establish that.
+
+These bounds follow the information available and the question being asked.
+An ordinary program given the live question can accumulate its answer too.
+The earned machine adds the requirement that its permitted operations keep
+the accepting record faithful to what actually passed.
+
+
+Every flat machine is the shadow of a sliced machine, and the book builds the one that stands above it: the machine's own picture, a record, and a ledger, with a charge of one on every move that can set the record. Projection forgets those coordinates; embedding a base state with record down and ledger zero preserves every computing run exactly. A mark can distinguish states above the same view. The lift preserves base transitions, not any previous price or reading, and it adds no computable functions: with an effective base and event, ordinary computation can encode all these coordinates. What it adds is distinctions within a fibre. The formal bridges and their counterexamples are in `coq/audit/`.
+
+## Which differences have to stay?
+
+Slide a tile to the right for free. Ask whether it is in the place it just reached. The answer was no and is now yes. If the toll charged every question, this slide would have to pay. The same test works for any changed full state when equality can be decided: charging every Boolean reading would freeze every free move. The definition has to name the question the toll belongs to.
+
+Keep that reading permanent. A free move cannot raise it, because a raise pays. It cannot lower it, because a yes stays yes. It leaves it alone. This explains horizontal reading preservation. The window rules add something further: computing follows the picture's own dynamics, and marking leaves that picture fixed.
+
+Put price cards zero, one and two beside a button. If it can raise the reading from some state, zero fails; one is the least card that works. If it never raises the reading, zero works. On a finite list covering all states, search for that crossing for each instruction. This gives the unique least schedule, with each price fixed on the instruction wherever it is used. For the lift, computing needs zero and every mark whose event holds somewhere needs one, even over an infinite base. A mark whose event never holds has no positive minimum under the toll alone.
+
+Now put a price rule beside the arrows. The abstract model's toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. The price premise is written beside the count; a physical heat bound additionally needs a physical model. Whether a real device has finitely many distinguishable states is itself a physical assumption, and the book names it as one. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them.
+
+Storing a representation is part of implementing this machine. Preserving those rules through every allowed program is the part that makes the representation authoritative. This guarantee concerns the specified clean starts and permitted operations. The abstract toll requires payment for a raise; it does not assign the record an earned-history meaning.
+
+The machine can be implemented with ordinary computation. What matters is which information remains available and which operations are permitted to change an accepting record. A comparison of implementations has to give both sides the same task and access to the same evidence.
+
+\end{verbatim}\end{small}
+
 \section{Further reading}
 
 The works below were read for the book and are not named in its finished text or in this volume. They are kept here with their annotations, so that nothing read for the book is lost.

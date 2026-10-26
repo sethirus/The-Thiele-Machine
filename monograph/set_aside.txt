@@ -194,15 +194,16 @@ Contents
 6   CONTENTS
 
 
-               34     Methodology note                                  312
-               35     Rows of the claim ledger for the passages above   313
-               36     From the plain-text statement                     329
-               37     From the README                                   332
-               38     Further reading                                   333
-                    38.1 Structure, information and knowledge           333
-                    38.2 Cost, records and thermodynamics               334
-                    38.3 Computation, self-reference and checking       338
-                    38.4 Correlations and environmental records         341
+               34     Methodology note                                            312
+               35     Rows of the claim ledger for the passages above             313
+               36     From the plain-text statement                               329
+               37     From the README                                             332
+               38     From the plain-text statement and the README, second pass   333
+               39     Further reading                                             336
+                    39.1 Structure, information and knowledge                     336
+                    39.2 Cost, records and thermodynamics                         337
+                    39.3 Computation, self-reference and checking                 341
+                    39.4 Correlations and environmental records                   344
 CHAPTER 1
 
 
@@ -13395,6 +13396,123 @@ Put a hidden switch behind a dark lamp. The next button press copies the switch 
 
 
 
+From the plain-text statement
+and the README, second pass
+
+These passages were taken out of THIELE_MACHINE.txt and the README when the
+two were rebuilt as the argument, and are kept here as they stood.
+WHAT A FREE MOVE CAN CHANGE
+
+Slide a tile to the right without paying. Ask whether it is in the place
+it just reached. The answer was no and is now yes. If the toll charged
+every question, that slide could not be free. Do this with any changed
+full state: ask whether it is the destination. Where states can be tested
+for equality, charging every Boolean question would freeze every free
+move. The definition has to name the reading its toll belongs to.
+
+Now keep that reading permanent. A free move cannot raise it, because a
+raise costs at least one. It cannot lower it, because a yes stays yes.
+It must leave it alone. That explains the reading part of the horizontal
+rule. The window adds another requirement: the next picture comes from
+the present picture and the button pressed. Permanence by itself does
+not choose a picture or make a paid move leave that picture alone.
+
+There are two ways to state the same reading requirement for a sliced
+machine. Leave it alone on horizontal moves and never lower it on vertical
+moves, and it is permanent through all moves. Start instead with permanence,
+the toll and free horizontal moves, and the two sentences above force
+horizontal preservation. Neither route has to assume its own conclusion.
+
+
+PUT THE PRICE ON THE BUTTON
+
+Put price cards zero, one and two beside a button. If pressing it can raise
+the lamp from some state, zero fails there. One works. Two works too, but
+one is the least. If the button never raises the lamp from any state,
+zero works. Give each button its least card and you have the least valid
+schedule, one instruction at a time. Any other least schedule must have
+
+                                           333
+334   38 From the plain-text statement and the README, second pass
+
+
+               the same cards: neither can be smaller than the other.
+
+               For a finite machine, inspect a list covering all its states to decide
+               which card each button needs. On an infinite machine that search need not
+               finish. For the lift there is a direct witness: if each mark’s event holds
+               somewhere, put the lamp down over that base state and press the mark. It
+               raises the lamp, so one is necessary. Computing leaves the lamp alone,
+               so zero suffices. A mark whose event never holds needs no positive toll;
+               charging one for every use then comes from the chosen accounting rule.
+
+               The price stays on the instruction. It does not disappear when you press
+               the same button with the lamp already on. Every run from no to yes contains
+               a crossing and pays at least one; conversely a single crossing is already
+               a run. The step toll and the floor from every start give the same minimum.
+               That is a minimum in the definition’s units. Measuring a device’s heat
+               requires a physical account of the device.
+
+
+               The allowed moves and the starting states matter. Correctly translating a
+               program proves a simulation. To preserve a guarantee through every allowed
+               host program, the proof must cover every host move from the stated starts.
+               Paying to raise a record does not, by itself, establish what that record
+               means.
+
+               This does not require the full states to form a literal product. It only
+               requires the two readings and the displayed equations. If someone reads
+               the hidden record and chooses a different instruction because of it, the
+               two executions no longer receive the same horizontal word.
+
+               For the entry arrow u -> f(u) itself to share its destination with an arrow
+               from H, the exact condition is f(u) in f(H). Surjectivity of f on H is
+               sufficient, as is a single holding state. Neither is necessary for a
+               particular entry to collide.
+
+               These are full configurations. A fixed array of bits can have many different
+               configurations without acquiring a new memory cell on every tick.
+
+               A different accounting interface allows a source-dependent charge a(s), or
+               c(s,i) when instructions are supplied. This extends the instruction-price
+               definition above; it does not change the meaning of c(i) there. Its toll
+               must be stated on each actual crossing. On no -> yes -> yes, charge one at
+               no and zero at yes. A ledger with values zero and one obeys both updates. If instead every t
+               positive charge, a fixed full state could not hold its own ledger: it would
+               require the same number to equal itself plus a positive amount.
+                                                                                      335
+
+
+The mathematics specifies the operations that must be preserved. A software
+implementation must implement those operations through every allowed path.
+Keeping a copy of their names or values alone does not establish that.
+
+These bounds follow the information available and the question being asked.
+An ordinary program given the live question can accumulate its answer too.
+The earned machine adds the requirement that its permitted operations keep
+the accepting record faithful to what actually passed.
+
+
+Every flat machine is the shadow of a sliced machine, and the book builds the one that stands
+
+## Which differences have to stay?
+
+Slide a tile to the right for free. Ask whether it is in the place it just reached. The answe
+
+Keep that reading permanent. A free move cannot raise it, because a raise pays. It cannot low
+
+Put price cards zero, one and two beside a button. If it can raise the reading from some stat
+
+Now put a price rule beside the arrows. The abstract model’s toll says that a move raising th
+
+Storing a representation is part of implementing this machine. Preserving those rules through
+
+The machine can be implemented with ordinary computation. What matters is which information r
+CHAPTER 39
+
+
+
+
 Further reading
 
 The works below were read for the book and are not named in its finished text or in
@@ -13402,7 +13520,7 @@ this volume. They are kept here with their annotations, so that nothing read for
 book is lost.
 
 
-38.1 Structure, information and knowledge
+39.1 Structure, information and knowledge
 
 Hans Albert. Wikipedia. Article. German philosopher (1921–2023), with Popper a
 leading critical rationalist; Traktat über kritische Vernunft (1968).
@@ -13427,329 +13545,329 @@ Mathematics. Stanford Encyclopedia of Philosophy. Entry. Kreisel’s creating-su
 axioms CS1–CS3 (1967), CS2 being that the creating subject never forgets what it
 has proven, and Troelstra’s strengthening (1969).
 
-                                                333
-334   38 Further reading
+                                336
+                                                         39.2 Cost, records and thermodynamics   337
 
 
-              Petrus Mantuanus (d. 1400). Logica. Medieval manuscripts in Oxford libraries,
-              Bodleian Library. Catalogue entry. Peter of Mantua as a logician of the late four-
-              teenth century.
-              Per Martin-Löf (1996). On the Meanings of the Logical Constants and the Justifica-
-              tions of the Logical Laws. Nordic Journal of Philosophical Logic 1(1), pp. 11–60.
-              Lectures given in Siena in 1983. The passage on proof as an act is on p. 28. Lecture
-              text.
-              Meta Platforms (2021). Introducing Meta: A Social Technology Company. Company
-              announcement, 28 October 2021. Announcement.
-              Benjamin Morison (2014, revised 2026). Sextus Empiricus. Stanford Encyclopedia
-              of Philosophy. Entry. The source for his dates, his medicine and his skepticism.
-              J. J. O’Connor and E. F. Robertson (n.d.). Theaetetus of Athens. MacTutor History
-              of Mathematics. Entry.
-              J. J. O’Connor and E. F. Robertson (n.d.). Paul Richard Halmos. MacTutor History of
-              Mathematics. Biography.
-              Benoît Rittaud and Albrecht Heeffer (2014). The Pigeonhole Principle, Two Cen-
-              turies before Dirichlet. The Mathematical Intelligencer 36(2), pp. 27–29. Jean
-              Leurechon’s use of the principle in 1622.
-              Göran Sundholm (1998). Proofs as Acts and Proofs as Objects: Some ques-
-              tions for Dag Prawitz. Theoria 64(2–3), pp. 187–216. DOI: 10.1111/j.1755-
-              2567.1998.tb00187.x.
-              Göran Sundholm (2014). Constructive Recursive Functions, Church’s Thesis, and
-              Brouwer’s Theory of the Creating Subject: Afterthoughts on a Parisian Joint Ses-
-              sion. In Constructivity and Computability in Historical and Philosophical Perspec-
-              tive, Logic, Epistemology, and the Unity of Science, Springer, pp. 1–35. DOI:
-              10.1007/978-94-017-9217-2_1.
-              Timothy Yenter and Ezio Vailati (2003, revised 2024). Samuel Clarke. Stanford
-              Encyclopedia of Philosophy. Entry. Clarke as the British philosopher and theologian
-              who defended Newton’s natural philosophy in his letters with Leibniz.
+Petrus Mantuanus (d. 1400). Logica. Medieval manuscripts in Oxford libraries,
+Bodleian Library. Catalogue entry. Peter of Mantua as a logician of the late four-
+teenth century.
+Per Martin-Löf (1996). On the Meanings of the Logical Constants and the Justifica-
+tions of the Logical Laws. Nordic Journal of Philosophical Logic 1(1), pp. 11–60.
+Lectures given in Siena in 1983. The passage on proof as an act is on p. 28. Lecture
+text.
+Meta Platforms (2021). Introducing Meta: A Social Technology Company. Company
+announcement, 28 October 2021. Announcement.
+Benjamin Morison (2014, revised 2026). Sextus Empiricus. Stanford Encyclopedia
+of Philosophy. Entry. The source for his dates, his medicine and his skepticism.
+J. J. O’Connor and E. F. Robertson (n.d.). Theaetetus of Athens. MacTutor History
+of Mathematics. Entry.
+J. J. O’Connor and E. F. Robertson (n.d.). Paul Richard Halmos. MacTutor History of
+Mathematics. Biography.
+Benoît Rittaud and Albrecht Heeffer (2014). The Pigeonhole Principle, Two Cen-
+turies before Dirichlet. The Mathematical Intelligencer 36(2), pp. 27–29. Jean
+Leurechon’s use of the principle in 1622.
+Göran Sundholm (1998). Proofs as Acts and Proofs as Objects: Some ques-
+tions for Dag Prawitz. Theoria 64(2–3), pp. 187–216. DOI: 10.1111/j.1755-
+2567.1998.tb00187.x.
+Göran Sundholm (2014). Constructive Recursive Functions, Church’s Thesis, and
+Brouwer’s Theory of the Creating Subject: Afterthoughts on a Parisian Joint Ses-
+sion. In Constructivity and Computability in Historical and Philosophical Perspec-
+tive, Logic, Epistemology, and the Unity of Science, Springer, pp. 1–35. DOI:
+10.1007/978-94-017-9217-2_1.
+Timothy Yenter and Ezio Vailati (2003, revised 2024). Samuel Clarke. Stanford
+Encyclopedia of Philosophy. Entry. Clarke as the British philosopher and theologian
+who defended Newton’s natural philosophy in his letters with Leibniz.
 
 
-              38.2 Cost, records and thermodynamics
+39.2 Cost, records and thermodynamics
 
-              János Aczél, Bruno Forte and C. T. Ng (1974). Why the Shannon and Hartley
-              entropies are “natural.” Advances in Applied Probability 6(1), pp. 131–146. DOI:
-              10.2307/1426210. Ng’s 1971 Waterloo doctorate under Aczél: Mathematics Geneal-
-              ogy Project.
-                                                          38.2 Cost, records and thermodynamics   335
-
-
-Roberto M. Amadio, Nicolas Ayache, François Bobot, Jaap P. Boender, Brian Camp-
-bell, Ilias Garnier, Antoine Madet, James McKinna, Dominic P. Mulligan, Mauro
-Piccolo, Randy Pollack, Yann Régis-Gianas, Claudio Sacerdoti Coen, Ian Stark and
-Paolo Tranquilli (2014). Certified Complexity (CerCo). Foundational and Prac-
-tical Aspects of Resource Analysis, FOPARA 2013, LNCS 8552, pp. 1–18. DOI:
-10.1007/978-3-319-12466-7_1.
-Walter J. Boyne. Wikipedia entry: United States Air Force officer, aviation historian,
-director of the National Air and Space Museum (acting from 1982, director 1983–
-1986). Entry.
-Léon Brillouin (1951). Maxwell’s Demon Cannot Operate: Information and Entropy.
-I. Journal of Applied Physics 22(3), pp. 334–337. DOI: 10.1063/1.1699951.
-Arthur Charguéraud and François Pottier (2019). Verifying the Correctness and
-Amortized Complexity of a Union-Find Implementation in Separation Logic with
-Time Credits. Journal of Automated Reasoning 62, pp. 331–365; first published
-online in 2017. DOI: 10.1007/s10817-017-9431-7.
-Gavin E. Crooks (1999). Entropy production fluctuation theorem and the nonequi-
-librium work relation for free energy differences. Physical Review E 60(3), pp.
-2721–2726. DOI: 10.1103/PhysRevE.60.2721. A path’s chance against its reverse’s
-is e to the dissipated work.
-Joe DeBlasio (2025). Discussion: removal of one-6962-log requirement. Chromium
-ct-policy mailing list, 17 November 2025. Post.
-Jérémie Decouchant, David Kozhaya, Vincent Rahli and Jiangshan Yu (2022). Damy-
-sus: streamlined BFT consensus leveraging trusted components. Proceedings of the
-Seventeenth European Conference on Computer Systems (EuroSys ’22), pp. 1–16.
-DOI: 10.1145/3492321.3519568.
-Encyclopaedia Britannica. Donation of Constantine. Web page. Composed in the
-eighth century; the consensus view puts it in the 750s or 760s.
-Encyclopaedia Britannica. Leo Szilard. Web page. Born in Budapest in 1898; Berlin
-doctorate 1922 and the Institute of Theoretical Physics there.
-Ethereum Foundation (n.d.). The Merge. ethereum.org roadmap page, on the
-transition of 15 September 2022. Page.
-Ethereum Foundation (n.d.). Timeline of all Ethereum forks (Tangerine Whistle,
-EIP-150, and the Berlin upgrade, block 12,244,000). ethereum.org. Page.
-Ethereum Foundation. Devcon editions (Devcon 0, Berlin 2014; Devcon 1, London
-2015; Devcon 2, Shanghai 2016). devcon.org. Page.
-336   38 Further reading
+János Aczél, Bruno Forte and C. T. Ng (1974). Why the Shannon and Hartley
+entropies are “natural.” Advances in Applied Probability 6(1), pp. 131–146. DOI:
+10.2307/1426210. Ng’s 1971 Waterloo doctorate under Aczél: Mathematics Geneal-
+ogy Project.
+338   39 Further reading
 
 
-              Ethereum Foundation.      Ethereum execution specifications, Prague fork,
-              src/ethereum/forks/prague/vm/instructions/storage.py and vm/gas.py, at
-              commit ecb68f21a7d28db101c769878184f6facb319da1. Repository.
-              Federal Aviation Administration (2008). Revisions to Cockpit Voice Recorder and
-              Digital Flight Data Recorder Regulations. Final rule, Federal Register 73(46), 7
-              March 2008, pp. 12542–12573. The two-hour cockpit voice recorder.
-              Federal Aviation Administration (2026). 25-Hour Cockpit Voice Recorder (CVR)
-              Requirement, New Aircraft Production. Final rule, Federal Register 91(21), 2
-              February 2026, pp. 4447–4462. Federal Register text. The thirty-minute recorders
-              of 1966, the two-hour rule, and the 25-hour standard of ICAO (2016) and EASA
-              (from 2021).
-              Richard FitzNigel (c. 1180). Dialogus de Scaccario (The Dialogue of the Exchequer).
-              Text and translation ed. Charles Johnson, Nelson’s Medieval Classics, 1950. The
-              widths of the cuts on Exchequer tallies.
-              Fox-IT (2012). Black Tulip: Report of the investigation into the DigiNotar Certificate
-              Authority breach. Version 1.0. Report.
-              Tom Furtwangler (2017). The vaccine vial monitor: the world’s smartest sticker.
-              PATH, 6 November 2017. Article. The stickers first sold in 1996, for oral polio
-              vaccine.
-              General Conference on Weights and Measures (2018). Resolution 1 of the 26th
-              meeting: On the revision of the International System of Units (SI), effective 20 May
-              2019.
-              C. H. Jenkinson (1910). Early wooden tallies relating to Surrey. Surrey Archae-
-              ological Collections 23, pp. 203–207. PDF. Hazel; the payer kept the stock, the
-              Exchequer the foil; abolished by statute in 1826; the burning that started the fire.
-              Joint Committee for Guides in Metrology (2012). International vocabulary of
-              metrology: basic and general concepts and associated terms (VIM), 3rd edition,
-              JCGM 200:2012, entry 2.41, “metrological traceability.” The definition is on p. 29;
-              “does not ensure . . . that there is an absence of mistakes” is Note 5 to 2.41, p. 30.
-              BIPM text.
-              Mikhail Kuter, Marina Gurskaya and Albert Gurskii (2025). Genoa 1340, Dou-
-              ble Entry, and ‘Gold Coasting’. De Computis, Revista Española de Historia de la
-              Contabilidad 22(1), pp. 1–33. DOI: 10.26784/issn.1886-1881.22.1.11927.
-              Klaus-Jörn Lange, Pierre McKenzie and Alain Tapp (2000). Reversible Space Equals
-              Deterministic Space. Journal of Computer and System Sciences 60(2), pp. 354–367.
-              DOI: 10.1006/jcss.1999.1672.
-                                                         38.2 Cost, records and thermodynamics   337
+              Roberto M. Amadio, Nicolas Ayache, François Bobot, Jaap P. Boender, Brian Camp-
+              bell, Ilias Garnier, Antoine Madet, James McKinna, Dominic P. Mulligan, Mauro
+              Piccolo, Randy Pollack, Yann Régis-Gianas, Claudio Sacerdoti Coen, Ian Stark and
+              Paolo Tranquilli (2014). Certified Complexity (CerCo). Foundational and Prac-
+              tical Aspects of Resource Analysis, FOPARA 2013, LNCS 8552, pp. 1–18. DOI:
+              10.1007/978-3-319-12466-7_1.
+              Walter J. Boyne. Wikipedia entry: United States Air Force officer, aviation historian,
+              director of the National Air and Space Museum (acting from 1982, director 1983–
+              1986). Entry.
+              Léon Brillouin (1951). Maxwell’s Demon Cannot Operate: Information and Entropy.
+              I. Journal of Applied Physics 22(3), pp. 334–337. DOI: 10.1063/1.1699951.
+              Arthur Charguéraud and François Pottier (2019). Verifying the Correctness and
+              Amortized Complexity of a Union-Find Implementation in Separation Logic with
+              Time Credits. Journal of Automated Reasoning 62, pp. 331–365; first published
+              online in 2017. DOI: 10.1007/s10817-017-9431-7.
+              Gavin E. Crooks (1999). Entropy production fluctuation theorem and the nonequi-
+              librium work relation for free energy differences. Physical Review E 60(3), pp.
+              2721–2726. DOI: 10.1103/PhysRevE.60.2721. A path’s chance against its reverse’s
+              is e to the dissipated work.
+              Joe DeBlasio (2025). Discussion: removal of one-6962-log requirement. Chromium
+              ct-policy mailing list, 17 November 2025. Post.
+              Jérémie Decouchant, David Kozhaya, Vincent Rahli and Jiangshan Yu (2022). Damy-
+              sus: streamlined BFT consensus leveraging trusted components. Proceedings of the
+              Seventeenth European Conference on Computer Systems (EuroSys ’22), pp. 1–16.
+              DOI: 10.1145/3492321.3519568.
+              Encyclopaedia Britannica. Donation of Constantine. Web page. Composed in the
+              eighth century; the consensus view puts it in the 750s or 760s.
+              Encyclopaedia Britannica. Leo Szilard. Web page. Born in Budapest in 1898; Berlin
+              doctorate 1922 and the Institute of Theoretical Physics there.
+              Ethereum Foundation (n.d.). The Merge. ethereum.org roadmap page, on the
+              transition of 15 September 2022. Page.
+              Ethereum Foundation (n.d.). Timeline of all Ethereum forks (Tangerine Whistle,
+              EIP-150, and the Berlin upgrade, block 12,244,000). ethereum.org. Page.
+              Ethereum Foundation. Devcon editions (Devcon 0, Berlin 2014; Devcon 1, London
+              2015; Devcon 2, Shanghai 2016). devcon.org. Page.
+                                                           39.2 Cost, records and thermodynamics   339
 
 
-Ben Laurie, Adam Langley and Emilia Kasper (2013). Certificate Transparency. RFC
-6962. RFC 6962; DOI: 10.17487/RFC6962.
-Ben Laurie, Eran Messeri and Rob Stradling (2021). Certificate Transparency Version
-2.0. RFC 9162. RFC 9162; DOI: 10.17487/RFC9162.
-A. Liapounoff (1907). Problème général de la stabilité du mouvement, traduit du
-russe par Édouard Davaux. Annales de la Faculté des Sciences de Toulouse, 2e série,
-9, pp. 203–474. Numdam. The French translation the 1992 English one was made
-from.
-Sinisa Matetic, Mansoor Ahmed, Kari Kostiainen, Aritra Dhar, David Sommer, Arthur
-Gervais, Ari Juels and Srdjan Capkun (2017). ROTE: rollback protection for trusted
-execution. Proceedings of the 26th USENIX Security Symposium, pp. 1289–1306.
-USENIX page.
-Clyde Lee Miller (2009; revised 2021). Cusanus, Nicolaus [Nicolas of Cusa]. Stan-
-ford Encyclopedia of Philosophy. SEP entry.
-Yûto Murashita, Ken Funo and Masahito Ueda (2014). Nonequilibrium equalities in
-absolutely irreversible processes. Physical Review E 90, 042110. DOI: 10.1103/Phys-
-RevE.90.042110. The bound on average entropy production by − ln(1 − λ), with
-free expansion as the first example.
-Satoshi Nakamoto (2008). Bitcoin: A Peer-to-Peer Electronic Cash System. Paper.
-Devon O’Brien (2018). Certificate Transparency Enforcement in Google Chrome.
-Chromium ct-policy mailing list, 6 February 2018. Announcement.
-Garson O’Toole (2016). There Ain’t No Such Thing as a Free Lunch, TANSTAAFL.
-Quote Investigator, 27 August 2016. Article.
-Pavel Pakshin, Elena Panteley and Natalia Pakshina (2017). The Legacy of A. M.
-Lyapunov to Systems and Control Theory: 110 years of the Toulouse edition. IFAC
-World Congress 2017, open-track proposal. Davaux’s translation, reviewed and
-corrected by Lyapunov.
-Lídia del Rio, Johan Åberg, Renato Renner, Oscar Dahlsten and Vlatko Vedral (2011).
-The thermodynamic meaning of negative entropy. Nature 474, pp. 61–63. DOI:
-10.1038/nature10123; arXiv: 1009.1630.
-Jürgen Schnakenberg (1976). Network theory of microscopic and macroscopic
-behavior of master equation systems. Reviews of Modern Physics 48, pp. 571–
-585. DOI: 10.1103/RevModPhys.48.571. The entropy a Markov chain hands its
-surroundings, as the net rate across each pair times the log of the forward-to-
-backward rate ratio, which at a steady state is the whole entropy production; the
-biased walk is its smallest case.
-338   38 Further reading
+Ethereum Foundation.      Ethereum execution specifications, Prague fork,
+src/ethereum/forks/prague/vm/instructions/storage.py and vm/gas.py, at
+commit ecb68f21a7d28db101c769878184f6facb319da1. Repository.
+Federal Aviation Administration (2008). Revisions to Cockpit Voice Recorder and
+Digital Flight Data Recorder Regulations. Final rule, Federal Register 73(46), 7
+March 2008, pp. 12542–12573. The two-hour cockpit voice recorder.
+Federal Aviation Administration (2026). 25-Hour Cockpit Voice Recorder (CVR)
+Requirement, New Aircraft Production. Final rule, Federal Register 91(21), 2
+February 2026, pp. 4447–4462. Federal Register text. The thirty-minute recorders
+of 1966, the two-hour rule, and the 25-hour standard of ICAO (2016) and EASA
+(from 2021).
+Richard FitzNigel (c. 1180). Dialogus de Scaccario (The Dialogue of the Exchequer).
+Text and translation ed. Charles Johnson, Nelson’s Medieval Classics, 1950. The
+widths of the cuts on Exchequer tallies.
+Fox-IT (2012). Black Tulip: Report of the investigation into the DigiNotar Certificate
+Authority breach. Version 1.0. Report.
+Tom Furtwangler (2017). The vaccine vial monitor: the world’s smartest sticker.
+PATH, 6 November 2017. Article. The stickers first sold in 1996, for oral polio
+vaccine.
+General Conference on Weights and Measures (2018). Resolution 1 of the 26th
+meeting: On the revision of the International System of Units (SI), effective 20 May
+2019.
+C. H. Jenkinson (1910). Early wooden tallies relating to Surrey. Surrey Archae-
+ological Collections 23, pp. 203–207. PDF. Hazel; the payer kept the stock, the
+Exchequer the foil; abolished by statute in 1826; the burning that started the fire.
+Joint Committee for Guides in Metrology (2012). International vocabulary of
+metrology: basic and general concepts and associated terms (VIM), 3rd edition,
+JCGM 200:2012, entry 2.41, “metrological traceability.” The definition is on p. 29;
+“does not ensure . . . that there is an absence of mistakes” is Note 5 to 2.41, p. 30.
+BIPM text.
+Mikhail Kuter, Marina Gurskaya and Albert Gurskii (2025). Genoa 1340, Dou-
+ble Entry, and ‘Gold Coasting’. De Computis, Revista Española de Historia de la
+Contabilidad 22(1), pp. 1–33. DOI: 10.26784/issn.1886-1881.22.1.11927.
+Klaus-Jörn Lange, Pierre McKenzie and Alain Tapp (2000). Reversible Space Equals
+Deterministic Space. Journal of Computer and System Sciences 60(2), pp. 354–367.
+DOI: 10.1006/jcss.1999.1672.
+340   39 Further reading
 
 
-              Securities and Exchange Commission (2022). Electronic Recordkeeping Require-
-              ments for Broker-Dealers, Security-Based Swap Dealers, and Major Security-Based
-              Swap Participants. Release No. 34-96034, 12 October 2022. Final rule. Adds an
-              audit-trail alternative to the write-once requirement of Rule 17a-4(f) in place since
-              1997.
-              Caroline Shenton (2012). The Day Parliament Burned Down. Oxford University
-              Press. The tallies burned in the furnaces under the House of Lords, 16 October 1834.
-              Michael Stock, Pauline Barat, Richard S. Davis, Alain Picard and Martin J. T. Milton
-              (2015). Calibration campaign against the international prototype of the kilogram
-              in anticipation of the redefinition of the kilogram part I: comparison of the inter-
-              national prototype with its official copies. Metrologia 52(2), pp. 310–316. DOI:
-              10.1088/0026-1394/52/2/310.
-              Wei Tang (2019). EIP-2200: Structured Definitions for Net Gas Metering. Ethereum
-              Improvement Proposals. eips.ethereum.org/EIPS/eip-2200.
-              This Day in Aviation (n.d.). 30 October 1935: Boeing Model 299 crash at Wright
-              Field. Page.
-              Kent Weare (2016). Ethereum Security Alert Issued, Ethereum Foundation Responds
-              with “From Shanghai, With Love”. InfoQ, 19 September 2016. Article.
-              World Health Organization (2011). PQS performance specification: Vaccine Vial
-              Monitor. WHO/PQS/E06/IN05.2.
+              Ben Laurie, Adam Langley and Emilia Kasper (2013). Certificate Transparency. RFC
+              6962. RFC 6962; DOI: 10.17487/RFC6962.
+              Ben Laurie, Eran Messeri and Rob Stradling (2021). Certificate Transparency Version
+              2.0. RFC 9162. RFC 9162; DOI: 10.17487/RFC9162.
+              A. Liapounoff (1907). Problème général de la stabilité du mouvement, traduit du
+              russe par Édouard Davaux. Annales de la Faculté des Sciences de Toulouse, 2e série,
+              9, pp. 203–474. Numdam. The French translation the 1992 English one was made
+              from.
+              Sinisa Matetic, Mansoor Ahmed, Kari Kostiainen, Aritra Dhar, David Sommer, Arthur
+              Gervais, Ari Juels and Srdjan Capkun (2017). ROTE: rollback protection for trusted
+              execution. Proceedings of the 26th USENIX Security Symposium, pp. 1289–1306.
+              USENIX page.
+              Clyde Lee Miller (2009; revised 2021). Cusanus, Nicolaus [Nicolas of Cusa]. Stan-
+              ford Encyclopedia of Philosophy. SEP entry.
+              Yûto Murashita, Ken Funo and Masahito Ueda (2014). Nonequilibrium equalities in
+              absolutely irreversible processes. Physical Review E 90, 042110. DOI: 10.1103/Phys-
+              RevE.90.042110. The bound on average entropy production by − ln(1 − λ), with
+              free expansion as the first example.
+              Satoshi Nakamoto (2008). Bitcoin: A Peer-to-Peer Electronic Cash System. Paper.
+              Devon O’Brien (2018). Certificate Transparency Enforcement in Google Chrome.
+              Chromium ct-policy mailing list, 6 February 2018. Announcement.
+              Garson O’Toole (2016). There Ain’t No Such Thing as a Free Lunch, TANSTAAFL.
+              Quote Investigator, 27 August 2016. Article.
+              Pavel Pakshin, Elena Panteley and Natalia Pakshina (2017). The Legacy of A. M.
+              Lyapunov to Systems and Control Theory: 110 years of the Toulouse edition. IFAC
+              World Congress 2017, open-track proposal. Davaux’s translation, reviewed and
+              corrected by Lyapunov.
+              Lídia del Rio, Johan Åberg, Renato Renner, Oscar Dahlsten and Vlatko Vedral (2011).
+              The thermodynamic meaning of negative entropy. Nature 474, pp. 61–63. DOI:
+              10.1038/nature10123; arXiv: 1009.1630.
+              Jürgen Schnakenberg (1976). Network theory of microscopic and macroscopic
+              behavior of master equation systems. Reviews of Modern Physics 48, pp. 571–
+              585. DOI: 10.1103/RevModPhys.48.571. The entropy a Markov chain hands its
+              surroundings, as the net rate across each pair times the log of the forward-to-
+              backward rate ratio, which at a steady state is the whole entropy production; the
+              biased walk is its smallest case.
+                                                    39.3 Computation, self-reference and checking   341
 
 
-              38.3 Computation, self-reference and checking
-
-              Keith Adams and Ole Agesen (2006). A Comparison of Software and Hardware Tech-
-              niques for x86 Virtualization. Proceedings of the 12th International Conference on
-              Architectural Support for Programming Languages and Operating Systems (ASPLOS
-              XII), pp. 2–13. DOI: 10.1145/1168857.1168860. Binary translation of instructions
-              such as POPF, which on x86 runs in user mode without trapping. Intel’s VT-x and
-              AMD-V in 2005 and 2006: Wikipedia, x86 virtualization.
-              American Standards Association (1963). American Standard Code for Information
-              Interchange, ASA X3.4-1963.
-              Henk Barendregt. Wikipedia. Article. A Dutch logician known for his work in
-              lambda calculus and type theory.
-              Gerd Behrmann, Ansgar Fehnker, Thomas Hune, Kim Larsen, Paul Pettersson, Judi
-              Romijn and Frits Vaandrager (2001). Minimum-cost reachability for priced timed
-                                                      38.3 Computation, self-reference and checking   339
-
-
-automata. Hybrid Systems: Computation and Control (HSCC 2001), Lecture Notes
-in Computer Science 2034, pp. 147–161.
-N. G. de Bruijn (1972). Lambda calculus notation with nameless dummies, a tool for
-automatic formula manipulation, with application to the Church–Rosser theorem.
-Indagationes Mathematicae (Proceedings) 75(5), pp. 381–392. DOI: 10.1016/1385-
-7258(72)90034-0. Variables written as numbers that count the binders back, now
-called de Bruijn indices.
-Stanley Burris and Marcel Jackson (2010, substantive revision 2026). George Boole.
-Stanford Encyclopedia of Philosophy. Entry.
-Stanley Burris and Javier Legris (2009, substantive revision 2021). The Algebra of
-Logic Tradition. Stanford Encyclopedia of Philosophy. Entry.
-G. K. Chesterton. Wikipedia. Article. An English writer, referred to as the “prince of
-paradox”.
-Donald W. Davies (2004). Corrections to Turing’s Universal Computing Machine.
-In B. Jack Copeland (ed.), The Essential Turing, pp. 103–124. Oxford University
-Press. Davies at the National Physical Laboratory from 1947 and the word packet:
-Wikipedia, Donald Davies.
-Charles Dickens (1843). A Christmas Carol. Chapman and Hall, London. Stave
-Three, the game of Yes and No.
-William Henry Eccles and Frank Wilfred Jordan (1920). Improvements in ionic
-relays. British patent GB148582A, filed 21 June 1918, published 5 August 1920.
-Patent text. The 1918 date in the text is the filing date. The circuit as the flip-flop,
-the basis for electronic memory: History of Information, entry; and Wikipedia,
-Flip-flop (electronics), on the Eccles–Jordan trigger circuit as the first electronic
-latch, later the basic storage element of digital circuitry.
-László Fejes Tóth (1953). Lagerungen in der Ebene, auf der Kugel und im Raum.
-Berlin: Springer.
-László Fejes Tóth (1964). Regular Figures. Oxford: Pergamon Press.
-Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich (2014). The spirit
-of ghost code. Computer Aided Verification (CAV 2014), Lecture Notes in Computer
-Science 8559, pp. 1–16. DOI: 10.1007/978-3-319-08867-9_1.
-Nicholas Griffin, ed. (2003). The Cambridge Companion to Bertrand Russell.
-Cambridge University Press. G. G. Berry as a junior librarian at the Bodleian, p. 63.
-Jean-Pierre Marquis (1996, substantive revision 2019). Category Theory. Stanford
-Encyclopedia of Philosophy. Entry. The borrowed words “category” and “functor”.
-340   38 Further reading
+Securities and Exchange Commission (2022). Electronic Recordkeeping Require-
+ments for Broker-Dealers, Security-Based Swap Dealers, and Major Security-Based
+Swap Participants. Release No. 34-96034, 12 October 2022. Final rule. Adds an
+audit-trail alternative to the write-once requirement of Rule 17a-4(f) in place since
+1997.
+Caroline Shenton (2012). The Day Parliament Burned Down. Oxford University
+Press. The tallies burned in the furnaces under the House of Lords, 16 October 1834.
+Michael Stock, Pauline Barat, Richard S. Davis, Alain Picard and Martin J. T. Milton
+(2015). Calibration campaign against the international prototype of the kilogram
+in anticipation of the redefinition of the kilogram part I: comparison of the inter-
+national prototype with its official copies. Metrologia 52(2), pp. 310–316. DOI:
+10.1088/0026-1394/52/2/310.
+Wei Tang (2019). EIP-2200: Structured Definitions for Net Gas Metering. Ethereum
+Improvement Proposals. eips.ethereum.org/EIPS/eip-2200.
+This Day in Aviation (n.d.). 30 October 1935: Boeing Model 299 crash at Wright
+Field. Page.
+Kent Weare (2016). Ethereum Security Alert Issued, Ethereum Foundation Responds
+with “From Shanghai, With Love”. InfoQ, 19 September 2016. Article.
+World Health Organization (2011). PQS performance specification: Vaccine Vial
+Monitor. WHO/PQS/E06/IN05.2.
 
 
-              Ross M. McConnell, Kurt Mehlhorn, Stefan Näher and Pascal Schweitzer (2011).
-              Certifying algorithms. Computer Science Review 5(2), pp. 119–161. DOI:
-              10.1016/j.cosrev.2010.09.009.
-              Jason Megill. The Lucas-Penrose Argument about Gödel’s Theorem. Internet Ency-
-              clopedia of Philosophy. Article.
-              Glen Mével, Jacques-Henri Jourdan and François Pottier (2019). Time credits and
-              time receipts in Iris. ESOP 2019, LNCS 11423, pp. 3–29. DOI: 10.1007/978-3-030-
-              17184-1_1.
-              Jeff Miller. Earliest Uses of Symbols of Set Theory and Logic. MacTutor History of
-              Mathematics. Page. Peano’s epsilon for est, 1889.
-              J. J. O’Connor and E. F. Robertson (n.d.). The four colour theorem. MacTutor
-              History of Mathematics. Entry. (De Morgan’s letter to Hamilton of 23 October 1852
-              is quoted from here.)
-              Panu Raatikainen (2013, revised 2025). Gödel’s Incompleteness Theorems. Stanford
-              Encyclopedia of Philosophy. Entry. Source for the cautions about what the Gödel
-              sentence says.
-              Erich Reck (2008, substantive revision 2025). Dedekind’s Contributions to the
-              Foundations of Mathematics. Stanford Encyclopedia of Philosophy. Entry. Peano
-              acknowledged Dedekind’s priority for the axioms.
-              Neil Robertson, Daniel Sanders, Paul Seymour and Robin Thomas (1997). The
-              four-colour theorem. Journal of Combinatorial Theory, Series B 70(1), pp. 2–44.
-              Jürgen Schmidhuber (2003). Gödel machines: self-referential universal problem
-              solvers making provably optimal self-improvements. Technical Report IDSIA-19-03.
-              arXiv: cs/0309048.
-              Marcel-Paul Schützenberger (1961). On the definition of a family of automata.
-              Information and Control 4(2–3), pp. 245–270.
-              Dana Scott (1962). A system of functional abstraction. Lectures delivered at the
-              University of California, Berkeley, 1962–63; unpublished. The origin of the Scott
-              encoding, as given in Mogensen–Scott encoding, Wikipedia, Article.
-              Dana Scott. Carnegie Mellon University’s School of Computer Science, faculty
-              Turing Award recipients: the 1976 award jointly with Michael Rabin for their work
-              on nondeterministic machines. His doctorate at Princeton under Alonzo Church,
-              domain theory and models of the lambda calculus: Wikipedia, Dana Scott.
-              Emin Gün Sirer, Willem de Bruijn, Patrick Reynolds, Alan Shieh, Kevin Walsh,
-              Dan Williams and Fred B. Schneider (2011). Logical attestation: an authoriza-
-                                                    38.4 Correlations and environmental records   341
+39.3 Computation, self-reference and checking
+
+Keith Adams and Ole Agesen (2006). A Comparison of Software and Hardware Tech-
+niques for x86 Virtualization. Proceedings of the 12th International Conference on
+Architectural Support for Programming Languages and Operating Systems (ASPLOS
+XII), pp. 2–13. DOI: 10.1145/1168857.1168860. Binary translation of instructions
+such as POPF, which on x86 runs in user mode without trapping. Intel’s VT-x and
+AMD-V in 2005 and 2006: Wikipedia, x86 virtualization.
+American Standards Association (1963). American Standard Code for Information
+Interchange, ASA X3.4-1963.
+Henk Barendregt. Wikipedia. Article. A Dutch logician known for his work in
+lambda calculus and type theory.
+Gerd Behrmann, Ansgar Fehnker, Thomas Hune, Kim Larsen, Paul Pettersson, Judi
+Romijn and Frits Vaandrager (2001). Minimum-cost reachability for priced timed
+342   39 Further reading
 
 
-tion architecture for trustworthy computing. SOSP 2011, pp. 249–264. DOI:
-10.1145/2043556.2043580.
-Ken Thompson. Heidelberg Laureate Forum, laureate profile: the 1983 Turing Award
-with Dennis Ritchie for operating systems theory and the implementation of Unix.
-Thompson’s design and implementation of the original Unix at Bell Labs: Wikipedia,
-Ken Thompson.
-Alfred North Whitehead and Bertrand Russell (1910). Principia Mathematica, vol. I.
-Cambridge University Press. Introduction, chapter II.
-Robin Wilson (2002). Four Colours Suffice? Gresham College lecture, 21 October
-2002. Lecture. De Morgan’s letter of 23 October 1852 to the Irish mathematician
-William Rowan Hamilton.
+              automata. Hybrid Systems: Computation and Control (HSCC 2001), Lecture Notes
+              in Computer Science 2034, pp. 147–161.
+              N. G. de Bruijn (1972). Lambda calculus notation with nameless dummies, a tool for
+              automatic formula manipulation, with application to the Church–Rosser theorem.
+              Indagationes Mathematicae (Proceedings) 75(5), pp. 381–392. DOI: 10.1016/1385-
+              7258(72)90034-0. Variables written as numbers that count the binders back, now
+              called de Bruijn indices.
+              Stanley Burris and Marcel Jackson (2010, substantive revision 2026). George Boole.
+              Stanford Encyclopedia of Philosophy. Entry.
+              Stanley Burris and Javier Legris (2009, substantive revision 2021). The Algebra of
+              Logic Tradition. Stanford Encyclopedia of Philosophy. Entry.
+              G. K. Chesterton. Wikipedia. Article. An English writer, referred to as the “prince of
+              paradox”.
+              Donald W. Davies (2004). Corrections to Turing’s Universal Computing Machine.
+              In B. Jack Copeland (ed.), The Essential Turing, pp. 103–124. Oxford University
+              Press. Davies at the National Physical Laboratory from 1947 and the word packet:
+              Wikipedia, Donald Davies.
+              Charles Dickens (1843). A Christmas Carol. Chapman and Hall, London. Stave
+              Three, the game of Yes and No.
+              William Henry Eccles and Frank Wilfred Jordan (1920). Improvements in ionic
+              relays. British patent GB148582A, filed 21 June 1918, published 5 August 1920.
+              Patent text. The 1918 date in the text is the filing date. The circuit as the flip-flop,
+              the basis for electronic memory: History of Information, entry; and Wikipedia,
+              Flip-flop (electronics), on the Eccles–Jordan trigger circuit as the first electronic
+              latch, later the basic storage element of digital circuitry.
+              László Fejes Tóth (1953). Lagerungen in der Ebene, auf der Kugel und im Raum.
+              Berlin: Springer.
+              László Fejes Tóth (1964). Regular Figures. Oxford: Pergamon Press.
+              Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich (2014). The spirit
+              of ghost code. Computer Aided Verification (CAV 2014), Lecture Notes in Computer
+              Science 8559, pp. 1–16. DOI: 10.1007/978-3-319-08867-9_1.
+              Nicholas Griffin, ed. (2003). The Cambridge Companion to Bertrand Russell.
+              Cambridge University Press. G. G. Berry as a junior librarian at the Bodleian, p. 63.
+              Jean-Pierre Marquis (1996, substantive revision 2019). Category Theory. Stanford
+              Encyclopedia of Philosophy. Entry. The borrowed words “category” and “functor”.
+                                                  39.3 Computation, self-reference and checking   343
 
 
-38.4 Correlations and environmental records
+Ross M. McConnell, Kurt Mehlhorn, Stefan Näher and Pascal Schweitzer (2011).
+Certifying algorithms. Computer Science Review 5(2), pp. 119–161. DOI:
+10.1016/j.cosrev.2010.09.009.
+Jason Megill. The Lucas-Penrose Argument about Gödel’s Theorem. Internet Ency-
+clopedia of Philosophy. Article.
+Glen Mével, Jacques-Henri Jourdan and François Pottier (2019). Time credits and
+time receipts in Iris. ESOP 2019, LNCS 11423, pp. 3–29. DOI: 10.1007/978-3-030-
+17184-1_1.
+Jeff Miller. Earliest Uses of Symbols of Set Theory and Logic. MacTutor History of
+Mathematics. Page. Peano’s epsilon for est, 1889.
+J. J. O’Connor and E. F. Robertson (n.d.). The four colour theorem. MacTutor
+History of Mathematics. Entry. (De Morgan’s letter to Hamilton of 23 October 1852
+is quoted from here.)
+Panu Raatikainen (2013, revised 2025). Gödel’s Incompleteness Theorems. Stanford
+Encyclopedia of Philosophy. Entry. Source for the cautions about what the Gödel
+sentence says.
+Erich Reck (2008, substantive revision 2025). Dedekind’s Contributions to the
+Foundations of Mathematics. Stanford Encyclopedia of Philosophy. Entry. Peano
+acknowledged Dedekind’s priority for the axioms.
+Neil Robertson, Daniel Sanders, Paul Seymour and Robin Thomas (1997). The
+four-colour theorem. Journal of Combinatorial Theory, Series B 70(1), pp. 2–44.
+Jürgen Schmidhuber (2003). Gödel machines: self-referential universal problem
+solvers making provably optimal self-improvements. Technical Report IDSIA-19-03.
+arXiv: cs/0309048.
+Marcel-Paul Schützenberger (1961). On the definition of a family of automata.
+Information and Control 4(2–3), pp. 245–270.
+Dana Scott (1962). A system of functional abstraction. Lectures delivered at the
+University of California, Berkeley, 1962–63; unpublished. The origin of the Scott
+encoding, as given in Mogensen–Scott encoding, Wikipedia, Article.
+Dana Scott. Carnegie Mellon University’s School of Computer Science, faculty
+Turing Award recipients: the 1976 award jointly with Michael Rabin for their work
+on nondeterministic machines. His doctorate at Princeton under Alonzo Church,
+domain theory and models of the lambda calculus: Wikipedia, Dana Scott.
+Emin Gün Sirer, Willem de Bruijn, Patrick Reynolds, Alan Shieh, Kevin Walsh,
+Dan Williams and Fred B. Schneider (2011). Logical attestation: an authoriza-
+344   39 Further reading
 
-M.-C. Chen et al. (2019). Emergence of classical objectivity of quantum Darwinism
-in a photonic quantum simulator. Science Bulletin 64, p. 580.
-M. A. Ciampini, G. Pinna, P. Mataloni and M. Paternostro (2018). Experimental
-signature of quantum Darwinism in photonic cluster states. Physical Review A 98,
-020101.
-Mauro Dorato and Jan Faye (2026). Niels Bohr as a Physicist of Principle. arXiv:
-2609.04297. Quotes Bohr’s Unity of Knowledge (1954) on irreversible amplification
-and permanent marks on a photographic plate, citing p. 73.
-Lluís Masanes (2003). Necessary and sufficient condition for quantum-generated
-correlations. arXiv: quant-ph/0309137v1. The paper gives his affiliation as the
-Universitat de Barcelona.
-Miguel Navascués, Stefano Pironio and Antonio Acín (2007). Bounding the Set of
-Quantum Correlations. Physical Review Letters 98, 010401. DOI: 10.1103/Phys-
-RevLett.98.010401; arXiv: quant-ph/0607119v2.
-Miguel Navascués, Stefano Pironio and Antonio Acín (2008). A convergent hierarchy
-of semidefinite programs characterizing the set of quantum correlations. New
-Journal of Physics 10, 073013. arXiv: 0803.4290v1.
-Marcin Pawłowski, Tomasz Paterek, Dagomir Kaszlikowski, Valerio Scarani, Andreas
-Winter and Marek Żukowski (2009). Information causality as a physical principle.
-Nature 461, pp. 1101–1104. Pawłowski’s affiliation, the University of Gdańsk, is on
-the paper: arXiv: 0905.2292.
-342   38 Further reading
+
+              tion architecture for trustworthy computing. SOSP 2011, pp. 249–264. DOI:
+              10.1145/2043556.2043580.
+              Ken Thompson. Heidelberg Laureate Forum, laureate profile: the 1983 Turing Award
+              with Dennis Ritchie for operating systems theory and the implementation of Unix.
+              Thompson’s design and implementation of the original Unix at Bell Labs: Wikipedia,
+              Ken Thompson.
+              Alfred North Whitehead and Bertrand Russell (1910). Principia Mathematica, vol. I.
+              Cambridge University Press. Introduction, chapter II.
+              Robin Wilson (2002). Four Colours Suffice? Gresham College lecture, 21 October
+              2002. Lecture. De Morgan’s letter of 23 October 1852 to the Irish mathematician
+              William Rowan Hamilton.
 
 
-              Erwin Schrödinger. Wikipedia. Article. Austrian physicist; the wave equation of
-              1926.
-              B. S. Tsirel’son (1987). Quantum analogues of the Bell inequalities. The case of two
-              spatially separated domains. Journal of Soviet Mathematics 36(4), pp. 557–570.
-              DOI: 10.1007/BF01663472.
-              T. Unden, D. Louzon, M. Zwolak, W. H. Zurek and F. Jelezko (2019). Revealing the
-              emergence of classicality using nitrogen-vacancy centers. Physical Review Letters
-              123, 140402.
-COLOPHON
+              39.4 Correlations and environmental records
+
+              M.-C. Chen et al. (2019). Emergence of classical objectivity of quantum Darwinism
+              in a photonic quantum simulator. Science Bulletin 64, p. 580.
+              M. A. Ciampini, G. Pinna, P. Mataloni and M. Paternostro (2018). Experimental
+              signature of quantum Darwinism in photonic cluster states. Physical Review A 98,
+              020101.
+              Mauro Dorato and Jan Faye (2026). Niels Bohr as a Physicist of Principle. arXiv:
+              2609.04297. Quotes Bohr’s Unity of Knowledge (1954) on irreversible amplification
+              and permanent marks on a photographic plate, citing p. 73.
+              Lluís Masanes (2003). Necessary and sufficient condition for quantum-generated
+              correlations. arXiv: quant-ph/0309137v1. The paper gives his affiliation as the
+              Universitat de Barcelona.
+              Miguel Navascués, Stefano Pironio and Antonio Acín (2007). Bounding the Set of
+              Quantum Correlations. Physical Review Letters 98, 010401. DOI: 10.1103/Phys-
+              RevLett.98.010401; arXiv: quant-ph/0607119v2.
+              Miguel Navascués, Stefano Pironio and Antonio Acín (2008). A convergent hierarchy
+              of semidefinite programs characterizing the set of quantum correlations. New
+              Journal of Physics 10, 073013. arXiv: 0803.4290v1.
+              Marcin Pawłowski, Tomasz Paterek, Dagomir Kaszlikowski, Valerio Scarani, Andreas
+              Winter and Marek Żukowski (2009). Information causality as a physical principle.
+              Nature 461, pp. 1101–1104. Pawłowski’s affiliation, the University of Gdańsk, is on
+              the paper: arXiv: 0905.2292.
+                                                    39.4 Correlations and environmental records   345
+
+
+Erwin Schrödinger. Wikipedia. Article. Austrian physicist; the wave equation of
+1926.
+B. S. Tsirel’son (1987). Quantum analogues of the Bell inequalities. The case of two
+spatially separated domains. Journal of Soviet Mathematics 36(4), pp. 557–570.
+DOI: 10.1007/BF01663472.
+T. Unden, D. Louzon, M. Zwolak, W. H. Zurek and F. Jelezko (2019). Revealing the
+emergence of classicality using nitrogen-vacancy centers. Physical Review Letters
+123, 140402.
+COLOPHON
 
 
 

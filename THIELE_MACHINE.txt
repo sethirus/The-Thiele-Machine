@@ -126,6 +126,21 @@ On the two-position record the toll asks nothing of the reading beyond the
 price of turning it on. Permanence is what the sliced rules add. A ledger
 is additional structure, not part of the definition.
 
+The definition has to name the reading its toll belongs to. Slide a tile
+to the right without paying and ask whether it is in the place it just
+reached: the answer was no and is now yes, and if the toll charged every
+question, no move could be free. And a free move cannot touch a reading
+that stays. It cannot raise it, because a raise costs at least one, and it
+cannot lower it, because a yes stays yes. It must leave it alone.
+
+The price stays on the move. It does not disappear when you press the same
+button with the reading already up, and the least price list is the plain
+one: one on every move that can raise the reading from somewhere, zero on
+every move that never does. Nothing smaller meets the toll. That is a
+minimum in the definition's units; measuring a device's heat requires a
+physical account of the device.
+
+
 WHAT FOLLOWS FROM IT
 
 It is one story, in four parts, and each part says what it rests on.
@@ -187,7 +202,7 @@ definitions can be met. They are examples and not the subject.
 4. What is argued and what is proved. The counting, the floor, the window
 results and the flat case are theorems under the hypotheses they state.
 The mathematical claims have their hypotheses and arguments on the page.
-The pointer thesis is explicitly unproved. It proposes certification as
+The pointer thesis is a thesis, not a theorem. It proposes certification as
 the event worth recording, because certified records get copied and relied on
 by parties who did not produce them. Separately, and unnumbered, I argue
 that the record and its price are part of computation itself and not
@@ -197,6 +212,7 @@ has an exact description as a machine run by one rule, with a next state
 for every state, on which the answer is a reading no run ever turns off.
 No proof settles that, because a physical process is not a mathematical
 object. Neither is presented as a theorem.
+
 
 WHAT I FOUND, WHAT I ASSUMED AND WHAT I CHOSE
 
@@ -237,76 +253,59 @@ price list it pays. And on the example machine, where its flat part ends
 and its record begins.
 
 
-WHAT A FREE MOVE CAN CHANGE
+WHAT A KEPT ANSWER REQUIRES
 
-Slide a tile to the right without paying. Ask whether it is in the place
-it just reached. The answer was no and is now yes. If the toll charged
-every question, that slide could not be free. Do this with any changed
-full state: ask whether it is the destination. Where states can be tested
-for equality, charging every Boolean question would freeze every free
-move. The definition has to name the reading its toll belongs to.
+Give the box one rule for its next tick, and require a next tick everywhere.
+It starts unfinished, then enters a collection of configurations where the
+answer is held. From any configuration in that collection, the next tick
+must stay in the collection too.
 
-Now keep that reading permanent. A free move cannot raise it, because a
-raise costs at least one. It cannot lower it, because a yes stays yes.
-It must leave it alone. That explains the reading part of the horizontal
-rule. The window adds another requirement: the next picture comes from
-the present picture and the button pressed. Permanence by itself does
-not choose a picture or make a paid move leave that picture alone.
+Suppose there are K such holding configurations. Include the unfinished
+entrant and you have K+1 sources whose next states fit in K places. Two
+arrows must land together. That is the merge.
 
-There are two ways to state the same reading requirement for a sliced
-machine. Leave it alone on horizontal moves and never lower it on vertical
-moves, and it is permanent through all moves. Start instead with permanence,
-the toll and free horizontal moves, and the two sentences above force
-horizontal preservation. Neither route has to assume its own conclusion.
+What if the rule never sends different sources to the same destination?
+Then the holding run cannot repeat. From two equal visits, walk one step
+back on each: their predecessors must agree, since different predecessors
+never land together. Walk back until the earlier visit reaches the unfinished
+start. The later visit is still holding the answer. They cannot be the same
+state. So every later holding tick needs another full configuration.
 
+For a finite interval, K holding states permit at most K transitions from
+distinct sources without a collision, starting at the unfinished state.
+This maximum is attainable. Draw
 
-PUT THE PRICE ON THE BUTTON
+  u -> h_1 -> h_2 -> ... -> h_K -> h_K.
 
-Put price cards zero, one and two beside a button. If pressing it can raise
-the lamp from some state, zero fails there. One works. Two works too, but
-one is the least. If the button never raises the lamp from any state,
-zero works. Give each button its least card and you have the least valid
-schedule, one instruction at a time. Any other least schedule must have
-the same cards: neither can be smaller than the other.
-
-For a finite machine, inspect a list covering all its states to decide
-which card each button needs. On an infinite machine that search need not
-finish. For the lift there is a direct witness: if each mark's event holds
-somewhere, put the lamp down over that base state and press the mark. It
-raises the lamp, so one is necessary. Computing leaves the lamp alone,
-so zero suffices. A mark whose event never holds needs no positive toll;
-charging one for every use then comes from the chosen accounting rule.
-
-The price stays on the instruction. It does not disappear when you press
-the same button with the lamp already on. Every run from no to yes contains
-a crossing and pays at least one; conversely a single crossing is already
-a run. The step toll and the floor from every start give the same minimum.
-That is a minimum in the definition's units. Measuring a device's heat
-requires a physical account of the device.
+The first K sources have different successors. Include h_K as a source and
+its arrow meets the arrow from its predecessor. With K>1 this happens after
+entry. A visible answer can stay fixed while the hidden configuration changes
+and the eventual merge happens behind it.
 
 
-A RECORD THAT MEANS SOMETHING
+PUT THE PRICE BESIDE THE ARROWS
 
-Write an answer on a whiteboard. Under it write CHECKED = YES. Somebody who
-did no check can write the same two lines. The writing alone cannot tell me
-which happened.
+The basic model supplies nonnegative instruction prices and a chosen reading.
+Its toll is
 
-A variable called checked has the same weakness if any allowed program can
-set it. To make an accepting record mean a check occurred, the machine must
-close the unchecked route to acceptance. Suppose a checked and an unchecked
-history could end at the same full state. The verdict at that state would
-have to accept one history and reject the other. There is only one state
-there to read. It cannot do both.
+  no -> yes implies price >= 1.
 
-This is why representing a record and enforcing its meaning are separate
-jobs. The representation keeps a distinction. The instruction rules govern
-how a program can reach it. An implementation has to preserve both.
+A run that starts at no and ends at yes contains a first crossing. That move
+costs at least one, and the other prices are nonnegative. Add them and the
+run costs at least one. This is the universal floor under the stated toll.
 
-The allowed moves and the starting states matter. Correctly translating a
-program proves a simulation. To preserve a guarantee through every allowed
-host program, the proof must cover every host move from the stated starts.
-Paying to raise a record does not, by itself, establish what that record
-means.
+A stronger pricing rule can connect the bill to the holding graph. If every
+instruction that merges distinct full states costs at least one, a permanent
+raise into a finite held region pays by the counting argument above.
+If each landing pile accepts at most 2^p distinct sources, N starting
+alternatives and q surviving alternatives satisfy N <= 2^p q for one step.
+Across steps with prices p_0,...,p_(T-1), multiply these inequalities:
+
+  N <= 2^(p_0 + ... + p_(T-1)) q_T.
+
+Write the pricing premise beside the bound. A natural-number ledger is not
+a temperature or a heat measurement. A thermal conclusion needs the device,
+input preparation and physical law stated too.
 
 
 THE HORIZONTAL MOVES AND THE VERTICAL MOVES
@@ -345,81 +344,26 @@ The second instruction again sees matching tiles, and gives matching tiles.
 Repeat to the end. The entire film agrees while the records remain different.
 Handing that film to someone cannot tell them which record was there.
 
-This does not require the full states to form a literal product. It only
-requires the two readings and the displayed equations. If someone reads
-the hidden record and chooses a different instruction because of it, the
-two executions no longer receive the same horizontal word.
 
+A RECORD THAT MEANS SOMETHING
 
-WHAT A KEPT ANSWER REQUIRES
+Write an answer on a whiteboard. Under it write CHECKED = YES. Somebody who
+did no check can write the same two lines. The writing alone cannot tell me
+which happened.
 
-Give the box one rule for its next tick, and require a next tick everywhere.
-It starts unfinished, then enters a collection of configurations where the
-answer is held. From any configuration in that collection, the next tick
-must stay in the collection too.
+A variable called checked has the same weakness if any allowed program can
+set it. To make an accepting record mean a check occurred, the machine must
+close the unchecked route to acceptance. Suppose a checked and an unchecked
+history could end at the same full state. The verdict at that state would
+have to accept one history and reject the other. There is only one state
+there to read. It cannot do both.
 
-Suppose there are K such holding configurations. Include the unfinished
-entrant and you have K+1 sources whose next states fit in K places. Two
-arrows must land together. That is the merge.
+This is why representing a record and enforcing its meaning are separate
+jobs. The representation keeps a distinction. The instruction rules govern
+how a program can reach it. An implementation has to preserve both.
 
-What if the rule never sends different sources to the same destination?
-Then the holding run cannot repeat. From two equal visits, walk one step
-back on each: their predecessors must agree, since different predecessors
-never land together. Walk back until the earlier visit reaches the unfinished
-start. The later visit is still holding the answer. They cannot be the same
-state. So every later holding tick needs another full configuration.
-
-For a finite interval, K holding states permit at most K transitions from
-distinct sources without a collision, starting at the unfinished state.
-This maximum is attainable. Draw
-
-  u -> h_1 -> h_2 -> ... -> h_K -> h_K.
-
-The first K sources have different successors. Include h_K as a source and
-its arrow meets the arrow from its predecessor. With K>1 this happens after
-entry. A visible answer can stay fixed while the hidden configuration changes
-and the eventual merge happens behind it.
-
-For the entry arrow u -> f(u) itself to share its destination with an arrow
-from H, the exact condition is f(u) in f(H). Surjectivity of f on H is
-sufficient, as is a single holding state. Neither is necessary for a
-particular entry to collide.
-
-These are full configurations. A fixed array of bits can have many different
-configurations without acquiring a new memory cell on every tick.
-
-
-PUT THE PRICE BESIDE THE ARROWS
-
-The basic model supplies nonnegative instruction prices and a chosen reading.
-Its toll is
-
-  no -> yes implies price >= 1.
-
-A run that starts at no and ends at yes contains a first crossing. That move
-costs at least one, and the other prices are nonnegative. Add them and the
-run costs at least one. This is the universal floor under the stated toll.
-
-A stronger pricing rule can connect the bill to the holding graph. If every
-instruction that merges distinct full states costs at least one, a permanent
-raise into a finite held region pays by the counting argument above.
-If each landing pile accepts at most 2^p distinct sources, N starting
-alternatives and q surviving alternatives satisfy N <= 2^p q for one step.
-Across steps with prices p_0,...,p_(T-1), multiply these inequalities:
-
-  N <= 2^(p_0 + ... + p_(T-1)) q_T.
-
-Write the pricing premise beside the bound. A natural-number ledger is not
-a temperature or a heat measurement. A thermal conclusion needs the device,
-input preparation and physical law stated too.
-
-A different accounting interface allows a source-dependent charge a(s), or
-c(s,i) when instructions are supplied. This extends the instruction-price
-definition above; it does not change the meaning of c(i) there. Its toll
-must be stated on each actual crossing. On no -> yes -> yes, charge one at
-no and zero at yes. A ledger with values zero and one obeys both updates. If instead every tick had the same
-positive charge, a fixed full state could not hold its own ledger: it would
-require the same number to equal itself plus a positive amount.
+Paying to raise a record does not, by itself, establish what that record
+means.
 
 
 THE EARNED-CHAIN COUNTER EXAMPLE
@@ -435,18 +379,14 @@ the earned chain and cost one each. HALT stops the guest program. The full rules
 
 From a clean start, certification costs at least three because its three
 required acts each cost one. A true claim checked, committed and certified
-without an intervening write attains three. A ready-made commitment or an
-already raised flag changes that starting task; the proof uses the empty
-channel and flag-down premises explicitly.
+without an intervening write attains three. From any other start, a
+commitment already in the channel or a flag already up, the count is a
+different one.
 
 Universal host programs follow the guest through the host's instructions and compare their records and ledgers at the matching points. The constructions study composition and the boundaries where one component can
 invalidate another's earned claim. A shared writer that changes a counter
 without advancing its edition opens precisely the stale-check route the
 machine was meant to close.
-
-The mathematics specifies the operations that must be preserved. A software
-implementation must implement those operations through every allowed path.
-Keeping a copy of their names or values alone does not establish that.
 
 Its earned chain.
 
@@ -547,11 +487,6 @@ If each of k stages can hold any of M values, the first stage gives M choices,
 the second multiplies that by M, and each further stage does the same.
 There are M^k ordered histories, and every one needs a different summary.
 Keeping the ordered history itself meets that count and answers the questions.
-
-These bounds follow the information available and the question being asked.
-An ordinary program given the live question can accumulate its answer too.
-The earned machine adds the requirement that its permitted operations keep
-the accepting record faithful to what actually passed.
 
 
 THE WIDER ARGUMENT

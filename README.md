@@ -34,11 +34,15 @@ Every machine whose moves never climb the order is a Thiele machine in the flat 
 
 One theorem comes with the definition and nothing else. A run that starts with the record at no and ends with it at yes pays at least one. That is the universal floor, and it holds for every machine that meets the definition. The bar is nearly empty on purpose: a clock that charges one for every move clears it. The theorems with teeth come when the record has to stay, when the states run out, or when a window is added.
 
-To ask what a computation hides, add a window. A **sliced** Thiele machine is a Thiele machine on the two-position record, with an onto view $\pi:S\to B$, what an outside observer sees, and its moves split in two. It sits over an ordinary deterministic machine, the tabletop $B$. Horizontal moves cost nothing, move the view by a rule that uses only the view, and leave the reading alone. Vertical moves leave the view alone and can raise the reading, never lower it. The toll still holds.
+The definition has to name the reading its toll belongs to. Slide a tile to the right without paying and ask whether it is in the place it just reached: the answer was no and is now yes, and if the toll charged every question, no move could be free. And a free move cannot touch a reading that stays. It cannot raise it, because a raise costs at least one, and it cannot lower it, because a yes stays yes. It must leave it alone.
+
+The price stays on the move. It does not disappear when you press the same button with the reading already up, and the least price list is the plain one: one on every move that can raise the reading from somewhere, zero on every move that never does. Nothing smaller meets the toll. That is a minimum in the definition's units; measuring a device's heat requires a physical account of the device.
+
+To ask what a computation hides, add a window. A **sliced** Thiele machine is a Thiele machine on the two-position record, with an onto view $\pi:S\to B$, what an outside observer sees, and its moves split in two. The tabletop $B$ is the flat part, what the window shows. Horizontal moves cost nothing, move the view by a rule that uses only the view, and leave the reading alone. Vertical moves leave the view alone and can raise the reading, never lower it. The toll still holds.
 
 Put a dial with four positions beside a slider with three stops. ROTATE moves the dial one position around for free and leaves the slider alone. ADVANCE moves the slider toward its last stop, leaves the dial alone and costs one. At the last stop the reading is yes; at the other two it is no. ADVANCE pays when it first reaches yes, and still costs one when pressed at the last stop. The price belongs to the button. Look only at the dial: ROTATE moves the picture and ADVANCE leaves it alone. That is a sliced machine before any checking or certification enters the story.
 
-Every flat machine is the shadow of a sliced machine, and the book builds the one that stands above it: the machine's own picture, a record, and a ledger, with a charge of one on every move that can set the record. Projection forgets those coordinates; embedding a base state with record down and ledger zero preserves every computing run exactly. A mark can distinguish states above the same view. The lift preserves base transitions, not any previous price or reading, and it adds no computable functions: with an effective base and event, ordinary computation can encode all these coordinates. What it adds is distinctions within a fibre. The formal bridges and their counterexamples are in `coq/audit/`.
+Every flat machine is the shadow of a sliced machine that keeps a record above it. The record adds no computing power; what it adds is distinctions within a fibre, which the window cannot see.
 
 ## What I found, what I assumed and what I chose
 
@@ -66,29 +70,6 @@ There is no fixed ceiling on the number of states a fibre can contain. To force 
 
 That is where the infinity comes from: a task that keeps demanding recoverable distinctions above one unchanged picture.
 
-## Which differences have to stay?
-
-Slide a tile to the right for free. Ask whether it is in the place it just reached. The answer was no and is now yes. If the toll charged every question, this slide would have to pay. The same test works for any changed full state when equality can be decided: charging every Boolean reading would freeze every free move. The definition has to name the question the toll belongs to.
-
-Keep that reading permanent. A free move cannot raise it, because a raise pays. It cannot lower it, because a yes stays yes. It leaves it alone. This explains horizontal reading preservation. The window rules add something further: computing follows the picture's own dynamics, and marking leaves that picture fixed.
-
-Put price cards zero, one and two beside a button. If it can raise the reading from some state, zero fails; one is the least card that works. If it never raises the reading, zero works. On a finite list covering all states, search for that crossing for each instruction. This gives the unique least schedule, with each price fixed on the instruction wherever it is used. For the lift, computing needs zero and every mark whose event holds somewhere needs one, even over an infinite base. A mark whose event never holds has no positive minimum under the toll alone.
-
-
-## A record has to be earned
-
-Give a worker a whiteboard. Ask for an answer and the words “CHECKED = YES” underneath. The worker can write both without checking anything.
-
-A variable with a reassuring name has the same problem. To make acceptance mean that a check happened, the machine's permitted operations must close the unchecked route into the accepting state. If a checked and an unchecked history can reach that same state, its verdict cannot tell them apart.
-
-## What the window can tell you
-
-For the abstract sliced interface, horizontal moves evolve the tabletop by a rule depending only on its current picture and leave the record alone. Vertical establishment leaves the picture fixed and can raise the record. Give two states the same picture and the same horizontal instruction sequence: their pictures agree after every step, even if their records differ throughout.
-
-Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. For that to happen a raise has to exist, and nothing else is needed: no premise about what the tabletop computes and none about the control.
-
-The view cannot see the record or the ledger, and no function of the view recovers either: two runs can end on the same picture with the record up on one and down on the other, and the ledger apart by the price of the raise. An account that prices a raise exactly cannot compute the price from a window that shows a raising step and a quiet step the same way.
-
 ## What keeping takes
 
 Give the box three full configurations in which it holds the answer. Once it enters any of them, every later tick must leave it in one of those three. Now include the unfinished configuration that first enters them. Four sources have their next states among three places. At least two arrows meet.
@@ -99,7 +80,21 @@ Suppose instead that the rule always gives different successors to different ful
 
 For a finite holding interval the count is sharp. Line up $K$ held states after the unfinished state and fix the last one. The first $K$ sources have distinct successors. Include the next source and the final two arrows meet. Keeping the answer visible can hide that merger from the tabletop camera.
 
-Now put a price rule beside the arrows. The abstract model's toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. The price premise is written beside the count; a physical heat bound additionally needs a physical model. Whether a real device has finitely many distinguishable states is itself a physical assumption, and the book names it as one. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them.
+Now put a price rule beside the arrows. The toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. Heat needs one more premise, a physical one, and the book keeps it apart from the counting.
+
+## What the window can tell you
+
+For a sliced machine, horizontal moves evolve the tabletop by a rule depending only on its current picture and leave the record alone. Vertical establishment leaves the picture fixed and can raise the record. Give two states the same picture and the same horizontal instruction sequence: their pictures agree after every step, even if their records differ throughout.
+
+Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. For that to happen a raise has to exist, and nothing else is needed: no premise about what the tabletop computes and none about the control.
+
+The view cannot see the record or the ledger, and no function of the view recovers either: two runs can end on the same picture with the record up on one and down on the other, and the ledger apart by the price of the raise. An account that prices a raise exactly cannot compute the price from a window that shows a raising step and a quiet step the same way.
+
+## A record has to be earned
+
+Give a worker a whiteboard. Ask for an answer and the words “CHECKED = YES” underneath. The worker can write both without checking anything.
+
+A variable with a reassuring name has the same problem. To make acceptance mean that a check happened, the machine's permitted operations must close the unchecked route into the accepting state. If a checked and an unchecked history can reach that same state, its verdict cannot tell them apart.
 
 ## The earned-chain counter example
 
@@ -121,7 +116,7 @@ It enforces an order:
 
 A counter write advances its edition. An old check cannot then be presented as a check of the newly written counter. Starting with an empty table, empty channel and flag down, any run that raises the flag must contain the three successful acts in order: only CERTIFY raises it, only COMMIT fills its channel, and only CHECK supplies the fact COMMIT requires.
 
-Storing a representation is part of implementing this machine. Preserving those rules through every allowed program is the part that makes the representation authoritative. This guarantee concerns the specified clean starts and permitted operations. The abstract toll requires payment for a raise; it does not assign the record an earned-history meaning.
+The toll requires payment for a raise; it does not say what the record means. The rules above are what give it one.
 
 ### Its trap
 
@@ -142,8 +137,6 @@ The construction starts with counters $(16,0)$, both editions zero, line 1, ledg
 Suppose a good earlier value and a bad one give exactly the same remaining observation. A final verifier receiving only that observation must give both the same answer. It cannot identify which earlier value actually occurred.
 
 If the question is known while the value is live, inspect it then and keep the answer. For a succession of known checks, start an indicator at YES. Leave it there when a check passes and turn it to NO when one fails. Once down, keep it down. At the end it says YES exactly when every check passed. If the questions arrive only later, more information may have to survive. The book counts that information from the questions the observer is entitled to ask.
-
-The machine can be implemented with ordinary computation. What matters is which information remains available and which operations are permitted to change an accepting record. A comparison of implementations has to give both sides the same task and access to the same evidence.
 
 ## The wider argument
 
