@@ -7943,8 +7943,8 @@ the second: the rules are happy with either event. Any machine that meets the mo
 choices, and whether its choice of event is the right one is a question I'll get to
 (Section~\ref{sec:pointer}), and won't claim to have settled. Before that, a record can have
 more than two positions. Earlier in this section a record that rises got cut into one cup
-per threshold; the next section asks how much of the rest of the book survives once a record has
-more places to be than up and down.
+per threshold; Part~I's chapter on the whole direction (Section~\ref{sec:direction}) asked how much of the
+rest survives once a record has more places to be than up and down, and the answer was all of it.
 
 %===========================================================================
 \section{The shadow, exactly}
@@ -9011,7 +9011,7 @@ real shape is a direction with lines drawn across it. I've gone
 around many times on whether the lines create the direction or the direction comes first and the lines
 are just places where you cut it, and on whether yes and no are even different from each other until
 something draws the line between them. I don't have an answer to that. The one part I could actually
-settle is that a single switch isn't enough once there are three or more stages, and Part~II proved it
+settle is that a single switch isn't enough once there are three or more stages, and Part~I proved it
 (Section~\ref{sec:direction}). Everything else in this paragraph is me thinking out loud.
 
 Flatland, where this hunch started (Section~\ref{sec:origin}), turned out to belong in the first batch. It's a novel Edwin Abbott published in 1884, narrated by a square who
@@ -12206,6 +12206,7 @@ A finite-dimensional unitary that keeps a subspace keeps its complement, so no u
 A biased walk hands its surroundings strictly positive entropy per tick at any nonzero speed, and heat times time is at least the distance squared & proved; Schnakenberg's formula taken as the model & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:time-bill} \\
 The measured floor, the measured time-heat rate, the measured recurrence and the collapse-heat searches & cited, not reproved; the bead's erasure law reproduced by simulation & Section~\ref{sec:what-a-chair-is} \\
 Every scale pays the same way: when a coarse description is exact on a set of fine states and its rule merges, the fine rule merges there, steps out of that set, or the set is endless & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:every-scale} \\
+Room to hold an answer: a rule one-to-one on the states it has used can hold a newly entered answer in a region of $K$ states for at most $K$ steps before two states share a successor; with endless room and a one-to-one rule the orbit never repeats & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:host-holding-capacity} \\
 Thiele machine: states, moves, step, cost, and a record in any order; the two-place record is the smallest case & definition & Section~\ref{sec:toll}, Definitions~\ref{def:thiele} and~\ref{def:certsys} \\
 The toll: a move that climbs the order costs at least one & the one rule of the definition; derived from three premises in the next chapter & Section~\ref{sec:toll}, Definition~\ref{def:thiele} \\
 The floor over any order: a run that ends above where it started costs at least one & proved (premise: the toll), directly from the rules & Section~\ref{sec:toll}, Observation~\ref{thm:general-floor} \\
@@ -12214,6 +12215,11 @@ One unit per crossing: a run costs at least its number of steps from no to yes, 
 With a price per move name, no system whose flag rises keeps every run at most its number of raises and still obeys the toll & proved & Section~\ref{sec:toll} \\
 The floor speaks about the world, or computing power & not claimed & Section~\ref{sec:toll} \\
 A computation is in scope just by being one & not claimed; someone has to supply the five parts and prove the toll & Section~\ref{sec:toll} \\
+Charging every question stops free changes: one price list meets the toll for every Boolean reading exactly when every free move leaves every full state unchanged & proved (premise: equality of states decidable) & Section~\ref{sec:toll}, Theorem~\ref{thm:all-readings-free} \\
+Free moves leave a permanent reading alone & proved (premises: the toll, permanence) & Section~\ref{sec:toll}, Theorem~\ref{thm:free-permanent-reading} \\
+What the tabletop can tell: horizontal moves follow the view's own rule and keep the record, so no function of the view recovers the record on a pair that a vertical move supplies & proved (the sliced interface) & Section~\ref{sec:toll}, Theorem~\ref{thm:passive-tabletop} \\
+The least instruction price: one on each move that raises the reading somewhere and zero elsewhere is the least schedule meeting the toll & proved (premise: a finite list covering the states) & Section~\ref{sec:toll}, Theorem~\ref{thm:least-instruction-toll} \\
+An erased distinction cannot answer its old question; read before the loss, the enriched observation can & proved & Section~\ref{sec:toll}, Theorem~\ref{thm:inspection-before-loss} \\
 On a finite machine, a permanent flip merges & definition; proved (no price premise) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:fin-perm-inj}, Theorem~\ref{thm:perm-flip-merges} \\
 Merge pricing & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:merge-pricing} \\
 Finite, permanent and merge pricing give the toll & proved (premise: merge pricing), directly from the rules & Section~\ref{sec:a2-not-arbitrary}, Observation~\ref{thm:toll-derived} \\
@@ -12253,6 +12259,13 @@ Any machine worth building is of this kind & not claimed & Section~\ref{sec:a2-n
 An eight-state machine meets every premise, so the toll holds on it outright & proved & Section~\ref{sec:a2-not-arbitrary} \\
 On the small machine CERTIFY, COMMIT and CHECK merge, every merge-priced cost obeys the toll, and record-layer merge pricing holds for its own prices and gives the toll, with no finiteness premise & definition; proved (premise: record-layer merge pricing, for the toll) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:record-merge}, Theorem~\ref{thm:record-merge-toll} \\
 Permanence is the job to pick & choice & Section~\ref{sec:a2-not-arbitrary} \\
+The alternatives balance exactly: the losses along $T$ steps plus the endpoints equal the number of starts, and endpoints in fewer states than starts force an identification & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:ensemble-balance} \\
+The exact room for exclusive resets: $T+3$ states, $2T+2$ with commuting hidden levers, $2T+3$ with levers one-to-one everywhere & proved & Section~\ref{sec:a2-not-arbitrary}, Proposition~\ref{prop:exclusive-room} \\
+In a partial order the cups fix the place; in a preorder they need not & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-lines} \\
+The toll over any direction: every step that turns a cup over costs at least one exactly when every run that ends somewhere not at or below its start does, and exactly when every cup obeys the toll on its own; a run then costs at least its number of such steps & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-toll} \\
+A chain of $n+1$ stages needs $n$ write-once Boolean cups & proved; ordinary rewritable binary storage is a different question & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-bits} \\
+On a finite machine, a step that turns a cup over merges or revokes; with a growing record it merges, and merge pricing gives the toll & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-merge} \\
+Finiteness, growth and merge pricing each do work for the direction toll & proved (three machines) & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-escapes} \\
 The machine's own narrowing is priced & proved (premise: halving price) & Section~\ref{sec:narrowing}, Theorem~\ref{thm:machine-narrowing} \\
 An observer can learn with nothing merged: on the four-state demon, a run of cost zero under a price list meeting the halving price narrows two candidates to one, and WIPE costs at least one & definition; proved (one price list that allows it) & Section~\ref{sec:narrowing}, Definition~\ref{def:knowledge}, Theorem~\ref{thm:observer-free} \\
 Learning borrows: the copy uses up a blank page and can be handed back (a second MEASURE clears it), and the page is paid for when it's wiped & proved on the four-state demon; the wipe merges & Section~\ref{sec:narrowing} \\
@@ -12272,6 +12285,7 @@ Three states are the minimum for teaching at zero cost after the first look & pr
 The certainty bound: the uncertainty about a start splits into the part the run destroyed, at most its cost in bits, and the part the end state holds; whatever the end state can't tell you about what an observer saw was paid for in units of cost & proved (premise: entropy pricing) & Section~\ref{sec:narrowing}, Theorem~\ref{thm:certainty-bill} \\
 ``No Free Insight,'' the toll's first name, names a distinction made to stay & choice (the name kept, the scope stated) & Section~\ref{sec:narrowing} \\
 Watching narrows like a quantum measurement & not claimed & Section~\ref{sec:narrowing} \\
+Room for synchronized first completion: $N$ starts that complete at the same tick $T$, under a rule one-to-one on each tick's states, need $N(T+1)$ configurations & proved & Section~\ref{sec:narrowing}, Theorem~\ref{thm:synchronized-room} \\
 Structure: relations, kept under chosen changes, carried by any stuff, relative to a frame & choice (my overlay of the sources; they never proved it together) & Section~\ref{sec:structure} \\
 Turing's four parts have no slot for ``these belong together'' & not claimed; I looked and didn't find one, which is weaker & Section~\ref{sec:structure} \\
 Equivalence relation, partition & definition & Section~\ref{sec:structure}, Definition~\ref{def:equiv-partition} \\
@@ -12289,6 +12303,7 @@ The potential method is new here & not claimed (it's Tarjan's) & Section~\ref{se
 The counter is the cost-semantics frameworks' writer & proved for the writer: a run in the writer over whole numbers returns the final state and the total cost & Section~\ref{sec:counter} \\
 The counter embeds the cost-semantics frameworks' type systems and their before-the-run checking of grades & not claimed; by design the grade is written by the step during the run & Section~\ref{sec:counter} \\
 A window that forgets the counter can't recover it on every state; on reached states it takes two runs with one view and two counters & proved (premise: the counter can be changed on its own); the premise is needed  & Section~\ref{sec:counter} \\
+Receipts covering the observed mergers: with a source charge positive on one member of every observed colliding pair, the ledger's rise bounds the number of observed mergers & proved & Section~\ref{sec:counter}, Theorem~\ref{thm:prefix-ledger-bridge} \\
 A decoder needs constant fibres & proved (any types) & Section~\ref{sec:windows}, Theorem~\ref{thm:fibre} \\
 No exact window price across a collision & proved (premise: a collision), directly from the rules & Section~\ref{sec:windows}, Observation~\ref{thm:shadow-price} \\
 \end{longtable}
@@ -12342,11 +12357,6 @@ The schedule doesn't fix the probabilities & proved, with the branching latch re
 One state space up to renaming & false: an extension may carry any hidden field & Section~\ref{sec:latch} \\
 Weak base equivalence connects those bases & not claimed & Section~\ref{sec:latch} \\
 A growing record is a family of latches & definition; proved, and one latch isn't enough & Section~\ref{sec:latch}, Definition~\ref{def:u11-growing}, Theorem~\ref{thm:u11-growing} \\
-In a partial order the cups fix the place; in a preorder they need not & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-lines} \\
-The toll over any direction: every step that turns a cup over costs at least one exactly when every run that ends somewhere not at or below its start does, and exactly when every cup obeys the toll on its own; a run then costs at least its number of such steps & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-toll} \\
-A chain of $n+1$ stages needs $n$ write-once Boolean cups & proved; ordinary rewritable binary storage is a different question & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-bits} \\
-On a finite machine, a step that turns a cup over merges or revokes; with a growing record it merges, and merge pricing gives the toll & proved & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-merge} \\
-Finiteness, growth and merge pricing each do work for the direction toll & proved (three machines) & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-escapes} \\
 A window can price rises exactly without determining the record value & proved, under the collision and decidability conditions stated there & Section~\ref{sec:shadow-exact}, Theorem~\ref{thm:dir-window} \\
 With an injective shadow step, merged states lie in one shadow fibre & proved; the shadow-injectivity premise is needed & Section~\ref{sec:shadow-exact}, Theorem~\ref{thm:dir-fibre} \\
 \end{longtable}
@@ -12426,6 +12436,12 @@ The step refuses trivial checks & not claimed; ``is at least 0'' passes every va
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to say yes exactly when the claim holds, a sorted list read out of a counter included & proved on the generic machine  & Section~\ref{sec:smallest} \\
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine  & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
+A projection that hides every CHECK and gives each free instruction its own rule on the picture makes every free move stand still & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:native-static-shadow} \\
+On clean runs the flag is exactly the nonempty reading of the publication archive & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:native-archive-lamp} \\
+No stored fact is forged on a clean-start trace & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-no-forging} \\
+Same final counters and bill, different certification: two clean starts and one word end on $(0,0)$ with ledger $3$, one certificate true and the other false & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:native-erasure-pair} \\
+Exactly $65{,}535$ publication histories can lie above one reachable native endpoint; sixteen extra bits encode them and fifteen do not & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:native-history-fibre} \\
+CERTIFY merges and is priced; DEC $A$ 2 merges and costs nothing, so not every merge of the small machine is priced & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:frag-merge-split} \\
 A counter beside a Turing machine changes nothing & proved & Section~\ref{sec:machine-vs-program}, Theorem~\ref{thm:u19-tm-lift} \\
 A Turing machine can't price a reading & not claimed & Section~\ref{sec:machine-vs-program} \\
 The premises fit when every counted step costs at least one, and fit a one-bit reset & proved & Section~\ref{sec:landauer}, Theorem~\ref{thm:u24-consistency} \\
