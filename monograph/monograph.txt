@@ -252,35 +252,36 @@ requires a merge somewhere in the run or endlessly fresh states. Physical dissip
 requires a separate model; the thermal models discussed below impose further costs
 under their own hypotheses.
     Two: so the machine is the thing that steps, with the price in the move. A Thiele
-machine is a state, some thing; a reading of each state into an order, so that of
-two states you can ask whether the second reads at or below the first, and higher
-means more is settled; moves, each a direction that transforms the state into the
-next state; and a price on each move. One rule, which I call the toll: a move that
-carries the reading somewhere not at or below where it stood is never free. That
-is the whole definition, and everything in this book is a consequence of it or an
-instance of it. The step that raises a reading that stays is the step that’s charged. A
-machine whose moves never climb its order is the flat case, and the toll has nothing
-to say to it: a clock is one, a reversible process is one, and so is every ordinary model
-of computation, the Turing machine included, with its price column torn off and its
-record forgotten. Computer science charges a computation for how long it runs and
-how much space it takes, and the bits it erases have been counted too. What no
-model I found charges is the moment a reading goes up and stays. Those steps are a
-few events in a run, not the billions of overwrites a computer makes every second;
-what they write doesn’t stay, and the toll leaves them to the erasure count and to
-physics. Put a window over the machine that shows only the flat part, and through
-it you can watch the computing while missing what the machine kept about it. I will
-have to earn that picture by giving the window and the moves precise rules; calling
-something a window is not enough.
+machine is a state, some thing; a reading of each state into an order, so that of two
+states you can ask whether the second reads at or below the first, and higher means
+more is settled; moves, each a direction that transforms the state into the next state;
+and a price on each move. One rule, which I call the toll: a move that carries the
+reading somewhere not at or below where it stood is never free. That is the whole
+definition, and everything in this book is a consequence of it or an instance of it. I
+named it after myself, on purpose: I wanted to call it the meta machine, a company
+took that word in 2021, and I went one level up, half a joke and half a stake in
+the ground; the afterword has the rest. The step that raises a reading that stays is
+the step that’s charged. A machine whose moves never climb its order is the flat
+case, and the toll has nothing to say to it: a clock is one, a reversible process is
+one, and so is every ordinary model of computation, the Turing machine included,
+with its price column torn off and its record forgotten. Computer science charges
+a computation for how long it runs and how much space it takes, and the bits it
+erases have been counted too. What no model I found charges is the moment a
+reading goes up and stays. Those steps are a few events in a run, not the billions of
+overwrites a computer makes every second; what they write doesn’t stay, and the
+toll leaves them to the erasure count and to physics. Put a window over the machine
+that shows only the flat part, and through it you can watch the computing while
+missing what the machine kept about it. I will have to earn that picture by giving
+the window and the moves precise rules; calling something a window is not enough.
     To show the definition can be met, Part III builds one example and takes it apart:
 two counters and a line number for the flat part, and a record whose moves check
-a claim, commit to a passed check and certify it. Its working states can look alike
-
 
 
                                   12
                                                                                             The point   13
 
 
+a claim, commit to a passed check and certify it. Its working states can look alike
 while the full states differ in what was kept. The Thiele Machine is the definition,
 not the example.
     The counting underneath needs its own conditions too: states, a next-state rule,
@@ -315,7 +316,6 @@ it pissed me off. You’ll see both.
 
 
 Where a 0 comes from
-
 Before any machine comes the cell. What does it take for there to be a 0 at all?
     It takes three things. First, something that can be more than one way: a bead in
 a dish of water, a speck of magnetised metal, a charge on a tiny capacitor, a square

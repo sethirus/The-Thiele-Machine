@@ -65,7 +65,11 @@ the general case first and derive the flag as its two-point instance.
 
 The Thiele Machine is that definition. It is a machine the way Turing's
 machine is one: mathematics you can reason about, not a device, not an
-instruction set and not a document. What follows is what I work out from it.
+instruction set and not a document. I named it after myself, on purpose. I
+wanted to call it the meta machine, and in 2021 a company took that word,
+so I went one level up and put my own name on it, half a joke and half a
+stake in the ground. Turing got a machine; here's mine. What follows is
+what I work out from it.
 
 Every machine whose moves never climb the order is a Thiele machine in the
 flat case, where the toll never charges: a clock, a reversible process, any
@@ -158,9 +162,52 @@ results and the flat case are theorems under the hypotheses they state.
 The mathematical claims have their hypotheses and arguments on the page.
 The pointer thesis is explicitly unproved. It proposes certification as
 the event worth recording, because certified records get copied and relied on
-by parties who did not produce them. Separately, and unnumbered, I argue that the record and its price are part of computation itself and not
-something added afterwards, and state the Thiele thesis, a claim about
-physical processes. Neither is presented as a theorem.
+by parties who did not produce them. Separately, and unnumbered, I argue
+that the record and its price are part of computation itself and not
+something added afterwards, and I state one thesis about physical
+processes: that every physical process which computes with final answers
+has an exact description as a machine run by one rule, with a next state
+for every state, on which the answer is a reading no run ever turns off.
+No proof settles that, because a physical process is not a mathematical
+object. Neither is presented as a theorem.
+
+WHAT I FOUND, WHAT I ASSUMED AND WHAT I CHOSE
+
+Most of the time I had the hunch first and found the names later. Over and
+over, somebody had been here before me. Sometimes that made my day.
+Sometimes it pissed me off. Here is the line between what nothing let me
+choose, what I had to assume, and what I did choose.
+
+Found, which counting forces on any machine. Run a machine that gives each
+state exactly one next state. It takes fresh states until it first comes
+back to one it has used; that return lands on its start or is a merge, two
+states with one next state; and after it the run only repeats steps it
+already took. There is no fourth thing a step can do. So a reading that
+goes from no to yes and never comes back is paid for in a merge or in
+fresh states, and when only finitely many states read yes, the move that
+raises it merges. Over any machine at all, a record that the computation
+drives and that never comes down is a latch on one event. That is
+counting, and the pigeonhole in it is older than the computer: Dedekind's
+finiteness, Zermelo's recurrence objection to Boltzmann, Landauer and
+Bennett on merging, and the floor Tarjan's potential method puts under a
+run.
+
+Assumed, what the found list is taken to stand on in the world. Landauer's
+principle: a merge of states the machine really could have been in has a
+floor under its heat, however slowly it is done. That is the premise from
+thermodynamics, named and never proved here, with its critics named. A
+real device can tell apart only finitely many states in a bounded place,
+so its fresh states run out; nobody has measured where that ceiling sits.
+And the clean start: a raised record means the event happened only because
+the record was down at the start, and that start is put in by hand. It is
+a past hypothesis in miniature, Boltzmann's idea under David Albert's name.
+
+Chosen, what the model adds, each of which could have gone another way. To
+put the account inside the step, as part of what a step is. The toll
+itself: a whole unit, at least one, on the move that climbs. Which readings
+matter: the ones that never come down. Which event gets a record, and what
+price list it pays. And on the example machine, where its flat part ends
+and its record begins.
 
 
 WHAT A FREE MOVE CAN CHANGE
