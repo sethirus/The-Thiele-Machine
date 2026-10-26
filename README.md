@@ -14,6 +14,14 @@ Hand me that photograph and ask which box was stamped. Enlarging the tiles will 
 
 That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The definition above is the model I built to ask what that takes.
 
+## The point
+
+Take a blank cell: a square of paper with nothing on it, a bead that could sit in either of two dips, a bit of memory nobody has set. Now make it a 0, and keep it a 0. Something is the case now that wasn't a moment ago. Nothing becomes something for free: for a rule with one next state for every state, a reading newly raised and then held needs a merge somewhere in the run or endlessly fresh states.
+
+Structure is made of exactly this. A 0 is the smallest distinction there is: the ways a cell could be, sorted into piles, and one pile held. A grouping, an order, a relation a later move leans on, a fact somebody found out and wrote down: each is a distinction that stays, paid for the same way as the 0. Insight, in the sense the book can price, is a kept distinction. The toll charges the moment it's raised; holding it up afterward adds nothing. That is what the book's other name, No Free Insight, means.
+
+Established is the sharpest case. Two computers can end with the same answer, and only one of them checked it. The difference between them is a distinction one of them never kept. A record that a claim was checked and closed is a 0 that stays, with a check in front of it, and it's paid for the same way. The boxes and the stamp above are that case. It's the sharpest case of what keeping takes, and it isn't the point. The point is the 0.
+
 ## The definition, exactly
 
 Give the pieces names. $S$ is the set of states, $I$ the set of moves, and the step $S\times I\to S$ turns a state and a move into the next state. Each move has a price $c:I\to\mathbb N$. The record is a reading $\mathrm{rec}:S\to R$ into an ordered set $R$: for any two records you can ask whether one sits at or below the other. A move makes a distinction stay when it carries the record somewhere not at or below where it was. The one rule is the toll: such a move costs at least one. Nothing else is assumed of the order, and nothing says what the record is about. A ledger that only climbs, and a window onto what an outside observer sees, come in when a result needs them.
