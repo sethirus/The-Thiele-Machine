@@ -56,17 +56,6 @@ Keep that reading permanent. A free move cannot raise it, because a raise pays. 
 
 Put price cards zero, one and two beside a button. If it can raise the reading from some state, zero fails; one is the least card that works. If it never raises the reading, zero works. On a finite list covering all states, search for that crossing for each instruction. This gives the unique least schedule, with each price fixed on the instruction wherever it is used. For the lift, computing needs zero and every mark whose event holds somewhere needs one, even over an infinite base. A mark whose event never holds has no positive minimum under the toll alone.
 
-The smallest machine standing above an ordinary computing box has a lamp beside it and a tally underneath. Computing runs the old machine for free and leaves the lamp and tally alone. Marking leaves the computing picture fixed, latches its named event into the lamp and adds one to the tally. Start with the lamp down and the tally at zero.
-
-Another builder can keep an extra tape or counter. Require the same base steps, exact event latch, permanent reading, toll, zero/one prices and exact tally of charges. Read that implementation's picture, lamp and tally. A computing move changes only the picture by the base rule. A mark latches the event and adds one. Those are exactly the simple box's rules, one move at a time. Every button list therefore gives the same three readings, and every reachable triple has a reachable implementation state above it.
-
-The construction goes from **button lists, to implementation states, to picture, lamp and tally**. The last arrow forgets extra history. To see why it need not go backward, turn a box halfway around and then turn it again. The simple box is back where it started. An implementation counting free turns has added two to that extra counter. Its two different counts cannot both be recovered from the simple box's one state.
-
-Which differences must survive? Give two states the same future button list. If any required answer differs, a faithful implementation cannot merge them: one full state cannot give two answers to that same test. Include reading now. For these three readings, equal triples stay equal after every common continuation, while unequal triples can be distinguished immediately. Remove only differences these questions can never reveal, and every reachable triple has exactly one remaining state. Any reachable implementation with no such redundant states is the same realization up to a forced renaming.
-
-Ask for the extra turn count and more has to survive. Stop asking for the tally and less may suffice. This familiar idea from minimal automata gives a precise characterization of the lift after its base, event and accounting are fixed. The [book](monograph/monograph.pdf) works through the argument; the maintained proofs are in [the audit library](coq/audit/).
-
-Put a hidden switch behind a dark lamp. The next button press copies the switch to the lamp. Two dark lamps can then give different next answers: keeping only the lamp loses a distinction this task needs. An adequate deterministic picture must give the same required answer and the same next picture whenever the retained picture is the same. The book proves that criterion with explicit representative choices. It also tests what the arrows cannot choose on their own, and why any finite watch can miss a later reset. Applying a model to real equipment still requires evidence that the equipment follows those rules.
 
 ## A record has to be earned
 
@@ -122,15 +111,11 @@ It also has a trap. A failed CHECK blows the fuse, and later free instructions c
 
 ## Open the gauge wider
 
-The first two counts concern tasks with their own operations and recovery requirements. The third concerns a publication-file extension of the counter example. They count fibres of different projections.
+This count is a fibre of one projection on the counter example.
 
-Three measurements in the book ask different questions of their chosen windows:
+One entire native state can sit below **65,535** different nonempty sets of published claim/edition entries. Sixteen checked facts supply sixteen independent publication choices. Give every choice two instructions and the same charge, and all nonempty selections finish with the same native counters, table, channel, line number, ledger and flag. Sixteen extra bits beside the existing table distinguish the sets. Fifteen bits have only 32,768 values and cannot.
 
-- **Current checks.** Leave the working value fixed and choose which checks to run. One available successful check gives two histories to distinguish: ran it or did not. Two independently available checks give four choices; each further check doubles them. If $m(b)$ checks can succeed at value $b$, and the machine must report exactly which ran, it needs $2^{m(b)}$ full states above that value. Keeping the value and the chosen set of checks uses exactly that many. Do the count separately for every working value and add: the total minimum is $\sum_b2^{m(b)}$.
-- **Completed editions.** Independently chosen, recoverable certification answers for $n$ editions require $2^n$ states at a common final working view. One machine meeting that task for every $n$ needs an infinite reachable fibre there.
-- **The concrete publication file.** One entire native state can sit below **65,535** different nonempty sets of published claim/edition entries. Sixteen checked facts supply sixteen independent publication choices. Give every choice two instructions and the same charge, and all nonempty selections finish with the same native counters, table, channel, line number, ledger and flag. Sixteen extra bits beside the existing table distinguish the sets. Fifteen bits have only 32,768 values and cannot.
-
-The last count looks through a different camera: it sees the entire native machine and forgets an added publication archive. The native Boolean flag says that some certification occurred. The archive says which claims and editions were certified.
+This count looks through a wide camera: it sees the entire native machine and forgets an added publication archive. The native Boolean flag says that some certification occurred. The archive says which claims and editions were certified.
 
 The construction starts with counters $(16,0)$, both editions zero, line 1, ledger zero, empty table and channel, and trap and flag down. These are initial values. Sixteen CHECKs reach line 17 and ledger 16; sixteen blocks of COMMIT/CERTIFY or COMMIT/COMMIT reach line 49 and ledger 48. CERTIFY preserves the channel, so either final block leaves the same commitment. The [review audit](scripts/audit_root_review.py) reproduces all 65,536 choices using the Python implementation and checks the finite holding graphs separately.
 

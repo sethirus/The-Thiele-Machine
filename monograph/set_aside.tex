@@ -11954,6 +11954,152 @@ Lift interface & a claim language with an exact equality test, a checker proved 
 \end{longtable}
 \endgroup
 
+%===========================================================================
+\section{From the plain-text statement}
+%===========================================================================
+
+These passages were taken out of \texttt{THIELE\_MACHINE.txt} and are kept here as they stood.
+
+\begin{small}\begin{verbatim}
+BUILD THE BOX, THEN FORGET WHAT THE TASK DOES NOT ASK FOR
+
+The smallest machine above an ordinary computing box has a lamp beside it
+and a tally under it. Computing buttons follow the old rule, cost nothing,
+and leave the lamp and tally alone. A mark leaves the computing picture
+alone, adds one to the tally, and turns the lamp on if its named event holds.
+Once on, it stays on. Begin with the lamp down and the tally at zero.
+
+Run only computing buttons and the old machine runs exactly as before.
+Forget the lamp and tally afterward and you recover its computation.
+The larger description contains it. An event that holds somewhere gives
+a visible difference between before and after marking even when the
+computing picture stays the same. An ordinary computer can store the
+picture, lamp and tally when their rules are effectively given.
+
+Now let two builders implement those instructions differently. One keeps
+every button press on a tape. The other uses a few extra counters. Ask
+each for the computing picture, lamp and exact tally. Require computing
+to follow the base rule, marks to latch exactly the named event without
+changing the picture, and each move to add its zero-or-one charge to the
+tally. The reading must obey the toll and permanence.
+
+Read those three things from either implementation. After a computing
+move, the picture follows the old rule; the free move cannot change the
+permanent lamp; adding zero leaves the tally alone. After a mark, the
+picture stays put, the lamp latches the event and the tally rises by one.
+Those are precisely the simple box's rules. Repeat this for every button
+in a list and the readings agree for the whole run. Any list reaching a
+state of the simple box reaches an implementation state with those same
+readings. Starting together gives all the same reachable triples.
+
+That makes three stages: write a button list, run it on the builder's
+box, then read the picture, lamp and tally. The last step forgets whatever
+extra history the builder kept. There is only one way to do it while
+preserving those three readings: report their actual values.
+
+Try running that last step backward. Turn the simple box halfway around,
+then turn it again. The picture is back, and the lamp and tally never
+changed. Give the other box a separate counter that counts free turns.
+Its counter is now two larger. Which counter value should the simple
+box's one state turn into? Preserving the turns would require both.
+There is no such map. Forgetting the extra counter works; recovering it
+from the three readings does not.
+
+To see what has to be kept, give two states the same future button list.
+If a required answer differs, those states cannot share one full state
+in a faithful implementation. That one state would have to give two
+answers to the same continuation. Include the empty list: reading now
+counts as a test. Group states only when every such test agrees. Once
+grouped, pressing a common button keeps them grouped, because that button
+can be put in front of every remaining test. Every grouping that preserves
+answers and steps must respect these tests. This is the coarsest one.
+
+For the picture, lamp and tally, equal current readings already give
+identical future readings: their next values follow exactly the rules
+above. Different triples are distinguished by reading them now. Remove
+states that differ only in history these questions can never reveal,
+and every reachable triple has exactly one remaining state. Any two
+implementations with no such redundancy differ only in the names of
+those states. A button list reaching a state fixes its partner in the
+other implementation, so even that renaming is forced.
+
+The questions do work here. Ask for the extra turn count and it has to
+survive too. Stop asking for the tally and repeated failed marks can
+become indistinguishable. If no mark event ever holds, a clean run never
+reaches a lamp-up state. The minimum concerns what can be reached and
+what the chosen questions can distinguish. It does not select the event.
+I develop this familiar idea from minimal automata for
+the actual lift, with the observations and accounting kept explicit.
+
+
+Put a hidden switch behind a dark lamp. Pressing the button copies the
+switch to the lamp. Both boxes can look dark now and give different next
+answers. Keep only the lamp and the next step cannot be predicted from
+that picture. Keep the switch too and it can. The exact test is proved: equal pictures must give equal required answers now and equal next
+pictures under every permitted use of the same button, with explicit
+representatives and successor choices for the converse construction.
+
+The arrows do not always choose which question matters. Nor does a finite
+watch prove that a lamp stays lit forever: a reset can sit just past the
+last tick anyone watched. These boundaries have checked counterexamples.
+Showing that real equipment follows the chosen model needs evidence
+about that equipment as well as a proof about the model.
+
+
+
+The first two counts concern tasks with their own stated operations and
+recovery requirements. The third concerns a publication-file extension of
+the counter example. They count fibres of different projections.
+
+First ask which checks passed on the current page. At working value b, let
+m(b) named predicates be true. Allow each successful check to be requested
+independently. Require an exact answer for every name since the last WRITE.
+One check gives two choices: run it or leave it alone. A second independent
+check doubles the choices, and each further check doubles them again.
+With m(b) available checks there are 2^m(b) possible selections. Realize any subset
+by writing b and running exactly those checks. Two different subsets cannot
+end at the same state because one named query would need opposite answers.
+The fibre above b therefore needs at least 2^m(b) states.
+
+That bound is attainable. Use states (b,A), where A is a subset of the true
+check names at b. WRITE replaces b and clears A. A passing CHECK inserts
+its name. A failed CHECK and IDLE preserve the state. The empty start is
+correct; every command preserves the intended history reading. These are
+all the command cases, so the claim holds for every finite program. Every
+legal state is reachable by the realizing word already given. For finite B,
+the exact total is the sum of 2^m(b) over its working values.
+
+Next keep the answers across wiped editions. On each edition, publish or leave it alone. The first edition gives
+two histories, the second four, the third eight. If n independent publication
+choices must remain readable when the workspace returns to one picture b,
+there are 2^n distinguishable histories above that picture. For one machine
+that must do this for every n, no finite fibre suffices: given any proposed
+size K, choose n with 2^n>K. That is an infinite reachable fibre forced by
+unlimited, recoverable edition history.
+
+\end{verbatim}\end{small}
+
+%===========================================================================
+\section{From the README}
+%===========================================================================
+
+These paragraphs were taken out of the repository README and are kept here as they stood.
+
+\begin{small}\begin{verbatim}
+The smallest machine standing above an ordinary computing box has a lamp beside it and a tally underneath. Computing runs the old machine for free and leaves the lamp and tally alone. Marking leaves the computing picture fixed, latches its named event into the lamp and adds one to the tally. Start with the lamp down and the tally at zero.
+
+Another builder can keep an extra tape or counter. Require the same base steps, exact event latch, permanent reading, toll, zero/one prices and exact tally of charges. Read that implementation's picture, lamp and tally. A computing move changes only the picture by the base rule. A mark latches the event and adds one. Those are exactly the simple box's rules, one move at a time. Every button list therefore gives the same three readings, and every reachable triple has a reachable implementation state above it.
+
+The construction goes from **button lists, to implementation states, to picture, lamp and tally**. The last arrow forgets extra history. To see why it need not go backward, turn a box halfway around and then turn it again. The simple box is back where it started. An implementation counting free turns has added two to that extra counter. Its two different counts cannot both be recovered from the simple box's one state.
+
+Which differences must survive? Give two states the same future button list. If any required answer differs, a faithful implementation cannot merge them: one full state cannot give two answers to that same test. Include reading now. For these three readings, equal triples stay equal after every common continuation, while unequal triples can be distinguished immediately. Remove only differences these questions can never reveal, and every reachable triple has exactly one remaining state. Any reachable implementation with no such redundant states is the same realization up to a forced renaming.
+
+Ask for the extra turn count and more has to survive. Stop asking for the tally and less may suffice. This familiar idea from minimal automata gives a precise characterization of the lift after its base, event and accounting are fixed. The [book](monograph/monograph.pdf) works through the argument; the maintained proofs are in [the audit library](coq/audit/).
+
+Put a hidden switch behind a dark lamp. The next button press copies the switch to the lamp. Two dark lamps can then give different next answers: keeping only the lamp loses a distinction this task needs. An adequate deterministic picture must give the same required answer and the same next picture whenever the retained picture is the same. The book proves that criterion with explicit representative choices. It also tests what the arrows cannot choose on their own, and why any finite watch can miss a later reset. Applying a model to real equipment still requires evidence that the equipment follows those rules.
+
+\end{verbatim}\end{small}
+
 \section{Further reading}
 
 The works below were read for the book and are not named in its finished text or in this volume. They are kept here with their annotations, so that nothing read for the book is lost.
