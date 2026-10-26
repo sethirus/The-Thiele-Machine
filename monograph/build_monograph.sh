@@ -45,5 +45,6 @@ build_document() {
 
 build_document monograph monograph.txt
 build_document thiele_machine_math_spec math_spec_plaintext.txt
+build_document example_built example_built.txt
 
 echo "=== Publications build successful ==="

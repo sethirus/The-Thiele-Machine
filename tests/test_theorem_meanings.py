@@ -20,6 +20,7 @@ DOCS = [
     "TECHNICAL_DISCLOSURE.md",
     "THIELE_MACHINE.txt",
     "monograph/monograph.tex",
+    "monograph/example_built.tex",
     "monograph/thiele_machine_math_spec.tex",
 ]
 ENTRY = re.compile(
