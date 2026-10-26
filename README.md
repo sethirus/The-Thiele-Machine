@@ -80,7 +80,7 @@ For the abstract sliced interface, horizontal moves evolve the tabletop by a rul
 
 Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. For that to happen a raise has to exist, and nothing else is needed: no premise about what the tabletop computes and none about the control.
 
-The book holds its example to more than the definition asks, and calls that **certified**: the moves of its flat part cost nothing and never touch the record; the record stays up once it is up; from a clean start it rises only after a passing check of a claim, a commitment to the same claim with the thing unchanged in between, and a certificate, at one unit each; and some claim's chain raises the record from one start and not another. A machine that meets all four hides its record and its ledger from a window on its flat part. An account that prices certification exactly cannot compute the price from a window that shows a certifying step and a non-certifying step the same way. The specification carries the same four things under their Coq names, Thiele completeness and certified Thiele completeness, stated over one flat case, a two-counter computing part.
+The view cannot see the record or the ledger, and no function of the view recovers either: two runs can end on the same picture with the record up on one and down on the other, and the ledger apart by the price of the raise. An account that prices a raise exactly cannot compute the price from a window that shows a raising step and a quiet step the same way.
 
 ## What keeping takes
 
