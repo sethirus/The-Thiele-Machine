@@ -65,8 +65,8 @@ jobs:
           echo "Coq: ${coq_version}"
 
       - name: Compute vendor build digest
-        # Hash the tracked vendored-library .vo files so the coq cache key
-        # tracks the actual vendor binary state, not just .v sources.
+        # Include any pre-existing vendor binaries in addition to the source
+        # hashes below. Fresh checkouts contain only the vendored sources.
         id: vendor-digest
         run: |
           digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
@@ -78,10 +78,8 @@ jobs:
           echo "Vendor .vo digest: ${digest}"
 
       - name: Purge local Coq compiler outputs
-        # coq/**/*.vo are tracked in git. After checkout they're on disk with
-        # timestamps that make `make` skip recompilation, and they may record
-        # library digests that no longer match. Start from a clean coq/ tree
-        # before the cache restore (or fresh build).
+        # Remove any local compiler outputs before restoring the complete
+        # cache or building from source.
         run: make coq-clean
 
       - name: Cache Coq build
@@ -97,17 +95,21 @@ jobs:
             minimal/**/*.vok
             minimal/**/*.vos
             minimal/**/*.glob
+            vendor/coq-undecidability/theories/**/*.vo
+            vendor/coq-undecidability/theories/**/*.vok
+            vendor/coq-undecidability/theories/**/*.vos
+            vendor/coq-undecidability/theories/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          # v4: the key for the proof tree without kami or bbv; caches under
-          # earlier keys describe a different tree and are not reused.
-          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          # v5: cache the vendored dependency closure with the project outputs.
+          # Earlier caches omit those libraries and cannot satisfy an exact hit.
+          key: coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           # An earlier build of any source tree is a starting point; the
           # build step rebuilds what changed (scripts/coq_build_manifest.py).
           restore-keys: |
-            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
@@ -175,11 +177,15 @@ jobs:
             minimal/**/*.vok
             minimal/**/*.vos
             minimal/**/*.glob
+            vendor/coq-undecidability/theories/**/*.vo
+            vendor/coq-undecidability/theories/**/*.vok
+            vendor/coq-undecidability/theories/**/*.vos
+            vendor/coq-undecidability/theories/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v4-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v5-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
         # actions/cache restores .vo files with their original build-time
@@ -189,9 +195,8 @@ jobs:
         # The cache key already pins source+vendor hashes, so this is
         # mtime-cosmetic, not a correctness gap.
         run: |
-          # Vendored undecidability .vo files are tracked; a fresh checkout can
-          # leave them older than their sources, which would rebuild the library
-          # and everything above it. Refresh them first, then the coq/ outputs.
+          # Restored dependency outputs must be newer than the fresh checkout
+          # and older than the project outputs that import them.
           find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
@@ -373,13 +378,17 @@ jobs:
             minimal/**/*.vok
             minimal/**/*.vos
             minimal/**/*.glob
+            vendor/coq-undecidability/theories/**/*.vo
+            vendor/coq-undecidability/theories/**/*.vok
+            vendor/coq-undecidability/theories/**/*.vos
+            vendor/coq-undecidability/theories/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           restore-keys: |
-            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         # The cache key pins source, toolchain, and vendor build digests.
