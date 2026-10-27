@@ -135,7 +135,7 @@ stage artifacts/proof_dependency_dag.json artifacts/proof_dependency_connectivit
 # with `CI=true --strict-backends`; THIELE_HOOK_FULL=1 runs it here too. The
 # regeneration runner sets THIELE_HOOK_SKIP_PYTEST because the CI run it
 # dispatches runs the same suite.
-FAST_TESTS="tests/test_git_hooks.py tests/test_coq_proof_scope.py tests/test_archive_hygiene.py tests/test_scope_note_waivers.py tests/test_sync_release_receipt.py"
+FAST_TESTS="tests/test_git_hooks.py tests/test_coq_proof_scope.py tests/test_archive_hygiene.py tests/test_scope_note_waivers.py tests/test_sync_release_receipt.py tests/test_claim_and_citation_audit.py tests/test_public_docs_scope.py"
 if [ -n "${THIELE_HOOK_SKIP_PYTEST:-}" ]; then
     echo "[pre-commit] pytest skipped here: CI runs the full suite on the regenerated commit"
 else
