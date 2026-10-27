@@ -6,6 +6,14 @@ That is the whole definition. A machine whose directions never make a distinctio
 
 The model is developed in a monograph: [Read the monograph](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Monograph source](monograph/monograph.tex) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf)
 
+## The point
+
+Take a blank cell: a square of paper with nothing on it, a bead that could sit in either of two dips, a bit of memory nobody has set. Now make it a 0, and keep it a 0. Something is the case now that wasn't a moment ago. Nothing becomes something for free: for a rule with one next state for every state, a reading newly raised and then held needs a merge somewhere in the run or endlessly fresh states.
+
+Structure is made of exactly this. A 0 is the smallest distinction there is: the ways a cell could be, sorted into piles, and one pile held. A grouping, an order, a relation a later move leans on, a fact somebody found out and wrote down: each is a distinction that stays, paid for the same way as the 0. Insight, in the sense the book can price, is a kept distinction. The toll charges the moment it's raised; holding it up afterward adds nothing. That is what the book's other name, No Free Insight, means.
+
+Established is the sharpest case. Two computers can end with the same answer, and only one of them checked it. The difference between them is a distinction one of them never kept. A record that a claim was checked and closed is a 0 that stays, with a check in front of it, and it's paid for the same way. The two boxes in the next section are that case. It's the sharpest case of what keeping takes, and it isn't the point. The point is the distinction that stays, and the 0 is the smallest one there is.
+
 ## Where it starts
 
 **Put two boxes on the table. The tiles on top spell the same answer. One box has a stamp on its side. The other does not. A camera looking straight down gives you the same photograph.**
@@ -13,14 +21,6 @@ The model is developed in a monograph: [Read the monograph](monograph/monograph.
 Hand me that photograph and ask which box was stamped. Enlarging the tiles will not bring the side into view. The difference is in the boxes. The picture leaves it out.
 
 That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The definition above is the model I built to ask what that takes.
-
-## The point
-
-Take a blank cell: a square of paper with nothing on it, a bead that could sit in either of two dips, a bit of memory nobody has set. Now make it a 0, and keep it a 0. Something is the case now that wasn't a moment ago. Nothing becomes something for free: for a rule with one next state for every state, a reading newly raised and then held needs a merge somewhere in the run or endlessly fresh states.
-
-Structure is made of exactly this. A 0 is the smallest distinction there is: the ways a cell could be, sorted into piles, and one pile held. A grouping, an order, a relation a later move leans on, a fact somebody found out and wrote down: each is a distinction that stays, paid for the same way as the 0. Insight, in the sense the book can price, is a kept distinction. The toll charges the moment it's raised; holding it up afterward adds nothing. That is what the book's other name, No Free Insight, means.
-
-Established is the sharpest case. Two computers can end with the same answer, and only one of them checked it. The difference between them is a distinction one of them never kept. A record that a claim was checked and closed is a 0 that stays, with a check in front of it, and it's paid for the same way. The boxes and the stamp above are that case. It's the sharpest case of what keeping takes, and it isn't the point. The point is the 0.
 
 ## The definition, exactly
 
@@ -148,7 +148,7 @@ The counting, the floor, the window results and the flat case are theorems under
 
 ## Follow the argument
 
-Start with the boxes and the camera. Follow the holding count, put the price rule beside the arrows, and watch CHECK, COMMIT and CERTIFY earn the record. Then open the gauge wider: ask which checks ran, which editions were certified, and how many distinguishable histories must still fit above one picture.
+Start with the boxes and the camera. Follow the holding count, put the price rule beside the arrows, and watch the example's CHECK, COMMIT and CERTIFY earn its record. Then open the gauge wider: ask which checks ran, which editions were certified, and how many distinguishable histories must still fit above one picture.
 
 Each construction gives you something to follow one move at a time. The book develops the objects first, names the pieces, and walks through why the result follows. The appendices carry the full host constructions and the conditions used by each argument.
 
