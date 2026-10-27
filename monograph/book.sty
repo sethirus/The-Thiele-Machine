@@ -6,15 +6,17 @@
 \RequirePackage{charter}
 \RequirePackage{marginnote}
 \RequirePackage{emptypage}
+\RequirePackage{thiele-geometry}
 
 % The page is priced in whole units. The module is the line, 14 pt square: the
 % paragraph indent is one module, the text block is 23 by 40 of them.
-% Black ink and one colour, the colour of the flag, which touches a filled cell
-% and nothing else. A cell is a square. Blank, it is drawn in ink. Written and
+% Black ink and one accent, the colour of the flag. The opening engravings
+% use black and white; the accent belongs to the proof notation.
+% A proof cell is a square. Blank, it is drawn in ink. Written and
 % paid for, it is filled. A statement opens a blank cell in the margin; the
 % proof that closes on the page fills it there; a statement with no proof on
-% the page keeps its cell open. The title page opens the book's own cell at
-% page scale; the last page fills it. For a black-only print build, define
+% the page keeps its cell open. The cover introduces a restricted view;
+% the closing square belongs to the statement ledger. For black-only print, define
 % \FlagColour as black before loading this file.
 \definecolor{flagred}{RGB}{196,38,26}
 \providecommand{\FlagColour}{flagred}
@@ -135,43 +137,26 @@
       \fi}
   \end{tikzpicture}}
 
-% Parts open a right-hand page: the label, the cell at page scale in the
-% state the part leaves it in, and the title under it. Blank for the bill;
-% a line drawn across it, for what structure is made of; filled, established;
-% and for the checking, the filled cell at proof size inside its own edge.
-\newcommand{\PartGlyph}{%
-  \begin{tikzpicture}
-    \ifcase\value{part}\or
-      \draw[line width=0.7pt] (0,0) rectangle (\PageCellSide,\PageCellSide);
-    \or
-      \draw[line width=0.7pt] (0,0) rectangle (\PageCellSide,\PageCellSide);
-      \draw[line width=0.7pt] (0,0.38\PageCellSide) -- (\PageCellSide,0.62\PageCellSide);
-    \or
-      \fill[flag] (0,0) rectangle (\PageCellSide,\PageCellSide);
-    \or
-      \draw[line width=0.7pt] (0,0) rectangle (\PageCellSide,\PageCellSide);
-      \fill[flag] (0.12\PageCellSide,0.12\PageCellSide) rectangle +(1.3ex,1.3ex);
-    \else
-      \draw[line width=0.7pt] (0,0) rectangle (\PageCellSide,\PageCellSide);
-    \fi
-  \end{tikzpicture}}
+% Parts open on the right. Each engraving has its own subject and viewpoint;
+% the small caption identifies the reading, separate from the proof ledger.
 \titleformat{\part}[display]{\normalfont\raggedright}
-  {\BookLabel{Part \thepart}\\[14pt]\PartGlyph}{14pt}
+  {\BookLabel{Part \thepart}}{21pt}
   {\fontsize{30}{34}\selectfont}
+  [\PartOpeningArt]
 \titlespacing*{\part}{0pt}{0pt}{0pt}
 \pretocmd{\part}{\cleardoublepage\thispagestyle{empty}}{}{}
 
-% Chapters open their own page a third of the way down: a label in the small
-% hand, the title in the text face at display size.
+% Chapters leave the large illustrations to the part openings. The heading
+% uses the same text face, one short rule and generous clear space.
 \newif\ifbookappendix
 \newcommand{\ChapterLabel}{\ifbookappendix Appendix\else Chapter\fi\ \thesection}
 \pretocmd{\appendix}{\global\bookappendixtrue}{}{}
 \titleformat{\section}[display]{\normalfont\raggedright}
-  {\BookLabel{\ChapterLabel}}{14pt}
+  {\ChapterRule\\[21pt]\BookLabel{\ChapterLabel}}{14pt}
   {\fontsize{26}{30}\selectfont}
 \titleformat{name=\section,numberless}[display]{\normalfont\raggedright}
   {}{0pt}{\fontsize{26}{30}\selectfont\BookSecMark}
-\titlespacing*{\section}{0pt}{154pt}{42pt}
+\titlespacing*{\section}{0pt}{35pt}{35pt}
 \pretocmd{\section}{\clearpage\thispagestyle{plain}\phantomsection}{}{}
 \titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{.8em}{}
 \titlespacing*{\subsection}{0pt}{21pt plus 2pt minus 1pt}{7pt}

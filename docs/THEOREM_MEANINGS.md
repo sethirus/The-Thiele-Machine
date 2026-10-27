@@ -14,7 +14,13 @@ Where several modules use the same short name, the parenthesized qualified
 name identifies the theorem meant by unqualified citations in these documents.
 An explicitly qualified citation keeps its own module identity.
 
-## Certification cost
+Entries are grouped by where they sit in the model: the definition and its
+price, what stays, what a window forgets, the room a kept distinction needs,
+computation as the special case, the world, and the example running.
+
+## The definition and the price in the move
+
+### Certification cost
 
 - `universal_nfi_any_substrate`: In any `CertificationSystem`, whose record includes the rule that a step switching certification on costs at least one, a trace from an uncertified state to a certified one has total cost at least one.
 - `every_toll_system_pays_the_floor`: The same statement as `universal_nfi_any_substrate`, under a name that says it quantifies over every system with the toll built in as a field, and over no other.
@@ -25,8 +31,9 @@ An explicitly qualified citation keeps its own module identity.
 - `scs_run_embed`: For a `SimulatingCertificationSystem` over a host Thiele machine, embedding the state its base system reaches on a trace equals the host's run of the concatenated decoded trace from the embedded start state.
 - `host_represents_simulating_cert_system`: For a `SimulatingCertificationSystem` over a host Thiele machine, a trace that goes from uncertified to certified in the base system has total cost at least one there, the host run of its decoded trace from the embedded start ends certified, and that host run has total cost at least one.
 
-## Pricing the event
+### Pricing the event
 
+- `paid_entry_free_idle` (`Minimal.AccountingBridge.paid_entry_free_idle`): For the natural-number step that sends zero to one and fixes every positive number, charging one at zero and zero elsewhere has an exact zero-or-one ledger, covers collisions among the first two source states of the run from zero, and lets state one idle for free.
 - `exact_commitment_pricing_characterization`: In a `LocalPredicatePricedSystem`, a charge meets the certification floor and never overcharges exactly when it charges on the certification flips and nowhere else, one unit each.
 - `substitution_test_rejects_non_a2_exact_substitute`: A charging predicate that differs from the certification-flip predicate cannot both meet the floor and never overcharge.
 - `joint_floor_is_least`: A cost meets every event floor in a finite family exactly when it is at least the joint floor, which is one when any event fires and zero otherwise.
@@ -39,7 +46,28 @@ An explicitly qualified citation keeps its own module identity.
 - `undercharged_opcode_breaks_certification_floor`: In a gas schedule, if some step switches certification from false to true and the schedule does not charge it, the schedule fails the universal certification floor.
 - `bit_model_has_satisfiable_calibration`: In the one-bit model where idle costs zero and reset (which sends both values to false) costs one, some dissipation function is at least one on every operation that maps two distinct states to one state and at most the cost on every operation.
 
-## Why A2 on finite hardware
+### The least toll and the observable lift
+
+- `every_reading_toll_iff_free_moves_are_identity`: For a fixed transition and natural instruction price on a state type with decidable equality, the actual toll holds for every Boolean reading exactly when every zero-cost instruction fixes every state.
+- `free_reading_invariance`: For any deterministic transition with natural instruction prices, the actual toll and global permanence imply that every zero-cost instruction preserves the selected Boolean reading.
+- `toll_exactly_dominates_least_price`: Given a finite list covering all states, a natural instruction schedule satisfies the actual toll exactly when it pointwise dominates the Boolean-search schedule charging one for instructions with a crossing witness and zero for the others.
+- `trace_floor_exactly_dominates_least_price`: Under the same covering-list premise, the finite-trace crossing floor from every starting state holds exactly for schedules dominating that least instruction schedule.
+- `unique_least_valid_price`: For fixed dynamics, reading and a finite covering list, every valid schedule pointwise no larger than every other valid schedule agrees with the constructed least schedule on every instruction.
+- `future_equivalence_coarsest`: For a deterministic transition and specified observation, any relation preserving current observations and stable under each instruction is contained in equality of observations after all finite continuations.
+- `coarsest_relation_unique`: Two relations satisfying the stated coarsest observation-preserving and step-stable characterization agree pointwise as propositions.
+- `canonical_satisfies_contract`: The existing neutral lift has the stated computing projection, silent exact-latch marks, actual toll, global permanence and exact zero/one ledger accounting.
+- `lift_terminal_over_exact_coordinates`: For an implementation with the fixed base dynamics, exact event latch, zero/one toll, permanence and exact ledger, there is a step-preserving map to the existing neutral lift preserving view, reading and ledger, and any map preserving those three coordinates agrees with it pointwise.
+- `projection_preserves_runs` (`Audit.LiftTerminal.projection_preserves_runs`): Under the fixed base/event, exact latch, toll, permanence and unit-accounting contract, projecting an implementation run equals running the same finite instruction word in the actual neutral lift from the projected start.
+- `observable_equivalence_exactly_projection_kernel`: Under the lift contract, two implementation states agree in all three projected coordinates after every common finite continuation exactly when their current projected triples agree.
+- `reachable_minimal_realization`: Under the lift contract and a start with reading false and ledger zero, future-observation separation of reachable implementation states makes projection injective there and onto all corresponding reachable lift states, preserving the start and steps and uniquely agreeing with every start- and step-preserving map on reachable states.
+- `trace_extension_factorization`: Under the lift contract and clean start, there is a unique evaluation of instruction lists into the implementation preserving the empty start and instruction append, and projection of this evaluation equals evaluation in the canonical lift.
+- `no_map_even_on_reachable_states`: For the actual Boolean-toggle neutral lift and its extension counting free horizontal moves, no function from canonical states to extension states commutes with horizontal steps on all canonical states reachable from the chosen start.
+- `unique_factorization_iff_kernel_inclusion`: For two pointed deterministic machines over one alphabet, with supplied access words reaching every source state, a pointwise unique start- and step-preserving map exists exactly when equality of endpoints of source words implies equality of the corresponding target endpoints.
+- `minimal_realizations_uniquely_isomorphic`: Two reachable deterministic machines with the same initial output behavior, supplied access words for the first and future-observation separation in both admit a bijective start-, step- and output-preserving map, pointwise unique among start- and step-preserving maps.
+- `canonical_unit_price_is_least_when_events_possible`: If every mark label has a base-state event witness, the actual neutral lift's zero/one schedule is pointwise no larger than any natural schedule satisfying the actual toll for those same dynamics and reading, without a finite-state or reachable-witness assumption.
+- `encoding_cannot_merge_distinguishable_states`: A deterministic implementation whose encoding preserves the declared steps and whose decoder preserves the required observation cannot identify two source states separated by a common finite continuation.
+
+### Why A2 on finite hardware
 
 - `permanent_flip_is_not_injective`: On a finite state space where certification is never revoked, a step that switches certification on is not injective.
 - `permanent_at_flip_is_not_injective`: The same, needing permanence only for the one instruction that flips.
@@ -144,7 +172,36 @@ An explicitly qualified citation keeps its own module identity.
 - `weak_match_left_runs`: If every step of the first base machine from a related pair is matched by some number of steps of the second, then every `k`-step run of the first from a related pair is matched by some run of the second.
 - `weak_match_right_runs`: The mirror statement, with every step of the second machine matched by some number of steps of the first.
 
-## Narrowing: what is priced and what costs nothing
+### Merges, grades and the record ceiling on finite machines
+
+- `nec_f_orbit_merges_visited`: For any type with decidable equality, any reading, any map f and any finite list of all states, if the reading is false at a start s0 and true at every point of f's orbit from some step N on, then f sends two different states of that orbit to the same state.
+- `nec_f_repeat_merges_visited`: On a finite machine with decidable state equality, if one move repeated from a start whose reading is false leaves the reading true at every step from some point on, the move sends two different states of that run to the same state.
+- `nec_f_closed_merges_visited`: On a finite machine with decidable state equality, for any rule picking the next move from the state, if the run from a start whose reading is false has the reading true at every step from some point on, two different states of that run, each taking its own picked move, land on the same state.
+- `nec_f_word_merges_visited`: On a finite machine with decidable state equality, if a word of moves repeated from a start whose reading is false leaves the reading true after every repetition from some point on, then the word splits as u, a letter c, and the rest, and for two repetition counts m and n the states after m or n repetitions followed by u are different and c sends them to the same state.
+- `nec_f_outside_moves_no_merge`: On the two-state machine where one move swaps the states and the other leaves them alone, the swap followed by any number of idle moves from the state reading false ends in the state reading true, and neither move sends two different states to the same state.
+- `nec_f_grade_exact`: For any machine whose acts raise the counter by their charge whenever they succeed, every well-graded loop-free program (acts, sequencing, and branches whose arms carry equal grades) that runs to a final state without failing raises the counter by exactly its grade, the sum of its acts' charges.
+- `nec_f_grade_exact_small`: On the small machine of EarnedCore.v, every well-graded loop-free program over its instructions that runs to a final state with the trap latch down raises the ledger by exactly the program's grade, the sum of its instructions' costs.
+- `nec_f_loop_cost`: On the machine with one register and a counter whose paid act takes one off the register and charges one, the loop that runs the act once per unit of the register as read on entry raises the counter by the register's entry value.
+- `nec_f_loop_no_fixed_grade`: No fixed whole number g makes that loop raise the counter by exactly g from every start.
+- `nec_f_loop_input_grade`: That loop raises the counter by exactly the register's value on entry, from every start.
+- `nec_f_same_rung_same_cups`: In any Boolean preorder, if x is at or below y and y is at or below x, then for every a the threshold a <= x has the same truth value as a <= y.
+- `nec_f_non_partial_cups_fail`: In any Boolean preorder with two different places each at or below the other, there are two different places that leave every threshold with the same truth value.
+- `nec_f_cups_iff_partial`: In any Boolean preorder, the thresholds determine the place (two places with the same threshold values are equal) if and only if the order is antisymmetric.
+- `nec_f_record_ceiling_unique`: On any machine with a reading, a per-step charge that charges every raising step at least one and whose total over every run is at most the number of raising steps in it charges every step exactly one if it raises the reading and zero otherwise.
+- `nec_f_three_automorphism_id`: On the three-state machine (blank, once, twice; flip and smooth), every injective map of the states that commutes with both moves is the identity.
+- `nec_f_three_toll_meets`: On the three-state machine, the charge of one for the flip from blank and nothing else meets all six reading-free requirements: no charge on a step that changes nothing, none on a move that forgets nothing, invariance under every move-respecting renaming, a run total that adds over concatenation, a charge that depends only on the state before and after, and one unit on the flip from blank.
+- `nec_f_three_merge_meets`: On the three-state machine, the charge of one for the flip from blank and one for the smooth from once, and nothing else, meets the same six reading-free requirements.
+- `nec_f_three_bills_differ`: The toll and the price on merging charge the smooth from once differently, zero and one.
+- `nec_f_three_ceiling_picks_toll`: On the three-state machine, any per-step charge that charges every raise at least one and whose total over every run is at most the number of raises equals the toll charge at every state and move.
+- `nec_f_three_merge_fails_ceiling`: The price on merging does not satisfy the ceiling: some run on the three states costs more under it than the number of raises in that run.
+- `nec_f_three_cs_floor`: The three-state machine with the flip costing one and the smooth costing nothing is a Thiele machine, and every run from blank that ends in a yes-state costs at least one.
+- `nec_f_board_raw_free`: On the board, every move other than VOUCH leaves the state where it was and costs nothing.
+- `nec_f_board_floor`: On the board as a Thiele machine, every run from NO that ends in YES costs at least one.
+- `nec_f_board_floor_flat`: For any property of states that holds of YES, some run from NO ends in a state with that property, reading yes, at total cost exactly one.
+- `nec_f_board_no_wait`: On the board, the run consisting of VOUCH alone takes NO to YES at cost one with no CHECK in it, and the run CHECK then VOUCH takes NO to YES at cost one.
+- `nec_f_history_infinite`: No duplicate-free list of lists of Booleans contains every list of Booleans, so the history machine's state space has no finite enumeration.
+
+### Narrowing: what is priced and what costs nothing
 
 - `run_narrowing_priced_log`: For a finite deterministic machine whose costs meet the squeeze price, a program run from any duplicate-free set `D` of starting states satisfies `log2_up|D| <= cost(t) + log2_up|D'|`, where `D'` is the set of states the run can end in.
 - `demon_machine_spread_kept`: In the two-bit measuring machine, the measuring step from the two blank-display states can still end in two different states.
@@ -157,7 +214,7 @@ An explicitly qualified citation keeps its own module identity.
 - `measure_forgets_nothing`: The two-bit machine's measuring step, which adds the hidden bit into the display by exclusive-or, is injective.
 - `wipe_merges`: The two-bit machine's wipe step, which blanks the display, is not injective.
 
-## The ledger
+### The ledger
 
 - `run_writer_is_run_and_cost`: Running a trace in the writer monad over the natural numbers returns the state the trace reaches and the trace's total cost.
 - `a2_iff_nonnegative_amortized_cost`: For any step function, cost, and yes/no reading, A2 holds exactly when every step's cost plus the change in the potential "one if uncertified, zero otherwise" is non-negative.
@@ -169,212 +226,9 @@ An explicitly qualified citation keeps its own module identity.
 
 - `potential_telescoping`: In the section's generic step-and-cost setting, if a potential `Phi` has non-negative amortized cost on every step, then for every trace and start state the trace's total cost plus `Phi` of the final state is at least `Phi` of the start state.
 
-## What a window loses
+## What stays
 
-- `no_mu_oracle` (`Minimal.EarnedCore.no_mu_oracle`): In minimal/EarnedCore.v, no function of the window (program counter and the two counters) returns mu for every trace run from `start 0 0`; minimal/MuCore.v proves the same for its strict shadow and `st_mu` over every state.
-- `thiele_simulates_turing`: Lifting a Turing configuration and running the file-local Thiele model for `n` steps gives the Turing machine's configuration after `n` steps.
-- `thiele_simulates_turing_gen`: For every fuel, transition table `delta`, and Thiele configuration `tc`, the Turing configuration inside `thiele_run fuel delta tc` equals `tm_run fuel delta` applied to the Turing configuration inside `tc`, whatever the `th_mu` value of `tc`.
-- `thiele_strictly_extends_turing`: Two conjuncts about the `ProperSubsumption.v` Turing and Thiele step functions: every Turing computation `TM_computes delta c_init c_final` has a Thiele computation from `lift_config c_init` with some cost whose final Turing configuration is `c_final`; and for every fuel, table, and configuration, the `cc_witness` of `thiele_cost_certificate` (the `th_mu` increase, by natural subtraction) is at most its `cc_bound`, which is `fuel * (step_cost + 1)`.
-- `decoding_requires_fiber_constancy`: If some decoder of an observation returns a query on every state, the query is constant on each set of states with the same observation.
-
-## Diagonal and undecidability
-
-- `structural_shortcut_undecidable`: For any substrate with a shortcut predicate, no decider whose diagonal flip is representable in the substrate decides the predicate.
-- `nat_structural_shortcut_undecidable`: For each candidate `d`, the nat substrate built from `d` has no decider with a representable flip for its predicate.
-- `nat_self_undecidable`: Each candidate `d` fails to decide the predicate of the substrate built from it.
-- `mk_app_enc`: In the weak call-by-value calculus L, applying the application-code builder to the codes of terms s and t reduces in finitely many steps to the code of the application s t.
-- `rec_spec`: For closed values F and v in L, applying rec F to v reduces in finitely many steps to F (rec F) v; the lemma does not assert termination of that resulting computation.
-- `Qn_spec`: For every natural n, the numeral-quoting program Qn applied to the Scott numeral for n reduces in finitely many steps to the syntax code of that numeral.
-- `Q_spec`: In the L lambda calculus, the quote combinator maps the code of any term to the code of its code.
-- `second_recursion`: In L, every closed value `s` has a closed term `t` that reduces to `s` applied to the code of `t`.
-- `L_recursion_theorem`: In L, every transformer that some closed L value computes on codes has a program equivalent to its image.
-- `L_rice`: In L, no closed term decides, from programs' codes, a property that depends only on the values programs reach and that holds for one closed program and fails for another.
-- `L_structural_shortcut_undecidable`: In L, no Boolean decider for such a property has an L-computable flip.
-- `L_halting_undecidable`: No closed L term decides, from programs' codes, whether an L program reaches a value.
-- `MM2_HALTING_compl_undec`: The complement of two-counter machine halting, as the vendored library defines it, is undecidable in the library's synthetic sense.
-- `star_value_confluent`: In the calculus L of `LRecursion.v`, if `s` reduces to `t` and to `v` in zero or more steps and `v` is a value (a lambda), then `t` reduces to `v` in zero or more steps.
-
-## CHSH and NPA
-
-- `local_box_CHSH_bound`: A factorizable box has absolute CHSH value at most 2.
-- `chsh_stat_violation_not_local`: A tally with CHSH above 2 is inconsistent with any single four-bit strategy repeated at every trial.
-- `chsh_violation_rules_out_locally_factorizable_coupling`: The same statement in coupling vocabulary.
-- `locally_consistent_classical_bound`: A tally consistent with one four-bit strategy has absolute CHSH value at most 2.
-- `cauchy_schwarz_chsh` (`Kernel.TsirelsonGeneral.cauchy_schwarz_chsh`): For any reals, `(a + b + c - d)^2 <= 4(a^2 + b^2 + c^2 + d^2)`.
-- `tsirelson_from_row_bounds` (`Kernel.TsirelsonGeneral.tsirelson_from_row_bounds`): If `E00^2 + E01^2 <= 1` and `E10^2 + E11^2 <= 1`, the CHSH value squared is at most 8.
-- `algebraically_coherent_tsirelson_general`: Algebraically coherent rational correlators have CHSH value squared at most 8.
-- `quadratic_nonneg_discriminant`: If `a + 2bt + ct^2 >= 0` for every real `t`, then `b^2 <= ac`.
-- `column_contractive_iff_npa_psd`: Four correlators are column-contractive exactly when their zero-marginal NPA moment matrix is symmetric and PSD. PSD of this matrix is NPA's level-1 test. It does not by itself give quantum realizability.
-- `zero_marginal_npa_column_contractive_implies_psd`: The three column-contractivity inequalities imply the zero-marginal NPA matrix is PSD.
-- `npa_psd_implies_column_contractive`: PSD of the zero-marginal NPA matrix implies column contractivity.
-- `column_contractive_iff_general_realizable`: Column contractivity is equivalent to the dimension-generic PSD predicate at size five.
-- `npa_psd_implies_tsirelson_bound`: If the zero-marginal NPA matrix is symmetric and PSD, the CHSH value squared is at most 8.
-- `npa_psd_implies_tsirelson_bound_abs`: For any four reals `E00 E01 E10 E11`, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then the absolute value of `CHSH E00 E01 E10 E11` is at most `sqrt8`.
-- `npa_psd_zero_marginal_implies_row_bounds`: For any four reals, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then `1 - E00^2 - E01^2 >= 0` and `1 - E10^2 - E11^2 >= 0` (the row minor constraints).
-- `tsirelson_from_minors`: For four reals, if `1 - e00^2 - e01^2 >= 0` and `1 - e10^2 - e11^2 >= 0`, then the square of `CHSH e00 e01 e10 e11` is at most 8.
-- `tsirelson_squared`: For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, `CHSH_value e00 e01 e10 e11` multiplied by itself is at most 8.
-- `fine_theorem`: For any correlator table `E` that is factorizable (two `+1`/`-1` response functions, a probability distribution on finitely many hidden states, and `E a b x y` equal to the distribution-weighted sum of the products of the two responses), `E 0 0 0 0 + E 0 0 0 1 + E 0 0 1 0 - E 0 0 1 1` lies between -2 and 2.
-- `column_contractive_check_witness_sound`: If the integer witness check passes, the witness-derived correlators are column-contractive.
-- `sym4_qf_nonneg_from_pd`: If the four leading minors of a symmetric 4 by 4 matrix are positive, its quadratic form is non-negative.
-- `psd_cauchy_schwarz`: For a symmetric PSD 5 by 5 matrix, the square of the bilinear form is at most the product of the two quadratic forms.
-- `deterministic_strategy_elliptope`: Correlators from four signs have a PSD completion.
-- `classical_tightness_witness_elliptope`: The all-ones correlators have a PSD completion.
-- `turing_point_elliptope`: The correlators (1, 0, 1, 0) have a PSD completion.
-- `elliptope_zero`: The zero correlators have a PSD completion.
-- `elliptope_convex`: A convex combination of two completable correlator tuples is completable.
-- `elliptope_finite_mixture`: A sub-convex finite mixture of completable tuples is completable.
-- `lhv_mixture_elliptope`: A finite mixture of deterministic sign strategies with weights summing to one is completable.
-- `elliptope_tsirelson`: A completable correlator tuple has CHSH value squared at most 8.
-- `pr_box_not_elliptope`: The PR box correlators have no PSD completion.
-- `beyond_classical_elliptope`: The tuple (3/5, 3/5, 3/5, -3/5) is completable and has CHSH value above 2.
-- `elliptope_check_full_sound`: If the two-branch integer elliptope check passes, the witness-derived correlators are completable.
-- `elliptope_ldl_check_sound`: If the LDL certificate check passes, the witness-derived correlators are completable.
-- `elliptope_full_gate_never_accepts_pr_box`: The full elliptope check rejects the PR box tally for every completion and certificate input.
-- `gate_accepts_all_ones`: The full check accepts the all-ones tally with its certificate.
-- `gate_accepts_beyond_classical`: The full check accepts the interior tally.
-- `gate_accepts_pythagorean_boundary`: The LDL check accepts the Pythagorean boundary tally with its certificate.
-- `gate_accepts_turing_point`: The full check accepts the (1, 0, 1, 0) tally with its certificate.
-- `local_S_2_deterministic`: For rational response functions with values 1 or -1, the CHSH combination of the products has absolute value at most 2.
-- `deterministic_strategy_chsh_bounded`: For real response functions `A` and `B` with values 1 or -1, `A0 B0 + A0 B1 + A1 B0 - A1 B1` lies between -2 and 2.
-- `factorizable_CHSH_classical_bound`: For any factorizable correlator table, `CHSH_from_correlations` lies between -2 and 2.
-- `chsh_gap_is_sum_of_squares` (`Kernel.TsirelsonFromAlgebra.chsh_gap_is_sum_of_squares`): For all reals, `4(a^2 + b^2 + c^2 + d^2) - (a + b + c - d)^2` equals the sum of the six squares `(a - b)^2`, `(a - c)^2`, `(a + d)^2`, `(b - c)^2`, `(b + d)^2`, and `(c + d)^2`.
-- `tsirelson_bound_abs` (`Kernel.TsirelsonGeneral.tsirelson_bound_abs`): For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, the absolute value of `CHSH e00 e01 e10 e11` is at most `sqrt8`.
-- `tsirelson_achievable` (`Kernel.TsirelsonGeneral.tsirelson_achievable`): Some four reals meet both row bounds and have `CHSH` exactly `sqrt8`.
-- `tsirelson_tight`: Some four reals meet both row bounds and have `CHSH_value` exactly `sqrt 8`.
-- `rational_tsirelson_bound` (`Kernel.TsirelsonFromAlgebra.rational_tsirelson_bound`): `sqrt 8 < 5657 / 2000`.
-- `psd2_quadratic_form_nonneg`: For reals with `a >= 0`, `d >= 0`, and `a d - b^2 >= 0`, `a u^2 + 2 b u v + d v^2 >= 0` for all `u` and `v`.
-- `npa_psd_iff_column_contractive`: For four reals, the zero-marginal NPA 5 by 5 matrix is PSD exactly when the three column-contractivity inequalities hold; symmetry is not part of either side.
-- `npa_quad5_test_col0`: The quadratic form of the zero-marginal NPA matrix at the vector with entries `-e00`, `-e10`, and 1 in positions 1, 2, and 3 (0 elsewhere) equals `1 - e00^2 - e10^2`.
-- `npa_quad5_test_col1`: The quadratic form at the vector with entries `-e01`, `-e11`, and 1 in positions 1, 2, and 4 equals `1 - e01^2 - e11^2`.
-- `npa_quad5_test_schur`: For every real `t`, the quadratic form at the vector with entries `-(e00 t + e01)`, `-(e10 t + e11)`, `t`, and 1 in positions 1 to 4 equals `(1 - e00^2 - e10^2) t^2 - 2 (e00 e01 + e10 e11) t + (1 - e01^2 - e11^2)`.
-- `psd_3x3_determinant_nonneg`: For a symmetric PSD 5 by 5 matrix with diagonal entries 1 at indices `i`, `j`, `k`, the correlation determinant `1 - x^2 - y^2 - z^2 + 2xyz` of its `(i, j)`, `(i, k)`, `(j, k)` entries is non-negative.
-- `zero_marginal_implies_elliptope`: If the zero-marginal NPA matrix of four correlators is symmetric and PSD, the correlators have a PSD completion.
-- `completed_quad_expand`: The quadratic form of the completed NPA matrix with completion entries `x` and `y` expands to the sum of the five squared coordinates plus twice `x`, `y`, and the four correlators times the corresponding coordinate products.
-- `elliptope_pd_check_sound`: If the positive-definiteness integer check passes on the witness counts and completion operands, the witness-derived correlators have a PSD completion.
-- `q1ab_moment_matrix_symmetric`: The 9 by 9 level-1+AB moment matrix is symmetric for every choice of the four correlators and five higher moments.
-- `quad9_q1ab_sos_decomposition`: The quadratic form of the level-1+AB matrix equals three explicit squares plus the defined residual in the six remaining coordinates.
-- `q1ab_psd_iff_column_contractive`: The level-1+AB matrix is PSD exactly when its residual is non-negative for all six remaining coordinates (`column_contractive_q1ab`).
-- `column_contractive_q1ab_implies_psd9`: Non-negativity of that residual implies the level-1+AB matrix is PSD.
-- `psd9_implies_column_contractive_q1ab`: PSD of the level-1+AB matrix implies non-negativity of the residual.
-- `column_contractive_q1ab_iff_general_realizable`: Non-negativity of the residual is equivalent to the dimension-generic symmetric-and-PSD predicate for the level-1+AB matrix at size nine.
-- `q1ab_residual_g_zero_decomp`: With all five higher moments zero, the residual splits into a two-coordinate part and a four-coordinate part, each a sum of squares minus the squares of the correlator-weighted combinations.
-- `column_contractive_check_q1ab_sound_at_g_zero`: If the integer level-1+AB check on witness counts passes, the witness-derived correlators with all five higher moments zero satisfy `column_contractive_q1ab`.
-- `q1ab_check_at_gzero_forces_unit_ball`: If that check passes, the squares of the four witness-derived correlators sum to at most 1.
-- `q1ab_check_at_gzero_implies_classical_bound`: If that check passes, the absolute CHSH value of the witness-derived correlators is at most 2, so the check with all higher moments zero accepts nothing above the classical bound.
-- `q1ab_certifies_a_superclassical_chsh_point`: The correlators (3/5, 3/5, 3/5, -3/5) have CHSH value above 2, and the level-1+AB matrix at those correlators with four higher moments zero and the fifth equal to -1/2 is PSD.
-- `q1ab_g5_kernel_check_accepts_superclassical`: The integer check with the fifth moment supplied accepts the witness counts (4, 1), (4, 1), (4, 1), (1, 4) with fifth-moment counts 1 and 3.
-- `q1ab_four_body_cells_are_conjugate`: For every choice of parameters, the level-1+AB matrix entry at rows 6 and 7 (counting from 0) is the negative of the entry at rows 5 and 8.
-- `q1ab_tie_is_a_constraint`: For the classical strategy with Alice's two answers independent fair signs and Bob copying them, its 9x9 moment matrix equals the 1+AB layout at correlators (1, 0, 0, 1), g1 = g2 = g3 = g4 = 0, g5 = 1 in every cell except (A_1B_2, A_2B_1) and its mirror; both of its four-body cells are 1; and no choice of the four correlators and g1..g5 makes the layout equal its moment matrix.
-- `q1ab_g12345_minors_witness_implies_psd9`: If the six-variable residual matrix with entries `q12345_H11` to `q12345_H66` meets the positive-pivot predicate `sym6_pd_interior`, the level-1+AB matrix is PSD.
-- `q1ab_g12345_caller_witness_z_abs_sound`: For integer correlation and residual numerators and positive denominators, if the integer kernel `q1ab_g12345_check_z_kernel` returns true, the real-valued ratios satisfy `q1ab_g12345_minors_witness`.
-- `column_contractive_check_witness_npa_psd`: For any witness tally, if the integer column-contractive check accepts it, the zero-marginal NPA moment matrix built from its four bucket correlations is positive semidefinite.
-- `q12345_sym6_qf_equals_residual`: The six-variable quadratic form with entries `q12345_H11` to `q12345_H66` equals the level-1+AB residual.
-- `cleared_g12345_H11_Z_bridge`: For integer numerators and positive integer denominators, the integer-cleared `H11` entry, read as a real, equals the integer `g12345_COMMON_Z` of those denominators times `q12345_H11` at the corresponding rational correlators and moments.
-- `sym4_LDLT_identity`: For a symmetric 4 by 4 quadratic form, the defined pivots `d1` to `d4` and partial forms `P1`, `Q1`, `Q2` satisfy `d1^2 d2 d3 q = d1 d2 d3 P1^2 + d1 d3 Q1^2 + Q2^2 + d1^2 d2 d4 v4^2`.
-- `sym5_Schur_identity`: For a symmetric 5 by 5 quadratic form, `h11` times the form equals the square of the defined first partial form plus the 4 by 4 form of the scaled Schur complement in the last four coordinates.
-- `sym5_qf_nonneg_from_pd`: If `h11 > 0` and the four defined pivots of the scaled Schur complement are positive, the symmetric 5 by 5 quadratic form is non-negative.
-- `sym6_Schur_identity`: For a symmetric 6 by 6 quadratic form, `h11` times the form equals the square of the defined first partial form plus the 5 by 5 form of the scaled Schur complement in the last five coordinates.
-- `sym6_qf_nonneg_from_pd`: If `h11 > 0` and the scaled Schur complement meets the 5 by 5 positive-pivot predicate, the symmetric 6 by 6 quadratic form is non-negative.
-
-## Models from other fields
-
-- `quote_cannot_attest_unmeasured_state`: In the scoped TPM quote-field abstraction, whose quote authenticity is not modeled (it is assumed externally), no function of the selected-PCR digest and nonce returns the additional runtime Boolean for every platform.
-- `quote_decides_measured_claims`: In the same model, every supplied Boolean function of the retained selected-PCR digest is computed by some Boolean function of the quote.
-- `persistent_write_priced`: In the transcribed Prague `sstore` gas and refund arithmetic, for one storage slot that is empty at the start of a transaction, any sequence of stores that leaves it nonzero has gas charged minus refund counter of at least 20000; the EIP-3529 refund cap is outside the model.
-- `revoked_write_nearly_free`: In the same model, setting a cold empty slot to one and clearing it again costs 2300 net, while setting it and leaving it set costs 22100.
-- `accountable_safety` (`Kernel.CasperFFG.accountable_safety`): In the ported Casper FFG model, under the setting's quorum-intersection and single-parent premises, two finalized blocks on different branches imply that some set in the second quorum class consists of slashed validators.
-- `conflicting_records_are_priced`: Reading finalization as the record, two finalized blocks on different branches imply a slashed set in the second quorum class; this restates accountable safety.
-- `finalization_without_slashing`: In the one-validator chain setting, a single vote finalizes the genesis block and no validator is slashed.
-- `ct_local_view_insufficient`: In the two-field certificate-transparency client model, no function of the local signed tree head number returns the world-consistency bit for every state.
-- `tpm_selection_binding_is_necessary`: In the two-selection quote model, some input passes the check that inspects only the composite digest while its signed and supplied PCR selections differ.
-- `weak_subjective_suffix_insufficient`: In the two-field weak-subjectivity model, no function of the local suffix returns the trusted-anchor bit for every state.
-- `wal_ack_requires_durability`: In the two-bit write-ahead-log model, some state has the client acknowledgement set while crash recovery does not recover the commit.
-- `audit_local_snapshot_insufficient`: In the two-bit audit model, no Boolean function of the current local log bit returns whether the event occurred for every state.
-- `tpm_interface_authenticity_refuted`: Not every signature-scheme interface satisfies quote authenticity (every accepted signature is the signing of the message by some secret key); the interface alone does not provide it.
-- `pcc_checker_accepts_iff_vc`: In the memory-access fragment of proof-carrying code, the checker accepts a program exactly when every instruction obeys the memory-limit policy.
-- `pcc_certificate_implies_vc`: In that fragment, every certificate derivation for a program implies the program obeys the policy.
-- `pcc_unsafe_program_rejected`: With memory limit 2, the checker rejects `[PRead 2; PHalt]`.
-- `rfc9162_inclusion_boundary_safe`: For every hash algorithm, inclusion verification with leaf index equal to the tree size returns false.
-- `rfc9162_consistency_boundary_safe`: For every hash algorithm, consistency verification between two trees of the same size with the same root returns false.
-- `rfc9162_example_inclusion_d0`: With the symbolic hash on the seven-leaf example tree, the audit path `[b; h; l]` verifies leaf hash `a` at index 0 against the root.
-- `rfc9162_example_inclusion_d3`: The audit path `[c; g; l]` verifies leaf hash `d` at index 3 against the example root.
-- `rfc9162_example_inclusion_d4`: The audit path `[f; j; k]` verifies leaf hash `e` at index 4 against the example root.
-- `rfc9162_example_inclusion_d6`: The audit path `[i; k]` verifies leaf hash `j` at index 6 against the example root.
-- `rfc9162_example_consistency_4_7`: The consistency proof `[l]` verifies the size-4 root `k` against the size-7 example root.
-- `ct_extension_preserves_entries`: Appending entries to a log keeps every old entry in it.
-- `casper_fork_exists`: In the concrete three-validator Casper FFG setting with unit stakes, blocks `HA1` and `HB1` on different branches are each finalized at epoch 1 by the quorums `{VA, VB}` and `{VB, VC}`, neither is an ancestor of the other, the state has a finalization fork, and both are finalized records.
-- `casper_fork_slashable`: In that setting some second-class quorum consists of slashed validators, the set `{VB}` is such a quorum and is slashed, and `VA` and `VC` are not slashed.
-- `janus_like_unbounded_inverse`: For integer add and subtract instructions, applying the syntactic inverse after the instruction returns the original value.
-- `janus_like_bounded_inverse`: For a positive modulus and a value in `[0, modulus)`, applying the inverse after the instruction, both reduced modulo the modulus, returns the original value.
-- `concrete_ram_write_reads_back`: Writing a value at an address that holds some value and reading that address gives the written value.
-
-## Trace and projection contracts
-
-- `selected_representatives_give_decoder`: Given a representative for every view whose observation is that view, a query is constant on observation fibers exactly when it factors through a decoder of the view.
-- `independent_coordinates_joint_change_costs_one`: On pairs of Booleans, the two coordinates are independent observations, the step from (false, false) to (true, true) raises both, the least cost meeting both unit floors on that step is 1, and the constant cost 1 respects each floor.
-- `nat_recursion_theorem`: For the candidate-decider-dependent nat substrate, every transformer selected by its representability predicate has a code whose total run equals the transformer's image on every input state.
-
-## Information and witness contracts
-
-- `compression_priced_trace_floor`: On an enumerated finite state space with permanent certification and compression pricing, an instruction-list run from uncertified to certified costs at least one.
-- `priced_reset_satisfies_premises`: The two-state Blank/Stamped machine is finite, keeps its stamp permanently, and prices every merging step at one.
-- `step_price_is_exact`: The defined full-state certification-flip indicator price meets the flip floor and never overcharges.
-- `locally_consistent_gives_separable_coupling`: A witness tally consistent with the supplied four local deterministic outputs induces a separable setting-outcome coupling.
-- `decision_tree_leaves_le_pow2_depth`: A decision tree has at most `2^depth` leaves.
-- `decision_tree_log2_up_leaf_bound`: The rounded-up base-2 logarithm of a decision tree's leaf count is at most its depth.
-
-## Replicated-record examples
-
-- `toggle_game_refutes_strong_pointer_necessity`: Consensus, authentic observer views, a positive observer count, and coordinator-free evolution do not imply event permanence, because the two-observer toggle game satisfies those premises and revokes its event.
-- `durable_consensus_implies_permanence`: A positive observer count, authentic observer views, and durable true views imply event permanence; durability is the premise that supplies the conclusion.
-
-- `toy_cert_unique_pointer`: In the chosen replicated-ledger toy, the certificate predicate proliferates and the single designated work predicate does not.
-- `pointer_on_unique`: Two events that are each the pointer (the strongest event copied by every observer and relied on by every non-producing observer) on the same reachable states agree on every one of those states.
-- `independent_copies_everywhere_are_constant`: If observers' carriers are independent (each view reads its own part, and any two parts can be set separately) and there are at least two observers, an event every observer decides exactly on every state is constant.
-- `ledger_carriers_independent`: In the replicated-header toy, the three nodes' copies are independent carriers.
-- `ledger_copying_alone_does_not_separate`: In the replicated-header toy, on synced states both "finalized" and "gas used is at least one" are decided by every node's copy.
-- `ledger_finalized_is_pointer`: In the replicated-header toy, "finalized" is copied by every node, relied on by every non-producing node, and implies every other event copied and relied on in that sense on synced states.
-- `ledger_gas_not_relied_on`: In the replicated-header toy, "gas used is at least one" is not relied on by the non-producing nodes.
-- `PoS_model_unique_pointer`: In the synthetic PoS-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `Gas_model_unique_pointer`: In the synthetic gas-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `TEE_model_unique_pointer`: In the synthetic TEE-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `CT_model_unique_pointer`: In the synthetic transparency-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `PCC_model_unique_pointer`: In the synthetic PCC-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `deniable_authentication_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the deniable-authentication-labelled model; no deniability or security property is formalized.
-- `mac_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the MAC-labelled model; no MAC security property is formalized.
-- `capability_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the capability-labelled model; no capability or memory-safety property is formalized.
-- `public_log_model_proliferating`: The selected flag proliferates under the stipulated Boolean observer maps of the public-log-labelled model; no log protocol is formalized.
-- `public_log_effort_not_proliferating`: In the same public-log-labelled model, the rival effort predicate does not proliferate, because no observer map reads the effort counter; this shows the control model discriminates between events.
-- `twelve_candidate_measurements_checked`: The conjunction of twelve claims about named finite models: in each of the proof-of-stake, gas, TEE, certificate-transparency, and proof-carrying-certificate models the selected event is redundantly proliferating and the named rival event is not; the symmetric-MAC event is not redundantly proliferating; the digital-signature event is.
-- `swapped_event_is_pointer_checked`: In `swap_ecosystem` (states with two booleans, three observers each reading `swap_second`), `second_event` (`swap_second` is true) is redundantly proliferating and `first_event` (`swap_first` is true) is not.
-- `toy_work_not_proliferating`: In the replicated-ledger toy, the event "the work counter is at least one" is not recorded by every observer.
-- `blind_observer_blocks_proliferation`: If some observer below the observer count reports false at a state where the event holds, the event is not redundantly proliferating.
-- `labeled_model_verdicts`: In the stipulated labelled models, the deniable-authentication, MAC, and capability events are not redundantly proliferating, the public-log inclusion and digital-signature events are, and observer 0 of the deniable model records its event; no security property is formalized.
-
-## Scalar physics and geometry contracts
-
-- `canonical_reset_heat_exact`: In the frozen two-state reset protocol, the bath heat for an energy gap `Delta` is exactly `Delta / 2`.
-- `selected_gap_gives_landauer_heat`: Choosing the two-state energy gap to be `2 * k_B * T * ln 2` makes the frozen reset protocol's bath heat exactly `k_B * T * ln 2`.
-- `master_equation_does_not_fix_heat_scale`: Two distinct energy gaps obey the same frozen population master equation but transfer different heat, so those population dynamics alone do not determine an energy scale.
-- `calibrated_mu_landauer_energy`: For all reals `k_B` and `T`, every state type `S`, every natural-number ledger `mu` on it and every state with `mu s = 1`, `mu_energy_at_scale mu (k_B * T * ln 2) s` equals `k_B * T * ln 2`; the scale is the supplied argument, so this is the arithmetic `mu s * scale`.
-- `canonical_reset_satisfies_master_equation`: One step of the discrete two-state master equation, with the protocol's fixed time step and transition rates, carries the frozen initial populations exactly to the frozen final populations.
-- `canonical_reset_heat_below_landauer_at_small_gap`: For positive `k_B` and `T`, the canonical reset (population one half to zero, up rate 0, down rate 1) with energy gap `k_B * T * ln 2` books bath heat strictly less than `k_B * T * ln 2`, so this bookkeeping toy obeys no Landauer floor.
-- `canonical_rates_break_detailed_balance`: For every `kT` and gap `Delta`, the canonical reset's rates (up 0, down 1) do not satisfy detailed balance: 0 is not 1 times `exp (- Delta / kT)`.
-- `detailed_balance_settles_at_gibbs`: For rates `k01`, `k10` in detailed balance at gap `Delta` (`k01 = k10 * exp (- Delta / kT)`), any time step `dt` and any population `p`, one master-equation step minus the equilibrium population `1 / (1 + exp (Delta / kT))` equals `(1 - dt (k01 + k10))` times `p` minus that population.
-- `detailed_balance_thermalizing_step`: For rates in detailed balance at gap `Delta` and a time step with `dt (k01 + k10) = 1`, one master-equation step takes every population to the equilibrium population `1 / (1 + exp (Delta / kT))`.
-- `detailed_balance_never_empties`: For rates in detailed balance at gap `Delta`, a time step with `1 - dt (k01 + k10)` at least 0, and a population at least the equilibrium population, the equilibrium population is positive and one master-equation step leaves the population at least that value.
-- `landauer_gap_settles_at_one_fifth`: For `k_B * T` nonzero, the equilibrium excited population `1 / (1 + exp (Delta / (k_B T)))` at gap `Delta = 2 k_B T ln 2` is exactly `1/5`.
-- `driven_first_law`: For every `kT`, gap schedule `g` and number of steps `n`, the driven reset's work equals its heat plus the register's mean energy at the end, `g n` times the equilibrium population at `g n`, minus the mean energy at the start.
-- `driven_work_second_law`: For `kT` positive and a gap schedule that never falls over its first `n` steps, the driven reset's work over those `n` steps is at least the free energy `- kT ln (1 + exp (- Delta / kT))` at the final gap minus that at the first gap.
-- `driven_work_near_free_energy`: For `kT` positive and a gap schedule each of whose first `n` steps rises by between 0 and `h`, the driven reset's work over those `n` steps is at most the free-energy change plus `h` times the fall in equilibrium population from the first gap to the last.
-- `driven_reset_work_window`: For `k_B * T` positive, `D` at least 0 and `N` at least 1, the driven reset along `N` equal raises from gap 0 to `D` does work between `kT ln 2 - kT exp (- D / kT)` and `kT ln 2 + D / (2 N)`, with `kT = k_B * T`, and its final equilibrium population is at most `exp (- D / kT)`.
-
-- `tsirelson_rational_lower_witness`: Some correlator satisfying the selected rational coherence predicate has CHSH at least 28284/10000.
-- `five_labeled_models_have_selected_pointer`: In the five synthetic labelled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
-
-- `mu_has_no_intrinsic_joule_value`: For every state type and natural-number ledger `mu` on it, two real-valued functions on states exist that give 1 and 2 on every state with `mu` equal to 1, so the counter by itself fixes no energy value.
-
-## Earned commitments in the minimal machine
+### Earned commitments in the minimal machine
 
 - `checker_soundness`: From a clean start, every stored fact whose version equals its counter's current version states a true property of that counter's current value.
 - `earned_certification_provenance`: Every trace from a clean start ending certified contains a passing CHECK, then a passing COMMIT of the same property and counter at the same version with that counter untouched between them, then a passing CERTIFY.
@@ -457,7 +311,121 @@ An explicitly qualified citation keeps its own module identity.
 - `unearned_commit_traps`: If the commitment guard fails, COMMIT raises the error flag and leaves both the channel and fact table unchanged.
 - `mu_conservation` (`Minimal.EarnedCore.mu_conservation`): Executing an instruction raises the minimal-machine ledger by exactly that instruction's cost.
 
-## Thiele-complete over any event
+### Replicated-record examples
+
+- `toggle_game_refutes_strong_pointer_necessity`: Consensus, authentic observer views, a positive observer count, and coordinator-free evolution do not imply event permanence, because the two-observer toggle game satisfies those premises and revokes its event.
+- `durable_consensus_implies_permanence`: A positive observer count, authentic observer views, and durable true views imply event permanence; durability is the premise that supplies the conclusion.
+
+- `toy_cert_unique_pointer`: In the chosen replicated-ledger toy, the certificate predicate proliferates and the single designated work predicate does not.
+- `pointer_on_unique`: Two events that are each the pointer (the strongest event copied by every observer and relied on by every non-producing observer) on the same reachable states agree on every one of those states.
+- `independent_copies_everywhere_are_constant`: If observers' carriers are independent (each view reads its own part, and any two parts can be set separately) and there are at least two observers, an event every observer decides exactly on every state is constant.
+- `ledger_carriers_independent`: In the replicated-header toy, the three nodes' copies are independent carriers.
+- `ledger_copying_alone_does_not_separate`: In the replicated-header toy, on synced states both "finalized" and "gas used is at least one" are decided by every node's copy.
+- `ledger_finalized_is_pointer`: In the replicated-header toy, "finalized" is copied by every node, relied on by every non-producing node, and implies every other event copied and relied on in that sense on synced states.
+- `ledger_gas_not_relied_on`: In the replicated-header toy, "gas used is at least one" is not relied on by the non-producing nodes.
+- `PoS_model_unique_pointer`: In the synthetic PoS-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `Gas_model_unique_pointer`: In the synthetic gas-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `TEE_model_unique_pointer`: In the synthetic TEE-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `CT_model_unique_pointer`: In the synthetic transparency-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `PCC_model_unique_pointer`: In the synthetic PCC-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `deniable_authentication_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the deniable-authentication-labelled model; no deniability or security property is formalized.
+- `mac_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the MAC-labelled model; no MAC security property is formalized.
+- `capability_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the capability-labelled model; no capability or memory-safety property is formalized.
+- `public_log_model_proliferating`: The selected flag proliferates under the stipulated Boolean observer maps of the public-log-labelled model; no log protocol is formalized.
+- `public_log_effort_not_proliferating`: In the same public-log-labelled model, the rival effort predicate does not proliferate, because no observer map reads the effort counter; this shows the control model discriminates between events.
+- `twelve_candidate_measurements_checked`: The conjunction of twelve claims about named finite models: in each of the proof-of-stake, gas, TEE, certificate-transparency, and proof-carrying-certificate models the selected event is redundantly proliferating and the named rival event is not; the symmetric-MAC event is not redundantly proliferating; the digital-signature event is.
+- `swapped_event_is_pointer_checked`: In `swap_ecosystem` (states with two booleans, three observers each reading `swap_second`), `second_event` (`swap_second` is true) is redundantly proliferating and `first_event` (`swap_first` is true) is not.
+- `toy_work_not_proliferating`: In the replicated-ledger toy, the event "the work counter is at least one" is not recorded by every observer.
+- `blind_observer_blocks_proliferation`: If some observer below the observer count reports false at a state where the event holds, the event is not redundantly proliferating.
+- `labeled_model_verdicts`: In the stipulated labelled models, the deniable-authentication, MAC, and capability events are not redundantly proliferating, the public-log inclusion and digital-signature events are, and observer 0 of the deniable model records its event; no security property is formalized.
+
+## What a window forgets
+
+### What a window loses
+
+- `no_mu_oracle` (`Minimal.EarnedCore.no_mu_oracle`): In minimal/EarnedCore.v, no function of the window (program counter and the two counters) returns mu for every trace run from `start 0 0`; minimal/MuCore.v proves the same for its strict shadow and `st_mu` over every state.
+- `thiele_simulates_turing`: Lifting a Turing configuration and running the file-local Thiele model for `n` steps gives the Turing machine's configuration after `n` steps.
+- `thiele_simulates_turing_gen`: For every fuel, transition table `delta`, and Thiele configuration `tc`, the Turing configuration inside `thiele_run fuel delta tc` equals `tm_run fuel delta` applied to the Turing configuration inside `tc`, whatever the `th_mu` value of `tc`.
+- `thiele_strictly_extends_turing`: Two conjuncts about the `ProperSubsumption.v` Turing and Thiele step functions: every Turing computation `TM_computes delta c_init c_final` has a Thiele computation from `lift_config c_init` with some cost whose final Turing configuration is `c_final`; and for every fuel, table, and configuration, the `cc_witness` of `thiele_cost_certificate` (the `th_mu` increase, by natural subtraction) is at most its `cc_bound`, which is `fuel * (step_cost + 1)`.
+- `decoding_requires_fiber_constancy`: If some decoder of an observation returns a query on every state, the query is constant on each set of states with the same observation.
+
+### Trace and projection contracts
+
+- `selected_representatives_give_decoder`: Given a representative for every view whose observation is that view, a query is constant on observation fibers exactly when it factors through a decoder of the view.
+- `independent_coordinates_joint_change_costs_one`: On pairs of Booleans, the two coordinates are independent observations, the step from (false, false) to (true, true) raises both, the least cost meeting both unit floors on that step is 1, and the constant cost 1 respects each floor.
+- `nat_recursion_theorem`: For the candidate-decider-dependent nat substrate, every transformer selected by its representability predicate has a code whose total run equals the transformer's image on every input state.
+
+### Information and witness contracts
+
+- `compression_priced_trace_floor`: On an enumerated finite state space with permanent certification and compression pricing, an instruction-list run from uncertified to certified costs at least one.
+- `priced_reset_satisfies_premises`: The two-state Blank/Stamped machine is finite, keeps its stamp permanently, and prices every merging step at one.
+- `step_price_is_exact`: The defined full-state certification-flip indicator price meets the flip floor and never overcharges.
+- `locally_consistent_gives_separable_coupling`: A witness tally consistent with the supplied four local deterministic outputs induces a separable setting-outcome coupling.
+- `decision_tree_leaves_le_pow2_depth`: A decision tree has at most `2^depth` leaves.
+- `decision_tree_log2_up_leaf_bound`: The rounded-up base-2 logarithm of a decision tree's leaf count is at most its depth.
+
+### The window of a certified Thiele-complete machine
+
+- `complete_every_window_printed`: For every machine and every interface making it certified Thiele-complete, and every state s, there is a loaded clean start and one base move of cost 0 from it that ends in a state with the same base window (pc, (A, B)) as s, the record down, and the ledger unchanged from the start.
+- `complete_hides_ledger`: For every machine and every interface making it certified Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, with different ledgers, the first at least 3 above the second.
+- `complete_two_runs`: For every machine and every interface making it certified Thiele-complete, there is a loaded clean start and two runs from it, the second made of base moves only, that end with the same base window; the first ends certified with its ledger at least 3 above the start, and the second ends uncertified with its ledger unchanged.
+- `complete_hides_record`: For every machine and every interface making it certified Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, the record up after the first and down after the second.
+- `complete_no_ledger_oracle`: For every machine and every interface making it certified Thiele-complete, no function from base windows to numbers gives the interface's ledger at the end of every run from every loaded start.
+- `complete_no_record_oracle`: For every machine and every interface making it certified Thiele-complete, no function from base windows to Booleans gives the record at the end of every run from every loaded start.
+- `complete_cs_window_blind`: For every certified Thiele-complete machine and every interface making it certified Thiele-complete, on the CertificationSystem `complete_cs` built from the machine, no function of the base window of the state a trace reaches from a loaded start gives that state's reading, and none gives the interface's ledger there.
+
+### Adequacy, selection and finite validation
+
+- `operational_adequacy_iff`: For a supplied successor relation, view and outputs, with explicit representatives and permitted successor choices, deterministic output and next-view maps exist exactly when outputs are constant on view fibres and all permitted successors of equal-view sources under a common instruction have equal views.
+- `branching_answers_exclude_exact_deterministic_encoding`: If one state and instruction admit two successors with different required answers, no encoding into a deterministic host can commute with every permitted successor and preserve those answers.
+- `hidden_bit_blocks_visible_only_dynamics`: Copying the hidden coordinate of a Boolean pair into its visible coordinate has no next-visible-state function depending only on the old visible coordinate.
+- `toggle_symmetry_forces_constant_reading`: A Boolean reading on two states that is invariant under Boolean negation has the same value on all states.
+- `no_nonconstant_renaming_invariant_toggle_reading`: No Boolean reading on the two-state toggle can both respect its state-exchange symmetry and distinguish any pair of states.
+- `finite_observations_do_not_establish_permanence`: For every natural horizon, the specified delayed-reset clock agrees with the enduring reading through the next tick, starts false, raises at tick one and resets one tick after that comparison interval; the enduring reading is permanent, the delayed one is not, and both satisfy the actual unit-price toll.
+
+## The room a kept distinction needs
+
+### A distinction that stays
+
+- `step_law`: For any step on any type with decidable equality and any start, every step of the run is fresh (its new state equals no earlier state), or a merge (it equals an earlier state reached from a different state, so two distinct states share an image), or a return to the start, or a revisit from the same state as before. The labels can overlap after the first revisit; the two lemmas below give the shape without double counting.
+- `first_revisit_start_or_merge`: If the step from position n is the first that lands on an earlier state, position j, then j is the start or the state before position j differs from the state at n, so the two share a next state: the first return is to the start or a merge.
+- `later_steps_repeat`: After any revisit, every later step is a step the run already took, from the same state to the same state, so nothing after the first return merges anew.
+- `merge_is_collision`: A merge in the sense of the step law exhibits two distinct states with the same image under the step.
+- `revisit_means_loop`: Once a run returns to a state it visited at position j, every later state of the run is one it visited at some position at most n, the position of the return.
+- `partial_raises_without_merge`: On two states with a partial step, a steps to b, b has no successor, the reading is false on a and true on b, and no two states share a successor.
+- `totalised_halt_is_merge`: Totalising that step with the halted state stepping to itself makes a and b, which differ, share the image b.
+- `write_is_permanent`: On the states blank, zero and one, the write of a 0 keeps a definite cell definite.
+- `write_raises`: The write of a 0 takes the blank cell, which reads not definite, to a cell that reads definite.
+- `write_is_a_merge`: Blank and zero both step to zero under the write, and blank differs from zero.
+- `four_state_escape_fails`: With a fourth state that remembers the cell was blank, the write still sends blank and that fourth state to the same state, and they differ.
+- `tape_write_injective`: On an endless tape, writing one more cell sends different tapes to different tapes.
+- `tape_write_never_returns`: On an endless tape, writing one more cell never returns to the empty tape.
+- `shift_bijective`: Stepping one cell along the integers is one-to-one and onto.
+- `shift_raises_and_keeps`: The reading "at least one" is false at 0, true after one step from 0, and stays true under the step.
+- `shift_never_returns`: After any positive number of steps along the integers, the state differs from the start.
+- `no_space_holds_its_own_readings`: For any type and any coding of its states as yes/no readings on it, some reading is coded by no state.
+- `regress_price_unbounded`: For every m there is a count N whose rounded-up base-two logarithm is at least m.
+- `nondet_merge`: With a step relation, a duplicate-free closed set of yes-states each having a chosen successor inside the set, and a no-state related to a yes-state, some yes-state has two distinct predecessors.
+- `returns_to_start`: An injective step on a finite duplicate-free list containing every state brings the run from any start back to the start after a positive number of steps.
+- `reversible_keeps_nothing`: Under such a step, a reading that is false at the start and never goes from true to false is false at every step of the run.
+- `noisy_chairs`: For a nonnegative kernel whose rows and columns each sum to one, and a closed set of states, every entry from a state outside the set into a state inside it is zero.
+- `raise_breaks_uniform`: If a nonnegative row-stochastic kernel with a closed set has a positive entry from outside the set into it, some column sum of the kernel differs from one.
+- `colsums_total`: For a nonnegative row-stochastic kernel on n states, the column sums add to n.
+- `raise_concentrates`: If a list of rationals sums to its own length and some member differs from one, the sum of the squares strictly exceeds the length.
+- `uniform_floor`: If every member of a list of rationals equals one, the sum of the squares equals the length.
+- `raise_concentrates_uniform`: A nonnegative row-stochastic kernel on n states with a closed set and a positive entry into it from outside has column sums whose squares add to strictly more than n.
+- `no_merge_no_concentration`: For a nonnegative kernel whose rows and columns each sum to one, the sum of the squares of a spread after one step is at most the sum of the squares before.
+- `gibbs_nonneg`: For a strictly positive spread on N states summing to one, the sum over states of the probability times the natural logarithm of N times the probability is nonnegative.
+- `gibbs_strict`: That sum is strictly positive as soon as some probability differs from 1/N.
+- `relent_is_entropy_gap`: That sum equals the natural logarithm of N minus the Shannon entropy of the spread.
+- `quantum_chairs`: For an n by n matrix U over the algebraic numbers with conjugate transpose times U equal to the identity, and a Hermitian idempotent P with (1 minus P) U P equal to zero, P U (1 minus P) is zero.
+- `heat_at_any_speed`: For a forward probability p strictly between 0 and 1 and not one half, the biased walk's entropy production per tick, (2p minus 1) times the natural logarithm of p over (1 minus p), is strictly positive.
+- `no_heat_at_rest`: At p equal to one half that entropy production is zero.
+- `heat_time_floor`: For a speed v strictly between 0 and 1 and a nonnegative distance N, N times the logarithm of (1 plus v) over (1 minus v), times N over v, is at least N squared.
+
+## Computation as the special case
+
+### Thiele-complete over any event
 
 The entries below use the monograph's names. Thiele-complete is the notion of this section, the Coq `neutral_complete` (and `neutral_complete_with` for one interface). Certified Thiele-complete is the notion of the next section, the Coq `thiele_complete`, and the same name covers the other certified forms: `thiele_complete_with`, `thiele_complete_over`, `thiele_complete_at`, `ax_tc_with` and `ax_thiele_complete`. The Coq predicate `weakly_thiele_complete` says that a machine obeys the toll and has a universal base; the monograph gives it no name. The definition `neutral_complete`: a machine is Thiele-complete when some neutral interface (a universal base, a test saying which moves are base moves, and a ledger) meets four clauses: base moves include every compiled two-counter instruction, never change the record, and the record stays up once up; the record is down at every loaded start; base moves cost 0, every other move costs exactly 1, and the ledger adds each move's cost; and one fixed run ends with the record up from one loaded start and down from another.
 
@@ -484,7 +452,7 @@ The entries below use the monograph's names. Thiele-complete is the notion of th
 - `latch_constant_up`: For any base machine and any event that holds at every base state, the record-carrying machine that latches the event has its record up after one step from every base state with the record down and any ledger.
 - `latch_distinguishes`: For any base machine, event and two base states, if the event holds at one of the first n states of the first run and at none of the first n states of the second, the latch's record after n steps from the first state is up and from the second is down, both started with the record down and ledger 0.
 
-## Certified Thiele-complete
+### Certified Thiele-complete
 
 - `thiele_complete_is_weak`: Every certified Thiele-complete machine obeys the toll (a step raising its record costs at least one) and has a universal base (the Coq predicate `weakly_thiele_complete`).
 - `base_runs_every_program`: For every machine with a universal base, every two-counter program and every live state, running the program's compiled moves for n steps from that state shows, in the base's window, exactly the configuration the program reaches in n steps, and the state stays live.
@@ -538,17 +506,346 @@ The entries below use the monograph's names. Thiele-complete is the notion of th
 - `generic_complete_agrees`: For every property language, any Thiele machine built from a proof that the generic small machine is certified Thiele-complete reaches the same state and charges the same total cost as `generic_cs` on every trace from every state.
 - `thiele_complete_hides`: Every certified Thiele-complete machine has an interface making it certified Thiele-complete through which no function of the base window gives the ledger, and none gives the record, at the end of every run from every loaded state.
 
-## The window of a certified Thiele-complete machine
+### Completeness over any claim language
 
-- `complete_every_window_printed`: For every machine and every interface making it certified Thiele-complete, and every state s, there is a loaded clean start and one base move of cost 0 from it that ends in a state with the same base window (pc, (A, B)) as s, the record down, and the ledger unchanged from the start.
-- `complete_hides_ledger`: For every machine and every interface making it certified Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, with different ledgers, the first at least 3 above the second.
-- `complete_two_runs`: For every machine and every interface making it certified Thiele-complete, there is a loaded clean start and two runs from it, the second made of base moves only, that end with the same base window; the first ends certified with its ledger at least 3 above the start, and the second ends uncertified with its ledger unchanged.
-- `complete_hides_record`: For every machine and every interface making it certified Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, the record up after the first and down after the second.
-- `complete_no_ledger_oracle`: For every machine and every interface making it certified Thiele-complete, no function from base windows to numbers gives the interface's ledger at the end of every run from every loaded start.
-- `complete_no_record_oracle`: For every machine and every interface making it certified Thiele-complete, no function from base windows to Booleans gives the record at the end of every run from every loaded start.
-- `complete_cs_window_blind`: For every certified Thiele-complete machine and every interface making it certified Thiele-complete, on the CertificationSystem `complete_cs` built from the machine, no function of the base window of the state a trace reaches from a loaded start gives that state's reading, and none gives the interface's ledger there.
+- `lift_thiele_complete_over`: Given a universal base, a fact capacity of at least one, and a nonvacuous base-state claim language with an exact checker, the earned lift is certified Thiele-complete over the language that reads those claims on its base state; the language does not depend on the chosen universal interface.
+- `lift_window_thiele_complete_over`: Every universal base with positive fact capacity has an earned lift that is certified Thiele-complete over its fixed register-threshold and program-counter language.
+- `sim_base_lifts_over`: A base simulated by finite lists of moves has a macro lift that is certified Thiele-complete over the fixed window language, for every positive fact capacity.
+- `fl_macro_lifts_over`: The five-lever example's macro lift is certified Thiele-complete over that fixed window language, for every positive fact capacity.
+- `priced_thiele_complete_over`: The priced machine is certified Thiele-complete over its fixed optional property-and-counter language when property equality is exact, its checker agrees with the given meaning, and some property holds at one counter value and fails at another; the empty claim means False.
+- `priced_sorted_thiele_complete_over`: The priced sorted-list instance is certified Thiele-complete over the fixed sorted-list language, with the empty claim meaning False.
+- `priced_core_thiele_complete_over`: The priced counter-property instance is certified Thiele-complete over the fixed zero, even, and lower-bound language, with the empty claim meaning False.
+- `ent2_mmachine_complete_over`: The multi-register machine is certified Thiele-complete over the fixed property-and-register language; unchanged means the register has the same version and value.
 
-## The universal interpreter
+### The universal machine, defined
+
+The definition `neutral_universal` is the Coq counterpart of the monograph's universal Thiele machine, but its decode may depend on the guest, which is why `smuggle_universal` holds; the monograph's clause (6) fixes the coding with the class before any guest is named, so it is stronger. The definition: for a class of guests, a host, an observation of the guests' states and a bound K, the host is a neutral universal machine when there are one program, a register-host reading of its states, a set of raising lines, a load template, a coding of each guest into registers and, for each guest, a decode from registers such that the host is Thiele-complete with its counter moves as exactly its base moves, every record move the program executes traps or raises the record exactly when its line is raising, the template writes the registers with a fixed line, no trap and the record down, and for every guest the run halts exactly when the guest stops, at a state matching the guest's last, and matches the guest's states at strictly increasing times, with the record equal to the guest's latched record and the ledger the guest's plus at most K.
+
+- `U_neutral_universal`: The fixed program U on the host machine of EarnedMulti.v is a neutral universal machine for every small-machine program from every clean start, with the two counters as the observation and bound 0.
+- `UP_neutral_universal`: The fixed program U_P on the priced host machine of EarnedMultiPriced.v is a neutral universal machine for every computably presented machine, with the presented state as the observation and bound 3.
+- `UN_neutral_universal`: U_P's program read on the canonical neutral host (registers, INC, DEC, HALT, MARK r, TICK and PAY, with CHECK, COMMIT and PAY read as PAY and CERTIFY as TICK) is a neutral universal machine for every computably presented machine, with bound 3.
+- `U_in_order` (`Kernel.NeutralUnivU.U_in_order`): For every small-machine program and clean start there is a matching function, strictly increasing while the guest is live, at whose times U's host decodes to the guest's counters with the guest's latched record and the guest's ledger.
+- `UP_in_order` (`Kernel.NeutralUnivUP.UP_in_order`): For every computably presented machine and start there is a matching function, strictly increasing while the guest is live, at whose times U_P's host decodes to the guest's state with the guest's latched record and the guest's ledger plus at most 3.
+- `UMachInOrderU.U_in_order`: For every small-machine program P and start (x, y) there is one function f with f m < f (S m) for every m such that, at every guest step m reached without stopping before, U's host at time f m holds the guest's counters, trap, ledger and flag, and, when the guest has not trapped, its line, at the head of U's loop.
+- `UMachInOrderUP.UP_in_order`: For every computably presented machine, presentation and start there is one function f with f n < f (S n) for every n such that, at every step n the driver reaches without stopping before, U_P's host at time f n decodes to the machine's state after n steps, with ledger equal to the machine's ledger plus the surcharge and flag equal to its latch.
+- `down_universal`: On the canonical neutral host, the program [DEC 0 1; TICK; HALT] is a neutral universal machine with bound 0 for the class of guests that count register 0 down and then MARK 1.
+- `tc_cdown_two`: For every host, every interface making it certified Thiele-complete, every register reading and every load template whose loads are clean, if a program matches every live step of the countdown guest started at 0 at some time with surcharge at most K, then K is at least 2.
+- `up_floor`: For every host program, register reading and clean load template, if the run matches a guest whose record is up at its start in order with bound K, then at the first matching time the host's ledger is the guest's plus at least 1.
+- `up_attained`: On the canonical neutral host, a program raises only by line, halts in step with the guest whose record is up at its start, matches it at the times S m with bound 1, and has ledger exactly the guest's plus 1 at every live matching time.
+- `gstep_not_reg`: The host with a built-in guest step (PEEK, GSTEP0, GSTEP1) is no register host under any reading of its state.
+- `oracle_y`: On the canonical neutral host, a program that lets MARK 1 read a register meets the Thiele-complete, clean-load, halting and in-order clauses with bound 0 for both guests of the two-guest class, and no set of raising lines makes its record moves raise by line.
+- `mirror_y`: A host whose record move reads a hidden copy of the guest's datum put outside the registers by the load meets the Thiele-complete, clean-load, halting and in-order clauses with bound 0 for both guests of the two-guest class, and no set of raising lines makes its record moves raise by line.
+- `mirror2_not_line`: The host whose extra record move carries out a hidden copy's own mark has no set of raising lines that makes its record moves raise by line.
+- `shadow_idle`: On the host that carries a hidden copy of the guest stepped by its counter moves, two runs of the countdown program from the same visible state with any two hidden copies have the same visible state and the same ledger at every time.
+- `need_N4`: A host with an unpaid primitive that fetches, decodes and executes the guest's next instruction from the registers is Thiele-complete, has its unpaid moves at cost 0, raises its record by line, halts in step and matches its guest in order with bound 0, and is no register host.
+- `smuggle_universal`: On the canonical neutral host, a program loaded with all registers zero for every guest, with a decode that adds the guest's number to register 5, is a neutral universal machine with bound 0 for the class of guests that count register 0 up forever and never mark.
+- `nr_determined`: For every register host and program whose record moves raise by line, if every move other than a record move leaves the record alone, two runs from states with the same line, registers and record have the same line, registers and record, and the same ledger, at every time at which neither has trapped.
+- `cu_iff_nu_plus_certification`: A host is a certified universal machine through an interface exactly when it is a neutral universal machine through that interface with its claims forgotten, the interface's loaded states are clean and its earned-record and non-vacuity clauses hold, the load template gives clean states, and every rise of the host's record stands on an earned chain whose claim is tied to the guest.
+- `earned_part_free`: For every interface making the host certified Thiele-complete and every load template giving clean states, whenever the host's record is up after n steps of the program, the host's own trace holds an earned chain of check, commit and certificate.
+- `pay_needed`: For every register host with a permanent record, if at some time the host's record equals the guest's latched record, which is down, and the host's ledger is the guest's plus some amount while the guest's ledger is at least 1, then before that time the host executed a record move after which its record was down.
+- `commit_pay_loop`: On U's host machine (EarnedMulti.v, with no PAY), the four-line loop that counts register t down with a COMMIT of a claim about an untouched register held in the table, started at its first line with no trap and its work register at 0, ends after 4k + 1 steps at the next line with no trap, the ledger up by exactly k, the flag unchanged, t at 0, the work register at 0, every other register, the claim's version and the fact table unchanged.
+- `hybrid_thiele_complete`: U's host machine with three extra price-0 moves that fetch, decode and execute a guest instruction on the registers is certified Thiele-complete.
+- `mirror_earned`: On the mirror host, whose paid moves MCHECK, MCOMMIT and MCERTIFY carry out the guest's own CHECK, COMMIT and CERTIFY, whenever the host's flag is up at the matching time of a live guest step, the host's trace contains its own MCHECK, MCOMMIT and MCERTIFY in that order, carried out on a guest CHECK of some claim that passed with the claim holding, a COMMIT of the same claim that passed with the counter untouched since the CHECK, and a CERTIFY that passed.
+- `thiele_complete_host_clock`: The host machine of U is certified Thiele-complete, and for every two-counter program and start (a, b), if the program reaches configuration x in n steps, then after 2 + 2n host steps of the clock program from the host's load registers 0 and 1 hold x's counters, the trap and the flag are down, the ledger is 1 + n, and the host has halted exactly when the program has stopped at x.
+
+### Units, bases by simulation, nesting, clocks and partitions
+
+- `thiele_complete_at_one`: A machine is certified Thiele-complete at unit 1 (clauses (a), (b) and (d), base moves costing 0, every record move costing 1, the ledger adding each cost) exactly when it is certified Thiele-complete.
+- `scale_complete_at`: For every c at least 1, a certified Thiele-complete machine with every price multiplied by c is certified Thiele-complete at unit c.
+- `unscale_complete`: A machine certified Thiele-complete at unit c, with every price divided by c, is certified Thiele-complete.
+- `scaled_has_free_move`: A machine certified Thiele-complete at any unit has a move that costs 0.
+- `paid_moves_not_thiele_complete_at_any_unit`: A machine whose every move costs at least 1 is certified Thiele-complete at no unit.
+- `clock_not_thiele_complete_at_any_unit`: The two-counter machine charging 1 per move, with any reading of its configuration as the record, is certified Thiele-complete at no unit.
+- `latch_clock_not_thiele_complete_at_any_unit`: The two-counter machine charging 1 per move, with a flag that latches when a chosen test of the configuration says yes, is certified Thiele-complete at no unit.
+- `scaled_certificate_costs_three_c`: For an interface meeting the definition at unit c, a run from a clean state ending with the record up contains at least three record moves and raises the ledger by at least 3c.
+- `scaled_committed_claim_holds`: For an interface meeting the definition at unit c, a run from a clean state ending with the record up contains a CHECK and a later COMMIT of one claim whose meaning holds at the state checked and at the state committed.
+- `scaled_only_certify_raises`: For an interface meeting the definition at unit c, on a run from a clean state the move that raises the record is a CERTIFY.
+- `doubled_earned_scaled`: The small machine with every price doubled is certified Thiele-complete at unit 2.
+- `doubled_earned_not_thiele_complete`: The small machine with every price doubled is not certified Thiele-complete.
+- `sim_macro_runs`: Running a list of move lists on the macro machine of a box is running their concatenation on the box.
+- `ub_to_sim_inhabited`: A machine with a universal base has a base by simulation.
+- `sim_to_macro_inhabited`: A machine with a base by simulation (each two-counter instruction a finite list of its moves acting on a window as the instruction acts, from every live state) has a universal base on its macro machine, whose moves are finite lists of its moves.
+- `sim_base_lifts`: For every base by simulation and every cap of at least 1, the lift of the macro machine with the window claims is certified Thiele-complete.
+- `fl_has_sim_base`: The five-lever box (increment A, increment B, raise the jump target, and for each of A and B decrement-or-jump to the target) has a base by simulation.
+- `fl_no_universal_base`: The five-lever box has no universal base.
+- `fl_macro_lifts`: For every cap of at least 1, the lift of the five-lever box's macro machine with the window claims is certified Thiele-complete.
+- `cmpz_follow_exists`: For every simulation and every guest run there is a host run, one segment per guest move, that follows it.
+- `cmpz_follow_reaches`: A host run that follows a guest run ends on the image of the guest's end state.
+- `cmpz_follow_cost_ge_exits`: For a simulation whose record map reflects the order, into a host that obeys the toll, every host run that follows a guest run costs at least the guest's number of exits.
+- `cmpz_end_only_not_enough`: Some simulation reflecting the order into a host that obeys the toll has a guest run and a host run reaching the image of its end state that costs less than the guest's number of exits.
+- `record_axis_is_latch_r1_r4`: Over any base, a record driven by the computation and permanent factors as the latch of some event; the ledger, toll and reachable-write clauses are not hypotheses.
+- `record_axis_is_latch_reachable`: Over any base, a permanent record driven by the computation on every state a run reaches from a starting state factors as the latch of some event on those states.
+- `clock_not_reachably_driven`: The record switched on at the fifth tick of a hidden clock, with every state a starting state, is not driven by the computation even on the states runs reach.
+- `sync_clock_not_driven`: The same clock with starting states (b, b, off) is not driven by the computation when every state counts.
+- `sync_clock_reachably_driven`: The clock with starting states (b, b, off) is driven by the computation on every state its runs reach.
+- `sync_clock_reachable_latch`: The clock with starting states (b, b, off) is, on every state its runs reach, the latch of the event "the base state is 5".
+- `sync_clock_record_permanent`: The record of the clock with starting states (b, b, off) never switches off.
+- `pr_grouping_partition`: The classes of "same bucket label" under any grouping form a partition.
+- `pr_entitled_iff_refines`: For groupings g and h of a pile, soundness of g for every key gives soundness of h for that key exactly when h refines g on the pile.
+- `pr_reads_structural`: Two groupings with the same partition of the pile have the same reading at every state of the bucket machine.
+- `pr_reading_entitles`: On every run of the bucket machine from a clean state, if the reading for a grouping g is up, the record holds a grouping and a key such that g is sound for that key and so is every grouping that refines g.
+- `pr_reading_entitles_only`: For every grouping h that does not refine g, there is a key for which g is sound and h is not.
+- `pr_toll`: The bucket machine obeys the toll: a step that raises its record costs at least 1.
+- `pr_reading_costs_three`: On every run of the bucket machine from a clean state that ends with the record up, the ledger rises by at least 3.
+
+### Diagonal and undecidability
+
+- `structural_shortcut_undecidable`: For any substrate with a shortcut predicate, no decider whose diagonal flip is representable in the substrate decides the predicate.
+- `nat_structural_shortcut_undecidable`: For each candidate `d`, the nat substrate built from `d` has no decider with a representable flip for its predicate.
+- `nat_self_undecidable`: Each candidate `d` fails to decide the predicate of the substrate built from it.
+- `mk_app_enc`: In the weak call-by-value calculus L, applying the application-code builder to the codes of terms s and t reduces in finitely many steps to the code of the application s t.
+- `rec_spec`: For closed values F and v in L, applying rec F to v reduces in finitely many steps to F (rec F) v; the lemma does not assert termination of that resulting computation.
+- `Qn_spec`: For every natural n, the numeral-quoting program Qn applied to the Scott numeral for n reduces in finitely many steps to the syntax code of that numeral.
+- `Q_spec`: In the L lambda calculus, the quote combinator maps the code of any term to the code of its code.
+- `second_recursion`: In L, every closed value `s` has a closed term `t` that reduces to `s` applied to the code of `t`.
+- `L_recursion_theorem`: In L, every transformer that some closed L value computes on codes has a program equivalent to its image.
+- `L_rice`: In L, no closed term decides, from programs' codes, a property that depends only on the values programs reach and that holds for one closed program and fails for another.
+- `L_structural_shortcut_undecidable`: In L, no Boolean decider for such a property has an L-computable flip.
+- `L_halting_undecidable`: No closed L term decides, from programs' codes, whether an L program reaches a value.
+- `MM2_HALTING_compl_undec`: The complement of two-counter machine halting, as the vendored library defines it, is undecidable in the library's synthetic sense.
+- `star_value_confluent`: In the calculus L of `LRecursion.v`, if `s` reduces to `t` and to `v` in zero or more steps and `v` is a value (a lambda), then `t` reduces to `v` in zero or more steps.
+
+## The world
+
+### CHSH and NPA
+
+- `local_box_CHSH_bound`: A factorizable box has absolute CHSH value at most 2.
+- `chsh_stat_violation_not_local`: A tally with CHSH above 2 is inconsistent with any single four-bit strategy repeated at every trial.
+- `chsh_violation_rules_out_locally_factorizable_coupling`: The same statement in coupling vocabulary.
+- `locally_consistent_classical_bound`: A tally consistent with one four-bit strategy has absolute CHSH value at most 2.
+- `cauchy_schwarz_chsh` (`Kernel.TsirelsonGeneral.cauchy_schwarz_chsh`): For any reals, `(a + b + c - d)^2 <= 4(a^2 + b^2 + c^2 + d^2)`.
+- `tsirelson_from_row_bounds` (`Kernel.TsirelsonGeneral.tsirelson_from_row_bounds`): If `E00^2 + E01^2 <= 1` and `E10^2 + E11^2 <= 1`, the CHSH value squared is at most 8.
+- `algebraically_coherent_tsirelson_general`: Algebraically coherent rational correlators have CHSH value squared at most 8.
+- `quadratic_nonneg_discriminant`: If `a + 2bt + ct^2 >= 0` for every real `t`, then `b^2 <= ac`.
+- `column_contractive_iff_npa_psd`: Four correlators are column-contractive exactly when their zero-marginal NPA moment matrix is symmetric and PSD. PSD of this matrix is NPA's level-1 test. It does not by itself give quantum realizability.
+- `zero_marginal_npa_column_contractive_implies_psd`: The three column-contractivity inequalities imply the zero-marginal NPA matrix is PSD.
+- `npa_psd_implies_column_contractive`: PSD of the zero-marginal NPA matrix implies column contractivity.
+- `column_contractive_iff_general_realizable`: Column contractivity is equivalent to the dimension-generic PSD predicate at size five.
+- `npa_psd_implies_tsirelson_bound`: If the zero-marginal NPA matrix is symmetric and PSD, the CHSH value squared is at most 8.
+- `npa_psd_implies_tsirelson_bound_abs`: For any four reals `E00 E01 E10 E11`, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then the absolute value of `CHSH E00 E01 E10 E11` is at most `sqrt8`.
+- `npa_psd_zero_marginal_implies_row_bounds`: For any four reals, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then `1 - E00^2 - E01^2 >= 0` and `1 - E10^2 - E11^2 >= 0` (the row minor constraints).
+- `tsirelson_from_minors`: For four reals, if `1 - e00^2 - e01^2 >= 0` and `1 - e10^2 - e11^2 >= 0`, then the square of `CHSH e00 e01 e10 e11` is at most 8.
+- `tsirelson_squared`: For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, `CHSH_value e00 e01 e10 e11` multiplied by itself is at most 8.
+- `fine_theorem`: For any correlator table `E` that is factorizable (two `+1`/`-1` response functions, a probability distribution on finitely many hidden states, and `E a b x y` equal to the distribution-weighted sum of the products of the two responses), `E 0 0 0 0 + E 0 0 0 1 + E 0 0 1 0 - E 0 0 1 1` lies between -2 and 2.
+- `column_contractive_check_witness_sound`: If the integer witness check passes, the witness-derived correlators are column-contractive.
+- `sym4_qf_nonneg_from_pd`: If the four leading minors of a symmetric 4 by 4 matrix are positive, its quadratic form is non-negative.
+- `psd_cauchy_schwarz`: For a symmetric PSD 5 by 5 matrix, the square of the bilinear form is at most the product of the two quadratic forms.
+- `deterministic_strategy_elliptope`: Correlators from four signs have a PSD completion.
+- `classical_tightness_witness_elliptope`: The all-ones correlators have a PSD completion.
+- `turing_point_elliptope`: The correlators (1, 0, 1, 0) have a PSD completion.
+- `elliptope_zero`: The zero correlators have a PSD completion.
+- `elliptope_convex`: A convex combination of two completable correlator tuples is completable.
+- `elliptope_finite_mixture`: A sub-convex finite mixture of completable tuples is completable.
+- `lhv_mixture_elliptope`: A finite mixture of deterministic sign strategies with weights summing to one is completable.
+- `elliptope_tsirelson`: A completable correlator tuple has CHSH value squared at most 8.
+- `pr_box_not_elliptope`: The PR box correlators have no PSD completion.
+- `beyond_classical_elliptope`: The tuple (3/5, 3/5, 3/5, -3/5) is completable and has CHSH value above 2.
+- `elliptope_check_full_sound`: If the two-branch integer elliptope check passes, the witness-derived correlators are completable.
+- `elliptope_ldl_check_sound`: If the LDL certificate check passes, the witness-derived correlators are completable.
+- `elliptope_full_gate_never_accepts_pr_box`: The full elliptope check rejects the PR box tally for every completion and certificate input.
+- `gate_accepts_all_ones`: The full check accepts the all-ones tally with its certificate.
+- `gate_accepts_beyond_classical`: The full check accepts the interior tally.
+- `gate_accepts_pythagorean_boundary`: The LDL check accepts the Pythagorean boundary tally with its certificate.
+- `gate_accepts_turing_point`: The full check accepts the (1, 0, 1, 0) tally with its certificate.
+- `local_S_2_deterministic`: For rational response functions with values 1 or -1, the CHSH combination of the products has absolute value at most 2.
+- `deterministic_strategy_chsh_bounded`: For real response functions `A` and `B` with values 1 or -1, `A0 B0 + A0 B1 + A1 B0 - A1 B1` lies between -2 and 2.
+- `factorizable_CHSH_classical_bound`: For any factorizable correlator table, `CHSH_from_correlations` lies between -2 and 2.
+- `chsh_gap_is_sum_of_squares` (`Kernel.TsirelsonFromAlgebra.chsh_gap_is_sum_of_squares`): For all reals, `4(a^2 + b^2 + c^2 + d^2) - (a + b + c - d)^2` equals the sum of the six squares `(a - b)^2`, `(a - c)^2`, `(a + d)^2`, `(b - c)^2`, `(b + d)^2`, and `(c + d)^2`.
+- `tsirelson_bound_abs` (`Kernel.TsirelsonGeneral.tsirelson_bound_abs`): For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, the absolute value of `CHSH e00 e01 e10 e11` is at most `sqrt8`.
+- `tsirelson_achievable` (`Kernel.TsirelsonGeneral.tsirelson_achievable`): Some four reals meet both row bounds and have `CHSH` exactly `sqrt8`.
+- `tsirelson_tight`: Some four reals meet both row bounds and have `CHSH_value` exactly `sqrt 8`.
+- `rational_tsirelson_bound` (`Kernel.TsirelsonFromAlgebra.rational_tsirelson_bound`): `sqrt 8 < 5657 / 2000`.
+- `psd2_quadratic_form_nonneg`: For reals with `a >= 0`, `d >= 0`, and `a d - b^2 >= 0`, `a u^2 + 2 b u v + d v^2 >= 0` for all `u` and `v`.
+- `npa_psd_iff_column_contractive`: For four reals, the zero-marginal NPA 5 by 5 matrix is PSD exactly when the three column-contractivity inequalities hold; symmetry is not part of either side.
+- `npa_quad5_test_col0`: The quadratic form of the zero-marginal NPA matrix at the vector with entries `-e00`, `-e10`, and 1 in positions 1, 2, and 3 (0 elsewhere) equals `1 - e00^2 - e10^2`.
+- `npa_quad5_test_col1`: The quadratic form at the vector with entries `-e01`, `-e11`, and 1 in positions 1, 2, and 4 equals `1 - e01^2 - e11^2`.
+- `npa_quad5_test_schur`: For every real `t`, the quadratic form at the vector with entries `-(e00 t + e01)`, `-(e10 t + e11)`, `t`, and 1 in positions 1 to 4 equals `(1 - e00^2 - e10^2) t^2 - 2 (e00 e01 + e10 e11) t + (1 - e01^2 - e11^2)`.
+- `psd_3x3_determinant_nonneg`: For a symmetric PSD 5 by 5 matrix with diagonal entries 1 at indices `i`, `j`, `k`, the correlation determinant `1 - x^2 - y^2 - z^2 + 2xyz` of its `(i, j)`, `(i, k)`, `(j, k)` entries is non-negative.
+- `zero_marginal_implies_elliptope`: If the zero-marginal NPA matrix of four correlators is symmetric and PSD, the correlators have a PSD completion.
+- `completed_quad_expand`: The quadratic form of the completed NPA matrix with completion entries `x` and `y` expands to the sum of the five squared coordinates plus twice `x`, `y`, and the four correlators times the corresponding coordinate products.
+- `elliptope_pd_check_sound`: If the positive-definiteness integer check passes on the witness counts and completion operands, the witness-derived correlators have a PSD completion.
+- `q1ab_moment_matrix_symmetric`: The 9 by 9 level-1+AB moment matrix is symmetric for every choice of the four correlators and five higher moments.
+- `quad9_q1ab_sos_decomposition`: The quadratic form of the level-1+AB matrix equals three explicit squares plus the defined residual in the six remaining coordinates.
+- `q1ab_psd_iff_column_contractive`: The level-1+AB matrix is PSD exactly when its residual is non-negative for all six remaining coordinates (`column_contractive_q1ab`).
+- `column_contractive_q1ab_implies_psd9`: Non-negativity of that residual implies the level-1+AB matrix is PSD.
+- `psd9_implies_column_contractive_q1ab`: PSD of the level-1+AB matrix implies non-negativity of the residual.
+- `column_contractive_q1ab_iff_general_realizable`: Non-negativity of the residual is equivalent to the dimension-generic symmetric-and-PSD predicate for the level-1+AB matrix at size nine.
+- `q1ab_residual_g_zero_decomp`: With all five higher moments zero, the residual splits into a two-coordinate part and a four-coordinate part, each a sum of squares minus the squares of the correlator-weighted combinations.
+- `column_contractive_check_q1ab_sound_at_g_zero`: If the integer level-1+AB check on witness counts passes, the witness-derived correlators with all five higher moments zero satisfy `column_contractive_q1ab`.
+- `q1ab_check_at_gzero_forces_unit_ball`: If that check passes, the squares of the four witness-derived correlators sum to at most 1.
+- `q1ab_check_at_gzero_implies_classical_bound`: If that check passes, the absolute CHSH value of the witness-derived correlators is at most 2, so the check with all higher moments zero accepts nothing above the classical bound.
+- `q1ab_certifies_a_superclassical_chsh_point`: The correlators (3/5, 3/5, 3/5, -3/5) have CHSH value above 2, and the level-1+AB matrix at those correlators with four higher moments zero and the fifth equal to -1/2 is PSD.
+- `q1ab_g5_kernel_check_accepts_superclassical`: The integer check with the fifth moment supplied accepts the witness counts (4, 1), (4, 1), (4, 1), (1, 4) with fifth-moment counts 1 and 3.
+- `q1ab_four_body_cells_are_conjugate`: For every choice of parameters, the level-1+AB matrix entry at rows 6 and 7 (counting from 0) is the negative of the entry at rows 5 and 8.
+- `q1ab_tie_is_a_constraint`: For the classical strategy with Alice's two answers independent fair signs and Bob copying them, its 9x9 moment matrix equals the 1+AB layout at correlators (1, 0, 0, 1), g1 = g2 = g3 = g4 = 0, g5 = 1 in every cell except (A_1B_2, A_2B_1) and its mirror; both of its four-body cells are 1; and no choice of the four correlators and g1..g5 makes the layout equal its moment matrix.
+- `q1ab_g12345_minors_witness_implies_psd9`: If the six-variable residual matrix with entries `q12345_H11` to `q12345_H66` meets the positive-pivot predicate `sym6_pd_interior`, the level-1+AB matrix is PSD.
+- `q1ab_g12345_caller_witness_z_abs_sound`: For integer correlation and residual numerators and positive denominators, if the integer kernel `q1ab_g12345_check_z_kernel` returns true, the real-valued ratios satisfy `q1ab_g12345_minors_witness`.
+- `column_contractive_check_witness_npa_psd`: For any witness tally, if the integer column-contractive check accepts it, the zero-marginal NPA moment matrix built from its four bucket correlations is positive semidefinite.
+- `q12345_sym6_qf_equals_residual`: The six-variable quadratic form with entries `q12345_H11` to `q12345_H66` equals the level-1+AB residual.
+- `cleared_g12345_H11_Z_bridge`: For integer numerators and positive integer denominators, the integer-cleared `H11` entry, read as a real, equals the integer `g12345_COMMON_Z` of those denominators times `q12345_H11` at the corresponding rational correlators and moments.
+- `sym4_LDLT_identity`: For a symmetric 4 by 4 quadratic form, the defined pivots `d1` to `d4` and partial forms `P1`, `Q1`, `Q2` satisfy `d1^2 d2 d3 q = d1 d2 d3 P1^2 + d1 d3 Q1^2 + Q2^2 + d1^2 d2 d4 v4^2`.
+- `sym5_Schur_identity`: For a symmetric 5 by 5 quadratic form, `h11` times the form equals the square of the defined first partial form plus the 4 by 4 form of the scaled Schur complement in the last four coordinates.
+- `sym5_qf_nonneg_from_pd`: If `h11 > 0` and the four defined pivots of the scaled Schur complement are positive, the symmetric 5 by 5 quadratic form is non-negative.
+- `sym6_Schur_identity`: For a symmetric 6 by 6 quadratic form, `h11` times the form equals the square of the defined first partial form plus the 5 by 5 form of the scaled Schur complement in the last five coordinates.
+- `sym6_qf_nonneg_from_pd`: If `h11 > 0` and the scaled Schur complement meets the 5 by 5 positive-pivot predicate, the symmetric 6 by 6 quadratic form is non-negative.
+
+### Worked CHSH examples
+
+- `nec_e_equality_forces_point`: For all real a, b, c, d with a^2 + b^2 <= 1 and c^2 + d^2 <= 1, if (a + b + c - d)^2 = 8 then a = b, a = c, d = -a and 2a^2 = 1.
+- `nec_e_equality_two_points`: Under the same row bounds, (a + b + c - d)^2 = 8 forces a to be 1/sqrt 2 or -1/sqrt 2, with b = a, c = a and d = -a.
+- `nec_e_no_rational_half_square`: For all integers D and N with N positive, 2 (D/N)^2 is not 1.
+- `nec_e_worked_cascade_passes`: The full 1+AB integer check passes on correlators 3/5, 3/5, 3/5, -3/5 with moment buckets 0/2, 0/2, 0/2, 0/2 and -2/4.
+- `nec_e_worked_cascade_fails_at_zero`: The same check fails on those correlators when the last moment bucket is 0/2.
+- `nec_e_worked_level1_passes`: The level-1 integer check passes on the tally with 4 same and 1 different in three cells and 1 same and 4 different in the last.
+- `nec_e_singular_level1_passes`: The level-1 integer check passes on the tally whose correlators are 3/5, 4/5, 4/5, -3/5.
+- `nec_e_singular_full_fails`: For every choice of the five moment buckets, the full 1+AB integer check fails on correlators 6/10, 8/10, 8/10, -6/10, because its cleared H11 entry is zero.
+
+### Quantum strategies, Gram representations and the arcsine boundary
+
+- `qs_corr_dot`: For a finite-dimensional real joint space, a state psi and observables A and B, the correlator <psi, (A (x) B) psi> equals the inner product of the vectors (A (x) 1) psi and (1 (x) B) psi.
+- `qs_uvec_unit`: If A is a real symmetric matrix that squares to the identity and psi is a unit vector, then (A (x) 1) psi is a unit vector.
+- `qs_vvec_unit`: If B is a real symmetric matrix that squares to the identity and psi is a unit vector, then (1 (x) B) psi is a unit vector.
+- `qs_tsirelson`: Every quantum strategy with real amplitudes in finite dimension (a unit state and, on each side, two real symmetric observables that square to the identity) has S^2 <= 8, where S = E00 + E01 + E10 - E11.
+- `qs_tsirelson_reached`: On two qubits, the state (|00> + |11>)/sqrt 2 with A0 = Z, A1 = X, B0 = (Z + X)/sqrt 2 and B1 = (Z - X)/sqrt 2 is a valid strategy whose correlators are 1/sqrt 2, 1/sqrt 2, 1/sqrt 2 and -1/sqrt 2, and its S is 2 sqrt 2.
+- `qs_deterministic_plan`: For reals a0, a1, b0, b1 whose squares are 1, the two-qubit product state |00> with observables a_x times the identity and b_y times the identity is a valid strategy whose correlators are a_x b_y.
+- `qs_npa_correlators`: The moment matrix built from a strategy has the strategy's four correlators in its correlator entries.
+- `qs_npa_psd`: For every valid quantum strategy with real amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, as in NPAMomentMatrix.v) is symmetric and positive semidefinite, that is, it passes npa_psd.
+- `qc_corr_dot`: For a finite-dimensional complex joint space, a state psi and Hermitian matrices A and B (real parts symmetric, imaginary parts antisymmetric), the real part of <psi, (A (x) B) psi> equals the real part of the inner product of (A (x) 1) psi and (1 (x) B) psi.
+- `qc_uvec_unit`: If A is a Hermitian complex matrix that squares to the identity and psi is a complex unit vector, then (A (x) 1) psi is a unit vector.
+- `qc_vvec_unit`: If B is a Hermitian complex matrix that squares to the identity and psi is a complex unit vector, then (1 (x) B) psi is a unit vector.
+- `qc_four_vectors`: For any four unit vectors u0, u1, v0, v1 of a finite real inner-product space, (u0.v0 + u0.v1 + u1.v0 - u1.v1)^2 <= 8.
+- `qc_tsirelson`: Every quantum strategy with complex amplitudes in finite dimension (a unit state and, on each side, two Hermitian observables that square to the identity) has S^2 <= 8, where S is the sum of the real parts of the correlators E00 + E01 + E10 - E11.
+- `qc_of_real_valid`: A valid strategy with real amplitudes, read with zero imaginary parts, is a valid strategy with complex amplitudes and has the same S.
+- `qc_tsirelson_reached`: The two-qubit strategy of qs_tsirelson_reached, read with complex amplitudes, is valid and has S = 2 sqrt 2.
+- `qc_gram_psd`: The level-1 moment matrix filled with the inner products of five unit vectors of a finite real inner-product space passes npa_psd.
+- `qc_npa_correlators`: The moment matrix built from a strategy with complex amplitudes has the strategy's four correlators in its correlator entries.
+- `qc_npa_psd`: For every valid quantum strategy with complex amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, each the real part of an inner product) passes npa_psd.
+- `tr_gram`: Every symmetric n x n real matrix whose quadratic form is nonnegative is a Gram matrix: there are vectors u_0, ..., u_{n-1} in R^n with u_i . u_j equal to the (i, j) entry for all i, j < n.
+- `tr_gamma_clifford`: The four real symmetric 8 x 8 matrices X(x)1(x)1, Z(x)1(x)1, Y(x)Y(x)X and Y(x)Y(x)Z (with Y = [[0,1],[-1,0]]) satisfy gamma_m gamma_n + gamma_n gamma_m = 2 delta_mn times the identity.
+- `tr_gamma_trace`: For those four matrices, the sum over all entries of gamma_m times gamma_n entrywise is 8 when m = n and 0 otherwise.
+- `tr_corr_inner`: In the maximally entangled state of two 8-level systems, the correlator of the observables sum_m a_m gamma_m and sum_m b_m gamma_m equals the inner product of a and b in R^4.
+- `tr_strategy_valid`: For unit vectors a0, a1, b0, b1 in R^4, the maximally entangled state with observables sum_m a_m gamma_m is a valid quantum strategy with real amplitudes.
+- `tr_elliptope_quantum`: Every correlator table with a PSD completion (elliptope_realizable) is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
+- `tr_vectors_elliptope`: For any four unit vectors U0, U1, V0, V1 of a finite real inner-product space, the table of cross inner products U_x . V_y has a PSD completion.
+- `tr_quantum_elliptope`: The correlator table of every valid quantum strategy with real amplitudes in finite dimension has a PSD completion.
+- `tr_complex_elliptope`: The correlator table of every valid quantum strategy with complex amplitudes in finite dimension has a PSD completion.
+- `tr_representation`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
+- `tr_representation_complex`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with complex amplitudes on two 8-level systems.
+- `am_sphere_triangle`: For unit vectors u, v, w in R^4, acos (u . w) <= acos (u . v) + acos (v . w): the angle on the sphere obeys the triangle inequality.
+- `am_triangle_det`: For angles t1, t2 in [0, pi] and b with |t1 - t2| <= b <= min (t1 + t2, 2 pi - t1 - t2), the expression (1 - cos^2 t1)(1 - cos^2 b) - (cos t2 - cos t1 cos b)^2 is nonnegative.
+- `am_necessary`: If a correlator table has a PSD completion, its entries lie in [-1, 1] and, with theta_xy = acos E_xy, each theta is at most the sum of the other three and the sum of any three minus the fourth is at most 2 pi.
+- `am_sufficient`: If the entries lie in [-1, 1] and the angles theta_xy = acos E_xy satisfy those eight inequalities, the table has a PSD completion.
+- `am_arcsine`: A correlator table (E00, E01, E10, E11) has a PSD completion if and only if every entry lies in [-1, 1] and |s00 + s01 + s10 - s11|, |s00 + s01 - s10 + s11|, |s00 - s01 + s10 + s11| and |-s00 + s01 + s10 + s11| are all at most pi, where s_xy = asin E_xy.
+- `am_quantum_arcsine`: A correlator table lies in that arcsine region if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
+- `am_pythagorean_boundary`: The table (3/5, 4/5, 4/5, -3/5) lies in the arcsine region, and asin (3/5) + asin (4/5) + asin (4/5) - asin (-3/5) = pi, so it is on the boundary.
+- `am_tsirelson_boundary`: The table (1/sqrt 2, 1/sqrt 2, 1/sqrt 2, -1/sqrt 2) lies in the arcsine region with arcsine sum exactly pi, so it is on the boundary.
+- `ta_quad_nonneg`: In any algebra with a sum, a product, real multiples and an adjoint, where the product distributes over sums and multiples, with a linear expectation psi that is never negative on x* x, and four self-adjoint observables A0, A1, B0, B1 with psi of each square at most 1 and each Ai commuting with each Bj, the quadratic form psi (Z Z) in the coefficients of Z = v1 A0 + v2 A1 + v3 B0 + v4 B1 is never negative. No dimension is assumed.
+- `ta_tsirelson`: Under those hypotheses, the CHSH value psi(A0 B0) + psi(A0 B1) + psi(A1 B0) - psi(A1 B1) is at most 2 sqrt 2 in absolute value: Tsirelson's bound in any dimension, including commuting-operator strategies.
+- `ta_realizable`: Under those hypotheses, the four correlators psi(Ai Bj) have a PSD completion with zero marginals and unit diagonal, the cross moments being the symmetrized psi(A0 A1) and psi(B0 B1).
+- `ta_arcsine`: Under those hypotheses, the four correlators satisfy the four arcsine inequalities of Landau and Masanes, in any dimension.
+- `ta_npa_psd`: With in addition a unit (one x = x one = x, one self-adjoint, psi one = 1), the first-level NPA moment matrix with the true marginals psi(Ai), psi(Bj) and the symmetrized cross moments is symmetric and PSD, in any dimension.
+- `ta_classical_instance`: The real numbers with ordinary multiplication and the identity as adjoint and expectation meet all the hypotheses for any classical plus-or-minus-one answers, so the hypotheses are satisfiable and the bound applies to them.
+- `schur_identity`: For finite index lists, a symmetric P with a symmetric inverse Pinv, any Q and a symmetric R, the block form u^T P u + 2 u^T Q w + w^T R w equals (u + z)^T P (u + z) + w^T (R - Q^T Pinv Q) w with z = Pinv Q w, for all u and w.
+- `schur_complement_psd`: Under the same hypotheses and with P positive semidefinite, the block form is nonnegative for all u and w if and only if the complement R - Q^T Pinv Q is positive semidefinite.
+
+### Scalar physics and geometry contracts
+
+- `canonical_reset_heat_exact`: In the frozen two-state reset protocol, the bath heat for an energy gap `Delta` is exactly `Delta / 2`.
+- `selected_gap_gives_landauer_heat`: Choosing the two-state energy gap to be `2 * k_B * T * ln 2` makes the frozen reset protocol's bath heat exactly `k_B * T * ln 2`.
+- `master_equation_does_not_fix_heat_scale`: Two distinct energy gaps obey the same frozen population master equation but transfer different heat, so those population dynamics alone do not determine an energy scale.
+- `calibrated_mu_landauer_energy`: For all reals `k_B` and `T`, every state type `S`, every natural-number ledger `mu` on it and every state with `mu s = 1`, `mu_energy_at_scale mu (k_B * T * ln 2) s` equals `k_B * T * ln 2`; the scale is the supplied argument, so this is the arithmetic `mu s * scale`.
+- `canonical_reset_satisfies_master_equation`: One step of the discrete two-state master equation, with the protocol's fixed time step and transition rates, carries the frozen initial populations exactly to the frozen final populations.
+- `canonical_reset_heat_below_landauer_at_small_gap`: For positive `k_B` and `T`, the canonical reset (population one half to zero, up rate 0, down rate 1) with energy gap `k_B * T * ln 2` books bath heat strictly less than `k_B * T * ln 2`, so this bookkeeping toy obeys no Landauer floor.
+- `canonical_rates_break_detailed_balance`: For every `kT` and gap `Delta`, the canonical reset's rates (up 0, down 1) do not satisfy detailed balance: 0 is not 1 times `exp (- Delta / kT)`.
+- `detailed_balance_settles_at_gibbs`: For rates `k01`, `k10` in detailed balance at gap `Delta` (`k01 = k10 * exp (- Delta / kT)`), any time step `dt` and any population `p`, one master-equation step minus the equilibrium population `1 / (1 + exp (Delta / kT))` equals `(1 - dt (k01 + k10))` times `p` minus that population.
+- `detailed_balance_thermalizing_step`: For rates in detailed balance at gap `Delta` and a time step with `dt (k01 + k10) = 1`, one master-equation step takes every population to the equilibrium population `1 / (1 + exp (Delta / kT))`.
+- `detailed_balance_never_empties`: For rates in detailed balance at gap `Delta`, a time step with `1 - dt (k01 + k10)` at least 0, and a population at least the equilibrium population, the equilibrium population is positive and one master-equation step leaves the population at least that value.
+- `landauer_gap_settles_at_one_fifth`: For `k_B * T` nonzero, the equilibrium excited population `1 / (1 + exp (Delta / (k_B T)))` at gap `Delta = 2 k_B T ln 2` is exactly `1/5`.
+- `driven_first_law`: For every `kT`, gap schedule `g` and number of steps `n`, the driven reset's work equals its heat plus the register's mean energy at the end, `g n` times the equilibrium population at `g n`, minus the mean energy at the start.
+- `driven_work_second_law`: For `kT` positive and a gap schedule that never falls over its first `n` steps, the driven reset's work over those `n` steps is at least the free energy `- kT ln (1 + exp (- Delta / kT))` at the final gap minus that at the first gap.
+- `driven_work_near_free_energy`: For `kT` positive and a gap schedule each of whose first `n` steps rises by between 0 and `h`, the driven reset's work over those `n` steps is at most the free-energy change plus `h` times the fall in equilibrium population from the first gap to the last.
+- `driven_reset_work_window`: For `k_B * T` positive, `D` at least 0 and `N` at least 1, the driven reset along `N` equal raises from gap 0 to `D` does work between `kT ln 2 - kT exp (- D / kT)` and `kT ln 2 + D / (2 N)`, with `kT = k_B * T`, and its final equilibrium population is at most `exp (- D / kT)`.
+
+- `tsirelson_rational_lower_witness`: Some correlator satisfying the selected rational coherence predicate has CHSH at least 28284/10000.
+- `five_labeled_models_have_selected_pointer`: In the five synthetic labelled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
+
+- `mu_has_no_intrinsic_joule_value`: For every state type and natural-number ledger `mu` on it, two real-valued functions on states exist that give 1 and 2 on every state with `mu` equal to 1, so the counter by itself fixes no energy value.
+
+### Relaxation and entropy production
+
+- `pf_bound`: For a run of the small machine (no PAY) from a state whose table holds at most 16 entries, with a duplicate-free list of already committed claims all in the table, if the run never traps and ends with the flag down, its total cost is at most (16 minus the table's length) plus (16 minus the list's length) plus the number of COMMITs that repeat an already committed claim.
+- `pf_bound_start`: From a start state, a run of the small machine that never traps and ends with the flag down costs at most 32 plus the number of its COMMITs that repeat a claim it already committed.
+- `pf_no_repeat_bound`: From a start state, a run of the small machine that never traps, ends with the flag down and never repeats a committed claim costs at most 32.
+- `rc_contract`: On a finite chain with steady spread pi and detailed balance, if every listed row satisfies P x y >= delta * pi y with delta > 0, then for any vector p of total mass 1, one step shrinks sum_x |p x - pi x| by at least the factor 1 - delta.
+- `rc_converges`: Under that condition, for every probability vector p and listed state x, the chain's spread at x after t steps converges to pi x as t grows.
+- `rc_known_start_gap`: Under that condition, with m > 0 a lower bound on pi over the listed states, the entropy produced in the first T steps from the point mass at s falls short of - ln (pi s) by at most (4 / m) (1 - delta)^(2T).
+- `rc_known_start_limit`: Under that condition, the entropy produced in the first T steps from the point mass at a listed state s converges to - ln (pi s) as T grows.
+- `rcd_sigma_nonneg`: For rates q >= 0 and a positive steady spread pi with detailed balance pi x q x y = pi y q y x, the continuous-time entropy production rate of any positive vector is nonnegative.
+- `rcd_D_derivative`: For any solution p t of the master equation that is positive after time 0, at every time t > 0 d/dt p t x = sum_y (p t y q y x - p t x q x y), the relative entropy of p t to pi has derivative minus the entropy production rate.
+- `rcd_D_monotone`: For any solution of the master equation that is positive after time 0, and times 0 < t1 <= t2, the relative entropy to pi at t2 is at most its value at t1.
+- `rs_split`: On a finite chain with a stationary spread pi and a reading splitting states into up and down, the steady mass that has stayed among the up-states for k steps equals the flow into the up-states times the spread of stretches still running after k steps, plus the mass that stays one step more.
+- `rs_partial`: The flow into the up-states times the sum, over k < n, of the chances that a stretch entered through that flow lasts more than k steps equals the steady mass of the up-states minus the mass that has stayed n steps.
+- `rs_mean_stretch`: Under Doeblin's condition (every listed row puts at least delta times pi everywhere) and with positive mass on the down-states, the mean length of a stretch with the flag up, counted in steps from entry through the flow, converges to the steady mass of the up-states divided by the flow into them.
+- `rcd_produced_window`: For any solution of the master equation that is positive after time 0 and times 0 < a <= b, the Newton integral of the entropy production rate from a to b equals the relative entropy to pi at time a minus that at time b.
+- `rcd_produced_bounds`: For any solution of the master equation that is positive after time 0 and times 0 < a <= b, if the relative entropy at time b is nonnegative then the entropy produced from a to b lies between 0 and the relative entropy at time a.
+- `rcl_sigma_ge`: With rates satisfying q x y >= c pi y for all listed x, y (c > 0), detailed balance and pi of total mass 1, the continuous-time entropy production rate of any positive vector of total mass 1 is at least c times its relative entropy to pi.
+- `rcl_D_decay`: Under that condition, for a solution of the master equation that is positive after time 0 and has total mass 1 at time 0, the relative entropy at time b is at most its value at time a times exp (- c (b - a)), for 0 < a <= b.
+- `rcl_D_limit`: Under the same hypotheses, the relative entropy to pi tends to 0 as time grows.
+- `rcl_produced_limit`: Under the same hypotheses, the entropy produced from time a > 0 to time b, the Newton integral of the production rate, tends to the relative entropy at time a as b grows.
+- `rcl_D_at_zero`: Under the same hypotheses and with a nonnegative start, the relative entropy at time t tends to its value at time 0 as t decreases to 0, including where the start puts no weight.
+- `rcl_known_start_total`: Under the same hypotheses, from the point mass at a listed state s, the entropy produced from a small time a out to a large time b comes within any given margin of - ln (pi s).
+- `rsc_mass_over_flow`: For a finite chain in continuous time with rates q x y >= 0 and a spread pi that is stationary (the flow into each listed state equals the flow out of it), and a reading splitting states into up and down, any solution h of the leaving-time equations (out x times h x minus the sum over up-states y of q x y h y equals 1 at every listed up-state x) satisfies: the flow into the up-states times the mean of h over the entrance spread equals the steady mass of the up-states.
+- `rsc_leave_exists`: With rates satisfying q x y >= c pi y for all listed x, y (c > 0) and a positive flow into the up-states, the leaving-time equations have a solution: the limit of the uniformized iteration, which grows and stays between 0 and 1 / (c pi(down)).
+- `rsc_S_decay`: Under the same hypotheses, for any nonnegative solution of the master equation with the chain stopped on leaving the up-states, started from the entrance spread, the chance that the stretch is still running at time b >= 0 is at most exp (- c pi(down) b).
+- `rsc_window_value`: For such a solution and any solution h of the leaving-time equations, the Newton integral from 0 to T of the chance that the stretch is still running equals the steady mass of the up-states over the flow into them, minus the h-weighted total of the stretches still running at time T.
+- `rsc_mean_stretch_time`: Under the same hypotheses, the time a stretch spends with the flag up between 0 and T, the Newton integral of the chance it is still running, comes within any given margin of the steady mass of the up-states divided by the flow into them for all large T.
+- `rsc_stretch_identity`: The same limit, with the leaving times the theorem rsc_leave_exists constructs: in continuous time, the mean length of a stretch with the flag up, in seconds, is mass over flow.
+- `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
+- `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
+- `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.
+- `re_sigma_nonneg`: On such a chain, the entropy produced in one step from any probability vector is nonnegative.
+- `re_relative_entropy_monotone`: On such a chain, one step never raises the relative entropy of a probability vector to pi.
+- `re_known_start_total`: On such a chain with a list without repeats, from the point mass at a listed state s, the entropy produced in the first T steps equals -ln pi(s) minus the relative entropy to pi of the distribution after T steps.
+- `re_known_start_bound`: On such a chain, from the point mass at a listed state s, the entropy produced in the first T steps lies between 0 and -ln pi(s).
+- `re_known_start_vs_set`: For a list of states containing s, -ln pi(s) is at least -ln of the total pi-mass of the list.
+- `re_flux_balance`: On such a chain, the pi-weighted flow from the states reading no to the states reading yes equals the flow from yes back to no.
+- `re_stretch_ratio`: For any positive flow J and positive mass of the no-states, -ln of that mass equals ln (1 + (mass of yes-states / J) / (mass of no-states / J)).
+
+### Models from other fields
+
+- `quote_cannot_attest_unmeasured_state`: In the scoped TPM quote-field abstraction, whose quote authenticity is not modeled (it is assumed externally), no function of the selected-PCR digest and nonce returns the additional runtime Boolean for every platform.
+- `quote_decides_measured_claims`: In the same model, every supplied Boolean function of the retained selected-PCR digest is computed by some Boolean function of the quote.
+- `persistent_write_priced`: In the transcribed Prague `sstore` gas and refund arithmetic, for one storage slot that is empty at the start of a transaction, any sequence of stores that leaves it nonzero has gas charged minus refund counter of at least 20000; the EIP-3529 refund cap is outside the model.
+- `revoked_write_nearly_free`: In the same model, setting a cold empty slot to one and clearing it again costs 2300 net, while setting it and leaving it set costs 22100.
+- `accountable_safety` (`Kernel.CasperFFG.accountable_safety`): In the ported Casper FFG model, under the setting's quorum-intersection and single-parent premises, two finalized blocks on different branches imply that some set in the second quorum class consists of slashed validators.
+- `conflicting_records_are_priced`: Reading finalization as the record, two finalized blocks on different branches imply a slashed set in the second quorum class; this restates accountable safety.
+- `finalization_without_slashing`: In the one-validator chain setting, a single vote finalizes the genesis block and no validator is slashed.
+- `ct_local_view_insufficient`: In the two-field certificate-transparency client model, no function of the local signed tree head number returns the world-consistency bit for every state.
+- `tpm_selection_binding_is_necessary`: In the two-selection quote model, some input passes the check that inspects only the composite digest while its signed and supplied PCR selections differ.
+- `weak_subjective_suffix_insufficient`: In the two-field weak-subjectivity model, no function of the local suffix returns the trusted-anchor bit for every state.
+- `wal_ack_requires_durability`: In the two-bit write-ahead-log model, some state has the client acknowledgement set while crash recovery does not recover the commit.
+- `audit_local_snapshot_insufficient`: In the two-bit audit model, no Boolean function of the current local log bit returns whether the event occurred for every state.
+- `tpm_interface_authenticity_refuted`: Not every signature-scheme interface satisfies quote authenticity (every accepted signature is the signing of the message by some secret key); the interface alone does not provide it.
+- `pcc_checker_accepts_iff_vc`: In the memory-access fragment of proof-carrying code, the checker accepts a program exactly when every instruction obeys the memory-limit policy.
+- `pcc_certificate_implies_vc`: In that fragment, every certificate derivation for a program implies the program obeys the policy.
+- `pcc_unsafe_program_rejected`: With memory limit 2, the checker rejects `[PRead 2; PHalt]`.
+- `rfc9162_inclusion_boundary_safe`: For every hash algorithm, inclusion verification with leaf index equal to the tree size returns false.
+- `rfc9162_consistency_boundary_safe`: For every hash algorithm, consistency verification between two trees of the same size with the same root returns false.
+- `rfc9162_example_inclusion_d0`: With the symbolic hash on the seven-leaf example tree, the audit path `[b; h; l]` verifies leaf hash `a` at index 0 against the root.
+- `rfc9162_example_inclusion_d3`: The audit path `[c; g; l]` verifies leaf hash `d` at index 3 against the example root.
+- `rfc9162_example_inclusion_d4`: The audit path `[f; j; k]` verifies leaf hash `e` at index 4 against the example root.
+- `rfc9162_example_inclusion_d6`: The audit path `[i; k]` verifies leaf hash `j` at index 6 against the example root.
+- `rfc9162_example_consistency_4_7`: The consistency proof `[l]` verifies the size-4 root `k` against the size-7 example root.
+- `ct_extension_preserves_entries`: Appending entries to a log keeps every old entry in it.
+- `casper_fork_exists`: In the concrete three-validator Casper FFG setting with unit stakes, blocks `HA1` and `HB1` on different branches are each finalized at epoch 1 by the quorums `{VA, VB}` and `{VB, VC}`, neither is an ancestor of the other, the state has a finalization fork, and both are finalized records.
+- `casper_fork_slashable`: In that setting some second-class quorum consists of slashed validators, the set `{VB}` is such a quorum and is slashed, and `VA` and `VC` are not slashed.
+- `janus_like_unbounded_inverse`: For integer add and subtract instructions, applying the syntactic inverse after the instruction returns the original value.
+- `janus_like_bounded_inverse`: For a positive modulus and a value in `[0, modulus)`, applying the inverse after the instruction, both reduced modulo the modulus, returns the original value.
+- `concrete_ram_write_reads_back`: Writing a value at an address that holds some value and reading that address gives the written value.
+
+## The example running
+
+### The universal interpreter
 
 - `U_simulation`: For every small-machine program P, start (x, y) and guest step count m, there is a host step count n such that, after m guest steps from (x, y) and n steps of the fixed host program U from the loaded host `hload P x y`, either the simulation relation `rel` holds with m at most n (the host is at U's head with its registers A and B, the guest program counter, the trap latch, the ledger, the flag, the fact table and the channel matching the guest's) or both machines have stopped and the halting relation `rel_halt` holds.
 - `hload_rel`: For every small-machine program P and start (x, y), the loaded host `hload P x y` stands in the simulation relation to the guest start (x, y), with no slot records and an empty channel.
@@ -753,38 +1050,7 @@ The entries below use the monograph's names. Thiele-complete is the notion of th
 - `ent2_uncovered_claim_false`: For n at least 4, the chain on A at least 2 to the n minus 1 narrows a prior of 2 to the n states to one state, n index bits, for a ledger of 3, so the claim that the index-bit drop is at most the ledger rise is false for this run.
 - `ent2_no_cheap_covering`: For n at least 4, no tree of depth at most 3, with any representative observation, covers the prior onto the one-member posterior of the chain on A at least 2 to the n minus 1.
 
-## The universal machine, defined
-
-The definition `neutral_universal` is the Coq counterpart of the monograph's universal Thiele machine, but its decode may depend on the guest, which is why `smuggle_universal` holds; the monograph's clause (6) fixes the coding with the class before any guest is named, so it is stronger. The definition: for a class of guests, a host, an observation of the guests' states and a bound K, the host is a neutral universal machine when there are one program, a register-host reading of its states, a set of raising lines, a load template, a coding of each guest into registers and, for each guest, a decode from registers such that the host is Thiele-complete with its counter moves as exactly its base moves, every record move the program executes traps or raises the record exactly when its line is raising, the template writes the registers with a fixed line, no trap and the record down, and for every guest the run halts exactly when the guest stops, at a state matching the guest's last, and matches the guest's states at strictly increasing times, with the record equal to the guest's latched record and the ledger the guest's plus at most K.
-
-- `U_neutral_universal`: The fixed program U on the host machine of EarnedMulti.v is a neutral universal machine for every small-machine program from every clean start, with the two counters as the observation and bound 0.
-- `UP_neutral_universal`: The fixed program U_P on the priced host machine of EarnedMultiPriced.v is a neutral universal machine for every computably presented machine, with the presented state as the observation and bound 3.
-- `UN_neutral_universal`: U_P's program read on the canonical neutral host (registers, INC, DEC, HALT, MARK r, TICK and PAY, with CHECK, COMMIT and PAY read as PAY and CERTIFY as TICK) is a neutral universal machine for every computably presented machine, with bound 3.
-- `U_in_order` (`Kernel.NeutralUnivU.U_in_order`): For every small-machine program and clean start there is a matching function, strictly increasing while the guest is live, at whose times U's host decodes to the guest's counters with the guest's latched record and the guest's ledger.
-- `UP_in_order` (`Kernel.NeutralUnivUP.UP_in_order`): For every computably presented machine and start there is a matching function, strictly increasing while the guest is live, at whose times U_P's host decodes to the guest's state with the guest's latched record and the guest's ledger plus at most 3.
-- `UMachInOrderU.U_in_order`: For every small-machine program P and start (x, y) there is one function f with f m < f (S m) for every m such that, at every guest step m reached without stopping before, U's host at time f m holds the guest's counters, trap, ledger and flag, and, when the guest has not trapped, its line, at the head of U's loop.
-- `UMachInOrderUP.UP_in_order`: For every computably presented machine, presentation and start there is one function f with f n < f (S n) for every n such that, at every step n the driver reaches without stopping before, U_P's host at time f n decodes to the machine's state after n steps, with ledger equal to the machine's ledger plus the surcharge and flag equal to its latch.
-- `down_universal`: On the canonical neutral host, the program [DEC 0 1; TICK; HALT] is a neutral universal machine with bound 0 for the class of guests that count register 0 down and then MARK 1.
-- `tc_cdown_two`: For every host, every interface making it certified Thiele-complete, every register reading and every load template whose loads are clean, if a program matches every live step of the countdown guest started at 0 at some time with surcharge at most K, then K is at least 2.
-- `up_floor`: For every host program, register reading and clean load template, if the run matches a guest whose record is up at its start in order with bound K, then at the first matching time the host's ledger is the guest's plus at least 1.
-- `up_attained`: On the canonical neutral host, a program raises only by line, halts in step with the guest whose record is up at its start, matches it at the times S m with bound 1, and has ledger exactly the guest's plus 1 at every live matching time.
-- `gstep_not_reg`: The host with a built-in guest step (PEEK, GSTEP0, GSTEP1) is no register host under any reading of its state.
-- `oracle_y`: On the canonical neutral host, a program that lets MARK 1 read a register meets the Thiele-complete, clean-load, halting and in-order clauses with bound 0 for both guests of the two-guest class, and no set of raising lines makes its record moves raise by line.
-- `mirror_y`: A host whose record move reads a hidden copy of the guest's datum put outside the registers by the load meets the Thiele-complete, clean-load, halting and in-order clauses with bound 0 for both guests of the two-guest class, and no set of raising lines makes its record moves raise by line.
-- `mirror2_not_line`: The host whose extra record move carries out a hidden copy's own mark has no set of raising lines that makes its record moves raise by line.
-- `shadow_idle`: On the host that carries a hidden copy of the guest stepped by its counter moves, two runs of the countdown program from the same visible state with any two hidden copies have the same visible state and the same ledger at every time.
-- `need_N4`: A host with an unpaid primitive that fetches, decodes and executes the guest's next instruction from the registers is Thiele-complete, has its unpaid moves at cost 0, raises its record by line, halts in step and matches its guest in order with bound 0, and is no register host.
-- `smuggle_universal`: On the canonical neutral host, a program loaded with all registers zero for every guest, with a decode that adds the guest's number to register 5, is a neutral universal machine with bound 0 for the class of guests that count register 0 up forever and never mark.
-- `nr_determined`: For every register host and program whose record moves raise by line, if every move other than a record move leaves the record alone, two runs from states with the same line, registers and record have the same line, registers and record, and the same ledger, at every time at which neither has trapped.
-- `cu_iff_nu_plus_certification`: A host is a certified universal machine through an interface exactly when it is a neutral universal machine through that interface with its claims forgotten, the interface's loaded states are clean and its earned-record and non-vacuity clauses hold, the load template gives clean states, and every rise of the host's record stands on an earned chain whose claim is tied to the guest.
-- `earned_part_free`: For every interface making the host certified Thiele-complete and every load template giving clean states, whenever the host's record is up after n steps of the program, the host's own trace holds an earned chain of check, commit and certificate.
-- `pay_needed`: For every register host with a permanent record, if at some time the host's record equals the guest's latched record, which is down, and the host's ledger is the guest's plus some amount while the guest's ledger is at least 1, then before that time the host executed a record move after which its record was down.
-- `commit_pay_loop`: On U's host machine (EarnedMulti.v, with no PAY), the four-line loop that counts register t down with a COMMIT of a claim about an untouched register held in the table, started at its first line with no trap and its work register at 0, ends after 4k + 1 steps at the next line with no trap, the ledger up by exactly k, the flag unchanged, t at 0, the work register at 0, every other register, the claim's version and the fact table unchanged.
-- `hybrid_thiele_complete`: U's host machine with three extra price-0 moves that fetch, decode and execute a guest instruction on the registers is certified Thiele-complete.
-- `mirror_earned`: On the mirror host, whose paid moves MCHECK, MCOMMIT and MCERTIFY carry out the guest's own CHECK, COMMIT and CERTIFY, whenever the host's flag is up at the matching time of a live guest step, the host's trace contains its own MCHECK, MCOMMIT and MCERTIFY in that order, carried out on a guest CHECK of some claim that passed with the claim holding, a COMMIT of the same claim that passed with the counter untouched since the CHECK, and a CERTIFY that passed.
-- `thiele_complete_host_clock`: The host machine of U is certified Thiele-complete, and for every two-counter program and start (a, b), if the program reaches configuration x in n steps, then after 2 + 2n host steps of the clock program from the host's load registers 0 and 1 hold x's counters, the trap and the flag are down, the ledger is 1 + n, and the host has halted exactly when the program has stopped at x.
-
-## Extracted machines
+### Extracted machines
 
 - `rlz_small_halting_correspondence`: The theorem of EarnedCore.v on the compilation of a two-counter machine to a program of the small machine, stated with the extracted names: a two-counter machine M halts from (a, b) exactly when its compiled program halts from the small machine's start state for (a, b).
 - `rlz_small_mu_conservation_trace`: With the extracted names, the ledger after running any trace of instructions from a state is the starting ledger plus the total cost of the trace.
@@ -1259,187 +1525,8 @@ The definition `neutral_universal` is the Coq counterpart of the monograph's uni
 - `cmp_exec_iff`: A well-formed source program computes y if and only if the fast runner halts for some fuel with answer y.
 - `cmp_final`: For a well-formed source program the source computes y if and only if the fast runner halts with y, if and only if the host program halts with y at the output, if and only if the two-counter guest does, if and only if U_P running the guest does with the first counter 0, ledger 0 and the flag down.
 
-## Pieces once argued on the page, now checked
+### The CHSH tolerance check
 
-- `nec_f_orbit_merges_visited`: For any type with decidable equality, any reading, any map f and any finite list of all states, if the reading is false at a start s0 and true at every point of f's orbit from some step N on, then f sends two different states of that orbit to the same state.
-- `nec_f_repeat_merges_visited`: On a finite machine with decidable state equality, if one move repeated from a start whose reading is false leaves the reading true at every step from some point on, the move sends two different states of that run to the same state.
-- `nec_f_closed_merges_visited`: On a finite machine with decidable state equality, for any rule picking the next move from the state, if the run from a start whose reading is false has the reading true at every step from some point on, two different states of that run, each taking its own picked move, land on the same state.
-- `nec_f_word_merges_visited`: On a finite machine with decidable state equality, if a word of moves repeated from a start whose reading is false leaves the reading true after every repetition from some point on, then the word splits as u, a letter c, and the rest, and for two repetition counts m and n the states after m or n repetitions followed by u are different and c sends them to the same state.
-- `nec_f_outside_moves_no_merge`: On the two-state machine where one move swaps the states and the other leaves them alone, the swap followed by any number of idle moves from the state reading false ends in the state reading true, and neither move sends two different states to the same state.
-- `nec_f_grade_exact`: For any machine whose acts raise the counter by their charge whenever they succeed, every well-graded loop-free program (acts, sequencing, and branches whose arms carry equal grades) that runs to a final state without failing raises the counter by exactly its grade, the sum of its acts' charges.
-- `nec_f_grade_exact_small`: On the small machine of EarnedCore.v, every well-graded loop-free program over its instructions that runs to a final state with the trap latch down raises the ledger by exactly the program's grade, the sum of its instructions' costs.
-- `nec_f_loop_cost`: On the machine with one register and a counter whose paid act takes one off the register and charges one, the loop that runs the act once per unit of the register as read on entry raises the counter by the register's entry value.
-- `nec_f_loop_no_fixed_grade`: No fixed whole number g makes that loop raise the counter by exactly g from every start.
-- `nec_f_loop_input_grade`: That loop raises the counter by exactly the register's value on entry, from every start.
-- `nec_f_same_rung_same_cups`: In any Boolean preorder, if x is at or below y and y is at or below x, then for every a the threshold a <= x has the same truth value as a <= y.
-- `nec_f_non_partial_cups_fail`: In any Boolean preorder with two different places each at or below the other, there are two different places that leave every threshold with the same truth value.
-- `nec_f_cups_iff_partial`: In any Boolean preorder, the thresholds determine the place (two places with the same threshold values are equal) if and only if the order is antisymmetric.
-- `nec_f_record_ceiling_unique`: On any machine with a reading, a per-step charge that charges every raising step at least one and whose total over every run is at most the number of raising steps in it charges every step exactly one if it raises the reading and zero otherwise.
-- `nec_f_three_automorphism_id`: On the three-state machine (blank, once, twice; flip and smooth), every injective map of the states that commutes with both moves is the identity.
-- `nec_f_three_toll_meets`: On the three-state machine, the charge of one for the flip from blank and nothing else meets all six reading-free requirements: no charge on a step that changes nothing, none on a move that forgets nothing, invariance under every move-respecting renaming, a run total that adds over concatenation, a charge that depends only on the state before and after, and one unit on the flip from blank.
-- `nec_f_three_merge_meets`: On the three-state machine, the charge of one for the flip from blank and one for the smooth from once, and nothing else, meets the same six reading-free requirements.
-- `nec_f_three_bills_differ`: The toll and the price on merging charge the smooth from once differently, zero and one.
-- `nec_f_three_ceiling_picks_toll`: On the three-state machine, any per-step charge that charges every raise at least one and whose total over every run is at most the number of raises equals the toll charge at every state and move.
-- `nec_f_three_merge_fails_ceiling`: The price on merging does not satisfy the ceiling: some run on the three states costs more under it than the number of raises in that run.
-- `nec_f_three_cs_floor`: The three-state machine with the flip costing one and the smooth costing nothing is a Thiele machine, and every run from blank that ends in a yes-state costs at least one.
-- `nec_e_equality_forces_point`: For all real a, b, c, d with a^2 + b^2 <= 1 and c^2 + d^2 <= 1, if (a + b + c - d)^2 = 8 then a = b, a = c, d = -a and 2a^2 = 1.
-- `nec_e_equality_two_points`: Under the same row bounds, (a + b + c - d)^2 = 8 forces a to be 1/sqrt 2 or -1/sqrt 2, with b = a, c = a and d = -a.
-- `nec_e_no_rational_half_square`: For all integers D and N with N positive, 2 (D/N)^2 is not 1.
-- `nec_e_worked_cascade_passes`: The full 1+AB integer check passes on correlators 3/5, 3/5, 3/5, -3/5 with moment buckets 0/2, 0/2, 0/2, 0/2 and -2/4.
-- `nec_e_worked_cascade_fails_at_zero`: The same check fails on those correlators when the last moment bucket is 0/2.
-- `nec_e_worked_level1_passes`: The level-1 integer check passes on the tally with 4 same and 1 different in three cells and 1 same and 4 different in the last.
-- `nec_e_singular_level1_passes`: The level-1 integer check passes on the tally whose correlators are 3/5, 4/5, 4/5, -3/5.
-- `nec_e_singular_full_fails`: For every choice of the five moment buckets, the full 1+AB integer check fails on correlators 6/10, 8/10, 8/10, -6/10, because its cleared H11 entry is zero.
-- `nec_f_board_raw_free`: On the board, every move other than VOUCH leaves the state where it was and costs nothing.
-- `nec_f_board_floor`: On the board as a Thiele machine, every run from NO that ends in YES costs at least one.
-- `nec_f_board_floor_flat`: For any property of states that holds of YES, some run from NO ends in a state with that property, reading yes, at total cost exactly one.
-- `nec_f_board_no_wait`: On the board, the run consisting of VOUCH alone takes NO to YES at cost one with no CHECK in it, and the run CHECK then VOUCH takes NO to YES at cost one.
-- `nec_f_history_infinite`: No duplicate-free list of lists of Booleans contains every list of Booleans, so the history machine's state space has no finite enumeration.
-- `qs_corr_dot`: For a finite-dimensional real joint space, a state psi and observables A and B, the correlator <psi, (A (x) B) psi> equals the inner product of the vectors (A (x) 1) psi and (1 (x) B) psi.
-- `qs_uvec_unit`: If A is a real symmetric matrix that squares to the identity and psi is a unit vector, then (A (x) 1) psi is a unit vector.
-- `qs_vvec_unit`: If B is a real symmetric matrix that squares to the identity and psi is a unit vector, then (1 (x) B) psi is a unit vector.
-- `qs_tsirelson`: Every quantum strategy with real amplitudes in finite dimension (a unit state and, on each side, two real symmetric observables that square to the identity) has S^2 <= 8, where S = E00 + E01 + E10 - E11.
-- `qs_tsirelson_reached`: On two qubits, the state (|00> + |11>)/sqrt 2 with A0 = Z, A1 = X, B0 = (Z + X)/sqrt 2 and B1 = (Z - X)/sqrt 2 is a valid strategy whose correlators are 1/sqrt 2, 1/sqrt 2, 1/sqrt 2 and -1/sqrt 2, and its S is 2 sqrt 2.
-- `qs_deterministic_plan`: For reals a0, a1, b0, b1 whose squares are 1, the two-qubit product state |00> with observables a_x times the identity and b_y times the identity is a valid strategy whose correlators are a_x b_y.
-- `qs_npa_correlators`: The moment matrix built from a strategy has the strategy's four correlators in its correlator entries.
-- `qs_npa_psd`: For every valid quantum strategy with real amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, as in NPAMomentMatrix.v) is symmetric and positive semidefinite, that is, it passes npa_psd.
-- `qc_corr_dot`: For a finite-dimensional complex joint space, a state psi and Hermitian matrices A and B (real parts symmetric, imaginary parts antisymmetric), the real part of <psi, (A (x) B) psi> equals the real part of the inner product of (A (x) 1) psi and (1 (x) B) psi.
-- `qc_uvec_unit`: If A is a Hermitian complex matrix that squares to the identity and psi is a complex unit vector, then (A (x) 1) psi is a unit vector.
-- `qc_vvec_unit`: If B is a Hermitian complex matrix that squares to the identity and psi is a complex unit vector, then (1 (x) B) psi is a unit vector.
-- `qc_four_vectors`: For any four unit vectors u0, u1, v0, v1 of a finite real inner-product space, (u0.v0 + u0.v1 + u1.v0 - u1.v1)^2 <= 8.
-- `qc_tsirelson`: Every quantum strategy with complex amplitudes in finite dimension (a unit state and, on each side, two Hermitian observables that square to the identity) has S^2 <= 8, where S is the sum of the real parts of the correlators E00 + E01 + E10 - E11.
-- `qc_of_real_valid`: A valid strategy with real amplitudes, read with zero imaginary parts, is a valid strategy with complex amplitudes and has the same S.
-- `qc_tsirelson_reached`: The two-qubit strategy of qs_tsirelson_reached, read with complex amplitudes, is valid and has S = 2 sqrt 2.
-- `qc_gram_psd`: The level-1 moment matrix filled with the inner products of five unit vectors of a finite real inner-product space passes npa_psd.
-- `qc_npa_correlators`: The moment matrix built from a strategy with complex amplitudes has the strategy's four correlators in its correlator entries.
-- `qc_npa_psd`: For every valid quantum strategy with complex amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, each the real part of an inner product) passes npa_psd.
-- `tr_gram`: Every symmetric n x n real matrix whose quadratic form is nonnegative is a Gram matrix: there are vectors u_0, ..., u_{n-1} in R^n with u_i . u_j equal to the (i, j) entry for all i, j < n.
-- `tr_gamma_clifford`: The four real symmetric 8 x 8 matrices X(x)1(x)1, Z(x)1(x)1, Y(x)Y(x)X and Y(x)Y(x)Z (with Y = [[0,1],[-1,0]]) satisfy gamma_m gamma_n + gamma_n gamma_m = 2 delta_mn times the identity.
-- `tr_gamma_trace`: For those four matrices, the sum over all entries of gamma_m times gamma_n entrywise is 8 when m = n and 0 otherwise.
-- `tr_corr_inner`: In the maximally entangled state of two 8-level systems, the correlator of the observables sum_m a_m gamma_m and sum_m b_m gamma_m equals the inner product of a and b in R^4.
-- `tr_strategy_valid`: For unit vectors a0, a1, b0, b1 in R^4, the maximally entangled state with observables sum_m a_m gamma_m is a valid quantum strategy with real amplitudes.
-- `tr_elliptope_quantum`: Every correlator table with a PSD completion (elliptope_realizable) is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
-- `tr_vectors_elliptope`: For any four unit vectors U0, U1, V0, V1 of a finite real inner-product space, the table of cross inner products U_x . V_y has a PSD completion.
-- `tr_quantum_elliptope`: The correlator table of every valid quantum strategy with real amplitudes in finite dimension has a PSD completion.
-- `tr_complex_elliptope`: The correlator table of every valid quantum strategy with complex amplitudes in finite dimension has a PSD completion.
-- `tr_representation`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
-- `tr_representation_complex`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with complex amplitudes on two 8-level systems.
-- `am_sphere_triangle`: For unit vectors u, v, w in R^4, acos (u . w) <= acos (u . v) + acos (v . w): the angle on the sphere obeys the triangle inequality.
-- `am_triangle_det`: For angles t1, t2 in [0, pi] and b with |t1 - t2| <= b <= min (t1 + t2, 2 pi - t1 - t2), the expression (1 - cos^2 t1)(1 - cos^2 b) - (cos t2 - cos t1 cos b)^2 is nonnegative.
-- `am_necessary`: If a correlator table has a PSD completion, its entries lie in [-1, 1] and, with theta_xy = acos E_xy, each theta is at most the sum of the other three and the sum of any three minus the fourth is at most 2 pi.
-- `am_sufficient`: If the entries lie in [-1, 1] and the angles theta_xy = acos E_xy satisfy those eight inequalities, the table has a PSD completion.
-- `am_arcsine`: A correlator table (E00, E01, E10, E11) has a PSD completion if and only if every entry lies in [-1, 1] and |s00 + s01 + s10 - s11|, |s00 + s01 - s10 + s11|, |s00 - s01 + s10 + s11| and |-s00 + s01 + s10 + s11| are all at most pi, where s_xy = asin E_xy.
-- `am_quantum_arcsine`: A correlator table lies in that arcsine region if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
-- `am_pythagorean_boundary`: The table (3/5, 4/5, 4/5, -3/5) lies in the arcsine region, and asin (3/5) + asin (4/5) + asin (4/5) - asin (-3/5) = pi, so it is on the boundary.
-- `am_tsirelson_boundary`: The table (1/sqrt 2, 1/sqrt 2, 1/sqrt 2, -1/sqrt 2) lies in the arcsine region with arcsine sum exactly pi, so it is on the boundary.
-- `sc_agreement`: When processes share the small machine's state, each running CHECK of PZero (to propose 0) or PEven (to propose 1) on counter A and then reading the oldest fact, any two processes that have decided under any schedule decided the same bit.
-- `sc_validity`: In that protocol, under any schedule, every decided bit is the proposal of some process.
-- `sc_wait_free`: In that protocol, a process that has taken two steps has decided, whatever the other processes did.
-- `mc_no_consensus`: For any shared object whose updates return nothing, with reads of the whole state, if at every state any two updates are such that one leaves the state unchanged, they commute, or one overwrites the other, then no protocol for two processes is wait-free, agrees and is valid for binary consensus.
-- `mc_mono_interfere`: In the monotone variant of the small machine (no versions, failed instructions change nothing, properties "counter >= n" only, no decrement, facts, commitments and flags that only grow) with registers, at every state any two instructions are such that one changes nothing, they commute, or one overwrites the other.
-- `mc_mono_no_consensus`: No protocol over the monotone variant of the small machine, with registers, solves wait-free binary consensus for two processes.
-- `pf_bound`: For a run of the small machine (no PAY) from a state whose table holds at most 16 entries, with a duplicate-free list of already committed claims all in the table, if the run never traps and ends with the flag down, its total cost is at most (16 minus the table's length) plus (16 minus the list's length) plus the number of COMMITs that repeat an already committed claim.
-- `pf_bound_start`: From a start state, a run of the small machine that never traps and ends with the flag down costs at most 32 plus the number of its COMMITs that repeat a claim it already committed.
-- `pf_no_repeat_bound`: From a start state, a run of the small machine that never traps, ends with the flag down and never repeats a committed claim costs at most 32.
-- `rc_contract`: On a finite chain with steady spread pi and detailed balance, if every listed row satisfies P x y >= delta * pi y with delta > 0, then for any vector p of total mass 1, one step shrinks sum_x |p x - pi x| by at least the factor 1 - delta.
-- `rc_converges`: Under that condition, for every probability vector p and listed state x, the chain's spread at x after t steps converges to pi x as t grows.
-- `rc_known_start_gap`: Under that condition, with m > 0 a lower bound on pi over the listed states, the entropy produced in the first T steps from the point mass at s falls short of - ln (pi s) by at most (4 / m) (1 - delta)^(2T).
-- `rc_known_start_limit`: Under that condition, the entropy produced in the first T steps from the point mass at a listed state s converges to - ln (pi s) as T grows.
-- `rcd_sigma_nonneg`: For rates q >= 0 and a positive steady spread pi with detailed balance pi x q x y = pi y q y x, the continuous-time entropy production rate of any positive vector is nonnegative.
-- `rcd_D_derivative`: For any solution p t of the master equation that is positive after time 0, at every time t > 0 d/dt p t x = sum_y (p t y q y x - p t x q x y), the relative entropy of p t to pi has derivative minus the entropy production rate.
-- `rcd_D_monotone`: For any solution of the master equation that is positive after time 0, and times 0 < t1 <= t2, the relative entropy to pi at t2 is at most its value at t1.
-- `rs_split`: On a finite chain with a stationary spread pi and a reading splitting states into up and down, the steady mass that has stayed among the up-states for k steps equals the flow into the up-states times the spread of stretches still running after k steps, plus the mass that stays one step more.
-- `rs_partial`: The flow into the up-states times the sum, over k < n, of the chances that a stretch entered through that flow lasts more than k steps equals the steady mass of the up-states minus the mass that has stayed n steps.
-- `rs_mean_stretch`: Under Doeblin's condition (every listed row puts at least delta times pi everywhere) and with positive mass on the down-states, the mean length of a stretch with the flag up, counted in steps from entry through the flow, converges to the steady mass of the up-states divided by the flow into them.
-- `rcd_produced_window`: For any solution of the master equation that is positive after time 0 and times 0 < a <= b, the Newton integral of the entropy production rate from a to b equals the relative entropy to pi at time a minus that at time b.
-- `rcd_produced_bounds`: For any solution of the master equation that is positive after time 0 and times 0 < a <= b, if the relative entropy at time b is nonnegative then the entropy produced from a to b lies between 0 and the relative entropy at time a.
-- `rcl_sigma_ge`: With rates satisfying q x y >= c pi y for all listed x, y (c > 0), detailed balance and pi of total mass 1, the continuous-time entropy production rate of any positive vector of total mass 1 is at least c times its relative entropy to pi.
-- `rcl_D_decay`: Under that condition, for a solution of the master equation that is positive after time 0 and has total mass 1 at time 0, the relative entropy at time b is at most its value at time a times exp (- c (b - a)), for 0 < a <= b.
-- `rcl_D_limit`: Under the same hypotheses, the relative entropy to pi tends to 0 as time grows.
-- `rcl_produced_limit`: Under the same hypotheses, the entropy produced from time a > 0 to time b, the Newton integral of the production rate, tends to the relative entropy at time a as b grows.
-- `rcl_D_at_zero`: Under the same hypotheses and with a nonnegative start, the relative entropy at time t tends to its value at time 0 as t decreases to 0, including where the start puts no weight.
-- `rcl_known_start_total`: Under the same hypotheses, from the point mass at a listed state s, the entropy produced from a small time a out to a large time b comes within any given margin of - ln (pi s).
-- `rsc_mass_over_flow`: For a finite chain in continuous time with rates q x y >= 0 and a spread pi that is stationary (the flow into each listed state equals the flow out of it), and a reading splitting states into up and down, any solution h of the leaving-time equations (out x times h x minus the sum over up-states y of q x y h y equals 1 at every listed up-state x) satisfies: the flow into the up-states times the mean of h over the entrance spread equals the steady mass of the up-states.
-- `rsc_leave_exists`: With rates satisfying q x y >= c pi y for all listed x, y (c > 0) and a positive flow into the up-states, the leaving-time equations have a solution: the limit of the uniformized iteration, which grows and stays between 0 and 1 / (c pi(down)).
-- `rsc_S_decay`: Under the same hypotheses, for any nonnegative solution of the master equation with the chain stopped on leaving the up-states, started from the entrance spread, the chance that the stretch is still running at time b >= 0 is at most exp (- c pi(down) b).
-- `rsc_window_value`: For such a solution and any solution h of the leaving-time equations, the Newton integral from 0 to T of the chance that the stretch is still running equals the steady mass of the up-states over the flow into them, minus the h-weighted total of the stretches still running at time T.
-- `rsc_mean_stretch_time`: Under the same hypotheses, the time a stretch spends with the flag up between 0 and T, the Newton integral of the chance it is still running, comes within any given margin of the steady mass of the up-states divided by the flow into them for all large T.
-- `rsc_stretch_identity`: The same limit, with the leaving times the theorem rsc_leave_exists constructs: in continuous time, the mean length of a stretch with the flag up, in seconds, is mass over flow.
-- `ta_quad_nonneg`: In any algebra with a sum, a product, real multiples and an adjoint, where the product distributes over sums and multiples, with a linear expectation psi that is never negative on x* x, and four self-adjoint observables A0, A1, B0, B1 with psi of each square at most 1 and each Ai commuting with each Bj, the quadratic form psi (Z Z) in the coefficients of Z = v1 A0 + v2 A1 + v3 B0 + v4 B1 is never negative. No dimension is assumed.
-- `ta_tsirelson`: Under those hypotheses, the CHSH value psi(A0 B0) + psi(A0 B1) + psi(A1 B0) - psi(A1 B1) is at most 2 sqrt 2 in absolute value: Tsirelson's bound in any dimension, including commuting-operator strategies.
-- `ta_realizable`: Under those hypotheses, the four correlators psi(Ai Bj) have a PSD completion with zero marginals and unit diagonal, the cross moments being the symmetrized psi(A0 A1) and psi(B0 B1).
-- `ta_arcsine`: Under those hypotheses, the four correlators satisfy the four arcsine inequalities of Landau and Masanes, in any dimension.
-- `ta_npa_psd`: With in addition a unit (one x = x one = x, one self-adjoint, psi one = 1), the first-level NPA moment matrix with the true marginals psi(Ai), psi(Bj) and the symmetrized cross moments is symmetric and PSD, in any dimension.
-- `ta_classical_instance`: The real numbers with ordinary multiplication and the identity as adjoint and expectation meet all the hypotheses for any classical plus-or-minus-one answers, so the hypotheses are satisfiable and the bound applies to them.
-- `cs_no_consensus_monotonic`: Theorem 15 of Aman Pohjola and Parrow (ESOP 2016): in any transition system with an associative, commutative composition that is monotonic (whatever a process reaches alone it still reaches with anything composed beside it), no process is a consensus process in the sense of their Definition 5 (two stable predicates, each reachable from any n > 1 copies, never both along one run).
-- `cs_machine_consensus`: In the transition system whose processes are a shared EarnedCore state with a multiset of SmallConsensus threads, composed by pooling the threads on one shared state, the process with one thread proposing each bit is a consensus process in that sense, for the predicates "some thread decided false" and "some thread decided true".
-- `cs_machine_not_monotonic`: So that composition is not monotonic: the small machine sits on the non-monotonic side of Aman Pohjola and Parrow's separation.
-- `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
-- `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
-- `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.
-- `re_sigma_nonneg`: On such a chain, the entropy produced in one step from any probability vector is nonnegative.
-- `re_relative_entropy_monotone`: On such a chain, one step never raises the relative entropy of a probability vector to pi.
-- `re_known_start_total`: On such a chain with a list without repeats, from the point mass at a listed state s, the entropy produced in the first T steps equals -ln pi(s) minus the relative entropy to pi of the distribution after T steps.
-- `re_known_start_bound`: On such a chain, from the point mass at a listed state s, the entropy produced in the first T steps lies between 0 and -ln pi(s).
-- `re_known_start_vs_set`: For a list of states containing s, -ln pi(s) is at least -ln of the total pi-mass of the list.
-- `re_flux_balance`: On such a chain, the pi-weighted flow from the states reading no to the states reading yes equals the flow from yes back to no.
-- `re_stretch_ratio`: For any positive flow J and positive mass of the no-states, -ln of that mass equals ln (1 + (mass of yes-states / J) / (mass of no-states / J)).
-- `am_no_power_of_two`: No abstract two-counter machine with a finite control (counters read only through zero and parity above a threshold), started from a listed control state with x in counter A and 0 in counter B, stops with 2^x in counter A for every x.
-- `tc2_no_pow`: No program of the small machine, started on x in counter A and nothing in counter B, stops with 2^x in counter A for every x.
-- `schur_identity`: For finite index lists, a symmetric P with a symmetric inverse Pinv, any Q and a symmetric R, the block form u^T P u + 2 u^T Q w + w^T R w equals (u + z)^T P (u + z) + w^T (R - Q^T Pinv Q) w with z = Pinv Q w, for all u and w.
-- `schur_complement_psd`: Under the same hypotheses and with P positive semidefinite, the block form is nonnegative for all u and w if and only if the complement R - Q^T Pinv Q is positive semidefinite.
-
-## Units, bases by simulation, nesting, clocks and partitions
-
-- `thiele_complete_at_one`: A machine is certified Thiele-complete at unit 1 (clauses (a), (b) and (d), base moves costing 0, every record move costing 1, the ledger adding each cost) exactly when it is certified Thiele-complete.
-- `scale_complete_at`: For every c at least 1, a certified Thiele-complete machine with every price multiplied by c is certified Thiele-complete at unit c.
-- `unscale_complete`: A machine certified Thiele-complete at unit c, with every price divided by c, is certified Thiele-complete.
-- `scaled_has_free_move`: A machine certified Thiele-complete at any unit has a move that costs 0.
-- `paid_moves_not_thiele_complete_at_any_unit`: A machine whose every move costs at least 1 is certified Thiele-complete at no unit.
-- `clock_not_thiele_complete_at_any_unit`: The two-counter machine charging 1 per move, with any reading of its configuration as the record, is certified Thiele-complete at no unit.
-- `latch_clock_not_thiele_complete_at_any_unit`: The two-counter machine charging 1 per move, with a flag that latches when a chosen test of the configuration says yes, is certified Thiele-complete at no unit.
-- `scaled_certificate_costs_three_c`: For an interface meeting the definition at unit c, a run from a clean state ending with the record up contains at least three record moves and raises the ledger by at least 3c.
-- `scaled_committed_claim_holds`: For an interface meeting the definition at unit c, a run from a clean state ending with the record up contains a CHECK and a later COMMIT of one claim whose meaning holds at the state checked and at the state committed.
-- `scaled_only_certify_raises`: For an interface meeting the definition at unit c, on a run from a clean state the move that raises the record is a CERTIFY.
-- `doubled_earned_scaled`: The small machine with every price doubled is certified Thiele-complete at unit 2.
-- `doubled_earned_not_thiele_complete`: The small machine with every price doubled is not certified Thiele-complete.
-- `sim_macro_runs`: Running a list of move lists on the macro machine of a box is running their concatenation on the box.
-- `ub_to_sim_inhabited`: A machine with a universal base has a base by simulation.
-- `sim_to_macro_inhabited`: A machine with a base by simulation (each two-counter instruction a finite list of its moves acting on a window as the instruction acts, from every live state) has a universal base on its macro machine, whose moves are finite lists of its moves.
-- `sim_base_lifts`: For every base by simulation and every cap of at least 1, the lift of the macro machine with the window claims is certified Thiele-complete.
-- `fl_has_sim_base`: The five-lever box (increment A, increment B, raise the jump target, and for each of A and B decrement-or-jump to the target) has a base by simulation.
-- `fl_no_universal_base`: The five-lever box has no universal base.
-- `fl_macro_lifts`: For every cap of at least 1, the lift of the five-lever box's macro machine with the window claims is certified Thiele-complete.
-- `cmpz_follow_exists`: For every simulation and every guest run there is a host run, one segment per guest move, that follows it.
-- `cmpz_follow_reaches`: A host run that follows a guest run ends on the image of the guest's end state.
-- `cmpz_follow_cost_ge_exits`: For a simulation whose record map reflects the order, into a host that obeys the toll, every host run that follows a guest run costs at least the guest's number of exits.
-- `cmpz_end_only_not_enough`: Some simulation reflecting the order into a host that obeys the toll has a guest run and a host run reaching the image of its end state that costs less than the guest's number of exits.
-- `record_axis_is_latch_r1_r4`: Over any base, a record driven by the computation and permanent factors as the latch of some event; the ledger, toll and reachable-write clauses are not hypotheses.
-- `record_axis_is_latch_reachable`: Over any base, a permanent record driven by the computation on every state a run reaches from a starting state factors as the latch of some event on those states.
-- `clock_not_reachably_driven`: The record switched on at the fifth tick of a hidden clock, with every state a starting state, is not driven by the computation even on the states runs reach.
-- `sync_clock_not_driven`: The same clock with starting states (b, b, off) is not driven by the computation when every state counts.
-- `sync_clock_reachably_driven`: The clock with starting states (b, b, off) is driven by the computation on every state its runs reach.
-- `sync_clock_reachable_latch`: The clock with starting states (b, b, off) is, on every state its runs reach, the latch of the event "the base state is 5".
-- `sync_clock_record_permanent`: The record of the clock with starting states (b, b, off) never switches off.
-- `pr_grouping_partition`: The classes of "same bucket label" under any grouping form a partition.
-- `pr_entitled_iff_refines`: For groupings g and h of a pile, soundness of g for every key gives soundness of h for that key exactly when h refines g on the pile.
-- `pr_reads_structural`: Two groupings with the same partition of the pile have the same reading at every state of the bucket machine.
-- `pr_reading_entitles`: On every run of the bucket machine from a clean state, if the reading for a grouping g is up, the record holds a grouping and a key such that g is sound for that key and so is every grouping that refines g.
-- `pr_reading_entitles_only`: For every grouping h that does not refine g, there is a key for which g is sound and h is not.
-- `pr_toll`: The bucket machine obeys the toll: a step that raises its record costs at least 1.
-- `pr_reading_costs_three`: On every run of the bucket machine from a clean state that ends with the record up, the ledger rises by at least 3.
-
-
-## Release-completion results
-
-- `lift_thiele_complete_over`: Given a universal base, a fact capacity of at least one, and a nonvacuous base-state claim language with an exact checker, the earned lift is certified Thiele-complete over the language that reads those claims on its base state; the language does not depend on the chosen universal interface.
-- `lift_window_thiele_complete_over`: Every universal base with positive fact capacity has an earned lift that is certified Thiele-complete over its fixed register-threshold and program-counter language.
-- `sim_base_lifts_over`: A base simulated by finite lists of moves has a macro lift that is certified Thiele-complete over the fixed window language, for every positive fact capacity.
-- `fl_macro_lifts_over`: The five-lever example's macro lift is certified Thiele-complete over that fixed window language, for every positive fact capacity.
-- `priced_thiele_complete_over`: The priced machine is certified Thiele-complete over its fixed optional property-and-counter language when property equality is exact, its checker agrees with the given meaning, and some property holds at one counter value and fails at another; the empty claim means False.
-- `priced_sorted_thiele_complete_over`: The priced sorted-list instance is certified Thiele-complete over the fixed sorted-list language, with the empty claim meaning False.
-- `priced_core_thiele_complete_over`: The priced counter-property instance is certified Thiele-complete over the fixed zero, even, and lower-bound language, with the empty claim meaning False.
-- `ent2_mmachine_complete_over`: The multi-register machine is certified Thiele-complete over the fixed property-and-register language; unchanged means the register has the same version and value.
 - `small_chsh_tol_zero`: With numerator zero and denominator one, the tolerance machine's checker equals the original exact CHSH checker for every register value.
 - `small_chsh_tol_chain_iff`: For any integer tolerance parameters and starting registers, the three-instruction tolerance chain certifies exactly when the integer tolerance test accepts the decoded tally in the selected register.
 - `small_chsh_tol_chain_pays_three`: When the tolerance test accepts that starting tally, the chain certifies and its final ledger is exactly three.
@@ -1449,40 +1536,19 @@ The definition `neutral_universal` is the Coq counterpart of the monograph's uni
 - `small_chsh_tol_certified_floor`: Every tolerance-machine trace from a clean start ending certified costs at least three as a CertificationSystem trace.
 - `small_chsh_tol_noisy_certifies`: The tally (86,14), (85,15), (86,14), (14,86) certifies through the actual instruction chain at tolerance 1/10.
 
-## A distinction that stays
+### Consensus on the shared small machine
 
-- `step_law`: For any step on any type with decidable equality and any start, every step of the run is fresh (its new state equals no earlier state), or a merge (it equals an earlier state reached from a different state, so two distinct states share an image), or a return to the start, or a revisit from the same state as before. The labels can overlap after the first revisit; the two lemmas below give the shape without double counting.
-- `first_revisit_start_or_merge`: If the step from position n is the first that lands on an earlier state, position j, then j is the start or the state before position j differs from the state at n, so the two share a next state: the first return is to the start or a merge.
-- `later_steps_repeat`: After any revisit, every later step is a step the run already took, from the same state to the same state, so nothing after the first return merges anew.
-- `merge_is_collision`: A merge in the sense of the step law exhibits two distinct states with the same image under the step.
-- `revisit_means_loop`: Once a run returns to a state it visited at position j, every later state of the run is one it visited at some position at most n, the position of the return.
-- `partial_raises_without_merge`: On two states with a partial step, a steps to b, b has no successor, the reading is false on a and true on b, and no two states share a successor.
-- `totalised_halt_is_merge`: Totalising that step with the halted state stepping to itself makes a and b, which differ, share the image b.
-- `write_is_permanent`: On the states blank, zero and one, the write of a 0 keeps a definite cell definite.
-- `write_raises`: The write of a 0 takes the blank cell, which reads not definite, to a cell that reads definite.
-- `write_is_a_merge`: Blank and zero both step to zero under the write, and blank differs from zero.
-- `four_state_escape_fails`: With a fourth state that remembers the cell was blank, the write still sends blank and that fourth state to the same state, and they differ.
-- `tape_write_injective`: On an endless tape, writing one more cell sends different tapes to different tapes.
-- `tape_write_never_returns`: On an endless tape, writing one more cell never returns to the empty tape.
-- `shift_bijective`: Stepping one cell along the integers is one-to-one and onto.
-- `shift_raises_and_keeps`: The reading "at least one" is false at 0, true after one step from 0, and stays true under the step.
-- `shift_never_returns`: After any positive number of steps along the integers, the state differs from the start.
-- `no_space_holds_its_own_readings`: For any type and any coding of its states as yes/no readings on it, some reading is coded by no state.
-- `regress_price_unbounded`: For every m there is a count N whose rounded-up base-two logarithm is at least m.
-- `nondet_merge`: With a step relation, a duplicate-free closed set of yes-states each having a chosen successor inside the set, and a no-state related to a yes-state, some yes-state has two distinct predecessors.
-- `returns_to_start`: An injective step on a finite duplicate-free list containing every state brings the run from any start back to the start after a positive number of steps.
-- `reversible_keeps_nothing`: Under such a step, a reading that is false at the start and never goes from true to false is false at every step of the run.
-- `noisy_chairs`: For a nonnegative kernel whose rows and columns each sum to one, and a closed set of states, every entry from a state outside the set into a state inside it is zero.
-- `raise_breaks_uniform`: If a nonnegative row-stochastic kernel with a closed set has a positive entry from outside the set into it, some column sum of the kernel differs from one.
-- `colsums_total`: For a nonnegative row-stochastic kernel on n states, the column sums add to n.
-- `raise_concentrates`: If a list of rationals sums to its own length and some member differs from one, the sum of the squares strictly exceeds the length.
-- `uniform_floor`: If every member of a list of rationals equals one, the sum of the squares equals the length.
-- `raise_concentrates_uniform`: A nonnegative row-stochastic kernel on n states with a closed set and a positive entry into it from outside has column sums whose squares add to strictly more than n.
-- `no_merge_no_concentration`: For a nonnegative kernel whose rows and columns each sum to one, the sum of the squares of a spread after one step is at most the sum of the squares before.
-- `gibbs_nonneg`: For a strictly positive spread on N states summing to one, the sum over states of the probability times the natural logarithm of N times the probability is nonnegative.
-- `gibbs_strict`: That sum is strictly positive as soon as some probability differs from 1/N.
-- `relent_is_entropy_gap`: That sum equals the natural logarithm of N minus the Shannon entropy of the spread.
-- `quantum_chairs`: For an n by n matrix U over the algebraic numbers with conjugate transpose times U equal to the identity, and a Hermitian idempotent P with (1 minus P) U P equal to zero, P U (1 minus P) is zero.
-- `heat_at_any_speed`: For a forward probability p strictly between 0 and 1 and not one half, the biased walk's entropy production per tick, (2p minus 1) times the natural logarithm of p over (1 minus p), is strictly positive.
-- `no_heat_at_rest`: At p equal to one half that entropy production is zero.
-- `heat_time_floor`: For a speed v strictly between 0 and 1 and a nonnegative distance N, N times the logarithm of (1 plus v) over (1 minus v), times N over v, is at least N squared.
+- `sc_agreement`: When processes share the small machine's state, each running CHECK of PZero (to propose 0) or PEven (to propose 1) on counter A and then reading the oldest fact, any two processes that have decided under any schedule decided the same bit.
+- `sc_validity`: In that protocol, under any schedule, every decided bit is the proposal of some process.
+- `sc_wait_free`: In that protocol, a process that has taken two steps has decided, whatever the other processes did.
+- `mc_no_consensus`: For any shared object whose updates return nothing, with reads of the whole state, if at every state any two updates are such that one leaves the state unchanged, they commute, or one overwrites the other, then no protocol for two processes is wait-free, agrees and is valid for binary consensus.
+- `mc_mono_interfere`: In the monotone variant of the small machine (no versions, failed instructions change nothing, properties "counter >= n" only, no decrement, facts, commitments and flags that only grow) with registers, at every state any two instructions are such that one changes nothing, they commute, or one overwrites the other.
+- `mc_mono_no_consensus`: No protocol over the monotone variant of the small machine, with registers, solves wait-free binary consensus for two processes.
+- `cs_no_consensus_monotonic`: Theorem 15 of Aman Pohjola and Parrow (ESOP 2016): in any transition system with an associative, commutative composition that is monotonic (whatever a process reaches alone it still reaches with anything composed beside it), no process is a consensus process in the sense of their Definition 5 (two stable predicates, each reachable from any n > 1 copies, never both along one run).
+- `cs_machine_consensus`: In the transition system whose processes are a shared EarnedCore state with a multiset of SmallConsensus threads, composed by pooling the threads on one shared state, the process with one thread proposing each bit is a consensus process in that sense, for the predicates "some thread decided false" and "some thread decided true".
+- `cs_machine_not_monotonic`: So that composition is not monotonic: the small machine sits on the non-monotonic side of Aman Pohjola and Parrow's separation.
+
+### Arithmetic limits of two-counter programs
+
+- `am_no_power_of_two`: No abstract two-counter machine with a finite control (counters read only through zero and parity above a threshold), started from a listed control state with x in counter A and 0 in counter B, stops with 2^x in counter A for every x.
+- `tc2_no_pow`: No program of the small machine, started on x in counter A and nothing in counter B, stops with 2^x in counter A for every x.

@@ -5,8 +5,8 @@ authors:
   - family-names: Thiele
     given-names: Devon
 type: software
-version: 4.1.0
-date-released: 2026-10-14
+version: 4.1.1
+date-released: 2026-10-27
 license: Apache-2.0
 repository-code: "https://github.com/sethirus/The-Thiele-Machine"
 url: "https://github.com/sethirus/The-Thiele-Machine"
@@ -20,89 +20,17 @@ keywords:
   - formal verification
   - Coq
 abstract: >-
-  I didn't invent a machine. I found one. That is my conviction. Take a blank
-  cell and write a 0 in it, and keep it a 0: something is now the case that
-  wasn't, and that moment, nothing becoming something, is never free. It
-  gives off heat by happening, in any real device, and keeping it is paid on
-  top, in a merge, which carries Landauer's floor (a named premise) when the
-  merged states were really possible, or in room. Certification, a record
-  that a claim was checked and closed, is the sharpest case. The Thiele
-  Machine is an abstract model of computation, a machine the way Turing's is,
-  and this work is an argument made with it about which distinctions an
-  account of computation should preserve. It is not a CPU, an instruction set,
-  or category theory. One small example machine shows the definition can be met: a
-  minimal two-counter machine whose commitments are earned, where every
-  certified run from a clean start contains a passing check of the committed
-  claim, a commitment to that same claim, and a certificate, and costs at
-  least three. Thiele-complete asks for four things that say nothing about
-  what the record is about: a universal base whose moves cannot touch the
-  record, with a record that stays up; blank starts; computing moves that
-  cost no marks and every other move exactly one; and a run whose record
-  ends up from one start and down from another. Every clock
-  fails it, every universal base reaches it by adding marks, and every
-  Thiele-complete machine hides its record and its ledger from its own
-  window. Certified Thiele-complete is exactly Thiele-complete with clean
-  starts, the earned check, commitment and certificate of one claim, and a
-  claim that can fail added; the small machine meets it. A universal machine U, one fixed program of
-  the small machine's own instructions, runs every program of the small
-  machine from every clean start, halts exactly when its guest halts, raises its
-  flag by its own check, commit and certificate exactly when the guest would,
-  and keeps the guest's ledger mark for mark where the runs line up. A
-  computation gives you an answer. What did it establish on the way there?
-  Which distinctions did it keep? What did it cost to establish them?
-  Certification is the case I could pin down. Its proofs show exactly what
-  specified observations lose. A full encoding can preserve those
-  distinctions; the question is which ones a model should keep. The formal
-  development includes accounting laws for systems satisfying A2, pricing
-  adequacy for designated events, observation adequacy, and a finite family
-  of unit event floors that share one charge. Retaining history makes a
-  deterministic step injective without changing its observed transition, by
-  paying room at every step. On a finite state space the room runs out: a
-  certificate no step revokes
-  can only be switched on by a step that merges states, so pricing merges,
-  as Landauer's principle does in the worst case over what the machine might
-  hold, yields A2; Landauer's floor comes from uncertainty about the state,
-  so under that premise a known state owes no floor, though the step still
-  gives off heat when it happens and the distinction is held by whoever
-  knows the start; and a fixed device that merges K inputs still produces at
-  least k_B ln K of entropy on its worst input, however slowly it runs and
-  whatever anyone knows. Priced per halving, switching
-  k states on beside m certified ones costs at least log2((m+k)/m), and on
-  finite hardware that prices merges, whose instructions have decidable
-  equality, the events that must be priced are exactly the merges, with every
-  permanent-record write among them. The same bound holds in bits of Shannon
-  entropy from the uniform distribution on those m + k states, and an
-  eight-state machine meets both premises as theorems. An exact price for certification cannot be
-  computed from a window in which a certifying step and a non-certifying one
-  look alike. Three results carry the weight of the structural question:
-  every deterministic machine can carry the record axis, as itself plus a
-  latch on an event it reaches; every Thiele-complete machine hides its
-  record from its own window; and on finite hardware a step that writes a
-  permanent record merges states, so pricing merges prices the write. A
-  record that never switches off and is driven by the base computation is a
-  latch on one event; both premises are essential. Which event is latched is
-  the pointer question; no theorem selects one uniquely. Consensus, exact
-  observation, and coordinator-free evolution do not force permanence; the
-  pointer criterion is a thesis. Finite growing records decompose into
-  threshold latches, although a single-latch decomposition is false. Scoped
-  RFC 9162, PCC, addressed-RAM, reversible-update, and TPM-interface results
-  delimit the real-system claims. The lambda calculus L has its
-  recursion theorem and Rice's theorem, proved from its reduction rules; the local
-  cost-semantics correspondences are not full cost-framework embeddings. The
-  two-state calorimeter protocol computes exact heat while proving that its
-  population dynamics do not determine the energy scale. Physical
-  calibration requires thermal and device premises. The observer-map
-  counterexample is model-dependent. No surveyed external consequence
-  satisfied all four novelty and applicability criteria. Those are
-  mathematical answers with explicit premises. The repository contains the
-  Coq development, the small machine, the monograph, and the mathematical
-  specification; an earlier virtual machine and hardware development is
-  preserved at tag v3.3.0. The assumption receipt covers 6,634
-  statements across 397 files: 5,814 are closed under the global context, 820 depend on
-  standard-library axioms, and none depend on project-local or third-party
-  axioms. The receipt generator writes these counts on Linux. Paid
-  certification alone establishes accounting; semantic truth requires a sound
-  checker, and on the small machine every certificate rests on one. The
-  physical and foundational interpretations are not claims of the formal
-  corpus. The software is licensed Apache-2.0. The monograph and
-  distillation are licensed CC-BY-SA-4.0.
+  The Thiele Machine is an abstract model of computation with states, moves,
+  a step, a price per move, and a reading into an ordered set. Its toll
+  requires a positive charge when a move carries the reading somewhere not
+  at or below its previous value. The monograph develops retained
+  distinctions, merges or fresh states, observation windows, and the room
+  needed to preserve recoverable histories. Permanence and noninterference
+  are additional restrictions where stated. A two-counter example realizes
+  an earned CHECK, COMMIT and CERTIFY chain. This edition pairs the reviewed
+  545-page PDF with the matching repository snapshot, which contains the
+  complete 3,728- and 3,735-instruction universal programs and companion
+  simulation proofs. Physical interpretations require their stated physical
+  premises; the pointer and physical theses remain theses. The software is
+  licensed Apache-2.0. The monograph and documentation are licensed CC-BY-
+  SA-4.0.

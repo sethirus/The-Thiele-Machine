@@ -440,8 +440,12 @@ def main():
         REPO / "README.md",
         REPO / "TECHNICAL_DISCLOSURE.md",
     ]
-    print(f"Indexing Coq theorems under {COQ}...")
-    theorems = index_coq_theorems(COQ)
+    roots = [COQ, REPO / "minimal"]
+    print(f"Indexing Coq theorems under {roots}...")
+    theorems = defaultdict(list)
+    for root in roots:
+        for name, declarations in index_coq_theorems(root).items():
+            theorems[name].extend(declarations)
     n_decls = sum(len(v) for v in theorems.values())
     print(f"  → {n_decls} theorem declarations across {len(theorems)} unique names\n")
 

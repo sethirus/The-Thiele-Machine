@@ -109,11 +109,13 @@ def _find_sentence_end(text: str, start: int) -> int | None:
     return None
 
 
-_KINDS = ("Theorem", "Lemma", "Corollary", "Proposition", "Fact", "Remark")
+_KINDS = ("Theorem", "Lemma", "Corollary", "Proposition", "Fact", "Remark", "Property")
 
 # Pre-compiled: matches a theorem-like header at start-of-line. Captures kind + name.
 _HEADER_RE = __import__("re").compile(
-    r"(?m)^[ \t]*(Theorem|Lemma|Corollary|Proposition|Fact|Remark)[ \t]+([A-Za-z0-9_']+)"
+    r"(?m)^[ \t]*(?:#\[[^\]]*\]\s*)?"
+    r"(?:(?:Local|Global|Polymorphic|Monomorphic|Private)\s+)?(?:Program\s+)?"
+    r"(Theorem|Lemma|Corollary|Proposition|Fact|Remark|Property)[ \t]+([A-Za-z0-9_']+)"
 )
 
 
@@ -168,7 +170,14 @@ def parse_theorems(source_text: str) -> list[TheoremDecl]:
     if names["unaddressable"]:
         raise ValueError("Vacuity probes require an instantiated module; "
                          "unaddressable declarations cannot be marked OK")
-    from collections import defaultdict, deque
+    from collections import Counter, defaultdict, deque
+    expected = Counter((name.rsplit(".", 1)[-1], kind)
+                       for name, kind in names["addressable"])
+    parsed = Counter((decl.name, decl.kind) for decl in decls)
+    if parsed != expected:
+        raise ValueError("Vacuity declaration coverage mismatch; no parsed type for "
+                         f"{list((expected - parsed).elements())}; unexpected "
+                         f"{list((parsed - expected).elements())}")
     qualified = defaultdict(deque)
     for name, kind in names["addressable"]:
         qualified[(name.rsplit(".", 1)[-1], kind)].append(name)
@@ -672,6 +681,9 @@ def main() -> int:
         for entry in manifest_data.get("targets", []):
             pairs.append((entry["path"], entry["logical"]))
 
+    # Batch receipts store paths relative to the repository, so normalize a
+    # caller-supplied relative directory before generating those receipts.
+    args.probe_dir = args.probe_dir.resolve()
     args.probe_dir.mkdir(parents=True, exist_ok=True)
     args.output.parent.mkdir(parents=True, exist_ok=True)
 

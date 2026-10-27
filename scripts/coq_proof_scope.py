@@ -69,14 +69,10 @@ NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
 })
 
 
-# minimal/ files that are deliberately outside coq/_CoqProject. Each is built
-# by tests/test_minimal_core.py and scripts/verify_core.sh with plain coqc, as
-# the front door a reader compiles before reading anything else. Every other
-# minimal/*.v file must be listed in coq/_CoqProject.
-MINIMAL_UNLISTED_FILES: FrozenSet[str] = frozenset({
-    "minimal/MuCore.v",
-    "minimal/Napkin.v",
-})
+# Every maintained minimal/ file is now registered in the normal build.
+# MuCore and Napkin still support the independent plain-coqc front door;
+# independent compilation does not exempt them from corpus coverage.
+MINIMAL_UNLISTED_FILES: FrozenSet[str] = frozenset()
 
 
 # ---------------------------------------------------------------------------

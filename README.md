@@ -1,32 +1,18 @@
 # The Thiele Machine
 
-The Thiele Machine is an abstract model of computation, a short definition. This repository is the work of finding out what follows from it.
+A Thiele machine is a thing, the directions it can move in, and a price on each direction. A direction turns the thing into the next thing. A direction that makes a distinction stay is never free.
+
+That is the whole definition. The book gives its consequences and instances, the counting that motivates it, and the argument for choosing it. A machine whose directions never make a distinction stay is the flat case, and the rule requires no charge from it: a clock is one, a reversible process is one, and so is ordinary computation, with a reading their moves preserve. This repository is the account of what an ordinary computational description can leave out.
 
 The model is developed in a monograph: [Read the monograph](monograph/monograph.pdf) · [Plain-text introduction](THIELE_MACHINE.txt) · [Monograph source](monograph/monograph.tex) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf)
 
-## The definition
+## The point
 
-A Thiele machine is five things and one rule: a set $S$ of states, a set $I$ of moves, a step $S\times I\to S$, a cost $I\to\mathbb N$ on each move, and a yes-or-no reading $S\to\{\text{no},\text{yes}\}$. The rule is the toll: a step that turns the reading from no to yes costs at least one unit. A ledger that only climbs, and a window onto what an outside observer sees, come in when a result needs them.
+Take anything that can be more than one way and isn't yet any of them for good: a bead that could sit in either of two dips, a square of paper with nothing on it, a question nobody has closed. Now let it settle one way, and keep it there. Something is the case now that wasn't a moment ago. That is a distinction that stays, and it is what the book is about. Nothing becomes something for free: under a rule that gives every state exactly one next state, keeping something settled takes a merge somewhere in the run, two states landing on one, or an endless supply of fresh states.
 
-The Thiele Machine is that definition. It is a machine the way Turing's machine is one: mathematics you can reason about, not a device, not an instruction set and not a book. The book is where I work out what follows.
+Structure is made of exactly this. The smallest distinction there is sorts the ways a thing could be in two and holds one side: a bead in the left dip and not the right, a mark on the page and not off it. A grouping, an order, a relation a later move leans on, a fact somebody found out and wrote down: each is a distinction that stays, paid for the same way as the bead in its dip. Insight, in the sense the book can price, is a kept distinction. The toll requires a charge when it's raised; merely remaining up requires no further charge. Repeating a priced move still pays that move's price. That is what the book's other name, No Free Insight, means.
 
-To ask what a computation hides, add a window. A **sliced** Thiele machine is a Thiele machine with an onto view $\pi:S\to B$, what an outside observer sees, and its moves split in two. It sits over an ordinary deterministic machine, the tabletop $B$. Horizontal moves cost nothing, move the view by a rule that uses only the view, and leave the reading alone. Vertical moves leave the view alone and can raise the reading, never lower it. The toll still holds.
-
-## What follows from it
-
-It is one story, in four parts, and each part says what it rests on.
-
-**1. The definition is more general than any mechanism.** It assumes no tape, no head and no counters. Every deterministic machine is already a Thiele machine: let the reading never rise and every move cost nothing. Add a latch on any event the machine reaches, charging one unit when it sets, and you have a Thiele machine with a real record that does not change which functions the machine computes. A run that starts at no and ends at yes costs at least one. That universal floor holds for every machine, and the bar is nearly empty on purpose: a clock that charges one for every move meets it. The theorems with teeth come when you add one next state for every state (part 2) or a window (part 3).
-
-**2. Keeping costs something on every machine.** This is counting, with no premise and no physics. On any machine with one next state for every state, every step lands on a fresh state, merges two states, or returns to its start. So a run that raises a reading and keeps it up either merges somewhere or uses endlessly many distinct states. A machine with endlessly many states can avoid the merge on paper by paying in fresh states. A machine with finitely many states cannot: when only finitely many states read yes, the raising step itself merges. Whether a real device has finitely many distinguishable states is a physical assumption, and the book names it as one. When a coarse description of a machine merges, the fine machine merges too, unless its step leaves the described states or there are endlessly many of them. The toll is where the model writes a price on that step, and the price is a choice: if every merging instruction costs at least one, the toll on a finite machine follows from the merge. A heat bound needs one more premise, a named physical one, and the book keeps it apart from the counting.
-
-**3. The ordinary machine and the full machine, in both directions.**
-- In a sliced machine, the view $\pi(S)=B$ with its horizontal moves is an ordinary deterministic machine. Any deterministic machine arises this way: put a bit beside its states. The view cannot see the record, because the free moves never touch it and the picture follows the computation step for step. That needs a raise to exist, and nothing else: no universal base and no premise about the control.
-- Thiele-complete is stricter, and unlike the sliced machine it does ask for universality. It needs a universal base, so the machine can be read as one that runs every program, as a Turing machine can. On top of that it asks that computing cost nothing and never touch the record, that the record stay up once it is up, that starts have it down, that marks cost exactly one, and that some run raise it from one start and not another. Every machine that meets it hides its record and its ledger from its own window. Any machine with a universal base lifts to one by adding the record layer, and the ordinary computer is then the slice that is left when the layer is forgotten. An account that prices certification exactly cannot compute the price from a window that shows a certifying step and a non-certifying step the same way.
-- Recovering which of $n$ editions were certified takes $2^n$ states above one picture.
-- A small six-instruction machine and a universal program on it show these definitions can be met. They are examples and not the subject.
-
-**4. What is argued and what is proved.** The counting, the floor, the window results, the lift and the slice are theorems under the hypotheses they state. The book has 206 numbered statements; 205 are closed by a proof on the page, and the one that is not is the pointer thesis. It proposes certification as the event worth recording, because certified records get copied and relied on by parties who did not produce them. Separately, and unnumbered, the book argues that the record and its price are part of computation itself and not something added afterwards, and states the Thiele thesis, a claim about physical processes. Neither is presented as a theorem.
+Established is the sharpest case. Two computers can end with the same answer, and only one of them checked it. The difference between them is a distinction one of them never kept. A record that a claim was checked and closed is a distinction that stays, with a check in front of it, and it's paid for the same way. The two boxes in the next section are that case. The point is the distinction that stays, and what keeping it takes.
 
 ## Where it starts
 
@@ -36,6 +22,40 @@ Hand me that photograph and ask which box was stamped. Enlarging the tiles will 
 
 That is where I start. I want a machine that can compute, establish a record, keep that record while the workspace changes, and count what its rules charge for doing so. The definition above is the model I built to ask what that takes.
 
+## The definition, exactly
+
+Give the pieces names. $S$ is the set of states, $I$ the set of moves, and the step $S\times I\to S$ turns a state and a move into the next state. Each move has a price $c:I\to\mathbb N$. The record is a reading $\mathrm{rec}:S\to R$ into an ordered set $R$: for any two records you can ask whether one sits at or below the other. A move makes a distinction stay when it carries the record somewhere not at or below where it was. The one rule is the toll: such a move costs at least one. Nothing else is assumed of the order, and nothing says what the record is about. A ledger that only climbs, and a window onto what an outside observer sees, come in when a result needs them.
+
+The smallest record has two positions, no and yes. Then the record is a yes-or-no reading of the state, making a distinction stay is turning no into yes, and the toll says that move costs at least one. Most of the book is stated on this smallest case, because it is the one you can point at: a lamp beside a box, a stamp on its side, a flag that goes up. The flag is not the record. It is the smallest question you can ask of one. The proofs state the general case first and derive the flag as its two-point instance.
+
+The Thiele Machine is that definition. It is a machine the way Turing's machine is one: mathematics you can reason about, not a device, not an instruction set and not a book. I named it after myself, on purpose. I wanted to call it the meta machine, and in 2021 a company took that word, so I went one level up and put my own name on it, half a joke and half a stake in the ground. Turing got a machine; here's mine. The book is where I work out what follows.
+
+Every machine whose moves never climb the order is a Thiele machine in the flat case, where the toll requires no charge: a clock, a reversible process, any deterministic machine with its record standing still. A reading preserved by undoable moves never rises; that does not forbid pricing those moves. The ordinary computer is one member of the flat case, and only one. Keep that direction in mind throughout. The computer is a shadow of the machine, not the floor it is built on.
+
+One theorem comes with the definition and nothing else. A run that starts with the record at no and ends with it at yes pays at least one. That is the universal floor, and it holds for every machine that meets the definition. The bar is nearly empty on purpose: a clock that charges one for every move clears it. The theorems with teeth come when the record has to stay, when the states run out, or when a window is added.
+
+The definition has to name the reading its toll belongs to. Slide a tile to the right without paying and ask whether it is in the place it just reached: the answer was no and is now yes, and if the toll charged every question, no move could be free. And a free move cannot touch a reading that stays. It cannot raise it, because a raise costs at least one, and it cannot lower it, because a yes stays yes. It must leave it alone.
+
+The price stays on the move. It does not disappear when you press the same button with the reading already up, and the least price list is the plain one: one on every move that can raise the reading from somewhere, zero on every move that never does. Nothing smaller meets the toll. That is a minimum in the definition's units; measuring a device's heat requires a physical account of the device.
+
+A ledger adds up the prices of the moves that ran. It does not count merges, fresh states or heat, and its total need not equal the number of raises. An injective run can visit fresh states at every step while raising its reading only once. The toll sets a lower bound on the charge.
+
+To ask what a computation hides, add a window. A **sliced** Thiele machine is a Thiele machine on the two-position record, with an onto view $\pi:S\to B$, what an outside observer sees, and its moves split in two. The tabletop $B$ is the flat part, what the window shows. Horizontal moves cost nothing, move the view by a rule that uses only the view, and leave the reading alone. Vertical moves leave the view alone and can raise the reading, never lower it. The toll still holds.
+
+Put a dial with four positions beside a slider with three stops. ROTATE moves the dial one position around for free and leaves the slider alone. ADVANCE moves the slider toward its last stop, leaves the dial alone and costs one. At the last stop the reading is yes; at the other two it is no. ADVANCE pays when it first reaches yes, and still costs one when pressed at the last stop. The price belongs to the button. Look only at the dial: ROTATE moves the picture and ADVANCE leaves it alone. That is a sliced machine before any checking or certification enters the story.
+
+Every flat machine is the shadow of a sliced machine that keeps a record above it. The record adds no computing power; what it adds is distinctions within a fibre, which the window cannot see.
+
+## What I found, what I assumed and what I chose
+
+Most of the time I had the hunch first and found the names later. Over and over, somebody had been here before me. Sometimes that made my day. Sometimes it pissed me off. Here is the line between what nothing let me choose, what I had to assume, and what I did choose.
+
+**Found, which counting forces on any machine.** Run a machine that gives each state exactly one next state. It takes fresh states until it first comes back to one it has used; that return lands on its start or is a merge, two states with one next state; and after it the run only repeats steps it already took. There is no fourth thing a step can do. A run reveals at most one pair of distinct visited states with the same successor; later laps can repeat that transition. So a reading that goes from no to yes and never comes back is paid for in a merge or in fresh states, and when only finitely many states read yes, the move that raises it merges. Over any machine at all, a record that the computation drives and that never comes down is a latch on one event. That is counting, and the pigeonhole in it is older than the computer: Dedekind's finiteness, Zermelo's recurrence objection to Boltzmann, Landauer and Bennett on merging, and the floor Tarjan's potential method puts under a run.
+
+**Assumed, what the found list is taken to stand on in the world.** Landauer's principle: a merge of states the machine really could have been in has a floor under its heat, however slowly it is done. That is the premise from thermodynamics, named and never proved here, with its critics named. A real device can tell apart only finitely many states in a bounded place, so its fresh states run out; nobody has measured where that ceiling sits. And the clean start: a raised record means the event happened only because the record was down at the start, and that start is put in by hand. It is a past hypothesis in miniature, Boltzmann's idea under David Albert's name.
+
+**Chosen, what the model adds, each of which could have gone another way.** To put the account inside the step, as part of what a step is. The record is one of the five parts, a reading of the state. Permanence and a computing part that cannot change it are further restrictions chosen for the examples that need them; the core definition requires neither. A rule preserved by every permitted step holds of every program built from those steps. A log maintained by one program needs that program's correctness argument. The toll itself is a choice: a whole unit, at least one, on the move that climbs. So are which readings matter, which event gets a record, what price list it pays, and, on the example machine, where its flat part ends and its record begins.
+
 ## The tabletop and everything above it
 
 Gather every box that gives the same photograph. Their tops agree. Their insides and their side stamps can still differ. I want to keep that whole collection in view, even when the photograph cannot tell its members apart.
@@ -44,25 +64,13 @@ Now give the pieces names. $S$ is the collection of full states, and $B$ is the 
 
 $$\pi:S\twoheadrightarrow B.$$
 
-The arrow says every picture we are counting comes from some full state. Choose one picture and call it $b$. All the full states that give that picture form its **fibre**, written $\pi^{-1}(b)$. That notation names the collection we just gathered.
+The arrow says every picture in $B$ comes from some full state. Choose one picture and call it $b$. All the full states that give that picture form its **fibre**, written $\pi^{-1}(b)$. That notation names the collection just gathered.
 
-The tiles can agree while the boxes differ in which checks ran, which claims were certified, and what survived when an earlier page was wiped. A yes-or-no stamp reads one distinction in that collection. It does not measure the whole collection.
+The tiles can agree while the boxes differ in a retained mark, a grouping, an earlier ordering, or a record of an event. A yes-or-no stamp reads one distinction in that collection. It does not measure the whole collection.
 
-There is no fixed ceiling on the number of states a fibre can contain. To force it to be infinite, give one machine an unlimited obligation: after any number $n$ of editions, it must return to the same picture $b$ and still answer exactly which editions were certified, with each choice independently available. One edition gives two choices: certified or not. A second doubles the lists to four; a third doubles them to eight. Each further edition doubles them again. After $n$ editions there are $2^n$ possible answer lists. Two different lists cannot end at the same full state, because that state would have to give opposite answers to one edition's question. Every finite allowance is eventually exceeded.
+There is no fixed ceiling on the number of states a fibre can contain. To force it to be infinite, give one machine an unlimited obligation: after any number $n$ of stages, it must return to the same picture $b$ and still answer exactly which stages had an event, with each choice independently available. One stage gives two choices: the event happened or it did not. A second doubles the lists to four; a third doubles them to eight. Each further stage doubles them again. After $n$ stages there are $2^n$ possible answer lists. Two different lists cannot end at the same full state, because that state would have to give opposite answers to one stage's question. Every finite allowance is eventually exceeded.
 
 That is where the infinity comes from: a task that keeps demanding recoverable distinctions above one unchanged picture.
-
-## A record has to be earned
-
-Give a worker a whiteboard. Ask for an answer and the words “CHECKED = YES” underneath. The worker can write both without checking anything.
-
-A variable with a reassuring name has the same problem. To make acceptance mean that a check happened, the machine's permitted operations must close the unchecked route into the accepting state. If a checked and an unchecked history can reach that same state, its verdict cannot tell them apart.
-
-## What the window can tell you
-
-For the abstract sliced interface, horizontal moves evolve the tabletop by a rule depending only on its current picture and leave the record alone. Vertical establishment leaves the picture fixed and can raise the record. Give two states the same picture and the same horizontal instruction sequence: their pictures agree after every step, even if their records differ throughout.
-
-Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction.
 
 ## What keeping takes
 
@@ -74,13 +82,29 @@ Suppose instead that the rule always gives different successors to different ful
 
 For a finite holding interval the count is sharp. Line up $K$ held states after the unfinished state and fix the last one. The first $K$ sources have distinct successors. Include the next source and the final two arrows meet. Keeping the answer visible can hide that merger from the tabletop camera.
 
-Now put a price rule beside the arrows. The abstract model's toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. The price premise is written beside the count; a physical heat bound additionally needs a physical model.
+Now put a price rule beside the arrows. The toll says that a move raising the chosen reading costs at least one unit. A run from no to yes contains such a move, so with nonnegative prices its total is at least one. Under the stronger premise that every merging instruction pays, a permanent raise into a finite held region incurs a toll by the count above. Heat needs one more premise, a physical one, and the book keeps it apart from the counting.
 
-## An example machine
+## What the window can tell you
+
+For a sliced machine, horizontal moves evolve the tabletop by a rule depending only on its current picture and leave the record alone. Vertical establishment leaves the picture fixed and can raise the record. Give two states the same picture and the same horizontal instruction sequence: their pictures agree after every step, even if their records differ throughout.
+
+Watch what happens one move at a time. Equal pictures and the same first move give equal next pictures. Apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. For that to happen a raise has to exist, and nothing else is needed: no premise about what the tabletop computes and none about the control.
+
+The view cannot see the record or the ledger, and no function of the view recovers either: two runs can end on the same picture with the record up on one and down on the other, and the ledger apart by the price of the raise. An account that prices a raise exactly cannot compute the price from a window that shows a raising step and a quiet step the same way.
+
+## A record has to be earned
+
+Give a worker a whiteboard. Ask for an answer and the words “CHECKED = YES” underneath. The worker can write both without checking anything.
+
+A variable with a reassuring name has the same problem. To make acceptance mean that a check happened, the machine's permitted operations must close the unchecked route into the accepting state. If a checked and an unchecked history can reach that same state, its verdict cannot tell them apart.
+
+## The earned-chain counter example
 
 This is an example and not the Thiele Machine. The model is defined over every machine that meets it. This small machine is here to show that the definition can be met, and to give the argument something to run.
 
 The example has two natural-number counters, their edition numbers, a sixteen-entry fact table, a commitment channel, a trap, a permanent certificate and a ledger. Its instructions are INC, DEC, HALT, CHECK, COMMIT and CERTIFY. The last three each cost one unit; the counter moves cost zero in that ledger.
+
+Its two-counter base computes everything a Turing machine can, under the encoding stated in Part III. That universality belongs to this example, not to the twelve-state dial and slider above. The model adds a place in the step for what a computation made the case and what that cost.
 
 The book gives the transition rules, derives the earned chain, builds universal host programs, and follows how a guest's computation and accounting appear in its host. It also studies composition, observation, retention and the cost of preserving relations between instructions. The constructions and arguments are in the text.
 
@@ -92,11 +116,11 @@ It enforces an order:
 
 1. **CHECK** tests a claim and records the claim together with the edition of the counter it concerns.
 2. **COMMIT** selects a matching fact only while that edition is still current.
-3. **CERTIFY** requires a commitment and raises the permanent flag.
+3. **CERTIFY** requires a commitment, preserves the channel, and raises the permanent flag.
 
 A counter write advances its edition. An old check cannot then be presented as a check of the newly written counter. Starting with an empty table, empty channel and flag down, any run that raises the flag must contain the three successful acts in order: only CERTIFY raises it, only COMMIT fills its channel, and only CHECK supplies the fact COMMIT requires.
 
-Storing a representation is part of implementing this machine. Preserving those rules through every allowed program is the part that makes the representation authoritative.
+The toll requires payment for a raise; it does not say what the record means. The rules above are what give it one.
 
 ### Its trap
 
@@ -104,15 +128,13 @@ It also has a trap. A failed CHECK blows the fuse, and later free instructions c
 
 ## Open the gauge wider
 
-These counts are worked out on the example machine above. The counting is the point; the example gives it something to run.
+This count is a fibre of one projection on the counter example.
 
-Three measurements in the book ask different questions of their chosen windows:
+One entire native state can sit below **65,535** different nonempty sets of published claim/edition entries. Sixteen checked facts supply sixteen independent publication choices. Give every choice two instructions and the same charge, and all nonempty selections finish with the same native counters, table, channel, line number, ledger and flag. Sixteen extra bits beside the existing table distinguish the sets. Fifteen bits have only 32,768 values and cannot.
 
-- **Current checks.** Leave the working value fixed and choose which checks to run. One available successful check gives two histories to distinguish: ran it or did not. Two independently available checks give four choices; each further check doubles them. If $m(b)$ checks can succeed at value $b$, and the machine must report exactly which ran, it needs $2^{m(b)}$ full states above that value. Keeping the value and the chosen set of checks uses exactly that many. Do the count separately for every working value and add: the total minimum is $\sum_b2^{m(b)}$.
-- **Completed editions.** Independently chosen, recoverable certification answers for $n$ editions require $2^n$ states at a common final working view. One machine meeting that task for every $n$ needs an infinite reachable fibre there.
-- **The concrete publication file.** One entire native state can sit below **65,535** different nonempty sets of published claim/edition entries. Sixteen checked facts supply sixteen independent publication choices. Give every choice two instructions and the same charge, and all nonempty selections finish with the same native counters, table, channel, line number, ledger and flag. Sixteen extra bits beside the existing table distinguish the sets. Fifteen bits have only 32,768 values and cannot.
+This count looks through a wide camera: it sees the entire native machine and forgets an added publication archive. The native Boolean flag says that some certification occurred. The archive says which claims and editions were certified.
 
-The last count looks through a different camera: it sees the entire native machine and forgets an added publication archive. The native Boolean flag says that some certification occurred. The archive says which claims and editions were certified.
+The construction starts with counters $(16,0)$, both editions zero, line 1, ledger zero, empty table and channel, and trap and flag down. These are initial values. Sixteen CHECKs reach line 17 and ledger 16; sixteen blocks of COMMIT/CERTIFY or COMMIT/COMMIT reach line 49 and ledger 48. CERTIFY preserves the channel, so either final block leaves the same commitment. The [review audit](scripts/audit_root_review.py) reproduces all 65,536 choices using the Python implementation and checks the finite holding graphs separately.
 
 ## Look before the value disappears
 
@@ -120,31 +142,40 @@ Suppose a good earlier value and a bad one give exactly the same remaining obser
 
 If the question is known while the value is live, inspect it then and keep the answer. For a succession of known checks, start an indicator at YES. Leave it there when a check passes and turn it to NO when one fails. Once down, keep it down. At the end it says YES exactly when every check passed. If the questions arrive only later, more information may have to survive. The book counts that information from the questions the observer is entitled to ask.
 
-The machine can be implemented with ordinary computation. What matters is which information remains available and which operations are permitted to change an accepting record. A comparison of implementations has to give both sides the same task and access to the same evidence.
-
 ## The wider argument
 
 The book also follows a growing record through its threshold readings: each threshold asks whether a particular level has been reached. It treats the recursion theorem and its input conventions, and compares accounting through cost-framework correspondences with the premises stated beside each comparison.
 
-The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument. The pointer thesis is a thesis, and it carries no proof. The book gives its proposed connection to the world separately from the counting theorems.
+The protocol examples, including RFC 9162, study specified pieces of their rules. An observer model determines which distinctions a particular window hides. Moving from those models to a claim about every deployed system needs another argument.
+
+The counting, the floor, the window results and the flat case are theorems under the hypotheses they state. Two things in the book are not. The general pointer criterion is a thesis. It carries no proof. It proposes certification as the event worth recording, because certified records get copied and relied on by parties who did not produce them. Separately, and unnumbered, the book argues that the record and its price are part of computation itself and not something added afterwards, and states one thesis about physical processes: that every physical process which computes with final answers has an exact description as a machine run by one rule, with a next state for every state, on which the answer is a reading no run ever turns off. No proof settles that, because a physical process is not a mathematical object. The book gives both separately from the counting theorems, and presents neither as a theorem.
 
 ## Follow the argument
 
-Start with the boxes and the camera. Follow the holding count, put the price rule beside the arrows, and watch CHECK, COMMIT and CERTIFY earn the record. Then open the gauge wider: ask which checks ran, which editions were certified, and how many distinguishable histories must still fit above one picture.
+Start with the boxes and the camera. Follow the holding count, put the price rule beside the arrows, and ask what can remain settled while the visible state changes. Then open the gauge wider: ask which events remain recoverable and how many distinguishable histories must still fit above one picture. The earned-chain counter machine gives one worked example of those questions.
 
-Each construction gives you something to follow one move at a time. The book develops the objects first, names the pieces, and walks through why the result follows. The appendices carry the full host constructions and the conditions used by each argument.
+Each construction gives you something to follow one move at a time. The book develops the objects first, names the pieces, and walks through why the result follows. The universal-machine appendix identifies the companion source files containing the complete programs and simulation proofs.
 
 ## Where things live
 
-Most of the repository's volume is the example, because an example that runs needs a host, a universal program and a checker. That is not where the model is.
+Most of the repository's volume is the example, because an example that runs needs a host, a universal program and a checker. That is not where the model is. Here is the drawing, and where each part of it lives in the proofs.
 
-- **The model and what follows from it:** monograph Parts I and II, and the chapters on every model of computation. In the proofs: `coq/kernel/nfi/` (the universal floor, the finite-machine results, pricing) and the model-level files in `minimal/` (`StepLaw`, `KeptDistinction`, `HeatOrRoom`, `NeutralComplete`, `ThieleCompleteWindow`, the `Lift*` files).
-- **The example machine and its hosts:** monograph Part III and the appendices on the universal host and the CHSH check. In the proofs: `minimal/EarnedCore*.v` and the files built on it. In code: `thiele_small/`, a Python version of the example and nothing else.
+- **The thing, its directions and the price.** The definition over any order of records, its floor, and the flag as the two-point instance: `coq/kernel/foundation/AxCore.v` and `AxTwoPoint.v`. The one-bit floor, least prices, exact pricing and merge pricing: `coq/kernel/nfi/`, `coq/audit/LeastToll.v`.
+- **What stays.** Latches, the record over any base, growing records, and the earned chain that makes a raised record mean a check happened: `coq/kernel/foundation/StructuralRecordAxis.v`, `AxLatch.v`, `GrowingRecord.v`, `minimal/CertifiedHistory.v`.
+- **What a window forgets.** Observation contracts, the terminal lift, shadow pricing, and the window theorems: `coq/audit/`, `coq/kernel/foundation/AxWindow.v`, `minimal/ThieleCompleteWindow.v`, `minimal/SliceCore.v`.
+- **The room a kept distinction needs.** Merge or fresh states, retention bounds, fibre counts, and the stochastic and unitary forms: `minimal/StepLaw.v`, `HeatOrRoom.v`, `KeptDistinction.v`, `EditionCapacity.v`, `NoisyChairs.v`, `QuantumChairs.v`, `coq/kernel/foundation/AxMerge.v`.
+- **Computation as the flat case.** A flat part fitted with a record (the lift of every model), completeness over a two-counter flat part, composition, the universal machines U and U_P, the verified compiler, the recursion theorem and Rice: `minimal/LiftCore.v`, `NeutralComplete.v`, `ThieleComplete.v`, `coq/kernel/foundation/Universal*.v`, `Cmp*.v`, `Cz*.v`, `*Rice.v`.
+- **The example running.** The small machine's programs, host layouts, blocks and arithmetic: `minimal/EarnedCore.v`, `coq/kernel/foundation/UniversalLayout.v`, `UniversalBlocks.v`, `Sm*.v`, `minimal/Tc2*.v`. In code: `thiele_small/`, a Python version of the example and nothing else.
+- **The world.** Heat, entropy, the CHSH and Tsirelson mathematics, external systems, and the pointer thesis: `coq/kernel/thermodynamic/`, `coq/kernel/quantum/`, `coq/kernel/reductions/`, `coq/kernel/frontier/`.
+
+In the book: the drawing is Parts I and II, with the flat case stated beside the definition; the example running is Part III and the appendices.
 
 ## Publication and license
 
 The monograph that develops the model: Devon Thiele, *The Thiele Machine: No Free Insight* (2026).
 [Publication record](https://doi.org/10.5281/zenodo.17316437) · [Tagged releases](https://github.com/sethirus/The-Thiele-Machine/releases)
+
+The publication consists of the PDF together with the matching tagged repository snapshot. The snapshot supplies the companion Coq files for the 3,728- and 3,735-instruction universal programs; their full expansions are not printed in the PDF. Both belong in the same Zenodo version.
 
 The software is licensed under [Apache 2.0](LICENSE). The monograph and `THIELE_MACHINE.txt` are licensed under CC-BY-SA-4.0. The [patent pledge](PATENT_PLEDGE.md) states the non-assertion commitment; the [technical disclosure](TECHNICAL_DISCLOSURE.md) records the published concepts and earlier embodiments.
 

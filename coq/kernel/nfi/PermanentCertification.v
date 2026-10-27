@@ -6,10 +6,11 @@
 
     Permanence: no step ever switches the reading off.
 
-    Conclusion: the step that switches it on is not injective. Some other
-    state lands where the switching state lands, so the step forgets which
-    of the two it came from. Merging two computation paths is the event
-    Landauer's principle charges for.
+    Conclusion: the instruction that switches it on is not injective.
+    Two distinct sources share an image, which need not be the entrant's
+    image. An orbit may enter the holding set before its first collision.
+    Instruction pricing charges each use of this non-injective instruction;
+    an actual heat bound additionally needs a physical model and ensemble.
 
     Three consequences follow.
 
@@ -30,9 +31,9 @@
     bijection. An unpaid merging step certifies at cost zero. The
     counterexamples at the end of the file are those three.
 
-    Scope. The premise that merging steps cost at least one is Landauer's
-    principle stated on the logic: it is a named premise here, not a
-    theorem about heat. A machine with an unbounded ledger is not an
+    Scope. The premise that merging instructions cost at least one is a
+    chosen abstract price rule. Relating it to Landauer heat requires extra
+    physical and distributional premises; it is not itself a heat theorem. A machine with an unbounded ledger is not an
     instance: its state space is infinite. [FiniteCertMachine] gives a
     finite machine that is one. The theorem is about a permanent
     certificate on a finite machine. *)

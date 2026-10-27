@@ -1,46 +1,32 @@
 COMPANION CHECKING PROCEDURES
 The Thiele Machine — Devon Thiele
 
-These procedures concern the companion software. The book presents the mathematical
-claims, their conditions and their arguments on the page. Software checking does not
-establish that a definition captures the intended idea or that a model describes a
-device. A passing build is not a substitute for either question.
-
-The release record identifies the companion source tree and its receipt. To reproduce
-that release, use a checkout of v4.1.0. Run the commands from the repository root.
+The publication pairs the monograph PDF with the matching tagged repository
+snapshot. The complete universal programs and simulation proofs are in the
+companion Coq files identified by the universal-machine appendix. Run the
+commands below from the repository root.
 
 BEGIN RELEASE RECORD
 Companion sources:
   https://github.com/sethirus/The-Thiele-Machine
-  tag v4.1.0, the companion mathematical-source release
+  tag v4.1.1
 Companion source revision:
-  the commit the tag v4.1.0 names; print its hash with
-  git rev-list -n 1 v4.1.0
+  the commit named by v4.1.1; print its hash with
+  git rev-list -n 1 v4.1.1
 Dependency snapshot:
-  Coq 8.18.0 (Ubuntu 24.04 packages), MetaCoq 1.2.1
-  (scripts/install_metacoq.sh), vendored Coq Library of
-  Undecidability Proofs at upstream commit
-  8880e198bdc44cba1bd901f1fee701a95fc440ae (coq-8.18
-  branch; vendor/coq-undecidability/UPSTREAM.md)
+  Coq 8.18.0, MetaCoq 1.2.1, and the vendored Coq Library of
+  Undecidability Proofs identified in vendor/coq-undecidability/UPSTREAM.md
 Build command:
   python3 scripts/reproduce_coq.py
-Audit report for this revision:
+Audit report:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 0e11372ff331c66b7ac27f9150b3585d
-          48afe3b408f1742765775fc4d5ad3d2c
-  corpus digest 68770e82867c708ada0f288d5720ff1f
-                3de101392bc101127fbd3c003da6fe61
-Commit the audit report was built from:
-  git log -1 --format=%H v4.1.0 -- \
-    artifacts/print_assumptions_all_proofs.json
-  prints the commit that wrote the report; its proof
-  sources are the ones the report was built from, and
-  python3.12 scripts/assumption_receipt_fingerprint.py
-  run at the tag prints the corpus digest above
-Manuscript originally published with that release:
-  monograph/monograph.tex at the release commit; a file
-  can't print its own checksum, so take it with
-  git rev-parse v4.1.0:monograph/monograph.tex
+  SHA-256 91554402a8d07fa30747d3826f01e641
+          cd73155c33ffc588b676566e850c2cdd
+  corpus digest 58511c48c7135dffaa310fa517d35a1f
+                30a931ca4bbd3c1b6095933c0fd7973e
+Receipt scope:
+  7,168 named declarations in 450 files; the report and raw
+  output state the assumptions used by those declarations.
 END RELEASE RECORD
 
 Prerequisites
@@ -82,7 +68,8 @@ Full assumption inventory (regenerate, then compare):
 The custom auditor (its warnings are heuristics):
   python3 scripts/inquisitor.py \
     --report INQUISITOR_REPORT.md
-The two files outside the audit:
+Independent compilation of the two small introductory files
+(also included in the normal build and audit):
   bash scripts/verify_core.sh
 Extraction to OCaml:
   scripts/realize_extract.sh build/realize

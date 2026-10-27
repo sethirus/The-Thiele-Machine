@@ -31,6 +31,19 @@ DECLARATION_RE = re.compile(
 )
 
 WAIVED_FILES = [
+    # Generic audit interfaces and counterexamples state their own hypotheses.
+    # ConcreteClosureBridge separately instantiates refinement for the native
+    # host; these six files do not claim to implement its instruction semantics.
+    "coq/audit/AdaptiveBlindness.v",
+    # Generic behavioral minimization states its observation/reachability
+    # hypotheses explicitly; it claims no native semantics or physical price.
+    "coq/audit/CanonicalObservation.v",
+    "coq/audit/EnforcedRefinement.v",
+    "coq/audit/ObservationContract.v",
+    "coq/audit/PricingBoundary.v",
+    "coq/audit/RepresentationCapacity.v",
+    "coq/audit/TraceFactorization.v",
+    "coq/audit/ValuationBoundary.v",
     # Abstract transition, history and counting files state their own interfaces.
     # Their opening scope comments explain why no native-machine import applies.
     "coq/kernel/category/AlgebraicCoherence.v",

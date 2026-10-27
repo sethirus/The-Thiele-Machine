@@ -87,6 +87,26 @@ def test_foundation_import_that_uses_a_declared_name_is_accepted(tmp_path: Path)
     assert inquisitor.scan_phantom_imports(source) == []
 
 
+def test_sliced_interface_is_recognized_but_unused_import_is_rejected(tmp_path: Path) -> None:
+    inquisitor = _inquisitor_module()
+    source = REPO_ROOT / "coq/audit/IntrinsicBoundary.v"
+    assert inquisitor._scan_foundation_utilization(REPO_ROOT, [source]) == []
+    assert inquisitor.scan_phantom_imports(source) == []
+
+    folder = tmp_path / "coq"
+    folder.mkdir()
+    unused = folder / "UnusedSlice.v"
+    theorem = "Theorem identity_nat : forall n : nat, n = n.\nProof. reflexivity. Qed.\n"
+    unused.write_text("From Minimal Require Import SlicedEstablishment.\n" + theorem)
+    assert [f.rule_id for f in inquisitor.scan_phantom_imports(unused)] == [
+        "PHANTOM_KERNEL_IMPORT"
+    ]
+    unused.write_text(theorem)
+    assert [f.rule_id for f in inquisitor._scan_foundation_utilization(tmp_path, [unused])] == [
+        "FOUNDATION_UTILIZATION_GAP"
+    ]
+
+
 def test_kernel_file_importing_an_unknown_namespace_is_a_tier1_finding(tmp_path: Path) -> None:
     """Under coq/kernel/ only Coq, Kernel, Minimal, Undecidability and TestFixtures may be
     imported; any other namespace, in a From line or a qualified Require, is reported

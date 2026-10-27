@@ -48,6 +48,18 @@ def test_every_proof_file_is_a_vacuity_target() -> None:
     assert not missing, "proof files outside the vacuity manifest:\n" + "\n".join(missing)
 
 
+def test_every_minimal_file_is_in_normal_build() -> None:
+    listed = {
+        (COQ_PROJECT.parent / line.strip()).resolve()
+        for line in COQ_PROJECT.read_text().splitlines()
+        if line.strip().endswith(".v") and not line.strip().startswith("-")
+    }
+    missing = sorted(str(path.relative_to(REPO_ROOT))
+                     for path in (REPO_ROOT / "minimal").glob("*.v")
+                     if path.resolve() not in listed)
+    assert not missing, "standalone proofs omitted from normal build:\n" + "\n".join(missing)
+
+
 def test_vacuity_targets_exist_and_are_unique() -> None:
     data = json.loads(MANIFEST.read_text())
     paths = [entry["path"] for entry in data["targets"]]
@@ -63,6 +75,8 @@ def test_vacuity_logical_names_follow_the_project_layout() -> None:
         expected = ("Minimal." if path.startswith("minimal/") else "Kernel.") + stem
         if path.startswith("coq/test_fixtures/"):
             expected = "TestFixtures." + stem
+        if path.startswith("coq/audit/"):
+            expected = "Audit." + stem
         if logical != expected:
             wrong.append(f"{path}: {logical} (expected {expected})")
     assert not wrong, "logical names off the project layout:\n" + "\n".join(wrong)
