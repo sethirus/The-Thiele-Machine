@@ -6,8 +6,8 @@
     ([neutral_universal]).
 
     The plain definition:
-      Fix a class C of Thiele machines, each with its runs from given start
-      states. A universal Thiele machine for C is a Thiele machine H, the
+      Fix a class C of systems that obey the toll, each with its runs from
+      given start states. A universal Thiele machine for C is a system H, the
       host, with one program P fixed for the whole class and a way to load
       any guest M in C with any start s0 into a start state of H, such that
       the run of P from that loaded state
@@ -21,12 +21,14 @@
 
     Rendering choices (each one as GENEROUS TO THE DEFINITION'S STRENGTH as
     the words allow, so that a cheat meeting it meets every reading):
-      - "Thiele machine": the book's Definition def:certsys (states, moves,
-        step, cost, reading, toll).  A "program" is not part of def:certsys;
+      - "Thiele machine": rendered as the toll-only part of the book's
+        Definition def:certsys (states, moves, step, cost, reading, toll);
+        permanence and distinction are not asked of guests or hosts here,
+        which only widens the class.  A "program" is not part of def:certsys;
         a host comes with a type of programs and a fetch [hnext] (None =
         stopped), as the book's machines do.
       - "M's states along its run": the driven run of the guest.  A guest
-        class is a family of driven Thiele machines with starts.
+        class is a family of driven systems that obey the toll, with starts.
       - "decode to M's states": a decode map per instance into an
         observation type [Obs i] of the guest's states, given with the
         class (obs = identity is the strongest reading).
@@ -134,7 +136,7 @@ Arguments gledger {C} i m.
 Arguments glat {C} i m.
 
 (* ================================================================= *)
-(* Hosts: Thiele machines with stored programs.                       *)
+(* Hosts: systems that obey the toll, with stored programs.           *)
 (* ================================================================= *)
 
 Record host : Type := mk_host {

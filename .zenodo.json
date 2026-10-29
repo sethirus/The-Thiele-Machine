@@ -1,7 +1,7 @@
 {
   "title": "The Thiele Machine: No Free Insight",
   "upload_type": "software",
-  "version": "4.1.1",
+  "version": "5.0.0",
   "license": "Apache-2.0",
   "access_right": "open",
   "creators": [
@@ -18,6 +18,6 @@
     "formal verification",
     "Coq"
   ],
-  "description": "The Thiele Machine is an abstract model of computation with states, moves, a step, a price per move, and a reading into an ordered set. Its toll requires a positive charge when a move carries the reading somewhere not at or below its previous value. The monograph develops the consequences and examples of that definition, the counting that motivates it, and the argument for choosing it. Permanence and noninterference are additional restrictions where stated. A ledger sums instruction prices; it need not count only raises.\n\nThe book studies retained distinctions, merges or fresh states under a total deterministic rule, observation windows, and the room needed to preserve recoverable histories. A two-counter example realizes an earned CHECK, COMMIT and CERTIFY chain. Its universal programs and simulation proofs are supplied in companion Coq files. Physical interpretations require their stated physical premises; the pointer and physical theses are not presented as theorems.\n\nVersion 4.1.1 pairs the reviewed 545-page PDF with the matching tagged repository snapshot. The complete 3,728- and 3,735-instruction universal programs reside in that snapshot, not as printed block expansions in the PDF. The publication package consists of both artifacts. The repository includes the monograph source and text, companion proofs, the small-machine implementation, and reproduction instructions. The universal-program companion modules Kernel.UniversalRun and Kernel.PresentedUniversal and their dependencies passed coqchk; this is not a claim that every repository module was rebuilt for this release.\n\nThe software is licensed Apache-2.0. The monograph and documentation are licensed CC-BY-SA-4.0.",
-  "publication_date": "2026-10-27"
+  "description": "The Thiele Machine is an abstract model of computation. A priced record system has states, moves, a step, a price per move, a reading into an ordered set, and a toll: a move that carries the reading somewhere not at or below where it was costs at least one. A Thiele machine is one whose reading some run raises from a designated start and no move lowers; a flat reading obeys the toll and is a shadow, not a member. The monograph develops the consequences and examples of that definition, the counting that motivates it, and the argument for choosing it. Noninterference is an additional restriction where stated. A ledger sums instruction prices; it need not count only raises.\n\nThe book studies retained distinctions, merges or fresh states under a total deterministic rule, observation windows, and the room needed to preserve recoverable histories. Physical interpretations require their stated physical premises; the pointer and physical theses are not presented as theorems.\n\nVersion 5.0.0 pairs the reviewed 454-page monograph with the matching tagged repository snapshot, whose Coq files carry the proofs the book cites. The publication package consists of both artifacts. The repository includes the monograph source and text, the formal proofs, and reproduction instructions.\n\nThe software is licensed Apache-2.0. The monograph and documentation are licensed CC-BY-SA-4.0.",
+  "publication_date": "2026-10-29"
 }

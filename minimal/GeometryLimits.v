@@ -1,5 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. the geometry limits are stated over bare
+   state functions, not over the record system itself. *)
 From Coq Require Import List Bool Arith Lia.
-From Minimal Require Import EarnedCore.
 Import ListNotations.
 
 (* Idempotence on the full state, not merely on the record, gives the exact
@@ -32,18 +33,3 @@ Theorem including_protected_record_in_view_need_not_be_noninjective :
  (forall s t:bool*bool,(fun x=>x)s=(fun x=>x)t -> s=t) /\
  ordinary_establish(true,false)<>(true,false).
 Proof. split; [auto|discriminate]. Qed.
-
-(* Native fixed table capacity defeats unrestricted fresh-check completeness;
-   the history wrapper does not change this execution. *)
-Theorem native_seventeenth_check_traps :
- let s:=EarnedCore.run (repeat (CHECK PZero CA) 17)(start 0 0) in
- err(core_of s)=true /\ length(facts(core_of s))=16.
-Proof. split; reflexivity. Qed.
-
-Definition seventeen_edition_attempts :=
- flat_map(fun _=>[CHECK(PGe 0)CA;COMMIT(PGe 0)CA;CERTIFY;INC CA])(seq 0 17).
-Theorem native_fresh_edition_completeness_limit :
- let s:=EarnedCore.run seventeen_edition_attempts(start 0 0) in
- err(core_of s)=true /\ length(facts(core_of s))=16 /\
- va(core_of s)=16 /\ chan(core_of s)=Some(mkfact(PGe 0)CA 15).
-Proof. vm_compute; repeat split. Qed.

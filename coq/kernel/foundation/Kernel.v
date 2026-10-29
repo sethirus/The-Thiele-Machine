@@ -13,7 +13,7 @@
     ClaimTapeIsZero(δ) is the key: it "magically" zeros the tape but costs δ μ-bits.
     This is a toy instruction for talking about search-space narrowing with an
     explicit cost parameter. The stronger No Free Insight theorems live in
-    UniversalCertificationCost.v and the small machine (minimal/EarnedCore.v).
+    UniversalCertificationCost.v and AxThiele.v.
 
     The physical and complexity interpretations are not proved here. This file
     only gives the data types and basic tape helpers needed by examples.
@@ -22,8 +22,8 @@
     tape access, tape extension, movement, or the classification of the toy
     instruction as non-Turing.
 
-    This file is a MINIMAL EXAMPLE. The small machine that earns its
-    commitments is minimal/EarnedCore.v.
+    This file is a MINIMAL EXAMPLE. The member predicate and the smallest
+    machine are in AxThiele.v.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.

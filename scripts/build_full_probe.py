@@ -176,7 +176,7 @@ def main():
     for vfile in ROOT.rglob("*.v"):
         rel = vfile.relative_to(ROOT)
         s = str(rel)
-        if s.startswith("vendor/") or s.startswith("build/") or s.startswith("coq/archive/"):
+        if s.startswith(("vendor/", "build/", "archive/", "coq/archive/")):
             continue
         if s in NON_PROOF_BEARING_FILES:
             continue

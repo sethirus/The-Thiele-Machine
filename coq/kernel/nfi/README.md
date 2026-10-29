@@ -2,8 +2,8 @@
 
 No Free Insight and its pricing. The certification-system record, the
 floor for any substrate, why the toll holds on finite machines, how large the
-bill is, and what a window can and cannot price. The No Free Insight rows of
-the top-level README's [Formal Spine](../../../README.md#formal-spine) point
+bill is, and what a window can and cannot price. The No Free Insight entries of
+the top-level README's [Where things live](../../../README.md#where-things-live) list point
 into this directory.
 
 ## The floor

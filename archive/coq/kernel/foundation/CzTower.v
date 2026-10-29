@@ -31,7 +31,7 @@
                                  machine all of whose moves cost at most 1,
                                  whenever its latch is up.
 
-    So a machine that is itself a Thiele machine, run on U_P, pays exactly 2
+    So a presented machine whose moves cost at most 1, run on U_P, pays exactly 2
     more than it did on its own, and no run on U_P pays less than 3 for a
     raised flag ([PresentedUniversal.presented_universal_no_exact_below_three]).
     The tower of k such levels pays 2 per level above the first

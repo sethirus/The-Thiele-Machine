@@ -23,19 +23,15 @@
           projection onto classical state                             [classical_conservativity,
                                                                        classical_embedding]
 
-    Dependencies: Coq standard library only.  No vendor libraries, no
-    axioms, no Admitted.  Each theorem ends with Print Assumptions; every
+    Dependencies: Coq standard library only.  No axioms, no Admitted.  Each theorem ends with Print Assumptions; every
     one reports "Closed under the global context".
 
     This is a distillation.  The same results, in fuller form:
-      1, 2, 4 -> minimal/EarnedCore.v  (mu_conservation, a2, only_certify_certifies,
-                 on the small machine whose commitments are earned)
-      3       -> minimal/EarnedCore.v  (nfi_floor), and
-                 coq/kernel/nfi/UniversalCertificationCost.v  (universal_nfi_any_substrate,
-                 the same floor over any substrate)
-      5       -> minimal/EarnedCore.v  (receipt_separation)
-      6       -> minimal/EarnedCore.v  (simulation_run, halting_correspondence), and
-                 coq/kernel/foundation/ProperSubsumption.v
+      3       -> coq/kernel/nfi/UniversalCertificationCost.v  (universal_nfi_any_substrate,
+                 the same floor over any substrate), and
+                 coq/kernel/foundation/AxThiele.v  (thiele_floor, over any order)
+      5       -> coq/kernel/foundation/AxThiele.v  (shadow_hides_history)
+      6       -> coq/kernel/foundation/ProperSubsumption.v
 
     Build:  coqc minimal/MuCore.v        (seconds, from a clean checkout)
     Check:  every Print Assumptions line below must report

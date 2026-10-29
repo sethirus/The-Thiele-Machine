@@ -1,4 +1,4 @@
-(** UMachPresented.v: U_P's class of guests, computably presented Thiele
+(** UMachPresented.v: U_P's class of guests, computably presented
     machines with a start, as a guest class of UMachDef.v, with two generic
     lemmas about guest runs and the observation of a presented guest. *)
 

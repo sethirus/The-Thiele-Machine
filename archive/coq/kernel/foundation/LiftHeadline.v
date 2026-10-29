@@ -1,11 +1,11 @@
 (** LiftHeadline: model independence, in both directions.
 
-    DOWN (existing, PresentedUniversal.v).  Every computably presented Thiele
+    DOWN (existing, PresentedUniversal.v).  Every computably presented
     machine, on any base, runs on the one fixed universal machine U_P on the
     Minsky host: the host halts exactly when the driver halts, at every
     matching point the host's register decodes to the machine's state, the
     host flag is the machine's latch, and the host ledger is the machine's
-    ledger plus a surcharge of at most 2; the host flag rises exactly when
+    ledger plus a surcharge of at most 2 when its reading starts at no; the host flag rises exactly when
     the machine's reading is ever yes.  "Computably presented" means that four
     mu-recursive algorithms compute the machine's driver, step, cost and
     reading on the number codes of its states and moves.

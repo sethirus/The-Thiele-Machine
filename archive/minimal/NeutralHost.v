@@ -1,5 +1,5 @@
 (** NeutralHost.v: U_P as a host for neutral-complete guests.
-    A neutral-complete machine is a Thiele machine (nc_is_weak), so with a
+    A neutral-complete machine obeys the toll (nc_is_weak), so with a
     driver, codes and a mu-recursive presentation it is a computably
     presented machine and PresentedUniversal.v applies to it unchanged.
     Here: its raising moves cost exactly 1, so once its record is up the

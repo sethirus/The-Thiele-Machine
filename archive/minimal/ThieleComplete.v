@@ -1,14 +1,14 @@
 (** ThieleComplete.v: what it takes for a machine to be Thiele-complete.
 
-    The weak notion. A Thiele machine is a certification system: states,
-    moves, a step, a cost per move, a yes/no reading (the record), and the
-    toll: a step that turns the reading from no to yes costs at least 1.
-    Read that way, "Thiele-complete" meant a Thiele machine whose base is
-    Turing-universal. That notion is nearly empty: a two-counter machine
-    that charges 1 for every move is a Thiele machine for ANY reading,
+    The weak notion. A certification system is states, moves, a step, a
+    cost per move, a yes/no reading (the record), and the toll: a step that
+    turns the reading from no to yes costs at least 1 [obeys_toll].
+    Weakly Thiele-complete is a system that obeys the toll and has a
+    Turing-universal base. That notion is nearly empty: a two-counter
+    machine that charges 1 for every move obeys the toll for ANY reading,
     because every move costs at least 1 whether or not it certifies anything
     [clock_weakly_thiele_complete, latch_clock_weakly_thiele_complete].
-    A machine that never raises its reading is one too, vacuously
+    A machine that never raises its reading obeys it too, vacuously
     [silent_weakly_thiele_complete].
 
     The strong notion, thiele_complete, ties the record to certification.
@@ -69,7 +69,7 @@
          two universal hosts (UniversalRun.v, UniversalPRun.v).
 
       1. Consequences of the definition, for every machine. A
-         Thiele-complete machine is a Thiele machine with a universal base
+         Thiele-complete machine obeys the toll and has a universal base
          [thiele_complete_is_weak]; its base runs every two-counter program
          step for step, with halting matched [base_runs_every_program,
          base_halting_correspondence]; the ledger counts the record moves
@@ -187,11 +187,13 @@ Proof. induction l1; intros; simpl; auto. Qed.
 Ltac list_eq := repeat first [rewrite <- app_assoc | progress simpl]; reflexivity.
 
 (* The toll: a step that turns the record from no to yes costs at least 1. *)
-Definition thiele_machine (M : machine) : Prop :=
+Definition obeys_toll (M : machine) : Prop :=
   forall s m, m_record M s = false -> m_record M (m_step M s m) = true ->
     m_cost M m >= 1.
 
-(* The certification-system record of the book, field for field. *)
+(* The two-point record with the toll alone: the book's def:certsys without
+   its two further conditions, a reading that never falls and a run that
+   raises it. *)
 Record CertificationSystem := mk_cert_system {
   cs_state : Type;
   cs_instr : Type;
@@ -202,7 +204,7 @@ Record CertificationSystem := mk_cert_system {
     cs_cost i >= 1
 }.
 
-Definition as_cert_system (M : machine) (H : thiele_machine M) : CertificationSystem :=
+Definition as_cert_system (M : machine) (H : obeys_toll M) : CertificationSystem :=
   mk_cert_system (m_state M) (m_move M) (m_step M) (m_cost M) (m_record M) H.
 
 (* A universal base: each two-counter instruction compiles to one move that
@@ -228,9 +230,9 @@ Arguments ub_load_window {M} u a b.
 Arguments ub_load_live {M} u a b.
 Arguments ub_sim {M} u s i _.
 
-(* The weak notion: a Thiele machine whose base is universal. *)
+(* The weak notion: the toll and a universal base. *)
 Definition weakly_thiele_complete (M : machine) : Prop :=
-  thiele_machine M /\ inhabited (universal_base M).
+  obeys_toll M /\ inhabited (universal_base M).
 
 (* Running a two-counter program on the base: look up the instruction at
    the window's program counter and take its compiled move. The lookup

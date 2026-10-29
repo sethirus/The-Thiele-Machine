@@ -65,7 +65,7 @@ Lemma priced_run_eq : forall tr s,
 Proof. induction tr; intros; simpl; auto. Qed.
 
 (* The toll holds with no assumption on the property language. *)
-Theorem priced_toll : T.thiele_machine priced_machine.
+Theorem priced_toll : T.obeys_toll priced_machine.
 Proof. intros s m H0 H1. exact (P.pr_a2 prop_eqb eval s m H0 H1). Qed.
 
 Definition priced_cert_system : T.CertificationSystem :=

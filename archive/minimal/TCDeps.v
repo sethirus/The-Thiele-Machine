@@ -39,7 +39,7 @@ Proof.
 Qed.
 
 (* tc-consequences (1), toll half: a3 + c1. *)
-Theorem dep_toll : a3 -> c1 -> thiele_machine M.
+Theorem dep_toll : a3 -> c1 -> obeys_toll M.
 Proof.
   intros H3 Hc s m H0 H1. rewrite Hc. unfold record_move.
   destruct (ti_kind I m) eqn:Hk; try lia. rewrite (H3 s m Hk) in H1. congruence.

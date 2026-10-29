@@ -1,4 +1,4 @@
-(** NecSPresented.v: "One host runs every computably presented Thiele
+(** NecSPresented.v: "One host runs every computably presented
     machine" and "Exact, within two, and no better" pushed to the limit.
 
     - "Computably presented" is exactly Church's thesis for one- and

@@ -53,8 +53,7 @@
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file
    counts the states of an abstract move on any type and imports only the
    standard library. It is the count the monograph's proposition Merge, or a fresh state
-   every step, rests on. The finite-machine toll it sits under is PermanentCertification.v,
-   and the small machine's record-layer toll is in ThieleComplete.v. *)
+   every step, rests on. The finite-machine toll it sits under is PermanentCertification.v. *)
 
 From Coq Require Import List Arith Lia Bool.
 Import ListNotations.

@@ -105,15 +105,14 @@ vacuity-audit: ## Kernel-conversion vacuity gate over the manifest in scripts/va
 		--output artifacts/vacuity_audit.json
 
 # The files the rest of the proof tree stands on: the certification system
-# and its floor, the record-carrying machine, the record axis, and the small
-# machine with its links into the abstract results.
+# and its floor, the member predicate, the record-carrying machine and the
+# record axis.
 SENSITIVE_FILES := coq/kernel/nfi/UniversalCertificationCost.v \
+	coq/kernel/foundation/AxCore.v coq/kernel/foundation/AxThiele.v \
 	coq/kernel/foundation/StructuralCore.v \
 	coq/kernel/foundation/StructuralRecordAxis.v \
 	coq/kernel/nfi/PermanentCertification.v \
-	coq/kernel/nfi/PermanentRecordPricing.v \
-	minimal/EarnedCore.v minimal/ThieleComplete.v \
-	coq/kernel/foundation/EarnedCoreLinks.v coq/kernel/foundation/EarnedGenericLinks.v
+	coq/kernel/nfi/PermanentRecordPricing.v
 
 # Red-flag diff gate: warns when proof-sensitive files are modified.
 check-sensitive-files:
@@ -192,10 +191,9 @@ purge: deep-clean
 	@make -C coq clean
 	@echo "✓ Purge complete"
 
-# Purge project compiler outputs before a clean rebuild. Vendor outputs are
-# ignored too, but kept here so their expensive local cache remains reusable.
+# Purge project compiler outputs before a clean rebuild.
 coq-clean:
-	@echo "[coq-clean] purging coq/ and minimal/ *.{vo,vos,vok,glob,aux} (vendor/ untouched)"
+	@echo "[coq-clean] purging coq/ and minimal/ *.{vo,vos,vok,glob,aux}"
 	@find coq minimal -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
 	@echo "[coq-clean] done"
 
@@ -203,7 +201,7 @@ verify: install-hooks ## Don't take my word: compile the axiom-free Coq core and
 	bash scripts/verify_core.sh
 
 verify-research: install-hooks ## Check observation policies and the window theorem
-	$(MAKE) -C coq kernel/frontier/ObservationPolicy.vo kernel/nfi/ShadowPricing.vo ../minimal/ThieleCompleteWindow.vo
+	$(MAKE) -C coq kernel/frontier/ObservationPolicy.vo kernel/nfi/ShadowPricing.vo
 
 verify-holding-slice: ## Production namespace, assumption probes, and coqchk for Chapters 1-2
 	python3 scripts/verify_holding_slice.py

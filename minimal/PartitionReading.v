@@ -1,3 +1,5 @@
+(* SCOPE NOTE: standalone proof scope. the partition reading carries its own small
+   machine record and does not import the record system. *)
 (** PartitionReading.v: a reading that says a grouping has been checked and
     committed, and what it entitles.
 
@@ -39,13 +41,28 @@
                                the bucket machine obeys the toll, and a raised
                                reading from a clean start has cost at least 3.
 
-    Dependencies: ThieleComplete.v (the machine record and the toll) and
-    NecTPartition.v. No axioms, no Admitted. *)
+    Dependencies: NecTPartition.v. The machine record, its runs and the
+    toll are stated below. No axioms, no Admitted. *)
 
 From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
-Require Minimal.ThieleComplete.
-Module T := Minimal.ThieleComplete.
+(* A two-place machine: states, moves, a step, a cost per move and a yes/no
+   reading, with its runs and the toll on the move that turns the reading
+   from no to yes. *)
+Module T.
+Record machine : Type := mk_machine {
+  m_state : Type;
+  m_move : Type;
+  m_step : m_state -> m_move -> m_state;
+  m_cost : m_move -> nat;
+  m_record : m_state -> bool
+}.
+Fixpoint run (M : machine) (tr : list (m_move M)) (s : m_state M) : m_state M :=
+  match tr with [] => s | m :: rest => run M rest (m_step M s m) end.
+Definition obeys_toll (M : machine) : Prop :=
+  forall s m, m_record M s = false -> m_record M (m_step M s m) = true ->
+    m_cost M m >= 1.
+End T.
 Require Import Minimal.NecTPartition.
 
 Section Pile.
@@ -295,7 +312,7 @@ Proof.
 Qed.
 
 (* The toll: a step that raises the record costs at least 1. *)
-Theorem pr_toll : T.thiele_machine pr_machine.
+Theorem pr_toll : T.obeys_toll pr_machine.
 Proof.
   intros s m H0 H1. simpl in *. unfold p_step in H1.
   destruct (p_err s); [unfold p_flag in *; simpl in H1; congruence |].

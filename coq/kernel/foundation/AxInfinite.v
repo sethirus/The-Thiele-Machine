@@ -58,7 +58,6 @@
 From Coq Require Import List Bool Arith.PeanoNat Lia Reals Lra.
 Import ListNotations.
 From Kernel Require Import AxCore AxMerge AxShadow AxProb.
-Require Minimal.EntitlementSmall.
 
 Close Scope R_scope.
 
@@ -101,7 +100,7 @@ Theorem ax_spots_priced :
 Proof.
   intros Hb i D Hnd. unfold ax_image_size.
   set (imgs := nodup eq_dec (map (fun t => ax_step A P X t i) D)).
-  apply (Minimal.EntitlementSmall.ent_fibres_count (ax_eqb A P X eq_dec)
+  apply (ax_fibres_count (ax_eqb A P X eq_dec)
            (ax_eqb_spec A P X eq_dec)
            (fun x => ax_step A P X x i) (2 ^ ax_cost A P X i) imgs D).
   - intros x Hx. unfold imgs. apply nodup_In. apply (in_map (fun t => ax_step A P X t i)). exact Hx.

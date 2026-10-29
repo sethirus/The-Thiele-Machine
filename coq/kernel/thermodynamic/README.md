@@ -16,7 +16,7 @@ detailed balance whose work comes to `kT ln 2`.
 The protocol is a physical model with its own parameters. No state map
 between it and any machine is claimed, and no machine ledger fixes its units.
 Calibrating a ledger in joules needs thermal and device premises; the
-top-level README's [Scope](../../../README.md#scope) table states the same.
+top-level README's [assumptions](../../../README.md#what-i-found-what-i-assumed-and-what-i-chose) state the same.
 
 ## Imports
 

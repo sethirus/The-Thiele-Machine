@@ -1,8 +1,8 @@
 # kernel/foundation
 
-Substrates and record-carrying machines, the record axis over any base, and
-the links that make the small machine and the universal machine U instances of
-these records.
+The definition over any order and the member predicate, substrates and
+record-carrying machines, the record axis over any base, and the
+counterexamples that show which premises do work.
 
 ## Substrates, recursion and undecidability
 
@@ -11,7 +11,6 @@ these records.
 | `Substrate.v` | The abstract computational substrate as a Coq typeclass: programs, runs, behavioral equivalence, representability, and a recursion theorem as a premise |
 | `NatSubstrateInstance.v` | A substrate over `nat`-coded programs whose recursion theorem holds by construction (`nat_structural_shortcut_undecidable`, `nat_self_undecidable`) |
 | `LRecursion.v` | The weak call-by-value lambda calculus L built from its reduction rules: Kleene's second recursion theorem (`second_recursion`), Rice's theorem (`L_rice`) and undecidable halting (`L_halting_undecidable`) |
-| `MM2ComplementUndec.v` | The complement of two-counter halting is undecidable, composed from the vendored library's reductions (`MM2_HALTING_compl_undec`) |
 | `Kernel.v`, `KernelTM.v` | A toy Turing-machine-shaped machine with a cost field, and its bounded executor (`tm_is_turing_complete`) |
 | `ProperSubsumption.v` | Every Turing program of the toy machine runs as a Thiele program, and the toy Thiele step strictly extends it (`thiele_simulates_turing`, `thiele_strictly_extends_turing`) |
 
@@ -29,52 +28,17 @@ these records.
 | `CrossBaseGranularityCore.v`, `CrossBaseGranularityTransCore.v`, `CrossBaseGranularity.v` | Weak base equivalence permitting stuttering, its equivalence laws, and its outcomes |
 | `CrossBaseGranularityL.v`, `CrossBaseGranularityRAM.v` | L and the Cook and Reckhow RAM as bases; the record axis is a latch over each |
 
-## The small machine and U, as instances
-
-| File | Purpose |
-|---|---|
-| `EarnedCoreLinks.v` | The small machine of `minimal/EarnedCore.v` as a Thiele machine and a record-carrying machine: undecidable halting (`earned_core_halting_undecidable`), the floor, adequacy, honesty and the latch |
-| `EarnedGenericLinks.v` | The generic and sorted-list machines and every certified Thiele-complete machine as Thiele machinestems (`thiele_complete_floor`, `complete_cs_window_blind`) |
-| `UniversalThieleLinks.v` | The host of `minimal/UniversalThiele.v` and its guests as Thiele machines (`host_nfi`) |
-| `UniversalBridge.v` | A run of an alternate Minsky machine program is a run of the host machine of `minimal/EarnedMulti.v` |
-| `UniversalBlocks.v` | The building blocks of the universal interpreter, as host programs with host-level specifications |
-| `UniversalLayout.v` | The fixed host program U, as one concrete list of host instructions |
-| `UniversalPhases.v` | What U does for one guest instruction |
-| `UniversalSim.v` | U simulates every guest program of the small machine, one guest step at a time |
-| `UniversalRun.v` | Whole runs of U: simulation, halting, output, the earned flag, the exact ledger, and the certified Thiele completeness of the machine U runs on (`universal_thiele_complete`) |
-| `UniversalInterpreterLinks.v` | The universal interpreter host as a Thiele machine; its halting problem is undecidable (`interp_halting_undecidable`) |
-| `CompilerCodes.v`, `CompilerChecker.v`, `CompilerInstrument.v`, `CompilerLifts.v`, `CompilerIcomp.v`, `CompilerRaBridge.v` | The compiler from mu-recursive algorithms to guest programs of the priced small machine: numbering of states and routines, the universal checker `cg_ueval`, instrumentation, lifts, and the bridge from recursive algorithms |
-| `Presentation.v`, `CompilerGuest.v`, `CompilerGuestRun.v` | A presentation of a machine by four mu-recursive algorithms (`cg_presentation`), the guest program `cg_guest` compiled from it, and the runs of that guest |
-| `UniversalPCodes.v`, `UniversalPBridge.v`, `UniversalPBlocks.v`, `UniversalPLayout.v`, `UniversalPPhases.v`, `UniversalPSim.v` | The priced counterpart of the universal interpreter: the fixed host program U_P on the machine of `minimal/EarnedMultiPriced.v`, built and verified block by block |
-| `UniversalPRun.v` | Whole runs of U_P: simulation, halting, output, the earned flag, the exact ledger, and the certified Thiele completeness of the priced host (`pu_universal_thiele_complete`) |
-| `PresentedUniversal.v` | One fixed machine U_P runs every computably presented Thiele machine, with the exact ledger up to a surcharge of at most 2 (`presented_universal`) |
-| `PresentedDemo.v` | A computably presented demonstration machine run on U_P (`pu_demo_exact`) |
-| `PricedHostLinks.v` | The priced interpreter host as a Thiele machine; its halting problem is undecidable (`priced_interp_halting_undecidable`) |
-| `RealizeNames.v`, `RealizePrograms.v`, `Realize.v`, `RealizePriced.v` | The machines of `minimal/` and the host programs U and U_P under extractable names, each proved equal to the original it stands for (the programs as literal lists, the pairing and instruction codes as copies, the prime stream as a computable search); these are the only definitions extracted to OCaml (`ocaml/RealizeExtract.v`) |
-| `RealizeCompact.v` | Replacing the register storage of the host by a table at any step changes no register, version, fact, channel, latch, ledger or flag (`rlz_sched_sound`, `rlz_host_sched_sound`), so the extracted runs of U and U_P can be hundreds of millions of steps long |
-| `CmpLang.v`, `CmpInline.v`, `CmpFlat.v`, `CmpBlocks.v`, `CmpExpr.v`, `CmpMM.v`, `CmpCompile.v`, `CmpHost.v`, `CmpGuest.v`, `CmpPipeline.v` | A verified compiler: a source language with truncated subtraction, conditionals, loops and non-recursive procedures with several results, compiled by inlining calls, to a flat form, to counter machine blocks (the vendored generic compiler, sound and complete), to a host program of the multi-register machine and to a two-counter guest, with `cmp_pipeline` stating that the source computes y exactly when each compiled form halts with y, including the fixed universal program U_P |
-| `CmpRun.v`, `CmpFinal.v` | A fast runner of the compiled host program (binary tries for the program and the registers) proved against the host step relation, and `cmp_exec_iff`, `cmp_final`: the runner halts with y exactly when the source computes y; the runner, the source interpreter and the compiler are extracted to OCaml by `ocaml/CmpExtract.v` |
-| `SmallChshLinks.v` | The small machine with the CHSH property as a Thiele machine: a certified run pays at least 3 and its committed tally obeys the Tsirelson bound (`small_chsh_certified_floor`) |
-
 ## Further files, by family
 
 | Files | Purpose |
 |---|---|
-| `Ax*.v` | The record over any order of values: the axis, its toll and floor, chains of thresholds, the shadow and its fibres, the price of collapsing a fibre, latches per point, certified Thiele-complete on the axis and what each clause does, Rice and the diagonal at every point, and one host carrying a whole chain of thresholds (`ax_floor_iff_a2`, `chain_bits_exact`, `ax_fibre_collapse_exit`) |
-| `Cz*.v` | Composition: side by side, in sequence and nested; the category of machines and record-preserving simulations; windows and the shadow theorem under the product; the real nested runs of the repository as links (`cmpz_prod_tc`, `cmpz_seq_tc`) |
-| `Lift*.v` | Lifting the earned layer to any universal base: on the axis, on a RAM, on numbers, and in the seven models of the vendored library (`lift_numeric_base`, `lift_num_models_agree`) |
-| `Nec*.v` | Each premise and each clause is needed: for every headline result, a built counterexample with one premise dropped |
-| `NeutralHostUP.v`, `NeutralUniv*.v` | The definition of a universal Thiele machine on a Thiele-complete host, stated without CHECK, COMMIT or CERTIFY; U, U_P and U_N meet it (`U_neutral_universal`, `UP_neutral_universal`, `UN_neutral_universal`); each clause is needed; the certified machine is it plus certification; the Coq predicate lets the decoding depend on the guest (`smuggle_universal`) |
-| `UMach*.v` | The plain definition of a universal Thiele machine over any guest class and host, the register-host and in-order clauses, the cheats each clause stops (the mirror, the built-in guest step, the trivial claim), and U and U_P against it |
-| `Sm*.v` | s-m-n, Kleene's recursion theorem and Rice's theorem for programs of the host machine, and Rice for the small machine from its clean start |
-| `Tc*.v` | The two-counter machine as a programming system: codes, interpreters, Goedel codes for any number of registers, Rice's theorem, Kleene's recursion theorem with packed inputs, and its failure with plain inputs (`tc_rice`, `tc_kleene`, `tc2_plain_recursion_false`) |
+| `AxThiele.v` | The member predicate over any order: the toll, permanence and a run that makes a distinction (`ax_thiele`); a flat reading obeys the toll and is not a member (`flat_obeys_toll`, `flat_is_not_thiele`); the latch as the smallest member (`latch_is_thiele`, `latch_merges`, `no_one_state_member`); the history lift that makes every machine with a Boolean equality test on its states and a run that ends on a state other than its start the shadow of a member (`history_lift_is_thiele`, `history_lift_shadow`) |
+| `Ax*.v` | The record over any order of values: the axis, its toll and floor, chains of thresholds, the shadow and its fibres, the price of collapsing a fibre, latches per point, and the entropy a priced move can remove (`ax_floor_iff_a2`, `chain_bits_exact`, `ax_fibre_collapse_exit`) |
+| `Nec*.v` | Each premise is needed: for every headline result, a built counterexample with one premise dropped |
 | `LatchConst.v` | The latch theorem admits a constant event, an honest record that tells nothing apart (`latch_constant_up`, `latch_distinguishes`) |
-| `ClockHost.v` | The clock program on the host machine of U |
 | `FiniteSums.v` | Sums over finite lists of indices and the Cauchy-Schwarz inequality |
-| `SmallChshTolerance.v` | The CHSH tolerance check as CHECK on the host's versioned registers |
 | `StructuralClockSync.v` | What the latch theorem uses, and what separates a clock from a latch |
 
 ## Imports
 
-The vendored undecidability library (`Undecidability`) and `minimal/`
-(`Minimal`); `nfi/` for the certification-system record.
+`minimal/` (`Minimal`), and `nfi/` for the certification-system record.

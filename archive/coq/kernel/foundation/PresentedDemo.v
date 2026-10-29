@@ -1,4 +1,4 @@
-(** PresentedDemo.v: an explicit computably presented Thiele machine, run
+(** PresentedDemo.v: an explicit computably presented machine, run
     on the one fixed universal host U_P.
 
     The machine demo: states are natural numbers, there is one move

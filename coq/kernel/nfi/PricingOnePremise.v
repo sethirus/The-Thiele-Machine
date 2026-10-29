@@ -35,10 +35,50 @@ Import ListNotations.
 From Kernel Require Import PermanentCertification.
 From Kernel Require Import PermanentRecordPricing.
 From Kernel Require Import PermanentCertificationEntropy.
-Require Minimal.FragmentSmall.
-Require Minimal.CompressionSmall2.
 
 Open Scope R_scope.
+
+Section Counting.
+Local Open Scope nat_scope.
+
+Lemma po_filter_split : forall {A} (p : A -> bool) (l : list A),
+  length (filter p l) + length (filter (fun x => negb (p x)) l) = length l.
+Proof. intros A p l. induction l as [| x l IH]; simpl; [reflexivity |]. destruct (p x); simpl; lia. Qed.
+
+Lemma po_filter_filter_le : forall {A} (p q : A -> bool) (l : list A),
+  length (filter p (filter q l)) <= length (filter p l).
+Proof.
+  intros A p q l. induction l as [| x l IH]; simpl; [lia |].
+  destruct (q x); simpl; destruct (p x) eqn:Hp; simpl; try rewrite Hp; simpl; lia.
+Qed.
+
+Lemma po_fibres_count : forall {A B : Type} (eqb : B -> B -> bool),
+  (forall u v, eqb u v = true <-> u = v) ->
+  forall (f : A -> B) (m : nat) (imgs : list B) (l : list A),
+    (forall x, In x l -> In (f x) imgs) ->
+    (forall x, In x l -> length (filter (fun y => eqb (f y) (f x)) l) <= m) ->
+    length l <= m * length imgs.
+Proof.
+  intros A B eqb Heq f m imgs. induction imgs as [| v imgs IH]; intros l Himg Hfib.
+  - destruct l as [| x l]; [simpl; lia |]. exfalso. apply (Himg x). left. reflexivity.
+  - pose proof (po_filter_split (fun y => eqb (f y) v) l) as Hsplit.
+    assert (HA : length (filter (fun y => eqb (f y) v) l) <= m).
+    { destruct (filter (fun y => eqb (f y) v) l) as [| x0 rest] eqn:E; [simpl; lia |].
+      assert (Hx0 : In x0 (filter (fun y => eqb (f y) v) l)) by (rewrite E; left; reflexivity).
+      apply filter_In in Hx0 as [Hx0l Hx0v]. apply Heq in Hx0v.
+      rewrite <- E. rewrite <- Hx0v. apply Hfib. exact Hx0l. }
+    assert (HB : length (filter (fun y => negb (eqb (f y) v)) l) <= m * length imgs).
+    { apply IH.
+      - intros x Hx. apply filter_In in Hx as [Hxl Hxv].
+        destruct (Himg x Hxl) as [Hfx | Hfx]; [| exact Hfx].
+        assert (Hb : eqb (f x) v = true) by (apply Heq; symmetry; exact Hfx).
+        rewrite Hb in Hxv. discriminate.
+      - intros x Hx. pose proof Hx as Hx'. apply filter_In in Hx' as [Hxl _].
+        eapply Nat.le_trans; [apply po_filter_filter_le | apply Hfib, Hxl]. }
+    simpl. rewrite Nat.mul_succ_r. lia.
+Qed.
+
+End Counting.
 
 Section OnePremise.
 
@@ -298,12 +338,43 @@ Qed.
 
 (** ** 2. Entropy pricing is the halving price *)
 
+Lemma eqb_s_spec : forall a b, eqb_s a b = true <-> a = b.
+Proof. intros a b. unfold eqb_s. destruct (eq_dec a b); split; intro H; auto; discriminate. Qed.
+
+Lemma filter_nodup_le : forall (p : S -> bool) (D : list S),
+  NoDup D -> (length (filter p D) <= length (filter p all))%nat.
+Proof.
+  intros p D Hnd.
+  apply NoDup_incl_length; [apply NoDup_filter, Hnd |].
+  intros x Hx. apply filter_In in Hx as [Hx1 Hx2]. apply filter_In. split; auto using all_in.
+Qed.
+
 Lemma compression_iff_fibre :
   compression_priced step cost eq_dec <->
   forall i y, (length (fibre i y) <= 2 ^ cost i)%nat.
 Proof.
-  exact (Minimal.CompressionSmall2.ent2_compression_priced_iff_fibres
-           S I step cost eq_dec all Hfin).
+  split.
+  - intros Hprice i y.
+    pose proof (Hprice i (fibre i y) (NoDup_filter _ all_nodup)) as H.
+    assert (Himg : (image_size step eq_dec i (fibre i y) <= 1)%nat).
+    { unfold image_size.
+      change 1%nat with (length [y]).
+      apply NoDup_incl_length; [apply NoDup_nodup |].
+      intros z Hz. apply nodup_In in Hz. apply in_map_iff in Hz as [x [<- Hx]].
+      unfold fibre in Hx. apply filter_In in Hx as [_ Hx].
+      unfold eqb_s in Hx. destruct (eq_dec (step x i) y) as [E | _]; [| discriminate].
+      rewrite E. left. reflexivity. }
+    assert (Hm : (2 ^ cost i * image_size step eq_dec i (fibre i y) <= 2 ^ cost i * 1)%nat)
+      by (apply Nat.mul_le_mono_l; exact Himg).
+    lia.
+  - intros Hfib i D HD. unfold image_size.
+    set (imgs := nodup eq_dec (map (fun t => step t i) D)).
+    apply (po_fibres_count eqb_s eqb_s_spec (fun x => step x i) (2 ^ cost i) imgs D).
+    + intros x Hx. unfold imgs. apply nodup_In. apply (in_map (fun t => step t i)). exact Hx.
+    + intros x Hx.
+      eapply Nat.le_trans.
+      * apply (filter_nodup_le (fun y => eqb_s (step y i) (step x i)) D HD).
+      * change (length (fibre i (step x i)) <= 2 ^ cost i)%nat. apply Hfib.
 Qed.
 
 Theorem entropy_priced_iff_compression_priced :

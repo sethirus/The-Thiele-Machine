@@ -10,8 +10,8 @@
          collision [nec_t_ver_exists_iff_collision_free]. Every richer
          transcript that escapes is a transcript without the collision, and
          every transcript without the collision escapes.
-      2. Is Thiele-completeness needed, or would "a Thiele machine with a
-         universal base" do? It would not: the clock, which is weakly
+      2. Is Thiele-completeness needed, or would "a machine that obeys the
+         toll and has a universal base" do? It would not: the clock, which is weakly
          Thiele-complete, has a verifier on bare transcripts, because its
          record is a function of its window
          [nec_t_clock_has_bare_verifier, nec_t_weak_does_not_suffice]. *)

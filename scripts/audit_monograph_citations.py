@@ -257,13 +257,6 @@ def find_top_level_decls(coq_roots):
                         if re.fullmatch(r"[a-z_][A-Za-z0-9_']*", name):
                             line = text.count("\n", 0, body_start + pm.start()) + 1
                             table[name].append(f"{rel}:{line}")
-    # The minimal machine cites the vendored undecidability result directly.
-    # Resolve it from the checked-in source, rather than exempting its name.
-    external = REPO / "vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.v"
-    if external.exists():
-        source = record_comment_re.sub("", external.read_text(encoding="utf-8"))
-        for match in re.finditer(r"^\s*(?:Theorem|Lemma|Corollary)\s+([A-Za-z_][\w']*)", source, re.M):
-            table[match.group(1)].append(str(external.relative_to(REPO)))
     return table
 
 
@@ -499,6 +492,7 @@ def audit(tex_path: Path, decls, files_by_name):
 def main():
     targets = [Path(p).resolve() for p in sys.argv[1:]] if len(sys.argv) > 1 else [
         REPO / "monograph" / "monograph.tex",
+        REPO / "monograph" / "set_aside.tex",
     ]
 
     print(f"Indexing Coq declarations under {[str(r) for r in COQ_ROOTS]}...")

@@ -16,24 +16,22 @@ CRITICAL_DIRS = (
 
 # The foundation chain: the abstract certification system and its universal
 # floor, the record-carrying machine, the abstract substrate, the Turing
-# kernel, and the small machine with the definition it meets.
+# kernel.
 ANCHOR_MODULES = {
+    "AxThiele",
     "UniversalCertificationCost",
     "StructuralCore",
     "Substrate",
     "KernelTM",
-    "EarnedCore",
-    "ThieleComplete",
 }
 
 # The anchors' own files and where they live.
 ANCHOR_FILES = {
+    "AxThiele": "coq/kernel/foundation/AxThiele.v",
     "UniversalCertificationCost": "coq/kernel/nfi/UniversalCertificationCost.v",
     "StructuralCore": "coq/kernel/foundation/StructuralCore.v",
     "Substrate": "coq/kernel/foundation/Substrate.v",
     "KernelTM": "coq/kernel/foundation/KernelTM.v",
-    "EarnedCore": "minimal/EarnedCore.v",
-    "ThieleComplete": "minimal/ThieleComplete.v",
 }
 
 # Files that hold only base data types the anchors are built from.
@@ -169,7 +167,7 @@ def test_critical_proof_files_connect_to_thiele_semantics() -> None:
 
     assert not disconnected, (
         "Proof files disconnected from the foundation chain "
-        "(UniversalCertificationCost/StructuralCore/Substrate/KernelTM/EarnedCore/"
-        "ThieleComplete) and carrying no SCOPE NOTE saying why:\n"
+        "(AxThiele/UniversalCertificationCost/StructuralCore/Substrate/KernelTM) "
+        "and carrying no SCOPE NOTE saying why:\n"
         + "\n".join(f"- {d}" for d in disconnected)
     )

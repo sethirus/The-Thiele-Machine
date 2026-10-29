@@ -8,9 +8,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'build/holding-slice-check'
-MODULES = ['EarnedCore', 'CompleteHost', 'SharpHost', 'SliceCore', 'Representation',
-           'SlicedEstablishment', 'PassiveGeometry', 'GeometryLimits', 'Erasure',
-           'NativeSliceBoundary']
+MODULES = ['CompleteHost', 'SharpHost', 'SliceCore', 'Representation', 'SlicedEstablishment', 'PassiveGeometry', 'GeometryLimits', 'Erasure']
 
 
 def statements(body):
@@ -30,7 +28,7 @@ def statements(body):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    result = {'status': 'running', 'scope': 'Chapter 1-2 modules and EarnedCore; not the whole corpus'}
+    result = {'status': 'running', 'scope': 'Chapter 1-2 modules; not the whole corpus'}
     result_path = OUT / 'proof-results.json'
     result_path.write_text(json.dumps(result, indent=2)+'\n')
     logs, commands, names, hashes = [], [], {}, {}

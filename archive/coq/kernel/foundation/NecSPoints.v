@@ -1,5 +1,5 @@
 (** NecSPoints.v: the matching points of "One host runs every computably
-    presented Thiele machine" need no "M has not stopped before move n".
+    presented machine" need no "M has not stopped before move n".
 
     presented_universal_points assumes that M is still running at every
     move before n. That hypothesis can be dropped: for EVERY n there is a

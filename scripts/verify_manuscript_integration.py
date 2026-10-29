@@ -8,10 +8,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'build/manuscript-check'
-MODULES = ['EarnedCore', 'CompleteHost', 'SharpHost', 'SliceCore', 'Representation',
-           'SlicedEstablishment', 'PassiveGeometry', 'GeometryLimits', 'Erasure',
-           'NativeSliceBoundary']
-MODULES += ['Multiplicity', 'StructuralMeter', 'Task', 'PeriodicIntersection', 'MultiExecution', 'SynchronizedCapacity', 'CommutationObstruction', 'TwoArms', 'CommutingGrid', 'AccountingBridge', 'MeterRepresentation', 'Monitor', 'Fibre', 'EditionCapacity', 'EditionHistory', 'CertifiedHistory', 'MaskWitness', 'ArchiveBound', 'HistoryCapacity', 'NativeFactAccounting', 'NativeErasure']
+MODULES = ['CompleteHost', 'SharpHost', 'SliceCore', 'Representation', 'SlicedEstablishment', 'PassiveGeometry', 'GeometryLimits', 'Erasure']
+MODULES += ['Multiplicity', 'StructuralMeter', 'Task', 'PeriodicIntersection', 'MultiExecution', 'SynchronizedCapacity', 'CommutationObstruction', 'TwoArms', 'CommutingGrid', 'AccountingBridge', 'MeterRepresentation', 'Monitor', 'Fibre', 'EditionCapacity', 'EditionHistory']
 
 
 def statements(body):
@@ -31,7 +29,7 @@ def statements(body):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    result = {'status': 'running', 'scope': 'Integrated manuscript modules and EarnedCore; not the whole corpus'}
+    result = {'status': 'running', 'scope': 'Integrated manuscript modules; not the whole corpus'}
     result_path = OUT / 'proof-results.json'
     result_path.write_text(json.dumps(result, indent=2)+'\n')
     logs, commands, names, hashes = [], [], {}, {}

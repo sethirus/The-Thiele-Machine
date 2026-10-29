@@ -1,5 +1,7 @@
+(* SCOPE NOTE: standalone proof scope. the sliced definition is built from the
+   slice core, not from the record system itself. *)
 From Coq Require Import List Bool Arith Lia.
-From Minimal Require Import SliceCore CompleteHost Representation EarnedCore.
+From Minimal Require Import SliceCore CompleteHost Representation.
 Import ListNotations.
 
 (* The user-selected Option 2. A Boolean permanent verdict is explicit;
@@ -191,41 +193,6 @@ Section InterfaceResults.
       eassumption.
   Qed.
 End InterfaceResults.
-
-(* Precisely identify the native bridge and its limit. *)
-Module Native.
-  Theorem core_independent_of_record_and_ledger : forall k m n r q i,
-    EarnedCore.core_of (EarnedCore.exec (EarnedCore.mkst k m r) i) =
-    EarnedCore.core_of (EarnedCore.exec (EarnedCore.mkst k n q) i).
-  Proof. reflexivity. Qed.
-
-  Theorem stored_program_core_independence : forall ticks program k m n r q,
-    EarnedCore.core_of (EarnedCore.run_prog ticks program (EarnedCore.mkst k m r)) =
-    EarnedCore.core_of (EarnedCore.run_prog ticks program (EarnedCore.mkst k n q)).
-  Proof. intros; rewrite !EarnedCore.core_run_prog; reflexivity. Qed.
-
-  Theorem native_check_not_vertical_for_core :
-    EarnedCore.core_of (EarnedCore.exec (EarnedCore.start 0 0)
-      (EarnedCore.CHECK EarnedCore.PZero EarnedCore.CA)) <>
-    EarnedCore.core_of (EarnedCore.start 0 0).
-  Proof. discriminate. Qed.
-
-  Definition counters (s : EarnedCore.state) :=
-    (EarnedCore.ca (EarnedCore.core_of s), EarnedCore.cb (EarnedCore.core_of s)).
-
-  Theorem hiding_guard_does_not_give_global_horizontal_autonomy :
-    ~ exists next, forall s,
-      counters (EarnedCore.exec s (EarnedCore.INC EarnedCore.CA)) = next (counters s).
-  Proof.
-    intros [next H].
-    pose proof (H (EarnedCore.start 0 0)) as Hlive.
-    pose proof (H (EarnedCore.exec (EarnedCore.start 0 0)
-      (EarnedCore.CHECK (EarnedCore.PGe 1) EarnedCore.CA))) as Htrapped.
-    change ((1,0) = next (0,0)) in Hlive.
-    change ((0,0) = next (0,0)) in Htrapped.
-    congruence.
-  Qed.
-End Native.
 
 (* A nonvacuous implementation for any supplied base and Boolean checker.
    A product is used for this witness only; it is not an interface axiom. *)

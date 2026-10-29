@@ -52,25 +52,24 @@
 
 \noindent\textbf{The Thiele Machine is an abstract model of computation, and an argument made with it about what an account of computation should preserve.}
 
-It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model is a set of states, moves, a step, a price on each move, a record that can be compared, and one rule, the toll: a move that takes the record out of the down-set of where it stood pays at least one. Any system with those parts is a Thiele machine. A yes-or-no reading is the smallest record, and most of what follows is stated on it. A machine whose moves never leave the down-set is the flat case, where the toll asks nothing: a clock, a reversible process and every ordinary deterministic machine are members of it. Forget the prices and the record of any Thiele machine and what is left is one of them; the results below are about what that forgetting throws away. A small two-counter machine whose commitments are earned is one example, and a universal machine U is another. They show the definition can be met. They are not the model.
+It is a machine in the sense a Turing machine is one: a mathematical object. No device is meant. The model starts from a set of states, moves, a step, a price on each move, a record that can be compared, and one rule, the toll: a move that takes the record out of the down-set of where it stood pays at least one. Any system with those parts is a priced record system; a Thiele machine is one whose record some run raises, from a designated start, and no move lowers. A yes-or-no reading is the smallest record, and most of what follows is stated on it. A reading no move carries out of its down-set is flat, and the toll asks nothing of it: a clock, a reversible process and every ordinary deterministic machine, read through a reading their moves never raise, are flat; each, once its states can be tested for equality and it has a run that leaves its start, is the shadow of a member. Forget the prices and the record of any Thiele machine and what is left is one of them; the results below are about what that forgetting throws away. The latch, two states and one priced move, shows the definition can be met. It is not the model.
 
 The structural question is what a total deterministic process needs to raise a reading and keep it: a merge along the run or endlessly fresh states. A physical price needs separate hypotheses. Landauer bounds depend on the physical model and input distribution; finite-time entropy-production bounds here concern specified thermal stochastic dynamics, not every physical state change. Certification, a record that a claim was checked and closed, is the sharpest case. It is one example of a wider question about structural state, observation and cost. A window, a function from states to what can be seen of them (Chapter~\ref{ch:windows}), can lose distinctions that the full state keeps, such as the record and the ledger; the cost laws of Chapters~\ref{ch:nfi} and~\ref{ch:finite} constrain specified events under hypotheses each theorem names. A conventional encoding can preserve those distinctions. A window that discards them cannot recover them in general. The stronger proposal that these distinctions belong in a necessary foundation of computation is a conjecture. The status of each result is stated below.
 
 \begin{abstract}
-This is a mathematical reference for the Thiele Machine: a deterministic transition system with instruction prices and a record that is a position in a preorder, with a toll on every step that moves the record out of the down-set of where it stood. The one-bit record, a Boolean reading with its false-to-true crossing, is the two-point instance, and most results are stated on it. Permanence and an internal ledger are additional conditions used by particular results. It states the model, its toll and the universal floor, then the results that hold for every machine meeting it, and gives one small example machine to show the definition can be met. Each result is stated with its premises and names the declaration that carries it.
+This is a mathematical reference for the Thiele Machine: a deterministic transition system with instruction prices and a record that is a position in a preorder, with a toll on every step that moves the record out of the down-set of where it stood, a record no step lowers, and a designated start from which some run raises it. The one-bit record, a Boolean reading with its false-to-true crossing, is the two-point instance, and most results are stated on it. An internal ledger is an additional condition used by particular results. It states the model, its toll, the member predicate, the smallest member and the history lift, then the results, each over the class its premises name. Each result is stated with its premises and names the declaration that carries it.
 
 A formal proof shows that conclusions follow from premises. It does \emph{not} show that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, thesis.
 
 The structural results (S), by where they sit in the model:
 \begin{itemize}
-  \item \emph{The definition and the price in the move.} The floor is the toll over any order of records, and the universal floor on the one-bit instance. The least instruction price and the least price for the lift. On finite machines, the toll derived from merge pricing for permanent certificates. Shadow pricing: no price computed from a window that hides a crossing is exact.
-  \item \emph{What stays.} A free move cannot touch a permanent reading. The record axis over any base is a latch, and a growing record decomposes into threshold latches. The small machine's earned provenance, checker soundness and minimum price.
-  \item \emph{What a window forgets.} The coarsest observational identification and the terminal lift. The window theorem for every Thiele-complete machine, with a gap of one, and for every certified Thiele-complete machine, with a gap of three.
+  \item \emph{The definition and the price in the move.} The member predicate: the toll, permanence and a run that makes a distinction; a flat reading obeys the toll and is not a member; the latch is the smallest member; every system with a Boolean equality on states and a run that ends off its start is the shadow of a member. The floor is the toll over any order of records, and the universal floor on the one-bit instance. The least instruction price and the least price for the lift. On finite machines, the toll derived from merge pricing for permanent certificates. Shadow pricing: no price computed from a window that hides a crossing is exact.
+  \item \emph{What stays.} A free move cannot touch a permanent reading. The record axis over any base is a latch, and a growing record decomposes into threshold latches.
+  \item \emph{What a window forgets.} The coarsest observational identification, and the factorization of histories through it. Shadow pricing, and what a window can decide and price.
   \item \emph{The room a kept distinction needs.} On any state space a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory, and the stochastic and unitary forms of the same count.
-  \item \emph{Computation as the flat case.} Over one flat case, a machine with a universal two-counter computing part: Thiele completeness and certified Thiele completeness; the lift of every such flat part to a certified Thiele-complete machine and its converse; composition; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself.
-  \item \emph{The world.} The classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix.
+  \item \emph{What no inside procedure decides.} The structural shortcut wall over any substrate with a recursion theorem; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L.
 \end{itemize}
-The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
+That a flat reading, a toggle and a one-state system are not members, and the counterexamples that show which premises do work, are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
 \end{abstract}
 
 \tableofcontents
@@ -78,9 +77,9 @@ The failure of every clock-style machine, the limits of lifting and of compositi
 %=============================================================================
 \chapter{Introduction}
 
-The Thiele Machine describes a computation by what it reads and writes, by a record of what the computation established, and by a ledger of what establishing it cost, with a rule tying the last two together: the step that raises the record pays. The chapters below state that rule, derive its consequences, show which machines carry it, and prove where a window that hides the record and the ledger loses information.
+A Thiele machine has states, moves, a price on each move and a record in a preorder; a move that raises the record pays (the toll), no move lowers it, and some run from a designated start raises it. A ledger, where a result uses one, is an additional condition, and a window that hides the record and the ledger is the subject of Chapter~\ref{ch:windows}. The chapters below state that rule, derive its consequences, show which machines carry it, and prove where a window that hides the record and the ledger loses information.
 
-Chapter~\ref{ch:nfi} states the model, its toll and the universal floor. Chapter~\ref{ch:finite} derives the toll on finite machines from the price of merging states and checks which premises are needed. Chapter~\ref{ch:windows} states what a window can decide and price. Chapter~\ref{ch:small} defines the small machine. Chapter~\ref{ch:complete} takes one flat case, a machine with a universal two-counter computing part, defines Thiele completeness and certified Thiele completeness over it, states the window theorem for each, lifts any such flat part, from any model of computation, to a certified Thiele-complete machine, composes certified Thiele-complete machines, and shows each clause is needed. Chapter~\ref{ch:universal} states the universal host, the universal machine U, the priced host's program U\textsubscript{P}, a verified compiler onto these machines and the extraction to OCaml. Chapter~\ref{ch:undecidability} states the recursion and undecidability results, for L and for the two-counter machine itself. Chapter~\ref{ch:record} states the record axis over any base and the latch decomposition of growing records. Chapter~\ref{ch:chsh} states the CHSH and Tsirelson mathematics. Chapter~\ref{ch:physics} states the physical boundary. Chapter~\ref{ch:external} states the models of external systems and the pointer thesis.
+Chapter~\ref{ch:nfi} states the model, its toll, the member predicate, the smallest member, the history lift and the universal floor. Chapter~\ref{ch:finite} derives the toll on finite machines from the price of merging states and checks which premises are needed. Chapter~\ref{ch:windows} states what a window can decide and price. Chapter~\ref{ch:undecidability} states the recursion and undecidability results, over any substrate and for L. Chapter~\ref{ch:record} states the record axis over any base and the latch decomposition of growing records. Chapter~\ref{ch:physics} states the physical boundary. Chapter~\ref{ch:external} states the models of external systems and the pointer thesis.
 
 %=============================================================================
 \chapter{Notation and Conventions}
@@ -98,26 +97,86 @@ Chapter~\ref{ch:nfi} states the model, its toll and the universal floor. Chapter
 %=============================================================================
 \chapter{Thiele Machines and the Universal Floor}\label{ch:nfi}
 
-\begin{definition}[Thiele machine; \texttt{AxSys} in Coq]
-A Thiele machine is a tuple $(S, I, \mathrm{step}, \cost, \mathrm{rec})$ with $\mathrm{step} : S \times I \to S$, $\cost : I \to \N$ and $\mathrm{rec} : S \to R$, where $(R,\le)$ is a preorder given by a Boolean test. The record is a position in that order. A step from $s$ by $i$ \emph{leaves the down-set} when $\mathrm{rec}(\mathrm{step}(s,i)) \not\le \mathrm{rec}(s)$. The one rule is the toll, first named No Free Insight:
+\begin{definition}[Priced record system; \texttt{AxSys} in Coq]
+A priced record system is a tuple $(S, I, \mathrm{step}, \cost, \mathrm{rec})$ with $\mathrm{step} : S \times I \to S$, $\cost : I \to \N$ and $\mathrm{rec} : S \to R$, where $(R,\le)$ is a preorder given by a Boolean test. The record is a position in that order. A step from $s$ by $i$ \emph{leaves the down-set} when $\mathrm{rec}(\mathrm{step}(s,i)) \not\le \mathrm{rec}(s)$. The one rule is the toll, first named No Free Insight:
 \[
 \textbf{A2:}\quad \forall s\, i,\ \mathrm{rec}(\mathrm{step}(s,i)) \not\le \mathrm{rec}(s) \implies \cost(i) \ge 1.
 \]
 Coq: the record \texttt{AxSys} in \texttt{coq/kernel/foundation/AxCore.v}, with the toll as \texttt{ax\_a2}.
 The order carries no further assumption: not antisymmetry, not growth of the
-record along steps, not finiteness. Neither permanence nor an internal ledger
-is part of the definition; the results that use them say so.
+record along steps, not finiteness. An internal ledger is not part of this
+definition or the next; the results that use one say so.
 \end{definition}
 
-\paragraph{The flat case, and computation as one of its members.}
-A Thiele machine is \emph{flat} when no step leaves the down-set of its record,
-so A2 holds with nothing to charge. A clock is flat, a reversible process is
+\begin{definition}[Thiele machine; \texttt{ax\_thiele} in Coq]\label{def:member}
+A Thiele machine is a priced record system together with a set of designated
+starts $\mathrm{starts} \subseteq S$ such that
+\begin{itemize}
+  \item (toll) A2 holds;
+  \item (permanence) $\forall s\, i,\ \mathrm{rec}(s) \le \mathrm{rec}(\mathrm{step}(s,i))$;
+  \item (distinction) for some $s_0 \in \mathrm{starts}$ and some trace $\tau$,
+    $\mathrm{rec}(\mathrm{run}(\tau, s_0)) \not\le \mathrm{rec}(s_0)$.
+\end{itemize}
+A reading is \emph{flat} when $\mathrm{rec}(\mathrm{step}(s,i)) \le \mathrm{rec}(s)$
+for every $s$ and $i$. Flat is a property of the reading. In the other direction, a system with
+a Boolean equality on its states and a run that ends off its start is what some
+Thiele machine looks like through a window that drops the record
+(Theorem~\ref{thm:history-lift}).
+Coq: \texttt{ax\_thiele} in \texttt{coq/kernel/foundation/AxThiele.v}, with the
+clauses \texttt{ax\_a2}, \texttt{ax\_grows} and \texttt{ax\_distinction}, and
+\texttt{ax\_flat} for the flat reading. Every Thiele machine has a move that
+costs at least $1$ (\texttt{thiele\_has\_a\_priced\_move}) and has the floor
+over its order of Theorem~\ref{thm:floor-toll} (\texttt{thiele\_floor}).
+\end{definition}
+
+\begin{theorem}[The smallest Thiele machine] \textbf{(S)}\label{thm:latch}
+The latch has two states $\mathrm{no} < \mathrm{yes}$, one move that sends both
+to $\mathrm{yes}$ at price $1$, and the state as its reading. It is a Thiele
+machine with start $\mathrm{no}$ (\texttt{latch\_is\_thiele}), and its move is
+not injective: both states land on one (\texttt{latch\_merges}). Every Thiele
+machine has two states with different readings
+(\texttt{no\_one\_state\_member}); over the two-point order every Thiele
+machine has a move that raises the reading from some no-state and keeps every
+yes-state at yes (\texttt{two\_point\_member\_raising\_move}); on two states
+read as themselves every Thiele machine has the latch's move
+(\texttt{two\_state\_member\_has\_latch\_move}); and the toggle, whose move
+swaps the two states, is not a Thiele machine (\texttt{toggle\_is\_not\_thiele}).
+\end{theorem}
+
+\begin{theorem}[The history lift] \textbf{(S)}\label{thm:history-lift}
+Let $M$ be any tuple $(S, I, \mathrm{step}, \cost, \mathrm{rec})$ of that shape, toll or not, with a Boolean equality test on its states
+that agrees with equality, and $x$ a state. The history lift of $M$ at $x$ has
+states $S \times \B$, the moves of $M$, step
+$((s,b), i) \mapsto (\mathrm{step}(s,i),\ b \vee [\mathrm{step}(s,i) = x])$,
+price $1$ on every move, and reading $(s,b) \mapsto b$ (\texttt{history\_lift}).
+Dropping the bit returns the run of $M$ (\texttt{history\_lift\_shadow}). If
+some run from a state $s_0 \ne x$ ends at $x$, the lift is a Thiele machine
+with start $(s_0, \mathrm{false})$ (\texttt{history\_lift\_is\_thiele}); so
+every $M$ with a run that ends on a state other than its start is the shadow
+of a Thiele machine (\texttt{moving\_machine\_is\_a\_shadow}). Above every
+shadow sit two lifted states with different readings, and no function of the
+shadow equals the reading (\texttt{shadow\_hides\_history}). Over a finite
+base the least price list that meets the toll for the lift is $1$ on every
+move that can land on $x$ and $0$ elsewhere, the toll holds for a price list
+exactly when it is at least that list, and the lift priced by that list is a
+Thiele machine (\texttt{lift\_can\_raise\_iff}, \texttt{lift\_toll\_iff\_least},
+\texttt{least\_lift\_is\_thiele}, \texttt{coq/audit/AxThieleLeast.v}).
+\end{theorem}
+
+\paragraph{The flat reading, and computation as a shadow.}
+A reading is flat when no step leaves its down-set, so A2 holds with nothing
+to charge (\texttt{flat\_obeys\_toll}), no run of it leaves the down-set of
+its start (\texttt{flat\_has\_no\_distinction}), and it is not a Thiele
+machine for any choice of starts (\texttt{flat\_is\_not\_thiele}). A clock and a
+reversible process, each read through a reading its moves never raise, are
 flat, and so is any deterministic transition system $(S, I, \mathrm{step})$
-given a constant record: forget $\cost$ and $\mathrm{rec}$ from any Thiele
-machine and what remains is a flat one. This is immediate from the definition
-and has no separate Coq counterpart. Ordinary computation is one flat case
-among others, and the theorems of this reference are about what the
-forgetting throws away.
+given a constant record: forget $\cost$ and
+$\mathrm{rec}$ from any Thiele machine and what remains is flat. Flat is a
+property of the reading, not of the machine: every system with a Boolean
+equality test on its states and a run that ends on a state other than its
+start is the shadow of a Thiele machine (Theorem~\ref{thm:history-lift}).
+Ordinary computation is one flat shadow among others, and the theorems of
+this reference are about what the forgetting throws away.
 
 \paragraph{The one-bit instance.}
 Take $R = \B$ with $\mathrm{false} < \mathrm{true}$ (\texttt{two\_pre}). The
@@ -131,10 +190,12 @@ field \texttt{cs\_cert\_costs}; \texttt{cs\_axsys} and \texttt{axsys\_cs}
 translate each way. The name of that record does not restrict the
 interpretation of $\cert$: it is an arbitrary Boolean reading, and neither
 permanence nor the occurrence of both values is required. Most results below
-are stated on this instance, and each says so by writing $\cert$.
+are stated on this instance, and each says so by writing $\cert$. A
+certification system obeys the toll on this instance; it is a Thiele machine
+only with permanence and a distinction added.
 
-\begin{theorem}[The floor is the toll] \textbf{(S)}
-For every Thiele machine, every run whose final record is not at or below its
+\begin{theorem}[The floor is the toll] \textbf{(S)}\label{thm:floor-toll}
+For every priced record system, every run whose final record is not at or below its
 starting record costs at least $1$ exactly when A2 holds
 (\texttt{ax\_floor\_iff\_a2}), and under A2 every run costs at least the
 number of its steps that leave the down-set (\texttt{ax\_cost\_ge\_exits}).
@@ -151,19 +212,16 @@ pays. Counting exits is the same induction.
 
 \begin{theorem}[Thresholds are one-bit machines] \textbf{(S)}
 For every point $a$ of $R$, reading the record only as the bit
-``$a \le \mathrm{rec}(s)$'' gives a one-bit Thiele machine, and it obeys its
+``$a \le \mathrm{rec}(s)$'' gives a one-bit priced record system, and it obeys its
 toll whenever the original does (\texttt{ax\_view\_a2}); the original obeys A2
 exactly when every such threshold does (\texttt{ax\_a2\_iff\_views}). When the
 order is antisymmetric, the thresholds determine the record
 (\texttt{bp\_thresholds\_determine}). The one-bit floor of
-Theorem~\ref{thm:nfi} is the two-point instance (\texttt{two\_point\_nfi}),
-and the four clauses of certified Thiele completeness in
-Chapter~\ref{ch:complete} are, one for one, the clauses of the same definition
-stated on the axis at the two-point order (\texttt{ax\_tc\_two\_point\_iff}).
+Theorem~\ref{thm:nfi} is the two-point instance (\texttt{two\_point\_nfi}).
 \end{theorem}
 
 \paragraph{Sliced interface.}
-On the one-bit instance, a sliced Thiele machine additionally has a surjection $\pi:S\to B$ and a partition
+On the one-bit instance, a sliced system additionally has a surjection $\pi:S\to B$ and a partition
 $I=I_H\sqcup I_V$. Write $F_i(s)=\mathrm{step}(s,i)$. For every $i\in I_H$ there
 is $h_i:B\to B$ with
 \[
@@ -181,21 +239,11 @@ $V(b,k)=(b,\min(k+1,2))$ costs one. Projection and reading preservation for $R$
 are immediate; $V$ preserves the projection, never lowers the reading, and pays
 one on its crossing from $k=1$ to $k=2$. It also costs one at $k=2$.
 
-\paragraph{Structural generalization.}
-For any deterministic base $(B,J,d)$ and event $E:B\to\B$, put
-$S=B\times\B\times\N$. Computing sends $(b,r,l)$ to $(d(b,j),r,l)$
-at price zero; a mark sends it to $(b,r\lor E(b),l+1)$ at price one.
-Projection to $B$ has the section $b\mapsto(b,\mathrm{false},0)$ and
-commutes with every computing run. An event witness supplies a same-view pair
-with different readings. This preserves base transitions, not a base's previous
-price or reading. Coq: \texttt{coq/audit/StructuralBridge.v}; its specialization
-to the repository's tape model is \texttt{coq/audit/TuringStructuralBridge.v}.
-No effectivity is assumed by this structural theorem. Ordinary encodings can
-retain the added coordinates when effective presentations are supplied.
+\paragraph{Valuations.}
 A Boolean valuation need not itself be an autonomous two-state quotient:
 \texttt{coq/audit/ValuationBoundary.v} gives a counterexample.
 
-\section{Free moves, least prices and the observable lift}
+\section{Free moves, least prices and observation}
 
 \begin{theorem}[All readings and free moves] \textbf{(S)}
 For a state type with decidable equality, fixed transitions and natural
@@ -224,9 +272,9 @@ Conversely, horizontal preservation and vertical monotonicity ensure that
 no instruction lowers the reading, since the two classes exhaust the
 instruction set.
 \end{proof}
- The existing
-\texttt{SlicedInterface} uses the latter presentation; its derived
-permanence is not an independent premise for removing a field.
+ The Coq
+\texttt{SlicedInterface} uses the latter presentation, so its permanence is
+derived there, not an extra premise.
 
 \begin{theorem}[Least instruction toll] \textbf{(S)}
 Fix the transition and reading, and supply a finite list covering all states.
@@ -270,64 +318,8 @@ pair would have to give two answers after the same continuation from one state.
 Uniqueness here is pointwise logical equivalence of relations.
 
 
-\paragraph{The comparison class.}
-Fix a deterministic base $(B,J,d)$, mark labels $K$, and events
-$E:K\times B\to\B$. An implementation has arbitrary state type $X$,
-computing and mark operations, view $q:X\to B$, reading $r:X\to\B$ and
-ledger $\mu:X\to\N$. Computing projects to $d$ and costs zero. Marks fix
-$q$, cost one and satisfy the exact latch equation
-$r(V_kx)=r(x)\lor E(k,q(x))$. Require A2, global permanence and exact
-accounting $\mu(F_ix)=\mu(x)+c(i)$. An onto view is not required here.
-The product lift has states $(b,r,l)$, computing rule $(d(b,j),r,l)$ and
-mark rule $(b,r\lor E(k,b),l+1)$. It satisfies every law of this class directly.
-
-\begin{theorem}[Terminal lift and reachable minimal realization] \textbf{(S)}
-Every implementation in this class has a unique coordinate-preserving map
-to the product lift, namely $x\mapsto(q(x),r(x),\mu(x))$. It commutes with
-all steps and runs. Its kernel is precisely future observational equivalence
-for observation $(q,r,\mu)$. From a start with reading false and ledger zero,
-it maps onto all reachable product states from the corresponding start.
-If reachable implementation states are separated by future observations,
-this map is injective there, and is the unique start- and step-preserving
-map on reachable states.
-Equality of current triples is equivalent to equality of all future observations.
-Coq: \texttt{canonical\_satisfies\_contract},
-\texttt{lift\_terminal\_over\_exact\_coordinates},
-\texttt{projection\_preserves\_runs},
-\texttt{observable\_equivalence\_exactly\_projection\_kernel},
-\texttt{reachable\_minimal\_realization}.
-\end{theorem}
-\begin{proof}
-The coordinates force the map. For computing steps the view follows $d$,
-the free-reading theorem preserves $r$, and accounting preserves $\mu$.
-For marks the exact latch and accounting laws give the product mark rule.
-Induction gives the run equation. Equal projected triples have equal future
-triples by deterministic product evolution; conversely the empty word
-already distinguishes unequal triples. Run any word reaching a product
-state on the implementation to obtain a preimage. Behavioral separation
-then turns equal projected triples into equal reachable states. Any map
-preserving start and steps is forced on an endpoint by a word reaching it.
-\end{proof}
-
-This is a bijection on reachable states, not a choice-based construction of
-an inverse function or an effective minimization algorithm. Observing only
-$(q,r)$ defines a different equivalence from observing the ledger too.
-
-\paragraph{Histories and the direction of the map.}
-Finite instruction lists, with start $[]$ and steps appending one instruction,
-have exactly one start- and step-preserving evaluation into any pointed
-machine: the empty list fixes the start and appending fixes each next value.
-For the preceding implementation, evaluation followed by projection equals
-evaluation in the lift (\texttt{trace\_extension\_factorization}). Thus
-histories map to implementations, and implementations map to the lift.
-The reverse arrow need not exist. Take a Boolean base toggled by a free move
-and a mark event always true. Add to the lift a counter increased only by
-free moves. All contract laws still hold. Two free moves return every lift
-state to itself, while increasing the extra counter by two. No map from
-the lift can commute with those free moves, even on reachable states.
-Coq: \texttt{no\_map\_even\_on\_reachable\_states}.
-
-More generally, give a pointed source machine an access word reaching each
+\paragraph{Histories and maps.}
+Give a pointed source machine an access word reaching each
 state. A start- and step-preserving map into a pointed target exists exactly
 when equal source endpoints of any two words imply equal target endpoints.
 Necessity follows by mapping the endpoints. For sufficiency, map a source
@@ -344,23 +336,6 @@ target reachability and injective by source separation. It is pointwise
 unique (\texttt{minimal\_realizations\_uniquely\_isomorphic}).
 This is behavioral minimality, not a claim about smallest infinite cardinality.
 
-\begin{theorem}[Least unit schedule for the lift] \textbf{(S)}
-If every mark event has a base-state witness where it holds, the lift's
-zero/one schedule is pointwise least among all natural instruction schedules
-satisfying A2 for its fixed dynamics and reading, over arbitrary base types.
-Coq: \texttt{canonical\_unit\_price\_is\_least\_when\_events\_possible}.
-\end{theorem}
-\begin{proof}
-Computing preserves the reading, so zero suffices. For each mark take a
-witness base state with reading false; the mark raises it and forces price
-at least one. The existing zero/one schedule satisfies A2, so is least.
-\end{proof}
-
-Witnesses need not be reachable from a selected start. An identically false
-mark event permits price zero under A2; unit accounting then adds a demand.
-These characterizations fix the base, events, observations and price unit.
-They determine the realization relative to that contract.
-
 \paragraph{Cost interfaces.}
 The definition uses instruction costs $\cost:I\to\N$, so a trace's cost is
 independent of its initial state. Later source-charge results use a broader
@@ -373,7 +348,7 @@ entry and zero at idle. The latter construction is the source-charge example
 \texttt{paid\_entry\_free\_idle} in \texttt{minimal/AccountingBridge.v}.
 
 \begin{theorem}[The universal floor]\label{thm:nfi} \textbf{(S)}
-In every one-bit Thiele machine, if $\cert(s_0) = \mathrm{false}$ and $\cert(\mathrm{run}(\tau, s_0)) = \mathrm{true}$, then $\cost(\tau) \ge 1$.
+In every one-bit system that obeys the toll, every one-bit Thiele machine among them, if $\cert(s_0) = \mathrm{false}$ and $\cert(\mathrm{run}(\tau, s_0)) = \mathrm{true}$, then $\cost(\tau) \ge 1$.
 Coq: \texttt{universal\_nfi\_any\_substrate}; it is also the two-point instance of the floor over any order (\texttt{two\_point\_nfi}).
 \end{theorem}
 
@@ -382,7 +357,7 @@ Induction on $\tau$. Since $\cert$ is false at the start and true at the end, so
 \end{proof}
 
 \begin{theorem}[Simulating systems] \textbf{(S)}
-Let a base Thiele machine be simulated by a host: an embedding of base states into host states, a decoding of each base instruction into a list of host instructions, a commuting step law, and certification reflected by the embedding (record \texttt{SimulatingCertificationSystem}). A base trace from uncertified to certified costs at least $1$ in the base, the host run of its decoded trace ends certified, and that host run costs at least $1$.
+Let a certification system, the base, be simulated by another, the host: an embedding of base states into host states, a decoding of each base instruction into a list of host instructions, a commuting step law, and certification reflected by the embedding (record \texttt{SimulatingCertificationSystem}). A base trace from uncertified to certified costs at least $1$ in the base, the host run of its decoded trace ends certified, and that host run costs at least $1$.
 Coq: \texttt{host\_represents\_simulating\_cert\_system}.
 \end{theorem}
 
@@ -390,12 +365,11 @@ The commuting law compares endpoints of complete translated instruction blocks.
 The host's cost floor uses its own toll axiom. This theorem alone neither constrains
 intermediate block states nor establishes an earned history for arbitrary host
 programs. Such guarantees require preservation over the host's permitted operations
-and initial states. The checked counterexamples in \texttt{coq/audit/MacroBoundary.v}
-and \texttt{coq/audit/PaidBypassBoundary.v} separate these claims; the latter
-extends the host with a hypothetical instruction, not an instruction of the original host.
+and initial states. The checked counterexample in \texttt{coq/audit/MacroBoundary.v} separates these
+claims.
 
 \begin{theorem}[Quantitative form] \textbf{(S)}
-Extend a Thiele machine with a witness $w : S \to \N$ and a threshold $k$ such that each step raises $w$ by at most its cost and every certified state has $w \ge k$ (record \texttt{QuantitativeCertificationSystem}). A trace from a state with $w = 0$ to a certified state costs at least $k$.
+Extend a certification system with a witness $w : S \to \N$ and a threshold $k$ such that each step raises $w$ by at most its cost and every certified state has $w \ge k$ (record \texttt{QuantitativeCertificationSystem}). A trace from a state with $w = 0$ to a certified state costs at least $k$.
 Coq: \texttt{universal\_nfi\_quantitative}.
 \end{theorem}
 
@@ -500,8 +474,8 @@ Coq: \texttt{write\_is\_permanent}, \texttt{write\_raises}, \texttt{write\_is\_a
 \end{theorem}
 
 \begin{theorem}[No state space codes all its own readings; the regress has a price] \textbf{(S)}
-For any type $X$ and any coding $X \to (X \to \mathrm{bool})$, some reading $X \to \mathrm{bool}$ is coded by no state (Cantor). With the entitlement count, a record that narrows $N$ candidates to one costs at least $\lceil \log_2 N \rceil$ units, and for every $m$ there is a candidate count whose rounded-up logarithm is at least $m$.
-Coq: \texttt{no\_space\_holds\_its\_own\_readings}, \texttt{regress\_price\_unbounded}; the count itself is \texttt{ent\_cs\_run\_entitlement}.
+For any type $X$ and any coding $X \to (X \to \mathrm{bool})$, some reading $X \to \mathrm{bool}$ is coded by no state (Cantor). Under the halving price, a run that narrows $N$ candidates to one costs at least $\lceil \log_2 N \rceil$ units, and for every $m$ there is a candidate count whose rounded-up logarithm is at least $m$.
+Coq: \texttt{no\_space\_holds\_its\_own\_readings}, \texttt{regress\_price\_unbounded}; the count itself is \texttt{run\_narrowing\_priced\_log}.
 \end{theorem}
 
 \begin{theorem}[Nondeterministic merge] \textbf{(S)}
@@ -617,217 +591,6 @@ one corresponding heat unit.
 \end{theorem}
 
 %=============================================================================
-\chapter{An Example Machine: The Small Machine}\label{ch:small}
-
-This chapter builds one machine that meets the definition, to show it can be met. Nothing in the rest of the model depends on its details. The small machine is defined in \texttt{minimal/EarnedCore.v} on the Coq standard library alone.
-
-\begin{definition}[State]
-A core has two counters $a, b \in \N$, their versions $v_a, v_b \in \N$, a program counter $\mathit{pc} \in \N$ whose lines are numbered from $1$ (a value with no instruction, $0$ included, is a stop), a table of facts, a commitment channel holding at most one fact, and a trap latch. A fact is a triple (property, counter, version); the properties are ``is zero'', ``is even'' and ``is at least $n$'', each with a checker \texttt{eval} and a meaning \texttt{holds} tied by \texttt{eval\_iff}. A state is a core with a ledger $\mu \in \N$ and a flag $\cert \in \B$. The table holds at most $16$ facts. The start state for $(a, b)$ initializes those counter values without executing a write; both versions are zero, the line is $1$, the table and channel are empty, the trap and flag are down, and $\mu=0$.
-\end{definition}
-
-\begin{definition}[Instructions and costs]
-$\texttt{INC}\ c$ adds one to counter $c$. $\texttt{DEC}\ c\ j$ subtracts one and jumps to $j$ if $c > 0$, and otherwise falls through. \texttt{HALT} stops. $\texttt{CHECK}\ p\ c$ evaluates $p$ on counter $c$ and, if it holds and the table has room, writes the fact $(p, c, v_c)$. $\texttt{COMMIT}\ p\ c$ succeeds only if the fact $(p, c, v_c)$ is in the table, and then sets the channel to it. \texttt{CERTIFY} succeeds only if the channel names a fact; success preserves the channel and advances the line. Every failure sets the trap latch, after which no instruction changes anything but the ledger. Every write to a counter adds one to its version and preserves the table and channel. CHECK, COMMIT and CERTIFY cost $1$; the others cost $0$. The ledger adds the cost of every executed instruction, and the flag rises exactly on a passing CERTIFY.
-\end{definition}
-
-\begin{theorem}[Universality] \textbf{(S)}
-The INC/DEC fragment is the two-counter machine step for step, and a program halts on the small machine exactly when it halts as a two-counter program.
-Coq: \texttt{simulation\_run}, \texttt{halting\_correspondence}. Its halting problem is undecidable, by reduction from the vendored two-counter result (\texttt{earned\_core\_halting\_undecidable}). The Turing-universality of two-counter machines is a theorem of Marvin Minsky, who studied how bare a machine can be and still compute what a Turing machine computes (Annals of Mathematics 74, 1961; \emph{Computation: Finite and Infinite Machines}, Prentice-Hall, 1967). It is cited and not re-proved here; the undecidability of two-counter halting used above is checked in Coq in the vendored Coq Library of Undecidability Proofs of Yannick Forster, Dominique Larchey-Wendling and coauthors.
-\end{theorem}
-
-\begin{theorem}[The toll] \textbf{(S)}
-The ledger is the exact sum of executed costs (\texttt{mu\_conservation\_trace}); only CERTIFY raises the flag (\texttt{only\_certify\_certifies}); the flag never drops (\texttt{cert\_permanent}); A2 holds (\texttt{a2}); and a run from an uncertified state to a certified one pays at least $1$ (\texttt{nfi\_floor}).
-\end{theorem}
-
-\begin{theorem}[Earned provenance] \textbf{(S)}
-From a clean start, every certified run contains a passing CHECK of some claim, then a passing COMMIT of the same claim with that counter untouched in between, then CERTIFY.
-Coq: \texttt{earned\_certification\_provenance}.
-\end{theorem}
-
-\begin{theorem}[Checker soundness and no forging] \textbf{(S)}
-On a run from a clean start, a fact whose counter has not been written since its check names a true claim about that counter (\texttt{checker\_soundness}), and every fact in the table was written by a passing CHECK of exactly that claim (\texttt{no\_forging}).
-\end{theorem}
-
-\begin{theorem}[Price] \textbf{(S)}
-From a clean start a certified run costs at least $3$ (\texttt{certified\_run\_min\_cost}), and a three-instruction program pays exactly $3$ (\texttt{min\_cost\_tight}).
-\end{theorem}
-
-\begin{theorem}[A check that can fail] \textbf{(S)}
-The program CHECK ``$a$ is zero'', COMMIT, CERTIFY certifies from a start with $a = 0$, paying exactly $3$, and from any other start has trapped by its fourth step and never raises the flag, for any number of steps.
-Coq: \texttt{earned\_run\_check\_can\_fail}, \texttt{earned\_run\_refused\_forever}.
-\end{theorem}
-
-\begin{theorem}[Links] \textbf{(S)}
-The small machine is a Thiele machine with the trace floor (\texttt{earned\_core\_floor}), and as a record-carrying machine its record moves as a latch on one base event (\texttt{earned\_core\_is\_latch}).
-\end{theorem}
-
-\begin{remark}
-\texttt{minimal/EarnedGeneric.v} states the same machine over any property language with an exact equality test on properties and an exact checker; sorted lists are one instance (\texttt{sorted\_cs\_sound}). \texttt{minimal/EarnedMulti.v} has a counter for every natural number and is the host machine of Chapter~\ref{ch:universal}.
-\end{remark}
-
-\begin{theorem}[Each part of the clean start is needed] \textbf{(S)}
-From any state of the small machine, every run that ends certified costs at least $3$ exactly when the flag is down and either the trap latch is up or the channel is empty and every fact in the table is about an older version of its counter (\texttt{nec\_s\_floor3\_iff}). Without the empty table some certifying run from a state with an empty channel and the flag down costs less than $3$ (\texttt{nec\_s\_min\_cost\_needs\_empty\_table}); without the empty channel some certifying run costs less than $2$ (\texttt{nec\_s\_min\_cost\_needs\_empty\_channel}); without the lowered flag some run costs less than $1$ (\texttt{nec\_s\_min\_cost\_needs\_flag\_down}). From every clean start with the trap latch down, CHECK, COMMIT, CERTIFY certifies and adds exactly $3$ to the ledger (\texttt{nec\_s\_witness\_from\_every\_clean\_start}).
-\end{theorem}
-
-%=============================================================================
-\chapter{Thiele Completeness}\label{ch:complete}
-
-\begin{definition}[Machine]
-A machine is a state type, a move type, a step, a cost per move and a record $\cert : S \to \B$ (record \texttt{machine}). It is the one-bit instance of the definition in Chapter~\ref{ch:nfi}.
-\end{definition}
-
-This chapter is about one flat case: a machine whose computing part runs every two-counter program. Nothing in it is the definition of a Thiele machine, which Chapter~\ref{ch:nfi} stated over any order; the flat case already meets that definition, and completeness names what a record over this particular flat part adds. The toll and a universal base alone are a low bar: a two-counter machine that charges $1$ for every move has a universal base and obeys the toll for any record (\texttt{clock\_weakly\_thiele\_complete}).
-
-\begin{definition}[Thiele complete]
-A machine is Thiele-complete when it can be read through a universal base (as in clause (a) below, without clean starts), a split of its moves into computing moves and marks, and a ledger, such that: computing moves never change the record and the record once up stays up; every loaded start has the record down; computing moves cost $0$, every other move costs exactly $1$, and the ledger grows by the cost of each move; and some run ends with the record up from one loaded start and down from another. Nothing in it says what the record is about.
-Coq: \texttt{neutral\_complete} in \texttt{minimal/NeutralComplete.v}.
-\end{definition}
-
-\begin{theorem}[Thiele-complete machines] \textbf{(S)}
-Every Thiele-complete machine obeys the toll and raises its record only by a mark costing exactly $1$ (\texttt{nc\_is\_weak}, \texttt{nc\_raise\_is\_mark}); every run from a state with the record down that ends with it up costs at least $1$ (\texttt{nc\_floor\_one}); its window hides its record and its ledger, with a gap of one (\texttt{nc\_hides\_record}, \texttt{nc\_hides\_ledger}). A clock and a machine whose record never rises are not Thiele-complete (\texttt{clock\_not\_nc}, \texttt{silent\_not\_nc}), and each clause is needed (\texttt{drop\_not\_nc}, \texttt{frozen\_not\_nc}, \texttt{paid\_all\_not\_nc}). Every universal base plus marks on an event that separates two loaded starts is Thiele-complete (\texttt{every\_base\_lifts\_neutrally}, \texttt{nlift\_neutral\_complete}). A machine is certified Thiele-complete through an interface exactly when it is Thiele-complete through the same interface read without its claims and its loaded starts are clean, its record is earned and its non-vacuity clause holds (\texttt{tc\_iff\_nc\_plus\_certification}); the inclusion is strict (\texttt{nc\_strictly\_weaker}).
-\end{theorem}
-
-\begin{definition}[Certified Thiele complete]
-A machine is certified Thiele-complete when its moves can be read as base moves and three record moves, CHECK, COMMIT and CERTIFY of a claim, over a type of claims with a meaning on states, a checker, a notion of the thing a claim is about being unchanged, a set of clean starts and a ledger, such that:
-\begin{enumerate}[(a)]
-  \item \emph{Universal base.} Every two-counter instruction has a base move that, from every live state, acts on a window of the state exactly as the instruction acts on a two-counter configuration and leaves the state live; every two-counter start has a clean live state showing it (its loaded start), base moves never change the record, and the record once up stays up.
-  \item \emph{Earned record.} A clean start has the record down. Every run from a clean start that ends with the record up contains a passing CHECK of some claim, then a COMMIT of the same claim with the thing it is about unchanged in between, then the CERTIFY that raises the record. A passing check means its claim holds, and a claim that holds keeps holding while the thing it is about is unchanged.
-  \item \emph{Exact prices.} Base moves cost $0$, each record move costs exactly $1$, and the ledger grows by the cost of each move.
-  \item \emph{Non-vacuity.} Some claim is true at some loaded start and false at another, and the bare chain CHECK, COMMIT, CERTIFY on it raises the record from a loaded start exactly when the claim holds there.
-\end{enumerate}
-Coq: \texttt{thiele\_complete} in \texttt{minimal/ThieleComplete.v}.
-\end{definition}
-
-The claim language is fixed first and the definition is taken over it; the interface may not name the meanings, since checker soundness would then hold for nothing.
-
-\begin{theorem}[Consequences] \textbf{(S)}
-In every certified Thiele-complete machine: the ledger counts the record moves (\texttt{ledger\_counts\_record\_moves}); a certificate reached from a clean start costs at least $3$ (\texttt{certificate\_costs\_three}); the claim such a certificate stands on held when it was checked and still held when it was committed (\texttt{Minimal.ThieleComplete.committed\_claim\_holds}); some check fails (\texttt{check\_can\_fail}); some run certifies (\texttt{some\_run\_certifies}); the move raising the record from a clean start is a CERTIFY (\texttt{only\_certify\_raises}); and some move costs $0$ (\texttt{complete\_has\_free\_move}).
-\end{theorem}
-
-\begin{theorem}[Machines that meet it] \textbf{(S)}
-The small machine is certified Thiele-complete (\texttt{earned\_core\_thiele\_complete}), and so are the machine over any property language with an exact equality test on properties, an exact checker and a property true of one value and false of another (\texttt{earned\_generic\_thiele\_complete}) and the sorted-list machine (\texttt{sorted\_machine\_thiele\_complete}).
-\end{theorem}
-
-\begin{theorem}[Machines that fail it] \textbf{(R)}
-Every clock-style machine, with any record, has a universal base and obeys the toll, and is neither Thiele-complete nor certified Thiele-complete (\texttt{clock\_weakly\_thiele\_complete}, \texttt{clock\_not\_nc}, \texttt{clock\_not\_thiele\_complete}); so is a clock whose record is a latch on its configuration (\texttt{latch\_clock\_weakly\_thiele\_complete}, \texttt{latch\_clock\_not\_nc}, \texttt{latch\_clock\_not\_thiele\_complete}). A machine with a base that costs nothing and one paid move that raises a latch meets clauses (a) and (c), and since that move raises the record from every state, the machine is certified Thiele-complete through no interface (\texttt{paid\_latch\_meets\_base\_and\_toll}, \texttt{one\_move\_record\_excluded}, \texttt{paid\_latch\_not\_thiele\_complete}). A machine whose record never rises meets (a), (b) and (c) and fails (d) (\texttt{silent\_meets\_base\_record\_toll}, \texttt{silent\_not\_thiele\_complete}).
-\end{theorem}
-
-\section{The window theorem}
-
-\begin{theorem}[Every certified Thiele-complete machine hides its record] \textbf{(S)}
-For every certified Thiele-complete machine there are a clean start and two runs from it, the second made of base moves only, that end at the same base window; the first ends certified with its ledger at least $3$ above the start, and the second ends uncertified with its ledger unchanged (\texttt{complete\_two\_runs}). So no function of the base window recovers the record (\texttt{complete\_hides\_record}) or the ledger (\texttt{complete\_hides\_ledger}) on every reachable state (\texttt{thiele\_complete\_hides}).
-\end{theorem}
-
-\begin{proof}
-Clause (d) and clause (b) give a clean start and a certifying run. The base is universal, so base moves alone reach the window the certifying run ends at; base moves change neither the record nor the ledger.
-\end{proof}
-
-Every certified Thiele-complete machine is a Thiele machine with the trace floor, and its window is blind to its reading (\texttt{thiele\_complete\_floor}, \texttt{complete\_cs\_window\_blind}).
-
-\section{Every model of computation}
-
-\begin{theorem}[Lifting] \textbf{(S)}
-For any machine with a universal base in the sense of clause (a), any claim language over its states that has an exact equality test and a checker proved equal to its meaning, and any fact-table capacity of at least $1$, if some claim is true at one loaded start and false at another, the machine that adds the earned layer (base moves that raise a version, and CHECK, COMMIT and CERTIFY costing $1$ each) is certified Thiele-complete (\texttt{lift\_thiele\_complete}). With the window claims (a register of the window is at least $n$, or the program line is $n$) the premise on claims always holds (\texttt{lift\_window\_thiele\_complete}). Conversely, every certified Thiele-complete machine has an interface making it certified Thiele-complete whose base moves form a universal base (\texttt{lift\_reduct\_universal}).
-\end{theorem}
-
-\begin{theorem}[Limits of lifting] \textbf{(R)}
-A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no certified Thiele-complete machine under any claim language and capacity through the direct one-move interface (\texttt{lift\_finite\_branching\_not\_complete}, \texttt{lift\_stateless\_not\_complete}). This does not exclude grouping several base steps into one macro move. A one-counter program of $k$ instructions started at $n$ halts exactly when it has stopped after $k(n+k+1)$ steps, so one-counter halting is decidable (\texttt{lift\_oc\_halts\_bound}, \texttt{lift\_oc\_halts\_dec}); two-counter halting is undecidable (\texttt{lift\_cm\_halting\_undecidable}), and a computable halting-preserving translation of two-counter instances into one-counter instances would make it decidable (\texttt{lift\_no\_oc\_translation}).
-\end{theorem}
-
-\begin{theorem}[Models of computation] \textbf{(S)}
-A relation on numbers computable in any one of the seven models of the vendored library (the lambda calculus L, the alternate Minsky machines MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and mu-recursive functions) is computable in all of them (\texttt{lift\_num\_models\_agree}). The number-coded two-counter machine has a universal base, its step relation is computable in all seven models, and the window lifts, with a fact table of $16$, of that machine and of the random-access machine are certified Thiele-complete (\texttt{lift\_classic\_bases}). Over any record that is a preorder with binary joins (Chapter~\ref{ch:record}), every universal base, with a claim language that has an exact equality test and a proved checker and a fact table with room for one fact, lifts to a machine that is certified Thiele-complete on the axis, given a claim whose point is not at or below the floor and which is true at one load and false at another (\texttt{lift\_lax\_thiele\_complete}). When every record is below every other, no machine over that axis is certified Thiele-complete (\texttt{lift\_ax\_indiscrete\_no\_machine}).
-\end{theorem}
-
-\section{Composition}
-
-\begin{theorem}[Products and hand-offs] \textbf{(S)}
-Two machines certified Thiele-complete on the axis give a product, whose moves act on one part each and whose record is the pair of the two records, that is certified Thiele-complete under the product interface, with every certification keeping its own earned chain (\texttt{cmpz\_prod\_tc}, \texttt{cmpz\_prod\_thiele\_complete}). The cost of an interleaved run is the cost of its left moves plus the cost of its right moves (\texttt{cmpz\_cost\_prod}), two interleavings of the same moves reach the same state at the same cost (\texttt{cmpz\_interleaving\_invariant}), and with record-preserving simulations as morphisms the product is the categorical product (\texttt{cmpz\_prod\_universal}). Running one machine and handing its two output counters to a second through loading moves that cost nothing gives a certified Thiele-complete machine when both are (\texttt{cmpz\_seq\_tc}), and it computes the second program's run on the first program's output (\texttt{cmpz\_seq\_composes}).
-\end{theorem}
-
-\begin{theorem}[Limits of composition] \textbf{(R)}
-From a clean start of the product, every run that raises the AND of the two records makes at least six record moves (\texttt{cmpz\_and\_costs\_six}), and the point-level interface through ``both flags are up'' fails non-vacuity (\texttt{cmpz\_and\_not\_complete}). The product of two clocks has a universal base and obeys the toll, and is not certified Thiele-complete (\texttt{cmpz\_or\_clocks\_not\_complete}). A second writer that changes counter $A$ of the small machine without raising its version breaks the earned-record clause (\texttt{cmpz\_shared\_not\_earned}). Two finite machines that each have an exact shadow price through a window can collide as a pair (\texttt{cmpz\_exactness\_not\_preserved}). If two load states of the second machine have records with the first not at or below the second, the second machine with loads that cost nothing added fails the toll (\texttt{cmpz\_ld\_unclean}).
-\end{theorem}
-
-\begin{theorem}[Nesting] \textbf{(S)}
-If $Y$ runs $X$ and $Z$ runs $Y$ by simulation, then $Z$ runs $X$ with the record bit equal at matched points, halting and the rising of the record corresponding, and the surcharge bounds adding (\texttt{cmpz\_link\_compose}); a tower of $k$ links adds between the sum of the lower bounds and the sum of the upper bounds (\texttt{cmpz\_tower}). A computably presented machine whose reading starts at no and whose moves cost at most $1$, run on U\textsubscript{P} (Chapter~\ref{ch:universal}), pays exactly $2$ more once its latch is up (\texttt{cmpz\_host\_link\_exact}). A record-preserving simulation that reflects the order of records, into a machine that obeys the toll, tracks every run of the guest by a host run costing at least the number of the guest run's exits (\texttt{cmpz\_sim\_cost\_ge\_exits}).
-\end{theorem}
-
-\section{Each clause is needed}
-
-\begin{theorem}[Failures of the completeness clauses] \textbf{(R)}
-Take any interface that makes a machine certified Thiele-complete. Charging every move twice its cost keeps clauses (a), (b) and (d), fails (c), and gives a machine that is certified Thiele-complete through no interface (\texttt{nec\_t\_doubled\_cost\_meets\_all\_but\_toll}). A ledger that always reads $0$ keeps (a), (b) and (d) and fails (c) (\texttt{nec\_t\_ledgerless\_meets\_all\_but\_ledger}). An extra move ZAP that raises the record from every state at cost $1$, read as CERTIFY, keeps (a), (c) and (d) and fails (b), and the machine with ZAP is certified Thiele-complete through no interface (\texttt{nec\_t\_zap\_meets\_all\_but\_chain}, \texttt{nec\_t\_zap\_not\_thiele\_complete}). A checker that accepts every claim keeps (a), (c) and (d) and loses checker soundness (\texttt{nec\_t\_unsound\_check\_meets\_all\_but\_soundness}). A machine whose states pair one of six control states with a ledger, with one move that costs nothing and the ordered record moves CHECK, COMMIT and CERTIFY, meets the loose notion, which keeps every clause except the universal base, and is certified Thiele-complete through no interface (\texttt{nec\_t\_nb\_loose\_complete}, \texttt{nec\_t\_nb\_not\_thiele\_complete}). For the generic machine, the exact equality test, the exact checker and a property true of one value and false of another each do work. An equality test that calls a different property equal to one the checker accepts on some value, a checker that accepts a property on a value where it does not hold, or a property language in which every property that holds of one value holds of all, each leaves the generic machine with its interface not certified Thiele-complete (\texttt{nec\_t\_generic\_needs\_exact\_eqb}, \texttt{nec\_t\_generic\_needs\_exact\_eval}, \texttt{nec\_t\_generic\_needs\_varying\_property}).
-\end{theorem}
-
-%=============================================================================
-\chapter{The Universal Machine}\label{ch:universal}
-
-\begin{definition}[Universal Thiele machine]
-Fix a class $C$ of Thiele machines, each with its runs from given start states. A \emph{universal Thiele machine for} $C$ is a Thiele machine $H$, the host, with one program $P$ fixed for the whole class, a way to load any guest $M$ in $C$ with any start $s_0$ into a start state of $H$, and a way to read a guest's state off the host's registers, such that:
-\begin{enumerate}[(1)]
-  \item $H$ is Thiele-complete, and its computing moves are its counter moves;
-  \item the run of $P$ from the loaded state halts exactly when $M$'s run from $s_0$ stops, and then shows the observable part of $M$'s last state, as the class names it, its reading kept as a latch, and its ledger up to the surcharge;
-  \item the run passes, in order, through host states that show the observable part of $M$'s states along its run, at which the host's record equals $M$'s reading kept as a latch and the host's ledger equals $M$'s ledger plus a surcharge, never negative and bounded by a number fixed for the class;
-  \item \emph{the rise is the program's}: from every untrapped state, a record instruction selected by $P$ either traps, or else leaves the flag up exactly when it was already up or the current line is marked as raising by $P$;
-  \item $H$ is a \emph{register host}: its counter moves are INC, DEC and HALT on registers, its record moves leave the registers alone and go to the next line or trap, and which move comes next depends only on the line and whether the trap is up;
-  \item each guest is loaded with the record down, no trap, a fixed line and the guest written into the registers, and the guest's state is read off the registers in a coding fixed with the class, before any guest is named.
-\end{enumerate}
-A \emph{certified} universal Thiele machine also has its host certified Thiele-complete with clean loads, and its record, whenever it is up, standing on the host's own check of the guest's own justification, as the class supplies it.
-\end{definition}
-
-U and U\textsubscript{P} are certified universal Thiele machines, by the theorems of this chapter put together. For U the surcharge is $0$, the guest's justification is its chain claim, and the observable part is the guest's two counters; in order U matches everything but the guest's version numbers. For U\textsubscript{P} the surcharge is at most $2$ when the guest's reading starts at no and exactly $3$ when it starts at yes, the guest's justification is its reading, and the observable part is the guest's whole state. U\textsubscript{P}'s program, read on a register host with no claims and no checker, is U\textsubscript{N}; it meets the uncertified definition with the same surcharge (\texttt{UN\_neutral\_universal}). Surcharge $0$ for every guest whose reading starts at no, across a universal class, is reached on that host by U\textsubscript{P}'s compiler with one TICK in place of the three-act chain at the first yes; the monograph argues it, and it isn't formalised.
-
-The Coq predicate \texttt{neutral\_universal} (\texttt{coq/kernel/foundation/NeutralUnivDef.v}), met by U, U\textsubscript{P} and U\textsubscript{N} (\texttt{U\_neutral\_universal}, \texttt{UP\_neutral\_universal}, \texttt{UN\_neutral\_universal}), is not the definition above: it lets the decoding depend on the guest, and a host blind to its guest meets it on a class whose guests all halt and record alike (\texttt{smuggle\_universal}). Clause (6), a coding fixed with the class before any guest is named, is argued in words in the monograph; U and U\textsubscript{P} read the guest off fixed registers in the guest's own coding.
-
-\section{The universal host}
-
-\begin{theorem}[The guest mirror and its toll] \textbf{(S)}
-The host of \texttt{minimal/UniversalThiele.v} runs any small-machine program as a guest. From a loaded host, or any state where the two agree, its mirror of the guest's flag always equals that flag (\texttt{record\_agreement}, \texttt{hload\_agrees}). The mirror rises only in a guest step that passed CERTIFY, charged in that same host step (\texttt{no\_free\_host\_certification\_step}, \texttt{toll\_enforced\_by\_host\_step}). The host is a Thiele machine with the trace floor (\texttt{host\_nfi}).
-\end{theorem}
-
-On this host, a machine from elsewhere enters through the two-counter encoding, and its computation and the toll are kept. Its own price list is not kept. On U\textsubscript{P}, in the section on the priced host below, a computably presented machine keeps its own ledger plus a surcharge.
-
-\section{U}
-
-U is one fixed program of the machine of \texttt{minimal/EarnedMulti.v}, with the single property of \texttt{minimal/UniversalCodes.v}, made of the small machine's own instruction kinds and with no guest step built into anything (\texttt{coq/kernel/foundation/UniversalLayout.v}). For a small-machine program $P$ and a start $(x, y)$, $g_m$ is the guest after $m$ steps and $h_n$ is U after $n$ steps from the loaded state.
-
-\begin{theorem}[Simulation] \textbf{(S)}
-For every $m$ there is $n \ge m$ with $h_n$ related to $g_m$ by the simulation relation, or both machines have stopped.
-Coq: \texttt{U\_simulation}.
-\end{theorem}
-
-\begin{theorem}[Halting and output] \textbf{(S)}
-The guest halts if and only if U halts (\texttt{universal\_halting}); at halting, U's first two registers hold the guest's counters, and the trap latches, ledgers and flags are equal (\texttt{universal\_output}).
-\end{theorem}
-
-\begin{theorem}[The flag is earned again] \textbf{(S)}
-The guest's flag ever rises if and only if U's flag ever rises (\texttt{universal\_flag\_iff}). A raised flag of U stands on U's own passing CHECK, its own COMMIT of the same claim with the slot untouched, and the CERTIFY that raised it; when checked, the slot held the guest's claim and value, and the guest's own run contains its chain on the same claim (\texttt{universal\_earned}).
-\end{theorem}
-
-\begin{theorem}[The ledger] \textbf{(S)}
-At matching points U's ledger equals the guest's, and every ledger of U lies between the guest's ledger at some $m$ and at $m+1$.
-Coq: \texttt{universal\_ledger\_exact}.
-\end{theorem}
-
-\begin{theorem}[Completeness and undecidability of U] \textbf{(S)}
-The machine U runs on, read with INC and DEC as its base and CHECK, COMMIT and CERTIFY as its record moves, is certified Thiele-complete (\texttt{universal\_thiele\_complete}). U's halting problem, whether U started on the code of $P$ and the inputs $x, y$ ever halts, is undecidable (\texttt{interp\_halting\_undecidable}).
-\end{theorem}
-
-\section{The priced host and U\textsubscript{P}}
-
-The priced host of \texttt{minimal/EarnedMultiPriced.v} is the machine with a counter for every natural number and one more paid move, PAY. Its fixed program U\textsubscript{P} runs priced guest programs.
-
-\begin{theorem}[U\textsubscript{P}] \textbf{(S)}
-A priced guest halts if and only if U\textsubscript{P} run on it halts (\texttt{pu\_universal\_halting}), and the priced host, read with INC and DEC as its base, CHECK, COMMIT and CERTIFY as its record moves and PAY as a check of the empty claim, is certified Thiele-complete (\texttt{pu\_universal\_thiele\_complete}). A computably presented machine runs on U\textsubscript{P}: U\textsubscript{P} halts exactly when the machine does, and at every step before the halt some host step decodes the machine's state, carries a flag equal to the machine's latch and a ledger equal to the machine's ledger plus a surcharge (\texttt{presented\_universal}). When the machine's reading starts at no, the surcharge is at most $2$ (\texttt{presented\_universal\_surcharge\_le\_two}); when it starts at yes, it is exactly $3$ (\texttt{cmpz\_host\_link\_start\_up}). If the four code-level relations of a presentation (next move, step, cost and reading) are computable in any one of the seven models of computation of the vendored library, the machine has a presentation that runs on U\textsubscript{P} this way (\texttt{lift\_computable\_runs\_on\_U}).
-\end{theorem}
-
-\section{A verified compiler and the extracted machines}
-
-\begin{theorem}[The compiler] \textbf{(S)}
-For a source program with variables, addition, truncated subtraction, conditionals, while loops and non-recursive procedures with several results, whose shape a Boolean check decides (\texttt{cmp\_wf\_b\_spec}), the program computes $y$ exactly when the fast runner halts with $y$, exactly when the compiled host program halts with $y$ at the output, exactly when the compiled two-counter guest does, and exactly when U\textsubscript{P} running that guest halts with $y$, the first counter $0$, ledger $0$ and the flag down (\texttt{cmp\_final}). If the source program has a run, there is a $k$ such that the runner halts with any fuel of at least $k$ and uses exactly $k$ steps (\texttt{cmp\_exec\_complete}); a runner that does not halt has used all its fuel (\texttt{cmp\_exec\_unhalted}).
-\end{theorem}
-
-The interpreter, shape check, compiler and runner, and the host programs U and U\textsubscript{P}, are extracted to OCaml (\texttt{ocaml/CmpExtract.v}, \texttt{ocaml/RealizeExtract.v}). The extracted definitions are proved equal to the originals: the extracted instruction list is U (\texttt{rlz\_host\_program\_is}), the extracted host state after $n$ steps is the original host's, for U and for U\textsubscript{P} (\texttt{rlz\_host\_at\_is}, \texttt{rlz\_phost\_at\_eq}), and replacing the register storage of a run by a table changes no field of any state (\texttt{rlz\_host\_sched\_sound\_original}). Extraction maps natural numbers to unbounded integers; the hand-written mapping lines and the two OCaml drivers are trusted and carry no proof. U on a guest that certifies is proved and not run.
-
-%=============================================================================
 \chapter{Recursion and Undecidability}\label{ch:undecidability}
 
 \begin{definition}[Substrate]
@@ -846,24 +609,10 @@ Let $D$ be such a decider and $f(p)$ the rejected canonical program if $D(p)$ is
 The natural-number substrate meets the recursion premise by construction, since its fixed-point program copies the transformer's output (\texttt{nat\_structural\_shortcut\_undecidable}).
 
 \begin{theorem}[L] \textbf{(S)}
-For the weak call-by-value lambda calculus L, defined in \texttt{coq/kernel/foundation/LRecursion.v} from its reduction rules, Kleene's second recursion theorem holds (\texttt{second\_recursion}), every extensional nontrivial property of L terms is undecidable (\texttt{L\_rice}), and L halting is undecidable (\texttt{L\_halting\_undecidable}). L is the calculus Yannick Forster and Gert Smolka presented as a model of computation in which computability theory can be carried out in Coq (Interactive Theorem Proving, ITP 2017, LNCS 10499). Yannick Forster, Fabian Kunze, Gert Smolka and Maximilian Wuttke later checked in Coq that L and Turing machines simulate each other (Interactive Theorem Proving, ITP 2021). The Turing-completeness of L is not re-proved in this repository's own files: it comes from the models-equivalence theorem of the vendored Coq Library of Undecidability Proofs (\texttt{vendor/coq-undecidability/theories/Synthetic/Models\_Equivalent.v}), which is checked with this build.
-\end{theorem}
-
-\begin{theorem}[The complement of two-counter halting] \textbf{(S)}
-The complement of two-counter halting is undecidable, composed from the vendored library's reductions (\texttt{MM2\_HALTING\_compl\_undec}).
+For the weak call-by-value lambda calculus L, defined in \texttt{coq/kernel/foundation/LRecursion.v} from its reduction rules, Kleene's second recursion theorem holds (\texttt{second\_recursion}), every extensional nontrivial property of L terms is undecidable (\texttt{L\_rice}), and L halting is undecidable (\texttt{L\_halting\_undecidable}). L is the calculus Yannick Forster and Gert Smolka presented as a model of computation in which computability theory can be carried out in Coq (Interactive Theorem Proving, ITP 2017, LNCS 10499). Yannick Forster, Fabian Kunze, Gert Smolka and Maximilian Wuttke later checked in Coq that L and Turing machines simulate each other (Interactive Theorem Proving, ITP 2021). The Turing-completeness of L is theirs and is not proved in this repository.
 \end{theorem}
 
 The diagonal uses recursion and behavioral equivalence; cost plays no part. Deciding a predicate over arbitrary programs is a different task from reading one field of a given state.
-
-\section{The two-counter machine itself}
-
-\begin{theorem}[Rice and Kleene for two counters] \textbf{(S)}
-For any set $X$ of inputs, a property of small-machine programs that cannot tell apart two programs behaving the same on every input in $X$ (same stopping, same counters, trap latch, ledger and flag, and the same shapes of the fact table and channel) is undecidable when it holds of some program and fails of another, and decidable when it holds of every program or of none (\texttt{tc\_rice}, \texttt{tc\_rice\_dichotomy}). On packed inputs, the powers of $2$, one program is universal (\texttt{tc\_universal}), and for every transformation $F$ of programs that some program carries out on program numbers there is a program $e$ with the same packed function as $F(e)$ (\texttt{tc\_kleene}). On the multi-register host, a property of programs that depends only on the partial function computed is undecidable when it holds of one program and fails of another (\texttt{sm\_host\_rice\_fun}), and Kleene's recursion theorem holds for computed partial functions (\texttt{sm\_kleene}).
-\end{theorem}
-
-\begin{theorem}[Where recursion fails] \textbf{(R)}
-When sameness also compares the shapes of the fact table and the channel, some transformation carried out by a program on program numbers has no fixed point, even on packed inputs (\texttt{tc\_no\_fine\_kleene}). On plain inputs, the input in counter $A$ and $0$ in counter $B$, the recursion theorem fails: some transformation $F$ carried out by a program has no program $e$ equivalent to $F(e)$, computing the same plain function (\texttt{tc2\_plain\_recursion\_false}); the proof rests on the fact that no program $P$ multiplies every input by $c(\mathrm{length}\ P)$, the factorial of an explicit bound on the control size of programs of that length, plus $1$ (\texttt{tc2\_no\_mult}).
-\end{theorem}
 
 %=============================================================================
 \chapter{The Record Axis}\label{ch:record}
@@ -901,50 +650,14 @@ The relation \texttt{weak\_base\_equiv}, agreement on chosen observations and ha
 
 \section{The record over any order}
 
-The definition of Chapter~\ref{ch:nfi} has the record in any preorder, and the theorems there state its floor and its thresholds. In Coq the general machine is an \emph{axis system}. This section states the further results on that axis.
+The definition of Chapter~\ref{ch:nfi} has the record in any preorder, and the theorems there state its floor and its thresholds. In Coq the priced record system is an \emph{axis system} (\texttt{AxSys}); the member predicate is \texttt{ax\_thiele}. This section states the further results on that axis.
 
 \begin{theorem}[Latches, merges and windows on the axis] \textbf{(S)}
 A record that never drops and whose next value is a function of the base state and the current record factors through thresholds: some event $h$ makes $a$ at or below the next record exactly when $a$ is at or below the current record or $h$ fires (\texttt{ax\_decompose}). A repeat-free chain of $k$-bit words, each word's set bits among the next word's, has at most $k + 1$ members, and some chain has exactly $k + 1$ (\texttt{chain\_bits\_exact}). With finitely many states and a growing record, every instruction that leaves the down-set from some state merges two states (\texttt{ax\_growth\_exit\_merges}), and pricing every merge gives the toll (\texttt{ax\_a2\_from\_merge\_price}). For finitely many states and moves and decidable observations, some price computed from a window is exact exactly when the window has no collision (\texttt{ax\_window\_exact\_iff\_no\_collision}).
 \end{theorem}
 
-\begin{theorem}[Completeness and entropy on the axis] \textbf{(S)}
-An interface makes a machine of Chapter~\ref{ch:complete} certified Thiele-complete exactly when the same interface, read over the two-point order with false below true, meets the four clauses on the axis (\texttt{ax\_tc\_two\_point\_iff}). Every certified Thiele-complete axis machine obeys the toll (\texttt{ax\_tc\_a2}), every run from a clean start that ends with the record not at or below the floor makes at least three record moves and raises the ledger by at least $3$ (\texttt{ax\_tc\_certificate\_three}), and no function of the counter-machine window gives the record (\texttt{ax\_tc\_independence}). On the multi-register host, for every reading of final states into a preorder that respects agreement on everything a program can read, a property of programs that respects behaving alike on the record is undecidable when it holds of some program and fails of another (\texttt{ax\_rice\_record}); some host program has runs whose claim sets climb in $m$ strict steps exactly when $m \le 16$, the size of the fact table (\texttt{ax\_single\_run\_boundary}). Under the halving price, on a state space of any size, for a non-negative weighting and any finite list of landing spots, each given with a repeat-free list of exactly the states the move sends to it, the move's conditional entropy loss over those lists is at most their total weight times the move's cost times $\ln 2$ (\texttt{ax\_inf\_loss\_bits}).
-\end{theorem}
-
-%=============================================================================
-\chapter{CHSH and Tsirelson}\label{ch:chsh}
-
-Until the last section, the results in this chapter are mathematics about correlators and trial counts, and no machine is fixed. The bound named for Boris Tsirelson, who showed in 1980 that quantum correlations give a CHSH value of at most $2\sqrt{2}$, appears here as algebra.
-
-\begin{theorem}[Classical bound] \textbf{(S)}
-A factorizable correlator has $|S| \le 2$ (\texttt{factorizable\_CHSH\_classical\_bound}); trial counts consistent with one deterministic local strategy cannot exceed the classical bound (\texttt{chsh\_stat\_violation\_not\_local}).
-\end{theorem}
-
-\begin{theorem}[Algebraic Tsirelson bound] \textbf{(S)}
-A rational correlator satisfying the absolute-value bounds and four selected $3\times 3$ polynomial minors has $|S| \le 2\sqrt{2}$ (\texttt{algebraically\_coherent\_tsirelson\_general}). The bound also follows from row constraints and Cauchy--Schwarz (\texttt{tsirelson\_from\_row\_bounds}) and is reached (\texttt{tsirelson\_tight}). No Hilbert space is used.
-\end{theorem}
-
-\begin{theorem}[The biconditional] \textbf{(S)}
-On the zero-marginal slice, the column-contractivity conditions on $E_{00}, E_{01}, E_{10}, E_{11}$ hold if and only if the zero-marginal $5\times 5$ NPA moment matrix is positive semidefinite.
-Coq: \texttt{column\_contractive\_iff\_npa\_psd}.
-\end{theorem}
-
-\begin{theorem}[The integer check] \textbf{(S)}
-If the integer column check accepts eight trial counts, the zero-marginal NPA matrix built from their correlators is positive semidefinite (\texttt{column\_contractive\_check\_witness\_npa\_psd}), and a PSD matrix of that form satisfies the Tsirelson bound (\texttt{npa\_psd\_implies\_tsirelson\_bound}). The check is sound in this direction only; a rejection is not proved to mean the conditions fail.
-\end{theorem}
-
-\begin{theorem}[Elliptope] \textbf{(S)}
-Call a correlator $(E_{00}, E_{01}, E_{10}, E_{11})$ elliptope-realizable when some choice of the two within-party cross moments completes the zero-marginal NPA matrix to a positive semidefinite matrix (\texttt{elliptope\_realizable}). The comments of \texttt{coq/kernel/quantum/ElliptopeCompletion.v} read this existential completion as the CHSH correlator quantum set, following Tsirelson's characterization; no theorem here proves that identification. Elliptope-realizable points satisfy the Tsirelson bound (\texttt{elliptope\_tsirelson}), and the PR box is not elliptope-realizable (\texttt{pr\_box\_not\_elliptope}). An integer membership check is sound into realizability (\texttt{elliptope\_check\_full\_sound}).
-\end{theorem}
-
-No theorem here identifies a correlator with a physical experiment or proves that any device produces CHSH-violating statistics.
-
-\section{The check as a property of the multi-register machine}
-
-This section fixes a machine: the multi-register machine of \texttt{minimal/EarnedMulti.v}, with a counter for every number and one property that reads a counter as a tally of eight trial counts and that passes exactly when the integer check \texttt{small\_chsh\_check} passes.
-
-\begin{theorem}[The check on the machine] \textbf{(S)}
-The integer check passes exactly when every question pair was sampled and the pinned $5\times 5$ moment matrix is symmetric and positive semidefinite (\texttt{small\_chsh\_check\_iff}). From a clean start, a raised flag stands on a CHECK, a COMMIT and a CERTIFY of the CHSH claim on one counter, and that counter held a tally passing the check, with $S^2 \le 8$ (\texttt{small\_chsh\_flag\_implies\_tsirelson}). Every passing tally has $S^2 < 8$ (\texttt{nec\_e\_check\_strict}), so none reaches $2\sqrt{2}$ (\texttt{nec\_e\_check\_never\_tsirelson}), and for every $\varepsilon > 0$ some passing tally has $S^2 > 8 - \varepsilon$ (\texttt{nec\_e\_check\_sharp}). Each of the check's seven integer facts is needed (\texttt{nec\_e\_check\_facts\_irredundant}), and the check refuses the tally of one round per question pair of every deterministic plan (\texttt{nec\_e\_check\_refuses\_all\_plans}).
+\begin{theorem}[Entropy on the axis] \textbf{(S)}
+Under the halving price, on a state space of any size, for a non-negative weighting and any finite list of landing spots, each given with a repeat-free list of exactly the states the move sends to it, the move's conditional entropy loss over those lists is at most their total weight times the move's cost times $\ln 2$ (\texttt{ax\_inf\_loss\_bits}).
 \end{theorem}
 
 %=============================================================================
@@ -978,28 +691,22 @@ The addressed-RAM and reversible-update files prove only their named fragments. 
 
 The pointer-observable criterion proposes that the event a step rule is forced to price is singled out by redundant record proliferation across observers. Twelve candidate events over seven observer maps proliferate as stated (\texttt{twelve\_candidate\_measurements\_checked}). The MAC-labelled model does not proliferate (\texttt{mac\_model\_not\_proliferating}); applying that to a real system depends on the observer model. A two-observer toggle game with consensus, authenticity and coordinator-free updates revokes its event (\texttt{toggle\_game\_refutes\_strong\_pointer\_necessity}), so those properties do not force permanence. Durable views do imply permanence, by making persistence a premise (\texttt{durable\_consensus\_implies\_permanence}). The external consequence survey contains five narrow countermodels, each for a point a governing source already addresses, and five stronger statements without enough protocol or hardware semantics; no surveyed consequence is simultaneously record-axis dependent, novel, and ready for use. The pointer criterion is a thesis: ``faithfully model'' and ``deployed'' tie it to the world and cannot be defined, as in the Church--Turing thesis.
 
-%=============================================================================
 \appendix
 \chapter{Proof File Index}
-
-The effective-model comparison also uses the vendor bridge:
-
-\noindent\texttt{vendor/coq-undecidability/theories/Synthetic/Models\_Equivalent.v}.
 
 \begingroup
 \small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{\dimexpr0.62\textwidth-2\tabcolsep\relax}@{}}
 \textbf{Results} & \textbf{File} \\
 \hline
-The definition, its floor and the one-bit instance & \texttt{coq/kernel/foundation/AxCore.v}, \texttt{coq/kernel/foundation/AxTwoPoint.v}, \texttt{coq/kernel/nfi/UniversalCertificationCost.v} \\
-Structural lift and tape bridge & \texttt{coq/audit/StructuralBridge.v}, \texttt{coq/audit/TuringStructuralBridge.v}, \texttt{coq/audit/ValuationBoundary.v} \\
+The member predicate, the latch and the history lift & \texttt{coq/kernel/foundation/AxThiele.v}, \texttt{coq/audit/AxThieleLeast.v} \\
+The definition, its floor and the one-bit instance & \texttt{coq/kernel/foundation/AxCore.v}, \texttt{coq/kernel/nfi/UniversalCertificationCost.v} \\
+Valuations & \texttt{coq/audit/ValuationBoundary.v} \\
 Free moves and least instruction toll & \texttt{coq/audit/LeastToll.v} \\
 Future observations and unique realizations & \texttt{coq/audit/CanonicalObservation.v}, \texttt{coq/audit/ObservationContract.v} \\
-Histories, terminal lift and minimality & \texttt{coq/audit/TraceFactorization.v}, \texttt{coq/audit/LiftTerminal.v}, \texttt{coq/audit/LiftProposalBoundary.v} \\
-Simulation and provenance boundaries & \texttt{coq/audit/MacroBoundary.v}, \texttt{coq/audit/PaidBypassBoundary.v}, \texttt{coq/audit/ConcreteClosureBridge.v} \\
+Histories and minimality & \texttt{coq/audit/TraceFactorization.v} \\
+Simulation boundary & \texttt{coq/audit/MacroBoundary.v} \\
 Source charges and exact accounting & \texttt{minimal/AccountingBridge.v} \\
-Generic and multi-register machines & \texttt{minimal/EarnedGeneric.v}, \texttt{minimal/EarnedMulti.v}, \texttt{minimal/EarnedMultiPriced.v} \\
-Universal coding and program layout & \texttt{minimal/UniversalCodes.v}, \texttt{coq/kernel/foundation/UniversalLayout.v} \\
 Fresh states and sharp retention & \texttt{minimal/HeatOrRoom.v}, \texttt{minimal/SharpHost.v} \\
 First revisit, halting and kept distinctions & \texttt{minimal/StepLaw.v}, \texttt{minimal/HaltingHole.v}, \texttt{minimal/KeptDistinction.v} \\
 Nondeterministic and reversible steps & \texttt{minimal/NondetChairs.v}, \texttt{minimal/Recurrence.v} \\
@@ -1017,27 +724,11 @@ No intrinsic joule value & \texttt{coq/kernel/nfi/PricingPhysicsAudit.v} \\
 Shadow pricing & \texttt{coq/kernel/nfi/ShadowPricing.v} \\
 Narrowing & \texttt{coq/kernel/nfi/KnowledgeNarrowing.v} \\
 Window adequacy, joint floors & \texttt{coq/kernel/frontier/ObservationPolicy.v} \\
-The small machine & \texttt{minimal/EarnedCore.v}, \texttt{coq/kernel/foundation/EarnedCoreLinks.v}, \texttt{minimal/NecSClean.v} \\
-Thiele completeness & \texttt{minimal/NeutralComplete.v}, \texttt{minimal/NeutralMore.v} \\
-Certified Thiele completeness & \texttt{minimal/ThieleComplete.v}, \texttt{coq/kernel/foundation/EarnedGenericLinks.v} \\
-The window theorem & \texttt{minimal/ThieleCompleteWindow.v} \\
-Every model of computation & \texttt{minimal/LiftCore.v}, \texttt{minimal/LiftConverse.v}, \texttt{minimal/LiftOneCounter.v}, \texttt{coq/kernel/foundation/LiftModels.v}, \texttt{coq/kernel/foundation/LiftModelsAll.v}, \texttt{coq/kernel/foundation/LiftAxis.v}, \texttt{coq/kernel/foundation/LiftHeadline.v} \\
-Composition & \texttt{coq/kernel/foundation/CzProd.v}, \texttt{coq/kernel/foundation/CzProdTC.v}, \texttt{coq/kernel/foundation/CzCounter.v}, \texttt{coq/kernel/foundation/CzCat.v}, \texttt{coq/kernel/foundation/CzSeq.v}, \texttt{coq/kernel/foundation/CzWin.v}, \texttt{coq/kernel/foundation/CzTower.v}, \texttt{minimal/CzLink.v}, \texttt{minimal/CzShared.v} \\
-Each clause is needed & \texttt{minimal/NecTToll.v}, \texttt{minimal/NecTEarned.v}, \texttt{minimal/NecTLoose.v}, \texttt{minimal/NecTGeneric.v} \\
-Universal Thiele machine & \texttt{coq/kernel/foundation/UMachDef.v}, \texttt{coq/kernel/foundation/NeutralUnivDef.v}, \texttt{coq/kernel/foundation/NeutralUnivU.v}, \texttt{coq/kernel/foundation/NeutralUnivUP.v}, \texttt{coq/kernel/foundation/NeutralUnivShadow.v}, \texttt{coq/kernel/foundation/NeutralUnivSmuggle.v} \\
-Universal host & \texttt{minimal/UniversalThiele.v}, \texttt{coq/kernel/foundation/UniversalThieleLinks.v} \\
-U & \texttt{coq/kernel/foundation/UniversalRun.v}, \texttt{coq/kernel/foundation/UniversalInterpreterLinks.v} \\
-U\textsubscript{P} and presented machines & \texttt{coq/kernel/foundation/UniversalPRun.v}, \texttt{coq/kernel/foundation/PresentedUniversal.v} \\
-Verified compiler & \texttt{coq/kernel/foundation/CmpFinal.v}, \texttt{coq/kernel/foundation/CmpRun.v} \\
-Extraction to OCaml & \texttt{ocaml/CmpExtract.v}, \texttt{ocaml/RealizeExtract.v}, \texttt{coq/kernel/foundation/Realize.v}, \texttt{coq/kernel/foundation/RealizePrograms.v}, \texttt{coq/kernel/foundation/RealizePriced.v}, \texttt{coq/kernel/foundation/RealizeCompact.v} \\
 Structural undecidability & \texttt{coq/kernel/nfi/StructuralUndecidability.v}, \texttt{coq/kernel/foundation/NatSubstrateInstance.v}, \texttt{coq/kernel/foundation/Substrate.v} \\
-L recursion and Rice & \texttt{coq/kernel/foundation/LRecursion.v}, \texttt{coq/kernel/foundation/MM2ComplementUndec.v} \\
-Two-counter recursion and Rice & \texttt{coq/kernel/foundation/TcRice.v}, \texttt{coq/kernel/foundation/TcPacked.v}, \texttt{coq/kernel/foundation/TcNoFine.v}, \texttt{coq/kernel/foundation/Tc2Plain.v}, \texttt{minimal/Tc2Mult.v}, \texttt{coq/kernel/foundation/SmKleene.v} \\
+L recursion and Rice & \texttt{coq/kernel/foundation/LRecursion.v} \\
 Record axis & \texttt{coq/kernel/foundation/StructuralCore.v}, \texttt{coq/kernel/foundation/StructuralCoreAnyBase.v}, \texttt{coq/kernel/foundation/StructuralRecordAxis.v}, \texttt{coq/kernel/foundation/RecordAxisDiscrimination.v}, \texttt{coq/kernel/foundation/CrossBaseGranularityCore.v}, \texttt{coq/kernel/foundation/CrossBaseGranularity.v}, \texttt{coq/kernel/foundation/CrossBaseGranularityRAM.v}, \texttt{coq/kernel/foundation/CrossBaseGranularityL.v} \\
-Latches, merges and windows on the axis & \texttt{coq/kernel/foundation/AxLatch.v}, \texttt{coq/kernel/foundation/AxLatch2.v}, \texttt{coq/kernel/foundation/AxMerge.v}, \texttt{coq/kernel/foundation/AxWindow.v}, \texttt{coq/kernel/foundation/AxComplete.v}, \texttt{coq/kernel/foundation/AxComplete2.v}, \texttt{coq/kernel/foundation/AxRice.v}, \texttt{coq/kernel/foundation/AxHostClaims.v}, \texttt{coq/kernel/foundation/AxInfinite.v} \\
+Latches, merges and windows on the axis & \texttt{coq/kernel/foundation/AxLatch.v}, \texttt{coq/kernel/foundation/AxLatch2.v}, \texttt{coq/kernel/foundation/AxMerge.v}, \texttt{coq/kernel/foundation/AxWindow.v}, \texttt{coq/kernel/foundation/AxInfinite.v} \\
 Growing and probabilistic records & \texttt{coq/kernel/foundation/GrowingRecord.v}, \texttt{coq/kernel/foundation/ProbabilisticRecord.v} \\
-CHSH and Tsirelson & \texttt{coq/kernel/quantum/CHSHColumnCheck.v}, \texttt{coq/kernel/quantum/TsirelsonGeneral.v}, \texttt{coq/kernel/category/AlgebraicCoherence.v}, \texttt{coq/kernel/quantum/MinorConstraints.v}, \texttt{coq/kernel/quantum/CHSHStatisticalBridge.v}, \texttt{coq/kernel/quantum/TsirelsonFromAlgebra.v}, \texttt{coq/kernel/quantum/ElliptopeCompletion.v}, \texttt{coq/kernel/quantum/ElliptopeGate.v} \\
-The check on the multi-register machine & \texttt{coq/kernel/quantum/SmallChshCheck.v}, \texttt{coq/kernel/quantum/SmallChshMachine.v}, \texttt{coq/kernel/foundation/NecEChsh.v}, \texttt{coq/kernel/foundation/NecEChshInt.v} \\
 Calorimeter & \texttt{coq/kernel/thermodynamic/CalorimeterProtocol.v} \\
 External models & \texttt{coq/kernel/reductions/RFC9162Merkle.v}, \texttt{coq/kernel/reductions/NeculaPCC.v}, \texttt{coq/kernel/reductions/TPMQuoteAuthenticity.v}, \texttt{coq/kernel/reductions/CasperFFG.v} \\
 Pointer criterion & \texttt{coq/kernel/frontier/PointerObservable.v}, \texttt{coq/kernel/frontier/}\allowbreak\texttt{RecordProliferationSurvey.v}, \texttt{coq/kernel/frontier/EcosystemGame.v}, \texttt{coq/kernel/frontier/}\allowbreak\texttt{PointerObservableCounterexamples.v} \\
@@ -1052,6 +743,9 @@ Pointer criterion & \texttt{coq/kernel/frontier/PointerObservable.v}, \texttt{co
 \textbf{Result} & \textbf{Status} & \textbf{Key premise} \\
 \hline
 \multicolumn{3}{@{}l}{\textit{The definition and the price in the move}} \\
+The member predicate; a flat reading obeys the toll and is not a member & \textbf{(S)} & Any preorder; flat means no step leaves the down-set \\
+The latch is the smallest Thiele machine & \textbf{(S)} & Two states, one move priced $1$; any member has two readings and a priced move \\
+The history lift: a machine with a run that moves is the shadow of a member & \textbf{(S)} & A Boolean equality test on states; a run ending off its start; a finite base for the least price \\
 The floor is the toll & \textbf{(S)} & A preorder of records; nothing else \\
 Thresholds are one-bit machines & \textbf{(S)} & A2; antisymmetry for the thresholds to determine the record \\
 Universal floor & \textbf{(S)} & A2 on the two-point order \\
@@ -1064,40 +758,23 @@ Shadow pricing & \textbf{(S)} & A colliding pair in the window \\
 \multicolumn{3}{@{}l}{\textit{What stays}} \\
 Free reading preservation & \textbf{(S)} & A2 and global permanence \\
 Record axis is a latch & \textbf{(S)} & Base-driven record \\
-Earned provenance, checker soundness & \textbf{(S)} & Clean start \\
 \hline
 \multicolumn{3}{@{}l}{\textit{What a window forgets}} \\
 Canonical future equivalence & \textbf{(S)} & Fixed deterministic operations and observations \\
-Terminal lift and reachable minimality & \textbf{(S)} & Fixed base/events, exact latch, toll, permanence, unit ledger; separation for injectivity \\
-History map in the reverse direction fails & \textbf{(R)} & Toggle base with an additional free-turn counter \\
-Window theorem & \textbf{(S)} & Thiele completeness (gap of one) or certified Thiele completeness (gap of three) \\
 \hline
 \multicolumn{3}{@{}l}{\textit{The room a kept distinction needs}} \\
 Merge or fresh states & \textbf{(S)} & Total deterministic step, permanent raise \\
 Sharp retention bound & \textbf{(S)} & Finite implementation, distinct representatives, reset and injectivity through the specified horizon \\
 Stochastic and unitary holding & \textbf{(S)} & Finite stochastic kernel with column constraints, or finite unitary dynamics and invariant projection \\
 \hline
-\multicolumn{3}{@{}l}{\textit{Computation as the flat case}} \\
-Thiele completeness: floor and window & \textbf{(S)} & The four clauses of \texttt{neutral\_complete} \\
-Certified Thiele completeness of the small machine & \textbf{(S)} & The four clauses of \texttt{thiele\_complete} \\
-Clock-style machines fail & \textbf{(R)} & The four clauses \\
-Lifting any universal base & \textbf{(S)} & A universal base, a claim language with an exact equality test and a proved checker, a fact table with room for one fact, a claim that can come out either way \\
-Composition & \textbf{(S)} & Certified Thiele completeness of both parts \\
-Each clause is needed & \textbf{(R)} & One clause weakened \\
-U & \textbf{(S)} & Small-machine programs \\
-U\textsubscript{P} & \textbf{(S)} & Priced guests, computably presented machines \\
-Verified compiler & \textbf{(S)} & Well-formed source programs \\
-Extraction to OCaml & \textbf{(S)} & Hand-written mapping lines and drivers trusted \\
+\multicolumn{3}{@{}l}{\textit{What no inside procedure decides}} \\
 Structural undecidability & \textbf{(S)} & Recursion theorem of the substrate \\
 L recursion and Rice & \textbf{(S)} & L's reduction rules \\
-Two-counter Rice and packed Kleene & \textbf{(S)} & Behavioral sameness on chosen inputs \\
-Plain-input recursion fails & \textbf{(R)} & Inputs in counter $A$, $0$ in counter $B$ \\
 \hline
 \multicolumn{3}{@{}l}{\textit{The world}} \\
 Biased-walk heat against time & \textbf{(S)} & Specified biased-walk entropy formula; positive speed below one \\
 Heat floor & \textbf{(C)} & \texttt{landauer\_heat}, finite states, permanent certificate, the uniform distribution on the states in play \\
 No intrinsic joule value & \textbf{(R)} & None beyond the ledger \\
-Algebraic Tsirelson bound & \textbf{(S)} & Polynomial minors \\
 Calorimeter heat scale & \textbf{(R)} & Fixed dynamics \\
 Pointer criterion & Thesis & Observer model \\
 \end{longtable}

@@ -1,10 +1,10 @@
-(** Presented.v: a Thiele machine with a driver and number codes, and
+(** Presented.v: a certification system with a driver and number codes, and
     what its runs, ledger, latch and surcharge are.
 
     A presented machine is a certification system (the record of
-    ThieleComplete.v, field for field the record of the book: states,
-    moves, a step, a cost per move, a yes/no reading, and the toll
-    cs_cert_costs) together with
+    ThieleComplete.v: states, moves, a step, a cost per move, a yes/no
+    reading, and the toll cs_cert_costs, with no condition that the reading
+    never falls or ever rises) together with
 
       pm_next     a driver: in each state, the move to take, or None to halt;
       pm_scode    a number for each state, with a decoder pm_sdec that

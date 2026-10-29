@@ -1,5 +1,6 @@
 (** PresentedUniversal.v: one fixed universal Thiele machine runs every
-    computably presented Thiele machine.
+    computably presented machine, a certification system with a driver and
+    a presentation.
 
     The host is the machine of EarnedMultiPriced.v with the one property
     PSlot of UniversalPCodes.v, whose checker is the fixed universal checker

@@ -3,18 +3,19 @@
 
     Definitions, in the words the book uses.
 
-      A Thiele machine is a certification system: states, moves, a step, a
-      cost per move, a yes/no reading (the record), and the toll: a step
-      that turns the reading from no to yes costs at least 1.
+      A certification system: states, moves, a step, a cost per move, a
+      yes/no reading (the record), and the toll: a step that turns the
+      reading from no to yes costs at least 1.
 
-      Thiele-complete: a Thiele machine whose base computes anything a Turing
-      machine can while keeping its own record and paying its own toll.
+      Weakly Thiele-complete: a certification system whose base computes
+      anything a Turing machine can while keeping its own record and paying
+      its own toll.
       EarnedCore.v proves this for the small machine: its INC/DEC fragment is
       the two-counter machine step for step, CERTIFY is the only way up for
       its flag, and the raise costs at least 1.
 
-      A universal Thiele machine: one fixed machine that runs any other
-      Thiele machine of a stated class as a guest, with the guest's record
+      A universal Thiele machine: one fixed machine that runs any
+      certification system of a stated class as a guest, with the guest's record
       and toll enforced by the host's own step.
 
     The guest class. A guest is a small-machine program P (EarnedCore.instr)
@@ -32,7 +33,7 @@
     machine runs as a two-counter program). So every computation runs as a
     guest, and every guest keeps a record that only a paid
     CHECK, COMMIT, CERTIFY chain can raise. What the class does not give is
-    a cost-exact image of an arbitrary Thiele machine: a guest pays 1 for
+    a cost-exact image of an arbitrary certification system: a guest pays 1 for
     each CHECK, COMMIT and CERTIFY and 0 for counting, so a foreign machine
     compiled in through Minsky's encoding keeps its computation and its toll
     (a raise still costs at least 1) but not its own price list, and its
@@ -61,11 +62,11 @@
 
     What is proved (every result closed under the global context):
 
-      1. The host is a Thiele machine: a raise of hcert, of mrec, or of the
+      1. The host obeys the toll: a raise of hcert, of mrec, or of the
          combined reading costs at least 1  [host_own_toll,
-         host_mirror_toll, host_toll]. It is Thiele-complete: its OWN
-         fragment runs every two-counter program, with the halting
-         correspondence  [host_thiele_complete].
+         host_mirror_toll, host_toll]. Its OWN fragment runs every
+         two-counter program, with the halting correspondence
+         [host_thiele_complete].
       2. Universal simulation: n GSTEP 1 moves leave exactly the guest state
          that n guest steps produce; the stored program U, three host
          instructions in a loop, does the same every three host steps
@@ -314,7 +315,7 @@ Proof.
 Qed.
 
 (* ================================================================= *)
-(* 1. The host is a Thiele machine, and Thiele-complete.              *)
+(* 1. The host obeys the toll, and runs every two-counter program.     *)
 (* ================================================================= *)
 
 Theorem host_own_toll : forall h i,

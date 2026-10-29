@@ -1,6 +1,6 @@
 (** AxShadow: the shadow, its fibres, and what the toll prices.
 
-    The Turing machine is the shadow of the axis machine: the map that drops
+    The Turing machine is the shadow of a Thiele-complete axis machine: the map that drops
     the record and the ledger.  The fibre over a classical state is the set of
     full states that project onto it.  The axis coordinates locate a point in
     the fibre, and certification is the instrument that tells two points of
@@ -43,7 +43,6 @@
 From Coq Require Import List Bool Arith.PeanoNat Lia ListDec.
 Import ListNotations.
 From Kernel Require Import AxCore AxMerge.
-Require Minimal.EntitlementSmall.
 
 Lemma ax_nodup_map_collision : forall {S : Type} (eq_dec : forall a b : S, {a = b} + {a <> b})
     (f : S -> S) (l : list S),
@@ -61,6 +60,45 @@ Proof.
       { intro H. apply Hnn. constructor; [exact Hnin | exact H]. }
       destruct (IH Hl Hnn') as [x [y [Hx [Hy [Hne Hf]]]]].
       exists x, y. split; [right; exact Hx |]. split; [right; exact Hy |]. auto.
+Qed.
+
+(** A list whose members land, by f, in imgs, with at most m members on each
+    landing spot, has at most m times as many members as imgs. *)
+Lemma ax_filter_split : forall {A} (p : A -> bool) (l : list A),
+  length (filter p l) + length (filter (fun x => negb (p x)) l) = length l.
+Proof. intros A p l. induction l as [| x l IH]; simpl; [reflexivity |]. destruct (p x); simpl; lia. Qed.
+
+Lemma ax_filter_filter_le : forall {A} (p q : A -> bool) (l : list A),
+  length (filter p (filter q l)) <= length (filter p l).
+Proof.
+  intros A p q l. induction l as [| x l IH]; simpl; [lia |].
+  destruct (q x); simpl; destruct (p x) eqn:Hp; simpl; try rewrite Hp; simpl; lia.
+Qed.
+
+Lemma ax_fibres_count : forall {A B : Type} (eqb : B -> B -> bool),
+  (forall u v, eqb u v = true <-> u = v) ->
+  forall (f : A -> B) (m : nat) (imgs : list B) (l : list A),
+    (forall x, In x l -> In (f x) imgs) ->
+    (forall x, In x l -> length (filter (fun y => eqb (f y) (f x)) l) <= m) ->
+    length l <= m * length imgs.
+Proof.
+  intros A B eqb Heq f m imgs. induction imgs as [| v imgs IH]; intros l Himg Hfib.
+  - destruct l as [| x l]; [simpl; lia |]. exfalso. apply (Himg x). left. reflexivity.
+  - pose proof (ax_filter_split (fun y => eqb (f y) v) l) as Hsplit.
+    assert (HA : length (filter (fun y => eqb (f y) v) l) <= m).
+    { destruct (filter (fun y => eqb (f y) v) l) as [| x0 rest] eqn:E; [simpl; lia |].
+      assert (Hx0 : In x0 (filter (fun y => eqb (f y) v) l)) by (rewrite E; left; reflexivity).
+      apply filter_In in Hx0 as [Hx0l Hx0v]. apply Heq in Hx0v.
+      rewrite <- E. rewrite <- Hx0v. apply Hfib. exact Hx0l. }
+    assert (HB : length (filter (fun y => negb (eqb (f y) v)) l) <= m * length imgs).
+    { apply IH.
+      - intros x Hx. apply filter_In in Hx as [Hxl Hxv].
+        destruct (Himg x Hxl) as [Hfx | Hfx]; [| exact Hfx].
+        assert (Hb : eqb (f x) v = true) by (apply Heq; symmetry; exact Hfx).
+        rewrite Hb in Hxv. discriminate.
+      - intros x Hx. pose proof Hx as Hx'. apply filter_In in Hx' as [Hxl _].
+        eapply Nat.le_trans; [apply ax_filter_filter_le | apply Hfib, Hxl]. }
+    simpl. rewrite Nat.mul_succ_r. lia.
 Qed.
 
 Section Shadow.
@@ -182,7 +220,7 @@ Proof.
     lia.
   - intros Hfib i D HD. unfold ax_image_size.
     set (imgs := nodup eq_dec (map (fun t => step t i) D)).
-    apply (Minimal.EntitlementSmall.ent_fibres_count ax_eqb ax_eqb_spec
+    apply (ax_fibres_count ax_eqb ax_eqb_spec
              (fun x => step x i) (2 ^ cost i) imgs D).
     + intros x Hx. unfold imgs. apply nodup_In. apply (in_map (fun t => step t i)). exact Hx.
     + intros x Hx.

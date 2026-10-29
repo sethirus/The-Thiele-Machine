@@ -25,18 +25,12 @@ ZERO_ASSUMPTION_FILES = [
     "coq/kernel/foundation/StructuralRecordAxis.v",
     "coq/kernel/nfi/PermanentCertification.v",
     "coq/kernel/nfi/PermanentRecordPricing.v",
-    "coq/kernel/foundation/EarnedCoreLinks.v",
-    "coq/kernel/foundation/EarnedGenericLinks.v",
-    "coq/kernel/foundation/UniversalThieleLinks.v",
-    "coq/kernel/foundation/UniversalInterpreterLinks.v",
-    "coq/kernel/foundation/PricedHostLinks.v",
-    "coq/kernel/foundation/SmallChshLinks.v",
-    "minimal/EarnedCore.v",
-    "minimal/ThieleComplete.v",
+    "coq/kernel/foundation/AxCore.v",
+    "coq/kernel/foundation/AxThiele.v",
 ]
 
-# The small machine in minimal/ and the foundation files carry every headline
-# theorem, so they are held to the same rule: every .v file there is scanned
+# The files in minimal/ and the foundation files carry the headline
+# theorems, so they are held to the same rule: every .v file there is scanned
 # without a list to keep in step.
 ZERO_ASSUMPTION_FILES += sorted(
     {
