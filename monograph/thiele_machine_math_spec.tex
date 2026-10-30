@@ -228,7 +228,7 @@ Proposition~\ref{spec:keeping-run} for $g$ from $w$. The two particular cases ar
 
 \argued{sec:steps}
 
-\begin{proposition}[A machine that stops is a Thiele machine with the price left out]\label{spec:stopped-reading}
+\begin{proposition}[A machine that stops, with a price on stopping, is a Thiele machine]\label{spec:stopped-reading}
 \kind{shown}
 Let $f:S\rightharpoonup S$ be a partial step and $H=S\setminus\mathrm{dom}(f)$ its stopped states.
 Let $\bar f(s)=f(s)$ for $s\notin H$ and $\bar f(s)=s$ for $s\in H$ (a stopped state stays where it
@@ -640,7 +640,7 @@ both to $(\ast,\mathrm{yes})$ at price $1$.
 
 \begin{remark}
 A Turing machine read through whether it has stopped needs no extra coin: by
-Proposition~\ref{spec:stopped-reading} it is already a Thiele machine once a price is put on its move.
+Proposition~\ref{spec:stopped-reading} it is a Thiele machine once a price is put on its move.
 \end{remark}
 
 \begin{proposition}[Which question gets charged]\label{spec:which-question} \kind{shown}
