@@ -285,7 +285,7 @@ Any machine can wear one
 Here's something the latch lets you do to any machine at all.
 
 Take any machine, any states, any moves. Pick one state, call it x, that some run
-can reach. Now build a new machine right beside it: the same states and the same
+can reach from somewhere else. Now build a new machine right beside it: the same states and the same
 moves, with one extra coin riding along in its own two boxes, NO and YES. The
 coin starts in NO. The first time a move lands on x, the coin goes to YES, and it
 never comes back. Price every move at one.
