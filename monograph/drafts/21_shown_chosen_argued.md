@@ -119,7 +119,7 @@ No question about what computers can do in a given time follows. Whether P equal
 dollars on, at a meeting in Paris in May 2000. One of the seven has been declared solved since: the Poincaré conjecture, by Grigori Perelman, who posted his proof in 2002
 and 2003. A second has a claim on it. On 8 September 2026 OpenAI announced that one of its models, run as about ten thousand agents for
 about eighty-eight hours, had produced a proof, written out for a proof checker, that a three-dimensional fluid flow with a smooth force
-pushing on it can break down in finite time. That's one of the four answers the official statement of the Navier–Stokes problem accepts.
+pushing on it can break down in finite time. That's one of the four answers the official statement of the Navier-Stokes problem accepts.
 As of October 2026 other mathematicians haven't finished checking it, there's a dispute over credit with Tristan Buckmaster and Levent
 Alpöge, who were working on a closely related result, and the Clay Institute's own page lists the problem as active, not solved. P versus
 NP has no such claim. If a two-state clash on my machine settled it, I'd be owed a million dollars. Nobody owes me anything. A window that loses a box is a
