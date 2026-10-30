@@ -846,15 +846,21 @@ about the objects of a kind has to come out the same for two objects that match 
 in structure. The univalent foundations book, written in 2013 during a year at the
 Institute for Advanced Study organised by Steve Awodey, Thierry Coquand and Vladimir
 Voevodsky, makes that an axiom: "identity is equivalent to equivalence." Things that match
-exactly in structure are the same thing. That's Benacerraf's puzzle from earlier in this
+exactly in structure count as the same, for everything the language is allowed to say.
+And there can be more than one way for two things to match, the way a square matches
+itself four ways by turning, so sameness there carries which match you meant. That's Benacerraf's puzzle from earlier in this
 chapter, about which sets the number three really is, shut down at the door: nobody gets
 to ask a question the structure doesn't answer.
 
 Push on that one and it gives less than the first, because a machine that steps still has
 a pile: the states it can reach. At any tick its box is down or up, so those states are
 already cut in two, whatever the foundations underneath say about where the pile came
-from. Makkai and the univalent people change what you're allowed to say about the pile.
-They don't take away the cut.
+from. And the cut is legal on their own terms. What Makkai gives up is a sameness across
+every kind of thing at once; inside one kind he keeps it, and a set, in his words, is "a
+relatively orderly part of the world in which an equality predicate reigns." A machine's
+states are one kind, and a yes-or-no question put to each of them never leaves it. Makkai
+and the univalent people change what you're allowed to say about the pile. They don't take
+away the cut.
 
 The smallest piece
 
@@ -921,12 +927,8 @@ groups come first because a question needs something to be about, and a door nee
 two sides to stand between. That's an order for my construction. It isn't a law that
 every account of structure has to start by sorting. You could start with arrows
 between the things themselves and no groups at all, and people do, and nothing I've
-shown you rules that out. So the honest sentence is: a split with a door across it is
-where I chose to start. It's the smallest by the ruler I stated. If you have a smaller
-start, by a ruler you can state, I want to see it. It would change this book.
-
-Here's the arrow road, measured with the same kind of ruler: fewest dots first, then
-fewest arrows between different dots. One dot can't tell anything apart. Two dots with
+shown you rules that out. So try that road, measured with the same kind of ruler:
+fewest dots first, then fewest arrows between different dots. One dot can't tell anything apart. Two dots with
 no arrow between them is a plain split, with no door. So the smallest picture with a
 direction in it has two dots, call them NO and YES, a do-nothing loop on each so a thing
 is allowed to stay put, and one arrow from NO to YES with nothing coming back. Category
@@ -935,9 +937,12 @@ of the two dots, so that every move of the machine follows an arrow in the pictu
 dots sort the states into two buckets. The loops let a move stay where it is. The one
 arrow lets a move cross from NO to YES. And there's no arrow back, so no move goes from
 YES to NO. That's a split with a one-way door, exactly, and every split with a one-way
-door lays onto the picture that way. So the arrow road doesn't come out smaller. It
-comes out at the same place. Both rulers hit bottom on the same thing, and the
-invitation still stands.
+door lays onto the picture that way.
+
+So the arrow road doesn't come out smaller. It comes out at the same place. The honest
+sentence is: a split with a door across it is where I chose to start, and it's where both
+rulers hit bottom. It's the smallest by the ruler I stated. If you have a smaller start,
+by a ruler you can state, I want to see it. It would change this book.
 
 Buckets
 
