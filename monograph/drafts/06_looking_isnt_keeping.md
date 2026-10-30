@@ -237,14 +237,15 @@ anything. So the better question is, after that first look, can a step teach you
 more, at no cost?
 
 Yes. The smallest machine that does it has three states in a ring: U goes to V, V
-goes to W, W goes back to U. The window shows "true" only on W. Start with two
-candidates, U or V. Both show "false," so the first look tells you nothing. Take
-one step. From U you'd now see "false"; from V you'd see "true." One step told
+goes to W, W goes back to U. Say all you can see is one thing: whether it's on
+W. Start with two candidates, U or V. Neither is on W, so the first look tells you
+nothing. Take
+one step. From U you'd be on V, not W; from V you'd be on W. One step told
 them apart, and a ring never has two arrows meeting, so the price can be zero.
 
 Two states can't do it, ever, with any arrows. If you can't tell two states apart
-at the first look, the window shows the same thing on both, and those two are all
-the states there are. So the window shows the same thing everywhere, forever.
+at the first look, what you can see is the same on both, and those two are all the
+states there are. So what you can see is the same everywhere, forever.
 Try to draw a counterexample with two dots. You'll draw the same two dots a few
 times and give up, and giving up is the proof. Three is the smallest number of
 states where two that look alike at first can come apart later.
@@ -289,7 +290,8 @@ held apart. There's no third thing a pair of starts can do.
 So everything you didn't know about the start splits cleanly in two: the part the
 run destroyed, which was paid for, and the part the end state still holds.
 
-Now put a watcher at the window. Whatever they see depends only on where the
+Now put a watcher outside, who can see some part of the machine and not the
+rest. Whatever they see depends only on where the
 machine started, so whatever they learn is a fact about the start. And the same
 split holds for it: what they learned is either still held in the machine's end
 state, or it's gone from the machine and two arrows meeting paid for losing it. A

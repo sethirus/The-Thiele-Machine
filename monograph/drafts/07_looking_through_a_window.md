@@ -1,4 +1,4 @@
-What a window can't see
+Looking through a window
 
 Page one ended on two sheets of paper. One person sorted a list and checked it.
 The other copied a sorted list off somebody else. Same numbers, same order, and
@@ -20,8 +20,11 @@ photograph. Blow it up. Count every tile. None of that gets the side of the box
 into the picture. The difference is real; it's on the box. It just isn't in what
 you handed me.
 
-That's the thing I want a word for. What you get shown, the photograph, the
-display, whatever part of the machine reaches you, I'll call a window. And behind
+That's the thing I want a word for, and the word is window. A window doesn't see
+anything. It's a viewing port, an opening that faces one way and narrows what you
+can take in from where you're standing. The camera above the boxes is one: it
+faces down, so the tops come through and the sides don't. A display is one. So is
+a printout, or anything else that lets part of a machine through to you. And behind
 any one picture there's a pile: every full state of the boxes that would give
 exactly that picture. The tiles can agree while the boxes differ in whether they
 were stamped, in what checks were run, in what was erased along the way. All of
@@ -79,8 +82,8 @@ out it's a circle by feeling it, and the circle grows from a point to its widest
 and shrinks back to nothing as the sphere passes through. From one slice he can't
 put a sphere together. From the slices one after another, seen and felt and
 argued over, he starts to. The way out of a window is never "think harder." It's
-always a different window, one that shows apart two things the old one showed
-alike. Every time, in every story here, that cost something: a turn, a second
+always a different window, one you can tell two things apart through when you
+couldn't through the old one. Every time, in every story here, that cost something: a turn, a second
 look, training, time.
 
 Who was Edwin Abbott? Not a mathematician. He was headmaster of the City of London
@@ -90,8 +93,8 @@ His full name was Edwin Abbott Abbott, two A's, and the pen name may be a joke o
 that, A squared; nice if true, but take it as a lead. The part I like best comes
 from a sketch of his life on the geometer Thomas Banchoff's pages: Flatland, by far
 the most read thing he wrote, isn't mentioned at all in his obituary in the London
-Times. The official record of the man was a window too. It showed the headmaster
-and the grammarian and left out the one book people still read.
+Times. The official record of the man was a window too. Through it you got the
+headmaster and the grammarian, and not the one book people still read.
 
 A video about that book is where the hunch behind this one started. That story is
 in the afterword.
@@ -101,8 +104,8 @@ The whole fact
 
 Here's the whole thing, and it's small.
 
-You've got the states, the real things. You've got a window: give it a state and
-it hands back what you can see. And you've got a question about the state: give
+You've got the states, the real things. You've got a window: for each state, it
+lets through some part of it, and that part is all you get. And you've got a question about the state: give
 it a state and it hands back an answer. What you want is a reader: something that
 takes what you can see and gives the right answer to the question, every time.
 
@@ -121,9 +124,9 @@ being easy to find, though. To work out the answer for a picture you still have 
 find a state behind it, and on some windows that search is hard, or endless.
 
 Try the smallest case by hand. A state is a position, 0 or 1, plus a hidden flag,
-up or down. The window shows only the position. Start at position 0 with the flag
+up or down. Through the window you get only the position. Start at position 0 with the flag
 down. One move goes to position 1 and puts the flag up. Another move goes to
-position 1 and leaves the flag down. Both show position 1. Now write down every
+position 1 and leaves the flag down. Through the window, both look like position 1. Now write down every
 possible reader from "what I see" to "is the flag up." There are exactly four:
 from two positions to two answers. Check each one against both results. None gets
 both right, because both show position 1 and one has the flag up and one doesn't.
@@ -310,8 +313,8 @@ you started with.
 There's one way to break that, and it's worth seeing. Let somebody read the stamp
 and choose a different tile move because of it. Now the stamp can signal through
 the tiles. Here both boxes get the same moves, on purpose, to keep the question
-fixed: what can the window show, if nothing that reads the stamp is allowed to
-steer the tiles?
+fixed: what can come through the window, if nothing that reads the stamp is allowed
+to steer the tiles?
 
 
 The clerk with two photographs
@@ -320,7 +323,7 @@ Now point the camera at the price, because that's what this chapter is really fo
 
 Say you want to charge for pressing the stamp, exactly: at least one for every move
 that presses it, nothing for a move that doesn't. And say the person charging is a
-clerk who only sees the window: a photograph before each move and a photograph
+clerk who only looks through the window: a photograph before each move and a photograph
 after. The clerk's charge can only depend on those two photographs.
 
 Can the clerk charge exactly? Not if there's a pair like this: two moves that give
@@ -488,7 +491,7 @@ that says it ran?" Nothing in this book supplies any of the three ways out. The
 record here lives in one machine, with nobody's signature on it.
 
 
-What the window keeps
+What gets through
 
 Put the two boxes back under the camera. Their tops agree and their sides differ.
 The photograph answers questions about the tiles. To answer the stamp question, turn
