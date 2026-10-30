@@ -1,12 +1,13 @@
 # Blocks for chapter 20 (what keeping takes without heat). The measurement rows below were
 # moved here from chapter 19's table because they test the quantum and fresh-state parts,
-# which chapter 20 covers. Re-check every row against its source before chapter 20 is set in.
+# which chapter 20 covers. Every row was checked against its source (2026-10-30).
 special={
 "[table: what has been measured": r"""\begingroup\small
 \begin{longtable}{p{0.28\textwidth} p{0.64\textwidth}}
-The loop & Rauer, Erne, Schweigler, Cataldini, Tajik and Schmiedmayer (2018): the coherence
-of an isolated gas of thousands of atoms came back around. A collective quantity of a closed
-system returned; the full state of the gas wasn't shown to return, and couldn't be. \\[3pt]
+The loop & Rauer, Erne, Schweigler, Cataldini, Tajik and Schmiedmayer (2018): in an isolated
+gas of thousands of atoms, the phase correlations, one collective measure of its coherence, came
+partly back around, twice, each time a little lower. A collective quantity of a closed system
+returned; the full state of the gas wasn't shown to return, and in a system that size couldn't be. \\[3pt]
 Heat of collapse & Vinante and others (2017): a cantilever at millikelvin shows a force noise
 of unknown origin, compatible with the heating one collapse model predicts. Donadi,
 Piscicchia, Curceanu, Di\'osi, Laubenstein and Bassi (2021): the radiation a gravity-driven

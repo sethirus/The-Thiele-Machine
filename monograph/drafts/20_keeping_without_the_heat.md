@@ -304,9 +304,14 @@ room. Before it lands, it could go either way. After, it's settled, somebody cha
 agrees. Five pieces: the question, the landing, the chalk mark, the copies, the agreeing. Each person leans on a different one. Zurek, in chapter eighteen, leans on the copies. Rovelli's coin, in chapter six, has to hit the ground, so his
 piece is the landing.
 
-Niels Bohr, the Danish physicist whose institute in Copenhagen was where quantum mechanics got argued into shape, leans on the mark. In a 1954 talk he said observing anything at that scale rests on devices that work irreversibly, like
-permanent marks on a photographic plate: a door that swings one way. John Wheeler, the Princeton physicist who made the name "black hole" stick, went further in a 1989 talk in Tokyo and leaned on the question: every physical thing gets its
-existence from yes-or-no questions answered and registered, boiled down to "it from bit." As I read him, the coin has no face until something asks and something writes the answer down. How literally he meant that, I can't tell. And Peirce,
+Niels Bohr, the Danish physicist whose institute in Copenhagen was where quantum mechanics got argued into shape, leans on the mark. In a talk at Columbia University's bicentennial in October 1954, printed in his 1958 book Atomic Physics
+and Human Knowledge, he said "every atomic phenomenon is closed in the sense that its observation is based on registrations obtained by means of suitable
+amplification devices with irreversible functioning such as, for example, permanent marks on a photographic plate": a door that swings one way. I first
+found that line quoted in a 2026 paper by Mauro Dorato and Jan Faye, and their quotation runs on into a clause about water drops forming in a cloud chamber
+that isn't on Bohr's page. The page is worth reading yourself. John Wheeler, the Princeton physicist who made the name "black hole" stick, went further in
+a 1989 talk in Tokyo and leaned on the question: "every it," he said, "every particle, every field of force, even the spacetime continuum itself," gets
+"its function, its meaning, its very existence" from "the apparatus-elicited answers to yes or no questions, binary choices, bits." He boiled it down to
+"it from bit." As I read him, the coin has no face until something asks and something writes the answer down. How literally he meant that, I can't tell. And Peirce,
 from chapter nine, long before any of them, leans on the agreeing: the settling worth trusting is the kind that has to answer to everybody. Laid out like that, they pair up. Bohr and Rovelli lean on a step that only goes one way, in the plate
 and in the coin. Zurek and Peirce lean on many onlookers who agree, one with light and one with people.
 
