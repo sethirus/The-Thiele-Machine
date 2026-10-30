@@ -457,6 +457,13 @@ running count written out. The record here is established: it goes up only right
 check of the claim passes. The prices are one to check, one to raise the record, and
 nothing for ordinary work.
 
+Why does the check cost anything, if effort never counts? Not for the work. The check
+leaves a mark saying it passed, so the raise can see it, and you've already drawn what
+that mark does: "true and unchecked" and "true and checked" both land on "true and
+checked." Two arrows meet, so Bennett's rule charges it. The raise costs one because
+that's the toll. And the copier's raise costs one even though it's refused, because the
+price is on the button, the same as the stamp pressed on YES in chapter four.
+
   [table: the sorter and the copier, step by step]
 
 At the end, the lists are still the same. Everything else differs. The sorter's record is

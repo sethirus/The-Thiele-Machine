@@ -1,6 +1,8 @@
 import sys,re
 def inline(p):
     p=' '.join(l.strip() for l in p.split('\n'))
+    for ch in '&%#_$':
+        p=p.replace(ch,'\\'+ch)
     p=re.sub(r'"([^"]*)"',r"``\1''",p)
     p=p.replace('...',r'\ldots{}')
     return p
