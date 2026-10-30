@@ -446,8 +446,10 @@ telling you so.
 
 And notice one more thing about it. A yes-or-no question carries one bit more than a
 plain split into two groups: which group gets called yes. That bit is a direction
-across the split, a door that only swings one way. Keep it. It's about to turn into
-the whole chapter.
+across the split, which way counts as forward. A door that only swings that way is
+one more thing again: a rule that the machine's moves never take anything from yes
+back to no. The label gives the door its direction; the rule is what stops it
+swinging back. Keep both. They're about to turn into the whole chapter.
 
 The structure is in the arrows
 
@@ -489,10 +491,14 @@ first? I went looking. Augustus De Morgan, writing on the logic of relations
 around 1860, took the "is" out of the old syllogism, put a general relation in its
 place, and composed two relations to get the conclusion. The example that gets
 quoted from that tradition, Peirce's a decade later, is "$x$ is the lover of a
-servant of $y$," which is relational composition with better gossip. When exactly
-De Morgan read that paper to the Cambridge Philosophical Society, and on which
-pages it was printed, the sources disagree, which is a small reminder that history
-is where you start digging. Then in 1870 Charles Sanders Peirce, an American
+servant of $y$," which is relational composition with better gossip. The paper,
+his fourth "On the Syllogism," has more dates than most. He signed it at University
+College London on 12 November 1859, added an appendix dated 15 March 1860, and read
+it to the Cambridge Philosophical Society on 23 April 1860; it was printed in the
+Society's Transactions in a volume dated 1864, on pages 331 to 358, and Peter Heath's
+1966 collection of his logical writings has it on pages 208 to 246. With that many
+dates to pick from, it's no surprise the sources I read give different years, which
+is a small reminder that history is where you start digging. Then in 1870 Charles Sanders Peirce, an American
 scientist and philosopher you met in chapter nine, carried George
 Boole's algebra of logic (the arithmetic of true and false, and Boole was a
 largely self-taught schoolmaster) over to relations, with composition as one of

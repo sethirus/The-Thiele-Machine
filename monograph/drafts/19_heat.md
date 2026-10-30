@@ -123,8 +123,8 @@ fits in one picture.
 Draw the fine states, and draw a fence around each group of them that counts as one coarse state. Say the coarse description follows the
 fine one exactly: wherever a fine state steps, its fence steps to the fence of where it landed, and every fence has at least one fine
 state in it. Now say the coarse picture merges: two fences step to one fence. Then something has to give down below. Suppose it doesn't:
-the fine step never merges, never steps outside the fenced states, and never runs off taking new fenced states forever. Follow any fine
-run. It must come back to some state it's been in, and since nothing merges, walk the two visits back together one step at a time, the way
+the fine step never merges, never steps outside the fenced states, and no run goes on landing on fine states it hasn't been to before,
+forever. Follow any fine run. It must come back to some fine state it's been in, and since nothing merges, walk the two visits back together one step at a time, the way
 chapter two did, until the earlier one reaches the start. So every fine run is a loop through its own start. Look at that loop through the
 fences: every fence is on a loop too. Now take the two fences that stepped to one. Wait as many steps as the product of their two loop
 lengths: each is back where it began. But they were together after one step, and the same rule can't pull them apart again, so they must
@@ -206,9 +206,11 @@ log m, whatever the spread.
 
 So if you started with every one of the m + k states equally likely, you had log2 of (m + k) bits, you end with at most log2 of m, and the move removed at least
 log2 of (m + k)/m. That's chapter three's halving count again, in Shannon's units. There's a second floor too, and sometimes it's bigger. Count one landing pile
-at a time. A pile of s equally likely starts takes chance s over (m + k), and once you know which pile, log2 of s bits are gone there. A pile of one loses nothing;
-a pile of two loses one bit; and a pile of s loses at least two bits for every start after its first, because s log2 s is never less than 2(s minus 1) once s is
-two or more. There are m + k starts and at most m piles, so at least k starts come after the first in their pile. That gives at least 2k over (m + k) bits. The
+at a time. Say a pile holds s of the starts. You land in it with chance s over (m + k), and when you do, log2 of s bits are gone: the s starts in it
+can't be told apart any more. So that pile's share of the total loss is s log2 s over (m + k). A pile of one adds nothing. A pile of two adds 2 over (m + k).
+And s log2 s is never less than 2(s minus 1): the two are equal at s of two, and from there s log2 s climbs faster. So every pile adds at least 2 over (m + k)
+for each start after its first. There are m + k starts and at most m piles, so at least k starts come after the first in their pile. That gives at least 2k
+over (m + k) bits. The
 first floor is reached when k is a multiple of m: keep each old yes-state where it is and send the same number of newcomers to each. The second is reached when
 k is at most m: send each newcomer to its own old yes-state.
 

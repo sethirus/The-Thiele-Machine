@@ -336,9 +336,15 @@ up and stalled first, which is what controls locked in place would do. Two men d
 Army's pilot, Major Ployer Hill, and Boeing's chief test pilot, Leslie Tower. The airplane was fine. The crew
 had left the gust locks on, a mechanism worked from the cockpit that holds the control surfaces still while the
 plane sits on the ground. There's a famous line that a newspaper called it too much airplane for one man to fly.
-I couldn't find that line in any paper from 1935; the earliest place I could find it is a New Yorker article from
-December 2007 by Atul Gawande, a surgeon who writes about how people get complicated work right, and he names no
-newspaper, so take it as a lead. What I can find is what came after. The answer was a card: a list of things to
+I couldn't find that line in any paper from 1935, and a search of the scanned newspapers of 1935 and 1936 didn't turn it
+up either; what the papers that November report, like the New Castle News on the 12th, is the locked controls. Atul
+Gawande, a surgeon who writes about how people get complicated work right, gave the line in a New Yorker article in
+December 2007, "as a newspaper put it," without naming the paper. The words are older than his article, though.
+Edward Jablonski's 1965 history of the Flying Fortress says the talk after the crash was that it was "too much airplane
+for one pilot to handle," Martin Caidin's 1968 book has "rumors that the 299 was too much airplane for any one pilot,"
+and the exact line is in DeWitt Copp's A Few Great Captains in 1980, as word reported from the War Department, which
+Copp says wasn't true. So it's an old saying about that airplane. Whether a newspaper printed it in 1935, I still can't
+show you. What I can find is what came after. The answer was a card: a list of things to
 check, in order, every time. The most careful history of it I found is by Walter Boyne, a retired Air Force
 colonel. By his account it wasn't the first written routine for a pilot; those go back before the First World War.
 And it's this crash, he says, that made the checklist the way a crew flew. The airplane went on to be the B-17.

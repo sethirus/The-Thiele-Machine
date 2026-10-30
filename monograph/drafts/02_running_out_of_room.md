@@ -195,8 +195,10 @@ first guessed that Gamow made it up. Then Tilman Sauer, who had helped edit a
 volume of Hilbert's lectures, pointed him to Hilbert's lecture notes, which had
 just been printed in 2013, and in 2014 Kragh took his guess back in a paper called
 "The True (?) Story of Hilbert's Infinite Hotel." Keep the question mark. Even
-Kragh's paper puts the lecture in January 1924 in one place and January 1925 in
-another. Still, this time a story everybody repeated had a real lecture behind
+Kragh's paper says January 1924 twice, in its summary and its text, and January
+1925 twice, in a heading and its conclusion. It can't be 1924: the course ran in
+the winter semester of 1924 to 1925, which hadn't started yet in January 1924.
+January 1925 fits, though Kragh is the only one I've found who gives the month. Still, this time a story everybody repeated had a real lecture behind
 it. I've learned not to count on that.
 
 Bring it back to the chairs. In the closed room the person from the door had

@@ -100,9 +100,13 @@ working in stages, the creating subject. The logician Georg Kreisel, in 1967, wr
 it as a formula: the subject has evidence for a statement at stage n. That's a trace,
 something you can come back and ask about after the act is over. Anne Troelstra, a
 Dutch logician, added in 1969 that the subject never forgets what it has made evident,
-so the trace never fades. That's how Mark van Atten credits it in his 2018 history;
-the Stanford Encyclopedia's entry lists the never-forgetting rule among Kreisel's own,
-and I haven't settled which is right. Van Atten reads the formula as "by stage n the
+so the trace never fades. That's how Mark van Atten credits it in his 2018 history,
+down to the page of Troelstra's book where it was added, page 95, and he suggests
+calling the whole thing the Kreisel-Troelstra theory. The Stanford Encyclopedia's
+entry lists the never-forgetting rule among the three axioms Kreisel gave in 1967.
+Walter Dean and Hidenori Kurokawa's list of Kreisel's three, in a 2021 paper on his
+methods, doesn't have it. That's two sources for Troelstra and one for Kreisel, and
+I haven't seen Kreisel's own page, so I still haven't settled it. Van Atten reads the formula as "by stage n the
 creating subject has made it evident." Look at the tense: has made. That's
 Martin-Löf's "the act that has been performed," reached from the other end. Van Atten
 even says the subject can't just accept a proof handed to it from outside; it has to go

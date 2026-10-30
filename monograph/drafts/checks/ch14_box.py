@@ -60,4 +60,14 @@ if dis[:3] != [True, True, True] or dis[3]: fails.append('two-events')
 rolls = [2, 4, 6, 1]
 turn = next(i for i, x in enumerate(rolls) if x == 6)
 if turn != 2: fails.append('surcharge')
+# 8. a base with a choice of moves: every never-down box rule F(s, a, b) is a cup on the event
+#    E(s, a) = F(s, a, 0); one event per state alone fails when two moves from a state differ
+from itertools import product as _p
+S2, A2 = range(3), range(2)
+for vals in _p([0, 1], repeat=len(S2) * len(A2)):
+    E = dict(zip(_p(S2, A2), vals))
+    F = lambda s, a, b: 1 if b else E[(s, a)]          # any rule that never takes the box down
+    if any(F(s, a, b) != (b or F(s, a, 0)) for s in S2 for a in A2 for b in (0, 1)): fails.append('cup per move')
+stamp_work = {('NO', 'STAMP'): 1, ('NO', 'WORK'): 0}   # same state, two moves, different answers
+if len({v for (s, a), v in stamp_work.items() if s == 'NO'}) != 2: fails.append('per state alone')
 print('failures:', len(fails))

@@ -89,8 +89,13 @@ look, training, time.
 Who was Edwin Abbott? Not a mathematician. He was headmaster of the City of London
 School for twenty-four years, a clergyman, and the author of more than forty books,
 a Shakespeare grammar among them. He put Flatland out under the name "A Square."
-His full name was Edwin Abbott Abbott, two A's, and the pen name may be a joke on
-that, A squared; nice if true, but take it as a lead. The part I like best comes
+His full name was Edwin Abbott Abbott, two A's: his father, Edwin Abbott, had married
+his own first cousin, Jane Abbott. Is the pen name a joke on that, A squared? People
+say so. The earliest I found is Rudy Rucker in 1984, who says it "seems possible" he
+was nicknamed that; Ian Stewart in 2002 says he "might have been"; and William
+Lindgren and Thomas Banchoff, in their 2010 edition, call it a pun on his initials
+outright, EAA, E A squared. None of them quotes Abbott saying so. So it's a reading of
+his name, not his word. The part I like best comes
 from a sketch of his life on the geometer Thomas Banchoff's pages: Flatland, by far
 the most read thing he wrote, isn't mentioned at all in his obituary in the London
 Times. The official record of the man was a window too. Through it you got the

@@ -62,7 +62,8 @@ and the extra stuff doesn't get to change what the base does.
 Now the five rules for the box and the tally.
 
 The box's next position depends only on what the base is doing right now and where the box is right
-now. Nothing else. No clock on the wall, no hidden dial, no outside hand. I'll call that answering to
+now. "What the base is doing" means the state it's in and, when it has more than one move from there,
+the move it's making, like the stamp and the WORK move on the board from chapter thirteen. Nothing else. No clock on the wall, no hidden dial, no outside hand. I'll call that answering to
 the machine.
 
 The tally never goes down.
@@ -75,8 +76,9 @@ And some run, from a place the machine can start, actually turns it up. Otherwis
 decoration.
 
 Here's what follows. Ask the bigger machine what it would do with the box down, above each state of
-the base: does the box go up on the next step, or not? Call that answer the event. Since the box
-answers only to the base, that's one answer per base state; no hidden stuff can change it. Now take any
+the base, and each move when it has a choice: does the box go up on the next step, or not? Call that
+answer the event. Since the box answers only to the base, that's one answer per base state, or per
+state and move; no hidden stuff can change it. Now take any
 actual moment. If the box is down, the event is exactly what happens to it. If the box is up, it stays
 up, whatever the event says. Put those together: the box's next position is "already up, or the event
 holds right now." That's the cup's rule. The cup turns over the first time the event holds and never
