@@ -280,9 +280,10 @@ it is, or something inside it can move while the screen stays put: picture a
 wheel turning from "first holding position" to "second holding position."
 
 Say the box has K different ways of holding the answer 42. Start one tick
-before it finishes, and see how many ticks it can go without two arrows meeting.
-Can two of the holding ticks be the exact same state? If they were, follow the
-arrows backwards from both, one tick at a time. Since no two arrows meet, being
+before it finishes. Suppose the run goes through its holding ticks without two
+arrows ever meeting along the way. Could two of those holding ticks be the exact
+same state? If they were, follow the arrows backwards from both, one tick at a
+time. Since no two arrows meet along the way, being
 on the same state now means they were on the same state a tick ago. Keep walking
 both back. Eventually the earlier one reaches the tick before it finished, the
 state that wasn't done yet, while the later one is still on a done state. A state

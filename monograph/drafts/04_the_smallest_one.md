@@ -284,14 +284,15 @@ Any machine can wear one
 
 Here's something the latch lets you do to any machine at all.
 
-Take any machine, any states, any moves. Pick one state, call it x, that some run
-can reach from somewhere else. Now build a new machine right beside it: the same states and the same
+Take any machine, any states, any moves. Pick one state, call it x, that some move
+lands on. Now build a new machine right beside it: the same states and the same
 moves, with one extra coin riding along in its own two boxes, NO and YES. The
 coin starts in NO. The first time a move lands on x, the coin goes to YES, and it
 never comes back. Price every move at one.
 
-Check it against the definition. The coin never goes back to NO. The run that
-reaches x moves it to YES. Every move costs one, so the toll holds. It's a
+Check it against the definition. The coin never goes back to NO. Start anywhere
+the move that lands on x can be made, with the coin in NO, and make it: the coin
+goes to YES. Every move costs one, so the toll holds. It's a
 Thiele machine.
 
 Now cover the extra coin with your hand and watch the rest. What you see is the
@@ -304,8 +305,10 @@ machine is sitting on x. Did it just arrive there, which put the coin up? Or did
 it start there, with the coin still down? Both can happen, and the part you can
 see looks exactly the same. The coin is the only place the difference lives.
 
-So every machine that ever goes anywhere it didn't start is what's left of a
-Thiele machine once you cover the coin. Turing's machine read through "has it
+So every machine that has a move at all is what's left of a Thiele machine once
+you cover the coin. Even a machine with one state and one move that goes nowhere:
+the move lands on that one state, so the coin goes up, and what you've built is
+the latch. Turing's machine read through "has it
 stopped?" doesn't even need the extra coin: chapter one showed it already has a
 done that stays done, and stopping is already a step where two arrows meet. Both
 ways, it points the same direction page one did. The machine with the price in it

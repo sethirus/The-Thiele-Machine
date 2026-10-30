@@ -573,7 +573,7 @@ One more question, because the 5a and 5b example on page one hinted at it. If th
 
 At three o'clock a screen says 42. The program is finished. Leave the camera running. At 3:01 it says 42. At 3:02 it says 42. The screen hasn't changed, but the box behind it still has a next state every tick. It can stay exactly where it is, or something inside it can move while the screen stays put: picture a wheel turning from ``first holding position'' to ``second holding position.''
 
-Say the box has K different ways of holding the answer 42. Start one tick before it finishes, and see how many ticks it can go without two arrows meeting. Can two of the holding ticks be the exact same state? If they were, follow the arrows backwards from both, one tick at a time. Since no two arrows meet, being on the same state now means they were on the same state a tick ago. Keep walking both back. Eventually the earlier one reaches the tick before it finished, the state that wasn't done yet, while the later one is still on a done state. A state that isn't done would have to be the same state as one that is: impossible. So every holding tick needs its own state, and with K of them, it can last at most K ticks. Within K + 1 ticks of finishing, two arrows meet.
+Say the box has K different ways of holding the answer 42. Start one tick before it finishes. Suppose the run goes through its holding ticks without two arrows ever meeting along the way. Could two of those holding ticks be the exact same state? If they were, follow the arrows backwards from both, one tick at a time. Since no two arrows meet along the way, being on the same state now means they were on the same state a tick ago. Keep walking both back. Eventually the earlier one reaches the tick before it finished, the state that wasn't done yet, while the later one is still on a done state. A state that isn't done would have to be the same state as one that is: impossible. So every holding tick needs its own state, and with K of them, it can last at most K ticks. Within K + 1 ticks of finishing, two arrows meet.
 
 You can build one that lasts exactly that long: the unfinished state, then K holding states in a row, the last one stepping to itself. The answer holds for K ticks with nothing merging, and on the next tick the last two arrows meet. A bigger memory puts off the merge. It doesn't make it go away.
 
@@ -827,15 +827,15 @@ Hold on to that. Of the five jobs, the latch does a small piece of the first one
 
 Here's something the latch lets you do to any machine at all.
 
-Take any machine, any states, any moves. Pick one state, call it x, that some run can reach from somewhere else. Now build a new machine right beside it: the same states and the same moves, with one extra coin riding along in its own two boxes, NO and YES. The coin starts in NO. The first time a move lands on x, the coin goes to YES, and it never comes back. Price every move at one.
+Take any machine, any states, any moves. Pick one state, call it x, that some move lands on. Now build a new machine right beside it: the same states and the same moves, with one extra coin riding along in its own two boxes, NO and YES. The coin starts in NO. The first time a move lands on x, the coin goes to YES, and it never comes back. Price every move at one.
 
-Check it against the definition. The coin never goes back to NO. The run that reaches x moves it to YES. Every move costs one, so the toll holds. It's a Thiele machine.
+Check it against the definition. The coin never goes back to NO. Start anywhere the move that lands on x can be made, with the coin in NO, and make it: the coin goes to YES. Every move costs one, so the toll holds. It's a Thiele machine.
 
 Now cover the extra coin with your hand and watch the rest. What you see is the machine you started with, move for move. Nothing about it changed. The coin rode along and the old machine never knew.
 
 And with your hand over the coin, you can't tell which box it's in. Let any spot with the coin in NO count as a place to start. Now find a moment where the old machine is sitting on x. Did it just arrive there, which put the coin up? Or did it start there, with the coin still down? Both can happen, and the part you can see looks exactly the same. The coin is the only place the difference lives.
 
-So every machine that ever goes anywhere it didn't start is what's left of a Thiele machine once you cover the coin. Turing's machine read through ``has it stopped?'' doesn't even need the extra coin: chapter one showed it already has a done that stays done, and stopping is already a step where two arrows meet. Both ways, it points the same direction page one did. The machine with the price in it is the general thing. The computer is that machine with the price left out.
+So every machine that has a move at all is what's left of a Thiele machine once you cover the coin. Even a machine with one state and one move that goes nowhere: the move lands on that one state, so the coin goes up, and what you've built is the latch. Turing's machine read through ``has it stopped?'' doesn't even need the extra coin: chapter one showed it already has a done that stays done, and stopping is already a step where two arrows meet. Both ways, it points the same direction page one did. The machine with the price in it is the general thing. The computer is that machine with the price left out.
 
 \subsection{Which question gets charged?}
 
