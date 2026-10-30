@@ -19,7 +19,7 @@ These theorems establish only the propositions stated by their types. A model of
 
 The repository runs source-level probes, dependency-enabled `coqchk` over every module of the project, the assumption receipt, the Inquisitor proof audit, the kernel-conversion vacuity audit, and the Python test suite. These establish reproducibility and the behavior of the tested finite cases. They do not extrapolate finite traces to all states or all executions.
 
-`minimal/nofi_demo.py` rebuilds the quantitative floor with Python's standard library alone; it is a finite sweep, and it proves nothing beyond the cases it runs. `scripts/break_it.py` searches every small machine for counterexamples to the results of the monograph's part on the bill and runs a control with each premise dropped; it is a search, not warrant. `scripts/bead_erasure_sim.py` (needs numpy) is a simulation of a model with the numbers of Bérut and colleagues (2012), not a measurement.
+`minimal/nofi_demo.py` rebuilds the quantitative floor with Python's standard library alone; it is a finite sweep, and it proves nothing beyond the cases it runs. `scripts/break_it.py` searches every small machine for counterexamples to the counting results about keeping and runs a control with each premise dropped; it is a search, not warrant. Each chapter of the monograph that counts something has its own check in `monograph/checks/`, which tries every small case of that chapter's claims and prints its failures; `tests/test_book_checks.py` runs them all and compiles the short formal proofs beside them. `scripts/bead_erasure_sim.py` (needs numpy) is a simulation of a model with the numbers of Bérut and colleagues (2012), not a measurement.
 
 ## Historical hardware disclosure
 

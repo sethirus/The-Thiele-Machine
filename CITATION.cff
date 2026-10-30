@@ -6,7 +6,7 @@ authors:
     given-names: Devon
 type: software
 version: 5.0.0
-date-released: 2026-10-29
+date-released: 2026-10-30
 license: Apache-2.0
 repository-code: "https://github.com/sethirus/The-Thiele-Machine"
 url: "https://github.com/sethirus/The-Thiele-Machine"
@@ -20,24 +20,30 @@ keywords:
   - formal verification
   - Coq
 abstract: >-
-  The Thiele Machine is an abstract model of computation. A priced record
-  system has states, moves, a step, a price per move, a reading into an
-  ordered set, and a toll: a move that carries the reading somewhere not at
-  or below where it was costs at least one. A Thiele machine is one whose
-  reading some run raises from a designated start and no move lowers; a
-  flat reading obeys the toll and is a shadow, not a member. The monograph develops retained
-  distinctions, merges or fresh states, observation windows, and the room
-  needed to preserve recoverable histories. Noninterference is an
-  additional restriction where stated. This edition pairs the reviewed
-  452-page monograph, which carries the arguments, with the matching
-  repository snapshot, which also carries a formal check of the same
-  statements. The work also treats threshold readings of growing
-  records and the recursion theorem under its stated representation
-  assumptions. The RFC 9162 discussion concerns a specified protocol
-  fragment; its conclusions depend on the observer model. The cost-framework
-  comparisons are correspondences under stated premises, not full embeddings.
-  Physical interpretations require their stated physical premises; the
-  physical interpretation remains a thesis, and the pointer criterion is a thesis.
-  No surveyed external consequence satisfied all four novelty and applicability criteria.
-  The software is licensed Apache-2.0. The monograph and documentation are
-  licensed CC-BY-SA-4.0.
+  The Thiele Machine is a model of computation with a price in the step
+  where something settles and stays settled. A Thiele machine is a
+  thing, moves that take it to the next thing, a reading of how settled
+  it is that no move lowers, some run from a chosen start that raises
+  the reading, prices that are nothing or more, and one rule, the toll:
+  a move that settles something more than it was costs at least one. It
+  computes nothing a Turing machine cannot; every machine that steps is
+  a Thiele machine with its record covered and the price of settling set
+  to zero. The monograph, a second edition written from the start,
+  argues every result on the page with the reader: keeping a settled
+  answer takes two states landing on one or an endless supply of fresh
+  states; with finitely many states, settled staying settled and a price
+  on merging, the toll follows; a window that hides the record cannot
+  price exactly; a box that answers only to the machine and never comes
+  down is a latch on one event; a machine that reads an established
+  record to skip work pays in one of four ways, and under two stated
+  conditions there is no fifth; exact counts of the room keeping takes.
+  Heat results are conditional on Landauer's principle, an assumption
+  with its critics named. Every claim is sorted into shown, chosen,
+  assumed, cited, thesis, or not claimed; the pointer thesis and the
+  Thiele thesis are theses. A companion document gives the exact
+  statements. The publication pairs the monograph with the matching
+  tagged repository snapshot, which carries a Python check for every
+  chapter that counts something and a formal check of the same
+  statements, kept as tools for catching mistakes. The software is
+  licensed Apache-2.0. The monograph and documentation are licensed
+  CC-BY-SA-4.0.

@@ -18,7 +18,7 @@ from pathlib import Path
 from collections import defaultdict
 
 REPO = Path(__file__).resolve().parent.parent
-COQ_ROOTS = [REPO / "coq", REPO / "minimal"]
+COQ_ROOTS = [REPO / "coq", REPO / "minimal", REPO / "monograph" / "checks"]
 
 # Citations we should *not* try to resolve as Coq identifiers — language
 # keywords, tactics, English words, punctuation that LaTeX wraps in \texttt{}.
@@ -492,7 +492,6 @@ def audit(tex_path: Path, decls, files_by_name):
 def main():
     targets = [Path(p).resolve() for p in sys.argv[1:]] if len(sys.argv) > 1 else [
         REPO / "monograph" / "monograph.tex",
-        REPO / "monograph" / "set_aside.tex",
     ]
 
     print(f"Indexing Coq declarations under {[str(r) for r in COQ_ROOTS]}...")

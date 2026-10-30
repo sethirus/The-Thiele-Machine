@@ -1,7 +1,7 @@
 # Archive
 
 Work set to one side. None of it is part of the Thiele Machine as the README,
-the monograph and the specification state it, and none of it is built,
+the monograph and its exact statements state it, and none of it is built,
 tested or audited with the main tree. It is kept as source, the way it was
 written.
 
@@ -24,13 +24,17 @@ What is here:
   stood on (`vendor/coq-undecidability/`), and the MetaCoq setup its L
   modules needed (`.github/actions/setup-metacoq/`,
   `scripts/install_metacoq.sh`).
-- The specification, the set-aside passages, the theorem meanings and the
-  results list as they stood at tag v4.1.1 (`monograph/`, `docs/`), which
-  carry the chapters and entries about the material above.
+- The first edition of the monograph (`monograph/monograph.tex`, with its
+  PDF), its set-aside passages (`monograph/set_aside.tex`) and its
+  mathematical specification (`monograph/thiele_machine_math_spec.tex`), each
+  with its PDF, as they stood when the second edition replaced them. The
+  first edition's published form is the PDF in the v4.1.1 release.
+- The theorem meanings and the results list as they stood at tag v4.1.1
+  (`docs/`), which carry the entries about the material above.
 
 Paths inside this folder mirror where each file lived in the main tree. Every
-file is as it stood at tag v4.1.1, except the companion, the file
-`coq/kernel/foundation/AxThieleComplete.v`, and fifteen Coq files that were
-edited on the reframe branch before they were set aside.
+file is as it stood at tag v4.1.1, except the companion, the first edition and
+its two companion documents, the file `coq/kernel/foundation/AxThieleComplete.v`,
+and fifteen Coq files that were edited before they were set aside.
 To build or run any of it, check out tag v4.1.1 and follow that revision's
 instructions; the files here are not wired into a build of their own.

@@ -2,452 +2,199 @@ THE THIELE MACHINE
 Devon Thiele
 
 
-THE POINT
-
-Take anything that can be more than one way and isn't yet any of them for
-good: a bead that could sit in either of two dips, a square of paper with
-nothing on it, a question nobody has closed. Now let it settle one way, and
-keep it there. Something is the case now that wasn't a moment ago. That is a
-distinction that stays, and it is what this is about. Nothing becomes
-something for free: under a rule that gives every state exactly one next
-state, keeping something settled takes a merge somewhere in the run, two
-states landing on one, or an endless supply of fresh states.
-
-Structure is made of exactly this. The smallest distinction there is sorts the
-ways a thing could be in two and holds one side: a bead in the left dip and
-not the right, a mark on the page and not off it. A grouping, an order, a
-relation a later move leans on, a fact somebody found out and wrote down: each
-is a distinction that stays, paid for the same way as the bead in its dip.
-Insight, in the sense I can price, is a kept distinction. The toll requires a
-charge when it's raised; merely remaining up requires no further charge.
-Repeating a priced move still pays that move's price. That is what the other
-name for the rule, No Free Insight, means.
-
-Established is the sharpest case. Two computers can end with the same answer,
-and only one of them checked it. The difference between them is a distinction
-one of them never kept. A record that a claim was checked and closed is a
-distinction that stays, with a check in front of it, and it's paid for the
-same way. The point is the distinction that stays, and what keeping it takes.
-
-
-WHAT A KEPT ANSWER REQUIRES
-
-Give a thing one rule for its next tick, and require a next tick everywhere.
-It starts unsettled, then enters a collection of states where the answer is
-held. From any state in that collection, the next tick must stay in the
-collection too.
-
-Suppose there are K such holding states. Include the unsettled entrant and you
-have K+1 sources whose next states fit in K places. Two arrows must land
-together. That is the merge.
-
-What if the rule never sends different sources to the same destination? Then
-the holding run cannot repeat. From two equal visits, walk one step back on
-each: their predecessors must agree, since different predecessors never land
-together. Walk back until the earlier visit reaches the unsettled start. The
-later visit is still holding the answer. They cannot be the same state. So
-every later holding tick needs another state.
-
-For a finite interval, K holding states permit at most K transitions from
-distinct sources without a collision, starting at the unsettled state. This
-maximum is attainable. Draw
-
-  u -> h_1 -> h_2 -> ... -> h_K -> h_K.
-
-The first K sources have different successors. Include h_K as a source and its
-arrow meets the arrow from its predecessor. With K>1 this happens after entry:
-the merge need not involve the state that just came in.
-
-That is counting, and it needs no price and no physics. The definition is
-where the price goes.
-
-
-THE DEFINITION
-
-A Thiele machine is a thing, the directions it can move in, and a price on
-each direction. A direction turns the thing into the next thing. Look at the
-thing and you can read off how much is settled in it. A direction that makes a
-distinction stay is never free. From where the thing starts, some run of
-directions makes one stay, and no direction undoes it.
-
-That is the whole definition. What follows gives its consequences and
-instances, the counting that motivates it, and the argument for choosing it.
-
-Now the same thing with names. S is the set of states and I the set of moves.
-The step takes a state and a move to the next state. Each move i has a
-nonnegative whole-number price c(i), the same wherever it is taken. A reading
-r sends each state to a place in an ordered set: for any two places you can
-ask whether one sits at or below the other. A move makes a distinction stay
-when it carries the reading somewhere not at or below where it was. The one
-rule is the toll: such a move costs at least one. That much is a priced record
-system.
-
-A Thiele machine is a priced record system whose reading no move ever lowers,
-and that some run, from a start you designate, raises. A reading that never
-falls is what I call a record. Nothing else is assumed of the order, and
-nothing says what the record is about. A ledger that only climbs, and a window
-onto what an outside observer sees, come in when a result needs them.
-
-The smallest record has two positions, no and yes. Then the reading is a
-yes-or-no question about the state, making a distinction stay is turning no
-into yes, and the toll says that move costs at least one. Most of what follows
-is stated on this smallest case, because it is the one you can point at: a
-lamp beside a box, a stamp on its side, a flag that goes up. The flag is not
-the record. It is the smallest question you can ask of one. The book states
-the general case first and derives the flag as its two-point instance.
-
-
-THE SMALLEST MACHINE
-
-The smallest Thiele machine has two states, no and yes, and one move that
-costs one. The move sends no to yes and yes to yes. The reading is the state.
-It can rise, it never falls, and the rise is priced. Nothing smaller meets the
-definition: one state has a constant reading, and on two states read as
-themselves every member has this very move, since a move on two states that
-merges nothing either changes nothing or toggles, and a toggle turns yes back
-to no.
-
-Notice what is already inside it: two states land on one. The merge that
-keeping takes is forced at the smallest size there is. A fuse, a bead that
-drops into a dip, a stamp on a box, are this machine.
-
-The Thiele Machine is that definition. It is a machine the way Turing's
-machine is one: mathematics you can reason about, not a device, not an
-instruction set and not a document. I named it after myself, on purpose. I
-wanted to call it the meta machine, and in 2021 a company took that word, so I
-went one level up and put my own name on it, half a joke and half a stake in
-the ground. Turing got a machine; here's mine. What follows is what I work out
-from it.
-
-
-PUT THE PRICE BESIDE THE ARROWS
-
-The toll on the smallest record is
-
-  no -> yes implies price >= 1.
-
-A run that starts at no and ends at yes contains a first crossing. That move
-costs at least one, and the other prices are nonnegative. Add them and the run
-costs at least one. This is the universal floor. It holds for every Thiele
-machine, and for anything at all that obeys the toll. The toll on its own is a
-low bar: a clock that charges one for every move obeys it whatever reading you
-give it. That's why the toll isn't the whole definition.
-
-Read a machine through a reading its moves never raise and the reading is
-flat: the toll asks nothing of it, because nothing is kept. A clock read by
-where its hand points is no Thiele machine: the hand comes back around, so
-that reading falls. Read through anything its moves never raise, a clock is
-flat. So is a reversible process. So is ordinary computation, read through
-anything its moves never raise. A flat reading is not a Thiele machine,
-whatever start you name. Flat is a property of the reading, not of the
-machine. Read a computer that halts through whether it has halted, and that
-reading climbs and never falls, and the halt merges two of its states, the
-last running one and the halted one, which steps to itself. Price its step and
-it is a Thiele machine on its own states, with nothing added. What Turing's
-formalism leaves out is the price, not the record.
-
-The definition has to name the reading its toll belongs to. Slide a tile to
-the right without paying and ask whether it is in the place it just reached:
-the answer was no and is now yes, and if the toll charged every question, no
-move could be free. And a free move cannot touch a reading that stays. It
-cannot raise it, because a raise costs at least one, and it cannot lower it,
-because a yes stays yes. It must leave it alone.
-
-The price stays on the move. It does not disappear when you press the same
-button with the reading already up, and on finitely many states the least
-price list is the plain one: one on every move that can raise the reading from
-somewhere, zero on every move that never does. Nothing smaller meets the toll.
-That is a minimum in the definition's units; measuring a device's heat
-requires a physical account of the device.
-
-A ledger adds up the prices of the moves that ran. It does not count merges,
-fresh states or heat, and its total need not equal the number of raises. An
-injective run can visit fresh states at every step while raising its reading
-only once. The toll sets a lower bound on the charge.
-
-A stronger pricing rule can connect the bill to the holding graph. If every
-instruction that merges distinct full states costs at least one, a permanent
-raise into a finite held region pays by the counting argument above. If each
-landing pile accepts at most 2^p distinct sources, N starting alternatives and
-q surviving alternatives satisfy N <= 2^p q for one step. Across steps with
-prices p_0,...,p_(T-1), multiply these inequalities:
-
-  N <= 2^(p_0 + ... + p_(T-1)) q_T.
-
-Write the pricing premise beside the bound. A natural-number ledger is not a
-temperature or a heat measurement. A thermal conclusion needs the device,
-input preparation and physical law stated too.
-
-
-THE BOX AND THE PICTURE
-
-Put two boxes on the table. The tiles on top spell the same answer. One box
-has a stamp on its side and the other does not. Hang the camera above them.
-The pictures agree.
-
-Now ask which box was stamped. Look harder at the tiles. Count them. Make the
-picture bigger. None of that puts the side of the box into the picture. The
-difference was there when the picture was taken. The picture left it out.
-
-Gather every full state that gives the same picture. The tiles agree, but the
-stamps and whatever else the camera misses can differ. That collection is what
-I call the fibre above the picture.
-
-The letters give short names for what just happened. S names all the full
-states, B names their pictures, and pi names the act of taking the picture.
-Writing pi: S -> B says where that act starts and where it lands. Every
-picture in B comes from a full state; that is what "onto" means. For one
-picture b, its fibre contains every state whose picture is b.
-
-A flag gives one yes-or-no reading of a full state. A hundred states can all
-read yes. The fibre can hold differences in checked claims, certified
-editions, old receipts, or anything else the chosen picture omits. There is no
-universal finite bound on its size. If all choices of which of n stages had an
-event are independently possible and exactly recoverable above one final
-picture, they require 2^n full states there. Which distinctions must actually
-be there is a question about the task and what must remain recoverable.
-
-
-THE HORIZONTAL MOVES AND THE VERTICAL MOVES
-
-Start with an ordinary working move. It changes the tiles by a rule that
-consults only the tiles and the instruction you gave it. Whatever stamps are
-on the side, the same tiles and the same instruction give the same next tiles.
-The move also leaves the side record alone. That is the horizontal rule I
-want.
-
-Now shorten it. Call the full move F_i, its tile rule h_i, and the record
-reading r. Starting from a full state s, either move the box and then
-photograph it, or photograph it and apply the tile rule. The pictures must
-agree:
-
-  pi(F_i(s)) = h_i(pi(s)).
-
-Keeping the record says r(F_i(s)) = r(s). These horizontal moves have zero
-price on this ledger.
-
-A vertical establishment move does the other job. The tiles stay put while the
-record can rise. Call that move F_v. Taking the photograph before or after
-gives the same picture:
-
-  pi(F_v(s)) = pi(s).
-
-The record never goes backwards: r(s) <= r(F_v(s)). For a yes-or-no flag, that
-means a down flag may rise and an up flag stays up. The toll charges at least
-one unit when it rises. A machine split this way, with some vertical move that
-raises the record from a start I designate, is a sliced Thiele machine.
-
-Put a dial with four positions beside a slider with three stops. ROTATE moves
-the dial one position around for free and leaves the slider alone. ADVANCE
-moves the slider toward its last stop, leaves the dial alone and costs one. At
-the last stop the reading is yes; at the other two it is no. ADVANCE pays when
-it first reaches yes and still costs one when pressed at the last stop. The
-price belongs to the button. Look only at the dial: ROTATE moves the picture
-and ADVANCE leaves it alone.
-
-Take two boxes with the same tiles and different records. Give them the same
-sequence of horizontal instructions. The first instruction sees the same
-tiles, so it produces the same next tiles. Neither record changes. The second
-instruction again sees matching tiles, and gives matching tiles. Repeat to the
-end. The entire film agrees while the records remain different. Handing that
-film to someone cannot tell them which record was there. The view cannot see
-the record or the ledger, and no function of the view recovers either. An
-account that prices a raise exactly cannot compute the price from a window
-that shows a raising step and a quiet step the same way.
-
-That gives the shadow. Look at a Thiele machine through a window that drops
-its record and what's left is an ordinary machine, computing away, blind to
-what was kept. It runs the other way too: any machine whose states I can tell
-apart, with a run that ends somewhere other than where it started, is what
-some Thiele machine looks like through such a window. The proof builds one: a
-bit beside the state that goes up the first time the run reaches a chosen
-state and never comes down, with every move priced, and every state with the
-bit down a start. That chosen state with its bit down and the same state with
-its bit up are both states runs reach, and they give one picture, so the
-window can't tell them apart even on the runs that happen. Read through a flat
-reading, the ordinary machine is the shadow, not a member. The record adds no
-computing power; what it adds is distinctions within a fibre, which the window
-cannot see.
-
-
-A RECORD THAT MEANS SOMETHING
-
-Write an answer on a whiteboard. Under it write CHECKED = YES. Somebody who
-did no check can write the same two lines. The writing alone cannot tell me
-which happened.
-
-A variable called checked has the same weakness if any allowed program can set
-it. To make an accepting record mean a check occurred, the machine must close
-the unchecked route to acceptance. Suppose a checked and an unchecked history
-could end at the same full state. The verdict at that state would have to
-accept one history and reject the other. There is only one state there to
-read. It cannot do both.
-
-This is why representing a record and enforcing its meaning are separate jobs.
-The representation keeps a distinction. The instruction rules govern how a
-program can reach it. An implementation has to preserve both. Paying to raise
-a record does not, by itself, establish what that record means.
-
-
-LOOK BEFORE THE VALUE DISAPPEARS
-
-Suppose one job used sound rebar and another used bad rebar. Pour the concrete
-so that the finished surfaces look exactly alike. Give the inspector only
-those surfaces. Whatever verdict the inspector gives one, the same evidence
-gets the same verdict on the other. Looking harder cannot restore what the
-surface omitted. Finding a sound arrangement that could have been underneath
-proves a possibility; it does not show what was actually there.
-
-If the question is known before the pour, inspect while the rebar is visible
-and keep the answer. For a succession of required checks, start a flag at YES.
-A passing check leaves it alone. A failing check turns it to NO, and nothing
-in the remaining checks turns it back up. After one check it tells you whether
-that check passed. After the next it stays YES only if both passed. Carry the
-same rule to the end and it tells you whether all of them passed.
-
-Late questions ask for something else. Suppose the inspector may arrive at the
-end, name any stage, and ask any yes-or-no question about the value there. Two
-different histories disagree at some stage. Ask whether that stage held the
-value from the first history: one answer is yes and the other is no. A summary
-that answers every such question cannot identify those histories.
-
-If each of k stages can hold any of M values, the first stage gives M choices,
-the second multiplies that by M, and each further stage does the same. There
-are M^k ordered histories, and every one needs a different summary. Keeping
-the ordered history itself meets that count and answers the questions.
-
-
-WHAT FOLLOWS FROM IT
-
-It is one story, in four parts, and each part says what it rests on.
-
-1. The definition is more general than any mechanism. It assumes no tape, no
-head and no counters. The universal floor holds for everything that obeys the
-toll, and the theorems with teeth come when you add one next state for every
-state (part 2) or a window (part 3). What I would defend as mine is not any
-one of the counting facts below, which are old. It is the arrangement: one law
-with three columns and no fourth, a fresh state, a merge, or a loop that makes
-nothing new, stated alike for deterministic, noisy and quantum steps, and a
-toll on a reading that stays, which charges for keeping whichever column pays
-for it.
-
-2. Keeping requires a merge or fresh states. This is counting under a total,
-deterministic next-state rule and a reading held after entry; it uses no
-physics. Before the first revisit each step is fresh: the first column. The
-first revisit returns to the start or merges two distinct sources, the third
-column or the second; later steps repeat. A run that raises a reading and
-keeps it up cannot take the third column, because its start read no and every
-later state reads yes, so a return to the start would bring the reading down.
-That leaves the merge or endlessly many distinct states. A machine with
-endlessly many states can avoid the merge on paper by paying in fresh states.
-A machine with finitely many states cannot: when only finitely many states
-read yes, a holding run must eventually merge. Whether a real device has
-finitely many distinguishable states is a physical assumption, and I name it
-as one. When a coarse description of a machine merges, the fine machine merges
-too, unless its step leaves the described states or there are endlessly many
-of them. If every merging instruction costs at least one, the toll on a finite
-machine follows from the merge. A heat bound needs one more premise, a named
-physical one, and I keep it apart from the counting.
-
-3. The ordinary machine and the full machine, in both directions. In a sliced
-machine, the view pi(S) = B with its horizontal moves is an ordinary
-deterministic machine, and it cannot see the record or the ledger. That needs
-a raise to exist, and nothing else: no premise about what the view computes
-and none about the control. In the other direction, every machine with a run
-that leaves its start, read as it stands, is the shadow of a Thiele machine
-that keeps one bit above it.
-
-4. What is argued and what is proved. The counting, the floor, the window
-results and the flat reading results are theorems under the hypotheses they
-state. The mathematical claims have their hypotheses and arguments on the
-page. The pointer thesis is a thesis, not a theorem. It proposes certification
-as the event worth recording, because certified records get copied and relied
-on by parties who did not produce them. Separately, and unnumbered, I argue
-that the record and its price are part of computation itself and not something
-added afterwards, and I state one thesis about physical processes: that every
-physical process which computes with final answers has an exact description as
-a machine run by one rule, with a next state for every state, on which the
-answer is a reading no run ever turns off. No proof settles that, because a
-physical process is not a mathematical object. Neither is presented as a
-theorem.
-
-
-WHAT I FOUND, WHAT I ASSUMED AND WHAT I CHOSE
-
-Most of the time I had the hunch first and found the names later. Over and
-over, somebody had been here before me. Sometimes that made my day. Sometimes
-it pissed me off. Here is the line between what nothing let me choose, what I
-had to assume, and what I did choose.
-
-Found, which counting forces on any machine. Run a machine that gives each
-state exactly one next state. It takes fresh states until it first comes back
-to one it has used; that return lands on its start or is a merge, two states
-with one next state; and after it the run only repeats steps it already took.
-There is no fourth thing a step can do. A run reveals at most one pair of
-distinct visited states with the same successor; later laps can repeat that
-transition. So a reading that goes from no to yes and never comes back is paid
-for in a merge or in fresh states, and when only finitely many states read
-yes, the move that raises it merges. Over any machine at all, a record that
-the computation drives and that never comes down is a latch on one event. That
-is counting, and the pigeonhole in it is older than the computer: Dedekind's
-finiteness, Zermelo's recurrence objection to Boltzmann, Landauer and Bennett
-on merging, and the floor Tarjan's potential method puts under a run.
-
-Assumed, what the found list is taken to stand on in the world. Landauer's
-principle: a merge of states the machine really could have been in has a floor
-under its heat, however slowly it is done. That is the premise from
-thermodynamics, named and never proved here; the monograph names its critics.
-A real device can tell apart only finitely many states in a bounded place, so
-its fresh states run out; nobody has measured where that ceiling sits. And the
-clean start: a raised record means the event happened only because the record
-was down at the start, and that start is put in by hand. It is a past
-hypothesis in miniature, Boltzmann's idea under David Albert's name.
-
-Chosen, what the model adds, each of which could have gone another way. To put
-the account inside the step, as part of what a step is. The reading is part of
-the definition, and a reading that some run raises and none lowers is what
-makes a system a member. A computing part that cannot change the record is a
-further restriction chosen for the machines that need it; the toll on its own
-requires neither it nor permanence. A rule preserved by every permitted step
-holds of every program built from those steps. A log maintained by one program
-needs that program's correctness argument. The toll itself is a choice: a
-whole unit, at least one, on the move that climbs. So are which readings
-matter, which event gets a record, what price list it pays, and, on any
-particular machine, where its flat part ends and its record begins.
-
-
-THE WIDER ARGUMENT
-
-A growing ordered record has threshold readings: ask whether a particular
-level has been reached, and once the answer becomes yes it stays yes. I follow
-those latches, study the recursion theorem with its input conventions, and
-make cost-framework comparisons under their stated rules.
-
-The count in part 2 does not need the step to be deterministic. A noisy step
-on finitely many states that keeps the even spread cannot raise a reading that
-stays, and one that can raise it strictly concentrates the spread. A unitary
-step on a finite-dimensional space that keeps a subspace keeps its complement
-too, so no such step raises a reading that stays. Each is the same obstruction
-in its own setting, and endless room is the only way past it in each.
-
-The protocol examples, including RFC 9162, concern specified parts of those
-systems. An observer model says what a particular window reveals. The pointer
-thesis is a thesis about how that picture connects to the world. Its proposed
-interpretation and the mathematical implications of a chosen model have
-different jobs, and I state both.
-
-
-HOW TO READ THE ARGUMENT
-
-Start with the bead in its dip. Follow the holding count, put the price beside
-the arrows, and see the merge already inside the smallest machine. Then add
-the camera: follow a move through the full state, look at what reaches the
-window, and ask how many recoverable answers have to fit above one picture.
-Each extra recoverable answer needs room in the full state.
-
-The publication consists of the monograph PDF and the matching tagged
-repository snapshot. Both belong in the same Zenodo version.
-
-
-------------------------------------------------------------
-Licensed CC-BY-SA-4.0. Share it.
+WHAT THIS IS
+
+I think in shapes, so I'll start with one.
+
+Take a thing. Anything. A coin on a table, a light switch, a page in a
+notebook. Right now it's one way. It could be another.
+
+Now do something to it. Flip the coin, hit the switch, write on the page.
+That's a move: a direction that takes the thing from how it is to how it is
+next.
+
+Flip here means turn it over by hand. When something else picks what happens,
+chance with a die, your hand in a bucket of numbers, a person at a button, a
+message coming in, call each way it can go its own move, with exactly one next
+thing each. Whatever does the picking sits outside the machine, and chapter
+twenty-two takes on what that changes.
+
+Here's a computer you can run with a pencil. Write 3 on a scrap of paper. The
+move is: erase the number and write the next one up. Do it twice. 3, 4, 5. You
+just added 2 and 3. Nothing happened there but a thing, a move, and the next
+thing. Hold on to that picture; whether it covers every computer is something
+I'll have to earn, and I will, later, with you watching.
+
+Here's the part I couldn't let go of. Some moves just shuffle. Flip the coin
+and you can flip it back, and nothing is different for good. But some moves
+make a difference that stays. Write a word in pen. Blow a fuse. Check an
+answer and mark it checked. After that move something is the case that wasn't
+before, and it stays the case.
+
+I figured there had to be a cost in that step. Not in the shuffling. In the
+step where something goes from not settled to settled and stays there. That
+was a hunch, so test it on the pencil computer.
+
+Tell it when to stop: count up, and when you reach 5, stop. Ask one question
+of each number: is it done? 3, no. 4, no. 5, yes. And once it says yes it
+keeps saying yes, because the machine has stopped.
+
+A machine that has stopped is still somewhere on the next tick. It stays where
+it is: 5 goes to 5. Draw the arrows. 4 goes to 5. 5 goes to 5. Two different
+starting places, one landing place. Standing on 5, you can't tell whether you
+just got there or have been there all along.
+
+Could you dodge that? Try letting the stopped machine rock back and forth
+instead of sitting still: 5-tick, 5-tock, 5-tick, both of them saying done.
+Draw the arrows. 4 goes to 5-tick. 5-tock goes to 5-tick. Two arrows land on
+5-tick, the spot where you came in. Rocking only moved the place where they
+meet. The one way out is to never land anywhere twice: make every tick write
+something new, a tally mark, the time, anything, so the paper never repeats.
+That works as long as there's paper. On a finite sheet you run out, and two
+arrows land on one spot again.
+
+So whenever this machine settles its answer and keeps it, something gives.
+Either two states become one, or it uses up fresh paper on every tick for as
+long as it runs. That part isn't a hunch. You drew it. You drew it for one
+small counter; the book proves it for any machine that goes from one state to
+a next, and shows you where.
+
+What I do with it is a choice, and I'll say so: I charge for the move where
+the answer goes from not done to done. Charging for it is up to me. That
+something has to give once it makes that move isn't. The two arrows don't
+always meet on that very move. Give done two spots, 5a and 5b: 4 goes to 5a,
+5a goes to 5b, and 5b stays put. Now the arrows from 5a and 5b meet on 5b, a
+tick after the answer settled. But after the move from not done to done,
+there's no avoiding it: two arrows meet somewhere, or the paper never repeats.
+
+Two more things have to be pinned down before the rule means anything, and you
+can see both with what's already on the table.
+
+First, take the coin again. Flip it, flip it back, forever, free. Ask whether
+it's settled. It never is. A rule that says "a move that settles something has
+to cost" never asks the coin for anything, because the coin never settles
+anything. So the rule alone would let a coin that does nothing count. The
+machine has to actually settle something, at least once.
+
+Second, suppose a later move could pay you back. The move that settles charges
+you one, the next move hands you one back, and the whole run comes out free.
+So prices can be nothing or something, never a refund.
+
+One last thing before the whole definition. Settled doesn't have to be just
+yes or no. Take a checklist with three boxes. None ticked, one, two, all
+three: each tick settles it a little more, and ticks don't come off. "Done or
+not" is the smallest case, a checklist with one box. So when I say "more
+settled" from here on, picture the checklist.
+
+So here's the Thiele Machine, all of it. A thing. Moves that take it to the
+next thing. A way to tell how settled the thing is, where settled never goes
+back to unsettled. Some run, from a start you pick, that actually settles it
+more than it was. A price on every move, nothing or more, never a refund. And
+one rule: a move that settles something more than it was costs something.
+
+That's the whole definition. The rest of the book works out what follows from
+it, one step at a time, and tries to break it.
+
+Now look back at the pencil computer with a stop in it. That's Turing's
+machine, in miniature. Turing's machine, from his 1936 paper, is a tape and a
+table of rules: from where it is, the table says where it goes next. A thing
+and moves. It already has something that settles and stays settled: whether it
+has stopped, the same question you asked of 3, 4 and 5. What Turing never put
+in is a price on the move that stops it. Put one in, and a Turing machine that
+ever stops fits every line above. So this isn't a rival to Turing's machine,
+and it computes nothing his can't. His machine is one kind of Thiele machine,
+with the price left out.
+
+Now try this. Give two people the same messy list of numbers. The first sorts
+it, then goes back down it checking that every number is no bigger than the
+next. The second copies a sorted list off somebody else's sheet. Now look at
+the two sheets. Same numbers, same order. Look as hard as you like: nothing on
+either sheet tells you which one was checked. The difference was real, and
+neither sheet kept it. It's the same thing you saw standing on 5: you can see
+where you are, and not how you got there.
+
+So put a box on each sheet that says checked. A plain Thiele machine charges
+for ticking the box, but nothing in the rules above stops the copier from
+paying and ticking it anyway. Paying for the tick doesn't make it true. So add
+one more condition: the box can only be ticked right after a check of that
+very list passes. Now the copier's tick is refused, and a ticked box tells you
+a check of that list passed. I call a box like that established. It's a
+condition you put on the machine. The bare definition doesn't hand it to you.
+
+One more picture to carry through the book. Write "checked" on Turing's tape,
+and nothing in his model stops the next rule from rubbing it out, or from
+printing it without the check; a particular table might leave it alone, but
+the model doesn't make it hold. Cover a Thiele machine's record with your hand
+and set the price of settling to zero, and what's left is a bare machine that
+steps: every one of them, Turing's included, is a Thiele machine with a
+blindfold on.
+
+It's called the Thiele Machine. The afterword says why.
+
+
+WHAT THE BOOK SHOWS
+
+Each of these is argued on the page, with the reader, under the conditions its
+chapter states.
+
+- Keeping takes a merge or fresh paper. Every step of a machine with one next
+  state lands somewhere new, makes two arrows meet, or goes round a loop. On
+  finitely many states, settling something for good makes two arrows meet.
+  Chapters 1 and 2.
+
+- The toll isn't only a preference. With finitely many states, settled staying
+  settled, and Bennett's rule (a move where two arrows meet costs at least
+  one), the toll follows. Take any one of the three away and a machine walks
+  through. Chapter 3.
+
+- The smallest one. Two boxes and one move that sends both to YES. Every
+  machine with a move is what's left of a Thiele machine once you cover a
+  coin. Chapter 4.
+
+- Looking isn't keeping. A look can be free; it uses a blank page that can be
+  handed back. Keeping what you saw is what pays. Chapter 6.
+
+- A window can't price what it hides. A window with a clash can't price
+  exactly, and the book finds the least it has to overcharge. Chapters 7 and
+  15.
+
+- A box over any machine. A box that answers only to the machine and never
+  comes down is a cup turned by one event. Chapter 14.
+
+- Four doors. A machine that reads its box to skip work it already paid for
+  pays in fresh editions, a box that comes down, room for every value checked,
+  or wrong answers, and under two stated conditions there's no fifth. Chapter
+  16.
+
+- What a machine can't decide about itself. No procedure inside the machine
+  decides whether its own shortcuts are sound, under the conditions stated.
+  Chapter 17.
+
+- Heat, given Landauer. If Landauer's principle holds, a merge of states the
+  machine could really have been in gives off at least a set amount of heat;
+  on a state that's already known it sets no floor at all. The principle is an
+  assumption with its critics named, never something the book proves. Chapter
+  20.
+
+- How much room keeping takes. Exact counts of the states a machine needs to
+  hold off a merge. Chapter 21.
+
+Chapter 22 sorts every claim in the book into shown, chosen, assumed, cited,
+thesis, or not claimed. The theses are labelled as theses, among them the
+pointer thesis (Chapter 19) and the Thiele thesis (Chapter 22).
+
+
+WHERE TO READ MORE
+
+The book is monograph/monograph.pdf, with its plain text in
+monograph/monograph.txt. Every argument above is made there, with the reader,
+one step at a time. The exact statements, with every quantifier written out,
+are in monograph/thiele_machine_math_spec.pdf. Each chapter that counts
+something has a Python check in monograph/checks/ that tries every
+small case.
+
+Devon Thiele, The Thiele Machine: No Free Insight (2026).
+https://doi.org/10.5281/zenodo.17316437
+
+This text is licensed under CC-BY-SA-4.0. Questions, objections and
+corrections: thethielemachine@gmail.com.

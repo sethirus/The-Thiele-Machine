@@ -70,6 +70,9 @@ build and audit):
   bash scripts/verify_core.sh
 The edition's numbers against the receipt:
   python3 -m pytest tests/test_edition_numbers.py
+The book's own checks, one per chapter that counts something, and the
+short formal proofs beside them:
+  python3 -m pytest tests/test_book_checks.py
 
 Tests requiring the proof compiler skip without version 8.18 and a compiled tree.
 The custom auditor uses heuristics: a warning requires

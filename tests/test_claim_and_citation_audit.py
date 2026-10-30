@@ -73,7 +73,6 @@ def test_all_maintained_claim_documents_resolve():
         ROOT / "TECHNICAL_DISCLOSURE.md",
         ROOT / "THIELE_MACHINE.txt",
         ROOT / "monograph/monograph.tex",
-        ROOT / "monograph/set_aside.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
     ]
     failures = {}

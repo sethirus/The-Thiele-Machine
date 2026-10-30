@@ -80,3 +80,20 @@ The table records the search scopes and reported outcomes. Run the command above
 | Every scale pays the same way | every fine machine on up to 4 states, every described set and coarse description | none | staying inside, finiteness: both fail |
 
 The unitary checks can detect arithmetic errors in preservation of orthogonality; their control uses an invertible map that is not unitary. The heat/time check evaluates the displayed formula. Infinite-state controls are examined on finite prefixes; the infinite claims use the manuscript's arguments. For the floor-and-ceiling result, an instruction-name price cannot charge once for a raise and then make repetitions free: charging by source state provides the stated alternative.
+
+## The book's own checks
+
+Each chapter of the monograph that counts something has a check in `monograph/checks/`. Run any one from that directory:
+
+```sh
+cd monograph/checks
+python3 ch16_reading_the_box.py
+```
+
+Each prints the cases it tried and its failures, which should be zero. The same directory holds short formal proofs of the newer results (`*.v`), compiled against `minimal/` for the one file that imports it:
+
+```sh
+coqc -Q ../../minimal Minimal ch20_every_scale.v
+```
+
+`monograph/checks/proof_map.md` lists every line of the ledger in chapter twenty-two with the check and the proofs that cover it. `pytest tests/test_book_checks.py` runs all of them. Like the searches above, a check that passes exercises finite cases; the general arguments are the ones on the book's pages.

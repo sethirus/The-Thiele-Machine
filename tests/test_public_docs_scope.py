@@ -48,38 +48,29 @@ def test_public_documents_read_as_finished_work():
 
 
 def test_public_documents_preserve_the_scope_boundary():
+    # Every public document says which claims are theses, names Landauer's
+    # principle as an assumption, and keeps chosen apart from shown.
     required_ideas = [
-        ("threshold",),
-        ("recursion theorem",),
-        ("RFC 9162",),
-        ("cost-framework",),
-        ("observer model", "observer map", "modeling choice", "model-dependent"),
-        ("conjecture", "thesis"),
+        ("thesis",),
+        ("landauer",),
+        ("chosen",),
+        ("shown",),
     ]
     for path in PUBLIC_DOCUMENTS:
         text = path.read_text(encoding="utf-8").lower()
         for alternatives in required_ideas:
-            assert any(idea.lower() in text for idea in alternatives), (path, alternatives)
+            assert any(idea in text for idea in alternatives), (path, alternatives)
 
 
 def test_pointer_criterion_is_stated_as_a_thesis():
     monograph = normalized(ROOT / "monograph/monograph.tex")
-    assert r"\label{sec:pointer}" in monograph
-    # The book states the pointer criterion as a thesis (its worldly terms,
-    # "faithfully model" and "deployed", can't be defined; the others are).
-    assert r"\begin{thesis}[The pointer thesis]" in monograph
-    assert "The thesis leans on two notions with no precise mathematical definition" in monograph
-    assert "which systems count as" in monograph and "independent" in monograph
-    assert "The general pointer criterion is a thesis." in normalized(ROOT / "README.md")
-    assert "The pointer criterion is a thesis" in normalized(
-        ROOT / "monograph/thiele_machine_math_spec.tex"
-    )
+    assert r"\label{sec:worth-keeping}" in monograph
+    assert "The pointer thesis: the established record is the event copied and relied on" in monograph
+    assert "& thesis & 19" in monograph
+    spec = normalized(ROOT / "monograph/thiele_machine_math_spec.tex")
+    assert r"\begin{thesis}" in spec and "pointer" in spec.lower()
+    assert "the pointer thesis (Chapter 19)" in normalized(ROOT / "README.md")
     assert "The pointer-observable criterion is a thesis." in normalized(
         ROOT / "coq/RESULTS.md"
     )
-    citation = normalized(ROOT / "CITATION.cff")
-    assert "the pointer criterion is a thesis" in citation
-    assert (
-        "No surveyed external consequence satisfied all four novelty and applicability criteria"
-        in citation
-    )
+    assert "the pointer thesis and the Thiele thesis are theses" in normalized(ROOT / "CITATION.cff")

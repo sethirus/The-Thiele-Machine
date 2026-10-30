@@ -69,6 +69,8 @@ def _get_timeout(item) -> int:
     # coq-marked tests may trigger Coq compilation which can take minutes.
     if item.get_closest_marker("coq") is not None:
         return 600
+    if item.get_closest_marker("slow") is not None:
+        return 300
     ini = cfg.getini("per_test_timeout")
     try:
         return int(ini)
