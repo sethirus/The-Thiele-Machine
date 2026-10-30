@@ -93,8 +93,8 @@ yes-or-no question about the state, making a distinction stay is turning no
 into yes, and the toll says that move costs at least one. Most of what follows
 is stated on this smallest case, because it is the one you can point at: a
 lamp beside a box, a stamp on its side, a flag that goes up. The flag is not
-the record. It is the smallest question you can ask of one. The proofs state
-the general case first and derive the flag as its two-point instance.
+the record. It is the smallest question you can ask of one. The book states
+the general case first and derives the flag as its two-point instance.
 
 
 THE SMALLEST MACHINE
@@ -137,9 +137,14 @@ Read a machine through a reading its moves never raise and the reading is
 flat: the toll asks nothing of it, because nothing is kept. A clock read by
 where its hand points is no Thiele machine: the hand comes back around, so
 that reading falls. Read through anything its moves never raise, a clock is
-flat. So is a reversible process. So is ordinary computation, read as it
-stands. A flat reading is not a Thiele machine, whatever start you name. Flat
-is a property of the reading, not of the machine.
+flat. So is a reversible process. So is ordinary computation, read through
+anything its moves never raise. A flat reading is not a Thiele machine,
+whatever start you name. Flat is a property of the reading, not of the
+machine. Read a computer that halts through whether it has halted, and that
+reading climbs and never falls, and the halt merges two of its states, the
+last running one and the halted one, which steps to itself. Price its step and
+it is a Thiele machine on its own states, with nothing added. What Turing's
+formalism leaves out is the price, not the record.
 
 The definition has to name the reading its toll belongs to. Slide a tile to
 the right without paying and ask whether it is in the place it just reached:
@@ -256,10 +261,13 @@ what was kept. It runs the other way too: any machine whose states I can tell
 apart, with a run that ends somewhere other than where it started, is what
 some Thiele machine looks like through such a window. The proof builds one: a
 bit beside the state that goes up the first time the run reaches a chosen
-state and never comes down, with that move priced. The ordinary machine is the
-shadow, not a member. The ordinary computer is one such shadow. The record
-adds no computing power; what it adds is distinctions within a fibre, which
-the window cannot see.
+state and never comes down, with every move priced, and every state with the
+bit down a start. That chosen state with its bit down and the same state with
+its bit up are both states runs reach, and they give one picture, so the
+window can't tell them apart even on the runs that happen. Read through a flat
+reading, the ordinary machine is the shadow, not a member. The record adds no
+computing power; what it adds is distinctions within a fibre, which the window
+cannot see.
 
 
 A RECORD THAT MEANS SOMETHING
@@ -438,8 +446,7 @@ window, and ask how many recoverable answers have to fit above one picture.
 Each extra recoverable answer needs room in the full state.
 
 The publication consists of the monograph PDF and the matching tagged
-repository snapshot, whose Coq files carry the proofs the book cites. Both
-belong in the same Zenodo version.
+repository snapshot. Both belong in the same Zenodo version.
 
 
 ------------------------------------------------------------

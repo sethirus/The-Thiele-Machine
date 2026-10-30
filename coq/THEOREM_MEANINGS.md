@@ -1,10 +1,12 @@
 # What each cited theorem says
 
-Coq checks that a proof matches its statement. It does not check that the
-name or the prose around a theorem means what the statement says. This file
-closes that gap for every theorem the README, the mathematical
-specification, the technical disclosure, and `THIELE_MACHINE.txt` cite. Each entry is one plain sentence saying what the
-Coq statement asserts, premises included.
+This file sits beside the Coq development, which is a tool for catching
+mistakes, not the reason to believe anything; the arguments are in the
+monograph. Coq checks that a proof matches its statement. It does not check
+that the name or the prose around a theorem means what the statement says.
+Each entry here is one plain sentence saying what a Coq statement asserts,
+premises included, for every theorem a document names (today only the
+technical disclosure, which records where each concept was implemented).
 
 `tests/test_theorem_meanings.py` fails when a document cites a theorem that
 has no entry here, or when an entry names a theorem that does not exist.
@@ -35,13 +37,14 @@ premises.
 - `two_state_member_has_latch_move`: For any set of moves, step function, prices and designated starts on the two states read as themselves, meeting the member predicate gives a move that sends no to yes and yes to yes.
 - `toggle_is_not_thiele`: The two-state system whose one move swaps the states fails the member predicate for every choice of designated starts, because it fails permanence.
 - `history_lift_shadow`: For any priced record system, a Boolean equality test on its states and a chosen state, running the history lift from a state with any bit and dropping the bit gives the run of the original system from that state.
-- `history_lift_is_thiele`: For any priced record system with a Boolean equality test on its states that agrees with equality, a chosen state x, and a run from a start other than x that ends at x, the history lift at x meets the member predicate with the start paired with a down bit as its designated start.
-- `moving_machine_is_a_shadow`: For any priced record system with a Boolean equality test on its states that agrees with equality, and a run that ends on a state other than its start, the history lift at the state the run ends on meets the member predicate with the start paired with a down bit as its designated start.
+- `history_lift_is_thiele`: For any priced record system with a Boolean equality test on its states that agrees with equality, a chosen state x, and a run from a start other than x that ends at x, the history lift at x meets the member predicate with every state whose bit is down as a designated start.
+- `moving_machine_is_a_shadow`: For any priced record system with a Boolean equality test on its states that agrees with equality, and a run that ends on a state other than its start, the history lift at the state the run ends on meets the member predicate with every state whose bit is down as a designated start.
 - `shadow_hides_history`: For any history lift, every lifted state has another lifted state with the same shadow and a different reading, and no function of the shadow equals the reading on every lifted state.
+- `shadow_hides_history_reachable`: For the history lift at x, with a Boolean equality test on states that agrees with equality and a run from a start other than x that ends at x, the lifted states (x, down) and (x, up) are both reached by some run from a state whose bit is down, and no function of the shadow equals the reading on every state so reached.
 - `ax_a2_two_point_iff`: For any priced record system over the two-point order, the axis toll holds exactly when every step from a state reading no to a state reading yes costs at least one.
 - `lift_can_raise_iff`: For the history lift at x, with a Boolean equality test on states that agrees with equality, over a finite covering list of states, a move can raise the bit from some lifted state exactly when some state of the base lands on x under that move.
 - `lift_toll_iff_least`: For the history lift at x over a finite covering list of states and any price list, the toll holds exactly when the list is at least one on every move that can land on x and at least zero elsewhere.
-- `least_lift_is_thiele`: For the history lift at x, with a Boolean equality test on states that agrees with equality, over a finite covering list of states, with a run from a start other than x that ends at x, the lift priced by the least list meets the member predicate with the start paired with a down bit as its designated start.
+- `least_lift_is_thiele`: For the history lift at x, with a Boolean equality test on states that agrees with equality, over a finite covering list of states, with a run from a start other than x that ends at x, the lift priced by the least list meets the member predicate with every state whose bit is down as a designated start.
 
 ### Certification cost
 
@@ -354,13 +357,10 @@ premises.
 - `sync_clock_reachably_driven`: The clock with starting states (b, b, off) is driven by the computation on every state its runs reach.
 - `sync_clock_reachable_latch`: The clock with starting states (b, b, off) is, on every state its runs reach, the latch of the event "the base state is 5".
 - `sync_clock_record_permanent`: The record of the clock with starting states (b, b, off) never switches off.
-- `pr_grouping_partition`: The classes of "same bucket label" under any grouping form a partition.
-- `pr_entitled_iff_refines`: For groupings g and h of a pile, soundness of g for every key gives soundness of h for that key exactly when h refines g on the pile.
-- `pr_reads_structural`: Two groupings with the same partition of the pile have the same reading at every state of the bucket machine.
-- `pr_reading_entitles`: On every run of the bucket machine from a clean state, if the reading for a grouping g is up, the record holds a grouping and a key such that g is sound for that key and so is every grouping that refines g.
-- `pr_reading_entitles_only`: For every grouping h that does not refine g, there is a key for which g is sound and h is not.
-- `pr_toll`: The bucket machine obeys the toll: a step that raises its record costs at least 1.
-- `pr_reading_costs_three`: On every run of the bucket machine from a clean state that ends with the record up, the ledger rises by at least 3.
+- `grouping_partition`: For any pile of items and any grouping of them by bucket label, the classes of "same label" form a partition of the items.
+- `grouping_sound_structural`: For any key and any two groupings with the same partition of the pile, one is sound for the key exactly when the other is.
+- `sound_transfers_iff_refines`: For groupings g and h of a pile, soundness of g for a key gives soundness of h for that key, for every key, exactly when h refines g.
+- `sound_only_for_refinements`: For groupings g and h of a pile where h does not refine g, there is a key for which g is sound and h is not.
 
 ### Diagonal and undecidability
 

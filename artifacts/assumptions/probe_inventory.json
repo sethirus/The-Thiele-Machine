@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
   "files_probed": 163,
-  "total_addressable": 1795,
+  "total_addressable": 1783,
   "total_unaddressable": 0,
   "extras_addressable_via_instantiation": [],
   "files": [
@@ -1244,7 +1244,7 @@
     {
       "file": "coq/kernel/foundation/AxThiele.v",
       "qualified_module": "Kernel.AxThiele",
-      "addressable_count": 21,
+      "addressable_count": 22,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -1346,6 +1346,11 @@
           "local_name": "shadow_hides_history",
           "kind": "Theorem",
           "full_name": "Kernel.AxThiele.shadow_hides_history"
+        },
+        {
+          "local_name": "shadow_hides_history_reachable",
+          "kind": "Theorem",
+          "full_name": "Kernel.AxThiele.shadow_hides_history_reachable"
         },
         {
           "local_name": "moving_machine_is_a_shadow",
@@ -8296,6 +8301,40 @@
       "unaddressable": []
     },
     {
+      "file": "minimal/Grouping.v",
+      "qualified_module": "Minimal.Grouping",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "grouping_partition",
+          "kind": "Theorem",
+          "full_name": "Minimal.Grouping.grouping_partition"
+        },
+        {
+          "local_name": "grouping_sound_structural",
+          "kind": "Theorem",
+          "full_name": "Minimal.Grouping.grouping_sound_structural"
+        },
+        {
+          "local_name": "sound_refines",
+          "kind": "Lemma",
+          "full_name": "Minimal.Grouping.sound_refines"
+        },
+        {
+          "local_name": "sound_transfers_iff_refines",
+          "kind": "Theorem",
+          "full_name": "Minimal.Grouping.sound_transfers_iff_refines"
+        },
+        {
+          "local_name": "sound_only_for_refinements",
+          "kind": "Theorem",
+          "full_name": "Minimal.Grouping.sound_only_for_refinements"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "minimal/HaltingHole.v",
       "qualified_module": "Minimal.HaltingHole",
       "addressable_count": 2,
@@ -9214,105 +9253,6 @@
           "local_name": "nondet_merge",
           "kind": "Theorem",
           "full_name": "Minimal.NondetChairs.nondet_merge"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "qualified_module": "Minimal.PartitionReading",
-      "addressable_count": 18,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "pr_grouping_partition",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_grouping_partition"
-        },
-        {
-          "local_name": "same_part_sym",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.same_part_sym"
-        },
-        {
-          "local_name": "same_part_trans",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.same_part_trans"
-        },
-        {
-          "local_name": "sound_same_part",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.sound_same_part"
-        },
-        {
-          "local_name": "sound_refines",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.sound_refines"
-        },
-        {
-          "local_name": "pr_entitled_iff_refines",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_entitled_iff_refines"
-        },
-        {
-          "local_name": "pairs_ok_iff",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.pairs_ok_iff"
-        },
-        {
-          "local_name": "sound_b_iff",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.sound_b_iff"
-        },
-        {
-          "local_name": "same_part_b_iff",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.same_part_b_iff"
-        },
-        {
-          "local_name": "pr_reads_structural",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_reads_structural"
-        },
-        {
-          "local_name": "p_inv_step",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.p_inv_step"
-        },
-        {
-          "local_name": "p_inv_run",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.p_inv_run"
-        },
-        {
-          "local_name": "p_inv_clean",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.p_inv_clean"
-        },
-        {
-          "local_name": "pr_reading_entitles",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_reading_entitles"
-        },
-        {
-          "local_name": "pr_reading_entitles_only",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_reading_entitles_only"
-        },
-        {
-          "local_name": "pr_toll",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_toll"
-        },
-        {
-          "local_name": "p_cinv_step",
-          "kind": "Lemma",
-          "full_name": "Minimal.PartitionReading.p_cinv_step"
-        },
-        {
-          "local_name": "pr_reading_costs_three",
-          "kind": "Theorem",
-          "full_name": "Minimal.PartitionReading.pr_reading_costs_three"
         }
       ],
       "unaddressable": []

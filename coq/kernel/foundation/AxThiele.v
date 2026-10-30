@@ -287,11 +287,11 @@ Proof.
 Qed.
 
 (** Every machine with a run that ends on a state other than its start is
-    the shadow of a member: lift it at the state the run ends on and start
-    it with the bit down. *)
+    the shadow of a member: lift it at the state the run ends on and let
+    every state with its bit down be a start. *)
 Theorem history_lift_is_thiele : forall s0 tr,
   ax_run (X := M) tr s0 = x -> s0 <> x ->
-  ax_thiele history_lift (fun p => p = (s0, false)).
+  ax_thiele history_lift (fun p => snd p = false).
 Proof.
   intros s0 tr Hrun Hne.
   unfold ax_thiele. repeat split.
@@ -320,6 +320,35 @@ Proof.
     simpl in H1, H2. rewrite H1 in H2. discriminate.
 Qed.
 
+(** The lifted states a run reaches from a start, a state with its bit down. *)
+Definition lift_reachable (p : ax_state bool two_pre history_lift) : Prop :=
+  exists p0 tr, snd p0 = false /\ ax_run (X := history_lift) tr p0 = p.
+
+(** The collision is between states runs reach: x with its bit down is a
+    start, and the run that reaches x lands on x with its bit up. Both give
+    the picture x, so no function of the picture is the reading on the
+    reachable states. *)
+Theorem shadow_hides_history_reachable : forall s0 tr,
+  ax_run (X := M) tr s0 = x -> s0 <> x ->
+  lift_reachable (x, false) /\ lift_reachable (x, true) /\
+  ~ (exists f : ax_state A P M -> bool,
+       forall p, lift_reachable p -> f (fst p) = ax_rec bool two_pre history_lift p).
+Proof.
+  intros s0 tr Hrun Hne.
+  assert (Hdown : lift_reachable (x, false)).
+  { exists (x, false), []. split; reflexivity. }
+  assert (Hup : lift_reachable (x, true)).
+  { exists (s0, false), tr. split; [reflexivity |].
+    pose proof (history_lift_shadow tr s0 false) as H1.
+    pose proof (history_lift_bit_up tr s0 Hrun Hne) as H2.
+    destruct (ax_run (X := history_lift) tr (s0, false)) as [s b].
+    simpl in H1, H2. rewrite Hrun in H1. subst. reflexivity. }
+  split; [exact Hdown | split; [exact Hup |]].
+  intros [f Hf].
+  pose proof (Hf _ Hup) as H1. pose proof (Hf _ Hdown) as H2.
+  simpl in H1, H2. rewrite H1 in H2. discriminate.
+Qed.
+
 End HistoryLift.
 
 (** The lift taken at the state a run ends on: a machine with a run that
@@ -329,7 +358,7 @@ Theorem moving_machine_is_a_shadow :
          (eqb : ax_state A P M -> ax_state A P M -> bool),
   (forall a b, eqb a b = true <-> a = b) ->
   forall s0 tr, ax_run (X := M) tr s0 <> s0 ->
-  ax_thiele (history_lift A P M eqb (ax_run tr s0)) (fun p => p = (s0, false)).
+  ax_thiele (history_lift A P M eqb (ax_run tr s0)) (fun p => snd p = false).
 Proof.
   intros A P M eqb Heqb s0 tr H.
   apply (history_lift_is_thiele A P M eqb Heqb (ax_run tr s0) s0 tr); [reflexivity |].
@@ -351,3 +380,4 @@ Print Assumptions history_lift_shadow.
 Print Assumptions history_lift_is_thiele.
 Print Assumptions moving_machine_is_a_shadow.
 Print Assumptions shadow_hides_history.
+Print Assumptions shadow_hides_history_reachable.

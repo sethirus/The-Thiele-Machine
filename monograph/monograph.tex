@@ -421,11 +421,14 @@ keeps the decision and lets go of the arguing.
 Part~I proves the count on any machine, prices it on finite ones, and keeps the heat floor as an
 assumption with its name on it. I never let those two swap places.
 
-An ordinary computational model keeps no account of what it made the case. Read as it stands, its reading is
-flat: no move climbs it, so the toll never speaks. The Thiele Machine is the general
-thing, a state with an order read off it and a price in every move, some move that climbs and none
-that falls; the computer is what is left of one when the record and its prices are dropped, the shadow
-and not a member.
+An ordinary computational model keeps no account of what it made the case. Read through what its
+moves never raise, its reading is flat: no move climbs it, so the toll never speaks. The Thiele
+Machine is the general thing, a state with an order read off it and a price in every move, some
+move that climbs and none that falls. A computer is one already, read the right way. Read through
+whether it has settled its answer, a computer that halts has a reading that climbs and never falls,
+and it merges two of its own states to keep it; price its step and it's a Thiele machine on its
+own states, with nothing added. What Turing's formalism leaves out is the price, not the record.
+Only its flat readings are shadows.
 
 \subsection*{What the usual models don't count}
 
@@ -452,9 +455,11 @@ state. A price on each move, a whole number of units of cost. And one rule, whic
 a move that carries the reading somewhere not at or below where it stood costs at least one unit.
 Those parts and that rule make a priced record. Two more conditions make it a Thiele machine: the
 reading never falls, and from some start you name, some run raises it. A reading that no move climbs
-is flat, and the toll never charges it; every ordinary computer, read as it stands, has one. A flat
-reading is not a Thiele machine. A computer with a run that ends somewhere other than where it started
-is the shadow of one. The smallest Thiele machine has a reading with two places, blank and
+is flat, and the toll never charges it; every ordinary computer has one, and a flat reading is not a
+Thiele machine. Flat is a property of the reading, not of the machine: the same computer, read
+through whether it has halted, has a reading that climbs and never falls, and with its step priced
+it meets the definition outright. And any machine with a run that ends somewhere other than where
+it started is the shadow of one. The smallest Thiele machine has a reading with two places, blank and
 written, nothing and something, and I write them no and yes. There the toll says that turning no into
 yes costs at least one, and most of Part~I is told with that record, because it is the one you
 can point at. The toll sits on the raise, not on the merge, so it charges for keeping something
@@ -1669,9 +1674,9 @@ pile into groups, the kind of structure Part~II starts from (Section~\ref{sec:st
 first kind of claim I care about. It isn't the only kind, and the book comes back to what a flag
 stands behind in Section~\ref{sec:entitlement}. Until then nothing about the flag leans on groupings. The floor in
 this section, the reason for it in the next, and the latch in Part~II all work whatever the reading is about, partition or no partition. When groupings come in,
-in Section~\ref{sec:entitlement}, it's as a theorem: a reading that says a grouping has been checked
-and committed sees the grouping only through its partition, and what it entitles is exactly the
-groupings that refine it (Theorem~\ref{thm:partition-reading}). So the grouping gets a job,
+in Section~\ref{sec:entitlement}, it's as a theorem: soundness sees a grouping only through its partition, and what standing
+behind a sound grouping entitles is exactly the groupings that refine it
+(Theorem~\ref{thm:partition-reading}). So the grouping gets a job,
 and an exact one.
 
 But first the word, because I've got a new one and I don't trust it either: record, receipt,
@@ -1968,9 +1973,10 @@ Those five parts are the whole of it. Add the one rule, the toll, and you have a
 move that carries the record somewhere not at or below where it stood costs at least one. Two more
 things make it a Thiele machine. The record never falls. And from some start you name, some run
 raises it. A reading that no move climbs is flat, and the rule has nothing to say to it; every
-ordinary computer, read as it stands, has one. A flat reading is not a Thiele machine. A computer with
-a run that ends somewhere other than where it started is the shadow of one, and
-Theorem~\ref{thm:smallest-member} says exactly how.
+ordinary computer has one, and a flat reading is not a Thiele machine. The same computer read
+through whether it has halted isn't flat: that reading climbs and stays, and the halt is a merge
+(Theorem~\ref{thm:halting-hole}). And a computer with a run that ends somewhere other than where it
+started is the shadow of one, and Theorem~\ref{thm:smallest-member} says exactly how.
 
 The thing on your paper is the smallest case that isn't flat. Its record has two places, the
 blank box and the written one, which I've labelled NO and YES, with NO below YES; its states are
@@ -2071,8 +2077,8 @@ costing 0.
 
 The first definition is the machine. The toy on the paper is the second, and most of Parts~I
 and~II is told on it; Section~\ref{sec:direction} carries every result here over to any order.
-I write the two-place reading as $\mathrm{cert}$, because on a certified machine it names a
-flag that says a claim was certified. What earns a flag its meaning will depend on the machine's
+I write the two-place reading as $\mathrm{cert}$, because in the sharpest case it names a
+flag that says a claim was established. What earns a flag its meaning will depend on the machine's
 rules.
 
 The one theorem comes first in its general form, because it's three lines and it shows that
@@ -2168,10 +2174,11 @@ and never comes down. Price every move one. Read the bit. That new machine is a 
 machine: the bit never falls, and the run that reaches $x$ raises it. Now look at the new
 machine through a window that drops the bit. What you see is the machine you started
 with, move for move. So every machine with a run that ends somewhere other than where it
-started is the shadow of a Thiele machine. The ordinary computer is one such shadow. That
-is the exact sense in which the computer is a shadow of the machine and not the floor it's
-built on, and it is the direction this book keeps: the general thing is the machine with
-the record, and the computer is what's left when a window drops it.
+started is the shadow of a Thiele machine. Read through a flat reading, the ordinary computer
+is one such shadow. Read through whether it has halted, it doesn't need the bit: that reading
+already climbs and stays, and the halt is already a merge (Theorem~\ref{thm:halting-hole}).
+Either way the direction this book keeps holds: the general thing is the machine with the
+record, and the computer is that machine with its price left out.
 
 \begin{theorem}[The smallest Thiele machine]\label{thm:smallest-member}
 (1) A flat reading obeys the toll, and it is not a Thiele machine, whatever starts are
@@ -2180,8 +2187,9 @@ costs at least one. (3) On two states read as themselves, NO below YES, every Th
 machine has a move that sends both states to YES; the latch, two states and that one move
 at price one, is a Thiele machine, and the toggle, whose one move swaps the states, is not.
 (4) Every machine with a run that ends somewhere other than where it started is the shadow
-of a Thiele machine: fit the bit, price the moves, read the bit; the window that drops the
-bit returns the original run, and no function of that window recovers the bit.
+of a Thiele machine: fit the bit, price the moves, read the bit, and let every state with
+the bit down be a start; the window that drops the bit returns the original run, and no
+function of that window recovers the bit, not even on the states runs reach.
 \end{theorem}
 
 \begin{proof}
@@ -2204,7 +2212,9 @@ else, so it is one; the toggle's one move takes YES to NO, so it is not.
 that reaches $x$ lands on $x$ at some move, which puts the bit up, and the bit stays up, so
 from the start with the bit down that run raises it. Drop the bit from each state of the
 new run and you have the old run, one move at a time. The two lifted states above $x$,
-bit down and bit up, give the same picture, so no function of the picture returns the bit.
+bit down and bit up, give the same picture, and runs reach both: $x$ with the bit down is
+a start, and the run that reaches $x$ lands there with the bit up. So no function of the
+picture returns the bit, not even counting only the states runs reach.
 \end{proof}
 
 What's found here, what's chosen, and what's assumed, since the book keeps those apart.
@@ -2603,8 +2613,10 @@ is blind to (the Afterword, Section~\ref{sec:origin}, tells it). It isn't
 a direction an ordinary computer can't reach. Fit a Turing machine with a bit beside its state
 that one of its runs raises and nothing lowers, charge the toll on the raise, and it's a Thiele
 machine like anything else. Any Turing machine with a run that ends somewhere other than where it
-started can be fitted that way (Theorem~\ref{thm:smallest-member}). The possibility was always there. What
-the usual rules leave out is the price.
+started can be fitted that way (Theorem~\ref{thm:smallest-member}), and one that halts doesn't
+even need the bit: whether it has halted already climbs and stays, and the halt is already a merge
+(Theorem~\ref{thm:halting-hole}). The possibility was always there. What the usual rules leave out
+is the price.
 
 The same goes for a system with no reading at all. If nothing in it answers ``is the flag
 up,'' then nothing in it can say, from the inside, that anything is entitled to be relied on.
@@ -5524,7 +5536,7 @@ made no prediction anyone could check, and the people who eventually did reach t
 two thousand years on, found atoms, and atoms aren't triangles. The idea was a guess with no
 way to lose, until it lost. But push on it and two things survive. One: structure is something \emph{laid in}, and the stuff it's laid into doesn't carry it
 by itself. That's a real idea, and I'd ask you to keep it loosely for now; when you meet a
-certified machine, you can ask whether the state it holds is the wax or the seal. Two: Plato put a
+record that's established, you can ask whether the state it holds is the wax or the seal. Two: Plato put a
 crack in his own forms himself, in another dialogue, the \emph{Parmenides}, with an objection that Aristotle later
 nicknamed the third man, and it's the most useful mistake in this section. Take all the large
 things. Say they share one thing, Largeness. But Largeness is itself large, so now
@@ -6606,6 +6618,13 @@ $c(t)$ is the sum of their costs. A state is \emph{reachable} when it is the sta
 $\mathrm{apply}(s, i)$ for a reachable $s$ and some $i$.
 \end{definition}
 
+Notice what that asks before any proof does. The counter is a function of the state, so a state
+carries one total, and a positively charged move always lands on a higher one. A run with a
+positive charge in it can't come back to a state it has left, and a machine with even one
+positively priced move needs infinitely many states. That's not a flaw hidden in the definition;
+it's the second fact below, and it's the point: a total that lives in the state is paid for in
+fresh states.
+
 \begin{theorem}[Conservation]\label{thm:conservation}
 In a counter machine, for every state $s$ and every list $t$, $\mu$ at the end of the run of
 $t$ from $s$ equals $\mu(s) + c(t)$. In particular $\mu$ never decreases along a run.
@@ -6760,9 +6779,8 @@ one, and no step costs less than nothing, so the flag never comes down. So the t
 hold exactly when raising the flag costs exactly one, everything else costs zero, and the flag
 never comes down. Those prices, a cost of one per raise and nothing on any other step, are rise-only pricing in its tightest form, and I'll call them the \emph{exact schedule}. The flag staying up comes from this ceiling, not from the prices: a ceiling that counts raises instead, which Section~\ref{sec:windows} uses, leaves the same prices and lets the flag come down at cost zero. Notice that Section~\ref{sec:toll}'s two-move illustration doesn't meet it: its
 VOUCH move, played from YES, costs one unit although it raises nothing, which the floor allows
-and the exact schedule forbids. A certified machine doesn't meet it either, and can't; both are still Thiele machines. The exact schedule isn't part of the definition. The reason: its check and commitment, which must come before its flag goes up, raise no flag, and each can send two states to one, so pricing the merges in the record's part of the state charges each of them one. A certified machine charges every instruction a
-fixed listed price, which is a different job for the word exact (instruction-exact pricing),
-and it breaks no rule. (These two facts hold even if the price depends on the state as well as
+and the exact schedule forbids. A machine that charges for a check before its record goes up doesn't meet it either, and that's
+allowed; both are still Thiele machines. The exact schedule isn't part of the definition. (These two facts hold even if the price depends on the state as well as
 the move's name, which is wider than Section~\ref{sec:toll}'s per-name cost; a per-name cost
 is a special case, and there the floor and the ceiling together are out of reach for any system
 whose flag ever goes up.) Two older tools sit beside these. Run a list of moves in a ``writer,'' a
@@ -7247,7 +7265,7 @@ because more certain should win. Easwaran's answer is a property he calls \emph{
 reason on the paper. Every step crosses the room, so you can learn from the writer without trusting
 the writer. A probabilistic proof leaves the reason behind and sends only the writer's word about
 what the dice did. Once I saw it that way it stopped looking backwards, and it's the cleanest
-statement I found of what a certified machine does with a check: make the reason cross the room,
+statement I found of what establishing a record does with a check: make the reason cross the room,
 carry the thing, and run the check on your own side. That reading is mine. His subject is proofs passed between mathematicians, so if it's wrong, it's
 wrong on me.
 
@@ -7888,29 +7906,27 @@ this very claim: the same property, the same thing, the same edition, and an hon
 \begingroup\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.226\linewidth}>{\raggedright\arraybackslash}p{0.226\linewidth}>{\raggedright\arraybackslash}p{0.226\linewidth}@{}}
 \toprule
-\textbf{What's asked} & \textbf{Bare toll} & \textbf{Entitlement} & \textbf{Earned certification} \\
+\textbf{What's asked} & \textbf{Bare toll} & \textbf{Entitlement} & \textbf{Established record} \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-A check ran & not required & a test result on the record & a passing check before the commit, on every run from a clean start \\
-Same property & not asked & not asked & enforced by the step \\
-Same thing & not asked & not asked & enforced by the step \\
-Same edition from CHECK to COMMIT & not asked & not asked & enforced; CERTIFY may later read that historical commitment \\
-Honest check & not asked & not asked & proved of the checker, once, outside the record \\
-Could have failed & not asked & not asked & not policed \\
-Paid for & at least one unit & at least one unit & at least three units for the chain \\
+A check ran & not required & a test result on the record & a passing check before the raise, on every run from a clean start \\
+Same property & not asked & not asked & required \\
+Same thing & not asked & not asked & required \\
+Nothing changed from check to raise & not asked & not asked & required \\
+Honest check & not asked & not asked & a fact about the checker, outside the record \\
+Could have failed & not asked & not asked & not asked \\
+Paid for & at least one unit & at least one unit & at least one unit for the raise, plus the check's price \\
 \end{longtable}
 \endgroup
 
 After the column of questions, the first column is Section~\ref{sec:toll}'s bare toll: a paid crossing, and nothing says a check
 happened at all (Section~\ref{sec:insight} has a remark saying exactly that, Remark~\ref{rem:u09-no-wait}). The second is this
-section's entitlement. The third is a certified machine, whose step won't let a
-commit through without a passing check of the same claim, from a clean start, whose checker comes
-with a proof that it says what it means, and whose certified runs from a clean start pay for the
-check, the commit and the certificate. Even there two things are missing, and the
-first is in the table, where you'll see it. The step doesn't police whether a
-check could have failed: a property every value has is a perfectly legal check, sound and useless.
+section's entitlement. The third is an established record: from a clean start it rises only
+after a passing check of the same claim, with nothing the claim is about changed in between, and
+the raise pays. Even there two things are missing, and the first is in the table, where you'll
+see it. Nothing asks whether a check could have failed: a property every value has is a perfectly legal check, sound and useless.
 And in all three columns the status belongs to whoever reads the record. The machine doesn't know
 anything. What its flag means is assigned from outside, by whoever says what each property means.
 
@@ -7982,7 +7998,7 @@ belief into a deliberate kind and a routine kind (I cite his 1991 book; the spli
 where you take on whatever a procedure you committed to in advance hands you, the way you'd accept a
 reading off a thermometer you've already decided to trust, or what's under a cup when you lift it.
 What I think the split rests on is when the trust goes in: once, before the data comes. A passing
-test on a certified machine is routine in exactly that sense, with a checker proved honest once, outside every run.
+check behind an established record is routine in exactly that sense, with the checker trusted once, outside every run.
 
 Neil Tennant, a logician at Ohio State, and G\"osta Grahne, a computer scientist trained at Helsinki, I first
 filed as two separate complaints. They're one move made from opposite sides. The target is the
@@ -8198,10 +8214,7 @@ depth. The cups say why entitlement and truth are different. Plato says what the
 relation has to do, which is to distinguish. Necula says how to build it. Hartley says what to count.
 
 Put the three pieces on one hypothesis list (narrow the list with a test that separates, find
-the paid event, count the charges against a tree the run paid for) and you get a single statement, structural entitlement, once
-over any Thiele machine and once more on a certified machine, where the run
-starts clean and the paid steps are its own record moves, check,
-commit and certify, at a cost of exactly one each. The first one reads
+the paid event, count the charges against a tree the run paid for) and you get a single statement, structural entitlement, over any Thiele machine. It reads
 as follows.
 
 \begin{theorem}[Structural entitlement, over any Thiele machine]\label{thm:ent-cs}
@@ -8242,12 +8255,6 @@ feed nothing, and I'm naming them here so you don't have to find them: (H3) isn'
 by any of the three
 conclusions; from (H1) only the inclusion is used, and the gap goes unused; and in (H2)
 the words ``not in $\Omega'$'' go unused, since a candidate whose observation differs from every survivor's can't be a survivor itself. And (H4)'s $|\Omega'| > 0$ is used in that proof but can be dropped too: the covering forces it once the prior has a member.
-
-A certified machine is an instance by substituting its price list into the same theorem: its
-paid steps are exactly its record moves, including failed attempts, and each costs one. Under
-(H1)--(H5), the rounded index-bit drop is at most the number of those moves, which equals the
-ledger's rise. The candidate lists, covering and depth condition still have to be supplied; the
-machine's step does not construct them.
 
 There is also a direct bound when the run actually produces the lists. It needs its
 own hypothesis about how much a test may discard.
@@ -8306,7 +8313,7 @@ already knew. What the card did was make sure none of it got left out when it ma
 entitlement's hypotheses on one list does the same: it finds nothing new about leaning on a
 claim, and it makes the hypotheses impossible to drop quietly.
 
-\subsection{A grouping, checked and committed}
+\subsection{What a sound grouping entitles}
 
 Section~\ref{sec:structure} ended on buckets, and the toll of Part~I never needed them: it prices any yes-or-no
 reading. In this subsection the word in this section's title gets attached to a partition in a
@@ -8325,33 +8332,19 @@ mismatched pair. Join 1 and 3 instead and it fails. Changing the circles' names
 from A and B to North and South changes none of these checks. That is why the
 reading below uses the partition, not the spelling of its labels.
 
-Now comes the rule for the record. Put a tick beside a grouping only after comparing the
-colours within each circle. Copy that ticked grouping onto a separate commitment
-card, then place the card in a record envelope; charge one tally for each of those
-three acts. Change a button's colour between the check and the copy, and the old
-tick must no longer authorize the copy. The machine's SET rule below does that by
-clearing the current table and channel. A record already kept remains about the
-old colours, which it keeps with the grouping.
+Now the record. Whatever keeps the fact that a grouping was found sound, a mark on a card or a
+bit in a machine, it's a reading that goes from no to yes and stays there, so everything Part~I
+said about readings applies to it: the raise pays the toll, and keeping it takes a merge or fresh
+room. None of that depends on what the mark is about. What the mark entitles does depend on it,
+and here that comes down to the grouping alone. Change a button's colour after the mark is made and
+the mark is still about the old colours. A record says what held when it was made, nothing more.
 
-Here is one example machine that meets the model, the smallest I know that makes a record from a checked claim. It is an illustration; the theorem above holds of any Thiele machine. The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
-latch and a ledger. SET costs nothing; it replaces the key and throws away the table and the channel,
-which were checked against the old key. CHECK $g$ costs one and passes when $g$ is sound for the
-current key, and, when it passes, writes $g$ in the table. COMMIT $g$ costs one and passes when the table holds a
-grouping with the same partition as $g$, and puts $g$ in the channel. CERTIFY costs one and passes
-when the channel holds a grouping; if the record is still down it then keeps that grouping with the
-current key, the key a grouping with its partition was checked against, and a record already kept
-is left as it is. A CHECK, COMMIT or CERTIFY that fails traps, and a trapped machine only pays. The
-\emph{reading for a grouping $g$} is: the record holds a grouping with $g$'s partition. In words, that reading says ``this grouping has been checked and committed.''
-
-\begin{theorem}[A committed grouping entitles exactly its refinements]\label{thm:partition-reading}
+\begin{theorem}[A sound grouping entitles exactly its refinements]\label{thm:partition-reading}
 (1) The classes of ``same label'' under any grouping form a partition. (2) Two groupings with the
-same partition of the pile have the same reading at every state of the bucket machine. (3) For
-groupings $g$ and $h$ of the pile, soundness of $g$ for a key gives soundness of $h$ for that key,
-for every key, exactly when $h$ refines $g$. (4) On every run from a clean state (table and channel empty, record down), if the reading for $g$ is up, the record holds a grouping and a key
-for which $g$ is sound, and so is every grouping that refines $g$; and for every grouping $h$ that
-doesn't refine $g$ there is a key for which $g$ is sound and $h$ isn't. (5) The bucket machine
-obeys the toll, and a run from a clean state that ends with the record up has raised the ledger
-by at least three.
+same partition of the pile are sound for exactly the same keys. (3) For groupings $g$ and $h$ of
+the pile, soundness of $g$ for a key gives soundness of $h$ for that key, for every key, exactly
+when $h$ refines $g$. (4) For every grouping $h$ that doesn't refine $g$ there is a key for which
+$g$ is sound and $h$ isn't.
 \end{theorem}
 
 \begin{proof}
@@ -8360,9 +8353,10 @@ their labels agree, and two agreements through a third label give agreement
 with each other. Thus ``same label'' has the three sameness rules, and its
 classes form the partition already constructed in Theorem~\ref{thm:equiv-partition}.
 
-(2) The reading asks which items were put together, not what the buckets were
-called. Replacing one grouping by another with exactly the same buckets
-therefore changes no answer to that reading.
+(2) Soundness asks, of each pair the grouping puts together, whether their keys
+agree. Two groupings with the same partition put exactly the same pairs
+together, so they ask exactly the same questions and get the same answers.
+What the buckets are called never enters.
 
 (3) If $h$ only cuts $g$'s buckets smaller, every pair $h$ keeps together was
 already together under $g$. Soundness of $g$ gives that pair equal keys,
@@ -8372,34 +8366,18 @@ $g$-bucket one key value and every other item a second key value. Each
 $g$-bucket has a single key, so $g$ is sound. The chosen $h$-bucket contains
 both key values, so $h$ is not. This is why the key type needs two values.
 
-(4) Follow the table, channel and record through the commands. They begin
-empty. CHECK inserts only a grouping it has found sound for the current key.
-COMMIT takes the partition of a grouping already in that table, so the
-selected grouping is sound for the same key. CERTIFY keeps that grouping
-and that key together; later commands do not replace an existing record.
-SET changes the key but empties both the table and the channel, so no old
-unchecked carry-over remains there. A failed command traps instead of
-inserting an unsound grouping, and trapped commands leave those fields alone.
-These are all the ways those fields change. Their promised soundness
-therefore survives every command of any run from the clean start.
-Apply (3) to the grouping and key in the record: every refinement is sound,
-and every non-refinement has the counterexample key just constructed.
-
-(5) Only CERTIFY raises the record, and its price is one, giving the toll.
-A successful CERTIFY needs a grouping in the channel. From an empty channel
-only a successful COMMIT could have supplied it. From an empty table that
-COMMIT in turn needs a successful CHECK. These are three distinct earlier
-acts in order, each charged one. The run's nonnegative bill is at least three.
+(4) That last key is the one: $g$ is sound for it and $h$ isn't.
 \end{proof}
 
-So ``structural'' has a theorem under it. The reading sees a grouping only through its partition,
-which is item (2). If the recorded circles are sound, so is any way of cutting them smaller, whatever the key
-is. A grouping that isn't a cutting-smaller can still happen to be sound for this key (paint all
-four buttons red and every grouping is sound), but nothing in the record promises it: for some
-key it fails. Item (3) and item (4) say exactly that much, and that's all the record buys. It's
-the three parts of entitlement from the start of this section in their smallest case: the object
-is the grouping, the checked relation is soundness for the key, and the paid event is the CERTIFY,
-on top of a CHECK and a COMMIT at a cost of one each. What it doesn't do is make a later move act on the record. The only move that reads it is CERTIFY, and only to leave a kept grouping alone. Like everything in this section, it says what someone auditing the run may conclude.
+So ``structural'' has a theorem under it. Soundness sees a grouping only through its partition,
+which is item (2). If the circles you stand behind are sound, so is any way of cutting them
+smaller, whatever the key is. A grouping that isn't a cutting-smaller can still happen to be
+sound for this key (paint all four buttons red and every grouping is sound), but nothing in
+standing behind $g$ promises it: for some key it fails. Items (3) and (4) say exactly that much,
+and that's all the record buys. It's the three parts of entitlement from the start of this section
+in their smallest case: the object is the grouping, the checked relation is soundness for the key,
+and the paid event is the raise of the reading that keeps it. Like everything in this section, it
+says what someone auditing the run may conclude.
 
 Before Part III, I owe you the word the toll is named after, the ``insight'' in ``No Free
 Insight'' (Section~\ref{sec:narrowing}), because I've been using it as if it meant one thing.
@@ -8627,7 +8605,7 @@ Insight, in the sense this book prices, is a distinction made to stay: a move th
 reading from off to on, for good, and that move costs at least one, in any system with the
 toll, whatever the reading is about and whatever its depth. At its best the reading is a relation
 committed to, a claim checked and closed; a bare crossing that commits to nothing pays the same,
-and the toll doesn't tell the two apart. A certified machine is one way to make
+and the toll doesn't tell the two apart. An established record is one way to make
 sure a crossing is the first kind. There are three boundaries, each from a different place.
 From Metcalfe: it isn't a feeling, and a system's version has to be an event. From the proof:
 the floor is the same; a shallow commit and a deep one both cost at least one, and cost is not
@@ -10011,10 +9989,10 @@ not to call one by the other's name again.
 Part~III is step four, the sharpest case. A record that a claim was checked and closed is a
 distinction that stays, so it pays what Part~I found keeping takes, and it's the case where you can point at the
 kept distinction and at what it cost. It starts with what \emph{established} means, and why two computers
-with the same bits can differ in it. The step that raises a certified record settles it for good, and
-the order a certified machine's step enforces, check, then commit, then certify, is what makes the
-record's raise mean a claim held. That's what I mean by certification, and it's the layer this part
-adds to the bar Part~II set. Then the real systems that already put a price on a write, the thesis
+with the same bits can differ in it. The step that raises the record settles it for good, and a
+passing check of that very claim before the raise is what makes the raise mean a claim held.
+That's what I mean by established, and it's the one condition this part adds to the bar Part~II
+set. Then the real systems that already put a price on a write, the thesis
 about which kept distinction is worth paying for, and what a ledger has to do with heat. Those
 claims are about the model.
 
@@ -10127,7 +10105,8 @@ sensor reading can also be wrong about the aircraft. What the recording
 supplies is evidence of what those channels carried, subject to the recorder
 and sensors working as specified. Crash protection helps that evidence survive. The flight recorder has the right shape, and that shape isn't mine. Later in
 this chapter it gets its name from computer security, a reference monitor, and I'll say outright
-that a machine built that way would be doing what this book describes. What the book adds is
+that a machine built that way would be one way of building what this book describes. It would be
+an implementation, not the thing. What the book adds is
 narrower than a rulebook for everything underneath. It's about the records that go up and never
 come back down: what that something has to keep for good, and what keeping it takes.
 
@@ -10188,7 +10167,7 @@ those three come in at different places, so I'll say where. Paid for is the toll
 Thiele Machine, the step that raises the record has to cost something. Permanent is in the
 definition too. A Thiele machine's record never falls; Part~I's counting of states leans on that,
 and Part~II puts the same condition on a record. Earned, meaning a check
-of this very claim passed first, isn't in the model's core at all. It's what the step of a certified machine enforces, from a clean start. One more word rides
+of this very claim passed first, isn't in the model's core at all. It's what an established record adds, from a clean start. One more word rides
 along with permanent, and it'll come up when I line my record up against other people's: dated. A
 record that goes up and stays up went up at one particular step of the run and not another,
 even though the record doesn't write down which step. So dated, in this book, means it has a
@@ -10312,40 +10291,36 @@ of size $K$ fails once $2^n>K$. Every endpoint being counted has the same workin
 \end{proof}
 
 You can build the witness directly. Keep a Boolean workspace, the answers for the
-completed editions, and the current stage of CHECK, COMMIT and CERTIFY. On a true
-workspace, run the chain for an edition you choose to certify, or skip it for one you
+completed editions, and whether the current edition has been checked. On a true
+workspace, run the check for an edition you choose to establish, or skip it for one you
 don't. Then WRITE true to start the next edition. Every choice brings you back to the
 same true workspace and a fresh current stage. Open the file and the choices are still
 there, in exactly the places you made them.
 
 Put the whole machine on the table. There is the current page, holding false
-or true. There is a marker beside it, with four positions: raw, checked,
-committed, published. And there is a numbered file of yes-or-no answers for
-pages already put away. Start with a true page, the marker at raw, and an
-empty file.
+or true. There is a marker beside it, with two positions: raw and checked. And
+there is a numbered file of yes-or-no answers for pages already put away.
+Start with a true page, the marker at raw, and an empty file.
 
 CHECK can move the marker from raw to checked, but only if the page says true.
-COMMIT can move it from checked to committed. CERTIFY can move it from
-committed to published. Press any of those buttons at another stage and it
-leaves the arrangement alone. IDLE always leaves it alone. Those are all the
-ways to move the marker without replacing the page, so there is no shortcut
-from raw to published.
+Press it at checked and it leaves the arrangement alone. IDLE always leaves it
+alone. Those are all the ways to move the marker without replacing the page,
+so there is no way to checked except through CHECK.
 
 WRITE does three things, in this order. It files yes if the marker is at
-published and no otherwise. It puts the requested value on the page. Then it
+checked and no otherwise. It puts the requested value on the page. Then it
 returns the marker to raw. The answer goes into the file before the marker is
 reset, and no command alters an answer already filed.
 
-Check what that means after any command. CHECK, COMMIT and CERTIFY move the
-current page through exactly the named stages; they do not touch earlier
-pages' answers. IDLE leaves both alone. WRITE closes the current page with
-the answer its stage warrants, then opens a raw page. Start with no earlier
-pages and follow those rules one command at a time: the file always answers
-the completed-page questions correctly, and the marker gives the current
-page's stage.
+Check what that means after any command. CHECK moves the current page from
+raw to checked; it does not touch earlier pages' answers. IDLE leaves both
+alone. WRITE closes the current page with the answer its marker warrants, then
+opens a raw page. Start with no earlier pages and follow those rules one
+command at a time: the file always answers the completed-page questions
+correctly, and the marker says whether the current page has been checked.
 
-To file a yes, run CHECK, COMMIT, CERTIFY, then WRITE true. To file a no,
-use WRITE true alone. Either choice leaves a true page with the marker at
+To file a yes, run CHECK, then WRITE true. To file a no, use WRITE true
+alone. Either choice leaves a true page with the marker at
 raw, ready for the next choice. After $n$ choices the page and marker are
 identical in every run, while the file holds exactly the $n$ answers chosen.
 Every yes-or-no list is possible, and different lists are different full states.
@@ -10356,9 +10331,9 @@ long enough history outruns it. The tabletop can keep coming back to one picture
 The machine that keeps all those choices cannot fit its reachable fibre into a finite set.
 That is where the infinity comes from.
 
-The old yes-or-no gauge still has a job. Ask whether the file contains any certification
-at all and it becomes a permanent lamp: once yes, always yes. Ask whether today's sheet
-is certified and wiping that sheet starts the answer over. A Thiele machine's record is the
+The old yes-or-no gauge still has a job. Ask whether the file contains any yes at all
+and it becomes a permanent lamp: once yes, always yes. Ask whether today's sheet has been
+checked and wiping that sheet starts the answer over. A Thiele machine's record is the
 permanent lamp.
 
 \subsection{Computed, stored, established}
@@ -10384,8 +10359,8 @@ I'll hold four words still from here on. A \emph{check} is the test, the thing t
 \emph{record} is whatever stays behind to say so. And \emph{established}, in the sense a machine can
 carry, is all three, about one thing. The first machine had the check and the closing and kept no
 record of either, which is the problem above. Where the closing and the record are one act, as in a
-database's commit, writing the record is the closing. A certified machine keeps them apart, a
-commitment the next one replaces and a certificate that stays. The book cashes this working sense at two depths: a paid closing in the bare model, and an
+database's commit, writing the record is the closing. An established record is like that too: the
+raise is the closing. The book cashes this working sense at two depths: a paid closing in the bare model, and an
 object with a checked relation and a paid event, in Part~II (Section~\ref{sec:entitlement}). Each place says which one it means.
 
 That raises a fair question: what if the second machine, handed the typed-in list, runs the check
@@ -10599,10 +10574,10 @@ check establishes is whatever it's honest about.
 
 Put that next to the empty no pile and the two fit together: a check establishes what it's honest
 about, and a check with an empty no pile is honest only about what you already had. One
-thing I'll say plainly now: a certified machine doesn't police this. Its step makes sure a commit
-was checked first, about the same thing, by a checker proved honest. It doesn't stop you asking a
-question that can't come out no, like ``is this number at least zero.'' Ask one and the whole chain
-runs and gets paid for, and nothing is established but the chain.
+thing I'll say plainly now: an established record doesn't police this. It asks that the raise come
+after a passing check of the same claim, and it doesn't stop you asking a question that can't come
+out no, like ``is this number at least zero.'' Ask one, pay for the check and the raise, and nothing
+is established but the record of asking.
 
 \subsection{Settled, whether it's true or not}
 
@@ -10796,8 +10771,8 @@ the same squares and the possible moves of all the pieces of both players are th
 out that a king that could still castle and one that can't are in different positions, even on an
 identical board. That passes the perfect-vision test. And the official text says why it passes: the
 castling right changes which moves are legal. So the hidden part steers the game: it decides what can
-happen next. In a certified machine, the parts that give the flag its meaning steer: a commit
-with no passing check in front of it doesn't go through. Each of these got something right and missed something else.
+happen next. Where a record is established, what gives the flag its meaning steers: a raise
+with no passing check in front of it doesn't happen. Each of these got something right and missed something else.
 
 The one that fit best, and I want to say clearly that it only fit best among the ones I found, was the
 standing of a mathematical statement. I'll go through how it went for one statement, as far as I could follow it.
@@ -10916,10 +10891,10 @@ Writing the commit record doesn't report that a question got closed. Writing it 
 And a commit can't be false. It can misfire: committed without the check, committed about the wrong
 pocket. Those two misfires are Gettier and Peirce again, coming in from a third direction. Then somebody else reads the record, and
 for them it stops being a performance and turns into a report: ``this was checked and closed.'' A
-report can be false. On a certified machine it can't be, about the machine's own history: if its
-flag is up from a clean start, some claim was checked and closed, and the checker's proof says the
-claim held when it was checked. That's what certified asks for, and it's how a commit gets tied to
-the truth.
+report can be false. An established record can't be, about the machine's own history: if its
+flag is up from a clean start, some claim was checked and closed. Whether the claim held is then a
+question about the checker, and only about the checker. That's how a commit gets tied to the
+truth: through a check, and no further than the check reaches.
 
 Robin Milner, building a proof checker in the 1970s, ran out of memory, so he decided to keep only
 the finished theorems and throw the proofs away, like a teacher rubbing out the blackboard to make
@@ -10947,7 +10922,7 @@ scarce, electricity and hardware; a unit of cost in this book is tied to nothing
 at the University of Chicago, built a model in 2025 of what that tie has to cost. As I read him, for
 Bitcoin's kind of trust to hold, the honest work has to stay expensive at every moment compared with
 what an attacker could win, and the expense grows in step with the value being protected. A flat charge of one unit can't do that job, and it isn't trying to. It's a count, not a lock, as the start
-of the book put it: the lock is the order rule, check, then commit, then certify, and it would work
+of the book put it: the lock is the order rule, no raise without a passing check, and it would work
 at a price of zero. The price is there because nothing is kept for free: Part~I's
 counting of states shows that a machine with finitely many states that prices its merges
 can't avoid it. Scaring anybody off has nothing to do with it. The smallest machine has two states, and the
@@ -10990,11 +10965,11 @@ That comeback has a history, and it's older than me by a lot. In 1972 James P. A
 study for the US Air Force described a reference monitor: a piece every access has to pass through,
 that can't be tampered with, and small enough to check. In 2000 Fred Schneider, a computer scientist at Cornell, argued that a monitor that only watches a
 run as it goes can enforce only rules whose breaking shows up at some finite point, the kind
-computer scientists call safety rules. ``No certificate without an
-earlier passing check and a commit'' is one of those. And in 2015 Arthur Azevedo de Amorim, a computer scientist then at the University of Pennsylvania, and six
+computer scientists call safety rules. ``No raise of the record without an
+earlier passing check of the same claim'' is one of those. And in 2015 Arthur Azevedo de Amorim, a computer scientist then at the University of Pennsylvania, and six
 coauthors built monitors that check a rule at every single instruction, and proved them correct. So putting a rule under every program, so nothing can
 get around it, is their move. I didn't invent it. What I'm putting under that move is narrower: a record that
-has to be paid for, on a certified machine one that has to be earned, and a reason, from counting,
+has to be paid for, an established one that also has to be earned, and a reason, from counting,
 why a finite machine that prices its merges can't make the price of a record that never comes down zero.
 
 \subsection{What settling looks like}
@@ -11070,8 +11045,9 @@ Which leaves a fair question hanging: if it computes nothing new, what is it for
 the usual cost models are for. The random-access machine computes exactly what Turing's does,
 the cell-probe and input-output models leave the computing between the moves they count out of
 the count, and each is worth having for what it counts. The Thiele Machine's own axis is what a
-run made the case, and what that cost, and the computer is what it looks like through a window that
-drops that axis, its shadow (Theorem~\ref{thm:smallest-member} says when a machine is one). Fit a
+run made the case, and what that cost. Through a window that drops that axis, the computer is its
+shadow (Theorem~\ref{thm:smallest-member} says when a machine is one); read through whether it has
+settled its answer, the computer is already on that axis, with the price left out. Fit a
 record over a register machine, a Turing machine or a lambda calculus, priced by the toll, and none of
 them computes one function more afterward (Section~\ref{sec:latch}). What each of them gains is
 a record and a cost.
@@ -11087,18 +11063,18 @@ Two names, and they work the way Turing's do. A \emph{Thiele machine} is anythin
 definition: the toll, a record that never falls, and some run from a named start that raises it. A
 clock is not one, and neither is a machine whose record never goes up. Each is read through a flat
 reading. Each is the shadow of one as long as some run of it ends somewhere other than where it
-started (Theorem~\ref{thm:smallest-member}). A Thiele machine can be held to more than the definition asks,
-\emph{certified}: from a clean start the record goes up only
-after a passing check of a claim, by a checker proved to mean what the claim says, then a
-commitment to that same claim, then a certificate, one unit each; and some claim's check, commitment and certificate raise the record from some starts and not from others, exactly where the claim holds. The end of this chapter pins
-the words down (Section~\ref{sec:layers}).
+started (Theorem~\ref{thm:smallest-member}). A record can be held to more than the definition asks,
+\emph{established}: from a clean start it goes up only after a check of the claim it records
+passed, a check that could have failed, about that very claim, with nothing the claim is about
+changed in between. The raise is the closing, and the toll charges it like any other. The end of
+this chapter pins the words down (Section~\ref{sec:layers}).
 
 \subsection{The two computers, put back together}
 
 I'll tell the two-computer story again, rebuilt as Thiele machines, with the record and the counter
-written out, so you can watch it happen. You don't have to take my word. The prices are a certified
-machine's: one unit each to check, to commit, and to certify (raise the record), and nothing for
-ordinary work like moving numbers around.
+written out, so you can watch it happen. You don't have to take my word. The record is established:
+it goes up only after a passing check of the claim. The prices are one unit to check, one unit to
+raise the record (the toll), and nothing for ordinary work like moving numbers around.
 
 \begingroup\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.205\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}@{}}
@@ -11111,25 +11087,22 @@ ordinary work like moving numbers around.
 start & nothing yet & no & 0 & nothing yet & no & 0 \\
 1 & sorts (lots of ordinary steps) & no & 0 & copies in the typed list & no & 0 \\
 2 & checks ``sorted'' on this list, this edition: passes & no & 1 & (no check) & no & 0 \\
-3 & commits to ``sorted,'' about this list, this edition & no & 2 & tries to commit: nothing checked, refused & no & 1 \\
-4 & certifies & \textbf{yes} & 3 & tries to certify: nothing committed, refused & no & 2 \\
+3 & raises the record & \textbf{yes} & 2 & tries to raise the record: nothing checked, refused & no & 1 \\
 \end{longtable}
 \endgroup
 
 At the end, the bits on both machines are still the same sorted list. Everything else differs. The
-sorter's record is up and its counter reads 3. The copier's record is down, and it's paid 2 for two
-refusals, because on that machine a refused attempt still costs what it costs. (Read those as two
-separate attempts. Written as one stored program, the copier would stop at its first refusal and
-pay 1.) Nothing the copier
-can do raises its record without first running a passing check of the claim it then commits to. And no
+sorter's record is up and its counter reads 2. The copier's record is down, and it's paid 1 for the
+refusal, because a refused attempt still costs what it costs. Nothing the copier can do raises its
+record without first running a passing check of the claim the record keeps. And no
 outside window that only shows the list can tell you which is which; the difference is all in the
 part the window doesn't show. Walk that warehouse now and there's finally a lamp that's lit in one
 and dark in the other.
 
-Now, how literally should you take that table? It's a picture of the chain, and on a certified
-machine the chain is what the definition asks for. What it needs from the questions is a checker
-proved to say yes exactly when the answer is yes. Without a proved checker for ``sorted,'' the chain
-would be honest about whatever the checker reads and only by convention about your list, which is
+Now, how literally should you take that table? It's a picture of the condition, and for an
+established record that condition is the whole definition. What it needs from the question is a
+checker that says yes exactly when the answer is yes. Without such a checker for ``sorted,'' the
+record would be honest about whatever the checker reads and only by convention about your list, which is
 Gettier's pocket again, one level down.
 
 And a lamp for whom? The record is bits too. It's a lamp on the machine, for anybody walking that
@@ -11152,7 +11125,7 @@ procedure that can reject them. Whether its statement says what you meant is sti
 The AI that talks as if it's sure of itself isn't addressed at all. Section~\ref{sec:scope}, under
 ``Outward consequences,'' says how little of the outside world I've reached.
 
-Now comes the honest half. Take away the certified machine's rules and keep only the bare toll, and the copier
+Now comes the honest half. Take away the rule that the raise waits for the check and keep only the bare toll, and the copier
 has an easier move: pay one unit, flip the record to yes, and that's the whole move. The toll is satisfied
 and the receipt is real, but it's a receipt for nothing. The bare toll prices the closing of the door, and the check
 behind it goes unpriced.
@@ -11164,35 +11137,32 @@ then proved the charge gets paid when the flag goes up. That's your definitions 
 other.
 
 On the bare model, that's fair, and the copier's receipt for nothing is the proof. What makes the
-record mean \emph{established} is a certified machine's step, which won't let a commit through unless a
-check of that very claim passed, meeting the first three of the four conditions from Gettier's
-pocket, with the fourth, an honest checker, proved about the checker separately. And what certified
-asks isn't about one program: on \emph{every} run from a clean start, if the record is up, then somewhere earlier a check of some claim, about some edition,
-passed; then a commit of that same claim; then the certificate; with nothing touching the
-thing between the check and the commit.
+record mean \emph{established} is the condition that it rises only after a check of that very claim
+passed, meeting the first three of the four conditions from Gettier's pocket, with the fourth, an
+honest checker, a fact about the checker. And the condition isn't about one program: on
+\emph{every} run from a clean start, if the record is up, then somewhere earlier a check of the
+claim passed, with nothing touching the thing between the check and the raise.
 
-So a raised flag, from a clean start, tells you some claim went through a passing check, a
-commitment to it about the same edition, and a certificate. That piece of history is what the
-flag keeps, and only that. The channel names the latest commitment that got through, which
-needn't be the one the flag first went up on, and in general you can't read off the end state
-which claim was certified at that first rise, or when. And the flag doesn't say the claim still
-holds, at the certificate or at the end, because the counter can change after the commitment.
+So a raised flag, from a clean start, tells you a claim went through a passing check before the
+raise. That piece of history is what the flag keeps, and only that. It doesn't say the claim still
+holds at the end, because the thing it's about can change after the raise; the flag stays up about
+the edition that was checked.
 
 That ``every'' is what an operation-by-operation rule buys. A log written
 by one program inherits that program's correctness conditions. A database
 or reference monitor can instead enforce rules over every operation its
-interface permits. A certified machine's step is held to that: its
-condition covers every run from a clean start, hostile ones included.
-Meeting it takes a proof about the step; it does not follow just from
-calling the record part of the step. And the tie
-between a check and the thing it checked gets a job: the step reads it, and refuses a commitment
-when it no longer fits, so the structure is doing something in the machine instead of sitting in a note
+interface permits, and an established record asks for a rule of that
+kind: its condition covers every run from a clean start, hostile ones
+included. Meeting it is a fact about the step; it does not follow just
+from calling the record part of the step. And the tie
+between a check and the thing it checked gets a job: the step reads it before it lets the record
+rise, so the structure is doing something in the machine instead of sitting in a note
 beside it.
 
-There are two limits on that ``every,'' and I'll say them now so you don't have to find them later. First, it's every program,
-not every everything. The guarantee covers any list of instructions, run from a clean start, one step at
+There are two limits on that ``every,'' and I'll say them now so you don't have to find them later. First, it's every run,
+not every everything. The guarantee covers any list of moves, run from a clean start, one step at
 a time, on a step that does what its definition says. Hostile programs are inside it. A hostile start
-(a table of facts nobody checked, a reset), hostile hardware (a soldering iron on the flag's bit,
+(a record already up, a reset), hostile hardware (a soldering iron on the flag's bit,
 a second writer the step can't see) or a hostile reader isn't; Section~\ref{sec:scope} lists the whole fence. The guarantee has the same shape as a database or reference monitor's:
 it covers operations mediated by a faithful enforcing layer. How large that
 class is depends on each interface; being a database does not make it a
@@ -11200,9 +11170,8 @@ one-program guarantee.
 
 Second, the flag and the ledger on their own are what people who verify programs call ghost state:
 erase them and every program computes exactly what it did before (Section~\ref{sec:counter} has
-where that idea comes from). What isn't ghost on a certified machine is
-whatever its step reads and refuses on, at run time, for every program: the checks and commitments
-in front of the flag. And
+where that idea comes from). What isn't ghost, where the record is established, is
+whatever the step reads before it lets the record rise: the check in front of the flag. And
 the move of putting a rule under every program isn't mine either. It's the reference monitor's,
 and its history is a few sections back.
 
@@ -11215,8 +11184,8 @@ that never falls, and some run from a named start that raises it. The two-place 
 (Definition~\ref{def:certsys}) is its smallest record, and the latch is its smallest machine
 (Theorem~\ref{thm:smallest-member}). Everything
 else is added on top, and each theorem names what it adds. First come extra structures and
-requirements: a ledger that sums the costs, a window, a price on merges. Then, if you want one, the
-certified layer, with a checker proved sound and the order of check, commit and certificate. The
+requirements: a ledger that sums the costs, a window, a price on merges. Then, if you want it, a
+record that is established: one that rises only after a passing check of the claim it records. The
 bare definition doesn't ask the step
 to be computable, so when I say the record adds no computing power, I mean relative to a fixed
 flat part.
@@ -11249,21 +11218,19 @@ And when it lists what the model asks for (a state, a step, a record, a ledger, 
 ledger and the window as two of the extra pieces: a result asks for them only if it uses
 them.
 
-The names, with the certified one pinned down, because I'll hold to them for
+The names, with the established one pinned down, because I'll hold to them for
 the rest of the book. A Thiele machine is any particular system that fits the
 definition (Definition~\ref{def:thiele}): its five parts, its toll, a record that never falls, and
 some run from a named start that raises it. The board on paper in Part~I counts. A clock read as
 it stands doesn't; its reading is flat, and a clock with a run that moves is the shadow of a Thiele
-machine (Theorem~\ref{thm:smallest-member}). A Thiele machine is \emph{certified} when it meets four
-more conditions. The first is that the moves of its flat part can't touch the record; the record
-staying up is already in the definition. The second is a record that, from a clean start, rises
-only after a passing check of a claim, then a commitment to that same claim with nothing it's about
-changed in between, then a certificate, with the checker proved to mean what it says. Over a
-language fixed first, the claims and what they mean are that language's, and the proof is that the
-checker's yes makes the claim true in its sense. The third is exact prices: one unit for each of
-those three acts and nothing for anything else. And the fourth is a claim whose check, commit and
-certificate raise the record from a loaded start exactly when the claim holds there, with the claim
-holding at some loaded starts and failing at others. Every certified machine is a Thiele machine.
+machine (Theorem~\ref{thm:smallest-member}). A Thiele machine's record is \emph{established} when,
+from a clean start, it rises only after a check of the claim it records passed, with nothing the
+claim is about changed between the check and the raise. That's a condition on the reading, not a
+new kind of machine: the record staying up is already in the definition, and the raise already
+pays the toll. Two things it doesn't give you. Whether the check means what it says is a fact about
+the checker, proved or not, outside every run. And whether the check could have failed is a fact
+about the claim: a check of ``this number is at least zero'' passes on every input and establishes
+nothing but itself.
 
 And a computer that runs a Thiele machine, your laptop say, isn't that machine. Read through the
 emulator's prices and flag it's a Thiele machine itself, a finite one, like the toys of Part~I, and
@@ -11666,7 +11633,7 @@ stated result that the only way left to break it is to reset every one of them t
 In 2016 Raoul Strackx and Frank Piessens's Ariadne got that job down to flipping a
 single bit of non-volatile memory per state update, which they call the theoretical lower limit.
 Notice who the attacker is in every one of these: whoever gets to put an old state back. A bad
-program doesn't come into it. A record kept by the step can't see that attacker. Every guarantee a certified machine gives about a record's earned history is stated from a clean start; put back a state the machine really reached and each one still holds of it, through the run that reached it first, and none of them can say that nothing came after it. The per-step toll still holds after a restore; it just can't tell you what happened before it.
+program doesn't come into it. A record kept by the step can't see that attacker. Every guarantee an established record gives about its history is stated from a clean start; put back a state the machine really reached and each one still holds of it, through the run that reached it first, and none of them can say that nothing came after it. The per-step toll still holds after a restore; it just can't tell you what happened before it.
 
 Replicated services put the same kind of record somewhere else: inside each replica, where a
 replica that's been taken over still can't make it say two different things. Byung-Gon Chun and
@@ -12175,8 +12142,8 @@ ordinary machine forgets nothing, the toll prices crushing two states of one fib
 can price exactly by seeing the cups move (Section~\ref{sec:shadow-exact}). No inside procedure whose flip a substrate can represent decides a shortcut property,
 given a recursion theorem. What a
 record can do is carry the commitment (Section~\ref{sec:diagonal}). This part made ``established''
-a record that a check of the claim passed (Section~\ref{sec:established}), and a certified machine earns
-one by a check, a commitment and a certificate, one unit each. Of
+a record that a check of the claim passed (Section~\ref{sec:established}), and an established record
+earns that by a passing check before the raise. Of
 five specifications, read through my transcriptions, one charges a fee at the write (Section~\ref{sec:models}).
 For the choice of event, the pointer thesis proposes certification and lists how
 that proposal could fail (Section~\ref{sec:pointer}).
@@ -12387,7 +12354,7 @@ machines I have defined; the physical applications state the further premises th
 
 Bring the pieces of Parts I to III back to the bench. The holding count says what the arrows must do. The price
 rule says what goes on the ledger. The window says which of those distinctions a
-reader receives. The order of check, commit and certificate says how the flag got there.
+reader receives. A check in front of the raise says how the flag got there.
 
 %===========================================================================
 \section{The claims and their conditions}
@@ -12705,7 +12672,7 @@ The one-round ``ask'' models a cheating prover & not claimed & Section~\ref{sec:
 The window fact is mysticism, or Rice & not claimed & Section~\ref{sec:windows} \\
 Entitlement: object, checked relation, paid event & definition (the book's word) & Section~\ref{sec:entitlement}, Definition~\ref{def:u08-entitlement} \\
 Structural entitlement over any Thiele machine: a strictly stronger test, a paid crossing, a cost that covers the index bits & proved (premises: covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-cs} \\
-A reading that a grouping was checked and committed sees only its partition and entitles, uniformly over keys, exactly the groupings that refine it & proved & Section~\ref{sec:entitlement}, Theorem~\ref{thm:partition-reading} \\
+Soundness sees a grouping only through its partition, and a sound grouping entitles, uniformly over keys, exactly the groupings that refine it & proved & Section~\ref{sec:entitlement}, Theorem~\ref{thm:partition-reading} \\
 Entitlement is truth, or permission & not claimed & Section~\ref{sec:entitlement} \\
 The count prices why candidates were dropped & not claimed; it prices the size of the drop & Section~\ref{sec:entitlement} \\
 Raise, non-raising move & definition & Section~\ref{sec:insight}, Definition~\ref{def:u09-events} \\
@@ -12888,8 +12855,7 @@ quantifiers and representability premises.
 
 \emph{Entitlement bounds.} The count is handed its tree and its covering, along with the
 payment condition. It doesn't dig the tree out of an arbitrary run, and it isn't a Shannon bound
-on every trace (Section~\ref{sec:entitlement}). On a certified machine the payment is
-the record moves, each costing exactly one; a branch that costs nothing can
+on every trace (Section~\ref{sec:entitlement}). A branch that costs nothing can
 still narrow, the lists, tree and fibres are supplied,
 and the covering can't be dropped.
 
@@ -12908,7 +12874,7 @@ latch explains a record that can branch both ways from the same observation.
 Records that can come back down lie outside all of this: they're limit computability's, and
 Section~\ref{sec:latch} points at Ershov's ladder.
 
-\emph{The certified layer.} Every guarantee about a certified record is about programs: any list
+\emph{Established records.} Every guarantee about an established record is about runs: any list
 of moves, run from a clean start on a step that does what its definition says, one writer stepping at
 a time. Whoever sets the start, a reset or a power cycle, the wire that carries the report and the
 tools that built the step are outside that fence.
@@ -13058,9 +13024,7 @@ is arithmetic once the schedule is chosen. A window in which a raising step and 
 look the same can't price the raise exactly, by a fact about functions far older than the
 machine. Entitlement is defined as an object, a checked relation, and a paid event; given
 lists, a tree and a covering somebody supplies, a run that paid a charged step for every level
-of the tree has paid for the index bits it commits to (that count doesn't show a run has to pay them, the run doesn't recover the tree, the lists count repeats, and the index bits aren't the questions anybody asked); when the run makes the narrowing itself, every candidate dropped was dropped by a test the run paid for, and the index bits are at most $k$ times the cost when each test keeps a $2^{-k}$ share; on
-a certified machine the same count, for a run from a clean start, is a theorem about its record moves, with the check,
-commit and certificate inside the run, and the count can't do without the covering; and it
+of the tree has paid for the index bits it commits to (that count doesn't show a run has to pay them, the run doesn't recover the tree, the lists count repeats, and the index bits aren't the questions anybody asked); when the run makes the narrowing itself, every candidate dropped was dropped by a test the run paid for, and the index bits are at most $k$ times the cost when each test keeps a $2^{-k}$ share; the count can't do without the covering; and it
 is a license to lean on a claim. It doesn't prove the claim true.
 Insight, in the sense the toll prices, is a distinction made to stay. A feeling doesn't count. Its floor
 is flat: at least one, however deep. The claim behind the flag is something a check could
@@ -13100,12 +13064,12 @@ computation that never switches off is a latch on one event, over any base
 (Observation~\ref{thm:u11-latch}); latches and history variables are old, and the theorem covers
 only records that never come down. Beside it sits the flat shadow: where the projection
 commutes with the step, forgetting the record and prices leaves an autonomous computation. That
-computation is the shadow, not a member.
+computation, read through what it never raises, is the shadow, not a member.
 A window restricted to the base cannot recover independently varying hidden records or ledgers (Section~\ref{sec:shadow-exact}). That forgetting a layer gives the runs back,
 where the step doesn't read it, is the ghost-code erasure of Section~\ref{sec:counter}; what's here is
-that the forgotten layer still earns its record, and that what's left can't see it. Fourth, a record that's priced, and on a certified machine
+that the forgotten layer still earns its record, and that what's left can't see it. Fourth, a record that's priced, and where it's established,
 earned, under the move of guaranteeing something about
-every program. That move isn't mine at all. It's the reference monitor's (Anderson, 1972),
+every run. That move isn't mine at all. It's the reference monitor's (Anderson, 1972),
 made precise for monitors that watch a run (Schneider, 2000), and proved for monitors
 checked at every instruction (Azevedo de Amorim and coauthors, 2015). What I put under it is a
 definition, and its idea isn't new: a check bound to the claim it looked at, with the toll charged
@@ -13244,7 +13208,7 @@ I kept going, because by then I could not not keep going. The night the engine f
 
 Then I hit a wall, and it is the wall this whole document is about. Every tool I had for settling questions about what I'd built could settle the small ones and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to. It isn't broken. It was just never built with an eye that points that way. That's how it landed that night, and it didn't survive in that form: the direction turned out to be one an ordinary computer can reach, and what the usual rules leave out is the price (Section~\ref{sec:does-buy} says where the axis ended up). The two computers in Section~\ref{sec:established} are my attempt to show you that blindness with something you can hold. That same night I gave the idea a name: the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
 
-What survived the whole trip from there to here is not the renderer. Not one piece of it, and good riddance. What survived was a single commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on. It is no metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The basic model asks for states, instructions, a step, prices and a reading. The ledger and the window are further structure used in the constructions. None of that needs category theory. The morphisms in that first engine, the night they first composed correctly at two in the morning, were objects that remembered where they came from; a certified record remembers where it came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and every proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
+What survived the whole trip from there to here is not the renderer. Not one piece of it, and good riddance. What survived was a single commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on. It is no metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The basic model asks for states, instructions, a step, prices and a reading. The ledger and the window are further structure used in the constructions. None of that needs category theory. The morphisms in that first engine, the night they first composed correctly at two in the morning, were objects that remembered where they came from; an established record remembers where it came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and every proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
 
 Every step pulled back to show another layer underneath that I had not known was there, and I mean that plainly: I did not know what a Turing machine was when I started, I did not know most of the words in this document existed. I learned each one the same way, by walking face-first into a wall that needed it and not being let past until I had it. The needing always came first. The learning came after, dragged along behind the needing because it had no say in the matter.
 
@@ -13355,13 +13319,13 @@ monoidal product combines two objects or two arrows into one, with a unit and la
 the combining behave. An initial object has exactly one arrow into
 every object; the counter's uniqueness in this book is a uniqueness-on-reachable-states
 fact, and no category-theoretic initial object is involved. Yoneda's lemma was the piece that
-made the categorical engine snap into place for me (Section~\ref{sec:origin}), and nothing in
-the formal development uses it.
+made the categorical engine snap into place for me (Section~\ref{sec:origin}), and no argument
+in this book uses it.
 
 \subsection{Other terms I use without rebuilding}
 
-Provenance is the recorded chain of where an object came from; on a certified machine, a
-commitment's provenance is the passing check that came before it.
+Provenance is the recorded chain of where an object came from; for an established record, its
+provenance is the passing check that came before the raise.
 Simulation, in computer science, is one system
 imitating another's input-output behaviour; a Turing machine can simulate a system with effective finite encodings of its states and moves
 and a computable step on those encodings, by representing its state on tape, and the difference
@@ -13467,12 +13431,10 @@ isn't a Thiele machine, because it never rises, and a clock read as it stands is
 A clock-priced machine is one when its reading never falls and some run raises it; the latch is
 one of those.
 
-\emph{Certified} is what a Thiele machine can be held to beyond the definition
-(Section~\ref{sec:layers}): its flat moves cost nothing and can't touch the record, a record that
-stays up once it's up and is raised from a
-clean state only after a passing check, which means its claim holds, a commitment to the same claim with the thing it's about unchanged in between, and a certificate, at a cost of one for each of those
-three acts, and a claim whose check, commit and certificate raise the record from a loaded start
-exactly when the claim holds there, true at some loaded starts and false at others.
+An \emph{established} record is what a Thiele machine's record can be held to beyond the definition
+(Section~\ref{sec:layers}): from a clean start it rises only after a check of the claim it records
+passed, with nothing the claim is about changed between the check and the raise. Whether the check
+means what it says, and whether it could have failed, are facts about the checker and the claim.
 
 A computer running a Thiele machine isn't that machine; it implements it, inside bounds, the way a laptop implements a Turing machine. When a word below belongs
 to only one of the two layers, the entry says which.
@@ -13519,8 +13481,8 @@ what each move costs; the model takes it as given. A \emph{receipt} is a total t
 state, only climbs, equals the sum of the charges on every path including the failures, and is
 the only such total, on the states a run from the start reaches, for its price list (Section~\ref{sec:counter} proves it for any system with a counter
 and a price list). In
-the model there is a \emph{reading} into an order, two places at the smallest (Section~\ref{sec:toll}); on
-a certified machine it's a \emph{flag}, set by a certificate and never cleared.
+the model there is a \emph{reading} into an order, two places at the smallest (Section~\ref{sec:toll}); at
+two places I also call it a \emph{flag}, raised and never cleared.
 
 A \emph{window} is any function that shows you part of a state (Section~\ref{sec:windows}); a \emph{shadow}, said loosely, is
 what a window leaves you with. A
@@ -13751,7 +13713,7 @@ Buterin and Griffith; Wood; TCG; RFC 9162; Necula & five record disciplines & fo
 Zurek 2009; Ollivier, Poulin and Zurek 2004; Blume-Kohout and Zurek 2006 & pointer states and redundancy & a thesis borrowing the shape, with the gap to the physics stated \\
 Leroy 2009; Klein et al. 2009 & the discipline of saying where the proof stops & the separation of what's proved about the model from what any device running it does, inside its bounds \\
 Forster and Smolka 2017; Norrish 2011 & L as a model of computation & the substrate-level diagonal under its stated premises \\
-Hamlen, Morrisett and Schneider 2006 & which policies a monitor can enforce & the four things certified asks of a machine \\
+Hamlen, Morrisett and Schneider 2006 & which policies a monitor can enforce & the one condition an established record asks of a run \\
 \end{longtable}
 \endgroup
 
@@ -13761,7 +13723,7 @@ it is things built, new proofs of known things, and known pieces put together un
 
 A few more labels I went and looked up are neighbours. Some of them also sit in
 the table above,
-and one, the reference monitor, is the move a certified machine's step makes. I list them
+and one, the reference monitor, is the move an established record leans on. I list them
 so you can see why I don't think the toll is one
 of them under a new name. Each is a claim inviting correction.
 
@@ -13818,7 +13780,7 @@ program and survives compilation. Here it lives in the model's step rule.
 Amorim and coauthors 2015). A small piece every action passes through, enforcing a rule on
 every program. Schneider argued that a monitor watching a run can enforce only rules whose
 breaking shows up at a finite point, and ``no certificate without an earlier passing check and
-commit'' is one of those; the micro-policies check a tag rule at every instruction, proved correct. That's the move a certified machine's step makes, so this one isn't a neighbour at all: a certified machine's step is a monitor of this kind. What's added is the check-then-commit with a paid, permanent record on top,
+commit'' is one of those; the micro-policies check a tag rule at every instruction, proved correct. An established record leans on that move for one rule, no raise without a passing check of the same claim, so this one isn't a neighbour at all. What's added is a paid, permanent record on top,
 and the derivation of why the payment can't be zero. Kevin Hamlen, Greg Morrisett and Fred
 Schneider (2006) went on to sort which rules monitors, program rewriters and static checkers can
 each enforce, and they differ, which is one reason this book doesn't claim that every enforcement
@@ -13830,8 +13792,8 @@ say two things, with a proof of exactly what that buys. The record is theirs. Th
 their picture.
 \item Ghost state (Owicki and Gries 1976; Filliâtre, Gondelman and Paskevich 2014): variables
 added for a proof that can be erased without changing what the program computes. The flag and
-the counter are ghost in that sense. A certified machine's checks and commitments aren't, because
-the step reads them and refuses on them, for every program. The shadow is that erasure, with two things
+the counter are ghost in that sense. The check behind an established record isn't, because
+the step reads it before it lets the record rise. The shadow is that erasure, with two things
 on top: the erased layer still earns its record, and what's left can't read the record or the
 ledger.
 \item Verifiable computation and proof-carrying data (Parno, Howell, Gentry and Raykova 2013;
@@ -13846,9 +13808,9 @@ far as the copy is genuine. The words are the same and the machinery is differen
 \item Correspondence assertions (Woo and Lam 1993; Gordon and Jeffrey 2003). In protocol
 verification, ``this end event must be preceded by a begin event for the same thing'' is a
 correspondence assertion, and a type system can prove a protocol keeps it against any
-opponent. ``No certificate without an earlier commit, and no commit without an earlier check
-of the same claim'' has that shape. Theirs is proved about programs by typing. Mine is enforced
-by the step, which is the LCF comparison again, at the level of single instructions.
+opponent. ``No raise of the record without an earlier check of the same claim'' has that
+shape. Theirs is proved about programs by typing. Mine is asked of the step, which is the LCF
+comparison again, at the level of single moves.
 \item Monotonic parallel composition (\AA{}man Pohjola and Parrow 2016) and persistence in the
 pi-calculus (Palamidessi, Saraswat, Valencia and Victor 2006). \AA{}man Pohjola and Parrow
 separate models where a neighbouring process can never stop a step from models that can solve
@@ -14148,10 +14110,9 @@ what's mine is the toll a price on merging moves gives for a reading that stays,
 Vitányi's price per erased bit and Demaine and his coauthors' price on instructions, and the price is
 an abstract premise motivated by Landauer's reset). The pricing form of the window fact (item 6; the fact itself is elementary). The
 latch form of a record that never comes down (item 8; latches and history variables are old).
-And a record that's priced, and on a certified machine earned, under the reference monitor's
-every-program move (Section~\ref{sec:layers}; the move is Anderson's, Schneider's and the
-micro-policy authors', and what's added is the check bound to its claim, the toll on top, and the
-four things certified asks, which a clock fails).
+And a record that's priced, and where it's established, earned, under the reference monitor's
+every-run move (Section~\ref{sec:layers}; the move is Anderson's, Schneider's and the
+micro-policy authors', and what's added is the check bound to its claim and the toll on top).
 Under all four sits item 1, which is old mathematics read one way: every step of every machine run by one rule takes a fresh state, merges, or goes round a loop, a merge in a coarse description is, in every
 finer description it is exact about, a fine merge, a fine step out of the set, or endlessly many fresh states, specified thermal models add their own dissipation bounds, and
 finiteness is what takes the fresh states away.

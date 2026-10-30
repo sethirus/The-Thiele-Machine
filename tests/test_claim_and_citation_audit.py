@@ -118,7 +118,7 @@ def test_retired_theorem_names_are_not_still_cited():
         ROOT / "THIELE_MACHINE.txt",
         ROOT / "monograph/monograph.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
-        ROOT / "docs/THEOREM_MEANINGS.md",
+        ROOT / "coq/THEOREM_MEANINGS.md",
     ]
     found = {
         name: [
@@ -139,7 +139,7 @@ def test_commitment_contract_is_not_described_as_a_hardness_result():
         ROOT / "THIELE_MACHINE.txt",
         ROOT / "monograph/monograph.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
-        ROOT / "docs/THEOREM_MEANINGS.md",
+        ROOT / "coq/THEOREM_MEANINGS.md",
     ]
     forbidden = ("hardness hypothesis", "weaker soundness guarantee")
     found = {

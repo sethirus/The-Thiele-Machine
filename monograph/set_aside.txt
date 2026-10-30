@@ -366,7 +366,7 @@ test: the empty list and two turns agree in the source and disagree in the targe
                in the first makes it one-to-one. Following an access list forces uniqueness.
                    For our box, that smallest description keeps the tally because I asked for the tally.
                Stop asking for it and repeated failed marks may become indistinguishable. Ask for
-                                                                                             11
+                                                                                            11
 
 
 every past button and the extra tape starts to matter. With a clean start and an event
@@ -396,24 +396,22 @@ and defended. Renaming the arrows did not supply it.
    The argument is two lines: the exchange takes the first face to the second;
 respecting that exchange makes their readings equal. Those are all the faces. It
 does not make every machine’s reading constant. It rules out a nonconstant reading
-selected from the transition structure alone on every machine. 2
+selected from the transition structure alone on every machine.
    That fixes what the uniqueness claim can say. The box, lamp and tally have a
 unique observable realization under the contract already proved. The arrows by
 themselves do not choose that contract. Adding the word “intrinsic” cannot do the
 choosing for us.
-   1Jan Rutten, The Method of Coalgebra (2019), https://www.cs.cornell.edu/courses/cs4810/
+
+Does the picture keep enough of the device?
+Put a lamp on a box and a hidden switch inside it. The button copies the hidden
+switch to the lamp. Start with the lamp dark in both boxes, and put the hidden
+switch down in one, up in the other.
+  1Jan Rutten, The Method of Coalgebra (2019), https://www.cs.cornell.edu/courses/cs4810/
 
 2025sp/Handouts/Rutten.pdf.
-   2 Checked in coq/audit/IntrinsicBoundary.v: toggle_symmetry_forces_constant_reading
-
-and no_nonconstant_renaming_invariant_toggle_reading.
 12   2 From “A record and a toll”
 
 
-               Does the picture keep enough of the device?
-               Put a lamp on a box and a hidden switch inside it. The button copies the hidden
-               switch to the lamp. Start with the lamp dark in both boxes, and put the hidden
-               switch down in one, up in the other.
                                Lamp before Hidden switch Lamp after the button
                                Dark           down              dark
                                Dark           up                lit
@@ -421,7 +419,7 @@ and no_nonconstant_renaming_invariant_toggle_reading.
                for two different next answers to the same button. It cannot do it. Keep the hidden
                switch too and the problem disappears. This is a reason the additional distinction
                is necessary for this task: the next press can expose it. It is not a reason every task
-               needs that switch. 3
+               needs that switch.
                    There is a complete test for this kind of description. First write down the under-
                lying configurations, the permitted buttons, every permitted successor, the picture
                being retained, and the answers the task requires. This is the operational model of
@@ -440,49 +438,39 @@ and no_nonconstant_renaming_invariant_toggle_reading.
                quired answers. On a finite listed model this can be checked against its complete
                table. For arbitrary state types the choices and their effectiveness are separate data;
                the proof does not manufacture a search procedure.
-                   This test allows several successors of an underlying configuration.4 If two of
-               them give different required answers, no exact deterministic encoding of that same
-               configuration and button can represent both. 5 A probability distribution over
+                   This test allows several successors of an underlying configuration. If two of
+               them give different required answers, no exact deterministic encoding of that
+               same configuration and button can represent both. A probability distribution over
                outcomes, or a finer state including a chosen input or seed, is a different contract
                and must be described as one.
-                  3 hidden_bit_blocks_visible_only_dynamics, coq/audit/ObservationContract.v.
-                  4 operational_adequacy_iff, coq/audit/ObservationContract.v.
-                  5 branching_answers_exclude_exact_deterministic_encoding,
+                   The test starts with a model. Establishing that a real apparatus follows that
+               model still needs evidence about the apparatus: preparation, controls, readout and
+               the range over which the description is claimed. Passing the mathematical test does
+               not supply those measurements.
 
-               coq/audit/ObservationContract.v.
-                                                                                          13
+               How long did we watch the lamp?
+               Watch two boxes for three ticks. Both start dark and light on the first tick. Both stay
+               lit on the second and third. One stays lit forever. The other has a counter inside that
+               turns it off on the fourth tick.
+                                                                                         13
 
 
-   The test starts with a model. Establishing that a real apparatus follows that
-model still needs evidence about the apparatus: preparation, controls, readout and
-the range over which the description is claimed. Passing the mathematical test does
-not supply those measurements.
-
-How long did we watch the lamp?
-Watch two boxes for three ticks. Both start dark and light on the first tick. Both stay
-lit on the second and third. One stays lit forever. The other has a counter inside that
-turns it off on the fourth tick.
                         Tick Enduring lamp Delayed reset
-                        0       dark              dark
-                        1       lit               lit
-                        2       lit               lit
-                        3       lit               lit
-                        4       lit               dark
+                        0      dark               dark
+                        1      lit                lit
+                        2      lit                lit
+                        3      lit                lit
+                        4      lit                dark
     The first three ticks do not tell the boxes apart. Pick any longer finite watch
 and I can move the reset one tick beyond it. Both boxes can pay one unit per tick
 and satisfy the basic toll. Only the first has permanence. The permanent interface
 excludes the second by its rule, not by pretending that the finite observation already
 excluded it.
-    The construction works for every finite horizon.6 It is not a prediction that every
+    The construction works for every finite horizon. It is not a prediction that every
 real record fails. It shows why a finite run alone cannot establish an unrestricted
 forever claim. A proof from an adequate mechanism, or an explicitly bounded
 reliability claim supported by measurements, has work to do beyond reporting that
 the lamp stayed lit while we watched.
-
-
-
-
-  6 finite_observations_do_not_establish_permanence, coq/audit/IntrinsicBoundary.v.
 CHAPTER 3
 
 

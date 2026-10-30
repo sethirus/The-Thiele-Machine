@@ -2,9 +2,9 @@
 
 The Thiele Machine is an abstract mathematical model of states, moves, a reading of each state, and the price of each move.
 
-In plain terms, a Thiele machine is a thing, the directions it can move in, and a price on each direction. A direction turns the thing into the next thing. Look at the thing and you can read off how much is settled in it. A direction that makes a distinction stay is never free. From where the thing starts, some run of directions makes one stay, and no direction undoes it. This repository contains the mathematical definitions, formal proofs and executable examples.
+In plain terms, a Thiele machine is a thing, the directions it can move in, and a price on each direction. A direction turns the thing into the next thing. Look at the thing and you can read off how much is settled in it. A direction that makes a distinction stay is never free. From where the thing starts, some run of directions makes one stay, and no direction undoes it. This repository contains the monograph that argues it, a plain-text introduction, a compact specification, and a formal check of the same statements.
 
-[Formal definition](coq/kernel/foundation/AxThiele.v) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf) · [Plain-text introduction](THIELE_MACHINE.txt)
+[Monograph](monograph/monograph.pdf) · [Mathematical specification](monograph/thiele_machine_math_spec.pdf) · [Plain-text introduction](THIELE_MACHINE.txt)
 
 ## The point
 
@@ -32,13 +32,13 @@ Give the pieces names. $S$ is the set of states, $I$ the set of moves, and the s
 
 A **Thiele machine** is a priced record system whose reading no move ever lowers, and that some run, from a start you designate, raises. A reading that never falls is what I call a **record**. Nothing else is assumed of the order, and nothing says what the record is about. A ledger that only climbs, and a window onto what an outside observer sees, come in when a result needs them.
 
-The smallest record has two positions, no and yes. Then the reading is a yes-or-no question about the state, making a distinction stay is turning no into yes, and the toll says that move costs at least one. This smallest case is one you can point at: a lamp beside a box, a stamp on its side, a flag that goes up. The flag is not the record. It is the smallest question you can ask of one. The proofs state the general case first and derive the flag as its two-point instance.
+The smallest record has two positions, no and yes. Then the reading is a yes-or-no question about the state, making a distinction stay is turning no into yes, and the toll says that move costs at least one. This smallest case is one you can point at: a lamp beside a box, a stamp on its side, a flag that goes up. The flag is not the record. It is the smallest question you can ask of one. The book states the general case first and derives the flag as its two-point instance.
 
 ## The smallest machine
 
 The smallest Thiele machine has two states, no and yes, and one move that costs one. The move sends no to yes and yes to yes. The reading is the state. It can rise, it never falls, and the rise is priced. Nothing smaller meets the definition: one state has a constant reading, and on two states read as themselves every member has this very move, since a move on two states that merges nothing either changes nothing or toggles, and a toggle turns yes back to no.
 
-Notice what is already inside it: two states land on one. The merge that keeping takes is forced at the smallest size there is. A fuse, a bead that drops into a dip, a stamp on a box, are this machine. In Coq it is `latch_sys`, with `latch_is_thiele`, `latch_merges`, `no_one_state_member`, `two_state_member_has_latch_move` and `toggle_is_not_thiele`.
+Notice what is already inside it: two states land on one. The merge that keeping takes is forced at the smallest size there is. A fuse, a bead that drops into a dip, a stamp on a box, are this machine.
 
 The Thiele Machine is that definition. It is a machine the way Turing's machine is one: an abstract model you can reason about. I named it after myself, on purpose. I wanted to call it the meta machine, and in 2021 a company took that word, so I went one level up and put my own name on it, half a joke and half a stake in the ground. Turing got a machine; here's mine.
 
@@ -46,7 +46,7 @@ The Thiele Machine is that definition. It is a machine the way Turing's machine 
 
 One theorem comes with the definition and nothing else. A run that starts with the reading at no and ends with it at yes pays at least one. That is the universal floor. It holds for every Thiele machine, and for anything at all that obeys the toll. The toll on its own is nearly empty on purpose: a clock that charges one for every move obeys it whatever reading you give it. That's why the toll isn't the whole definition. The theorems with teeth come when the record has to stay, when the states run out, or when a window is added.
 
-Read a machine through a reading its moves never raise and the reading is **flat**: the toll asks nothing of it, because nothing is kept. A clock read by where its hand points is no Thiele machine: the hand comes back around, so that reading falls. Read through anything its moves never raise, a clock is flat. So is a reversible process. So is ordinary computation, read as it stands. A flat reading is not a Thiele machine, whatever start you name. Flat is a property of the reading, not of the machine.
+Read a machine through a reading its moves never raise and the reading is **flat**: the toll asks nothing of it, because nothing is kept. A clock read by where its hand points is no Thiele machine: the hand comes back around, so that reading falls. Read through anything its moves never raise, a clock is flat. So is a reversible process. So is ordinary computation, read through anything its moves never raise. A flat reading is not a Thiele machine, whatever start you name. Flat is a property of the reading, not of the machine. Read a computer that halts through whether it has halted, and that reading climbs and never falls, and the halt merges two of its states, the last running one and the halted one, which steps to itself. Price its step and it is a Thiele machine on its own states, with nothing added. What Turing's formalism leaves out is the price, not the record.
 
 The definition has to name the reading its toll belongs to. Slide a tile to the right without paying and ask whether it is in the place it just reached: the answer was no and is now yes, and if the toll charged every question, no move could be free. And a free move cannot touch a reading that stays. It cannot raise it, because a raise costs at least one, and it cannot lower it, because a yes stays yes. It must leave it alone.
 
@@ -76,7 +76,7 @@ Put a dial with four positions beside a slider with three stops. ROTATE moves th
 
 Give two states the same picture and the same horizontal moves: their pictures agree after every step, even if their records differ throughout. Equal pictures and the same first move give equal next pictures; apply that sentence again for each remaining move. A reader allowed only those pictures never receives the missing distinction. The view cannot see the record or the ledger, and no function of the view recovers either: two runs can end on the same picture with the record up on one and down on the other, and the ledger apart by the price of the raise. An account that prices a raise exactly cannot compute the price from a window that shows a raising step and a quiet step the same way.
 
-That gives the shadow. Look at a Thiele machine through a window that drops its record and what's left is an ordinary machine, computing away, blind to what was kept. It runs the other way too: any machine whose states I can tell apart, with a run that ends somewhere other than where it started, is what some Thiele machine looks like through such a window. The proof builds one: a bit beside the state that goes up the first time the run reaches a chosen state and never comes down, with that move priced. The ordinary machine is the shadow, not a member. The ordinary computer is one such shadow. The record adds no computing power; what it adds is distinctions within a fibre, which the window cannot see. In Coq the lift is `history_lift`, with `history_lift_is_thiele`, `history_lift_shadow` and `shadow_hides_history`.
+That gives the shadow. Look at a Thiele machine through a window that drops its record and what's left is an ordinary machine, computing away, blind to what was kept. It runs the other way too: any machine whose states I can tell apart, with a run that ends somewhere other than where it started, is what some Thiele machine looks like through such a window. The proof builds one: a bit beside the state that goes up the first time the run reaches a chosen state and never comes down, with every move priced, and every state with the bit down a start. That chosen state with its bit down and the same state with its bit up are both states runs reach, and they give one picture, so the window can't tell them apart even on the runs that happen. Read through a flat reading, the ordinary machine is the shadow, not a member. The record adds no computing power; what it adds is distinctions within a fibre, which the window cannot see.
 
 ## A record has to be earned
 
@@ -112,14 +112,16 @@ Each construction gives you something to follow one move at a time. Start with t
 
 ## Where things live
 
-Here is the drawing, and where each part of it lives in the proofs.
+Here is the drawing, and where in the [monograph](monograph/monograph.pdf) each part of it is argued.
 
-- **The thing, its directions and the price.** The member, the flat reading, the smallest machine and the history lift: `coq/kernel/foundation/AxThiele.v`. The definition over any order of readings, its floor, and the flag as the two-point instance: `AxCore.v`. The least price for the lift: `coq/audit/AxThieleLeast.v`. The one-bit floor, least prices, exact pricing and merge pricing: `coq/kernel/nfi/`, `coq/audit/LeastToll.v`.
-- **What stays.** Latches, the record over any base and growing records: `coq/kernel/foundation/StructuralRecordAxis.v`, `AxLatch.v`, `GrowingRecord.v`.
-- **The room a kept distinction needs.** Merge or fresh states, retention bounds, fibre counts, and the stochastic and unitary forms: `minimal/StepLaw.v`, `HeatOrRoom.v`, `KeptDistinction.v`, `EditionCapacity.v`, `NoisyChairs.v`, `QuantumChairs.v`, `coq/kernel/foundation/AxMerge.v`.
-- **What a window forgets.** Observation contracts, the factorization of histories, shadow pricing, and the window theorems: `coq/audit/`, `coq/kernel/foundation/AxWindow.v`, `minimal/SliceCore.v`.
-- **What no inside procedure decides.** The shortcut wall over any substrate with a recursion theorem, and the recursion theorem and Rice's theorem for the lambda calculus L: `coq/kernel/nfi/StructuralUndecidability.v`, `coq/kernel/foundation/LRecursion.v`.
-- **The world.** Heat, entropy, external systems, and the pointer thesis: `coq/kernel/thermodynamic/`, `coq/kernel/reductions/`, `coq/kernel/frontier/`.
+- **The thing, its directions and the price.** The member, the flat reading, the smallest machine and the shadow: Part I, *A record and a toll*. Why the toll isn't arbitrary, the price of a merge and the room it saves: Part I, *Why the toll isn't arbitrary*.
+- **What stays.** Latches, the record over any base and growing records: Part II, *Records over any base: the latch*.
+- **The room a kept distinction needs.** Merge or fresh states, the step law, and the noisy and unitary forms: Part I, *A distinction that stays*.
+- **What a window forgets.** Windows, fibres and shadow pricing: Part II, *Windows and shadows* and *The shadow, exactly*.
+- **What no inside procedure decides.** The shortcut wall and the recursion theorem: Part II, *The diagonal*.
+- **The world.** Heat, the five real systems and the pointer thesis: Part III, *Five small models*, *The pointer thesis* and *The counter against physics*.
+
+The arguments are on the page, and each one stands or falls there. The repository also carries a formal check of the same statements, kept as a tool for catching mistakes; it isn't the reason to believe any of them.
 
 For a sustained exposition, the [monograph](monograph/monograph.pdf) develops the model, with the flat reading stated beside the definition. Its [LaTeX sources](monograph/) are included.
 
@@ -128,7 +130,7 @@ For a sustained exposition, the [monograph](monograph/monograph.pdf) develops th
 The monograph that develops the model: Devon Thiele, *The Thiele Machine: No Free Insight* (2026).
 [Publication record](https://doi.org/10.5281/zenodo.17316437) · [Tagged releases](https://github.com/sethirus/The-Thiele-Machine/releases)
 
-The publication consists of the monograph PDF and the matching tagged repository snapshot, whose Coq files carry the proofs the book cites. Both belong in the same Zenodo version.
+The publication consists of the monograph PDF and the matching tagged repository snapshot. Both belong in the same Zenodo version.
 
 The software is licensed under [Apache 2.0](LICENSE). The monograph and `THIELE_MACHINE.txt` are licensed under CC-BY-SA-4.0. The [patent pledge](PATENT_PLEDGE.md) states the non-assertion commitment; the [technical disclosure](TECHNICAL_DISCLOSURE.md) records the published concepts and earlier embodiments.
 

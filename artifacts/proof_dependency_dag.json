@@ -4,13 +4,13 @@
       "coq",
       "minimal"
     ],
-    "nodeCount": 3031,
-    "edgeCount": 15614,
+    "nodeCount": 3001,
+    "edgeCount": 15413,
     "note": "Edges are symbol-reference dependencies inferred from theorem statements and proof bodies.",
     "buildStats": {
-      "ambiguous_token_hits": 1222,
-      "self_token_hits_skipped": 3031,
-      "multi_target_token_edges": 3646
+      "ambiguous_token_hits": 1196,
+      "self_token_hits_skipped": 3001,
+      "multi_target_token_edges": 3551
     }
   },
   "nodes": [
@@ -2521,11 +2521,25 @@
       "line": 307
     },
     {
-      "id": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "id": "coq/kernel/foundation/AxThiele.v:324:definition:lift_reachable",
+      "name": "lift_reachable",
+      "kind": "Definition",
+      "file": "coq/kernel/foundation/AxThiele.v",
+      "line": 324
+    },
+    {
+      "id": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "name": "shadow_hides_history_reachable",
+      "kind": "Theorem",
+      "file": "coq/kernel/foundation/AxThiele.v",
+      "line": 331
+    },
+    {
+      "id": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "name": "moving_machine_is_a_shadow",
       "kind": "Theorem",
       "file": "coq/kernel/foundation/AxThiele.v",
-      "line": 327
+      "line": 356
     },
     {
       "id": "coq/kernel/foundation/AxWindow.v:59:definition:ax_shadow_cost",
@@ -17130,6 +17144,76 @@
       "line": 101
     },
     {
+      "id": "minimal/Grouping.v:32:definition:grouping",
+      "name": "grouping",
+      "kind": "Definition",
+      "file": "minimal/Grouping.v",
+      "line": 32
+    },
+    {
+      "id": "minimal/Grouping.v:33:definition:key",
+      "name": "key",
+      "kind": "Definition",
+      "file": "minimal/Grouping.v",
+      "line": 33
+    },
+    {
+      "id": "minimal/Grouping.v:36:definition:sound",
+      "name": "sound",
+      "kind": "Definition",
+      "file": "minimal/Grouping.v",
+      "line": 36
+    },
+    {
+      "id": "minimal/Grouping.v:40:definition:refines",
+      "name": "refines",
+      "kind": "Definition",
+      "file": "minimal/Grouping.v",
+      "line": 40
+    },
+    {
+      "id": "minimal/Grouping.v:44:definition:same_part",
+      "name": "same_part",
+      "kind": "Definition",
+      "file": "minimal/Grouping.v",
+      "line": 44
+    },
+    {
+      "id": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "name": "grouping_partition",
+      "kind": "Theorem",
+      "file": "minimal/Grouping.v",
+      "line": 47
+    },
+    {
+      "id": "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "name": "grouping_sound_structural",
+      "kind": "Theorem",
+      "file": "minimal/Grouping.v",
+      "line": 55
+    },
+    {
+      "id": "minimal/Grouping.v:65:lemma:sound_refines",
+      "name": "sound_refines",
+      "kind": "Lemma",
+      "file": "minimal/Grouping.v",
+      "line": 65
+    },
+    {
+      "id": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "name": "sound_transfers_iff_refines",
+      "kind": "Theorem",
+      "file": "minimal/Grouping.v",
+      "line": 70
+    },
+    {
+      "id": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "name": "sound_only_for_refinements",
+      "kind": "Theorem",
+      "file": "minimal/Grouping.v",
+      "line": 80
+    },
+    {
       "id": "minimal/HaltingHole.v:9:inductive:S2",
       "name": "S2",
       "kind": "Inductive",
@@ -18885,300 +18969,6 @@
       "kind": "Theorem",
       "file": "minimal/NondetChairs.v",
       "line": 50
-    },
-    {
-      "id": "minimal/PartitionReading.v:53:record:machine",
-      "name": "machine",
-      "kind": "Record",
-      "file": "minimal/PartitionReading.v",
-      "line": 53
-    },
-    {
-      "id": "minimal/PartitionReading.v:60:fixpoint:run",
-      "name": "run",
-      "kind": "Fixpoint",
-      "file": "minimal/PartitionReading.v",
-      "line": 60
-    },
-    {
-      "id": "minimal/PartitionReading.v:62:definition:obeys_toll",
-      "name": "obeys_toll",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 62
-    },
-    {
-      "id": "minimal/PartitionReading.v:73:definition:grouping",
-      "name": "grouping",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 73
-    },
-    {
-      "id": "minimal/PartitionReading.v:74:definition:key",
-      "name": "key",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 74
-    },
-    {
-      "id": "minimal/PartitionReading.v:77:definition:sound",
-      "name": "sound",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 77
-    },
-    {
-      "id": "minimal/PartitionReading.v:81:definition:refines",
-      "name": "refines",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 81
-    },
-    {
-      "id": "minimal/PartitionReading.v:85:definition:same_part",
-      "name": "same_part",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 85
-    },
-    {
-      "id": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "name": "pr_grouping_partition",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 92
-    },
-    {
-      "id": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "name": "same_part_sym",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 99
-    },
-    {
-      "id": "minimal/PartitionReading.v:102:lemma:same_part_trans",
-      "name": "same_part_trans",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 102
-    },
-    {
-      "id": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "name": "sound_same_part",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 107
-    },
-    {
-      "id": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "name": "sound_refines",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 113
-    },
-    {
-      "id": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "name": "pr_entitled_iff_refines",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 118
-    },
-    {
-      "id": "minimal/PartitionReading.v:130:definition:pairs_ok",
-      "name": "pairs_ok",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 130
-    },
-    {
-      "id": "minimal/PartitionReading.v:133:lemma:pairs_ok_iff",
-      "name": "pairs_ok_iff",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 133
-    },
-    {
-      "id": "minimal/PartitionReading.v:141:definition:sound_b",
-      "name": "sound_b",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 141
-    },
-    {
-      "id": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "name": "sound_b_iff",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 144
-    },
-    {
-      "id": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "name": "same_part_b",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 153
-    },
-    {
-      "id": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "name": "same_part_b_iff",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 156
-    },
-    {
-      "id": "minimal/PartitionReading.v:171:record:pstate",
-      "name": "pstate",
-      "kind": "Record",
-      "file": "minimal/PartitionReading.v",
-      "line": 171
-    },
-    {
-      "id": "minimal/PartitionReading.v:180:inductive:pmove",
-      "name": "pmove",
-      "kind": "Inductive",
-      "file": "minimal/PartitionReading.v",
-      "line": 180
-    },
-    {
-      "id": "minimal/PartitionReading.v:186:definition:p_cost",
-      "name": "p_cost",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 186
-    },
-    {
-      "id": "minimal/PartitionReading.v:188:definition:p_flag",
-      "name": "p_flag",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 188
-    },
-    {
-      "id": "minimal/PartitionReading.v:190:definition:p_trap",
-      "name": "p_trap",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 190
-    },
-    {
-      "id": "minimal/PartitionReading.v:193:definition:p_step",
-      "name": "p_step",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 193
-    },
-    {
-      "id": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "name": "pr_machine",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 216
-    },
-    {
-      "id": "minimal/PartitionReading.v:218:definition:prun",
-      "name": "prun",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 218
-    },
-    {
-      "id": "minimal/PartitionReading.v:220:definition:p_clean",
-      "name": "p_clean",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 220
-    },
-    {
-      "id": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "name": "pr_reads",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 225
-    },
-    {
-      "id": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "name": "pr_reads_structural",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 232
-    },
-    {
-      "id": "minimal/PartitionReading.v:242:definition:p_inv",
-      "name": "p_inv",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 242
-    },
-    {
-      "id": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "name": "p_inv_step",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 247
-    },
-    {
-      "id": "minimal/PartitionReading.v:277:lemma:p_inv_run",
-      "name": "p_inv_run",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 277
-    },
-    {
-      "id": "minimal/PartitionReading.v:283:lemma:p_inv_clean",
-      "name": "p_inv_clean",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 283
-    },
-    {
-      "id": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "name": "pr_reading_entitles",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 292
-    },
-    {
-      "id": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "name": "pr_reading_entitles_only",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 306
-    },
-    {
-      "id": "minimal/PartitionReading.v:315:theorem:pr_toll",
-      "name": "pr_toll",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 315
-    },
-    {
-      "id": "minimal/PartitionReading.v:324:definition:p_pot",
-      "name": "p_pot",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 324
-    },
-    {
-      "id": "minimal/PartitionReading.v:331:definition:p_cinv",
-      "name": "p_cinv",
-      "kind": "Definition",
-      "file": "minimal/PartitionReading.v",
-      "line": 331
-    },
-    {
-      "id": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "name": "p_cinv_step",
-      "kind": "Lemma",
-      "file": "minimal/PartitionReading.v",
-      "line": 334
-    },
-    {
-      "id": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "name": "pr_reading_costs_three",
-      "kind": "Theorem",
-      "file": "minimal/PartitionReading.v",
-      "line": 363
     },
     {
       "id": "minimal/PassiveGeometry.v:16:fixpoint:runH",
@@ -22123,14 +21913,6 @@
     },
     {
       "from": "run",
-      "to": "run",
-      "fromId": "coq/audit/CanonicalObservation.v:12:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/CanonicalObservation.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
       "to": "step",
       "fromId": "coq/audit/CanonicalObservation.v:12:fixpoint:run",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -24829,14 +24611,6 @@
       "from": "permanent_trace",
       "to": "machine",
       "fromId": "coq/audit/MacroBoundary.v:54:lemma:permanent_trace",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "coq/audit/MacroBoundary.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "permanent_trace",
-      "to": "machine",
-      "fromId": "coq/audit/MacroBoundary.v:54:lemma:permanent_trace",
       "toId": "minimal/SlicedEstablishment.v:209:definition:machine",
       "fromFile": "coq/audit/MacroBoundary.v",
       "toFile": "minimal/SlicedEstablishment.v"
@@ -24880,14 +24654,6 @@
       "toId": "minimal/GibbsGap.v:100:definition:H",
       "fromFile": "coq/audit/MacroBoundary.v",
       "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "false_endpoint_excludes_accepting_prefix",
-      "to": "machine",
-      "fromId": "coq/audit/MacroBoundary.v:58:theorem:false_endpoint_excludes_accepting_prefix",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "coq/audit/MacroBoundary.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "false_endpoint_excludes_accepting_prefix",
@@ -25667,14 +25433,6 @@
     },
     {
       "from": "run",
-      "to": "run",
-      "fromId": "coq/audit/ObservationContract.v:59:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/ObservationContract.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
       "to": "step",
       "fromId": "coq/audit/ObservationContract.v:59:fixpoint:run",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -26301,14 +26059,6 @@
       "from": "kernel_inclusion",
       "to": "run",
       "fromId": "coq/audit/TraceFactorization.v:20:definition:kernel_inclusion",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "kernel_inclusion",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:20:definition:kernel_inclusion",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/SliceCore.v"
@@ -26432,14 +26182,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "morphism_runs",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:23:lemma:morphism_runs",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "morphism_runs",
@@ -26581,14 +26323,6 @@
       "from": "factor",
       "to": "run",
       "fromId": "coq/audit/TraceFactorization.v:41:definition:factor",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "factor",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:41:definition:factor",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/SliceCore.v"
@@ -26696,14 +26430,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "factor_on_words",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:43:lemma:factor_on_words",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "factor_on_words",
@@ -26864,14 +26590,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "factor_is_morphism",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:49:theorem:factor_is_morphism",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "factor_is_morphism",
@@ -27205,14 +26923,6 @@
       "from": "factor_surjective_on_target_reachable",
       "to": "run",
       "fromId": "coq/audit/TraceFactorization.v:86:theorem:factor_surjective_on_target_reachable",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "factor_surjective_on_target_reachable",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:86:theorem:factor_surjective_on_target_reachable",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/SliceCore.v"
@@ -27384,14 +27094,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/audit/TraceFactorization.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "trace_evaluation_uniquely_preserves_steps",
-      "to": "run",
-      "fromId": "coq/audit/TraceFactorization.v:99:theorem:trace_evaluation_uniquely_preserves_steps",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/audit/TraceFactorization.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "trace_evaluation_uniquely_preserves_steps",
@@ -36954,9 +36656,113 @@
       "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
     },
     {
+      "from": "lift_reachable",
+      "to": "ax_run",
+      "fromId": "coq/kernel/foundation/AxThiele.v:324:definition:lift_reachable",
+      "toId": "coq/kernel/foundation/AxCore.v:120:fixpoint:ax_run",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxCore.v"
+    },
+    {
+      "from": "lift_reachable",
+      "to": "two_pre",
+      "fromId": "coq/kernel/foundation/AxThiele.v:324:definition:lift_reachable",
+      "toId": "coq/kernel/foundation/AxCore.v:62:definition:two_pre",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxCore.v"
+    },
+    {
+      "from": "lift_reachable",
+      "to": "history_lift",
+      "fromId": "coq/kernel/foundation/AxThiele.v:324:definition:lift_reachable",
+      "toId": "coq/kernel/foundation/AxThiele.v:257:definition:history_lift",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxThiele.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "ax_run",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/AxCore.v:120:fixpoint:ax_run",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxCore.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "two_pre",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/AxCore.v:62:definition:two_pre",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxCore.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "history_lift",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/AxThiele.v:257:definition:history_lift",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxThiele.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "history_lift_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/AxThiele.v:265:theorem:history_lift_shadow",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxThiele.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "history_lift_bit_up",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/AxThiele.v:277:lemma:history_lift_bit_up",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxThiele.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "lift_reachable",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/AxThiele.v:324:definition:lift_reachable",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/AxThiele.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "subst",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/foundation/LRecursion.v:63:fixpoint:subst",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/foundation/LRecursion.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "b",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:52:definition:b",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "f",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:56:definition:f",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "shadow_hides_history_reachable",
+      "to": "s0",
+      "fromId": "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "toId": "minimal/MuCore.v:199:definition:s0",
+      "fromFile": "coq/kernel/foundation/AxThiele.v",
+      "toFile": "minimal/MuCore.v"
+    },
+    {
       "from": "moving_machine_is_a_shadow",
       "to": "AxSys",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/foundation/AxCore.v:106:record:AxSys",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/foundation/AxCore.v"
@@ -36964,7 +36770,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "ax_run",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/foundation/AxCore.v:120:fixpoint:ax_run",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/foundation/AxCore.v"
@@ -36972,7 +36778,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "BPre",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/foundation/AxCore.v:40:record:BPre",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/foundation/AxCore.v"
@@ -36980,7 +36786,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "history_lift",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/foundation/AxThiele.v:257:definition:history_lift",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/foundation/AxThiele.v"
@@ -36988,7 +36794,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "history_lift_is_thiele",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/foundation/AxThiele.v:292:theorem:history_lift_is_thiele",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/foundation/AxThiele.v"
@@ -36996,7 +36802,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "ax_thiele",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/foundation/AxThiele.v:93:definition:ax_thiele",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/foundation/AxThiele.v"
@@ -37004,7 +36810,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "a",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/reductions/RFC9162Merkle.v:51:definition:a",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
@@ -37012,7 +36818,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "b",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "coq/kernel/reductions/RFC9162Merkle.v:52:definition:b",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
@@ -37020,7 +36826,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "H",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "minimal/GibbsGap.v:100:definition:H",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "minimal/GibbsGap.v"
@@ -37028,7 +36834,7 @@
     {
       "from": "moving_machine_is_a_shadow",
       "to": "s0",
-      "fromId": "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "fromId": "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "toId": "minimal/MuCore.v:199:definition:s0",
       "fromFile": "coq/kernel/foundation/AxThiele.v",
       "toFile": "minimal/MuCore.v"
@@ -46851,14 +46657,6 @@
     },
     {
       "from": "nat_substrate",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NatSubstrateInstance.v:145:definition:nat_substrate",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NatSubstrateInstance.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nat_substrate",
       "to": "step",
       "fromId": "coq/kernel/foundation/NatSubstrateInstance.v:145:definition:nat_substrate",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -47995,14 +47793,6 @@
     },
     {
       "from": "nec_f_potential_bound_iff",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFCounter.v:281:theorem:nec_f_potential_bound_iff",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFCounter.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_potential_bound_iff",
       "to": "step",
       "fromId": "coq/kernel/foundation/NecFCounter.v:281:theorem:nec_f_potential_bound_iff",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -48216,14 +48006,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/foundation/NecFCounter.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "nec_f_potential_bound_exact",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFCounter.v:297:theorem:nec_f_potential_bound_exact",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFCounter.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "nec_f_potential_bound_exact",
@@ -52139,14 +51921,6 @@
     },
     {
       "from": "nec_f_rises_pos",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:141:lemma:nec_f_rises_pos",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_rises_pos",
       "to": "step",
       "fromId": "coq/kernel/foundation/NecFFloor.v:141:lemma:nec_f_rises_pos",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -52616,14 +52390,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/foundation/NecFFloor.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "nec_f_cs_run_is_run",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:185:lemma:nec_f_cs_run_is_run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "nec_f_cs_run_is_run",
@@ -53453,14 +53219,6 @@
       "from": "nec_f_floor_everywhere",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFFloor.v:36:definition:nec_f_floor_everywhere",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_floor_everywhere",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:36:definition:nec_f_floor_everywhere",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFFloor.v",
       "toFile": "minimal/SliceCore.v"
@@ -53573,14 +53331,6 @@
       "from": "nec_f_floor_at",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFFloor.v:39:definition:nec_f_floor_at",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_floor_at",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:39:definition:nec_f_floor_at",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFFloor.v",
       "toFile": "minimal/SliceCore.v"
@@ -53680,14 +53430,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/foundation/NecFFloor.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "nec_f_run_app",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:42:lemma:nec_f_run_app",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "nec_f_run_app",
@@ -54061,14 +53803,6 @@
       "from": "nec_f_free_reach_run",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFFloor.v:63:lemma:nec_f_free_reach_run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_free_reach_run",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:63:lemma:nec_f_free_reach_run",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFFloor.v",
       "toFile": "minimal/SliceCore.v"
@@ -54376,14 +54110,6 @@
       "toId": "minimal/MuCore.v:199:definition:s0",
       "fromFile": "coq/kernel/foundation/NecFFloor.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "nec_f_floor_at_iff_free_reach",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFFloor.v:80:theorem:nec_f_floor_at_iff_free_reach",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFFloor.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "nec_f_floor_at_iff_free_reach",
@@ -60045,14 +59771,6 @@
       "from": "nec_f_quant_needs_a3",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFQuant.v:141:theorem:nec_f_quant_needs_a3",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFQuant.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_quant_needs_a3",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFQuant.v:141:theorem:nec_f_quant_needs_a3",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFQuant.v",
       "toFile": "minimal/SliceCore.v"
@@ -60237,14 +59955,6 @@
       "from": "nec_f_quant_needs_a5",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFQuant.v:156:theorem:nec_f_quant_needs_a5",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFQuant.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_quant_needs_a5",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFQuant.v:156:theorem:nec_f_quant_needs_a5",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFQuant.v",
       "toFile": "minimal/SliceCore.v"
@@ -60480,14 +60190,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/foundation/NecFQuant.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "nec_f_raw_telescoping",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFQuant.v:40:lemma:nec_f_raw_telescoping",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFQuant.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "nec_f_raw_telescoping",
@@ -60637,14 +60339,6 @@
       "from": "nec_f_qfloor_from_any_witness",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFQuant.v:48:theorem:nec_f_qfloor_from_any_witness",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFQuant.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_qfloor_from_any_witness",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFQuant.v:48:theorem:nec_f_qfloor_from_any_witness",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFQuant.v",
       "toFile": "minimal/SliceCore.v"
@@ -60773,14 +60467,6 @@
       "from": "nec_f_qfloor_raw",
       "to": "run",
       "fromId": "coq/kernel/foundation/NecFQuant.v:57:theorem:nec_f_qfloor_raw",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFQuant.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "nec_f_qfloor_raw",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFQuant.v:57:theorem:nec_f_qfloor_raw",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/foundation/NecFQuant.v",
       "toFile": "minimal/SliceCore.v"
@@ -60880,14 +60566,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/foundation/NecFQuant.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "nec_f_cs_run_eq",
-      "to": "run",
-      "fromId": "coq/kernel/foundation/NecFQuant.v:66:lemma:nec_f_cs_run_eq",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/foundation/NecFQuant.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "nec_f_cs_run_eq",
@@ -81637,9 +81315,9 @@
       "from": "DAState",
       "to": "key",
       "fromId": "coq/kernel/frontier/PointerObservableCounterexamples.v:142:record:DAState",
-      "toId": "minimal/PartitionReading.v:74:definition:key",
+      "toId": "minimal/Grouping.v:33:definition:key",
       "fromFile": "coq/kernel/frontier/PointerObservableCounterexamples.v",
-      "toFile": "minimal/PartitionReading.v"
+      "toFile": "minimal/Grouping.v"
     },
     {
       "from": "deniable",
@@ -85763,14 +85441,6 @@
     },
     {
       "from": "run",
-      "to": "run",
-      "fromId": "coq/kernel/nfi/CostFrameworks.v:57:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/nfi/CostFrameworks.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
       "to": "step",
       "fromId": "coq/kernel/nfi/CostFrameworks.v:57:fixpoint:run",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -87248,14 +86918,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/nfi/CostSemanticsComparison.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "coq/kernel/nfi/CostSemanticsComparison.v:84:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/nfi/CostSemanticsComparison.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "run",
@@ -89715,14 +89377,6 @@
     },
     {
       "from": "run",
-      "to": "run",
-      "fromId": "coq/kernel/nfi/KnowledgeNarrowing.v:62:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/nfi/KnowledgeNarrowing.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
       "to": "step",
       "fromId": "coq/kernel/nfi/KnowledgeNarrowing.v:62:fixpoint:run",
       "toId": "minimal/SharpHost.v:37:definition:step",
@@ -90632,14 +90286,6 @@
       "toId": "minimal/NecTPartition.v:35:definition:set",
       "fromFile": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
       "toFile": "minimal/NecTPartition.v"
-    },
-    {
-      "from": "no_free_incremental_narrowing_below_three",
-      "to": "run",
-      "fromId": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v:131:theorem:no_free_incremental_narrowing_below_three",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "no_free_incremental_narrowing_below_three",
@@ -103117,14 +102763,6 @@
       "from": "qcs_telescoping",
       "to": "run",
       "fromId": "coq/kernel/nfi/QuantitativeNoFI.v:187:lemma:qcs_telescoping",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/nfi/QuantitativeNoFI.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "qcs_telescoping",
-      "to": "run",
-      "fromId": "coq/kernel/nfi/QuantitativeNoFI.v:187:lemma:qcs_telescoping",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/nfi/QuantitativeNoFI.v",
       "toFile": "minimal/SliceCore.v"
@@ -104616,14 +104254,6 @@
       "toId": "minimal/Napkin.v:17:record:state",
       "fromFile": "coq/kernel/nfi/UniversalCertificationCost.v",
       "toFile": "minimal/Napkin.v"
-    },
-    {
-      "from": "CertificationSystem",
-      "to": "machine",
-      "fromId": "coq/kernel/nfi/UniversalCertificationCost.v:34:record:CertificationSystem",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "coq/kernel/nfi/UniversalCertificationCost.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "CertificationSystem",
@@ -112893,14 +112523,6 @@
       "from": "rc_prob_run",
       "to": "run",
       "fromId": "coq/kernel/thermodynamic/RelaxationConvergence.v:117:lemma:rc_prob_run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "rc_prob_run",
-      "to": "run",
-      "fromId": "coq/kernel/thermodynamic/RelaxationConvergence.v:117:lemma:rc_prob_run",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
       "toFile": "minimal/SliceCore.v"
@@ -113120,14 +112742,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "rc_l1_pow",
-      "to": "run",
-      "fromId": "coq/kernel/thermodynamic/RelaxationConvergence.v:133:theorem:rc_l1_pow",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "rc_l1_pow",
@@ -113445,14 +113059,6 @@
       "from": "rc_converges",
       "to": "run",
       "fromId": "coq/kernel/thermodynamic/RelaxationConvergence.v:193:theorem:rc_converges",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "rc_converges",
-      "to": "run",
-      "fromId": "coq/kernel/thermodynamic/RelaxationConvergence.v:193:theorem:rc_converges",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
       "toFile": "minimal/SliceCore.v"
@@ -113664,14 +113270,6 @@
       "toId": "minimal/NecTPartition.v:35:definition:set",
       "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
       "toFile": "minimal/NecTPartition.v"
-    },
-    {
-      "from": "rc_known_start_gap",
-      "to": "run",
-      "fromId": "coq/kernel/thermodynamic/RelaxationConvergence.v:210:theorem:rc_known_start_gap",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "coq/kernel/thermodynamic/RelaxationConvergence.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "rc_known_start_gap",
@@ -122885,14 +122483,6 @@
       "from": "run",
       "to": "run",
       "fromId": "minimal/EditionCapacity.v:23:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/EditionCapacity.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/EditionCapacity.v:23:fixpoint:run",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "minimal/EditionCapacity.v",
       "toFile": "minimal/SliceCore.v"
@@ -123957,14 +123547,6 @@
       "from": "all_program_history_refinement",
       "to": "run",
       "fromId": "minimal/EditionHistory.v:36:theorem:all_program_history_refinement",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/EditionHistory.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "all_program_history_refinement",
-      "to": "run",
-      "fromId": "minimal/EditionHistory.v:36:theorem:all_program_history_refinement",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "minimal/EditionHistory.v",
       "toFile": "minimal/SliceCore.v"
@@ -124176,14 +123758,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "minimal/EditionHistory.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "exact_records_every_program",
-      "to": "run",
-      "fromId": "minimal/EditionHistory.v:50:theorem:exact_records_every_program",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/EditionHistory.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "exact_records_every_program",
@@ -125034,6 +124608,374 @@
       "toFile": "minimal/GibbsGap.v"
     },
     {
+      "from": "sound",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:36:definition:sound",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound",
+      "to": "k",
+      "fromId": "minimal/Grouping.v:36:definition:sound",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound",
+      "to": "grouping",
+      "fromId": "minimal/Grouping.v:36:definition:sound",
+      "toId": "minimal/Grouping.v:32:definition:grouping",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound",
+      "to": "key",
+      "fromId": "minimal/Grouping.v:36:definition:sound",
+      "toId": "minimal/Grouping.v:33:definition:key",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:36:definition:sound",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "refines",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:40:definition:refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "refines",
+      "to": "h",
+      "fromId": "minimal/Grouping.v:40:definition:refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "refines",
+      "to": "grouping",
+      "fromId": "minimal/Grouping.v:40:definition:refines",
+      "toId": "minimal/Grouping.v:32:definition:grouping",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "refines",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:40:definition:refines",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "same_part",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:44:definition:same_part",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "same_part",
+      "to": "grouping",
+      "fromId": "minimal/Grouping.v:44:definition:same_part",
+      "toId": "minimal/Grouping.v:32:definition:grouping",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "same_part",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:44:definition:same_part",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "grouping_partition",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "grouping_partition",
+      "to": "grouping",
+      "fromId": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "toId": "minimal/Grouping.v:32:definition:grouping",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "grouping_partition",
+      "to": "is_partition",
+      "fromId": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "toId": "minimal/NecTPartition.v:42:definition:is_partition",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NecTPartition.v"
+    },
+    {
+      "from": "grouping_partition",
+      "to": "blocks_of",
+      "fromId": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "toId": "minimal/NecTPartition.v:50:definition:blocks_of",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NecTPartition.v"
+    },
+    {
+      "from": "grouping_partition",
+      "to": "nec_t_blocks_of_equiv_partition",
+      "fromId": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "toId": "minimal/NecTPartition.v:63:theorem:nec_t_blocks_of_equiv_partition",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NecTPartition.v"
+    },
+    {
+      "from": "grouping_partition",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:47:theorem:grouping_partition",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "grouping_sound_structural",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "grouping_sound_structural",
+      "to": "k",
+      "fromId": "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "grouping_sound_structural",
+      "to": "sound",
+      "fromId": "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "toId": "minimal/Grouping.v:36:definition:sound",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "grouping_sound_structural",
+      "to": "same_part",
+      "fromId": "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "toId": "minimal/Grouping.v:44:definition:same_part",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "grouping_sound_structural",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "sound_refines",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_refines",
+      "to": "h",
+      "fromId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_refines",
+      "to": "k",
+      "fromId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_refines",
+      "to": "sound",
+      "fromId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "toId": "minimal/Grouping.v:36:definition:sound",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_refines",
+      "to": "refines",
+      "fromId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "toId": "minimal/Grouping.v:40:definition:refines",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_refines",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "h",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "k",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "H",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/GibbsGap.v:100:definition:H",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/GibbsGap.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "grouping",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/Grouping.v:32:definition:grouping",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "key",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/Grouping.v:33:definition:key",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "sound",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/Grouping.v:36:definition:sound",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "refines",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/Grouping.v:40:definition:refines",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "sound_refines",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/Grouping.v:65:lemma:sound_refines",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_transfers_iff_refines",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "h",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "k",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "H",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "minimal/GibbsGap.v:100:definition:H",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/GibbsGap.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "sound",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "minimal/Grouping.v:36:definition:sound",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "refines",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "minimal/Grouping.v:40:definition:refines",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/Grouping.v"
+    },
+    {
+      "from": "sound_only_for_refinements",
+      "to": "g",
+      "fromId": "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
+      "toId": "minimal/NondetChairs.v:26:definition:g",
+      "fromFile": "minimal/Grouping.v",
+      "toFile": "minimal/NondetChairs.v"
+    },
+    {
       "from": "pstep",
       "to": "S2",
       "fromId": "minimal/HaltingHole.v:10:definition:pstep",
@@ -125808,14 +125750,6 @@
       "toId": "minimal/NecTPartition.v:35:definition:set",
       "fromFile": "minimal/HeatOrRoom.v",
       "toFile": "minimal/NecTPartition.v"
-    },
-    {
-      "from": "run_merges_or_fresh",
-      "to": "run",
-      "fromId": "minimal/HeatOrRoom.v:266:theorem:run_merges_or_fresh",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/HeatOrRoom.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "run_merges_or_fresh",
@@ -128253,14 +128187,6 @@
       "from": "run",
       "to": "run",
       "fromId": "minimal/Monitor.v:18:definition:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/Monitor.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/Monitor.v:18:definition:run",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "minimal/Monitor.v",
       "toFile": "minimal/SliceCore.v"
@@ -129008,14 +128934,6 @@
       "toId": "minimal/MuCore.v:90:inductive:instr",
       "fromFile": "minimal/MuCore.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/MuCore.v:113:definition:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/MuCore.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "run",
@@ -133802,1670 +133720,6 @@
       "toFile": "minimal/NondetChairs.v"
     },
     {
-      "from": "same_part_trans",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:102:lemma:same_part_trans",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "same_part_trans",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:102:lemma:same_part_trans",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "same_part_trans",
-      "to": "same_part",
-      "fromId": "minimal/PartitionReading.v:102:lemma:same_part_trans",
-      "toId": "minimal/PartitionReading.v:85:definition:same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_same_part",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_same_part",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_same_part",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "sound_same_part",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_same_part",
-      "to": "same_part",
-      "fromId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "toId": "minimal/PartitionReading.v:85:definition:same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_refines",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_refines",
-      "to": "h",
-      "fromId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_refines",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_refines",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "sound_refines",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_refines",
-      "to": "refines",
-      "fromId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "toId": "minimal/PartitionReading.v:81:definition:refines",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "h",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "sound_refines",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "key",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/PartitionReading.v:74:definition:key",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_entitled_iff_refines",
-      "to": "refines",
-      "fromId": "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "toId": "minimal/PartitionReading.v:81:definition:refines",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pairs_ok_iff",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:133:lemma:pairs_ok_iff",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "pairs_ok_iff",
-      "to": "pairs_ok",
-      "fromId": "minimal/PartitionReading.v:133:lemma:pairs_ok_iff",
-      "toId": "minimal/PartitionReading.v:130:definition:pairs_ok",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_b",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_b",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_b",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "sound_b",
-      "to": "pairs_ok",
-      "fromId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "toId": "minimal/PartitionReading.v:130:definition:pairs_ok",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_b",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_b",
-      "to": "key",
-      "fromId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "toId": "minimal/PartitionReading.v:74:definition:key",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "pairs_ok_iff",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "minimal/PartitionReading.v:133:lemma:pairs_ok_iff",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "sound_b",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound_b_iff",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part_b",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "same_part_b",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "same_part_b",
-      "to": "pairs_ok",
-      "fromId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "toId": "minimal/PartitionReading.v:130:definition:pairs_ok",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part_b",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part_b_iff",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "same_part_b_iff",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "same_part_b_iff",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "same_part_b_iff",
-      "to": "pairs_ok_iff",
-      "fromId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "toId": "minimal/PartitionReading.v:133:lemma:pairs_ok_iff",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part_b_iff",
-      "to": "same_part_b",
-      "fromId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "toId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part_b_iff",
-      "to": "same_part",
-      "fromId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "toId": "minimal/PartitionReading.v:85:definition:same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pstate",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:171:record:pstate",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pstate",
-      "to": "key",
-      "fromId": "minimal/PartitionReading.v:171:record:pstate",
-      "toId": "minimal/PartitionReading.v:74:definition:key",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pmove",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pmove",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pmove",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pmove",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pmove",
-      "to": "key",
-      "fromId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "toId": "minimal/PartitionReading.v:74:definition:key",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cost",
-      "to": "pmove",
-      "fromId": "minimal/PartitionReading.v:186:definition:p_cost",
-      "toId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_flag",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:188:definition:p_flag",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_trap",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:190:definition:p_trap",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_step",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_step",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_step",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_step",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "p_step",
-      "to": "sound_b",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_step",
-      "to": "same_part_b",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_step",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_step",
-      "to": "pmove",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_step",
-      "to": "p_cost",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/PartitionReading.v:186:definition:p_cost",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_step",
-      "to": "p_trap",
-      "fromId": "minimal/PartitionReading.v:193:definition:p_step",
-      "toId": "minimal/PartitionReading.v:190:definition:p_trap",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_machine",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_machine",
-      "to": "pmove",
-      "fromId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "toId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_machine",
-      "to": "p_cost",
-      "fromId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "toId": "minimal/PartitionReading.v:186:definition:p_cost",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_machine",
-      "to": "p_flag",
-      "fromId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "toId": "minimal/PartitionReading.v:188:definition:p_flag",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_machine",
-      "to": "p_step",
-      "fromId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "toId": "minimal/PartitionReading.v:193:definition:p_step",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_machine",
-      "to": "machine",
-      "fromId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "prun",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:218:definition:prun",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "prun",
-      "to": "pmove",
-      "fromId": "minimal/PartitionReading.v:218:definition:prun",
-      "toId": "minimal/PartitionReading.v:180:inductive:pmove",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "prun",
-      "to": "pr_machine",
-      "fromId": "minimal/PartitionReading.v:218:definition:prun",
-      "toId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "prun",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:218:definition:prun",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_clean",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:220:definition:p_clean",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads",
-      "to": "same_part",
-      "fromId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "toId": "minimal/PartitionReading.v:85:definition:same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "same_part_trans",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "minimal/PartitionReading.v:102:lemma:same_part_trans",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "pr_reads",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "same_part",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "minimal/PartitionReading.v:85:definition:same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reads_structural",
-      "to": "same_part_sym",
-      "fromId": "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "toId": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "p_inv",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "sound_same_part",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "sound_b",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "sound_b_iff",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:144:lemma:sound_b_iff",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "same_part_b",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "same_part_b_iff",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:156:lemma:same_part_b_iff",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "p_trap",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:190:definition:p_trap",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "p_step",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:193:definition:p_step",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "p_inv",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_step",
-      "to": "same_part_sym",
-      "fromId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "toId": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_run",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:277:lemma:p_inv_run",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "p_inv_run",
-      "to": "prun",
-      "fromId": "minimal/PartitionReading.v:277:lemma:p_inv_run",
-      "toId": "minimal/PartitionReading.v:218:definition:prun",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_run",
-      "to": "p_inv",
-      "fromId": "minimal/PartitionReading.v:277:lemma:p_inv_run",
-      "toId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_run",
-      "to": "p_inv_step",
-      "fromId": "minimal/PartitionReading.v:277:lemma:p_inv_run",
-      "toId": "minimal/PartitionReading.v:247:lemma:p_inv_step",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_clean",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:283:lemma:p_inv_clean",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_inv_clean",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:283:lemma:p_inv_clean",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "p_inv_clean",
-      "to": "p_clean",
-      "fromId": "minimal/PartitionReading.v:283:lemma:p_inv_clean",
-      "toId": "minimal/PartitionReading.v:220:definition:p_clean",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_inv_clean",
-      "to": "p_inv",
-      "fromId": "minimal/PartitionReading.v:283:lemma:p_inv_clean",
-      "toId": "minimal/PartitionReading.v:242:definition:p_inv",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "h",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "s0",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/MuCore.v:199:definition:s0",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "sound_same_part",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:107:lemma:sound_same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "sound_refines",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:113:lemma:sound_refines",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "prun",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:218:definition:prun",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "p_clean",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:220:definition:p_clean",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "pr_reads",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:225:definition:pr_reads",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "p_inv_run",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:277:lemma:p_inv_run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "p_inv_clean",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:283:lemma:p_inv_clean",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles",
-      "to": "refines",
-      "fromId": "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "toId": "minimal/PartitionReading.v:81:definition:refines",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "h",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "sound",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "minimal/PartitionReading.v:77:definition:sound",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_entitles_only",
-      "to": "refines",
-      "fromId": "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "toId": "minimal/PartitionReading.v:81:definition:refines",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_toll",
-      "to": "p_flag",
-      "fromId": "minimal/PartitionReading.v:315:theorem:pr_toll",
-      "toId": "minimal/PartitionReading.v:188:definition:p_flag",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_toll",
-      "to": "p_step",
-      "fromId": "minimal/PartitionReading.v:315:theorem:pr_toll",
-      "toId": "minimal/PartitionReading.v:193:definition:p_step",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_toll",
-      "to": "pr_machine",
-      "fromId": "minimal/PartitionReading.v:315:theorem:pr_toll",
-      "toId": "minimal/PartitionReading.v:216:definition:pr_machine",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_toll",
-      "to": "obeys_toll",
-      "fromId": "minimal/PartitionReading.v:315:theorem:pr_toll",
-      "toId": "minimal/PartitionReading.v:62:definition:obeys_toll",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_pot",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:324:definition:p_pot",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv",
-      "to": "s0",
-      "fromId": "minimal/PartitionReading.v:331:definition:p_cinv",
-      "toId": "minimal/MuCore.v:199:definition:s0",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "p_cinv",
-      "to": "pstate",
-      "fromId": "minimal/PartitionReading.v:331:definition:p_cinv",
-      "toId": "minimal/PartitionReading.v:171:record:pstate",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv",
-      "to": "p_pot",
-      "fromId": "minimal/PartitionReading.v:331:definition:p_cinv",
-      "toId": "minimal/PartitionReading.v:324:definition:p_pot",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "c",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "s0",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/MuCore.v:199:definition:s0",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "sound_b",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/PartitionReading.v:141:definition:sound_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "same_part_b",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/PartitionReading.v:153:definition:same_part_b",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "p_trap",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/PartitionReading.v:190:definition:p_trap",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "p_step",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/PartitionReading.v:193:definition:p_step",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "p_pot",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/PartitionReading.v:324:definition:p_pot",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "p_cinv_step",
-      "to": "p_cinv",
-      "fromId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "toId": "minimal/PartitionReading.v:331:definition:p_cinv",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "s0",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/MuCore.v:199:definition:s0",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "p_flag",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/PartitionReading.v:188:definition:p_flag",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "prun",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/PartitionReading.v:218:definition:prun",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "p_clean",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/PartitionReading.v:220:definition:p_clean",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "p_pot",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/PartitionReading.v:324:definition:p_pot",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "p_cinv",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/PartitionReading.v:331:definition:p_cinv",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_reading_costs_three",
-      "to": "p_cinv_step",
-      "fromId": "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "toId": "minimal/PartitionReading.v:334:lemma:p_cinv_step",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "machine",
-      "to": "machine",
-      "fromId": "minimal/PartitionReading.v:53:record:machine",
-      "toId": "minimal/SlicedEstablishment.v:209:definition:machine",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/SlicedEstablishment.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "coq/audit/CanonicalObservation.v:12:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/audit/CanonicalObservation.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "coq/audit/ObservationContract.v:59:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/audit/ObservationContract.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "coq/kernel/nfi/CostFrameworks.v:57:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/nfi/CostFrameworks.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "coq/kernel/nfi/CostSemanticsComparison.v:84:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/nfi/CostSemanticsComparison.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "coq/kernel/nfi/KnowledgeNarrowing.v:62:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/nfi/KnowledgeNarrowing.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/EditionCapacity.v:23:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/EditionCapacity.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/Monitor.v:18:definition:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/Monitor.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/MuCore.v:113:definition:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "run",
-      "to": "machine",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/SliceCore.v:16:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/SliceCore.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/StepLaw.v:19:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/StepLaw.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "toId": "minimal/Task.v:39:fixpoint:run",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/Task.v"
-    },
-    {
-      "from": "obeys_toll",
-      "to": "machine",
-      "fromId": "minimal/PartitionReading.v:62:definition:obeys_toll",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:77:definition:sound",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound",
-      "to": "k",
-      "fromId": "minimal/PartitionReading.v:77:definition:sound",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "sound",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:77:definition:sound",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "sound",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:77:definition:sound",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "sound",
-      "to": "key",
-      "fromId": "minimal/PartitionReading.v:77:definition:sound",
-      "toId": "minimal/PartitionReading.v:74:definition:key",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "refines",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:81:definition:refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "refines",
-      "to": "h",
-      "fromId": "minimal/PartitionReading.v:81:definition:refines",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "refines",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:81:definition:refines",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "refines",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:81:definition:refines",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:85:definition:same_part",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "same_part",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:85:definition:same_part",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "same_part",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:85:definition:same_part",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "pr_grouping_partition",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "pr_grouping_partition",
-      "to": "is_partition",
-      "fromId": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "toId": "minimal/NecTPartition.v:42:definition:is_partition",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NecTPartition.v"
-    },
-    {
-      "from": "pr_grouping_partition",
-      "to": "blocks_of",
-      "fromId": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "toId": "minimal/NecTPartition.v:50:definition:blocks_of",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NecTPartition.v"
-    },
-    {
-      "from": "pr_grouping_partition",
-      "to": "nec_t_blocks_of_equiv_partition",
-      "fromId": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "toId": "minimal/NecTPartition.v:63:theorem:nec_t_blocks_of_equiv_partition",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NecTPartition.v"
-    },
-    {
-      "from": "pr_grouping_partition",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "pr_grouping_partition",
-      "to": "grouping",
-      "fromId": "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
-      "toId": "minimal/PartitionReading.v:73:definition:grouping",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "same_part_sym",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "toId": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "coq/kernel/reductions/RFC9162Merkle.v"
-    },
-    {
-      "from": "same_part_sym",
-      "to": "H",
-      "fromId": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "toId": "minimal/GibbsGap.v:100:definition:H",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/GibbsGap.v"
-    },
-    {
-      "from": "same_part_sym",
-      "to": "g",
-      "fromId": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "toId": "minimal/NondetChairs.v:26:definition:g",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/NondetChairs.v"
-    },
-    {
-      "from": "same_part_sym",
-      "to": "same_part",
-      "fromId": "minimal/PartitionReading.v:99:lemma:same_part_sym",
-      "toId": "minimal/PartitionReading.v:85:definition:same_part",
-      "fromFile": "minimal/PartitionReading.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
       "from": "runH",
       "to": "i",
       "fromId": "minimal/PassiveGeometry.v:16:fixpoint:runH",
@@ -136947,14 +135201,6 @@
     },
     {
       "from": "some_revisit",
-      "to": "run",
-      "fromId": "minimal/Recurrence.v:45:lemma:some_revisit",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/Recurrence.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "some_revisit",
       "to": "nodup_or_collision",
       "fromId": "minimal/Recurrence.v:45:lemma:some_revisit",
       "toId": "minimal/Recurrence.v:30:lemma:nodup_or_collision",
@@ -137136,14 +135382,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "minimal/Recurrence.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "returns_to_start",
-      "to": "run",
-      "fromId": "minimal/Recurrence.v:54:theorem:returns_to_start",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/Recurrence.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "returns_to_start",
@@ -137344,14 +135582,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "minimal/Recurrence.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "reversible_keeps_nothing",
-      "to": "run",
-      "fromId": "minimal/Recurrence.v:68:theorem:reversible_keeps_nothing",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/Recurrence.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "reversible_keeps_nothing",
@@ -140035,14 +138265,6 @@
     },
     {
       "from": "run",
-      "to": "run",
-      "fromId": "minimal/SliceCore.v:16:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/SliceCore.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "run",
       "to": "compute",
       "fromId": "minimal/SliceCore.v:16:fixpoint:run",
       "toId": "minimal/SlicedEstablishment.v:205:definition:compute",
@@ -140867,14 +139089,6 @@
     },
     {
       "from": "machine",
-      "to": "machine",
-      "fromId": "minimal/SlicedEstablishment.v:209:definition:machine",
-      "toId": "minimal/PartitionReading.v:53:record:machine",
-      "fromFile": "minimal/SlicedEstablishment.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "machine",
       "to": "SlicedInterface",
       "fromId": "minimal/SlicedEstablishment.v:209:definition:machine",
       "toId": "minimal/SlicedEstablishment.v:9:record:SlicedInterface",
@@ -141181,14 +139395,6 @@
       "from": "hrun",
       "to": "run",
       "fromId": "minimal/SlicedEstablishment.v:44:definition:hrun",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/SlicedEstablishment.v",
-      "toFile": "minimal/PartitionReading.v"
-    },
-    {
-      "from": "hrun",
-      "to": "run",
-      "fromId": "minimal/SlicedEstablishment.v:44:definition:hrun",
       "toId": "minimal/SliceCore.v:16:fixpoint:run",
       "fromFile": "minimal/SlicedEstablishment.v",
       "toFile": "minimal/SliceCore.v"
@@ -141280,14 +139486,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "minimal/SlicedEstablishment.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "shadow_run",
-      "to": "run",
-      "fromId": "minimal/SlicedEstablishment.v:46:definition:shadow_run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/SlicedEstablishment.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "shadow_run",
@@ -141744,14 +139942,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "minimal/StepLaw.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/StepLaw.v:19:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/StepLaw.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "run",
@@ -144312,14 +142502,6 @@
       "toId": "minimal/MuCore.v:113:definition:run",
       "fromFile": "minimal/Task.v",
       "toFile": "minimal/MuCore.v"
-    },
-    {
-      "from": "run",
-      "to": "run",
-      "fromId": "minimal/Task.v:39:fixpoint:run",
-      "toId": "minimal/PartitionReading.v:60:fixpoint:run",
-      "fromFile": "minimal/Task.v",
-      "toFile": "minimal/PartitionReading.v"
     },
     {
       "from": "run",
@@ -149082,7 +147264,13 @@
       "coq/kernel/nfi/CostFrameworks.v:43:definition:gret"
     ],
     "grouping": [
-      "minimal/PartitionReading.v:73:definition:grouping"
+      "minimal/Grouping.v:32:definition:grouping"
+    ],
+    "grouping_partition": [
+      "minimal/Grouping.v:47:theorem:grouping_partition"
+    ],
+    "grouping_sound_structural": [
+      "minimal/Grouping.v:55:theorem:grouping_sound_structural"
     ],
     "growing_record_decomposes": [
       "coq/kernel/foundation/GrowingRecordCore.v:79:definition:growing_record_decomposes"
@@ -149596,7 +147784,7 @@
       "coq/kernel/foundation/ProbabilisticRecordCore.v:21:definition:kernel_writes_priced"
     ],
     "key": [
-      "minimal/PartitionReading.v:74:definition:key"
+      "minimal/Grouping.v:33:definition:key"
     ],
     "knowledge": [
       "coq/kernel/nfi/KnowledgeNarrowing.v:155:definition:knowledge"
@@ -149824,6 +148012,9 @@
     "lift_least_price": [
       "coq/audit/AxThieleLeast.v:67:definition:lift_least_price"
     ],
+    "lift_reachable": [
+      "coq/kernel/foundation/AxThiele.v:324:definition:lift_reachable"
+    ],
     "lift_states": [
       "coq/audit/AxThieleLeast.v:54:definition:lift_states"
     ],
@@ -149934,7 +148125,6 @@
       "coq/kernel/frontier/PointerObservableCounterexamples.v:224:theorem:mac_model_not_proliferating"
     ],
     "machine": [
-      "minimal/PartitionReading.v:53:record:machine",
       "minimal/SlicedEstablishment.v:209:definition:machine"
     ],
     "macro_prefix_exposes_unmatched_acceptance": [
@@ -150110,7 +148300,7 @@
       "coq/kernel/foundation/ProperSubsumption.v:71:definition:move_tape"
     ],
     "moving_machine_is_a_shadow": [
-      "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow"
+      "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow"
     ],
     "mu_conservation": [
       "minimal/MuCore.v:126:theorem:mu_conservation"
@@ -151988,9 +150178,6 @@
     "nth_repeat_false": [
       "coq/kernel/foundation/AxLatch2.v:68:lemma:nth_repeat_false"
     ],
-    "obeys_toll": [
-      "minimal/PartitionReading.v:62:definition:obeys_toll"
-    ],
     "observation_greatest": [
       "minimal/SliceCore.v:33:theorem:observation_greatest"
     ],
@@ -152099,42 +150286,6 @@
     "overcharge_breaks_exactness": [
       "coq/kernel/reductions/GasMetering.v:174:theorem:overcharge_breaks_exactness"
     ],
-    "p_cinv": [
-      "minimal/PartitionReading.v:331:definition:p_cinv"
-    ],
-    "p_cinv_step": [
-      "minimal/PartitionReading.v:334:lemma:p_cinv_step"
-    ],
-    "p_clean": [
-      "minimal/PartitionReading.v:220:definition:p_clean"
-    ],
-    "p_cost": [
-      "minimal/PartitionReading.v:186:definition:p_cost"
-    ],
-    "p_flag": [
-      "minimal/PartitionReading.v:188:definition:p_flag"
-    ],
-    "p_inv": [
-      "minimal/PartitionReading.v:242:definition:p_inv"
-    ],
-    "p_inv_clean": [
-      "minimal/PartitionReading.v:283:lemma:p_inv_clean"
-    ],
-    "p_inv_run": [
-      "minimal/PartitionReading.v:277:lemma:p_inv_run"
-    ],
-    "p_inv_step": [
-      "minimal/PartitionReading.v:247:lemma:p_inv_step"
-    ],
-    "p_pot": [
-      "minimal/PartitionReading.v:324:definition:p_pot"
-    ],
-    "p_step": [
-      "minimal/PartitionReading.v:193:definition:p_step"
-    ],
-    "p_trap": [
-      "minimal/PartitionReading.v:190:definition:p_trap"
-    ],
     "paid_entry_free_idle": [
       "minimal/AccountingBridge.v:115:theorem:paid_entry_free_idle"
     ],
@@ -152158,12 +150309,6 @@
     ],
     "pair_permanent": [
       "coq/kernel/foundation/StructuralCoreAnyBase.v:77:definition:pair_permanent"
-    ],
-    "pairs_ok": [
-      "minimal/PartitionReading.v:130:definition:pairs_ok"
-    ],
-    "pairs_ok_iff": [
-      "minimal/PartitionReading.v:133:lemma:pairs_ok_iff"
     ],
     "parent_of": [
       "coq/kernel/reductions/CasperForkWitness.v:118:definition:parent_of"
@@ -152306,9 +150451,6 @@
     "phi": [
       "coq/kernel/nfi/CostFrameworks.v:77:definition:phi"
     ],
-    "pmove": [
-      "minimal/PartitionReading.v:180:inductive:pmove"
-    ],
     "po_fibres_count": [
       "coq/kernel/nfi/PricingOnePremise.v:55:lemma:po_fibres_count"
     ],
@@ -152377,33 +150519,6 @@
     ],
     "powers_commute": [
       "minimal/PeriodicIntersection.v:18:theorem:powers_commute"
-    ],
-    "pr_entitled_iff_refines": [
-      "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines"
-    ],
-    "pr_grouping_partition": [
-      "minimal/PartitionReading.v:92:theorem:pr_grouping_partition"
-    ],
-    "pr_machine": [
-      "minimal/PartitionReading.v:216:definition:pr_machine"
-    ],
-    "pr_reading_costs_three": [
-      "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three"
-    ],
-    "pr_reading_entitles": [
-      "minimal/PartitionReading.v:292:theorem:pr_reading_entitles"
-    ],
-    "pr_reading_entitles_only": [
-      "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only"
-    ],
-    "pr_reads": [
-      "minimal/PartitionReading.v:225:definition:pr_reads"
-    ],
-    "pr_reads_structural": [
-      "minimal/PartitionReading.v:232:theorem:pr_reads_structural"
-    ],
-    "pr_toll": [
-      "minimal/PartitionReading.v:315:theorem:pr_toll"
     ],
     "prefix": [
       "minimal/CommutingGrid.v:71:definition:prefix"
@@ -152499,12 +150614,6 @@
     ],
     "projected_meter": [
       "minimal/MeterRepresentation.v:72:definition:projected_meter"
-    ],
-    "prun": [
-      "minimal/PartitionReading.v:218:definition:prun"
-    ],
-    "pstate": [
-      "minimal/PartitionReading.v:171:record:pstate"
     ],
     "pstep": [
       "minimal/HaltingHole.v:10:definition:pstep"
@@ -153120,7 +151229,7 @@
       "coq/kernel/frontier/PointerObservable.v:90:definition:redundantly_proliferating"
     ],
     "refines": [
-      "minimal/PartitionReading.v:81:definition:refines"
+      "minimal/Grouping.v:40:definition:refines"
     ],
     "reg": [
       "coq/kernel/foundation/CrossBaseGranularityRAM.v:31:definition:reg"
@@ -153551,7 +151660,6 @@
       "minimal/EditionCapacity.v:23:fixpoint:run",
       "minimal/Monitor.v:18:definition:run",
       "minimal/MuCore.v:113:definition:run",
-      "minimal/PartitionReading.v:60:fixpoint:run",
       "minimal/SliceCore.v:16:fixpoint:run",
       "minimal/StepLaw.v:19:fixpoint:run",
       "minimal/Task.v:39:fixpoint:run"
@@ -153667,19 +151775,7 @@
       "coq/kernel/reductions/CasperFFG.v:231:lemma:same_epoch_distinct_slashes"
     ],
     "same_part": [
-      "minimal/PartitionReading.v:85:definition:same_part"
-    ],
-    "same_part_b": [
-      "minimal/PartitionReading.v:153:definition:same_part_b"
-    ],
-    "same_part_b_iff": [
-      "minimal/PartitionReading.v:156:lemma:same_part_b_iff"
-    ],
-    "same_part_sym": [
-      "minimal/PartitionReading.v:99:lemma:same_part_sym"
-    ],
-    "same_part_trans": [
-      "minimal/PartitionReading.v:102:lemma:same_part_trans"
+      "minimal/Grouping.v:44:definition:same_part"
     ],
     "same_probabilistic_schedule": [
       "coq/kernel/foundation/ProbabilisticRecordCore.v:40:definition:same_probabilistic_schedule"
@@ -153774,6 +151870,9 @@
     ],
     "shadow_hides_history": [
       "coq/kernel/foundation/AxThiele.v:307:theorem:shadow_hides_history"
+    ],
+    "shadow_hides_history_reachable": [
+      "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable"
     ],
     "shadow_injective": [
       "coq/kernel/foundation/AxShadow.v:151:definition:shadow_injective"
@@ -153909,19 +152008,16 @@
       "minimal/Recurrence.v:45:lemma:some_revisit"
     ],
     "sound": [
-      "minimal/PartitionReading.v:77:definition:sound"
+      "minimal/Grouping.v:36:definition:sound"
     ],
-    "sound_b": [
-      "minimal/PartitionReading.v:141:definition:sound_b"
-    ],
-    "sound_b_iff": [
-      "minimal/PartitionReading.v:144:lemma:sound_b_iff"
+    "sound_only_for_refinements": [
+      "minimal/Grouping.v:80:theorem:sound_only_for_refinements"
     ],
     "sound_refines": [
-      "minimal/PartitionReading.v:113:lemma:sound_refines"
+      "minimal/Grouping.v:65:lemma:sound_refines"
     ],
-    "sound_same_part": [
-      "minimal/PartitionReading.v:107:lemma:sound_same_part"
+    "sound_transfers_iff_refines": [
+      "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines"
     ],
     "sound_use_does_not_force_saved_record_mutation": [
       "minimal/Monitor.v:87:theorem:sound_use_does_not_force_saved_record_mutation"
@@ -155092,8 +153188,8 @@
     ]
   },
   "rank": {
-    "rootCount": 758,
-    "leafCount": 211,
+    "rootCount": 755,
+    "leafCount": 210,
     "isolatedCount": 10,
     "roots": [
       "coq/audit/AdaptiveBlindness.v:38:theorem:adaptive_decision_stays_equal",
@@ -155202,9 +153298,9 @@
       "coq/kernel/foundation/AxThiele.v:215:theorem:no_one_state_member",
       "coq/kernel/foundation/AxThiele.v:225:theorem:two_state_member_has_latch_move",
       "coq/kernel/foundation/AxThiele.v:237:theorem:toggle_is_not_thiele",
-      "coq/kernel/foundation/AxThiele.v:265:theorem:history_lift_shadow",
       "coq/kernel/foundation/AxThiele.v:307:theorem:shadow_hides_history",
-      "coq/kernel/foundation/AxThiele.v:327:theorem:moving_machine_is_a_shadow",
+      "coq/kernel/foundation/AxThiele.v:331:theorem:shadow_hides_history_reachable",
+      "coq/kernel/foundation/AxThiele.v:356:theorem:moving_machine_is_a_shadow",
       "coq/kernel/foundation/AxThiele.v:97:theorem:flat_obeys_toll",
       "coq/kernel/foundation/AxWindow.v:111:theorem:ax_window_sees_record_exact",
       "coq/kernel/foundation/AxWindow.v:136:theorem:ax_window_exact_iff_no_collision",
@@ -155710,6 +153806,10 @@
       "minimal/GibbsGap.v:101:theorem:relent_is_entropy_gap",
       "minimal/GibbsGap.v:89:theorem:gibbs_nonneg",
       "minimal/GibbsGap.v:92:theorem:gibbs_strict",
+      "minimal/Grouping.v:47:theorem:grouping_partition",
+      "minimal/Grouping.v:55:theorem:grouping_sound_structural",
+      "minimal/Grouping.v:70:theorem:sound_transfers_iff_refines",
+      "minimal/Grouping.v:80:theorem:sound_only_for_refinements",
       "minimal/HaltingHole.v:14:theorem:partial_raises_without_merge",
       "minimal/HaltingHole.v:21:theorem:totalised_halt_is_merge",
       "minimal/HeatOrRoom.v:195:theorem:permanent_flip_no_finite_list",
@@ -155778,13 +153878,6 @@
       "minimal/NoisyChairs.v:283:theorem:no_merge_no_concentration",
       "minimal/NoisyChairs.v:309:theorem:raise_concentrates_uniform",
       "minimal/NondetChairs.v:50:theorem:nondet_merge",
-      "minimal/PartitionReading.v:118:theorem:pr_entitled_iff_refines",
-      "minimal/PartitionReading.v:232:theorem:pr_reads_structural",
-      "minimal/PartitionReading.v:292:theorem:pr_reading_entitles",
-      "minimal/PartitionReading.v:306:theorem:pr_reading_entitles_only",
-      "minimal/PartitionReading.v:315:theorem:pr_toll",
-      "minimal/PartitionReading.v:363:theorem:pr_reading_costs_three",
-      "minimal/PartitionReading.v:92:theorem:pr_grouping_partition",
       "minimal/PassiveGeometry.v:22:theorem:permanent_trajectory_blindness",
       "minimal/PassiveGeometry.v:26:theorem:no_in_view_decoder",
       "minimal/PassiveGeometry.v:30:theorem:vertical_change_forces_nontrivial_fibre",
@@ -156036,6 +154129,8 @@
       "minimal/Erasure.v:65:theorem:different_injective_programs_can_hide_history",
       "minimal/GeometryLimits.v:26:definition:ordinary_establish",
       "minimal/GibbsGap.v:47:lemma:N_pos",
+      "minimal/Grouping.v:32:definition:grouping",
+      "minimal/Grouping.v:33:definition:key",
       "minimal/HaltingHole.v:9:inductive:S2",
       "minimal/HeatOrRoom.v:384:definition:reps",
       "minimal/KeptDistinction.v:22:inductive:Cell4",
@@ -156053,9 +154148,6 @@
       "minimal/NoisyChairs.v:75:lemma:Qsq_nonneg",
       "minimal/NoisyChairs.v:81:lemma:Qsq_pos",
       "minimal/NoisyChairs.v:95:definition:idx",
-      "minimal/PartitionReading.v:130:definition:pairs_ok",
-      "minimal/PartitionReading.v:73:definition:grouping",
-      "minimal/PartitionReading.v:74:definition:key",
       "minimal/QuantumChairs.v:16:definition:adj",
       "minimal/QuantumChairs.v:36:definition:V",
       "minimal/Representation.v:110:fixpoint:legal_profiles",
@@ -156091,15 +154183,15 @@
       },
       {
         "id": "coq/kernel/foundation/NatSubstrateInstance.v:145:definition:nat_substrate",
-        "out": 40
-      },
-      {
-        "id": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v:131:theorem:no_free_incremental_narrowing_below_three",
-        "out": 37
+        "out": 39
       },
       {
         "id": "coq/kernel/nfi/PricingOnePremise.v:167:theorem:entropy_drop_le_log_support_fibre",
         "out": 37
+      },
+      {
+        "id": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v:131:theorem:no_free_incremental_narrowing_below_three",
+        "out": 36
       },
       {
         "id": "coq/kernel/foundation/NecWLRice.v:309:theorem:nec_w_rice_any_witnesses",
@@ -156111,19 +154203,15 @@
       },
       {
         "id": "coq/kernel/foundation/NecFFloor.v:80:theorem:nec_f_floor_at_iff_free_reach",
-        "out": 31
-      },
-      {
-        "id": "minimal/HeatOrRoom.v:266:theorem:run_merges_or_fresh",
-        "out": 31
+        "out": 30
       },
       {
         "id": "coq/kernel/nfi/PricingOnePremise.v:287:theorem:entropy_drop_of_fibre",
         "out": 30
       },
       {
-        "id": "coq/kernel/thermodynamic/RelaxationConvergence.v:210:theorem:rc_known_start_gap",
-        "out": 28
+        "id": "minimal/HeatOrRoom.v:266:theorem:run_merges_or_fresh",
+        "out": 30
       },
       {
         "id": "coq/kernel/foundation/NecFEntropyTight.v:219:theorem:nec_f_entropy_bounds_attained",
@@ -156134,43 +154222,27 @@
         "out": 27
       },
       {
+        "id": "coq/kernel/thermodynamic/RelaxationConvergence.v:210:theorem:rc_known_start_gap",
+        "out": 27
+      },
+      {
         "id": "coq/audit/TraceFactorization.v:99:theorem:trace_evaluation_uniquely_preserves_steps",
-        "out": 26
-      },
-      {
-        "id": "coq/kernel/foundation/NecFCounter.v:281:theorem:nec_f_potential_bound_iff",
-        "out": 26
-      },
-      {
-        "id": "coq/kernel/thermodynamic/RelaxationConvergence.v:133:theorem:rc_l1_pow",
-        "out": 26
-      },
-      {
-        "id": "minimal/Recurrence.v:54:theorem:returns_to_start",
-        "out": 26
-      },
-      {
-        "id": "coq/kernel/nfi/UniversalCertificationCost.v:34:record:CertificationSystem",
         "out": 25
       },
       {
-        "id": "minimal/Recurrence.v:68:theorem:reversible_keeps_nothing",
+        "id": "coq/kernel/foundation/NecFCounter.v:281:theorem:nec_f_potential_bound_iff",
+        "out": 25
+      },
+      {
+        "id": "coq/kernel/thermodynamic/RelaxationConvergence.v:133:theorem:rc_l1_pow",
+        "out": 25
+      },
+      {
+        "id": "minimal/Recurrence.v:54:theorem:returns_to_start",
         "out": 25
       },
       {
         "id": "coq/kernel/foundation/AxWindow.v:334:theorem:two_point_shadow_cannot_price_exactly",
-        "out": 24
-      },
-      {
-        "id": "coq/kernel/foundation/NecFQuant.v:40:lemma:nec_f_raw_telescoping",
-        "out": 24
-      },
-      {
-        "id": "coq/kernel/foundation/NecFQuant.v:141:theorem:nec_f_quant_needs_a3",
-        "out": 24
-      },
-      {
-        "id": "coq/kernel/foundation/NecFQuant.v:156:theorem:nec_f_quant_needs_a5",
         "out": 24
       },
       {
@@ -156180,6 +154252,26 @@
       {
         "id": "coq/kernel/nfi/PermanentCertificationEntropy.v:824:theorem:a2_from_entropy_price_and_permanence",
         "out": 24
+      },
+      {
+        "id": "coq/kernel/nfi/PermanentRecordPricing.v:346:theorem:permanent_flip_merges_on_yes_side",
+        "out": 24
+      },
+      {
+        "id": "coq/kernel/nfi/UniversalCertificationCost.v:34:record:CertificationSystem",
+        "out": 24
+      },
+      {
+        "id": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v:229:lemma:rsc_step_bound",
+        "out": 24
+      },
+      {
+        "id": "minimal/Recurrence.v:68:theorem:reversible_keeps_nothing",
+        "out": 24
+      },
+      {
+        "id": "coq/kernel/foundation/AxMerge.v:89:theorem:ax_exit_merges_or_revokes",
+        "out": 23
       }
     ],
     "topInDegree": [
@@ -156189,11 +154281,11 @@
       },
       {
         "id": "minimal/GibbsGap.v:100:definition:H",
-        "in": 526
+        "in": 519
       },
       {
         "id": "coq/kernel/reductions/RFC9162Merkle.v:52:definition:b",
-        "in": 416
+        "in": 417
       },
       {
         "id": "coq/kernel/reductions/RFC9162Merkle.v:51:definition:a",
@@ -156232,12 +154324,12 @@
         "in": 242
       },
       {
-        "id": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
-        "in": 173
+        "id": "coq/kernel/reductions/RFC9162Merkle.v:56:definition:f",
+        "in": 165
       },
       {
-        "id": "coq/kernel/reductions/RFC9162Merkle.v:56:definition:f",
-        "in": 164
+        "id": "coq/kernel/reductions/RFC9162Merkle.v:61:definition:k",
+        "in": 163
       },
       {
         "id": "coq/kernel/reductions/RFC9162Merkle.v:62:definition:l",
@@ -156245,7 +154337,7 @@
       },
       {
         "id": "coq/kernel/reductions/RFC9162Merkle.v:53:definition:c",
-        "in": 162
+        "in": 155
       },
       {
         "id": "minimal/TwoArms.v:13:definition:F",
@@ -156253,23 +154345,23 @@
       },
       {
         "id": "coq/kernel/foundation/LRecursion.v:63:fixpoint:subst",
-        "in": 132
+        "in": 133
       },
       {
         "id": "coq/kernel/reductions/RFC9162Merkle.v:59:definition:h",
-        "in": 128
-      },
-      {
-        "id": "minimal/NondetChairs.v:26:definition:g",
-        "in": 128
-      },
-      {
-        "id": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
         "in": 127
       },
       {
         "id": "minimal/CommutingGrid.v:10:definition:left",
         "in": 118
+      },
+      {
+        "id": "minimal/NondetChairs.v:26:definition:g",
+        "in": 113
+      },
+      {
+        "id": "coq/kernel/reductions/RFC9162Merkle.v:58:definition:g",
+        "in": 112
       },
       {
         "id": "coq/kernel/reductions/RFC9162Merkle.v:57:definition:j",
@@ -156316,10 +154408,6 @@
       {
         "file": "minimal/SharpHost.v",
         "declCount": 43
-      },
-      {
-        "file": "minimal/PartitionReading.v",
-        "declCount": 42
       },
       {
         "file": "coq/kernel/foundation/NecFSqueeze.v",
@@ -156384,13 +154472,17 @@
       {
         "file": "coq/kernel/reductions/CasperFFG.v",
         "declCount": 32
+      },
+      {
+        "file": "minimal/TwoArms.v",
+        "declCount": 32
       }
     ],
     "weakComponents": {
       "count": 18,
       "largest": [
         {
-          "size": 2998,
+          "size": 2968,
           "sample": [
             "coq/audit/AdaptiveBlindness.v:17:fixpoint:probe",
             "coq/audit/AdaptiveBlindness.v:25:definition:visible",
@@ -156523,10 +154615,10 @@
       ]
     },
     "stronglyConnectedCycles": {
-      "count": 48,
+      "count": 47,
       "largest": [
         {
-          "size": 12,
+          "size": 11,
           "sample": [
             "coq/audit/CanonicalObservation.v:12:fixpoint:run",
             "coq/audit/ObservationContract.v:59:fixpoint:run",

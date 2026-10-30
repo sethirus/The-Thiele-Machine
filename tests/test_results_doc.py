@@ -1,4 +1,4 @@
-"""docs/RESULTS.md states the settled results, and its citations are checked.
+"""coq/RESULTS.md states the settled results, and its citations are checked.
 
 Every identifier the document cites in a code span must be declared in
 coq/ or minimal/. Every cited theorem must appear in the assumption receipt,
@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from check_assumption_receipt import theorem_results  # noqa: E402
 
-DOC = ROOT / "docs" / "RESULTS.md"
+DOC = ROOT / "coq" / "RESULTS.md"
 COQ = ROOT / "coq"
 MINIMAL = ROOT / "minimal"
 SOURCE_ROOTS = (COQ, MINIMAL)

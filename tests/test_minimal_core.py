@@ -101,10 +101,10 @@ def test_verifier_small_compiles_axiom_free(tmp_path):
 
 
 @pytest.mark.coq
-def test_partition_reading_compiles_axiom_free(tmp_path):
-    """minimal/NecTPartition.v and minimal/PartitionReading.v, what a reading
-    that says a grouping was checked entitles, compile with plain coqc and
-    every theorem they print assumptions for is closed."""
+def test_grouping_compiles_axiom_free(tmp_path):
+    """minimal/NecTPartition.v and minimal/Grouping.v, what standing behind a
+    grouping licenses, compile with plain coqc and every theorem they print
+    assumptions for is closed."""
     _compile_chain_expect_closed(tmp_path, ("NecTPartition.v",), 7)
-    (tmp_path / "pr").mkdir()
-    _compile_chain_expect_closed(tmp_path / "pr", ("NecTPartition.v", "PartitionReading.v"), 7)
+    (tmp_path / "gr").mkdir()
+    _compile_chain_expect_closed(tmp_path / "gr", ("NecTPartition.v", "Grouping.v"), 4)

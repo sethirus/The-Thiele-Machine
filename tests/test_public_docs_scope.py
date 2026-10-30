@@ -41,7 +41,7 @@ def test_public_documents_read_as_finished_work():
         "What is still open",
         "research/" + "rounds",
     ]
-    for path in PUBLIC_DOCUMENTS + [ROOT / "docs/RESULTS.md"]:
+    for path in PUBLIC_DOCUMENTS + [ROOT / "coq/RESULTS.md"]:
         text = path.read_text(encoding="utf-8")
         for phrase in process_phrases:
             assert phrase not in text, (path, phrase)
@@ -75,7 +75,7 @@ def test_pointer_criterion_is_stated_as_a_thesis():
         ROOT / "monograph/thiele_machine_math_spec.tex"
     )
     assert "The pointer-observable criterion is a thesis." in normalized(
-        ROOT / "docs/RESULTS.md"
+        ROOT / "coq/RESULTS.md"
     )
     citation = normalized(ROOT / "CITATION.cff")
     assert "the pointer criterion is a thesis" in citation

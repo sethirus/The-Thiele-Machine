@@ -139,6 +139,7 @@ Require Minimal.Erasure.
 Require Minimal.Fibre.
 Require Minimal.GeometryLimits.
 Require Minimal.GibbsGap.
+Require Minimal.Grouping.
 Require Minimal.HaltingHole.
 Require Minimal.HeatOrRoom.
 Require Minimal.KeptDistinction.
@@ -151,7 +152,6 @@ Require Minimal.Napkin.
 Require Minimal.NecTPartition.
 Require Minimal.NoisyChairs.
 Require Minimal.NondetChairs.
-Require Minimal.PartitionReading.
 Require Minimal.PassiveGeometry.
 Require Minimal.PeriodicIntersection.
 Require Minimal.QuantumChairs.
@@ -399,7 +399,7 @@ Print Assumptions Kernel.AxShadow.ax_compression_iff_fibres.
 Print Assumptions Kernel.AxShadow.shadow_merge_escape.
 Print Assumptions Kernel.AxShadow.ax_thresholds_separate.
 Print Assumptions Kernel.AxShadow.ax_threshold_view_separates.
-(* === Kernel.AxThiele : 21 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.AxThiele : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.AxThiele.flat_obeys_toll.
 Print Assumptions Kernel.AxThiele.ax_flat_run.
 Print Assumptions Kernel.AxThiele.flat_has_no_distinction.
@@ -420,6 +420,7 @@ Print Assumptions Kernel.AxThiele.history_lift_bit_stays.
 Print Assumptions Kernel.AxThiele.history_lift_bit_up.
 Print Assumptions Kernel.AxThiele.history_lift_is_thiele.
 Print Assumptions Kernel.AxThiele.shadow_hides_history.
+Print Assumptions Kernel.AxThiele.shadow_hides_history_reachable.
 Print Assumptions Kernel.AxThiele.moving_machine_is_a_shadow.
 (* === Kernel.AxWindow : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.AxWindow.ax_window_collision_overcharges.
@@ -1701,6 +1702,12 @@ Print Assumptions Minimal.GibbsGap.base_sum.
 Print Assumptions Minimal.GibbsGap.gibbs_nonneg.
 Print Assumptions Minimal.GibbsGap.gibbs_strict.
 Print Assumptions Minimal.GibbsGap.relent_is_entropy_gap.
+(* === Minimal.Grouping : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Grouping.grouping_partition.
+Print Assumptions Minimal.Grouping.grouping_sound_structural.
+Print Assumptions Minimal.Grouping.sound_refines.
+Print Assumptions Minimal.Grouping.sound_transfers_iff_refines.
+Print Assumptions Minimal.Grouping.sound_only_for_refinements.
 (* === Minimal.HaltingHole : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.HaltingHole.partial_raises_without_merge.
 Print Assumptions Minimal.HaltingHole.totalised_halt_is_merge.
@@ -1876,25 +1883,6 @@ Print Assumptions Minimal.NondetChairs.g_in.
 Print Assumptions Minimal.NondetChairs.g_R.
 Print Assumptions Minimal.NondetChairs.map_collision.
 Print Assumptions Minimal.NondetChairs.nondet_merge.
-(* === Minimal.PartitionReading : 18 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Minimal.PartitionReading.pr_grouping_partition.
-Print Assumptions Minimal.PartitionReading.same_part_sym.
-Print Assumptions Minimal.PartitionReading.same_part_trans.
-Print Assumptions Minimal.PartitionReading.sound_same_part.
-Print Assumptions Minimal.PartitionReading.sound_refines.
-Print Assumptions Minimal.PartitionReading.pr_entitled_iff_refines.
-Print Assumptions Minimal.PartitionReading.pairs_ok_iff.
-Print Assumptions Minimal.PartitionReading.sound_b_iff.
-Print Assumptions Minimal.PartitionReading.same_part_b_iff.
-Print Assumptions Minimal.PartitionReading.pr_reads_structural.
-Print Assumptions Minimal.PartitionReading.p_inv_step.
-Print Assumptions Minimal.PartitionReading.p_inv_run.
-Print Assumptions Minimal.PartitionReading.p_inv_clean.
-Print Assumptions Minimal.PartitionReading.pr_reading_entitles.
-Print Assumptions Minimal.PartitionReading.pr_reading_entitles_only.
-Print Assumptions Minimal.PartitionReading.pr_toll.
-Print Assumptions Minimal.PartitionReading.p_cinv_step.
-Print Assumptions Minimal.PartitionReading.pr_reading_costs_three.
 (* === Minimal.PassiveGeometry : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.PassiveGeometry.horizontal_projection.
 Print Assumptions Minimal.PassiveGeometry.horizontal_preserves_record.

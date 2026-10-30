@@ -28,7 +28,7 @@ cd "$(dirname "$0")/.."
 
 EXPECTED_CLOSED_MUCORE=10
 EXPECTED_CLOSED_NAPKIN=9
-EXPECTED_CLOSED_AXTHIELE=15
+EXPECTED_CLOSED_AXTHIELE=16
 fail() { echo "VERIFY: FAIL — $1" >&2; exit 1; }
 
 echo "== [1/4] minimal Coq core (minimal/MuCore.v) =="

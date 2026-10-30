@@ -2,8 +2,9 @@ COMPANION CHECKING PROCEDURES
 The Thiele Machine — Devon Thiele
 
 The publication pairs the monograph PDF with the matching tagged repository
-snapshot, whose Coq files carry the proofs the book cites. Run the commands
-below from the repository root.
+snapshot. The arguments are in the monograph; the snapshot also carries a
+formal check of the same statements in Coq, a tool for catching mistakes.
+The commands below run that check from the repository root.
 
 BEGIN RELEASE RECORD
 Companion sources:
@@ -18,12 +19,12 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 9798d81c53994e0d0bd20272d19b2997
-          11b714e280ea9dea3dbcf3d374304ab4
-  corpus digest 8723b6b67bded7444bbd2347d0238290
-                1a74ec380d23bbd2a8da63d8d4287fb6
+  SHA-256 2822ed089642e6107ef15a48f04693e9
+          132ebbfb74055c74ca4a69a4ebcde823
+  corpus digest 8ca20d0f32f01fc6a90e33dd428ab7ec
+                b53a0df3a366d8cac1fa4961597884b7
 Receipt scope:
-  1,795 named declarations in 163 files; the report and raw
+  1,783 named declarations in 163 files; the report and raw
   output state the assumptions used by those declarations.
 END RELEASE RECORD
 

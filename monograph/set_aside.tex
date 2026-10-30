@@ -623,9 +623,7 @@ The argument is two lines: the exchange takes the first face to the second;
 respecting that exchange makes their readings equal. Those are all the
 faces. It does not make every machine's reading constant. It rules out a
 nonconstant reading selected from the transition structure alone on every
-machine. \footnote{Checked in \texttt{coq/audit/IntrinsicBoundary.v}:
-\path{toggle_symmetry_forces_constant_reading} and
-\path{no_nonconstant_renaming_invariant_toggle_reading}.}
+machine. 
 
 That fixes what the uniqueness claim can say. The box, lamp and tally have
 a unique observable realization under the contract already proved. The
@@ -651,8 +649,7 @@ and is asked for two different next answers to the same button. It cannot
 do it. Keep the hidden switch too and the problem disappears. This is a
 reason the additional distinction is necessary for this task: the next
 press can expose it. It is not a reason every task needs that switch.
-\footnote{\path{hidden_bit_blocks_visible_only_dynamics},
-\texttt{coq/audit/ObservationContract.v}.}
+
 
 There is a complete test for this kind of description. First write down
 the underlying configurations, the permitted buttons, every permitted
@@ -677,11 +674,9 @@ answers. On a finite listed model this can be checked against its complete
 table. For arbitrary state types the choices and their effectiveness are
 separate data; the proof does not manufacture a search procedure.
 
-This test allows several successors of an underlying configuration.\footnote{
-\path{operational_adequacy_iff}, \texttt{coq/audit/ObservationContract.v}.} If two of them give different
+This test allows several successors of an underlying configuration. If two of them give different
 required answers, no exact deterministic encoding of that same
-configuration and button can represent both. \footnote{\path{branching_answers_exclude_exact_deterministic_encoding},\newline
-\texttt{coq/audit/ObservationContract.v}.}
+configuration and button can represent both. 
 A probability distribution over outcomes, or a finer state including a
 chosen input or seed, is a different contract and must be described as one.
 
@@ -713,9 +708,7 @@ unit per tick and satisfy the basic toll. Only the first has permanence.
 The permanent interface excludes the second by its rule, not by pretending
 that the finite observation already excluded it.
 
-The construction works for every finite horizon.\footnote{
-\path{finite_observations_do_not_establish_permanence},
-\texttt{coq/audit/IntrinsicBoundary.v}.} It is not a prediction that every
+The construction works for every finite horizon. It is not a prediction that every
 real record fails. It shows why a finite run alone cannot establish an
 unrestricted forever claim. A proof from an adequate mechanism, or an
 explicitly bounded reliability claim supported by measurements, has work

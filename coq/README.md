@@ -20,6 +20,8 @@ For a fresh source-only rebuild, see [docs/REPRODUCTION.md](../docs/REPRODUCTION
 | Directory | Description |
 |-----------|-------------|
 | `kernel/` | The abstract model and its results; see [`kernel/README.md`](kernel/README.md) |
+| `RESULTS.md` | The results the formal check covers, each with the declarations that check it and its status |
+| `THEOREM_MEANINGS.md` | One plain sentence per cited theorem saying what its Coq statement asserts |
 | `audit/` | Least prices, the least price for the history lift (`AxThieleLeast.v`), observation contracts and boundary results |
 | `test_fixtures/` | `VacuitySmoke.v`, the fixture the kernel-conversion vacuity gate checks itself against |
 | top-level `AssumptionsProbeAll.v` | Generated `Print Assumptions` probe that feeds the assumption receipt |

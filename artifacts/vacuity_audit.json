@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v2",
   "summary": {
     "error": 0,
-    "ok": 1786,
-    "total": 1786,
+    "ok": 1774,
+    "total": 1774,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -7839,49 +7839,29 @@
       "status": "ok"
     },
     {
-      "file": "minimal/PartitionReading.v",
+      "file": "minimal/Grouping.v",
       "kind": "Theorem",
-      "line": 92,
-      "name": "pr_grouping_partition",
+      "line": 47,
+      "name": "grouping_partition",
       "probe_a": null,
       "probe_b": null,
       "statement": "forall g : grouping, is_partition X (blocks_of X (fun x y => g x = g y))",
       "status": "ok"
     },
     {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 99,
-      "name": "same_part_sym",
+      "file": "minimal/Grouping.v",
+      "kind": "Theorem",
+      "line": 55,
+      "name": "grouping_sound_structural",
       "probe_a": null,
       "probe_b": null,
-      "statement": "forall g g', same_part g g' -> same_part g' g",
+      "statement": "forall k g g', same_part g g' -> (sound k g <-> sound k g')",
       "status": "ok"
     },
     {
-      "file": "minimal/PartitionReading.v",
+      "file": "minimal/Grouping.v",
       "kind": "Lemma",
-      "line": 102,
-      "name": "same_part_trans",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall g g' g'', same_part g g' -> same_part g' g'' -> same_part g g''",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 107,
-      "name": "sound_same_part",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k g g', same_part g g' -> sound k g -> sound k g'",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 113,
+      "line": 65,
       "name": "sound_refines",
       "probe_a": null,
       "probe_b": null,
@@ -7889,133 +7869,23 @@
       "status": "ok"
     },
     {
-      "file": "minimal/PartitionReading.v",
+      "file": "minimal/Grouping.v",
       "kind": "Theorem",
-      "line": 118,
-      "name": "pr_entitled_iff_refines",
+      "line": 70,
+      "name": "sound_transfers_iff_refines",
       "probe_a": null,
       "probe_b": null,
       "statement": "forall g h : grouping, (forall k : key, sound k g -> sound k h) <-> refines h g",
       "status": "ok"
     },
     {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 133,
-      "name": "pairs_ok_iff",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall p, pairs_ok p = true <-> forall x y, In x items -> In y items -> p x y = true",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 144,
-      "name": "sound_b_iff",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall k g, sound_b k g = true <-> sound k g",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 156,
-      "name": "same_part_b_iff",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall g g', same_part_b g g' = true <-> same_part g g'",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
+      "file": "minimal/Grouping.v",
       "kind": "Theorem",
-      "line": 232,
-      "name": "pr_reads_structural",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall g g' s, same_part g g' -> (pr_reads g s <-> pr_reads g' s)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 247,
-      "name": "p_inv_step",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall s m, p_inv s -> p_inv (p_step s m)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 277,
-      "name": "p_inv_run",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall tr s, p_inv s -> p_inv (prun tr s)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 283,
-      "name": "p_inv_clean",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall s, p_clean s -> p_inv s",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Theorem",
-      "line": 292,
-      "name": "pr_reading_entitles",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall s0 tr g, p_clean s0 -> pr_reads g (prun tr s0) -> exists c k, p_cert (prun tr s0) = Some (c, k) /\\ sound k g /\\ forall h, refines h g -> sound k h",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Theorem",
-      "line": 306,
-      "name": "pr_reading_entitles_only",
+      "line": 80,
+      "name": "sound_only_for_refinements",
       "probe_a": null,
       "probe_b": null,
       "statement": "forall g h, ~ refines h g -> exists k, sound k g /\\ ~ sound k h",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Theorem",
-      "line": 315,
-      "name": "pr_toll",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "T.obeys_toll pr_machine",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Lemma",
-      "line": 334,
-      "name": "p_cinv_step",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall s0 s m, p_cinv s0 s -> p_cinv s0 (p_step s m)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/PartitionReading.v",
-      "kind": "Theorem",
-      "line": 363,
-      "name": "pr_reading_costs_three",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall s0 tr, p_clean s0 -> p_flag (prun tr s0) = true -> p_led (prun tr s0) >= p_led s0 + 3",
       "status": "ok"
     },
     {
@@ -10245,7 +10115,7 @@
       "name": "history_lift_is_thiele",
       "probe_a": null,
       "probe_b": null,
-      "statement": "forall s0 tr, ax_run (X := M) tr s0 = x -> s0 <> x -> ax_thiele history_lift (fun p => p = (s0, false))",
+      "statement": "forall s0 tr, ax_run (X := M) tr s0 = x -> s0 <> x -> ax_thiele history_lift (fun p => snd p = false)",
       "status": "ok"
     },
     {
@@ -10261,11 +10131,21 @@
     {
       "file": "coq/kernel/foundation/AxThiele.v",
       "kind": "Theorem",
-      "line": 327,
+      "line": 331,
+      "name": "shadow_hides_history_reachable",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall s0 tr, ax_run (X := M) tr s0 = x -> s0 <> x -> lift_reachable (x, false) /\\ lift_reachable (x, true) /\\ ~ (exists f : ax_state A P M -> bool, forall p, lift_reachable p -> f (fst p) = ax_rec bool two_pre history_lift p)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/AxThiele.v",
+      "kind": "Theorem",
+      "line": 356,
       "name": "moving_machine_is_a_shadow",
       "probe_a": null,
       "probe_b": null,
-      "statement": "forall (A : Type) (P : BPre A) (M : AxSys A P) (eqb : ax_state A P M -> ax_state A P M -> bool), (forall a b, eqb a b = true <-> a = b) -> forall s0 tr, ax_run (X := M) tr s0 <> s0 -> ax_thiele (history_lift A P M eqb (ax_run tr s0)) (fun p => p = (s0, false))",
+      "statement": "forall (A : Type) (P : BPre A) (M : AxSys A P) (eqb : ax_state A P M -> ax_state A P M -> bool), (forall a b, eqb a b = true <-> a = b) -> forall s0 tr, ax_run (X := M) tr s0 <> s0 -> ax_thiele (history_lift A P M eqb (ax_run tr s0)) (fun p => snd p = false)",
       "status": "ok"
     },
     {
@@ -17775,7 +17655,7 @@
       "name": "least_lift_is_thiele",
       "probe_a": null,
       "probe_b": null,
-      "statement": "forall s0 tr, ax_run (X := M) tr s0 = x -> s0 <> x -> ax_thiele (history_lift_priced lift_least_price) (fun p => p = (s0, false))",
+      "statement": "forall s0 tr, ax_run (X := M) tr s0 = x -> s0 <> x -> ax_thiele (history_lift_priced lift_least_price) (fun p => snd p = false)",
       "status": "ok"
     },
     {

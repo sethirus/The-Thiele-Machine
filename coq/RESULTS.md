@@ -2,14 +2,13 @@
 
 The Thiele Machine is an abstract model. A priced record system has states, moves, a step, a price on each move, a reading into a preorder, and the toll: a move that carries the reading out of its down-set costs at least 1. A Thiele machine is a priced record system whose reading no move lowers and some run from a designated start raises. Each result below names its class: every Thiele machine, every system that obeys the toll, or every certification system (the two-point record with the toll alone).
 
-This file states the settled results about the definition and its members,
-the record axis and the events it can carry, recursion and undecidability,
-pricing and physics, and the real systems the repository models. Further
-settled results are stated, with their premises and declarations, in the
-mathematical specification (monograph/thiele_machine_math_spec.tex) and are
-not repeated here: the record over any order, and the results showing that
-each premise is needed. Each result below names the Coq declarations that carry it and has one
-of four statuses:
+This file sits beside the Coq development and indexes what it checks. The
+arguments for every result are in the monograph, on the page; the Coq is a
+tool for catching mistakes in them, not the reason to believe them. The list
+covers the definition and its members, the record axis and the events it can
+carry, recursion and undecidability, pricing and physics, and the real
+systems the repository models. Each result below names the Coq declarations
+that check it and has one of four statuses:
 
 - **Proved.** The result has a proof, written out in the monograph for the
   results the monograph states, and a named Coq theorem states it formally.
@@ -63,12 +62,15 @@ function can be flat under one reading and a member under another.
 - **Proved.** Every machine with a Boolean equality test on its states and
   a run that ends on a state other than its start is the shadow of a
   member: fit a bit that goes up when a move lands on the state the run
-  ends on and never comes down, price every move one, and read the bit.
-  Dropping the bit gives back the original run. Above every shadow sit two
-  lifted states with different readings, and no function of the shadow
-  recovers the reading. Coq: `history_lift`, `history_lift_shadow`,
-  `history_lift_is_thiele`, `moving_machine_is_a_shadow`,
-  `shadow_hides_history`.
+  ends on and never comes down, price every move one, read the bit, and let
+  every state with the bit down be a start. Dropping the bit gives back the
+  original run. Above every shadow sit two lifted states with different
+  readings, and no function of the shadow recovers the reading; that holds
+  on the states runs reach, since the chosen state with its bit down is a
+  start and the run that reaches it lands there with the bit up. Coq:
+  `history_lift`, `history_lift_shadow`, `history_lift_is_thiele`,
+  `moving_machine_is_a_shadow`, `shadow_hides_history`,
+  `shadow_hides_history_reachable`.
 - **Proved.** Over a finite base the least price list for the lift is one
   on every move that can land on the lifted state and zero elsewhere; the
   toll holds for the lift exactly when its prices are at least that list,

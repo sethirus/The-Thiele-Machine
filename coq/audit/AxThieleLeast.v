@@ -98,7 +98,7 @@ Qed.
 (** The lift with the least price list is a member. *)
 Theorem least_lift_is_thiele : forall s0 tr,
   ax_run (X := M) tr s0 = x -> s0 <> x ->
-  ax_thiele (history_lift_priced lift_least_price) (fun p => p = (s0, false)).
+  ax_thiele (history_lift_priced lift_least_price) (fun p => snd p = false).
 Proof.
   intros s0 tr Hrun Hne.
   destruct (history_lift_is_thiele A P M eqb eqb_eq x s0 tr Hrun Hne) as [_ [Hg Hd]].
