@@ -112,7 +112,7 @@ What doesn't follow
 Some things look like they follow and don't. Here they are, so you don't carry them out of the book by accident.
 
 The counter isn't a heat meter. Once you pick the start and the price list, the number is forced by arithmetic, and it isn't energy. To read it as energy
-you'd need to say which states carry information, how the charge relates to what a device gives off, and that both of those can hold at once; chapter twenty
+you'd need to say which states carry information, how the charge relates to what a device gives off, and that both of those can hold at once; chapter twenty-one
 did the last part and showed it only means the two don't contradict each other.
 
 No question about what computers can do in a given time follows. Whether P equals NP is one of the seven problems the Clay Mathematics Institute put a million
@@ -128,7 +128,7 @@ far.
 
 The choice of event isn't forced. The pointer thesis is a thesis. The cup over any machine is a theorem, and it says the event is a choice.
 
-The two walls stay two walls. Chapter seven's is about what a watcher can't get back through a window; chapter sixteen's is about what no inside procedure can
+The two walls stay two walls. Chapter seven's is about what a watcher can't get back through a window; chapter seventeen's is about what no inside procedure can
 decide. Linking them would take an argument of its own, and this book doesn't have one.
 
 The entitlement count in chapter twelve is handed its groups and its covering. It doesn't dig them out of an arbitrary run.
@@ -139,7 +139,7 @@ those branches different weights, one choosing evenly and one two to one. The pr
 Every guarantee about an established record is about runs: any list of moves, from a clean start, on a step that does what it says, one writer at a time. Whoever sets
 the start, the wire that carries the report out and the tools that built the step are outside that fence.
 
-The five real systems are copies of pieces, with their limits named in chapter seventeen. None of them is a check of the running system. And I looked for a result about
+The five real systems are copies of pieces, with their limits named in chapter eighteen. None of them is a check of the running system. And I looked for a result about
 real systems that needs the record and is ready to use. I don't have one.
 
 
@@ -202,7 +202,7 @@ same accepted set. It doesn't build an exact description of the original process
 or by a counter that keeps ticking, which takes fresh states, accepts the same inputs.
 
 "Final" has to cover the rejected inputs too, and here's why. Build a machine that starts at no, reads yes while program n is still running, and falls to no for good if it stops. It reads yes for good on exactly the
-programs that never stop. No program lists those: one that did, run beside the plain search for a stop, would tell you for every program whether it stops, and chapter sixteen showed nothing can.
+programs that never stop. No program lists those: one that did, run beside the plain search for a stop, would tell you for every program whether it stops, and chapter seventeen showed nothing can.
 
 
 What isn't settled
@@ -212,7 +212,7 @@ Four things, each with what would settle it.
 Whether Landauer's critics are right. That would leave every argument standing and one assumption unowned by the world. What settles it is measurements of real devices, and an argument about what the principle
 means in general that both sides accept.
 
-Whether the established record really is the pointer event. What settles it is chapter eighteen's three comparisons, run on systems people actually use.
+Whether the established record really is the pointer event. What settles it is chapter nineteen's three comparisons, run on systems people actually use.
 
 Whether the toll is the right thing to price at all. The five real systems mostly built a wall or a penalty for contradicting yourself. I can't prove a toll is better, and I won't pretend the five say so.
 

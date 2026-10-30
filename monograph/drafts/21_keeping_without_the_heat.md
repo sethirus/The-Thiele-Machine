@@ -313,7 +313,7 @@ them.
 
 Physics has a word for the moment a question closes: measurement. And the people who thought hardest about it keep describing it in this book's shape. They ran together for me until I put them on one picture. Flip a coin in a crowded
 room. Before it lands, it could go either way. After, it's settled, somebody chalks it on a board, and the result gets copied out into the world, the light and the air, so many times that it can't be taken back and everybody who looks
-agrees. Five pieces: the question, the landing, the chalk mark, the copies, the agreeing. Each person leans on a different one. Zurek, in chapter eighteen, leans on the copies. Rovelli's coin, in chapter six, has to hit the ground, so his
+agrees. Five pieces: the question, the landing, the chalk mark, the copies, the agreeing. Each person leans on a different one. Zurek, in chapter nineteen, leans on the copies. Rovelli's coin, in chapter six, has to hit the ground, so his
 piece is the landing.
 
 Niels Bohr, the Danish physicist whose institute in Copenhagen was where quantum mechanics got argued into shape, leans on the mark. In a talk at Columbia University's bicentennial in October 1954, printed in his 1958 book Atomic Physics
@@ -329,7 +329,7 @@ and in the coin. Zurek and Peirce lean on many onlookers who agree, one with lig
 
 Lay that next to everything in this book and the parts line up: a check that could have come out either way, a result that's now settled, a price paid in forgetting or in fresh states, a record that stays. I suspect that isn't a coincidence.
 I suspect the event this book prices on a machine is the same kind of event physics calls a measurement, turning up in a different place. The forgetting is my step: Bohr only says irreversible, and getting from a record that stays to a merge or
-to fresh states is chapter two's counting. Push on it and it gives at Zurek, for the reason chapter eighteen gave: copying onto fresh light merges nothing and uses up fresh states, which is chapter six's look that owes no floor. So physics' own
+to fresh states is chapter two's counting. Push on it and it gives at Zurek, for the reason chapter nineteen gave: copying onto fresh light merges nothing and uses up fresh states, which is chapter six's look that owes no floor. So physics' own
 word lands on both sides of the line: the chalk on the paying side, the copies on the borrowing side. The landing I'd put with the chalk, and when chapter six pushed on Rovelli's paper it slid toward the borrowing side, the side of finding out.
 So two pieces already stick out, and I'll leave them sticking out. That's as far as I'll take it: a suspicion.
 

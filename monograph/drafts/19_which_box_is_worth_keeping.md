@@ -2,7 +2,7 @@ Which box is worth keeping
 
 Everything so far leaves one choice open. Chapter fourteen showed that a box that answers to
 the machine and never comes down is a cup on some event, and that the event is a choice: the
-two cups on one die were both happy under the same rules. Chapter seventeen found five real
+two cups on one die were both happy under the same rules. Chapter eighteen found five real
 systems that each picked a different event. And in this book I picked one too: the established
 record from chapter eight, a box that goes up only right after a check of the very claim it
 records has passed. So I owe you an answer to the obvious question. Is that just my choice, or
@@ -53,7 +53,7 @@ list charges for and its counter adds up, the established record is the one whos
 relied on by parties who didn't make them: checked, stored and acted on in separate places that share
 nothing else.
 
-Copying alone can't be the test. A system run as many copies, like chapter seventeen's chains, copies
+Copying alone can't be the test. A system run as many copies, like chapter eighteen's chains, copies
 everything it holds to every copy: the gas a block used, as faithfully as the word final. So rival events
 get copied too. Reliance doesn't split them apart either. On Ethereum, since a 2021 change called
 EIP-1559, the gas the last block used sets the next block's base fee: aim for a block half full, and if
@@ -201,8 +201,9 @@ Chapter eleven showed that once the price list is fixed, the counter is arithmet
 Chapter twelve showed what a ticked box lets you lean on, and no more. Chapter thirteen chose the meaning of insight: a distinction made to stay, with
 price and depth kept apart. Chapter fourteen showed that over any machine, a box that answers to it and never comes down is a cup, with two choices left
 open, the price list and the event. Chapter fifteen showed what the toll pays for when the machine is finite, the record only grows and the uncovered
-machine forgets nothing: crushing two states of one pile. Chapter sixteen showed that a machine's own shortcuts can't be judged from inside it, and that the
-commitment can still be recorded. Chapter seventeen found that of five real systems, read through my copies, one charges a fee at the write. And this chapter
+machine forgets nothing: crushing two states of one pile. Chapter sixteen let the machine read its box to take a shortcut, and found
+four ways to keep the shortcut honest after the data changes, each one chapter two's bill in a different currency. Chapter seventeen showed that a machine's own shortcuts can't be judged from inside it, and that the
+commitment can still be recorded. Chapter eighteen found that of five real systems, read through my copies, one charges a fee at the write. And this chapter
 proposes the event, and says how the proposal could fail.
 
 
@@ -230,7 +231,7 @@ step price again. So the uniqueness is real, and it's small. It holds once you'v
 is the pointer thesis, which is still a thesis.
 
 The uniqueness results that do exist are about pricing information lost, and they're worth a look because they say what kind of charge a price on merging is.
-John Baez, Tobias Fritz and Tom Leinster in 2011, mathematicians who work in category theory, the mathematics Lawvere's diagonal from chapter sixteen came from,
+John Baez, Tobias Fritz and Tom Leinster in 2011, mathematicians who work in category theory, the mathematics Lawvere's diagonal from chapter seventeen came from,
 asked what a measure of information loss has to look like. As I read their paper, they proved that for maps that keep track of the probabilities, Shannon's
 entropy, up to a constant factor, is the only measure of information loss with three natural properties: it adds up along a chain of maps, it mixes the way
 probabilities mix, and it changes smoothly. János Aczél and Bruno Forte, mathematicians at the University of Waterloo who worked on functional equations, and Che
@@ -242,7 +243,7 @@ who asked what learning something should cost, proved, by their account, a uniqu
 experiment twice costs exactly twice as much as running it once. That prices producing a signal, which is a different matter from chapter six's copy onto a blank page; the copy owes no
 floor and borrows fresh paper.
 
-Most of that isn't a machine. The arguments in this book are about any states and any moves, and chapter seventeen's five are small copies of somebody else's
+Most of that isn't a machine. The arguments in this book are about any states and any moves, and chapter eighteen's five are small copies of somebody else's
 systems. The smallest machine is the box from chapter four, with every part named and every price written down. That's where everything above has something to
 bump into. If a statement up there doesn't mean what I think it means, the box and the five copies are where it shows.
 

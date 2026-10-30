@@ -127,12 +127,11 @@ night promised me. It's also the part of it that held when I pushed.
 
 Shortcuts
 
-There's a question every machine with a record runs into once its programs can be handed their own
-code. A box is worth turning up because something later can glance at it and not have to work the thing
+A box is worth turning up because something later can glance at it and not have to work the thing
 out again, the way chapter ten's glance reads a block's bucket off a table without applying the rule from
 scratch. Call any move like that a shortcut, and call it sound when it gives the same answer the long way
 would have.
 
-So can a machine like that decide, from inside, whether its own shortcuts are sound? That question runs
-into a wall, the same wall Kurt Gödel and Alan Turing hit, and I have to show you that the wall is there
-before I show you anything that pretends to be on the other side of it. That's the next chapter.
+But everything in this chapter covered the box, and it could only do that because nothing in the machine
+read it. A machine that reads its box to take a shortcut isn't the machine this chapter studied: cover the
+box and the steps change. So what happens when the machine actually reads its box? That's the next chapter.

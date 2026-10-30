@@ -131,7 +131,7 @@ lengths: each is back where it began. But they were together after one step, and
 have begun in the same place. They didn't. So down below, one of three things happens: the fine step merges, or it steps out of the states
 the coarse picture describes, or it runs off taking a new one every tick. The three ways out from chapter two come back one level down.
 
-Chapter eighteen's dial and light are the example. In the dial's own picture, phases wash out and two starts end up the same: a merge. In the
+Chapter nineteen's dial and light are the example. In the dial's own picture, phases wash out and two starts end up the same: a merge. In the
 picture of dial and light together, the step is one-to-one, and it's the second way: the light starts blank and leaves carrying the copy, so
 the fine step leaves the states where the light is still blank. Nothing merges at the fine scale.
 

@@ -1,4 +1,4 @@
-"""Checks of the countable claims in drafts/20_keeping_without_heat.md."""
+"""Checks of the countable claims in drafts/21_keeping_without_the_heat.md."""
 import random, math
 from itertools import product
 random.seed(20)

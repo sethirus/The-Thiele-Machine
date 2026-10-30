@@ -1,4 +1,4 @@
-"""Checks of the countable claims in drafts/18_which_box_is_worth_keeping.md."""
+"""Checks of the countable claims in drafts/19_which_box_is_worth_keeping.md."""
 import random
 from fractions import Fraction as F
 from itertools import product, permutations

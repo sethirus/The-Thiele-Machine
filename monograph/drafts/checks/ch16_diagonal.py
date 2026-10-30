@@ -1,4 +1,4 @@
-"""Checks of the countable claims in drafts/16_what_a_machine_cant_decide_about_itself.md."""
+"""Checks of the countable claims in drafts/17_what_a_machine_cant_decide_about_itself.md."""
 import random
 from itertools import product
 random.seed(11)

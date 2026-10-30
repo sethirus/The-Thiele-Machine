@@ -2298,9 +2298,85 @@ What I haven't shown is that any of this is out there in the world, that nature 
 
 \subsection{Shortcuts}
 
-There's a question every machine with a record runs into once its programs can be handed their own code. A box is worth turning up because something later can glance at it and not have to work the thing out again, the way chapter ten's glance reads a block's bucket off a table without applying the rule from scratch. Call any move like that a shortcut, and call it sound when it gives the same answer the long way would have.
+A box is worth turning up because something later can glance at it and not have to work the thing out again, the way chapter ten's glance reads a block's bucket off a table without applying the rule from scratch. Call any move like that a shortcut, and call it sound when it gives the same answer the long way would have.
 
-So can a machine like that decide, from inside, whether its own shortcuts are sound? That question runs into a wall, the same wall Kurt Gödel and Alan Turing hit, and I have to show you that the wall is there before I show you anything that pretends to be on the other side of it. That's the next chapter.
+But everything in this chapter covered the box, and it could only do that because nothing in the machine read it. A machine that reads its box to take a shortcut isn't the machine this chapter studied: cover the box and the steps change. So what happens when the machine actually reads its box? That's the next chapter.
+
+%===========================================================================
+\section{Reading the box}
+\label{sec:reading-box}
+%===========================================================================
+
+The last chapter ended on a sentence I didn't follow up: a box is worth turning up because something later can glance at it and not have to work the thing out again. Every chapter so far kept the box as a passenger. Chapter twelve said nothing in the bare machine makes a later step read it. Chapter fifteen asked, as its condition, that nothing in how the rest of the machine moves depends on the cups. Under that condition, cover the box and you get the ordinary computer back, step for step.
+
+That's a fair way to study what a box costs. It's a strange way to leave it, because it means the machine pays to settle something and then never uses it. So in this chapter the machine reads its box. Here's what that buys, what it costs, and how chapter two walks back into the room the moment you try it.
+
+\subsection{The shortcut}
+
+Picture one piece of data, a number that can be changed, and a question to answer about it. There's a long way to answer: a thousand steps, right every time. There's a shortcut: one step, but right only when the number has some property, say that it's even. And there's a check for that property, and a box. The box goes up only right after the check passes, which is chapter eight's established record. Now give the machine one rule: the shortcut may run only when the box is up.
+
+What happens when the number changes? The box was about the old number. So give the number an edition: every write moves it to the next edition, and the box is about one edition, the one that was checked. The shortcut may run only when the box for the current edition is up.
+
+From a clean start, does the shortcut ever give a wrong answer? Walk it. The shortcut runs, so the box for the current edition is up. That box went up only right after a check passed on that edition. Nothing has written to the number since, because any write would have moved it to a new edition. So the number is the one that passed, the property still holds, and the shortcut is right. That's chapter eight's four conditions, doing a job: same property, same thing, same edition, honest check.
+
+And look at what it does to covering the box. Cover it with your hand and you no longer get the same run step for step, because the machine with the box takes the one-step road where the machine without it takes the thousand-step one. You get the same answers, by a different number of steps. So this isn't chapter fifteen's machine. The box has stopped being a passenger.
+
+It computes nothing new. Every answer it gives, the long way gives too. What it saves is steps, the way a cache saves them, and caches are old. What I want to show you is what keeping the shortcut honest costs, because it's chapter two's bill again, in four different currencies.
+
+\subsection{Four doors}
+
+The weak spot is the edition. It's a counter, and on a finite machine a counter can't climb forever. So what do you do? There are four doors, and I'll walk through each one with the machine that walks through it, the way chapter three did.
+
+The first door: let the editions wrap around. Say there are two editions, 0 and 1, and after 1 comes 0 again. Four moves are enough to break it. Check the number 0: it's even, so the box for edition 0 goes up. Write 1: edition 1. Write 3: edition 0 again. Now ask. The box for edition 0 is still up, so the shortcut runs on 3, which is odd, and gives the wrong answer. The box was about the first edition 0, and the shortcut is looking at the second. That's chapter twelve's coin that moved, with a bad coin. And it's chapter eleven's lesson too: a counter that goes back down gets leaned on at exactly the place where it goes down.
+
+Programmers know this one. IBM's manual for its System/370 computers, in the edition of 1974 as revised in 1975, warns about it in a note on an instruction called Compare Double and Swap. One program reads the head of a list; meanwhile another program ``removes the first two messages and then adds the first message back into the chain,'' and the first program, on continuing, ``is not aware that the list is changed.'' The fix in the note is a change number in the word next door, ``incremented for each modification of the list,'' which brings the risk down ``to a negligible level'': it can go wrong only if the first program is held up while a whole multiple of 2 to the 32nd changes go by. That's the first door with a very big wheel. R. Kent Treiber, at IBM, drew the same accident in a 1986 report and fixed it with what he called an allocation counter. The name came later. The earliest I can find is Maged Michael and Michael Scott's, in reports dated December 1995 and their 1996 paper: ``the ABA problem,'' a value that goes from A to B and back to A, so a check that only looks at the value is fooled.
+
+The second door: never reuse an edition. Each edition gets its own box, and a write moves to an edition that's never been used. Every box stays up for good, so this is still a Thiele machine, and the shortcut is never wrong. But it pays in chapter two's second column: fresh paper, a new edition on every write. On a finite machine that's a budget. Once the editions run out, the honest move is a mark that goes up for good and says ``spent,'' and from then on the machine takes the long way. That's chapter eighteen's bank of fuses, one blown per update, with a design rule to make sure there are enough.
+
+The third door: keep one box and knock it down on every write. That's a cache with an invalidate, and the shortcut is never wrong. But the box comes down, so it isn't a Thiele record any more; it's chapter fourteen's toggle. And it doesn't get out of chapter two either. Make the write as gentle as you like, even one that just flips the number between 0 and 1, which on the number alone is one-to-one. Knocking the box down still sends the number with its box up and the same number with its box down to the same place: two arrows meet. That's chapter six's WIPE. And the passing check that put the box up merged two states too: the number with its box down and the same number with its box already up both land on box up. The toggle pays twice.
+
+The fourth door: don't tie the box to the edition at all. Tie it to the value that was checked. ``6 is even'' never goes stale. Write a different number, and the box for 6 is still true, because it's about 6, not about whatever's in the slot. Come back to 6 later and the box is waiting. No editions, nothing wraps, nothing gets knocked down, and every box stays up for good, so it's a Thiele machine and the shortcut is never wrong. It pays in room: one box for every different value that ever passed. That's chapter twenty-one's count. When the values are few, it's few boxes.
+
+This door has an inventor. Donald Michie, at the University of Edinburgh, wrote in Nature in April 1968 about what he called memo functions. Give a function two parts, he said, a ``rule part,'' the procedure that works the answer out, and a ``rote part,'' a look-up table, and let the machine use whichever suits the moment, so that ``each evaluation by rule adds a fresh entry to the rote.'' The word programmers use now, memoization, grew out of his; it isn't in the paper. His rote is a box tied to the value: once an input has been worked out, it never needs working out again.
+
+\subsection{Running all four}
+
+I ran all four on the same twenty thousand programs, forty moves each, on a number from 0 to 5, with the long way at a thousand steps and the shortcut at one. The doors that never reuse an edition get four editions to spend, the same room the first door wraps around in.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.38\linewidth}rr>{\raggedright\arraybackslash}p{0.17\linewidth}@{}}
+\toprule
+Door & Wrong answers & Average steps & A Thiele machine? \\
+\midrule
+No shortcut at all, the long way every time & 0 & 25{,}992 & \\
+1. Box stays up, editions wrap around & 37{,}564 & 17{,}027 & yes, and wrong \\
+2. Box stays up, editions never reused (four to spend) & 0 & 22{,}529 & yes \\
+3. One box, knocked down by every write & 0 & 20{,}082 & no: a toggle \\
+4. Box tied to the value checked & 0 & 17{,}997 & yes \\
+\bottomrule
+\end{tabular}
+
+\footnotesize Twenty thousand programs of forty moves each, on a number from 0 to 5; the long
+way costs a thousand steps and the shortcut one. Wrong answers are counted over all of them.
+\end{center}
+
+The first door is the fastest, and it's fast because it's wrong. The other three are never wrong. On these small numbers the fourth door saves the most, and never needed more than three boxes, because only 0, 2 and 4 are even.
+
+\subsection{Why the other doors exist}
+
+If the fourth door is that good, why doesn't everyone always tie the box to the value? Ask chapter eight's warehouse question. In the run above, the data is one small number, and finding its box takes one look. Make the data chapter eight's list of a thousand numbers. A box tied to the value of the whole list can only be found by reading the whole list, to know which list you're holding. Reading a thousand numbers takes about as long as checking whether they're sorted, which was the check you wanted to skip.
+
+So on big data the fourth door has three ways forward, and each one is a bill you've already seen. Tie the box to a short fingerprint of the list instead, and two different lists can share a fingerprint and a box; that's chapter eighteen's wall, scrambling functions that make that hard but not impossible, and when it happens it's the first door's wrong answer again. Or never change a list at all: keep exactly one copy of each different list and hand around a pointer to it, so the box can sit on the pointer and be found in one glance; that's fresh memory for every new list. Or go back to the second or third door, put the box on the container instead of the value, and let a write move the edition or knock the box down, so a later step can find it in one glance.
+
+Keeping one copy of each value is old too. Andrei Ershov, in a paper printed in Russian in 1958 and translated into English the same year in the first volume of the Communications of the ACM, gave a program that writes programs a way never to work out the same expression twice. It scrambled each instruction into a number that said where to look, checked whether that place already held the same instruction, and reused it if so, in time that grows with the number of instructions instead of its square. Donald Knuth credits him, along with Gene Amdahl, as an independent discoverer of that kind of table. In 1974 Eiichi Goto, at the University of Tokyo, built the idea into a version of Lisp, from a proposal he'd made with three colleagues the year before, and called it monocopy: no two copies of the same structure, so that checking whether two are equal becomes checking whether they're the same one. (This is Andrei Ershov, the programmer. The Ershov whose ladder came up in chapter fourteen is Yuri, a logician.)
+
+\subsection{What the doors say}
+
+Every time a box goes up, it pays the toll, because on a finite machine that's two arrows meeting, and that's chapter two and chapter three. That part was already in the book. What this chapter adds is the second bill. Keeping a shortcut honest after the data changes costs one more thing, and there are exactly four ways to pay it: fresh editions, which is fresh paper or a fuse budget; a box that comes down, which leaves the definition and merges at the wipe; room for every value checked; or nothing, and wrong answers.
+
+None of the four is new. Programmers have used all of them for decades. What's here is that they're four ways of paying chapter two's bill. I haven't found a fifth, and here's why I don't expect one. When the shortcut runs, the machine has to know that the thing in front of it passed the check. Either the box names the thing outright, which is the fourth door, or the box sits on a place and has to know that nothing changed in that place since the check. Knowing that takes a mark that changes when the place does. A mark that only ever moves to new values is the second door, and on a finite machine it runs out or wraps around into the first. A mark that moves back is a box that comes down, the third. That's an argument, not a proof that nothing else could work, and if you find a fifth door I'd like to see it.
+
+And it leaves one question hanging, the one every machine with a record runs into once its programs can be handed their own code. These shortcuts were handed to the machine: I wrote the property, the check and the shortcut. Can a machine find its own shortcuts, and decide from the inside whether one is sound? That question runs into a wall, the same wall Kurt Gödel and Alan Turing hit, and I have to show you the wall is there before anything pretends to be on the other side of it. That's the next chapter.
 
 %===========================================================================
 \section{What a machine can't decide about itself}
@@ -2558,7 +2634,7 @@ What I read in them, and it's a reading of five cases I chose, is that each one 
 \label{sec:worth-keeping}
 %===========================================================================
 
-Everything so far leaves one choice open. Chapter fourteen showed that a box that answers to the machine and never comes down is a cup on some event, and that the event is a choice: the two cups on one die were both happy under the same rules. Chapter seventeen found five real systems that each picked a different event. And in this book I picked one too: the established record from chapter eight, a box that goes up only right after a check of the very claim it records has passed. So I owe you an answer to the obvious question. Is that just my choice, or is there something about how people and machines lean on records that picks that event out?
+Everything so far leaves one choice open. Chapter fourteen showed that a box that answers to the machine and never comes down is a cup on some event, and that the event is a choice: the two cups on one die were both happy under the same rules. Chapter eighteen found five real systems that each picked a different event. And in this book I picked one too: the established record from chapter eight, a box that goes up only right after a check of the very claim it records has passed. So I owe you an answer to the obvious question. Is that just my choice, or is there something about how people and machines lean on records that picks that event out?
 
 What I have is a thesis, in the same sense the Church-Turing thesis from chapter one is one: a claim tying things I can define to the world, which no proof can settle. Nothing before this chapter depends on it. The cups, the windows and the counting hold whichever event a system records. What follows is where the idea came from, what exactly it claims, and how you'd catch it being wrong.
 
@@ -2576,7 +2652,7 @@ What I borrowed is the shape. Take a machine together with everything around it 
 
 Here's the claim, said plainly. Of all the events a machine could put on its bill, the ones its price list charges for and its counter adds up, the established record is the one whose marks get copied and relied on by parties who didn't make them: checked, stored and acted on in separate places that share nothing else.
 
-Copying alone can't be the test. A system run as many copies, like chapter seventeen's chains, copies everything it holds to every copy: the gas a block used, as faithfully as the word final. So rival events get copied too. Reliance doesn't split them apart either. On Ethereum, since a 2021 change called EIP-1559, the gas the last block used sets the next block's base fee: aim for a block half full, and if the last one came out completely full, the base fee goes up by an eighth, so 800 becomes 900; if it came out empty, it drops by an eighth, to 700. Every copy reads that number and acts on it. That's an event nobody would call an established record, copied and relied on by parties who didn't make it.
+Copying alone can't be the test. A system run as many copies, like chapter eighteen's chains, copies everything it holds to every copy: the gas a block used, as faithfully as the word final. So rival events get copied too. Reliance doesn't split them apart either. On Ethereum, since a 2021 change called EIP-1559, the gas the last block used sets the next block's base fee: aim for a block half full, and if the last one came out completely full, the base fee goes up by an eighth, so 800 becomes 900; if it came out empty, it drops by an eighth, to 700. Every copy reads that number and acts on it. That's an event nobody would call an established record, copied and relied on by parties who didn't make it.
 
 So examples can't show that only the established record gets copied and relied on. What the thesis has to ask is narrower: whether some kind of reliance, picked out for its own reasons, selects that event, and whether that selection gives a reason to charge for it. Any exact test fixes its readers and their actions in advance. It can test those choices, but it can't choose the real readers for me.
 
@@ -2628,7 +2704,7 @@ Those comparisons are the evidence the claim about the world asks for. The exact
 
 This is the last choice the book has to own, so here's the whole road behind it, with what was shown kept apart from what was chosen.
 
-Chapters one and two showed that on a finite machine, settling something for good makes two arrows meet, unless the machine uses fresh paper on every tick. Chapter three chose a price on two arrows meeting, Bennett's rule, and showed that with it, every move that settles something for good costs at least one. Chapter four built the smallest machine where that happens. Chapter five showed that a record with more than two positions is a row of cups, that a straight line of stages needs exactly one cup fewer than it has stages, and that the toll on the row charges at least one on any step that turns up a cup. Chapter six showed that looking can be free: a look uses up a blank page, which can be handed back, and owes no floor. Chapter seven showed that a window with a clash can't price exactly. Chapter eight chose what ``established'' means: up only right after a passing check of the claim. Chapter nine drew what settling looks like, a sorting with a door that only swings one way. Chapter ten said what structure is and which ruler I chose to measure it. Chapter eleven showed that once the price list is fixed, the counter is arithmetic, and that a counter that goes down gets leaned on where it goes down. Chapter twelve showed what a ticked box lets you lean on, and no more. Chapter thirteen chose the meaning of insight: a distinction made to stay, with price and depth kept apart. Chapter fourteen showed that over any machine, a box that answers to it and never comes down is a cup, with two choices left open, the price list and the event. Chapter fifteen showed what the toll pays for when the machine is finite, the record only grows and the uncovered machine forgets nothing: crushing two states of one pile. Chapter sixteen showed that a machine's own shortcuts can't be judged from inside it, and that the commitment can still be recorded. Chapter seventeen found that of five real systems, read through my copies, one charges a fee at the write. And this chapter proposes the event, and says how the proposal could fail.
+Chapters one and two showed that on a finite machine, settling something for good makes two arrows meet, unless the machine uses fresh paper on every tick. Chapter three chose a price on two arrows meeting, Bennett's rule, and showed that with it, every move that settles something for good costs at least one. Chapter four built the smallest machine where that happens. Chapter five showed that a record with more than two positions is a row of cups, that a straight line of stages needs exactly one cup fewer than it has stages, and that the toll on the row charges at least one on any step that turns up a cup. Chapter six showed that looking can be free: a look uses up a blank page, which can be handed back, and owes no floor. Chapter seven showed that a window with a clash can't price exactly. Chapter eight chose what ``established'' means: up only right after a passing check of the claim. Chapter nine drew what settling looks like, a sorting with a door that only swings one way. Chapter ten said what structure is and which ruler I chose to measure it. Chapter eleven showed that once the price list is fixed, the counter is arithmetic, and that a counter that goes down gets leaned on where it goes down. Chapter twelve showed what a ticked box lets you lean on, and no more. Chapter thirteen chose the meaning of insight: a distinction made to stay, with price and depth kept apart. Chapter fourteen showed that over any machine, a box that answers to it and never comes down is a cup, with two choices left open, the price list and the event. Chapter fifteen showed what the toll pays for when the machine is finite, the record only grows and the uncovered machine forgets nothing: crushing two states of one pile. Chapter sixteen let the machine read its box to take a shortcut, and found four ways to keep the shortcut honest after the data changes, each one chapter two's bill in a different currency. Chapter seventeen showed that a machine's own shortcuts can't be judged from inside it, and that the commitment can still be recorded. Chapter eighteen found that of five real systems, read through my copies, one charges a fee at the write. And this chapter proposes the event, and says how the proposal could fail.
 
 \subsection{Does the list of requirements pick out the toll?}
 
@@ -2640,9 +2716,9 @@ Now try requirements that never mention the reading. No charge on a move that ch
 
 What chooses is a requirement that names the record: over any run, the total is never more than the number of times the reading went up. The smooth from once raises nothing, so it has to cost nothing. With the floor from the toll, that leaves exactly one price, one per raise and nothing else, which is chapter seven's step price again. So the uniqueness is real, and it's small. It holds once you've said which reading you're charging for. And which reading deserves the charge is the pointer thesis, which is still a thesis.
 
-The uniqueness results that do exist are about pricing information lost, and they're worth a look because they say what kind of charge a price on merging is. John Baez, Tobias Fritz and Tom Leinster in 2011, mathematicians who work in category theory, the mathematics Lawvere's diagonal from chapter sixteen came from, asked what a measure of information loss has to look like. As I read their paper, they proved that for maps that keep track of the probabilities, Shannon's entropy, up to a constant factor, is the only measure of information loss with three natural properties: it adds up along a chain of maps, it mixes the way probabilities mix, and it changes smoothly. János Aczél and Bruno Forte, mathematicians at the University of Waterloo who worked on functional equations, and Che Tat Ng, who had taken his doctorate there under Aczél in 1971, asked in a 1974 paper which entropies deserve to be called natural, and proved, by their account, that the ones with a short list of natural properties are exactly the mixtures of Shannon's and Hartley's, where Hartley's is just the log of the count. So even for merges, the choice between the average and the count is a real choice. Both price merges. Neither prices raises, so neither picks out the toll, and that's the three states again, at a larger size. On the other side of the fence, Luciano Pomatto, Philipp Strack and Omer Tamuz in 2023, economists at Caltech and Yale who asked what learning something should cost, proved, by their account, a uniqueness result for what it costs to get information, when running the same experiment twice costs exactly twice as much as running it once. That prices producing a signal, which is a different matter from chapter six's copy onto a blank page; the copy owes no floor and borrows fresh paper.
+The uniqueness results that do exist are about pricing information lost, and they're worth a look because they say what kind of charge a price on merging is. John Baez, Tobias Fritz and Tom Leinster in 2011, mathematicians who work in category theory, the mathematics Lawvere's diagonal from chapter seventeen came from, asked what a measure of information loss has to look like. As I read their paper, they proved that for maps that keep track of the probabilities, Shannon's entropy, up to a constant factor, is the only measure of information loss with three natural properties: it adds up along a chain of maps, it mixes the way probabilities mix, and it changes smoothly. János Aczél and Bruno Forte, mathematicians at the University of Waterloo who worked on functional equations, and Che Tat Ng, who had taken his doctorate there under Aczél in 1971, asked in a 1974 paper which entropies deserve to be called natural, and proved, by their account, that the ones with a short list of natural properties are exactly the mixtures of Shannon's and Hartley's, where Hartley's is just the log of the count. So even for merges, the choice between the average and the count is a real choice. Both price merges. Neither prices raises, so neither picks out the toll, and that's the three states again, at a larger size. On the other side of the fence, Luciano Pomatto, Philipp Strack and Omer Tamuz in 2023, economists at Caltech and Yale who asked what learning something should cost, proved, by their account, a uniqueness result for what it costs to get information, when running the same experiment twice costs exactly twice as much as running it once. That prices producing a signal, which is a different matter from chapter six's copy onto a blank page; the copy owes no floor and borrows fresh paper.
 
-Most of that isn't a machine. The arguments in this book are about any states and any moves, and chapter seventeen's five are small copies of somebody else's systems. The smallest machine is the box from chapter four, with every part named and every price written down. That's where everything above has something to bump into. If a statement up there doesn't mean what I think it means, the box and the five copies are where it shows.
+Most of that isn't a machine. The arguments in this book are about any states and any moves, and chapter eighteen's five are small copies of somebody else's systems. The smallest machine is the box from chapter four, with every part named and every price written down. That's where everything above has something to bump into. If a statement up there doesn't mean what I think it means, the box and the five copies are where it shows.
 
 Every price in this book so far is one I wrote down. Whether the world charges anything like it, in heat, is a question for physics, and it's the next chapter.
 
@@ -2693,7 +2769,7 @@ Does that make the whole argument depend on where you draw the machine? Draw it 
 
 Draw the fine states, and draw a fence around each group of them that counts as one coarse state. Say the coarse description follows the fine one exactly: wherever a fine state steps, its fence steps to the fence of where it landed, and every fence has at least one fine state in it. Now say the coarse picture merges: two fences step to one fence. Then something has to give down below. Suppose it doesn't: the fine step never merges, never steps outside the fenced states, and no run goes on landing on fine states it hasn't been to before, forever. Follow any fine run. It must come back to some fine state it's been in, and since nothing merges, walk the two visits back together one step at a time, the way chapter two did, until the earlier one reaches the start. So every fine run is a loop through its own start. Look at that loop through the fences: every fence is on a loop too. Now take the two fences that stepped to one. Wait as many steps as the product of their two loop lengths: each is back where it began. But they were together after one step, and the same rule can't pull them apart again, so they must have begun in the same place. They didn't. So down below, one of three things happens: the fine step merges, or it steps out of the states the coarse picture describes, or it runs off taking a new one every tick. The three ways out from chapter two come back one level down.
 
-Chapter eighteen's dial and light are the example. In the dial's own picture, phases wash out and two starts end up the same: a merge. In the picture of dial and light together, the step is one-to-one, and it's the second way: the light starts blank and leaves carrying the copy, so the fine step leaves the states where the light is still blank. Nothing merges at the fine scale.
+Chapter nineteen's dial and light are the example. In the dial's own picture, phases wash out and two starts end up the same: a merge. In the picture of dial and light together, the step is one-to-one, and it's the second way: the light starts blank and leaves carrying the copy, so the fine step leaves the states where the light is still blank. Nothing merges at the fine scale.
 
 And that's where the heat floor sits: where the merge really is. Landauer's assumption charges the scale whose step merges states that were really possible. A description that merges only because it stopped looking at the light owes that floor nowhere just because of that. Pushing a distinction out isn't heat yet, either: another memory could keep it as a readable record. It becomes heat when a reset removes real uncertainty into something warm, a reservoir, and then Landauer's assumption bounds the average heat handed over.
 
@@ -3069,11 +3145,11 @@ A thesis, not shown. Put those beside the second law of thermodynamics and the s
 
 This is underneath the arguments, so read it with the lights on. None of it is shown, and I'm not going to dress it up. It's why I care, and it's here, after the arguments and apart from them, so you can check that none of it got into them.
 
-Physics has a word for the moment a question closes: measurement. And the people who thought hardest about it keep describing it in this book's shape. They ran together for me until I put them on one picture. Flip a coin in a crowded room. Before it lands, it could go either way. After, it's settled, somebody chalks it on a board, and the result gets copied out into the world, the light and the air, so many times that it can't be taken back and everybody who looks agrees. Five pieces: the question, the landing, the chalk mark, the copies, the agreeing. Each person leans on a different one. Zurek, in chapter eighteen, leans on the copies. Rovelli's coin, in chapter six, has to hit the ground, so his piece is the landing.
+Physics has a word for the moment a question closes: measurement. And the people who thought hardest about it keep describing it in this book's shape. They ran together for me until I put them on one picture. Flip a coin in a crowded room. Before it lands, it could go either way. After, it's settled, somebody chalks it on a board, and the result gets copied out into the world, the light and the air, so many times that it can't be taken back and everybody who looks agrees. Five pieces: the question, the landing, the chalk mark, the copies, the agreeing. Each person leans on a different one. Zurek, in chapter nineteen, leans on the copies. Rovelli's coin, in chapter six, has to hit the ground, so his piece is the landing.
 
 Niels Bohr, the Danish physicist whose institute in Copenhagen was where quantum mechanics got argued into shape, leans on the mark. In a talk at Columbia University's bicentennial in October 1954, printed in his 1958 book Atomic Physics and Human Knowledge, he said ``every atomic phenomenon is closed in the sense that its observation is based on registrations obtained by means of suitable amplification devices with irreversible functioning such as, for example, permanent marks on a photographic plate'': a door that swings one way. I first found that line quoted in a 2026 paper by Mauro Dorato and Jan Faye, and their quotation runs on into a clause about water drops forming in a cloud chamber that isn't on Bohr's page. The page is worth reading yourself. John Wheeler, the Princeton physicist who made the name ``black hole'' stick, went further in a 1989 talk in Tokyo and leaned on the question: ``every it,'' he said, ``every particle, every field of force, even the spacetime continuum itself,'' gets ``its function, its meaning, its very existence'' from ``the apparatus-elicited answers to yes or no questions, binary choices, bits.'' He boiled it down to ``it from bit.'' As I read him, the coin has no face until something asks and something writes the answer down. How literally he meant that, I can't tell. And Peirce, from chapter nine, long before any of them, leans on the agreeing: the settling worth trusting is the kind that has to answer to everybody. Laid out like that, they pair up. Bohr and Rovelli lean on a step that only goes one way, in the plate and in the coin. Zurek and Peirce lean on many onlookers who agree, one with light and one with people.
 
-Lay that next to everything in this book and the parts line up: a check that could have come out either way, a result that's now settled, a price paid in forgetting or in fresh states, a record that stays. I suspect that isn't a coincidence. I suspect the event this book prices on a machine is the same kind of event physics calls a measurement, turning up in a different place. The forgetting is my step: Bohr only says irreversible, and getting from a record that stays to a merge or to fresh states is chapter two's counting. Push on it and it gives at Zurek, for the reason chapter eighteen gave: copying onto fresh light merges nothing and uses up fresh states, which is chapter six's look that owes no floor. So physics' own word lands on both sides of the line: the chalk on the paying side, the copies on the borrowing side. The landing I'd put with the chalk, and when chapter six pushed on Rovelli's paper it slid toward the borrowing side, the side of finding out. So two pieces already stick out, and I'll leave them sticking out. That's as far as I'll take it: a suspicion.
+Lay that next to everything in this book and the parts line up: a check that could have come out either way, a result that's now settled, a price paid in forgetting or in fresh states, a record that stays. I suspect that isn't a coincidence. I suspect the event this book prices on a machine is the same kind of event physics calls a measurement, turning up in a different place. The forgetting is my step: Bohr only says irreversible, and getting from a record that stays to a merge or to fresh states is chapter two's counting. Push on it and it gives at Zurek, for the reason chapter nineteen gave: copying onto fresh light merges nothing and uses up fresh states, which is chapter six's look that owes no floor. So physics' own word lands on both sides of the line: the chalk on the paying side, the copies on the borrowing side. The landing I'd put with the chalk, and when chapter six pushed on Rovelli's paper it slid toward the borrowing side, the side of finding out. So two pieces already stick out, and I'll leave them sticking out. That's as far as I'll take it: a suspicion.
 
 John Bell asks for precision in those words. He was the Northern Irish physicist at CERN, and in 1990 he wrote a short, furious essay called ``Against 'measurement','' with a list of words he said have no place in a physics that wants to be precise. On the list: system, apparatus, environment, irreversible, information, and measurement, which he called the worst of all. I used half of them in the last few paragraphs. To turn the suspicion into a physical claim, each of those words would need a stated meaning and a tie to the device. The arguments in this book work with the machines I've defined; anything physical says which further assumptions it uses.
 
@@ -3130,13 +3206,13 @@ Where it all stops. Steps in continuous time have no next state to count, and no
 
 Some things look like they follow and don't. Here they are, so you don't carry them out of the book by accident.
 
-The counter isn't a heat meter. Once you pick the start and the price list, the number is forced by arithmetic, and it isn't energy. To read it as energy you'd need to say which states carry information, how the charge relates to what a device gives off, and that both of those can hold at once; chapter twenty did the last part and showed it only means the two don't contradict each other.
+The counter isn't a heat meter. Once you pick the start and the price list, the number is forced by arithmetic, and it isn't energy. To read it as energy you'd need to say which states carry information, how the charge relates to what a device gives off, and that both of those can hold at once; chapter twenty-one did the last part and showed it only means the two don't contradict each other.
 
 No question about what computers can do in a given time follows. Whether P equals NP is one of the seven problems the Clay Mathematics Institute put a million dollars on, at a meeting in Paris in May 2000. One of the seven has been declared solved since: the Poincaré conjecture, by Grigori Perelman, who posted his proof in 2002 and 2003. A second has a claim on it. On 8 September 2026 OpenAI announced that one of its models, run as about ten thousand agents for about eighty-eight hours, had produced a proof, written out for a proof checker, that a three-dimensional fluid flow with a smooth force pushing on it can break down in finite time. That's one of the four answers the official statement of the Navier-Stokes problem accepts. As of October 2026 other mathematicians haven't finished checking it, there's a dispute over credit with Tristan Buckmaster and Levent Alpöge, who were working on a closely related result, and the Clay Institute's own page lists the problem as active, not solved. P versus NP has no such claim. If a two-state clash on my machine settled it, I'd be owed a million dollars. Nobody owes me anything. A window that loses a box is a fact about that window. A question like P versus NP is about everything every possible program can do within a budget, and nothing in these clashes reaches that far.
 
 The choice of event isn't forced. The pointer thesis is a thesis. The cup over any machine is a theorem, and it says the event is a choice.
 
-The two walls stay two walls. Chapter seven's is about what a watcher can't get back through a window; chapter sixteen's is about what no inside procedure can decide. Linking them would take an argument of its own, and this book doesn't have one.
+The two walls stay two walls. Chapter seven's is about what a watcher can't get back through a window; chapter seventeen's is about what no inside procedure can decide. Linking them would take an argument of its own, and this book doesn't have one.
 
 The entitlement count in chapter twelve is handed its groups and its covering. It doesn't dig them out of an arbitrary run.
 
@@ -3144,7 +3220,7 @@ Records with chances on them don't inherit the uniqueness of the counter. Two ho
 
 Every guarantee about an established record is about runs: any list of moves, from a clean start, on a step that does what it says, one writer at a time. Whoever sets the start, the wire that carries the report out and the tools that built the step are outside that fence.
 
-The five real systems are copies of pieces, with their limits named in chapter seventeen. None of them is a check of the running system. And I looked for a result about real systems that needs the record and is ready to use. I don't have one.
+The five real systems are copies of pieces, with their limits named in chapter eighteen. None of them is a check of the running system. And I looked for a result about real systems that needs the record and is ready to use. I don't have one.
 
 \subsection{The ledger}
 
@@ -3200,33 +3276,38 @@ A box that answers only to the machine and never comes down is a cup on one even
 The event and the price list are free choices; the chances on a random box aren't fixed by its prices & shown & 14 \\
 When the machine is finite, its record only grows and the uncovered machine forgets nothing, a paid move crushes two states of one pile & shown & 15 \\
 A window can price exactly without showing the cups, if it shows them move & shown & 15 \\
-No inside procedure decides whether a machine's own shortcuts are sound, under the conditions stated & shown & 16 \\
-Undecidable means unknowable & not claimed & 16 \\
-Of five real systems, read through my copies, one charges a fee at the write & shown on the copies & 17 \\
-A copy of one piece is the running system & not claimed & 17 \\
-A toll is a better design than a wall & not claimed & 17, 21 \\
-The pointer thesis: the established record is the event copied and relied on by parties who didn't make it & thesis & 18 \\
-Requirements that never name the reading don't pick out the toll; the ceiling that names it does & shown & 18 \\
-Landauer's principle: lowering uncertainty by a bit hands at least kT ln 2 of heat to the surroundings, on average & assumed, critics named & 19 \\
-A permanent raise from the even spread removes at least log2((m + k)/m) and at least 2k/(m + k) bits; in the worst case a full bit & shown & 19 \\
-Charging bits on every spread is the same rule as the halving rule; Bennett's rule is weaker & shown & 19 \\
-On a known state the assumption sets no heat floor & shown & 19 \\
-A fixed device that merges K inputs produces at least k ln K of entropy on one of them & shown, under the stated physics & 19 \\
-Every scale pays the same way: a coarse merge forces a fine merge, a step out, or fresh states forever & shown & 19 \\
-Going faster costs more: heat times time is at least twice the distance squared, for the walker & shown, under local detailed balance & 19 \\
-A noisy step that keeps the even spread can't raise a reading that stays; one that can makes the spread lumpier & shown & 20 \\
-A unitary step on finitely many directions can't raise a reading that stays & shown & 20 \\
-Holding off the merge through T repetitions takes exactly 1 + (T + 1)(N - 1) states & shown & 20 \\
-Two levers: T + 3 states, and 2T + 2 when the levers commute & shown; searched by machine on small horizons & 20 \\
-Keeping every history makes every step one-to-one, by taking fresh states & shown & 20 \\
-The counter is heat in joules & not claimed & 20, 21 \\
-The second law is the toll seen from the physics side & thesis, not shown & 20 \\
-Measurement is the event this book prices & suspicion, kept apart & 20 \\
-Some readings of two machines side by side keep the toll; a reading that can fall doesn't & shown & 21 \\
-After the raise, a run with branching steps makes two arrows meet or never repeats a state & shown & 21 \\
-Anything here settles P versus NP & not claimed & 21 \\
-The Thiele thesis: every physical process that computes with final answers has an exact one-rule description whose answer no run turns off & thesis & 21 \\
-Given the thesis, every set such a process accepts is one a program can list & shown & 21 \\
+A machine that reads an established box to take a shortcut never answers wrong from a clean start, as long as editions are never reused & shown & 16 \\
+With editions that wrap around, four moves give a wrong answer & shown & 16 \\
+Keeping a shortcut honest after a change costs fresh editions, a box that comes down, room for every value checked, or wrong answers & shown for the four; that there's no fifth is argued, not shown & 16 \\
+A box that comes down on every write still makes two arrows meet, at the wipe and at the check & shown & 16 \\
+Reading the box computes something new & not claimed; it saves steps, the way a cache does & 16 \\
+No inside procedure decides whether a machine's own shortcuts are sound, under the conditions stated & shown & 17 \\
+Undecidable means unknowable & not claimed & 17 \\
+Of five real systems, read through my copies, one charges a fee at the write & shown on the copies & 18 \\
+A copy of one piece is the running system & not claimed & 18 \\
+A toll is a better design than a wall & not claimed & 18, 22 \\
+The pointer thesis: the established record is the event copied and relied on by parties who didn't make it & thesis & 19 \\
+Requirements that never name the reading don't pick out the toll; the ceiling that names it does & shown & 19 \\
+Landauer's principle: lowering uncertainty by a bit hands at least kT ln 2 of heat to the surroundings, on average & assumed, critics named & 20 \\
+A permanent raise from the even spread removes at least log2((m + k)/m) and at least 2k/(m + k) bits; in the worst case a full bit & shown & 20 \\
+Charging bits on every spread is the same rule as the halving rule; Bennett's rule is weaker & shown & 20 \\
+On a known state the assumption sets no heat floor & shown & 20 \\
+A fixed device that merges K inputs produces at least k ln K of entropy on one of them & shown, under the stated physics & 20 \\
+Every scale pays the same way: a coarse merge forces a fine merge, a step out, or fresh states forever & shown & 20 \\
+Going faster costs more: heat times time is at least twice the distance squared, for the walker & shown, under local detailed balance & 20 \\
+A noisy step that keeps the even spread can't raise a reading that stays; one that can makes the spread lumpier & shown & 21 \\
+A unitary step on finitely many directions can't raise a reading that stays & shown & 21 \\
+Holding off the merge through T repetitions takes exactly 1 + (T + 1)(N - 1) states & shown & 21 \\
+Two levers: T + 3 states, and 2T + 2 when the levers commute & shown; searched by machine on small horizons & 21 \\
+Keeping every history makes every step one-to-one, by taking fresh states & shown & 21 \\
+The counter is heat in joules & not claimed & 21, 22 \\
+The second law is the toll seen from the physics side & thesis, not shown & 21 \\
+Measurement is the event this book prices & suspicion, kept apart & 21 \\
+Some readings of two machines side by side keep the toll; a reading that can fall doesn't & shown & 22 \\
+After the raise, a run with branching steps makes two arrows meet or never repeats a state & shown & 22 \\
+Anything here settles P versus NP & not claimed & 22 \\
+The Thiele thesis: every physical process that computes with final answers has an exact one-rule description whose answer no run turns off & thesis & 22 \\
+Given the thesis, every set such a process accepts is one a program can list & shown & 22 \\
 \end{longtable}
 \endgroup
 
@@ -3252,7 +3333,7 @@ There's an established road to that kind of tie, with its conditions in the open
 
 What can be shown sits on either side of the thesis. On one side, chapter two applies to every such description: a run that raises the answer merges two of its own states or never visits a state twice. On the other side, look only at which inputs it accepts, and the thesis says something you can check: every set a physical process accepts with final answers is one a program can list. Here's how. Run the description from every input, a step at a time across all of them, taking turns, and write an input down the first time its reading says yes. Nothing ever turns an answer off, so a yes seen once is the answer. And the other way: a set a program can list is accepted by a machine that searches the list for its input and then steps from its stopped state to itself forever, read through ``stopped,'' which nothing turns off. That builds a machine with the same accepted set. It doesn't build an exact description of the original process. And nothing about how the keeping is paid survives that view: the same search held at its stop by a step to itself, which merges, or by a counter that keeps ticking, which takes fresh states, accepts the same inputs.
 
-``Final'' has to cover the rejected inputs too, and here's why. Build a machine that starts at no, reads yes while program n is still running, and falls to no for good if it stops. It reads yes for good on exactly the programs that never stop. No program lists those: one that did, run beside the plain search for a stop, would tell you for every program whether it stops, and chapter sixteen showed nothing can.
+``Final'' has to cover the rejected inputs too, and here's why. Build a machine that starts at no, reads yes while program n is still running, and falls to no for good if it stops. It reads yes for good on exactly the programs that never stop. No program lists those: one that did, run beside the plain search for a stop, would tell you for every program whether it stops, and chapter seventeen showed nothing can.
 
 \subsection{What isn't settled}
 
@@ -3260,7 +3341,7 @@ Four things, each with what would settle it.
 
 Whether Landauer's critics are right. That would leave every argument standing and one assumption unowned by the world. What settles it is measurements of real devices, and an argument about what the principle means in general that both sides accept.
 
-Whether the established record really is the pointer event. What settles it is chapter eighteen's three comparisons, run on systems people actually use.
+Whether the established record really is the pointer event. What settles it is chapter nineteen's three comparisons, run on systems people actually use.
 
 Whether the toll is the right thing to price at all. The five real systems mostly built a wall or a penalty for contradicting yourself. I can't prove a toll is better, and I won't pretend the five say so.
 
