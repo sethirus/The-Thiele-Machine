@@ -347,6 +347,10 @@ off at least the heat Landauer charges for erasing a bit. He even quotes a Germa
 saying, Wahl ist Leiden, to choose is to suffer, and at that point what are you
 going to do but laugh.
 
+It pissed me off. It's hard to have an original thought in this world. But it
+didn't last long, because once I actually looked, his was a sentence on the
+surface, and the machinery under it was different.
+
 On its face he contradicts Bennett. Bennett says measuring doesn't have to cost;
 Rovelli says any measurement costs. So look at what Rovelli calls a choice. A coin
 in the air hasn't chosen anything; it has to hit the ground and stop. And then the
