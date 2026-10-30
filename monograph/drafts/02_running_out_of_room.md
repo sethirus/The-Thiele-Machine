@@ -212,7 +212,7 @@ in the done room with at least one chair to spare. With n chairs, that's n peopl
 into n - 1 chairs, which can't be done. So a move like that needs a done room
 with no end to it. Give the room any fixed size, and the move merges.
 
-That's Hilbert's front desk as a theorem. It's also exactly how Richard Dedekind
+That's Hilbert's front desk run backwards. It's also exactly how Richard Dedekind
 defined "infinite" in 1888: a collection is infinite when you can match it
 one-to-one with a part of itself that leaves something out. So taking fresh paper
 isn't a way out of paying. It's the other way to pay, and only a machine with
@@ -279,15 +279,16 @@ the box behind it still has a next state every tick. It can stay exactly where
 it is, or something inside it can move while the screen stays put: picture a
 wheel turning from "first holding position" to "second holding position."
 
-Say the box has K different ways of holding the answer 42. Start one tick before
-it finishes. Ask it to go L ticks without two arrows meeting. Can two of the
-holding ticks be the exact same state? Follow their next steps backwards
-together. Since no two arrows meet, equal states had equal states before them.
-Keep walking back. Eventually one side reaches the tick before it finished, the
-state that wasn't done yet, while the other side is still on a done state. A
-state that isn't done equal to one that is: impossible. So every holding tick
-needs its own state, and with K of them, it can last at most K ticks.
-So within K + 1 ticks of finishing, two arrows meet.
+Say the box has K different ways of holding the answer 42. Start one tick
+before it finishes, and see how many ticks it can go without two arrows meeting.
+Can two of the holding ticks be the exact same state? If they were, follow the
+arrows backwards from both, one tick at a time. Since no two arrows meet, being
+on the same state now means they were on the same state a tick ago. Keep walking
+both back. Eventually the earlier one reaches the tick before it finished, the
+state that wasn't done yet, while the later one is still on a done state. A state
+that isn't done would have to be the same state as one that is: impossible. So
+every holding tick needs its own state, and with K of them, it can last at most K
+ticks. Within K + 1 ticks of finishing, two arrows meet.
 
 You can build one that lasts exactly that long: the unfinished state, then K
 holding states in a row, the last one stepping to itself. The answer holds for K
