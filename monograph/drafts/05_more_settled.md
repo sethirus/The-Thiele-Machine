@@ -153,16 +153,30 @@ and the record was supposed to stay at middle. The rule breaks.
 What works is giving every cup its own event, and letting each cup's event look at
 where the record already is. A later chapter builds that out over any machine.
 
-How many cups does a direction need? A straight strip needs one fewer than its
-stages; you counted that above. A direction that branches needs at least as many
-as the steps in its longest climb, and at least enough to tell all its places
-apart. Put three places above a bottom, none of them above another. The longest
-climb is one step, but one cup can't tell four places apart, so it takes two. Two
-do it, if you're clever: one cup that goes up at the first and third places, one
-that goes up at the second and third. Sometimes a direction needs more than both
-of those. Take two places, each below two others. One step of climb, four places,
-and two cups still won't do it, because both upper places would have to keep up
-every cup either lower place has up, and two cups don't leave room for that.
+How many cups does a direction need? That depends on what you ask the cups to
+do, so start with the smallest job: tell where the record is, using cups that only
+ever go up as the record climbs. For that job a cup doesn't have to be "at least
+this one place." It can go up at several places, as long as climbing never knocks
+it back down.
+
+A straight strip needs one fewer cup than it has stages; you counted that above.
+A direction that branches needs at least as many cups as the steps in its longest
+climb, and at least enough to tell all its places apart.
+
+Put three places above a bottom, none of them above another. The longest climb is
+one step, but one cup can't tell four places apart, so it takes at least two. Two
+do it, if you let a cup go up at more than one place: one cup that goes up at the
+first and third places, one that goes up at the second and third. Every place
+gets its own pattern. But look at those two cups alone and the third place seems
+to sit above the first, because every cup that's up at the first is up at the
+third too. If you also want the cups to show which places sit above which, it
+takes three: one "at least this place" cup for each of the three.
+
+And sometimes just telling the places apart needs more than both of those. Take
+two places, each below two others. One step of climb, four places, and two cups
+still won't do it, because both upper places would have to keep up every cup
+either lower place has up, and two cups don't leave room for that. It takes
+three, and showing which sits above which takes four.
 
 
 Somebody got here first, from the side

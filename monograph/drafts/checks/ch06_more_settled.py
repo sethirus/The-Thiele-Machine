@@ -79,6 +79,15 @@ def min_cups(n, lt):
 if min_cups(4, [(0, 1), (0, 2), (0, 3)]) != 2: fails.append(('fan', min_cups(4, [(0,1),(0,2),(0,3)])))
 # two places each below two others: 0,1 below 2,3
 if min_cups(4, [(0, 2), (0, 3), (1, 2), (1, 3)]) != 3: fails.append(('crown', min_cups(4, [(0,2),(0,3),(1,2),(1,3)])))
+# keeping the order too (x below y exactly when x's cups are among y's): fan 3, crown 4
+def min_cups_embed(n, lt):
+    le = set(lt) | {(i, i) for i in range(n)}
+    for k in range(0, n + 1):
+        for code in permutations(range(2 ** k), n):
+            if all(((code[x] & code[y] == code[x]) == ((x, y) in le)) for x in range(n) for y in range(n)):
+                return k
+if min_cups_embed(4, [(0, 1), (0, 2), (0, 3)]) != 3: fails.append(('fan-embed',))
+if min_cups_embed(4, [(0, 2), (0, 3), (1, 2), (1, 3)]) != 4: fails.append(('crown-embed',))
 # straight strip of n+1 stages needs exactly n cups
 for n in range(1, 5):
     if min_cups(n + 1, [(i, j) for i in range(n + 1) for j in range(i + 1, n + 1)]) != n:
