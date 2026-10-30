@@ -92,7 +92,7 @@ two land on the same one. It needs the yes side finite; Hilbert's hotel keeps a 
 
 The second follows one run, however its choices fall. Take the step where the reading goes up, and say it stays up for the rest of that run.
 If the run is in the same state at two times after the raise, step both times back together. They can't stay equal all the way back past the
-raise, because the state at the raise reads no and every later one reads yes. So at the first pair that differs, two different states of that
+raise, because the state just before the raise reads no and every later one reads yes. So at the first pair that differs, two different states of that
 very run step onto one. After the raise, the run makes two arrows meet or never repeats a state, on any number of states. Before the raise it can
 come back to a state and then leave it for good with nothing meeting, which one rule can't do. A state with no next step at all is chapter one's
 machine that stops: a reading kept by stopping is kept with nothing meeting.
@@ -116,8 +116,13 @@ you'd need to say which states carry information, how the charge relates to what
 did the last part and showed it only means the two don't contradict each other.
 
 No question about what computers can do in a given time follows. Whether P equals NP is one of the seven problems the Clay Mathematics Institute put a million
-dollars on, at a meeting in Paris in May 2000. One of the seven has been solved since: the Poincaré conjecture, by Grigori Perelman, who posted his proof in 2002
-and 2003. P versus NP hasn't. If a two-state clash on my machine settled it, I'd be owed a million dollars. Nobody owes me anything. A window that loses a box is a
+dollars on, at a meeting in Paris in May 2000. One of the seven has been declared solved since: the Poincaré conjecture, by Grigori Perelman, who posted his proof in 2002
+and 2003. A second has a claim on it. On 8 September 2026 OpenAI announced that one of its models, run as about ten thousand agents for
+about eighty-eight hours, had produced a proof, written out for a proof checker, that a three-dimensional fluid flow with a smooth force
+pushing on it can break down in finite time. That's one of the four answers the official statement of the Navier–Stokes problem accepts.
+As of October 2026 other mathematicians haven't finished checking it, there's a dispute over credit with Tristan Buckmaster and Levent
+Alpöge, who were working on a closely related result, and the Clay Institute's own page lists the problem as active, not solved. P versus
+NP has no such claim. If a two-state clash on my machine settled it, I'd be owed a million dollars. Nobody owes me anything. A window that loses a box is a
 fact about that window. A question like P versus NP is about everything every possible program can do within a budget, and nothing in these clashes reaches that
 far.
 
