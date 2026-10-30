@@ -257,8 +257,11 @@ needs.
 
 Run a machine from several different starts, and photograph its whole state at
 every tick. Lay the photographs out in rows, one row per start, one column per
-tick. Say every run finishes for the first time at the same tick, and no two arrows
-meet among the states in any one column before that.
+tick. Say every run finishes for the first time at the same tick. And say that in
+every column up to the one just before the finish, no two states step to the same
+state. That includes the last step, the one onto the finish: if two runs sat on
+two different states just before the finish, they can't both step onto one
+finished state.
 
 Could two photographs on that sheet show the same state? Two in the same column:
 walk both back a tick at a time, and since no arrows met, they were equal the tick
