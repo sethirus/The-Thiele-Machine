@@ -92,7 +92,7 @@ two land on the same one. It needs the yes side finite; Hilbert's hotel keeps a 
 
 The second follows one run, however its choices fall. Take the step where the reading goes up, and say it stays up for the rest of that run.
 If the run is in the same state at two times after the raise, step both times back together. They can't stay equal all the way back past the
-raise, because the state just before the raise reads no and every later one reads yes. So at the first pair that differs, two different states of that
+raise, because the state just before the raise reads no and every state after it reads yes. So at the first pair that differs, two different states of that
 very run step onto one. After the raise, the run makes two arrows meet or never repeats a state, on any number of states. Before the raise it can
 come back to a state and then leave it for good with nothing meeting, which one rule can't do. A state with no next step at all is chapter one's
 machine that stops: a reading kept by stopping is kept with nothing meeting.
@@ -139,8 +139,9 @@ those branches different weights, one choosing evenly and one two to one. The pr
 Every guarantee about an established record is about runs: any list of moves, from a clean start, on a step that does what it says, one writer at a time. Whoever sets
 the start, the wire that carries the report out and the tools that built the step are outside that fence.
 
-The five real systems are copies of pieces, with their limits named in chapter eighteen. None of them is a check of the running system. And I looked for a result about
-real systems that needs the record and is ready to use. I don't have one.
+The five real systems are copies of pieces, with their limits named in chapter eighteen. None of them is a check of the running system. What the book
+does prove that reaches real systems is chapter sixteen's: a machine that reads a box to skip work it already paid for goes, under the conditions
+stated there, through one of four doors, and the caches, version counters and memo tables people build are each one of those doors.
 
 
 The ledger
@@ -163,7 +164,7 @@ the world and no argument can settle it. "Not claimed" means it looks like it fo
 
 Whose is what
 
-None of the pieces is mine alone, so here's the short form of who did what, with the long form in the appendix.
+Here's the short form of who did what, with the long form in the appendix.
 
 The toll isn't only my preference: on a finite machine a reading nothing turns off can only be turned on by a step that makes two arrows meet, so if that's priced, raising it costs; and
 a raise where nothing meets needs endlessly many yes-states. The counting under it is the finite cousin of the recurrence Zermelo threw at Boltzmann in 1896, and the price on a merge comes
@@ -178,7 +179,13 @@ down. And the move of guaranteeing something about every run, which an establish
 precise for monitors that watch a run in 2000, and it was proved for monitors checked at every instruction by Arthur Azevedo de Amorim and his coauthors in 2015. What I put under it is a definition,
 and its idea isn't new either: a check tied to the claim it looked at, with the toll charged on top.
 
-What's mine is the putting together, and the bet that it belongs in the step.
+Here's what this book proves that I haven't found anywhere else, each with its conditions in its chapter. First, that on any machine a record
+that stays is paid for in two arrows meeting or in fresh states, with the noisy and the finite quantum versions in chapter twenty-one, and that a price
+on the meeting forces the toll. Second, that a box answering to the machine and never coming down is a cup on one event, over any machine, with the toggle
+and the hidden clock as what falls outside. Third, the blindfold: every bare machine that steps is a Thiele machine with its record covered and its price
+of settling set to zero. Fourth, the four doors and their theorem, for a machine that reads its box to skip work. Fifth, the exact room counts of chapter
+twenty-one: 1 plus (T + 1)(N minus 1) states to hold off a merge, T plus 3 and 2T plus 2 for two levers, and the grid's 1 plus (t + 2)(t + 3) over 2.
+And sixth, the ledger itself, every claim sorted into shown, chosen, assumed, cited and thesis. Under all six is the bet: that the price belongs in the step.
 
 
 The Thiele thesis
@@ -230,3 +237,24 @@ their own, and the chapters asked, one at a time, which of those hold.
 
 At the bottom of all of it is one distinction made to stay: a bead in a dip, a cell written, a question closed. What that settling keeps, what it takes, and what the price I chose charges for it. What I'm arguing is
 that keeping is part of computation, not something you bolt on afterwards, and that the price belongs in the step. The box and its toll are the part of that I've worked all the way through. The rest is yours to push on.
+
+The blindfold
+
+Here's the whole book in one picture. Take any machine that steps: Turing's, a register machine, a lambda term, a table of chances, a quantum circuit.
+None of them puts a price in the step, and none of them asks that a mark mean what it says. Write "checked" on Turing's tape, and his model allows the
+next rule to rub it out, or to print it without the check. A particular table might leave the mark alone forever, the way chapter two's endless strip
+does, but nothing in the model makes it hold. A machine like that can carry a record the way it carries anything, as marks, and nothing in its step
+makes the mark honest. That's why the sorter and the copier leave the same bits behind.
+
+Put the one-way door and the toll in the step, and the picture turns over. A Turing machine that stops, read through whether it has stopped, is already
+a Thiele machine with the price left out. Any machine that has a move at all is what's left of a Thiele machine once you cover the coin with your hand,
+as chapter four showed. Covering the coin is the blindfold, and setting the price of settling to zero is the other half of it.
+
+Take the blindfold off and the same counting reaches every kind of step in this book. On a finite machine, a record that stays can't go up without two
+arrows meeting, unless the machine stops; on an endless one it can, by taking fresh states forever. A noisy step that keeps the even spread can't raise it
+at all, and neither can a turn in a finite quantum space. A window that drops the record can't tell you whether an answer was established or just printed.
+And a machine that reads its record to skip work it already paid for has to keep that shortcut honest when the data changes, and under chapter sixteen's
+two conditions there are exactly four ways: fresh editions until they run out, a box that comes down and makes two arrows meet twice, room for every value
+checked, or wrong answers in four moves.
+
+Turing's machine is the case where the blindfold stays on and settling is free. This book takes the blindfold off.

@@ -254,8 +254,8 @@ of his work.
 Three years ago, a few months into the rendering engine, I came out of my office and told you I
 thought I was onto something. You said okay. You didn't ask what it was, or what it was for, or
 when it would be done, and you didn't ask me for anything I could have shown you, because there
-was nothing to show. There was a program that had done something it shouldn't have been able to
-do, and a man who didn't yet know what a Turing machine was.
+was nothing to show. There was a rendering program doing things I hadn't built it to do, and a
+man who didn't yet know what a Turing machine was.
 
 You gave me the three years anyway. The nights after the lot closed. The weekends. The hours I
 was in the house and not in the house, because my head was in a wall I couldn't get past. Every
@@ -333,6 +333,8 @@ Now look back at the pencil computer with a stop in it. That's Turing's machine,
 Now try this. Give two people the same messy list of numbers. The first sorts it, then goes back down it checking that every number is no bigger than the next. The second copies a sorted list off somebody else's sheet. Now look at the two sheets. Same numbers, same order. Look as hard as you like: nothing on either sheet tells you which one was checked. The difference was real, and neither sheet kept it. It's the same thing you saw standing on 5: you can see where you are, and not how you got there.
 
 So put a box on each sheet that says checked. A plain Thiele machine charges for ticking the box, but nothing in the rules above stops the copier from paying and ticking it anyway. Paying for the tick doesn't make it true. So add one more condition: the box can only be ticked right after a check of that very list passes. Now the copier's tick is refused, and a ticked box tells you a check of that list passed. I call a box like that established. It's a condition you put on the machine. The bare definition doesn't hand it to you.
+
+One more picture to carry through the book. Write ``checked'' on Turing's tape, and nothing in his model stops the next rule from rubbing it out, or from printing it without the check; a particular table might leave it alone, but the model doesn't make it hold. Cover a Thiele machine's record with your hand and set the price of settling to zero, and what's left is a bare machine that steps: every one of them, Turing's included, is a Thiele machine with a blindfold on.
 
 It's called the Thiele Machine. The afterword says why.
 
@@ -2374,7 +2376,15 @@ Keeping one copy of each value is old too. Andrei Ershov, in a paper printed in 
 
 Every time a box goes up, it pays the toll, because on a finite machine that's two arrows meeting, and that's chapter two and chapter three. That part was already in the book. What this chapter adds is the second bill. Keeping a shortcut honest after the data changes costs one more thing, and there are exactly four ways to pay it: fresh editions, which is fresh paper or a fuse budget; a box that comes down, which leaves the definition and merges at the wipe; room for every value checked; or nothing, and wrong answers.
 
-None of the four is new. Programmers have used all of them for decades. What's here is that they're four ways of paying chapter two's bill. I haven't found a fifth, and here's why I don't expect one. When the shortcut runs, the machine has to know that the thing in front of it passed the check. Either the box names the thing outright, which is the fourth door, or the box sits on a place and has to know that nothing changed in that place since the check. Knowing that takes a mark that changes when the place does. A mark that only ever moves to new values is the second door, and on a finite machine it runs out or wraps around into the first. A mark that moves back is a box that comes down, the third. That's an argument, not a proof that nothing else could work, and if you find a fifth door I'd like to see it.
+Programmers have used all four for decades. What this chapter adds is that they're four ways of paying chapter two's bill, and that under two conditions there's no fifth. Here's the proof.
+
+Say what the guard is allowed to see. The first condition: its glance can't tell a passing value from a failing one. If it can, then either it's doing the check over again, which is no shortcut, or it's reading enough of the value to tie a box to it, which is the fourth door, with its bill of room and, on big data, the time it takes to read the value. The second condition: the memory the guard reads is made only of boxes that go up and never come down. If some of it can come back down, that's the third door.
+
+Under those two conditions, run the same moves over and over: write a passing value, check it, ask; then write a failing value, and ask again. The glance can't tell the two values apart, so whether the shortcut is unlocked depends only on the boxes. If it's unlocked after the failing write, it answers wrong: the first door. Say it never answers wrong. Then every round that unlocks needs the boxes in an unlocked state after the check and in a locked state after the failing write, so the boxes change between those two moments, and they have to change again before the next round can unlock. A number of unlocked rounds needs at least twice that many changes, less one. But boxes only go up. With E boxes, they can change at most E times in the whole run, because each change raises at least one box and none ever comes back. So twice the number of unlocked rounds is at most E plus one. After that the shortcut never unlocks again, and the machine takes the long way for good: a budget, the second door. It's chapter two's chairs once more, more changes needed than boxes to spend them on.
+
+The fourth door's room is a count of its own. Say every value that's been checked has to stay unlocked, all at once, through any writes. Take two different sets of checked values. Some value is in one set and not the other, and the guard has to unlock it for one and not for the other, so the memory has to be in two different states. With k passing values there are 2 to the k sets, so the memory needs 2 to the k states: k boxes, one for each value.
+
+So under the two conditions, wrong answers or a budget are the only outcomes, and stepping outside the conditions is stepping through one of the other two doors.
 
 And it leaves one question hanging, the one every machine with a record runs into once its programs can be handed their own code. These shortcuts were handed to the machine: I wrote the property, the check and the shortcut. Can a machine find its own shortcuts, and decide from the inside whether one is sound? That question runs into a wall, the same wall Kurt Gödel and Alan Turing hit, and I have to show you the wall is there before anything pretends to be on the other side of it. That's the next chapter.
 
@@ -3196,7 +3206,7 @@ Everything so far gave every state one next state. Plenty of models don't: a mac
 
 The first is chapter two's chairs on one choice of next step. Say only finitely many states read yes, none of them can step to a state reading no, each has at least one next state, and some state reading no can step into the yes side. Pick one next state for each yes-state, and the step in from outside. That's one more step than there are yes-states, each leaving a different state and landing on a yes-state, so two land on the same one. It needs the yes side finite; Hilbert's hotel keeps a reading with nobody sharing.
 
-The second follows one run, however its choices fall. Take the step where the reading goes up, and say it stays up for the rest of that run. If the run is in the same state at two times after the raise, step both times back together. They can't stay equal all the way back past the raise, because the state just before the raise reads no and every later one reads yes. So at the first pair that differs, two different states of that very run step onto one. After the raise, the run makes two arrows meet or never repeats a state, on any number of states. Before the raise it can come back to a state and then leave it for good with nothing meeting, which one rule can't do. A state with no next step at all is chapter one's machine that stops: a reading kept by stopping is kept with nothing meeting.
+The second follows one run, however its choices fall. Take the step where the reading goes up, and say it stays up for the rest of that run. If the run is in the same state at two times after the raise, step both times back together. They can't stay equal all the way back past the raise, because the state just before the raise reads no and every state after it reads yes. So at the first pair that differs, two different states of that very run step onto one. After the raise, the run makes two arrows meet or never repeats a state, on any number of states. Before the raise it can come back to a state and then leave it for good with nothing meeting, which one rule can't do. A state with no next step at all is chapter one's machine that stops: a reading kept by stopping is kept with nothing meeting.
 
 For branching steps the first argument says less than it looks. In the lambda calculus, any term N is one step away from two different terms: apply ``do nothing'' to it, or wrap it in a function that throws its argument away and hand that function anything. Two different states sharing a next state is no news there. The second argument is the one that carries weight.
 
@@ -3220,7 +3230,7 @@ Records with chances on them don't inherit the uniqueness of the counter. Two ho
 
 Every guarantee about an established record is about runs: any list of moves, from a clean start, on a step that does what it says, one writer at a time. Whoever sets the start, the wire that carries the report out and the tools that built the step are outside that fence.
 
-The five real systems are copies of pieces, with their limits named in chapter eighteen. None of them is a check of the running system. And I looked for a result about real systems that needs the record and is ready to use. I don't have one.
+The five real systems are copies of pieces, with their limits named in chapter eighteen. None of them is a check of the running system. What the book does prove that reaches real systems is chapter sixteen's: a machine that reads a box to skip work it already paid for goes, under the conditions stated there, through one of four doors, and the caches, version counters and memo tables people build are each one of those doors.
 
 \subsection{The ledger}
 
@@ -3278,7 +3288,8 @@ When the machine is finite, its record only grows and the uncovered machine forg
 A window can price exactly without showing the cups, if it shows them move & shown & 15 \\
 A machine that reads an established box to take a shortcut never answers wrong from a clean start, as long as editions are never reused & shown & 16 \\
 With editions that wrap around, four moves give a wrong answer & shown & 16 \\
-Keeping a shortcut honest after a change costs fresh editions, a box that comes down, room for every value checked, or wrong answers & shown for the four; that there's no fifth is argued, not shown & 16 \\
+When a guard's glance can't tell a passing value from a failing one and its memory is E boxes that only go up, it answers wrong or unlocks on at most (E + 1)/2 rounds; outside those two conditions are the other two doors & shown & 16 \\
+Keeping k checked values unlocked at once takes 2 to the k memory states & shown & 16 \\
 A box that comes down on every write still makes two arrows meet, at the wipe and at the check & shown & 16 \\
 Reading the box computes something new & not claimed; it saves steps, the way a cache does & 16 \\
 No inside procedure decides whether a machine's own shortcuts are sound, under the conditions stated & shown & 17 \\
@@ -3300,9 +3311,20 @@ A unitary step on finitely many directions can't raise a reading that stays & sh
 Holding off the merge through T repetitions takes exactly 1 + (T + 1)(N - 1) states & shown & 21 \\
 Two levers: T + 3 states, and 2T + 2 when the levers commute & shown; searched by machine on small horizons & 21 \\
 Keeping every history makes every step one-to-one, by taking fresh states & shown & 21 \\
+Writing on a write-once cell makes two arrows meet; a remembering state only moves the meeting along & shown & 21 \\
+With L of N starts already resting, holding off the merge through T repetitions takes N + T(N - L) states & shown & 21 \\
+The two-bit grid needs exactly 1 + (t + 2)(t + 3)/2 states after t pulls & shown & 21 \\
+Two levers that keep states apart everywhere, forever, need 2T + 3 & stated, with the machine that reaches it; the lower bound isn't argued on the page & 21 \\
+Receipts cover the merges a run shows, when one of every colliding pair pays & shown & 21 \\
+The eight-state machine meets every condition, and each move's price is the halvings in its biggest pile & shown & 21 \\
+A running total in finite memory is honest only up to its width & shown & 21 \\
+One move repeated, with the box going up and staying, makes two arrows meet among states the run visits; moves picked from outside need not & shown & 21 \\
+Every counted step costing at least one is exactly when ``gives off at least one'' and ``gives off no more than its charge'' can hold together & shown & 21 \\
 The counter is heat in joules & not claimed & 21, 22 \\
 The second law is the toll seen from the physics side & thesis, not shown & 21 \\
 Measurement is the event this book prices & suspicion, kept apart & 21 \\
+Turing's model lets a table rub out or print any mark on its tape; nothing in the model makes a mark hold & shown & 22, page one \\
+Every machine that steps is a Thiele machine with its record covered and the price of settling set to zero & shown & 4, 22, page one \\
 Some readings of two machines side by side keep the toll; a reading that can fall doesn't & shown & 22 \\
 After the raise, a run with branching steps makes two arrows meet or never repeats a state & shown & 22 \\
 Anything here settles P versus NP & not claimed & 22 \\
@@ -3315,13 +3337,13 @@ Given the thesis, every set such a process accepts is one a program can list & s
 
 \subsection{Whose is what}
 
-None of the pieces is mine alone, so here's the short form of who did what, with the long form in the appendix.
+Here's the short form of who did what, with the long form in the appendix.
 
 The toll isn't only my preference: on a finite machine a reading nothing turns off can only be turned on by a step that makes two arrows meet, so if that's priced, raising it costs; and a raise where nothing meets needs endlessly many yes-states. The counting under it is the finite cousin of the recurrence Zermelo threw at Boltzmann in 1896, and the price on a merge comes from Landauer's reset. Others had already priced merges. Thomas Ouldridge and David Wolpert put a physical price on them for finite automata in 2023. Ming Li and Paul Vitányi in 1996 put a unit price on each bit a computation erases, or takes in, irreversibly, and Erik Demaine and his coauthors in 2016 charged for instructions that destroy information. What's here is the toll that kind of price forces on a reading that stays.
 
 That a price worked out from a window can't tell apart two steps the window shows the same is a fact about functions far older than this book; what's here is the pricing form of it. That a box driven by the computation that never comes down is a cup on one event, over any machine, uses old pieces too: latches and history-keeping variables are old, and the result covers only boxes that never come down. And the move of guaranteeing something about every run, which an established record leans on, isn't mine at all. It's the reference monitor's: James Anderson's 1972 study for the US Air Force, which asked for a mechanism that is ``tamper proof,'' ``always invoked,'' and ``small enough to be subject to analysis and tests.'' Fred Schneider made the idea precise for monitors that watch a run in 2000, and it was proved for monitors checked at every instruction by Arthur Azevedo de Amorim and his coauthors in 2015. What I put under it is a definition, and its idea isn't new either: a check tied to the claim it looked at, with the toll charged on top.
 
-What's mine is the putting together, and the bet that it belongs in the step.
+Here's what this book proves that I haven't found anywhere else, each with its conditions in its chapter. First, that on any machine a record that stays is paid for in two arrows meeting or in fresh states, with the noisy and the finite quantum versions in chapter twenty-one, and that a price on the meeting forces the toll. Second, that a box answering to the machine and never coming down is a cup on one event, over any machine, with the toggle and the hidden clock as what falls outside. Third, the blindfold: every bare machine that steps is a Thiele machine with its record covered and its price of settling set to zero. Fourth, the four doors and their theorem, for a machine that reads its box to skip work. Fifth, the exact room counts of chapter twenty-one: 1 plus (T + 1)(N minus 1) states to hold off a merge, T plus 3 and 2T plus 2 for two levers, and the grid's 1 plus (t + 2)(t + 3) over 2. And sixth, the ledger itself, every claim sorted into shown, chosen, assumed, cited and thesis. Under all six is the bet: that the price belongs in the step.
 
 \subsection{The Thiele thesis}
 
@@ -3354,6 +3376,16 @@ Walk the warehouse from chapter eight one more time. Two computers, the same sor
 Carry a report out of the warehouse and you've got another question: what connects the report to the machine? The box doesn't answer it. A window, a copy, a second machine and a reader each bring relations of their own, and the chapters asked, one at a time, which of those hold.
 
 At the bottom of all of it is one distinction made to stay: a bead in a dip, a cell written, a question closed. What that settling keeps, what it takes, and what the price I chose charges for it. What I'm arguing is that keeping is part of computation, not something you bolt on afterwards, and that the price belongs in the step. The box and its toll are the part of that I've worked all the way through. The rest is yours to push on.
+
+\subsection{The blindfold}
+
+Here's the whole book in one picture. Take any machine that steps: Turing's, a register machine, a lambda term, a table of chances, a quantum circuit. None of them puts a price in the step, and none of them asks that a mark mean what it says. Write ``checked'' on Turing's tape, and his model allows the next rule to rub it out, or to print it without the check. A particular table might leave the mark alone forever, the way chapter two's endless strip does, but nothing in the model makes it hold. A machine like that can carry a record the way it carries anything, as marks, and nothing in its step makes the mark honest. That's why the sorter and the copier leave the same bits behind.
+
+Put the one-way door and the toll in the step, and the picture turns over. A Turing machine that stops, read through whether it has stopped, is already a Thiele machine with the price left out. Any machine that has a move at all is what's left of a Thiele machine once you cover the coin with your hand, as chapter four showed. Covering the coin is the blindfold, and setting the price of settling to zero is the other half of it.
+
+Take the blindfold off and the same counting reaches every kind of step in this book. On a finite machine, a record that stays can't go up without two arrows meeting, unless the machine stops; on an endless one it can, by taking fresh states forever. A noisy step that keeps the even spread can't raise it at all, and neither can a turn in a finite quantum space. A window that drops the record can't tell you whether an answer was established or just printed. And a machine that reads its record to skip work it already paid for has to keep that shortcut honest when the data changes, and under chapter sixteen's two conditions there are exactly four ways: fresh editions until they run out, a box that comes down and makes two arrows meet twice, room for every value checked, or wrong answers in four moves.
+
+Turing's machine is the case where the blindfold stays on and settling is free. This book takes the blindfold off.
 
 %===========================================================================
 \phantomsection\section*{Afterword: how I got here}

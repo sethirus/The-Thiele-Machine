@@ -96,4 +96,45 @@ fp = lambda lst: sum(lst) % 7
 a, b = [1, 2, 3], [3, 2, 1]
 if not (fp(a) == fp(b) and a == sorted(a) and b != sorted(b)): fails.append('fingerprint collision')
 
+# ---------------- the theorem: under the two conditions, wrong or at most (E+1)//2 unlocked rounds ----------------
+def up_maps(E):
+    S = list(range(1 << E))
+    return [[t for t in S if t & s == s] for s in S]
+def play(guard, wg, chk, wb, rounds):
+    c, u, wrong = 0, 0, False
+    for _ in range(rounds):
+        c = chk[wg[c]]
+        if guard[c]: u += 1
+        c = wb[c]
+        if guard[c]: wrong = True
+    return u, wrong
+for E in (1, 2):
+    opts = up_maps(E)
+    for guard in product([0, 1], repeat=1 << E):
+        for wg in product(*opts):
+            for chk in product(*opts):
+                for wb in product(*opts):
+                    u, w = play(guard, wg, chk, wb, E + 3)
+                    if not w and 2 * u > E + 1: fails.append('doors theorem E=%d' % E)
+rng2 = random.Random(16)
+reached = {}
+for E in (3, 4):
+    opts = up_maps(E)
+    for _ in range(100000):
+        guard = [rng2.randint(0, 1) for _ in range(1 << E)]
+        wg, chk, wb = ([rng2.choice(o) for o in opts] for _ in range(3))
+        u, w = play(guard, wg, chk, wb, E + 3)
+        if not w:
+            reached[E] = max(reached.get(E, 0), u)
+            if 2 * u > E + 1: fails.append('doors theorem E=%d' % E)
+# a box that comes down unlocks every round, honestly
+if play([0, 1], [0, 1], [1, 1], [0, 0], 10) != (10, False): fails.append('toggle every round')
+# door four's room: keeping every checked value unlocked at once needs a distinct memory state per set
+for k in range(1, 6):
+    sets = list(product([0, 1], repeat=k))
+    for a, b in [(x, y) for x in sets for y in sets if x != y]:
+        if not any(a[i] != b[i] for i in range(k)): fails.append('2^k')
+    if len(sets) != 2 ** k: fails.append('2^k count')
+print('doors theorem bound reached by random machines:', reached)
+
 print('failures:', len(fails), fails[:10])

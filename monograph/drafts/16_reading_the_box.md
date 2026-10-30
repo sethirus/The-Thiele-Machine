@@ -130,12 +130,30 @@ That part was already in the book. What this chapter adds is the second bill. Ke
 thing, and there are exactly four ways to pay it: fresh editions, which is fresh paper or a fuse budget; a box that comes down, which leaves the
 definition and merges at the wipe; room for every value checked; or nothing, and wrong answers.
 
-None of the four is new. Programmers have used all of them for decades. What's here is that they're four ways of paying chapter two's bill. I haven't
-found a fifth, and here's why I don't expect one. When the shortcut runs, the machine has to know that the thing in front of it passed the check.
-Either the box names the thing outright, which is the fourth door, or the box sits on a place and has to know that nothing changed in that place
-since the check. Knowing that takes a mark that changes when the place does. A mark that only ever moves to new values is the second door, and on a
-finite machine it runs out or wraps around into the first. A mark that moves back is a box that comes down, the third. That's an argument, not a
-proof that nothing else could work, and if you find a fifth door I'd like to see it.
+Programmers have used all four for decades. What this chapter adds is that they're four ways of paying chapter two's bill, and that under two
+conditions there's no fifth. Here's the proof.
+
+Say what the guard is allowed to see. The first condition: its glance can't tell a passing value from a failing one. If it can, then either it's
+doing the check over again, which is no shortcut, or it's reading enough of the value to tie a box to it, which is the fourth door, with its bill of
+room and, on big data, the time it takes to read the value. The second condition: the memory the guard reads is made only of boxes that go up and
+never come down. If some of it can come back down, that's the third door.
+
+Under those two conditions, run the same moves over and over: write a passing value, check it, ask; then write a failing value, and ask again. The
+glance can't tell the two values apart, so whether the shortcut is unlocked depends only on the boxes. If it's unlocked after the failing write, it
+answers wrong: the first door. Say it never answers wrong. Then every round that unlocks needs the boxes in an unlocked state after the check and in
+a locked state after the failing write, so the boxes change between those two moments, and they have to change again before the next round can unlock.
+A number of unlocked rounds needs at least twice that many changes, less one. But boxes only go up. With E boxes, they can change at most E times in
+the whole run, because each change raises at least one box and none ever comes back. So twice the number of unlocked rounds is at most E plus one.
+After that the shortcut never unlocks again, and the machine takes the long way for good: a budget, the second door. It's chapter two's chairs once
+more, more changes needed than boxes to spend them on.
+
+The fourth door's room is a count of its own. Say every value that's been checked has to stay unlocked, all at once, through any writes. Take two
+different sets of checked values. Some value is in one set and not the other, and the guard has to unlock it for one and not for the other, so the
+memory has to be in two different states. With k passing values there are 2 to the k sets, so the memory needs 2 to the k states: k boxes, one for
+each value.
+
+So under the two conditions, wrong answers or a budget are the only outcomes, and stepping outside the conditions is stepping through one of the other
+two doors.
 
 And it leaves one question hanging, the one every machine with a record runs into once its programs can be handed their own code. These shortcuts
 were handed to the machine: I wrote the property, the check and the shortcut. Can a machine find its own shortcuts, and decide from the inside whether

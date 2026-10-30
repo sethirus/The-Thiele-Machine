@@ -2,7 +2,7 @@
    the passing value from the failing one), and every box only ever goes up.
    Rounds: write the passing value, check, ask; write the failing value, ask.
    If no ask is ever wrong, twice the unlocked rounds is at most the number of boxes plus one. *)
-From Coq Require Import List Bool Lia.
+From Coq Require Import List Bool Lia Arith.
 Import ListNotations.
 
 (* boxes: a list of bits; c <= d when every box up in c is up in d *)
@@ -161,5 +161,85 @@ Fixpoint toggle_run (n : nat) (c : list bool) : nat * bool :=
 
 Example toggle_unlocks_every_round : toggle_run 10 [false] = (10, false).
 Proof. reflexivity. Qed.
+
+(* ---------- The second door is sound: fresh editions never give a wrong answer ---------- *)
+Section FreshEditions.
+  Variable P : nat -> bool.                   (* the checked property *)
+  Inductive op := Write (a : nat) | Check | Ask.
+  Record mstate := { data : nat; edition : nat; boxes : list nat }.
+  Definition start := {| data := 0; edition := 0; boxes := [] |}.
+  Definition stepm (m : mstate) (o : op) : mstate :=
+    match o with
+    | Write a => {| data := a; edition := S (edition m); boxes := boxes m |}
+    | Check => if P (data m) then {| data := data m; edition := edition m; boxes := edition m :: boxes m |} else m
+    | Ask => m
+    end.
+  Definition fires (m : mstate) := existsb (Nat.eqb (edition m)) (boxes m).
+  Fixpoint runm (m : mstate) (prog : list op) : mstate :=
+    match prog with [] => m | o :: r => runm (stepm m o) r end.
+  Definition inv (m : mstate) := (forall e, In e (boxes m) -> e <= edition m) /\
+                                 (In (edition m) (boxes m) -> P (data m) = true).
+  Lemma inv_start : inv start. Proof. split; simpl; tauto. Qed.
+  Lemma inv_step : forall m o, inv m -> inv (stepm m o).
+  Proof.
+    intros m o H. destruct o as [a| |]; simpl.
+    - destruct H as [B C]. split; simpl.
+      + intros e He. specialize (B e He). lia.
+      + intro Hin. specialize (B _ Hin). lia.
+    - destruct (P (data m)) eqn:Pm.
+      + destruct H as [B C]. split; simpl.
+        * intros e [He | He]; [lia | apply B; exact He].
+        * intros _. exact Pm.
+      + exact H.
+    - exact H.
+  Qed.
+  Lemma inv_run : forall prog m, inv m -> inv (runm m prog).
+  Proof. induction prog; intros; simpl; auto using inv_step. Qed.
+  Theorem fresh_editions_never_wrong : forall prog,
+      fires (runm start prog) = true -> P (data (runm start prog)) = true.
+  Proof.
+    intros prog F. destruct (inv_run prog start inv_start) as [_ C]. apply C.
+    unfold fires in F. apply existsb_exists in F as [e [He Ee]].
+    apply Nat.eqb_eq in Ee. subst e. exact He.
+  Qed.
+End FreshEditions.
+
+(* ---------- The first door: editions that wrap around, four moves to a wrong answer ---------- *)
+Definition even (x : nat) := Nat.even x.
+Definition wstep (m : nat * nat * list nat) (o : op) : nat * nat * list nat :=
+  let '(x, v, bs) := m in
+  match o with
+  | Write a => (a, (S v) mod 2, bs)
+  | Check => if even x then (x, v, v :: bs) else (x, v, bs)
+  | Ask => (x, v, bs)
+  end.
+Fixpoint wrun m prog := match prog with [] => m | o :: r => wrun (wstep m o) r end.
+Example wrap_four_moves_wrong :
+  let '(x, v, bs) := wrun (0, 0, []) [Check; Write 1; Write 3; Ask] in
+  existsb (Nat.eqb v) bs = true /\ even x = false.
+Proof. vm_compute. split; reflexivity. Qed.
+
+(* ---------- The third door merges twice: at the passing check and at the wipe ---------- *)
+Definition t_check (s : bool * bool) := if fst s then (fst s, true) else s.   (* data true passes *)
+Definition t_flip_write (s : bool * bool) := (negb (fst s), false).
+Example toggle_check_merges : t_check (true, false) = t_check (true, true) /\ (true, false) <> (true, true).
+Proof. split; [reflexivity | discriminate]. Qed.
+Example toggle_wipe_merges : t_flip_write (false, false) = t_flip_write (false, true) /\ (false, false) <> (false, true).
+Proof. split; [reflexivity | discriminate]. Qed.
+Lemma flip_alone_one_to_one : forall a b : bool, negb a = negb b -> a = b.
+Proof. destruct a, b; simpl; congruence. Qed.
+
+(* ---------- The fourth door's room: keeping every checked value unlocked at once ---------- *)
+Section ValueRoom.
+  Variable M K : Type.
+  Variable mem : (K -> bool) -> M.            (* memory after a set of checked values *)
+  Variable guard : M -> K -> bool.            (* reads the memory and the value *)
+  Hypothesis unlocks_exactly : forall s k, guard (mem s) k = s k.
+  Theorem distinct_sets_distinct_memory : forall s t, mem s = mem t -> forall k, s k = t k.
+  Proof. intros s t E k. rewrite <- (unlocks_exactly s k), <- (unlocks_exactly t k), E. reflexivity. Qed.
+End ValueRoom.
+
+Print Assumptions fresh_editions_never_wrong.
+Print Assumptions distinct_sets_distinct_memory.
 
 Print Assumptions four_doors_budget.

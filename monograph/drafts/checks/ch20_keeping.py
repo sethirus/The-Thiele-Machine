@@ -260,4 +260,26 @@ for _ in range(5000):
 swap = {0: 1, 1: 0}; idle = {0: 0, 1: 1}
 if len(set(swap.values())) != 2 or len(set(idle.values())) != 2: fails.append('swap example')
 
+# ---------------- the grid's lower bound, exhaustively at one pull ----------------
+f1g = lambda r: (0, r[1]); f2g = lambda r: (r[0], 0)
+READS = [(1, 1), (0, 1), (1, 0), (0, 0)]
+def least_grid(t, nmax):
+    best = None
+    for n in range(4, nmax + 1):
+        for extra in product(READS, repeat=n - 4):
+            rd = READS + list(extra)
+            o1 = [[y for y in range(n) if rd[y] == f1g(rd[x])] for x in range(n)]
+            o2 = [[y for y in range(n) if rd[y] == f2g(rd[x])] for x in range(n)]
+            for Fv in product(*o1):
+                for Gv in product(*o2):
+                    R = {0, 1, 2, 3}; layers = [set(R)]
+                    for _ in range(t):
+                        R = set(R) | {Fv[x] for x in R} | {Gv[x] for x in R}; layers.append(R)
+                    Rp = sorted(layers[t - 1])
+                    if len({Fv[x] for x in Rp}) < len(Rp) or len({Gv[x] for x in Rp}) < len(Rp): continue
+                    best = len(layers[t]) if best is None else min(best, len(layers[t]))
+        if best is not None and best <= n: break
+    return best
+if least_grid(1, 7) != 1 + (1 + 2) * (1 + 3) // 2: fails.append('grid lower bound at t=1')
+
 print('failures:', len(fails), fails[:10])

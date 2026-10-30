@@ -110,4 +110,11 @@ passes. Now the copier's tick is refused, and a ticked box tells you a check of
 that list passed. I call a box like that established. It's a condition you put on
 the machine. The bare definition doesn't hand it to you.
 
+One more picture to carry through the book. Write "checked" on Turing's tape,
+and nothing in his model stops the next rule from rubbing it out, or from
+printing it without the check; a particular table might leave it alone, but the
+model doesn't make it hold. Cover a Thiele machine's record with your hand and
+set the price of settling to zero, and what's left is a bare machine that steps:
+every one of them, Turing's included, is a Thiele machine with a blindfold on.
+
 It's called the Thiele Machine. The afterword says why.
