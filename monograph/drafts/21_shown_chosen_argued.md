@@ -22,8 +22,8 @@ more and never a refund, and the toll. A counter and a window come in when an ar
 buy it in a box. It isn't a device, a chip or an instruction set; those are things you'd build to carry it.
 
 So if it computes nothing new, and it doesn't, what's it for? The same thing other ways of counting a
-computation are for. Stephen Cook and Robert Reckhow's random-access machine, from 1973, computes exactly what
-Turing's does, and it's worth having because it counts steps the way real memory is used. Andrew Yao's
+computation are for. The random-access machine, in the form Stephen Cook and Robert Reckhow gave it as a way of counting cost in 1973,
+computes exactly what Turing's does, and it's worth having because it counts steps the way real memory is used. Andrew Yao's
 cell-probe model, from 1981, counts only how many times you look into memory and leaves all the computing in
 between out of the count. Alok Aggarwal and Jeffrey Vitter's model, from 1988, counts only the blocks moved
 between a slow memory and a fast one. None of them computes one function more than Turing's machine. Each is worth
@@ -144,7 +144,7 @@ Here's every claim the book makes, one line each, with what kind of claim it is 
 and the line is wrong.
 
 Ledger is a good word for it, and it's older than bookkeeping. Around 1400 a ledger was a big book that lay in one place, a large church breviary, from the old verb for to lay;
-the account-book sense came later. Staying put is the job here too. This is the one place where every claim lies still, so you can come back and find it where you left it.
+the account-book sense turns up in the 1580s. Staying put is the job here too. This is the one place where every claim lies still, so you can come back and find it where you left it.
 
 There's a way to use it that takes five minutes. Pick the sentence in this book you trust least. Find its line. Read the kind before anything else. Then go to the chapter and check
 that the line says no more than the chapter does. If it says more, you've found my mistake.
@@ -163,13 +163,14 @@ None of the pieces is mine alone, so here's the short form of who did what, with
 The toll isn't only my preference: on a finite machine a reading nothing turns off can only be turned on by a step that makes two arrows meet, so if that's priced, raising it costs; and
 a raise where nothing meets needs endlessly many yes-states. The counting under it is the finite cousin of the recurrence Zermelo threw at Boltzmann in 1896, and the price on a merge comes
 from Landauer's reset. Others had already priced merges. Thomas Ouldridge and David Wolpert put a physical price on them for finite automata in 2023. Ming Li and Paul Vitányi in 1996 put a unit
-price on each bit erased in a model of computation, and Erik Demaine and his coauthors in 2016 charged for instructions that destroy information. What's here is the toll that kind of price forces
+price on each bit a computation erases, or takes in, irreversibly, and Erik Demaine and his coauthors in 2016 charged for instructions that destroy information. What's here is the toll that kind of price forces
 on a reading that stays.
 
 That a price worked out from a window can't tell apart two steps the window shows the same is a fact about functions far older than this book; what's here is the pricing form of it. That a box driven
 by the computation that never comes down is a cup on one event, over any machine, uses old pieces too: latches and history-keeping variables are old, and the result covers only boxes that never come
-down. And the move of guaranteeing something about every run, which an established record leans on, isn't mine at all. It's the reference monitor's: James Anderson's 1972 study for the US Air Force, made
-precise for monitors that watch a run by Fred Schneider in 2000, and proved for monitors checked at every instruction by Arthur Azevedo de Amorim and his coauthors in 2015. What I put under it is a definition,
+down. And the move of guaranteeing something about every run, which an established record leans on, isn't mine at all. It's the reference monitor's: James Anderson's 1972 study for the US Air Force, which asked for a mechanism that is "tamper proof,"
+"always invoked," and "small enough to be subject to analysis and tests." Fred Schneider made the idea
+precise for monitors that watch a run in 2000, and it was proved for monitors checked at every instruction by Arthur Azevedo de Amorim and his coauthors in 2015. What I put under it is a definition,
 and its idea isn't new either: a check tied to the claim it looked at, with the toll charged on top.
 
 What's mine is the putting together, and the bet that it belongs in the step.
@@ -184,7 +185,7 @@ input ever turns off, on inputs accepted and rejected alike.
 No argument settles it, because "a physical process that computes" isn't something you can do mathematics on. A model of computation is, and for a model written down as states, a step and a reading that stays,
 what keeping takes needs no thesis: it's chapter two. The thesis is the tie between the two, and it's about what a physical computation pays for what it keeps.
 
-There's an established road to that kind of tie, with its conditions in the open. Robin Gandy in 1980 wrote down principles for mechanisms, and Pablo Arrighi and Gilles Dowek restated them in 2012: sameness
+There's an established road to that kind of tie, with its conditions in the open. Robin Gandy in 1980 wrote down principles for mechanisms, and Pablo Arrighi and Gilles Dowek restated his argument in a simpler form in 2012: sameness
 across space and time, finitely many local states, a bound on how fast anything travels, and a start that differs from a quiet background only in a finite region. From those, the evolution is computable. Those
 are real assumptions about the world, and they don't pick an event or a price in joules. I'm not asserting them of every physical system.
 
