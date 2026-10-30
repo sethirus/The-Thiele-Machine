@@ -154,12 +154,24 @@ grow by at least one per pull, and with the two other starts there are at least 
 end.
 
 But try the levers in opposite orders on that box and the hidden states disagree. Ask for more: the order of the levers must leave the whole machine the same, not just the tabletop. Then
-the count goes up, to 2T plus 2. The reason, in plain words: hold the start above 1 and pull only the lever that leaves 1 alone; the hidden box can still move, and it traces a path that
-reads 1 the whole way. Do the same above 2. Each path runs for a while and then, if it repeats at all, falls into a loop. Switch levers at the loop, and each one starts a row of zero
-states that can't repeat, by walking back. Then ask whether the two rows can share a state. Commuting is what limits that: a shared state would have to come back to itself after a full
-turn of the other loop, which pushes any sharing out to the far ends of the rows. Add the two paths and the two rows and take away what they can share, and every pull spent getting into a
-loop is a pull taken from that loop's zero row, so the total comes to at least 2T plus the longer loop. If both loops are a single state, the zero start has to sit off both rows, and it adds
-the last one. Either way, 2T plus 2.
+the count goes up, to 2T plus 2. Take the simple case first, where the second lever leaves the start above 1 standing still, and the first lever leaves the start above 2
+standing still.
+
+Start above 1 and pull the first lever T times. That walks a chain of T zero states, all different: if two were the same, walking back would make the start above 1 equal to a later
+state that reads 0. Now ask what the second lever does to a state on that chain. Commuting says pulling it after the first lever lands where pulling it before would, and before, you were at
+the start above 1, where the second lever stands still. So the second lever holds every state on the first chain still. The same reasoning with the levers swapped walks a second chain of T
+zero states from the start above 2, and the first lever holds every one of those still.
+
+Can the chains share a state? Everywhere on the first chain but its last state, the first lever moves you on; everywhere on the second chain, the first lever holds you still. No state does
+both, so nothing on the first chain except its end can be on the second, and the same with the levers swapped. The most they can share is their two ends, as one state. If they don't share
+it, that's 2T zero states, and with the starts above 1 and 2, 2T plus 2. If they do, that's 2T minus 1 zero states, and now the zero start can't be on either chain: if it were, pulling from
+it would reach the shared end within the horizon, and the lever that walks that chain would send both the end and the state just before it to the end, two states landing together before
+the promise ran out. So the zero start is one more, and with the starts above 1 and 2 it's 2T plus 2 again.
+
+When the idle lever moves the hidden state instead of holding it still, the path it traces above 1 or 2 costs states of its own. It runs for a while and then, if it repeats, falls into a loop.
+Switch levers there, and every pull spent getting into the loop is one pull fewer for that chain, so the trade is one state for one. Commuting still pushes any sharing between the two chains
+out to their far ends, because a shared state would have to come back to itself after a full turn of the other loop. The count comes out at 2T plus the longer loop, and when both loops are a
+single state, the zero start adds the last one, as before. Either way, 2T plus 2, and the exhaustive search on the small horizons agrees.
 
 There's a box that reaches it. At horizon one it has four places, and you can write every arrow down:
 

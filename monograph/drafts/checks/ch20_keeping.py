@@ -162,6 +162,29 @@ if min_lever(1, False, 4) != 4: fails.append('levers T+3 at 1')
 if min_lever(2, False, 5) != 5: fails.append('levers T+3 at 2')
 if min_lever(1, True, 4) != 4: fails.append('commuting 2T+2 at 1')
 if min_lever(2, True, 6) != 6: fails.append('commuting 2T+2 at 2')
+# the simple case on the page, tested on every valid commuting box of six places at horizon two
+# where the second lever holds the start above 1 still and the first holds the start above 2 still
+T, n, seen = 2, 6, 0
+for read in product([0, 1, 2], repeat=n - 3):
+    rd = (0, 1, 2) + read
+    optF = [[y for y in range(n) if rd[y] == fmap[rd[x]]] for x in range(n)]
+    optG = [[y for y in range(n) if rd[y] == gmap[rd[x]]] for x in range(n)]
+    for Fv in product(*optF):
+        if Fv[2] != 2: continue
+        for Gv in product(*optG):
+            if Gv[1] != 1 or not lever_ok(Fv, Gv, rd, (0, 1, 2), T, True): continue
+            seen += 1
+            c1 = [1]
+            for _ in range(T): c1.append(Fv[c1[-1]])
+            c2 = [2]
+            for _ in range(T): c2.append(Gv[c2[-1]])
+            c1, c2 = c1[1:], c2[1:]
+            if len(set(c1)) < T or len(set(c2)) < T: fails.append('chains repeat')
+            if any(Gv[x] != x for x in c1) or any(Fv[x] != x for x in c2): fails.append('other lever holds still')
+            shared = set(c1) & set(c2)
+            if shared - ({c1[-1]} & {c2[-1]}): fails.append('share only the ends')
+            if shared and (0 in c1 or 0 in c2): fails.append('zero start off the chains')
+if seen == 0: fails.append('no simple-case boxes found')
 # the four-place box at horizon one, every arrow
 rd = {'a0': 1, 'b0': 2, 'b1': 0, 'end': 0}
 F4 = {'a0': 'end', 'b0': 'b0', 'b1': 'b1', 'end': 'end'}
