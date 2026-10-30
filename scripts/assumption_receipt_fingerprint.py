@@ -127,11 +127,6 @@ def _coq_source_paths(root: Path) -> list[Path]:
             line = line.strip()
             if line and not line.startswith(("#", "-")) and line.endswith(".v"):
                 paths.add(root / "coq" / line)
-    for directory in (
-        root / "vendor/coq-undecidability/theories",
-    ):
-        if directory.exists():
-            paths.update(directory.rglob("*.v"))
     return sorted(path for path in paths if path.is_file())
 
 

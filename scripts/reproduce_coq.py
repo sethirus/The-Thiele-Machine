@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild repository Coq sources and the vendored library in a fresh local tree.
+"""Rebuild the repository Coq sources in a fresh local tree.
 
 Requires native Coq, GNU make and CSDP. Never installs packages, downloads
 sources, invokes a container runtime, or copies precompiled proof objects.
@@ -20,13 +20,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-FOLDERS = ('coq', 'minimal', 'vendor/coq-undecidability/theories')
-CONFIGS = ('coq/_CoqProject', 'coq/Makefile.local',
-           'vendor/coq-undecidability/theories/Makefile',
-           'vendor/coq-undecidability/theories/_CoqProject',
-           'vendor/coq-undecidability/LICENSE',
-           'vendor/coq-undecidability/UPSTREAM.md',
-           'scripts/reproduce_coq.py')
+FOLDERS = ('coq', 'minimal')
+CONFIGS = ('coq/_CoqProject', 'coq/Makefile.local', 'scripts/reproduce_coq.py')
 # Extra Coq probe files run with the project load path after the build
 # (pass --probe). None ship by default: coqchk below re-checks every module
 # the project lists.

@@ -35,8 +35,8 @@ Proof. unfold tape_write. lia. Qed.
 
 (* 4. No state space codes all its own readings: there is no surjection from X onto X -> bool,
       so the questions you can ask of a state always outnumber the states. This is Cantor's diagonal.
-      The machine does contain itself by running itself (the universal program, Minimal.UniversalThiele);
-      what no level does is hold every question about itself, which is why the regress is forced. *)
+      A machine can run a copy of itself; what no level does is hold every question about itself,
+      which is why the regress is forced. *)
 Theorem no_space_holds_its_own_readings : forall (X : Type) (code : X -> (X -> bool)),
   ~ (forall r : X -> bool, exists x, code x = r).
 Proof.
@@ -46,9 +46,9 @@ Proof.
   destruct (code d d); simpl in E; discriminate.
 Qed.
 
-(* 5. The regress has a price. The entitlement count in the repo (ent_cs_run_entitlement, ent_run_entitlement)
-      says: with each passed test keeping at least half the candidates, the rounded-up log2 drop from the
-      prior to the posterior is at most the number of tests passed, each costing at least one.
+(* 5. The regress has a price. The narrowing count under the halving price (run_narrowing_priced_log,
+      coq/kernel/nfi/KnowledgeNarrowing.v) says: the rounded-up log2 drop from the candidates to their
+      image after a run is at most the run's cost.
       Instance: to be entitled to "this cell is blank" among N possibilities costs at least log2_up N units,
       and that price is unbounded as the possibilities grow. *)
 Theorem regress_price_unbounded : forall m, exists N, m <= Nat.log2_up N.

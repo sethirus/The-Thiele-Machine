@@ -1,5 +1,6 @@
-(** VerifierSmall.v: the verifier corollary, stated abstractly and proved
-    for every Thiele-complete machine, the small machine included.
+(* SCOPE NOTE: standalone proof scope. the verifier corollary is stated over an
+   abstract explanation relation, not over the record system itself. *)
+(** VerifierSmall.v: the verifier corollary, stated abstractly.
 
     The setting. A verifier reads a transcript and says accept or reject.
     An explanation relation says which states can stand behind which
@@ -26,24 +27,6 @@
          breaking it whenever the bare relation has a collision
          [ver_unchecked_breaks_contract]; a response read off the state
          [ver_response_escape].
-      3. Every Thiele-complete machine has the collision. The bare
-         transcript is the clean start's two counters and the end's base
-         window; a state explains it when some run from that start ends
-         there showing that window. No verifier on bare transcripts is
-         sound and complete for "the record is up"
-         [ver_complete_no_record_verifier], and for some clean start none
-         is for "the ledger rose by at least 3"
-         [ver_complete_no_ledger_verifier]. No sound and complete verifier
-         on any richer transcript type factors through the bare part when
-         the collision survives into it [ver_complete_no_factor]. The three
-         escapes work for the record claim [ver_complete_escapes]. All of
-         it in one statement [ver_corollary].
-      4. The small machine. The pair of EarnedCore.v (CHECK, COMMIT,
-         CERTIFY versus three idle decrements, both from (0, 0)) ends with
-         the same window, ledger 3 against 0. No verifier on the bare window
-         is sound and complete for "the ledger reads 3"
-         [ver_small_no_ledger_verifier]; the whole corollary holds for the
-         small machine through its own interface [ver_small_corollary].
 
     What is not proved. The collision is a hypothesis of ver_no_factor, not
     a conclusion: a transcript type that separates the two states does not
@@ -53,17 +36,10 @@
     hardness is proved. The response relation only allows a truthful
     response, so it buys no resistance to a cheating prover.
 
-    Dependencies: Coq standard library, ThieleComplete.v,
-    ThieleCompleteWindow.v, EntitlementSmall.v (for the small machine's
-    interface lemma) and the files they require. No axioms, no Admitted.        *)
+    Dependencies: the Coq standard library. No axioms, no Admitted. *)
 
 From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
-Require Import Minimal.ThieleComplete.
-Require Import Minimal.ThieleCompleteWindow.
-Require Import Minimal.EntitlementSmall.
-Require Minimal.EarnedCore.
-Module E := Minimal.EarnedCore.
 
 (* ================================================================= *)
 (* 1. The collision, on any states and transcripts.                   *)
@@ -213,191 +189,6 @@ Qed.
 
 End Escapes.
 
-(* ================================================================= *)
-(* 3. Every Thiele-complete machine has the collision.                *)
-(* ================================================================= *)
-
-(* The bare transcript: the clean start's two counters and the end's base
-   window. *)
-Definition ver_bare : Type := (nat * nat * cm_conf)%type.
-
-Definition ver_bare_explains {M : machine} (I : thiele_interface M)
-    (s : m_state M) (t : ver_bare) : Prop :=
-  let '(a, b, w) := t in
-  exists tr, s = run M tr (load I a b) /\ base_window I s = w.
-
-Definition ver_record {M : machine} (s : m_state M) : Prop := m_record M s = true.
-
-Theorem ver_complete_no_record_verifier : forall (M : machine) (I : thiele_interface M),
-  thiele_complete_with I ->
-  ~ exists V : ver_bare -> bool,
-      ver_sound ver_record (ver_bare_explains I) V /\
-      ver_complete ver_record (ver_bare_explains I) V.
-Proof.
-  intros M I HC.
-  destruct (complete_hides_record M I HC) as [a [b [tr1 [tr2 [_ [Hw [H1 H2]]]]]]].
-  apply (ver_collision_blocks ver_record (ver_bare_explains I)
-           (a, b, base_window I (run M tr1 (load I a b)))
-           (run M tr1 (load I a b)) (run M tr2 (load I a b))).
-  - exists tr1. split; reflexivity.
-  - exists tr2. split; [reflexivity | symmetry; exact Hw].
-  - exact H1.
-  - unfold ver_record. rewrite H2. discriminate.
-Qed.
-
-Theorem ver_complete_no_ledger_verifier : forall (M : machine) (I : thiele_interface M),
-  thiele_complete_with I ->
-  exists a b, ti_clean I (load I a b) /\
-  ~ exists V : ver_bare -> bool,
-      ver_sound (fun s => ti_ledger I (load I a b) + 3 <= ti_ledger I s) (ver_bare_explains I) V /\
-      ver_complete (fun s => ti_ledger I (load I a b) + 3 <= ti_ledger I s) (ver_bare_explains I) V.
-Proof.
-  intros M I HC.
-  destruct (complete_two_runs M I HC)
-    as [a [b [tr1 [tr2 [Hc [_ [Hw [_ [_ [Hl2 Hl1]]]]]]]]]].
-  exists a, b. split; [exact Hc |].
-  apply (ver_collision_blocks _ (ver_bare_explains I)
-           (a, b, base_window I (run M tr1 (load I a b)))
-           (run M tr1 (load I a b)) (run M tr2 (load I a b))).
-  - exists tr1. split; reflexivity.
-  - exists tr2. split; [reflexivity | symmetry; exact Hw].
-  - exact Hl1.
-  - rewrite Hl2. lia.
-Qed.
-
-(* The colliding pair, named: one clean start, two runs, the same window,
-   the record up after one and down after the other. *)
-Theorem ver_complete_pair : forall (M : machine) (I : thiele_interface M),
-  thiele_complete_with I ->
-  exists (t : ver_bare) (A B : m_state M),
-    ver_bare_explains I A t /\ ver_bare_explains I B t /\ ver_record A /\ ~ ver_record B.
-Proof.
-  intros M I HC.
-  destruct (complete_hides_record M I HC) as [a [b [tr1 [tr2 [_ [Hw [H1 H2]]]]]]].
-  exists (a, b, base_window I (run M tr1 (load I a b))),
-         (run M tr1 (load I a b)), (run M tr2 (load I a b)).
-  split; [exists tr1; split; reflexivity |].
-  split; [exists tr2; split; [reflexivity | symmetry; exact Hw] |].
-  split; [exact H1 | unfold ver_record; rewrite H2; discriminate].
-Qed.
-
-(* A richer transcript that keeps the collision cannot be read through
-   its bare part. *)
-Theorem ver_complete_no_factor : forall (M : machine) (I : thiele_interface M),
-  thiele_complete_with I ->
-  exists A B : m_state M, ver_record A /\ ~ ver_record B /\
-  forall (T : Type) (proj : T -> ver_bare) (explains : m_state M -> T -> Prop)
-         (tA tB : T) (V : T -> bool),
-    proj tA = proj tB -> explains A tA -> explains B tB ->
-    ver_sound ver_record explains V -> ver_complete ver_record explains V ->
-    ~ ver_factors proj V.
-Proof.
-  intros M I HC.
-  destruct (ver_complete_pair M I HC) as [t [A [B [_ [_ [HA HB]]]]]].
-  exists A, B. split; [exact HA |]. split; [exact HB |].
-  intros T proj explains tA tB V Hp HeA HeB Hs Hc.
-  exact (ver_no_factor (m_state M) T ver_bare ver_record explains proj tA tB A B V
-           Hp HeA HeB HA HB Hs Hc).
-Qed.
-
-Lemma ver_record_claim : forall (M : machine) (s : m_state M),
-  ver_record s <-> ver_claim (m_record M) s.
-Proof. intros. reflexivity. Qed.
-
-(* The three escapes, for the record claim, on any machine. *)
-Theorem ver_complete_escapes : forall (M : machine) (I : thiele_interface M),
-  (ver_sound ver_record ver_full_explains (ver_full_verifier (m_record M)) /\
-   ver_complete ver_record ver_full_explains (ver_full_verifier (m_record M))) /\
-  (ver_sound ver_record (ver_honest (m_record M) (ver_bare_explains I)) ver_bit_verifier /\
-   ver_complete ver_record (ver_honest (m_record M) (ver_bare_explains I)) ver_bit_verifier) /\
-  (ver_sound ver_record (fun s (tr : ver_bare * bool) => snd tr = m_record M s)
-             (fun tr => snd tr) /\
-   ver_complete ver_record (fun s (tr : ver_bare * bool) => snd tr = m_record M s)
-             (fun tr => snd tr)).
-Proof.
-  intros M I. split; [| split].
-  - exact (ver_full_state_escape (m_record M)).
-  - apply ver_commitment_escape, ver_honest_meets_contract.
-  - exact (@ver_response_escape _ (m_record M) ver_bare bool (m_record M) (fun b => b) (fun s => eq_refl)).
-Qed.
-
-(* The unchecked bit fails on every Thiele-complete machine. *)
-Theorem ver_complete_unchecked_fails : forall (M : machine) (I : thiele_interface M),
-  thiele_complete_with I ->
-  ~ ver_contract (m_record M) (ver_unchecked (ver_bare_explains I)).
-Proof.
-  intros M I HC.
-  destruct (ver_complete_pair M I HC) as [t [A [B [_ [HB [_ HnB]]]]]].
-  exact (ver_unchecked_breaks_contract (m_record M) (ver_bare_explains I) t B HB HnB).
-Qed.
-
-(* THE VERIFIER COROLLARY, on every Thiele-complete machine. *)
-Theorem ver_corollary : forall (M : machine) (I : thiele_interface M),
-  thiele_complete_with I ->
-  (~ exists V : ver_bare -> bool,
-       ver_sound ver_record (ver_bare_explains I) V /\
-       ver_complete ver_record (ver_bare_explains I) V) /\
-  (exists A B : m_state M, ver_record A /\ ~ ver_record B /\
-     forall (T : Type) (proj : T -> ver_bare) (explains : m_state M -> T -> Prop)
-            (tA tB : T) (V : T -> bool),
-       proj tA = proj tB -> explains A tA -> explains B tB ->
-       ver_sound ver_record explains V -> ver_complete ver_record explains V ->
-       ~ ver_factors proj V) /\
-  (exists V : list (m_state M) -> bool,
-     ver_sound ver_record ver_full_explains V /\ ver_complete ver_record ver_full_explains V) /\
-  (exists V : ver_bare * bool -> bool,
-     ver_sound ver_record (ver_honest (m_record M) (ver_bare_explains I)) V /\
-     ver_complete ver_record (ver_honest (m_record M) (ver_bare_explains I)) V) /\
-  ~ ver_contract (m_record M) (ver_unchecked (ver_bare_explains I)) /\
-  (exists V : ver_bare * bool -> bool,
-     ver_sound ver_record (fun s (tr : ver_bare * bool) => snd tr = m_record M s) V /\
-     ver_complete ver_record (fun s (tr : ver_bare * bool) => snd tr = m_record M s) V).
-Proof.
-  intros M I HC.
-  destruct (ver_complete_escapes M I) as [Hf [Hh Hr]].
-  split; [apply ver_complete_no_record_verifier, HC |].
-  split; [exact (ver_complete_no_factor M I HC) |].
-  split; [eexists; exact Hf |].
-  split; [eexists; exact Hh |].
-  split; [apply ver_complete_unchecked_fails, HC |].
-  eexists; exact Hr.
-Qed.
-
-(* ================================================================= *)
-(* 4. The small machine.                                              *)
-(* ================================================================= *)
-
-(* The small machine's two runs from (0, 0): CHECK, COMMIT, CERTIFY, and
-   three idle decrements. A state explains a window when some run from
-   (0, 0) ends there showing it. *)
-Definition ver_small_explains (s : E.state) (w : E.mconf) : Prop :=
-  exists tr, s = E.run tr (E.start 0 0) /\ E.window (E.core_of s) = w.
-
-Theorem ver_small_no_ledger_verifier :
-  ~ exists V : E.mconf -> bool,
-      ver_sound (fun s => E.mu s = 3) ver_small_explains V /\
-      ver_complete (fun s => E.mu s = 3) ver_small_explains V.
-Proof.
-  destruct E.receipt_separation as [Hw _].
-  apply (ver_collision_blocks (fun s => E.mu s = 3) ver_small_explains
-           (E.window (E.core_of E.state_A)) E.state_A E.state_B).
-  - exists E.earned_run. split; reflexivity.
-  - exists E.idle_run. split; [reflexivity | symmetry; exact Hw].
-  - reflexivity.
-  - vm_compute. discriminate.
-Qed.
-
-(* The whole corollary for the small machine through its own interface
-   (thiele_complete_with earned_interface is ent_earned_complete_with, in
-   EntitlementSmall.v). *)
-Definition ver_small_corollary := ver_corollary earned_machine earned_interface
-                                    ent_earned_complete_with.
-
-(* ================================================================= *)
-(* Assumption audit. Every line must print                            *)
-(* "Closed under the global context".                                 *)
-(* ================================================================= *)
-
 Print Assumptions ver_collision_blocks.
 Print Assumptions ver_sound_rejects.
 Print Assumptions ver_no_factor.
@@ -406,12 +197,3 @@ Print Assumptions ver_commitment_escape.
 Print Assumptions ver_honest_meets_contract.
 Print Assumptions ver_unchecked_breaks_contract.
 Print Assumptions ver_response_escape.
-Print Assumptions ver_complete_no_record_verifier.
-Print Assumptions ver_complete_no_ledger_verifier.
-Print Assumptions ver_complete_pair.
-Print Assumptions ver_complete_no_factor.
-Print Assumptions ver_complete_escapes.
-Print Assumptions ver_complete_unchecked_fails.
-Print Assumptions ver_corollary.
-Print Assumptions ver_small_no_ledger_verifier.
-Print Assumptions ver_small_corollary.

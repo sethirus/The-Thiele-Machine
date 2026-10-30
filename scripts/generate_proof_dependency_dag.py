@@ -21,16 +21,16 @@ TOKEN_RE = re.compile(r"\b[A-Za-z_][A-Za-z0-9_']*\b")
 THEOREM_KINDS = {"Lemma", "Theorem", "Corollary", "Proposition", "Fact", "Remark"}
 
 # The foundation chain: the abstract certification system and its universal
-# floor, the record-carrying machine, the abstract substrate, the Turing
-# kernel, and the small machine that earns its commitments. Every other
+# floor, the member predicate, the record-carrying machine, the abstract
+# substrate and the Turing kernel. Every other
 # theorem-bearing file must reach one of these through the declarations it
 # uses, or carry a SCOPE NOTE saying why it stands alone.
 FOUNDATION_FILES: Tuple[str, ...] = (
+    "coq/kernel/foundation/AxThiele.v",
     "coq/kernel/nfi/UniversalCertificationCost.v",
     "coq/kernel/foundation/StructuralCore.v",
     "coq/kernel/foundation/Substrate.v",
     "coq/kernel/foundation/KernelTM.v",
-    "minimal/EarnedCore.v",
 )
 
 # Proof roots scanned for declarations, relative to the repository root.

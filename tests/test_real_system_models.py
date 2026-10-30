@@ -1,6 +1,6 @@
 """The real-system models contain the machinery their results talk about.
 
-docs/RESULTS.md states each model's scope. These checks make sure the Coq
+coq/RESULTS.md states each model's scope. These checks make sure the Coq
 models are not prose: the RFC 9162 verifiers keep their iterative control
 flow, the proof-carrying-code fragment keeps its consumer pipeline, the RAMs
 keep indirect addressing and branching, and the TPM refutation keeps its

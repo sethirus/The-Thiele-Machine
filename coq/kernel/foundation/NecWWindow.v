@@ -1,3 +1,5 @@
+(* SCOPE NOTE: standalone proof scope. window limits are stated over observation policies and abstract
+   verifiers, not over the record system itself. *)
 (** NecWWindow: windows pushed to their limits.
 
     The book's window results (decoders need constant fibres; no exact

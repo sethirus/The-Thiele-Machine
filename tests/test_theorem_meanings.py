@@ -1,6 +1,6 @@
 """Every theorem the documents cite has a plain-sentence entry.
 
-docs/THEOREM_MEANINGS.md holds one sentence per cited theorem saying what
+coq/THEOREM_MEANINGS.md holds one sentence per cited theorem saying what
 the Coq statement asserts. A cited name without an entry, or an entry for a
 theorem that no longer exists, fails here.
 """
@@ -14,13 +14,12 @@ from pathlib import Path
 from scripts.build_full_probe import parse_theorems, qualified_module_name
 
 ROOT = Path(__file__).resolve().parents[1]
-MEANINGS = ROOT / "docs" / "THEOREM_MEANINGS.md"
+MEANINGS = ROOT / "coq" / "THEOREM_MEANINGS.md"
 DOCS = [
     "README.md",
     "TECHNICAL_DISCLOSURE.md",
     "THIELE_MACHINE.txt",
     "monograph/monograph.tex",
-    "monograph/set_aside.tex",
     "monograph/thiele_machine_math_spec.tex",
 ]
 ENTRY = re.compile(
@@ -110,7 +109,7 @@ def test_every_cited_theorem_has_a_meaning() -> None:
         if len(matches) != 1 or not matches <= have.keys():
             missing.append(f"{name} (cited in {', '.join(sorted(docs))}): {sorted(matches)}")
     missing.sort()
-    assert not missing, "cited theorems with no entry in docs/THEOREM_MEANINGS.md:\n" + "\n".join(missing)
+    assert not missing, "cited theorems with no entry in coq/THEOREM_MEANINGS.md:\n" + "\n".join(missing)
 
 
 def test_every_meaning_names_a_theorem() -> None:

@@ -112,7 +112,7 @@ def coqproject_v_files(project_path: Path = COQ_PROJECT) -> FrozenSet[str]:
         if not line.endswith(".v"):
             continue
         # _CoqProject entries are relative to coq/; an entry such as
-        # ../minimal/EarnedCore.v names a file outside coq/.
+        # ../minimal/SliceCore.v names a file outside coq/.
         out.add(posixpath.normpath(f"coq/{line}"))
     return frozenset(out)
 

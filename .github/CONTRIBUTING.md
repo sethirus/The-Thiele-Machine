@@ -5,8 +5,8 @@ linked Git worktrees and repairs a missing executable bit on an already
 configured hook.
 
 The hook runs local builds and tests; it does not call GitHub or need a token.
-It requires the Coq toolchain used by CI (Coq 8.18, CSDP, and MetaCoq for the
-vendored L modules; see [native reproduction](../docs/REPRODUCTION.md)), the Python dependencies in `requirements.txt`. Building the book separately
+It requires the Coq toolchain used by CI (Coq 8.18 and CSDP; see
+[native reproduction](../docs/REPRODUCTION.md)), the Python dependencies in `requirements.txt`. Building the book separately
 requires LaTeX. Stage the changes you intend to commit
 before committing. Since generators and tests read the working tree, the hook
 rejects unstaged tracked changes and non-ignored untracked files. Stash unrelated

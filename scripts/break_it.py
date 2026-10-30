@@ -1,7 +1,7 @@
-"""Try to break the book's Part II results on every small machine.
+"""Try to break the counting results about keeping on every small machine.
 
 A proof that can't fail is no proof. This script tries to make each central
-result of Part II fail. For each one it searches every deterministic machine on
+counting result fail. For each one it searches every deterministic machine on
 a few states exhaustively (every step map, every reading, every set of starts
 the statement talks about), and the random families where a statement is about
 chances or amplitudes, looking for a case where the premises hold and the
@@ -166,7 +166,7 @@ def step_law_violation(xs: list[int]) -> Optional[str]:
 
 
 def check_step_law(N: int) -> Result:
-    r = Result("The step law", "thm:step-law",
+    r = Result("The step law", "sec:steps",
                f"every map on 1..{N} states, every start, {2 * N + 2} steps")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -216,7 +216,7 @@ def path_merges(xs: list[int], upto: int) -> bool:
 
 
 def check_heat_or_room_1(N: int) -> Result:
-    r = Result("Merge, or a fresh state every step (1)", "prop:heat-or-room",
+    r = Result("Merge, or a fresh state every step (1)", "sec:room",
                f"every map, every reading kept by it, every start on 1..{N} states")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -287,7 +287,7 @@ def check_heat_or_room_1(N: int) -> Result:
 
 
 def check_heat_or_room_2(N: int) -> Result:
-    r = Result("Merge, or a fresh state every step (2), the exact bound", "prop:heat-or-room",
+    r = Result("Merge, or a fresh state every step (2), the exact bound", "sec:room",
                f"every map and reading on 1..{N} states, every set of starts with one already set, every T")
     worst: Optional[str] = None
     for M in range(1, N + 1):
@@ -381,7 +381,7 @@ def shift_witness(K: int = 50) -> Optional[str]:
 
 
 def check_perm_flip(N: int) -> Result:
-    r = Result("A permanent flip merges; the toll from merge pricing", "thm:perm-flip-merges",
+    r = Result("A permanent flip merges; the toll from merge pricing", "sec:why-charge",
                f"every map and every reading it keeps, on 1..{N} states")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -439,7 +439,7 @@ def check_perm_flip(N: int) -> Result:
 
 
 def check_merge_or_revoke(N: int) -> Result:
-    r = Result("Merge or revoke", "thm:merge-or-revoke",
+    r = Result("Merge or revoke", "sec:why-charge",
                f"every map and every reading on 1..{N} states")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -457,7 +457,7 @@ def check_merge_or_revoke(N: int) -> Result:
 
 
 def check_reversible(N: int) -> Result:
-    r = Result("Reversible keeps nothing", "thm:reversible-keeps-nothing",
+    r = Result("Reversible keeps nothing", "sec:room",
                f"every one-to-one map on 1..{N} states, every reading, every start")
     for n in range(1, N + 1):
         for f in itertools.permutations(range(n)):
@@ -530,7 +530,7 @@ def min_cost_minus_crossings(fs, cs, Y, n: int, L: int) -> list[int]:
 
 
 def check_floor_and_count(N: int) -> Result:
-    r = Result("The universal floor and one unit per crossing", "thm:per-crossing",
+    r = Result("The universal floor and one unit per crossing", "sec:counter",
                f"every system with two moves on 1..{N} states, prices 0..2, runs up to 5 moves")
     ctrl = Control("the toll")
     for n in range(1, N + 1):
@@ -550,7 +550,7 @@ def check_floor_and_count(N: int) -> Result:
 
 
 def check_ceiling(N: int) -> Result:
-    r = Result("Floor and ceiling with a price per move name", "sec:windows",
+    r = Result("Floor and ceiling with a price per move name", "sec:counter",
                f"every system with two moves on 1..{N} states, prices 0..2, runs up to 3 moves")
     for n in range(1, N + 1):
         for fs, cs, Y in systems(n, 2, range(3)):
@@ -619,7 +619,7 @@ def check_ceiling(N: int) -> Result:
 
 
 def check_squeeze(N: int) -> Result:
-    r = Result("The squeeze bound", "thm:squeeze",
+    r = Result("The squeeze bound", "sec:why-charge",
                f"every map and every reading it keeps on 1..{N} states, least halving cost")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -650,7 +650,7 @@ def check_squeeze(N: int) -> Result:
 
 
 def check_halving_formula(N: int) -> Result:
-    r = Result("The least halving price is the log of the largest pile", "thm:one-premise",
+    r = Result("The least halving price is the log of the largest pile", "sec:why-charge",
                f"every map on 1..{N} states, every list of states")
     for n in range(1, N + 1):
         for f in maps(n):
@@ -670,7 +670,7 @@ def check_halving_formula(N: int) -> Result:
 
 
 def check_narrowing(N: int) -> Result:
-    r = Result("The machine's own narrowing is priced", "thm:machine-narrowing",
+    r = Result("The machine's own narrowing is priced", "sec:looking",
                f"every pair of moves on 1..{N} states at their least halving costs, runs up to 3, every list of starts")
     ctrl = Control("the halving price")
     for n in range(1, N + 1):
@@ -722,7 +722,7 @@ def random_spread(rng: random.Random, n: int, support: Optional[list[int]] = Non
 
 def check_entropy(N: int, rng: random.Random, trials: int) -> Result:
     r = Result("Entropy: no move removes more than the log of its largest pile; the ceiling after a flip",
-               "thm:entropy-ceiling",
+               "sec:heat",
                f"every map on 1..{N} states, {trials} random spreads each, every kept reading")
     eps = 1e-9
     ctrl = Control("the reading is permanent (for the ceiling)")
@@ -794,7 +794,7 @@ def step_spread(P, p):
 
 
 def check_noisy(N: int, rng: random.Random, trials: int) -> Result:
-    r = Result("Noisy steps", "thm:noisy-chairs",
+    r = Result("Noisy steps", "sec:keeping",
                f"{trials} random tables per size, 2..{N} states, every closed set, exact fractions")
     ctrl = Control("every column adds to one")
     for n in range(2, N + 1):
@@ -870,7 +870,7 @@ def mat_vec(cols, v):
 
 
 def check_quantum(N: int, rng: random.Random, trials: int) -> Result:
-    r = Result("Unitary steps", "thm:quantum-chairs",
+    r = Result("Unitary steps", "sec:keeping",
                f"{trials} random unitaries per size, dimensions 2..{N}, every leading subspace")
     ctrl = Control("the step is unitary")
     eps = 1e-9
@@ -914,7 +914,7 @@ def check_quantum(N: int, rng: random.Random, trials: int) -> Result:
 
 
 def check_time_bill() -> Result:
-    r = Result("Heat against time", "thm:time-bill", "p on a grid of 999 values in (0,1), distances 0..60")
+    r = Result("Heat against time", "sec:heat", "p on a grid of 999 values in (0,1), distances 0..60")
     for k in range(1, 1000):
         p = k / 1000
         sigma = (2 * p - 1) * math.log(p / (1 - p))
@@ -965,7 +965,7 @@ def zero_mark_teacher(n: int) -> Optional[str]:
 
 
 def check_three_states() -> Result:
-    r = Result("Three states are the minimum for teaching at zero cost", "thm:three-states",
+    r = Result("Three states are the minimum for teaching at zero cost", "sec:looking",
                "every machine of zero-cost moves on 1..3 states, every window, every candidate list, runs up to 3")
     for n in (1, 2):
         r.cases += 1
@@ -981,7 +981,7 @@ def check_three_states() -> Result:
 
 
 def check_no_self_containment(N: int) -> Result:
-    r = Result("No level holds its own questions", "thm:no-self-containment",
+    r = Result("No level holds its own questions", "first edition",
                f"every assignment of a reading to each state, 1..{N} states")
     for n in range(1, N + 1):
         for a in itertools.product(range(1 << n), repeat=n):
@@ -1012,7 +1012,7 @@ def cond_H(pairs: list[tuple[object, object, Fraction]]) -> float:
 
 
 def check_certainty_bill(N: int, rng: random.Random, trials: int) -> Result:
-    r = Result("The certainty bound", "thm:certainty-bill",
+    r = Result("The certainty bound", "sec:looking",
                f"every pair of moves on 1..{N} states at their least halving costs, runs up to 3, "
                f"{trials} random two-valued windows and spreads")
     eps = 1e-9
@@ -1068,7 +1068,7 @@ def check_certainty_bill(N: int, rng: random.Random, trials: int) -> Result:
 
 
 def check_every_scale(N: int) -> Result:
-    r = Result("Every scale pays the same way", "thm:every-scale",
+    r = Result("Every scale pays the same way", "sec:heat",
                f"every fine machine on 1..{N} states, every described set, every coarse description onto it")
     ctrl_room = Control("the fine step stays inside the described states")
     for n in range(1, N + 1):

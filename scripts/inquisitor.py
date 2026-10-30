@@ -51,37 +51,23 @@ from coq_proof_scope import (
 PROTECTED_BASENAMES = {"UniversalCertificationCost.v", "StructuralCore.v"}
 
 # ULTRA STRICT: Critical proof files. These carry the abstract model's floor
-# and toll, the record axis, the small machine's links into the abstract
-# results, and the Tsirelson algebra.
+# and toll, the member predicate and the record axis.
 CRITICAL_KERNEL_FILES = {
     "UniversalCertificationCost.v",
     "StructuralCore.v",
     "StructuralRecordAxis.v",
     "PermanentCertification.v",
     "PermanentRecordPricing.v",
-    "EarnedCoreLinks.v",
-    "EarnedGenericLinks.v",
-    "UniversalThieleLinks.v",
-    "UniversalInterpreterLinks.v",
-    "PricedHostLinks.v",
-    "SmallChshLinks.v",
-    # The small machine and its two definitions: every headline theorem rests on them.
-    "EarnedCore.v",
-    "EarnedGeneric.v",
-    "ThieleComplete.v",
-    "ThieleCompleteWindow.v",
-    "UniversalThiele.v",
-    "TsirelsonGeneral.v",
-    "CHSHColumnCheck.v",
+    "AxCore.v",
+    "AxThiele.v",
 }
 
 # ---------------------------------------------------------------------------
 # Tier system — from coq/_CoqProject (-R directory Namespace mappings)
 # Tier 1: The proof tree under coq/kernel/ (namespace Kernel): the abstract
-#         model, its instances, and the links from the small machine
-#         (minimal/, namespace Minimal) into the abstract results. It may
-#         import Kernel, Minimal, the pinned vendored Undecidability library
-#         and the Coq stdlib.
+#         model and its instances, with the standalone files of minimal/
+#         (namespace Minimal). It may import Kernel, Minimal and the Coq
+#         stdlib.
 # Tier 2: Core theory outside coq/kernel/. No such directory exists now; the
 #         rule stays so that one added later is held to it.
 # Tier 3: Exploratory/speculative. No such directory exists now either.
@@ -109,16 +95,16 @@ _STDLIB_NAMESPACES: frozenset[str] = frozenset({"Coq", "Stdlib"})
 #   StructuralCore              the record-carrying machine and adequacy
 #   Substrate                   the abstract A2-respecting substrate
 #   KernelTM                    the Turing-machine kernel used as a base
-#   EarnedCore                  the small machine that earns its commitments
-#   ThieleComplete              the definition the small machine meets
+#   AxCore                      the priced record systems over any order
+#   AxThiele                    the member predicate
 _FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
     {
         "UniversalCertificationCost",
         "StructuralCore",
         "Substrate",
         "KernelTM",
-        "EarnedCore",
-        "ThieleComplete",
+        "AxCore",
+        "AxThiele",
         # Defines the sliced interface itself, independently of the native
         # certification witness; imports are still checked for actual use.
         "SlicedEstablishment",
@@ -126,11 +112,11 @@ _FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
 )
 
 # The cost half of the chain: the A2 floor over any certification system and
-# the small machine's exact ledger.
+# the toll over any order.
 _FOUNDATION_COST_MODULES: frozenset[str] = frozenset(
     {
         "UniversalCertificationCost",
-        "EarnedCore",
+        "AxCore",
     }
 )
 
@@ -160,14 +146,14 @@ _GRAVITY_SCOPE_MARKER_RE = re.compile(
 )
 
 _SEMANTIC_TOKEN_RE = re.compile(
-    r"\b(CertificationSystem|cs_step|cs_run|cs_cert|RCM|rc_next|rc_run|rc_cert|Substrate|KernelTM|step_tm|run_tm|EarnedCore|ThieleComplete|thiele_complete)\b"
+    r"\b(CertificationSystem|cs_step|cs_run|cs_cert|RCM|rc_next|rc_run|rc_cert|Substrate|KernelTM|step_tm|run_tm|AxSys|ax_step|ax_rec|ax_thiele|AxCore|AxThiele)\b"
 )
 
 _COST_TOKEN_RE = re.compile(
     r"\b(cs_cost|cs_total_cost|cs_cert_costs|rc_mu|step_cost|ledger_carried|rc_a2|mu_cost|mu_ledger|total_cost)\b"
 )
 
-# Module paths are dotted (Minimal.EarnedCore), so only a dot that no name
+# Module paths are dotted (Minimal.SliceCore), so only a dot that no name
 # follows ends the command; and a plain Require loads a module as surely as
 # Require Import does, so both count as an import edge.
 _FROM_REQUIRE_IMPORTS_RE = re.compile(
@@ -480,9 +466,6 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
             continue
         # EXCLUDE ARCHIVE: archive/ contains historical code kept for posterity only
         # These files are not part of the active proof corpus and should not be audited
-        # EXCLUDE VENDOR: vendor/ contains third-party libraries (the pinned
-        # undecidability library) whose proof style is outside our control and
-        # should not be audited
         # EXCLUDE BUILD: build/ is a generated-artifacts tree (vacuity probes,
         # assumption probes). Anything written there is by definition
         # not a hand-authored proof obligation.
@@ -500,8 +483,6 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
         if relative_path.startswith("/artifacts/"):
             continue
         if "/archive/" in relative_path:
-            continue
-        if "/vendor/" in relative_path:
             continue
         if relative_path.startswith("/build/"):
             continue
@@ -594,8 +575,6 @@ def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
         if set(vf.relative_to(coq_root).parts) & disk_excluded:
             continue
         rel_posix = vf.relative_to(repo_root).as_posix()
-        if "/vendor/" in ("/" + rel_posix):
-            continue
         if rel_posix in project_files:
             continue
         if rel_posix in NON_PROOF_BEARING_FILES:
@@ -2165,10 +2144,9 @@ _FROM_REQUIRE_RE = re.compile(r'^From\s+([A-Za-z_][A-Za-z0-9_]*)(?:\.[A-Za-z0-9_
 # A qualified module in a bare Require line: Require [Import|Export] Ns.Mod ...
 _BARE_REQUIRE_RE = re.compile(r'^Require\s+(?:Import\s+|Export\s+)?(.+?)\.[ \t]*$')
 # The namespaces a file under coq/kernel/ may import from: the Coq standard
-# library, the kernel, the small machine, the pinned vendored library and the
-# test fixtures. Any other namespace is outside the proof tree.
+# library, the kernel, the small models and the test fixtures. Any other namespace is outside the proof tree.
 _TIER1_ALLOWED_NAMESPACES: frozenset[str] = (
-    _STDLIB_NAMESPACES | _TIER1_NAMESPACES | frozenset({'Minimal', 'Undecidability', 'TestFixtures'})
+    _STDLIB_NAMESPACES | _TIER1_NAMESPACES | frozenset({'Minimal', 'TestFixtures'})
 )
 
 
@@ -2177,8 +2155,8 @@ def scan_scope_drift(path: Path) -> list[Finding]:
 
     Tier system (driven by coq/_CoqProject namespace mappings):
       Tier 1 — The proof tree (coq/kernel/, namespace Kernel):
-        Must use only ``Kernel``, the small machine (``Minimal``), the pinned
-        vendored ``Undecidability`` library and the Coq stdlib. Any import of
+        Must use only ``Kernel``, the small models (``Minimal``) and the Coq
+        stdlib. Any import of
         a Tier-2 or Tier-3 namespace contaminates it.
       Tier 2 — Core theory outside coq/kernel/ (none at present):
         May import Tier-1 and Tier-2 namespaces.
@@ -2232,8 +2210,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
                         snippet=stripped,
                         message=(
                             f"Tier-1 coq/kernel/ file imports `{ns}`, a namespace outside "
-                            "the proof tree (allowed: Coq, Kernel, Minimal, Undecidability, "
-                            "TestFixtures). Suppress with: "
+                            "the proof tree (allowed: Coq, Kernel, Minimal, TestFixtures). Suppress with: "
                             "(* SCOPE NOTE: cross-tier import for <reason> *)"
                         ),
                     )
@@ -2461,7 +2438,7 @@ def scan_proof_connectivity(repo_root: Path, v_files: list[Path]) -> list[Findin
                     f"proof file is missing required foundation connectivity group(s): "
                     f"{required_desc}. ALL proofs must connect to the Thiele Machine "
                     "foundation chain (UniversalCertificationCost, StructuralCore, Substrate, "
-                    "KernelTM, EarnedCore, ThieleComplete) or state in a SCOPE NOTE why they "
+                    "KernelTM, AxCore, AxThiele) or state in a SCOPE NOTE why they "
                     "stand alone. Add imports/bridge lemmas and iterate until connected."
                 ),
             )
@@ -3033,7 +3010,7 @@ def scan_phantom_imports(path: Path) -> list[Finding]:
     declares.
 
     The foundation chain (UniversalCertificationCost, StructuralCore,
-    Substrate, KernelTM, EarnedCore, ThieleComplete) is what the connectivity
+    Substrate, KernelTM, AxCore, AxThiele) is what the connectivity
     rules require a proof file to reach. An import of one of them that no
     definition, statement or proof in the file uses creates the illusion of
     grounding in the abstract model when the proofs are self-contained. The
@@ -5001,7 +4978,7 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
                 message=(
                     "File is disconnected from the foundation chain in the theorem-body dependency graph. "
                     "Add constructive bridge lemmas/uses until it transitively reaches "
-                    "UniversalCertificationCost/StructuralCore/Substrate/KernelTM/EarnedCore, "
+                    "UniversalCertificationCost/StructuralCore/Substrate/KernelTM/AxThiele, "
                     "or state in a SCOPE NOTE why it stands alone."
                 ),
             )
@@ -5013,14 +4990,13 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
 def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[Finding]:
     """Verify proof files use the Thiele Machine proof chain, not just import it.
 
-    The chain is the abstract model and the small machine:
+    The chain is the abstract model:
       UniversalCertificationCost  certification systems and the universal floor
-      StructuralCore              record-carrying machines, adequacy, core equivalence
+      StructuralCore              record-carrying machines and core equivalence
       Substrate                   the abstract A2-respecting substrate
       KernelTM                    the Turing-machine kernel used as a base
-      EarnedCore, ThieleComplete  the small machine and the definition it meets
-    with the record axis, permanence and pricing files and the Links files
-    built on them.
+      AxCore, AxThiele            the priced record systems and the member predicate
+    with the record axis, permanence and pricing files built on them.
 
     PROOF_CONNECTIVITY_GAP checks the import chain. This check catches a
     different problem: a proof file that neither uses any term of the chain
@@ -5042,6 +5018,8 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         r"BaseMachine|BaseCover|HonestBaseExtension|latch_factorization|"
         # Substrate and the Turing kernel
         r"Substrate|step_tm|run_tm|TuringMachine|"
+        # The record over any order and the member predicate
+        r"AxSys|ax_step|ax_rec|ax_a2|ax_thiele|ax_flat|"
         # Permanence and pricing
         r"permanent|step_injective|finite_states|merging_steps_priced|"
         r"compression_priced|a2_holds|forced_priced"
@@ -5063,13 +5041,7 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         "StructuralCoreAnyBase", "StructuralRecordAxis", "Substrate", "Kernel",
         "KernelTM", "PermanentCertification", "PermanentRecordPricing",
         "PermanentCertificationEntropy", "CommitmentPredicateAdequacy",
-        "EarnedCoreLinks", "EarnedGenericLinks", "UniversalThieleLinks",
-        "UniversalInterpreterLinks", "PricedHostLinks", "SmallChshLinks",
-        # The small machine (namespace Minimal)
-        "EarnedCore", "EarnedGeneric", "EarnedMulti", "ThieleComplete",
-        "ThieleCompleteWindow", "UniversalThiele", "UniversalCodes",
-        "UniversalNoCopy", "EarnedPriced", "PricedComplete", "Presented",
-        "EarnedMultiPriced",
+        "AxCore", "AxMerge", "AxThiele",
         "SlicedEstablishment",
     }
 
@@ -5122,7 +5094,7 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
                 f"Proof file {vf.stem}.v contains {theorem_count} theorem(s) but "
                 "does not import or reference ANY module in the Thiele Machine proof "
                 "chain (UniversalCertificationCost, StructuralCore, Substrate, KernelTM, "
-                "EarnedCore, ...). Connect it to the chain, or state in a SCOPE NOTE "
+                "AxThiele, ...). Connect it to the chain, or state in a SCOPE NOTE "
                 "why it stands alone."
             ),
         ))

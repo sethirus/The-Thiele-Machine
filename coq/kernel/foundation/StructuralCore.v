@@ -1,21 +1,16 @@
-(** StructuralCore: record-carrying machines, adequacy, and core equivalence.
+(** StructuralCore: record-carrying machines and core equivalence.
 
-    Three definitions, stated over an arbitrary deterministic machine: what a
-    record-carrying machine is, when one is adequate, and when two cores are
-    the same. The definitions are given in their weak form. Instances live in
+    Two definitions, stated over an arbitrary deterministic machine: what a
+    record-carrying machine is, and when two cores are the same. The definitions are given in their weak form. Instances live in
     the files that use them.
 
     - A record-carrying machine is a deterministic machine with a set of
       starting states, a yes/no record reading, a ledger carried in the
       state, and a halting observation.
-    - It is adequate when the ledger never goes down, a step that switches
-      the reading on raises the ledger by at least one (A2), some run from a
-      starting state reaches a certified state (it carries a record at all),
-      and every two-counter halting instance has some starting state whose
-      observed halt agrees with that instance. This last clause is only
-      existential halting-problem coverage. It supplies neither a uniform
-      effective input encoding nor a reverse simulation, and is not a claim
-      of Turing equivalence.
+    - It carries its ledger when the ledger never goes down, obeys A2 when a
+      step that switches the reading on raises the ledger by at least one,
+      and carries a record when some run from a starting state reaches a
+      certified state.
     - Two machines have equivalent cores when some relation between their
       states relates every starting state of each to a starting state of the
       other, and related states agree on the reading, price their next step
@@ -26,7 +21,6 @@
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
-From Undecidability.MinskyMachines Require Import MM2.
 
 (** * Definitions *)
 
@@ -53,16 +47,6 @@ Definition rc_a2 (M : RCM) : Prop :=
 
 Definition carries_record (M : RCM) : Prop :=
   exists s n, rc_init M s /\ rc_cert M (rc_run M n s) = true.
-
-(** Weak, per-instance halting coverage. The existential start state may
-    depend on the MM2 problem without being supplied by a uniform effective
-    encoder; no simulation in either direction is part of this definition. *)
-Definition halting_problem_coverage (M : RCM) : Prop :=
-  forall P : MM2_PROBLEM,
-    exists s0, rc_init M s0 /\ (MM2_HALTING P <-> exists n, rc_halted M (rc_run M n s0)).
-
-Definition Adequate (M : RCM) : Prop :=
-  ledger_carried M /\ rc_a2 M /\ carries_record M /\ halting_problem_coverage M.
 
 Definition core_bisim (M N : RCM) (R : rc_state M -> rc_state N -> Prop) : Prop :=
   (forall m, rc_init M m -> exists n, rc_init N n /\ R m n) /\

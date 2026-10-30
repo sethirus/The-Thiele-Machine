@@ -1,7 +1,7 @@
 """Each settled question has a Coq theorem with exactly the stated shape.
 
 A proved result is a theorem whose statement is the named proposition; a
-refuted one is a theorem whose statement is its negation. docs/RESULTS.md
+refuted one is a theorem whose statement is its negation. coq/RESULTS.md
 describes these results; this file pins the exact statements so that a
 renamed or weakened proposition fails here.
 """

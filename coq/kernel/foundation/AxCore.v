@@ -1,6 +1,9 @@
 (** AxCore: the record axis, its toll, and the two-point order as the
     one-bit special case.
 
+    This is the ambient class, the priced record systems.  Which of them are
+    Thiele machines is the member predicate in AxThiele.v.
+
     The record of a machine is not one bit. It is a position in an ordered
     space, any preorder at all, with as many points as you like. Certification
     is the two-point space false < true. This file states the toll over an
@@ -96,8 +99,10 @@ Definition disc_pre {A} (eqb : A -> A -> bool)
 
 (** * Axis systems *)
 
-(** The same shape as a certification system, with the one-bit reading
-    replaced by a position in the order P. *)
+(** The fields of a certification system without its toll field (the toll
+    is [ax_a2] below), with the one-bit reading replaced by a position in
+    the order P.  The member predicate over these is [ax_thiele] in
+    AxThiele.v. *)
 Record AxSys (A : Type) (P : BPre A) : Type := mk_axsys {
   ax_state : Type;
   ax_instr : Type;

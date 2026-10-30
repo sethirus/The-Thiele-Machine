@@ -43,10 +43,11 @@ COQ_BLOCK_SUFFIXES = {".v", ".ml", ".mli", ".mll", ".mly"}
 TEX_SUFFIXES = {".tex", ".sty", ".cls"}
 HTML_COMMENT_SUFFIXES = {".md", ".markdown", ".html", ".htm"}
 
-# These are generated or vendored surfaces.  Their comments are not part of
-# the maintained source contract and are checked by their own generators.
+# These are generated, vendored or archived surfaces.  Their comments are not
+# part of the maintained source contract; archive/ keeps set-aside work as it
+# was written.
 EXCLUDED_PARTS = {
-    ".git", "vendor", "build", "__pycache__", ".pytest_cache", ".mypy_cache",
+    ".git", "vendor", "build", "archive", "__pycache__", ".pytest_cache", ".mypy_cache",
 }
 EXCLUDED_FILES = {
     "coq/Makefile",

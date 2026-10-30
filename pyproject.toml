@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "thiele-machine"
-version = "4.0.0"
-description = "The Thiele Machine, an abstract model of computation with a price on keeping a record, with the proofs and an example machine"
+version = "5.0.0"
+description = "The Thiele Machine, an abstract model of computation with a price on keeping a record, with its proofs"
 readme = "README.md"
 requires-python = ">=3.8"
-keywords = ["thiele", "mu-cost", "coq", "minsky-machine", "certification"]
+keywords = ["thiele", "mu-cost", "coq", "certification"]
 
 [tool.setuptools]
 
 [tool.setuptools.packages.find]
 where = ["."]
-exclude = ["tests*"]
+exclude = ["tests*", "archive*"]

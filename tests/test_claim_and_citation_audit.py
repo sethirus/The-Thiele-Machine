@@ -45,22 +45,6 @@ def test_external_quote_command_and_stdlib_axiom_are_classified():
     assert {"TPM2_Quote", "classic"} <= citations.NON_COQ_TOKENS
 
 
-def test_vendored_halting_citation_requires_its_source(tmp_path, monkeypatch):
-    monkeypatch.setattr(citations, "REPO", tmp_path)
-    root = tmp_path / "coq"
-    root.mkdir()
-    assert "MM2_HALTING_undec" not in citations.find_top_level_decls([root])
-    source = tmp_path / "vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.v"
-    source.parent.mkdir(parents=True)
-    source.write_text(
-        "(* Lemma invented_result : True. *)\n"
-        "Lemma MM2_HALTING_undec : undecidable MM2_HALTING.\n"
-    )
-    found = citations.find_top_level_decls([root])
-    assert "MM2_HALTING_undec" in found
-    assert "invented_result" not in found
-
-
 def test_latex_code_macro_is_audited_as_a_citation():
     assert citations.extract_texttt_citations(r"\code{named\_theorem}") == [
         ("named_theorem", 1)
@@ -89,7 +73,6 @@ def test_all_maintained_claim_documents_resolve():
         ROOT / "TECHNICAL_DISCLOSURE.md",
         ROOT / "THIELE_MACHINE.txt",
         ROOT / "monograph/monograph.tex",
-        ROOT / "monograph/set_aside.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
     ]
     failures = {}
@@ -134,7 +117,7 @@ def test_retired_theorem_names_are_not_still_cited():
         ROOT / "THIELE_MACHINE.txt",
         ROOT / "monograph/monograph.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
-        ROOT / "docs/THEOREM_MEANINGS.md",
+        ROOT / "coq/THEOREM_MEANINGS.md",
     ]
     found = {
         name: [
@@ -155,7 +138,7 @@ def test_commitment_contract_is_not_described_as_a_hardness_result():
         ROOT / "THIELE_MACHINE.txt",
         ROOT / "monograph/monograph.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
-        ROOT / "docs/THEOREM_MEANINGS.md",
+        ROOT / "coq/THEOREM_MEANINGS.md",
     ]
     forbidden = ("hardness hypothesis", "weaker soundness guarantee")
     found = {
@@ -237,13 +220,6 @@ def test_factorization_prose_keeps_the_collision_premises():
         assert "substrate/hardness/interaction trichotomy" not in text
     verifier_sources = sorted(ROOT.glob("coq/**/Verifier*.v"))
     assert all("closes the trichotomy" not in path.read_text() for path in verifier_sources)
-
-
-def test_structural_round_one_does_not_overname_halting_coverage():
-    source = (ROOT / "coq/kernel/foundation/StructuralCore.v").read_text()
-    assert "halting_problem_coverage" in source
-    assert "turing_equivalent" not in source
-    assert "simulates every two-counter machine" not in source
 
 
 def test_tpm_quote_model_records_its_scope_and_final_spec_pin():

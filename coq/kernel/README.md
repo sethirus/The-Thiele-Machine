@@ -1,7 +1,6 @@
 # Kernel
 
-The abstract model of the Thiele Machine, its results, and the files that tie
-the small machine and the universal machine U to them.
+The abstract model of the Thiele Machine and its results.
 
 The `Kernel` namespace spans the topical subdirectories via
 `-R kernel/<subdir> Kernel` mappings in [`_CoqProject`](../_CoqProject), so
@@ -12,11 +11,9 @@ from any subdirectory.
 
 | Directory | Role |
 |---|---|
-| [`foundation/`](foundation/) | Substrates, record-carrying machines, the record axis over any base, growing and probabilistic records, cross-base granularity, recursion and undecidability, and the links from the small machine and U into these records |
+| [`foundation/`](foundation/) | The definition over any order (`AxCore.v`) and the member predicate (`AxThiele.v`), substrates, record-carrying machines, the record axis over any base, growing and probabilistic records, cross-base granularity, recursion and undecidability |
 | [`nfi/`](nfi/) | No Free Insight for any substrate, permanent certificates on finite machines, pricing, entropy and heat, shadow pricing, narrowing, cost frameworks |
 | [`frontier/`](frontier/) | Observation policy and the window theorem, the pointer-observable criterion, the record-proliferation survey, the ecosystem game |
-| [`quantum/`](quantum/) | CHSH, Tsirelson from algebra, NPA moment matrices, the integer column check, the elliptope |
-| [`category/`](category/) | The algebraic Tsirelson bound from polynomial minors |
 | [`reductions/`](reductions/) | Narrow models of external systems: Certificate Transparency, proof-carrying code, TPM quotes, Casper FFG, gas metering, RAM record machines |
 | [`thermodynamic/`](thermodynamic/) | The two-state calorimeter protocol |
 
@@ -25,16 +22,15 @@ Each subdirectory has its own `README.md` describing its files.
 ## Dependency order
 
 ```
+foundation/AxThiele (the member predicate) and AxCore (the priced record systems)
+     |
+     +--> nfi/UniversalCertificationCost (the two-point instance, the toll alone)
+     |
 foundation/ (Substrate, StructuralCore, record axis)
      |
      +--> nfi/ (UniversalCertificationCost, PermanentCertification, ...)
-     |        |
-     |        +--> frontier/, reductions/, thermodynamic/
-     |
-     +--> links: EarnedCoreLinks, EarnedGenericLinks, UniversalThieleLinks,
-                 UniversalInterpreterLinks (minimal/ and U into the records)
-
-quantum/ and category/ stand on the Coq standard library and each other.
+              |
+              +--> frontier/, reductions/, thermodynamic/
 ```
 
 ## Verification status
@@ -55,8 +51,8 @@ Reproduce with `make coq-gate` from the repo root (see [`coq/README.md`](../READ
 
 ## Load-bearing exports
 
-The top-level README's [Formal Spine](../../README.md#formal-spine) and
-[Scope](../../README.md#scope) tables point into specific
+The top-level README's [Where things live](../../README.md#where-things-live)
+list points into specific
 files inside this tree. The source files, their imports, and the generated
 dependency and assumption receipts are the authoritative record of the proof
 surface. Files that are not part of the active `_CoqProject` are not included

@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-10-23 18:22:14Z (UTC)
-Scanned: 430 Coq files across the repo
+Generated: 2026-10-30 00:51:02Z (UTC)
+Scanned: 162 Coq files across the repo
 ## Summary
-- HIGH: 1
+- HIGH: 0
 - MEDIUM: 0
-- LOW: 1
-- SCOPE NOTES: 207 in-source scope markers across 174 files (175 SCOPE NOTE, 32 SAFE markers)
+- LOW: 0
+- SCOPE NOTES: 77 in-source scope markers across 64 files (65 SCOPE NOTE, 12 SAFE markers)
   - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
@@ -75,23 +75,7 @@ Scanned: 430 Coq files across the repo
 - `KERNEL_CONVERTIBILITY_VACUITY`: theorem conclusion is kernel-convertible (after δ/ι/ζ/β reduction) to `True` or to a hypothesis — verified by `scripts/vacuity_gate.py` running synthesised Coq proofs (HIGH)
 
 ## Vacuity Ranking (file-level)
-Files scored by trivially-true / placeholder / definitional-proof heuristics.
-Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
-
-| score | tags | file |
-|---:|---|---|
-| 65 | const-fun | `coq/kernel/foundation/NeutralUnivSmuggle.v` |
+(no files scored above zero — no trivially-true or placeholder patterns detected)
 
 ## Findings
-### HIGH
-
-#### `minimal/AccountingBridge.v`
-- L112: **TRUE_CONST** — Definition is constant true.
-  - `Definition reset (_ : bool) := true.`
-
-### LOW
-
-#### `coq/kernel/foundation/NeutralUnivSmuggle.v`
-- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the core goal.
-  - `(file-level vacuity scan)`
-
+(none)

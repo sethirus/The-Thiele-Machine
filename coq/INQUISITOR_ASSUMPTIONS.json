@@ -34,61 +34,29 @@
       "symbol": "universal_nfi_quantitative"
     },
     {
-      "require": "Kernel.EarnedCoreLinks",
-      "symbol": "earned_core_floor"
+      "require": "Kernel.AxThiele",
+      "symbol": "latch_is_thiele"
     },
     {
-      "require": "Kernel.EarnedCoreLinks",
-      "symbol": "earned_core_halting_undecidable"
+      "require": "Kernel.AxThiele",
+      "symbol": "history_lift_is_thiele"
     },
     {
-      "require": "Kernel.EarnedCoreLinks",
-      "symbol": "earned_core_is_latch"
+      "require": "Kernel.AxThiele",
+      "symbol": "shadow_hides_history_reachable"
     },
     {
-      "require": "Kernel.EarnedGenericLinks",
-      "symbol": "thiele_complete_floor"
-    },
-    {
-      "require": "Kernel.EarnedGenericLinks",
-      "symbol": "complete_cs_window_blind"
-    },
-    {
-      "require": "Kernel.UniversalInterpreterLinks",
-      "symbol": "interp_halting_undecidable"
-    },
-    {
-      "require": "Minimal.ThieleComplete",
-      "symbol": "earned_core_thiele_complete"
-    },
-    {
-      "require": "Minimal.ThieleComplete",
-      "symbol": "clock_not_thiele_complete"
-    },
-    {
-      "require": "Kernel.CHSHColumnCheck",
-      "symbol": "column_contractive_check_witness_npa_psd"
-    },
-    {
-      "require": "Kernel.CHSHColumnCheck",
-      "symbol": "npa_psd_implies_tsirelson_bound"
-    },
-    {
-      "require": "Kernel.TsirelsonFromAlgebra",
-      "symbol": "tsirelson_tight"
+      "require": "Kernel.AxThiele",
+      "symbol": "flat_is_not_thiele"
     }
   ],
-  "symmetry_contracts": [
-    {
-      "tag": "chsh_party_swap",
-      "file_regex": "TsirelsonGeneral\\.v$",
-      "must_contain_regex": [
-        "semantics_invariant_party_swap",
-        "tsirelson_from_column_bounds"
-      ]
-    }
-  ],
+  "symmetry_contracts": [],
   "paper_map": [
+    {
+      "paper": "The smallest Thiele machine",
+      "require": "Kernel.AxThiele",
+      "symbol": "latch_is_thiele"
+    },
     {
       "paper": "No Free Insight: the universal floor",
       "require": "Kernel.UniversalCertificationCost",
@@ -103,21 +71,6 @@
       "paper": "The record axis is a latch",
       "require": "Kernel.StructuralRecordAxis",
       "symbol": "record_axis_is_latch_holds"
-    },
-    {
-      "paper": "The small machine is Thiele-complete",
-      "require": "Minimal.ThieleComplete",
-      "symbol": "earned_core_thiele_complete"
-    },
-    {
-      "paper": "PSD iff column contractive",
-      "require": "Kernel.CHSHColumnCheck",
-      "symbol": "npa_psd_iff_column_contractive"
-    },
-    {
-      "paper": "Tsirelson bound from algebra",
-      "require": "Kernel.TsirelsonFromAlgebra",
-      "symbol": "tsirelson_tight"
     }
   ]
 }

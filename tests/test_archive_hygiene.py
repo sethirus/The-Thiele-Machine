@@ -90,8 +90,6 @@ def test_tracked_tree_excludes_build_products_and_work_sessions():
     bad = [name for name in tracked if name and (
         name.startswith(forbidden_roots) or Path(name).suffix in generated
         or Path(name).name in working_names or '__pycache__' in Path(name).parts
-        or name.startswith('vendor/') and Path(name).name in
-        {'Makefile.coq', 'Makefile.coq.conf', '.Makefile.coq.d'}
     )]
     allowed_records = {
         'print_assumptions_all_proofs.json', 'print_assumptions_all_proofs.txt',

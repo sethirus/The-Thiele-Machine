@@ -10,9 +10,9 @@ output, and every source whose digest differs from the record is newer. Make
 then rebuilds the changed files and, through coqdep, everything that depends
 on them. A compiled file whose source is absent is deleted, so a
 module without a source can never satisfy a Require. Sources are grouped in two
-scopes, coq/, minimal/ and the vendored undecidability library. If a scope's project
-files or the compiled libraries below it differ from the recorded build,
-every source in that scope counts as changed.
+scopes, coq/ and minimal/. If a scope's project files or the compiled libraries
+below it differ from the recorded build, every source in that scope counts as
+changed.
 """
 from __future__ import annotations
 
@@ -29,32 +29,23 @@ OUTPUT_SUFFIXES = (".vo", ".vok", ".vos", ".glob")
 # Each build scope has its own sources, the project files that set its
 # compiler flags, and the compiled libraries below it. A change to a scope's
 # flags or libraries marks only that scope's sources; outputs above it follow
-# through make's own dependencies. The vendored library therefore rebuilds
-# only when its own sources or project file change.
+# through make's own dependencies.
 SCOPES = {
     "coq": {
         "root": "coq",
         "config": ("coq/_CoqProject", "coq/Makefile.local"),
-        "libraries": ("vendor/coq-undecidability/theories",),
+        "libraries": (),
     },
     "minimal": {
         "root": "minimal",
         "config": ("coq/_CoqProject", "coq/Makefile.local"),
         "libraries": (),
     },
-    "vendor": {
-        "root": "vendor/coq-undecidability/theories",
-        "config": ("vendor/coq-undecidability/theories/_CoqProject",),
-        "libraries": (),
-    },
 }
 # Libraries built and cached by their own steps (keyed on their sources).
-# None at present: the vendored undecidability library is a build scope of
-# its own above.
 LIBRARY_ROOTS: tuple[str, ...] = ()
-# Schema 3: the coq scope reads no kami or bbv library; a manifest of an
-# earlier schema describes a different build and is not reused.
-SCHEMA = 3
+# A manifest of another schema describes a different build and is not reused.
+SCHEMA = 4
 
 
 def sha256(path: Path) -> str:
@@ -103,21 +94,6 @@ def config_digest(scope: str) -> str:
     return hasher.hexdigest()
 
 
-def legacy_config_digest() -> str:
-    """The single configuration digest of schema 1 manifests."""
-    hasher = hashlib.sha256()
-    for name in ("coq/_CoqProject", "coq/Makefile.local",
-                 "vendor/coq-undecidability/theories/_CoqProject"):
-        path = ROOT / name
-        hasher.update(name.encode() + b"\0")
-        hasher.update(path.read_bytes() if path.exists() else b"<missing>")
-        hasher.update(b"\0")
-    roots = ("vendor/coq-undecidability/theories",)
-    for path in sorted(p for top in roots for p in (ROOT / top).rglob("*.vo")):
-        hasher.update(rel(path).encode() + b"\0" + sha256(path).encode() + b"\0")
-    return hasher.hexdigest()
-
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
@@ -140,14 +116,6 @@ def apply(manifest: Path) -> int:
         if record.get("schema") == SCHEMA:
             same = {scope: record["configs"].get(scope) == config_digest(scope)
                     for scope in SCOPES}
-        elif record.get("schema") == 1:
-            # One digest over both scopes' project files and libraries. A
-            # mismatch cannot say which scope changed, and marking the vendored
-            # library changed would rebuild it, so it falls back to a clean
-            # build of coq/ on the tracked library instead.
-            if record["config"] != legacy_config_digest():
-                raise ValueError("schema 1 manifest from other flags or libraries")
-            same = {scope: True for scope in SCOPES}
         else:
             raise ValueError("schema mismatch")
     except (OSError, ValueError, KeyError, TypeError) as exc:

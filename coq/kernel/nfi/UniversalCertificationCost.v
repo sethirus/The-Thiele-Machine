@@ -1,5 +1,12 @@
 (** UniversalCertificationCost: any sound certification mechanism costs.
 
+    This file is the two-point instance of the record axis of
+    coq/kernel/foundation/AxCore.v: a reading with two places, no and yes,
+    and the toll on turning no into yes.  It asks for the toll alone.  Which
+    systems are Thiele machines, the toll together with a reading that never
+    falls and some run that raises it, is the member predicate in
+    coq/kernel/foundation/AxThiele.v.
+
     This file states No Free Insight with nothing fixed. The state type and the
     instruction type are both left abstract, and the theorem only asks for one
     premise: if a single step changes the system from uncertified to certified,

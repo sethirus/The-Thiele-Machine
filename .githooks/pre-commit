@@ -56,8 +56,7 @@ if problems:
     sys.exit("[pre-commit] Coq proof-scope drift:\n" + "\n".join(problems))
 '
 
-# The project build also builds the vendored undecidability modules it
-# imports (coq/Makefile.local, pre-all). Every build error blocks the commit.
+# Every build error blocks the commit.
 run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j1'
 
 # Refresh the full receipt when a proof-relevant input changes. The batch
@@ -66,7 +65,7 @@ run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j1'
 # predictable fail-regenerate-retry cycle for every new theorem. The receipt
 # is still derived by Coq, checked for alignment and project-local axioms, and
 # re-derived independently by CI.
-if [ -n "${THIELE_HOOK_FULL:-}" ] && ! git diff --cached --quiet -- coq minimal vendor \
+if [ -n "${THIELE_HOOK_FULL:-}" ] && ! git diff --cached --quiet -- coq minimal \
         scripts/coq_proof_scope.py scripts/build_full_probe.py; then
     run bash scripts/generate_assumption_receipt.sh
     stage coq/AssumptionsProbeAll.v \

@@ -1,6 +1,6 @@
 name: CI
 
-# MetaCoq 1.2.1+8.18 requires the Coq 8.18 toolchain from Ubuntu 24.04.
+# The proofs build with the Coq 8.18 toolchain from Ubuntu 24.04.
 
 on:
   # Trigger on push to ANY branch — feature branches need the same gate as
@@ -29,9 +29,9 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  # Phase 0: build the Coq proof tree once (the abstract model, the small
-  # machine and the vendored undecidability modules it imports), publish the
-  # cache, expose its keys as job outputs. proof-check builds on it.
+  # Phase 0: build the Coq proof tree once (the abstract model and the
+  # small models), publish the cache, expose its keys as job outputs.
+  # proof-check builds on it.
   # proof-repro-gate is its own parallel branch because it requires an
   # intentional clean rebuild and can't share the cache.
   build-coq:
@@ -39,7 +39,6 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       coq-version: ${{ steps.toolchain.outputs.coq }}
-      vendor-digest: ${{ steps.vendor-digest.outputs.digest }}
     steps:
       - uses: actions/checkout@v4
 
@@ -47,12 +46,6 @@ jobs:
         uses: ./.github/actions/apt-install
         with:
           packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
-
-      - name: Set up MetaCoq Template
-        # The vendored L modules (L tactics, GenEncode, MuRec, the
-        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
-        # time. They stay in the build for the small-machine recursion theorem.
-        uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
         # Coq updates from apt can silently produce .vo files incompatible
@@ -63,19 +56,6 @@ jobs:
           coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
           echo "Coq: ${coq_version}"
-
-      - name: Compute vendor build digest
-        # Include any pre-existing vendor binaries in addition to the source
-        # hashes below. Fresh checkouts contain only the vendored sources.
-        id: vendor-digest
-        run: |
-          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
-            | sort -z \
-            | xargs -0 sha256sum 2>/dev/null \
-            | sha256sum \
-            | cut -c1-16)
-          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
-          echo "Vendor .vo digest: ${digest}"
 
       - name: Purge local Coq compiler outputs
         # Remove any local compiler outputs before restoring the complete
@@ -95,21 +75,15 @@ jobs:
             minimal/**/*.vok
             minimal/**/*.vos
             minimal/**/*.glob
-            vendor/coq-undecidability/theories/**/*.vo
-            vendor/coq-undecidability/theories/**/*.vok
-            vendor/coq-undecidability/theories/**/*.vos
-            vendor/coq-undecidability/theories/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          # v5: cache the vendored dependency closure with the project outputs.
-          # Earlier caches omit those libraries and cannot satisfy an exact hit.
-          key: coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
           # An earlier build of any source tree is a starting point; the
           # build step rebuilds what changed (scripts/coq_build_manifest.py).
           restore-keys: |
-            coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
@@ -149,12 +123,6 @@ jobs:
         with:
           packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 
-      - name: Set up MetaCoq Template
-        # The vendored L modules (L tactics, GenEncode, MuRec, the
-        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
-        # time. They stay in the build for the small-machine recursion theorem.
-        uses: ./.github/actions/setup-metacoq
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -177,27 +145,20 @@ jobs:
             minimal/**/*.vok
             minimal/**/*.vos
             minimal/**/*.glob
-            vendor/coq-undecidability/theories/**/*.vo
-            vendor/coq-undecidability/theories/**/*.vok
-            vendor/coq-undecidability/theories/**/*.vos
-            vendor/coq-undecidability/theories/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v5-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v6-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
 
       - name: Refresh Coq artefact mtimes
         # actions/cache restores .vo files with their original build-time
         # mtimes, but actions/checkout sets every .v file to "now". make would
         # then see .vo < .v for every file and rebuild the entire proof tree.
         # Bumping .vo mtimes past .v mtimes lets make see the cache as fresh.
-        # The cache key already pins source+vendor hashes, so this is
+        # The cache key already pins the source hashes, so this is
         # mtime-cosmetic, not a correctness gap.
         run: |
-          # Restored dependency outputs must be newer than the fresh checkout
-          # and older than the project outputs that import them.
-          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
           find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
@@ -287,12 +248,6 @@ jobs:
         with:
           packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 
-      - name: Set up MetaCoq Template
-        # The vendored L modules (L tactics, GenEncode, MuRec, the
-        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
-        # time. They stay in the build for the small-machine recursion theorem.
-        uses: ./.github/actions/setup-metacoq
-
       - name: Run reproducible proof gate
         # Clean rebuild + zero-Admitted check + coqchk of every module in
         # coq/_CoqProject. Uses a bounded parallel Coq rebuild;
@@ -320,20 +275,11 @@ jobs:
           fetch-depth: 0
 
       - name: Install runtime toolchain for Python tests
-        # Coq + csdp (+ OCaml for the MetaCoq build) so every coq-marked test
-        # pytest collects can run, with no toolchain-missing skips. OCaml and
-        # the zarith library are also what tests/test_realize_ocaml.py compiles
-        # the machines extracted from Coq with; that test fails, it does not
-        # skip, when they are missing.
+        # Coq + csdp so every coq-marked test
+        # pytest collects can run, with no toolchain-missing skips.
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib libzarith-ocaml-dev
-
-      - name: Set up MetaCoq Template
-        # The vendored L modules (L tactics, GenEncode, MuRec, the
-        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
-        # time. They stay in the build for the small-machine recursion theorem.
-        uses: ./.github/actions/setup-metacoq
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 
       - name: Capture toolchain version
         # Match the cache-key construction used by build-coq so both jobs
@@ -343,17 +289,6 @@ jobs:
           coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
           echo "Coq: ${coq_version}"
-
-      - name: Compute vendor build digest
-        id: vendor-digest
-        run: |
-          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
-            | sort -z \
-            | xargs -0 sha256sum 2>/dev/null \
-            | sha256sum \
-            | cut -c1-16)
-          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
-          echo "Vendor .vo digest: ${digest}"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -378,22 +313,17 @@ jobs:
             minimal/**/*.vok
             minimal/**/*.vos
             minimal/**/*.glob
-            vendor/coq-undecidability/theories/**/*.vo
-            vendor/coq-undecidability/theories/**/*.vok
-            vendor/coq-undecidability/theories/**/*.vos
-            vendor/coq-undecidability/theories/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
           restore-keys: |
-            coq-v5-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
-        # The cache key pins source, toolchain, and vendor build digests.
+        # The cache key pins the source and toolchain.
         run: |
-          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
           find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true

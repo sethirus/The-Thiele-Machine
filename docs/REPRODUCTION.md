@@ -1,10 +1,10 @@
 # Native reproduction
 
-The repository supports a source-only native rebuild of the formal project. It uses the checked-out sources, pinned dependency trees, and the locally installed toolchain. It does not install packages, download sources, invoke a container runtime, or reuse compiled proof objects from the checkout.
+The repository supports a source-only native rebuild of the formal project. It uses the checked-out sources and the locally installed toolchain. It does not install packages, download sources, invoke a container runtime, or reuse compiled proof objects from the checkout.
 
 ## Prerequisites
 
-Install the native tools used by the gate: Python 3, GNU make, Coq 8.18 with the standard library, CSDP, OCaml with `ocamlfind`, and MetaCoq 1.2.1 for Coq 8.18, which the vendored L extraction tactics need (`scripts/install_metacoq.sh` builds it from pinned, checksum-verified source and installs it; it needs Coq-Equations and the Coq OCaml development libraries).
+Install the native tools used by the gate: Python 3, GNU make, Coq 8.18 with the standard library, and CSDP.
 
 ## Fresh source-only run
 
@@ -14,9 +14,9 @@ From the repository root:
 python3 scripts/reproduce_coq.py
 ```
 
-The runner creates a fresh directory under `artifacts/reproduction/`, which is ignored by Git. Use `--output PATH` to choose a location outside the source tree. It copies the active Coq sources, the small-machine sources in `minimal/`, the pinned undecidability library, and the explicit build configuration. It records the input hashes, tool paths and hashes, commands, exit codes, selected probes and checked libraries.
+The runner creates a fresh directory under `artifacts/reproduction/`, which is ignored by Git. Use `--output PATH` to choose a location outside the source tree. It copies the active Coq sources, the sources in `minimal/`, and the explicit build configuration. It records the input hashes, tool paths and hashes, commands, exit codes, selected probes and checked libraries.
 
-The default run regenerates the project Makefile, builds the vendored undecidability modules the project imports, builds the full active Coq project, and invokes dependency-enabled `coqchk` on every module. `--probe REPO_PATH.v` adds a probe file to compile against the built tree, and `--library Logical.Name` replaces the default list of checked libraries. `--jobs N` sets the parallel build width (by default the number of processors, capped at four, or `THIELE_REPRO_JOBS` capped at four). `--prepare-only` records the snapshot and commands without running the checks and is not a passing result.
+The default run regenerates the project Makefile, builds the full active Coq project, and invokes dependency-enabled `coqchk` on every module. `--probe REPO_PATH.v` adds a probe file to compile against the built tree, and `--library Logical.Name` replaces the default list of checked libraries. `--jobs N` sets the parallel build width (by default the number of processors, capped at four, or `THIELE_REPRO_JOBS` capped at four). `--prepare-only` records the snapshot and commands without running the checks and is not a passing result.
 
 A failed run can resume only from its captured snapshot:
 
@@ -80,3 +80,20 @@ The table records the search scopes and reported outcomes. Run the command above
 | Every scale pays the same way | every fine machine on up to 4 states, every described set and coarse description | none | staying inside, finiteness: both fail |
 
 The unitary checks can detect arithmetic errors in preservation of orthogonality; their control uses an invertible map that is not unitary. The heat/time check evaluates the displayed formula. Infinite-state controls are examined on finite prefixes; the infinite claims use the manuscript's arguments. For the floor-and-ceiling result, an instruction-name price cannot charge once for a raise and then make repetitions free: charging by source state provides the stated alternative.
+
+## The book's own checks
+
+Each chapter of the monograph that counts something has a check in `monograph/checks/`. Run any one from that directory:
+
+```sh
+cd monograph/checks
+python3 ch16_reading_the_box.py
+```
+
+Each prints the cases it tried and its failures, which should be zero. The same directory holds short formal proofs of the newer results (`*.v`), compiled against `minimal/` for the one file that imports it:
+
+```sh
+coqc -Q ../../minimal Minimal ch20_every_scale.v
+```
+
+`monograph/checks/proof_map.md` lists every line of the ledger in chapter twenty-two with the check and the proofs that cover it. `pytest tests/test_book_checks.py` runs all of them. Like the searches above, a check that passes exercises finite cases; the general arguments are the ones on the book's pages.

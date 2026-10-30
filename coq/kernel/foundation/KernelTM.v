@@ -16,7 +16,7 @@
 
     The review boundary is the stated toy semantics: [H_ClaimTapeIsZero] must not be treated elsewhere as if it erased the tape or charged μ.
 
-    This file is a minimal example for testing. The small machine that earns its commitments is minimal/EarnedCore.v.
+    This file is a minimal example for testing. The member predicate and the smallest machine are in AxThiele.v.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.

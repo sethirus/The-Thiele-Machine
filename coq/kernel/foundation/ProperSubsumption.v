@@ -185,10 +185,8 @@ Qed.
     ledger is inert with respect to tape/state dynamics. It is not the claim
     that the Thiele substrate runs every Turing trace.
 
-    For a machine that runs every two-counter program, see the small
-    machine's simulation theorems in [minimal/EarnedCore.v]. Do not cite
-    this theorem as evidence that a Thiele machine simulates Turing
-    machines. *)
+    Do not cite this theorem as evidence that a Thiele machine simulates
+    Turing machines. *)
 Theorem thiele_simulates_turing :
   forall fuel delta c,
     (thiele_run fuel delta (lift_config c)).(th_tm_config) = tm_run fuel delta c.
