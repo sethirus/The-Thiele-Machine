@@ -216,8 +216,9 @@ meet, or you draw new dots forever.
 
 What Turing actually proved
 
-Almost every account you'll find says Turing proved the famous halting problem:
-that no machine can look at every other machine and say whether it stops. Since
+Turing is usually credited with the famous halting problem: that no machine can
+look at every other machine and say whether it stops. Joel David Hamkins, a set theorist,
+and Theodor Nenu open their paper on it by questioning "the attribution commonly given to Turing's 1936 paper." Since
 the stopping machine is right in the middle of this chapter, I went and looked at
 what he actually wrote, with an AI walking me through the paper and the links
 it turned up, and it isn't quite what happened.
@@ -228,9 +229,8 @@ could always decide was a question about those: whether a machine keeps printing
 digits, and whether it ever prints a given symbol. The second one is a few lines
 away from the halting problem, so in a real sense he had it. But he never wrote
 it down that way. Stephen Kleene stated it in 1952. Martin Davis seems to be the
-first to have called it "the halting problem," in 1958. I found that in a paper
-where Joel David Hamkins and Theodor Nenu went back to Turing's 1936 paper and
-checked, line by line.
+first to have called it "the halting problem," in 1958. That's from the same paper by
+Hamkins and Nenu, who went back to Turing's 1936 paper and checked, line by line.
 
 So the machine that stops, the one sitting right in the hole, is Turing's machine
 the way people later learned to read it. It's the one page one meant when it said

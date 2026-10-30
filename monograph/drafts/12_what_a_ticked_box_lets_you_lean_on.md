@@ -27,10 +27,11 @@ That's Gettier's trap again, from chapter eight, done with cups. Edmund Gettier'
 pages in 1963 broke a definition of knowing: that you know something when it's true, you
 believe it, and you've got good reasons. Gettier took that definition from two
 philosophers of the 1950s, Roderick Chisholm and A. J. Ayer, and the only place he mentions
-Plato is a footnote saying Plato "seems to be considering" something like it. It's often said
-people had leaned on that definition since Plato. As far as I can find, they hadn't. The
-Stanford Encyclopedia's entry on the analysis of knowledge calls the idea that it was ever
-widely held "a bit of a convenient fiction," and Julien Dutant, a philosopher at King's
+Plato is a footnote saying Plato "seems to be considering" something like it. The Stanford
+Encyclopedia's entry on the analysis of knowledge, by Jonathan Ichikawa and Matthias Steup,
+says that definition gets called "traditional," and that the reason part of it is "often
+traced to Plato's Theaetetus." The same entry calls the idea that it was ever widely held
+"a bit of a convenient fiction." And Julien Dutant, a philosopher at King's
 College London, wrote a 2015 paper called "The Legend of the Justified True Belief
 Analysis," arguing that the older tradition asked for something stronger: a mark on the
 belief that can't be wrong. I've read only summaries of Dutant's paper, so take that last
