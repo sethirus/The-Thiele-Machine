@@ -824,9 +824,9 @@ The textbook half: a partition and an equivalence relation are the same object.
 That's Paul Halmos, Naive Set Theory, 1960, section seven, and you could read that
 section before dinner. I'll say it in words first. Take any pile of things. An
 equivalence relation on it is a way of saying "these two count as the same" that
-behaves the way sameness should: everything is the same as itself; if $a$ is the
-same as $b$ then $b$ is the same as $a$; and if $a$ is the same as $b$ and $b$ the
-same as $c$, then $a$ is the same as $c$. Every such relation sorts the pile into
+behaves the way sameness should: everything is the same as itself; if a is the
+same as b then b is the same as a; and if a is the same as b and b the
+same as c, then a is the same as c. Every such relation sorts the pile into
 groups, the things that count as the same go together, and every sorting into
 groups hands you back a relation, "same group." Do one and then the other and you
 land where you started, in both directions. So a partition and an equivalence
