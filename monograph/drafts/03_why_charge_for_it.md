@@ -184,7 +184,9 @@ chapter.)
 There's a plainer way to say what the halving rule asks for. Look at one move and
 find the place where the most arrows land. Call that its worst pile-up. A cost of
 one allows piles of two. A cost of two allows piles of four. A pile of three
-already needs two. So the rule asks every move to pay for the worst it could ever
+already needs two. That's why the m + k states in the done room had to pay at
+least that much: spread m + k arrows across m chairs as evenly as you like, and
+the fullest chair still gets at least (m + k) / m of them. So the rule asks every move to pay for the worst it could ever
 do, whichever state it's actually handed.
 
 That worst case has a home in physics. Philippe Faist, Frédéric Dupuis, Jonathan
