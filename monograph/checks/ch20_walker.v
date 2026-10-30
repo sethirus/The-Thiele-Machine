@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter twenty, going faster costs more: for the walker, ln((1+v)/(1-v)) is never less than 2v, so heat
    times time is at least twice the distance squared. By the mean value theorem on
    f(x) = ln(1+x) - ln(1-x) - 2x, whose slope 2x^2/(1-x^2) is never negative and which is zero at zero.

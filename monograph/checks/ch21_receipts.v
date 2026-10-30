@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter twenty-one: receipts cover the merges a run shows. Charge each state the run leaves from;
    whenever two different states the run leaves from land together, one of them pays. Then the landings
    two different states of the run lead to, counted once each, are no more than the run's bill. *)

@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter ten: laying a machine's moves onto the walking arrow (NO and YES, a loop on each, one arrow
    from NO to YES and nothing back) is exactly a split that no move crosses from YES to NO. Laying them
    onto two dots with no arrow is exactly a split no move crosses at all. *)

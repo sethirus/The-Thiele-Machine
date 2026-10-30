@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* The four doors, under two conditions: the guard sees only the boxes (its glance can't tell
    the passing value from the failing one), and every box only ever goes up.
    Rounds: write the passing value, check, ask; write the failing value, ask.

@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter twenty-one, two levers. Tabletop values 0, 1, 2; the first lever wipes 1 to 0, the second
    wipes 2 to 0. Starts z, a, b read 0, 1, 2. Each lever keeps apart every two states reached in fewer
    than T pulls. Then the box has at least T + 3 states; and in the simple case where the levers commute,

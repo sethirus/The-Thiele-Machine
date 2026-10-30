@@ -133,11 +133,26 @@ WAIVED_FILES = [
     "minimal/Task.v",
     "minimal/TwoArms.v",
     "minimal/VerifierSmall.v",
+    # The short checks beside the book state their machines as hypotheses on the
+    # standard library alone; the book, not the foundation chain, is what they check.
+    "monograph/checks/ch10_walking_arrow.v",
+    "monograph/checks/ch16_four_doors.v",
+    "monograph/checks/ch20_every_scale.v",
+    "monograph/checks/ch20_walker.v",
+    "monograph/checks/ch21_grid.v",
+    "monograph/checks/ch21_levers.v",
+    "monograph/checks/ch21_receipts.v",
+    "monograph/checks/ch21_room.v",
+    "monograph/checks/ch22_shown.v",
 ]
 
 
 def proof_files() -> list[Path]:
-    return sorted(list((REPO_ROOT / "coq").rglob("*.v")) + list((REPO_ROOT / "minimal").glob("*.v")))
+    return sorted(
+        list((REPO_ROOT / "coq").rglob("*.v"))
+        + list((REPO_ROOT / "minimal").glob("*.v"))
+        + list((REPO_ROOT / "monograph" / "checks").glob("*.v"))
+    )
 
 
 def waived_files() -> list[str]:

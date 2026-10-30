@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter twenty-two: two machines side by side; a run with branching steps; listing what a reading that
    never turns off accepts. *)
 From Coq Require Import List Arith Lia Bool.

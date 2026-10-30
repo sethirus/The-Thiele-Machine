@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library and two lemmas from minimal/, so it
+   does not import the foundation chain. *)
 (* Chapter twenty, every scale pays the same way, in its finite case: if the fine step merges nothing
    on finitely many fine states, and a coarse description follows it exactly, the coarse rule merges
    nothing either. So a coarse merge forces a fine merge (or, on fenced states, a step out of the fence,

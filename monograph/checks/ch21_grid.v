@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter twenty-one, the two-bit grid: no box with this tabletop does better than 1 + (t+2)(t+3)/2.
    Readings are two bits, (first set?, second set?). The first lever clears the first bit, the second
    lever clears the second; each keeps apart the states reached in fewer than T pulls. Starts: one state

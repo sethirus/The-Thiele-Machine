@@ -1,3 +1,6 @@
+(* SCOPE NOTE: standalone proof scope. A short check written beside the book: it states its own
+   machine, prices and conditions as hypotheses and uses only the Coq standard library, so it
+   does not import the foundation chain. *)
 (* Chapter twenty-one, how much room keeping takes: an operation sends every state to a resting value and
    leaves resting starts alone; N distinct starts, of which some rest already; the operation repeated T
    times keeps apart every two states the runs pass through before the T-th repetition. Then any list
