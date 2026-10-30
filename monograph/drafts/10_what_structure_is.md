@@ -813,9 +813,48 @@ prove that a sorting comes first. It shows me where the framings I trust most ke
 putting their first foot down, and I'm putting mine there too, with one thing
 added that none of them needed and the toll does: a direction across the sorting.
 
-I looked for a framing that denies any of the seven and didn't find one, which
-could mean there isn't one or could mean I didn't look where it lives. If you know
-of one, I'd like to see it.
+I looked for a framing that denies any of the seven and didn't find one on my own.
+There are two, and they're worth pushing on, because each one denies a different
+piece.
+
+The seventh, that structure is always relative to a chosen frame, is denied outright
+by David Lewis and Theodore Sider. Hilary Putnam had argued that if every way of
+carving things up is as good as every other, a consistent theory can always be made
+true just by picking what its words refer to. Lewis answered him in 1983, in a paper
+called "New Work for a Theory of Universals," with an answer he credits to G. H.
+Merrill: some properties are natural and some aren't, some cuts carve nature at its
+joints and some are lines somebody drew, and the natural ones are the ones words can
+pick out. Sider built a whole book on it in 2011, Writing the Book of the World, and
+he uses this chapter's word: "The world has a distinguished structure, a privileged
+description," and "structure is a worldly, not conceptual or linguistic, matter." On
+their view there's a frame nobody chose.
+
+Push on it from this book's side. Grant them their joints. A machine still doesn't get
+handed them. Chapter fourteen shows that the event a box turns up on is a choice the
+rules don't make for you, and the toll from chapters two and three charges the same
+whether that event is a joint of nature or a line I drew. So whether the world has a structure of
+its own is a question this book can't settle, and what a machine keeps and pays for
+stays relative to the frame it was built with. That's a narrower seventh than the one
+I wrote above, and it's the one I can stand behind.
+
+The fourth, that the first act is a sameness that sorts a pile you were already given,
+is denied by Michael Makkai and by the people behind univalent foundations. Makkai, in a
+1998 paper, "Towards a Categorical Foundation of Mathematics," doesn't give up sets with
+members. What he gives up is one sameness that holds across everything at once: "there
+is no global equality present for all things simultaneously." Any property worth stating
+about the objects of a kind has to come out the same for two objects that match exactly
+in structure. The univalent foundations book, written in 2013 during a year at the
+Institute for Advanced Study organised by Steve Awodey, Thierry Coquand and Vladimir
+Voevodsky, makes that an axiom: "identity is equivalent to equivalence." Things that match
+exactly in structure are the same thing. That's Benacerraf's puzzle from earlier in this
+chapter, about which sets the number three really is, shut down at the door: nobody gets
+to ask a question the structure doesn't answer.
+
+Push on that one and it gives less than the first, because a machine that steps still has
+a pile: the states it can reach. At any tick its box is down or up, so those states are
+already cut in two, whatever the foundations underneath say about where the pile came
+from. Makkai and the univalent people change what you're allowed to say about the pile.
+They don't take away the cut.
 
 The smallest piece
 
@@ -885,6 +924,20 @@ between the things themselves and no groups at all, and people do, and nothing I
 shown you rules that out. So the honest sentence is: a split with a door across it is
 where I chose to start. It's the smallest by the ruler I stated. If you have a smaller
 start, by a ruler you can state, I want to see it. It would change this book.
+
+Here's the arrow road, measured with the same kind of ruler: fewest dots first, then
+fewest arrows between different dots. One dot can't tell anything apart. Two dots with
+no arrow between them is a plain split, with no door. So the smallest picture with a
+direction in it has two dots, call them NO and YES, a do-nothing loop on each so a thing
+is allowed to stay put, and one arrow from NO to YES with nothing coming back. Category
+theorists call it the walking arrow. Now lay any machine onto it: put every state on one
+of the two dots, so that every move of the machine follows an arrow in the picture. The
+dots sort the states into two buckets. The loops let a move stay where it is. The one
+arrow lets a move cross from NO to YES. And there's no arrow back, so no move goes from
+YES to NO. That's a split with a one-way door, exactly, and every split with a one-way
+door lays onto the picture that way. So the arrow road doesn't come out smaller. It
+comes out at the same place. Both rulers hit bottom on the same thing, and the
+invitation still stands.
 
 Buckets
 
@@ -966,7 +1019,12 @@ forgetting, and keeping instead is paid for with fresh states. Whether a given
 machine forgets is a question about that machine. It has to be answered on the
 page, and I won't wave at it here. Rissanen says a model is paid for in the bits
 it takes to state, and Grünwald says the price depends on the code. Parnas says a
-bad cut is paid for later, at two in the morning. And that's where it stops.
+bad cut is paid for later, at two in the morning. Peirce, in 1879, priced research
+itself: in his words, "the relations between the utility and the cost of diminishing
+the probable error of our knowledge." Abraham Wald's sequential tests, from 1945, are
+built to need fewer samples, on average, than a test of fixed size with the same
+chance of being wrong. Those price the looking and the risk in the answer. Neither puts
+a price on the step that locks the answer in. And that's where it stops.
 Rovelli, back in chapter six, prices a choice that sticks, and his choice is one
 nobody could predict, which that section showed is a different act. I couldn't
 find anyone who says that the moment you vouch for a grouping, the moment you

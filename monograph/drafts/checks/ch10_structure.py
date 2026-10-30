@@ -39,4 +39,20 @@ row = '01' * 16
 flipped = list(row)
 for i in [5, 11, 17, 23, 29]: flipped[i] = '1' if flipped[i] == '0' else '0'
 if ''.join(flipped) != ('010100' * 6)[:32]: fails.append('flip-fit')
+# the walking arrow: laying a machine's moves onto NO -> YES (loops on both, nothing back)
+# is exactly a split no move crosses from YES to NO; onto two dots with no arrow, a split
+# no move crosses at all
+from itertools import product as _p
+arrow = {(0, 0), (0, 1), (1, 1)}
+plain = {(0, 0), (1, 1)}
+for n in range(1, 5):
+    pairs = [(a, b) for a in range(n) for b in range(n)]
+    for edges in _p([0, 1], repeat=len(pairs)):
+        E = [pq for pq, e in zip(pairs, edges) if e]
+        for col in _p([0, 1], repeat=n):
+            lays = all((col[a], col[b]) in arrow for a, b in E)
+            one_way = not any(col[a] == 1 and col[b] == 0 for a, b in E)
+            if lays != one_way: fails.append('walking arrow')
+            if all((col[a], col[b]) in plain for a, b in E) != (not any(col[a] != col[b] for a, b in E)):
+                fails.append('plain split')
 print('failures:', len(fails))
