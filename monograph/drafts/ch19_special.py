@@ -56,28 +56,19 @@ Squash two wells into one: $0.71 \pm 0.03\,kT$ of work, in the slow limit. Run t
 moves without the tilt, so nothing is squashed: $0.05 \pm 0.03\,kT$, also in the slow limit,
 within two error bars of zero. $\ln 2$ is $0.693$. Same bead, same trap. \\[3pt]
 The floor, three more ways & B\'erut and others (2012), a glass bead; Hong, Lambson, Dhuey
-and Bokor (2016), tiny magnetic memory bits, within two standard deviations of Landauer;
+and Bokor (2016), tiny magnetic memory bits: $1.45 \pm 0.35\,kT$, which they report as
+within two standard deviations of Landauer's limit;
 Gaudenzi, Burzur\'i, Maegawa, van der Zant and Luis (2018), molecular spins at one kelvin. \\[3pt]
 Lopsided wells & Gavrilov and Bechhoefer (2016), the feedback trap of Jun and others with a
 lopsided double well: the average work to erase came out below $kT\ln 2$. The floor as
 stated is for a symmetric memory. \\[3pt]
-Time against heat & B\'erut and others (2012; B\'erut, Petrosyan and Ciliberto 2015): heat
+Time against heat & B\'erut, Petrosyan and Ciliberto (2015), on the 2012 bead: heat
 $= kT\ln 2 + B/\tau$ fits with $B = 8.15\,kT\cdot\mathrm{s}$; left free, the floor of the fit
 comes out at $0.72\,kT$. The floor is reached only as the time goes to infinity. \\[3pt]
-How long a bit stays put & The same bead: the paper estimates a typical time to hop the
-barrier of about 3,000 seconds at $8\,kT$, and about ten seconds at $2.2\,kT$. Those are
+How long a bit stays put & The same paper, on the same bead, estimates a typical time to hop the
+barrier of about 3,000 seconds when the barrier is more than $8\,kT$, and about ten seconds at $2.2\,kT$. Those are
 statistical time scales. The barrier height sets how long the bit is kept; it isn't itself
-a measured heat payment. \\[3pt]
-The loop & Rauer, Erne, Schweigler, Cataldini, Tajik and Schmiedmayer (2018): the coherence
-of an isolated gas of thousands of atoms came back around. A collective quantity of a closed
-system returned; the full state of the gas wasn't shown to return, and couldn't be. \\[3pt]
-Heat of collapse & Vinante and others (2017): a cantilever at millikelvin shows a force noise
-of unknown origin, compatible with the heating one collapse model predicts. Donadi,
-Piscicchia, Curceanu, Di\'osi, Laubenstein and Bassi (2021): the radiation a gravity-driven
-collapse would give off wasn't seen at Gran Sasso, ruling out the version of that model with no adjustable settings.
-These test the noise a collapse model adds, not a Landauer price on a kept outcome. \\[3pt]
-The ceiling on fresh states & Bekenstein's proposed bound uses energy and size; it isn't a
-measured count of states. \\
+a measured heat payment. \\
 \end{longtable}
 \endgroup""",
 }

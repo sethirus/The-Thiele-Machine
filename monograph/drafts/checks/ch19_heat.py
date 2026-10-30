@@ -99,6 +99,9 @@ for i in range(1, 1000):
 
 # experiments: within error bars
 if not (abs(0.71 - math.log(2)) <= 0.03 and 0.05 - 2 * 0.03 <= 0): fails.append('Jun et al.')
+# Hong et al. 2016: 1.45 +- 0.35 kT against ln 2 is about 2.2 of their deviations, so the page
+# quotes "within two standard deviations" as their report, not as a fact of its own
+if not (2.1 < (1.45 - math.log(2)) / 0.35 < 2.3): fails.append('Hong arithmetic')
 # Jarzynski numbers for nine in ten successes
 p = 0.9
 if round(math.log(2 * p), 3) != 0.588 or round(math.log(2) + p * math.log(p) + (1 - p) * math.log(1 - p), 3) != 0.368:

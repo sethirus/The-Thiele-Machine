@@ -84,7 +84,7 @@ price under its conditions, and the whole-number charge on every merging move is
 way nothing here says a device does anything until somebody measures the device.
 
 Naming an assumption isn't the same as leaving it unplaced, though, and a hedge isn't a position, so I'll give mine.
-Earman and Norton's objection is a fork. Either an information-based answer to Maxwell's demon assumes the second law,
+Earman and Norton's objection is a fork, set out in the first part of their paper, in 1998. Either an information-based answer to Maxwell's demon assumes the second law,
 which they call the sound horn, and then it adds nothing the second law didn't already give; or it rests on a new
 principle tying information to entropy, the profound horn, and nobody has given that principle grounds of its own. My
 named assumption is the sound horn, on purpose. That's where Bennett ended up in 2003, and Norton's "Too Good to Be
@@ -239,8 +239,9 @@ end, over thirty thousand times this floor. The point of the number isn't that a
 
 The same logarithm turns up in a different physical question, and I want to keep the two apart. Yûto Murashita, Ken Funo and Masahito Ueda in 2014 studied processes
 whose reverse histories include some with no forward partner, which they call absolute irreversibility. Their bound on average entropy produced picks up the logarithm
-of one over the share that's left. In their example, gas that starts in a tenth of a box and spreads out gives the logarithm of ten. Make that tenth the old yes-states'
-share of the pile, and out comes the same logarithm as the squeeze. That's a match of numbers, not of processes. My arrows don't say what the reverse experiment is or
+of one over the share that's left. Their example is gas that starts in one part of a box split into two, the parts in the ratio l to 1 minus l, and spreads out
+through the whole box; the logarithm is of one over l. (Take l to be a tenth and you get the logarithm of ten; that number is my illustration, not theirs.) Make l the
+old yes-states' share of the pile, and out comes the same logarithm as the squeeze. That's a match of numbers, not of processes. My arrows don't say what the reverse experiment is or
 how likely its histories are, so they don't determine that share. Gonzalo Manzano, Gülce Kardeş, Édgar Roldán and David Wolpert in 2024 studied questions like that for
 computations with one-way steps and random stopping times. Their physical assumptions are on top of my counting.
 
@@ -278,8 +279,7 @@ comes from what you didn't know. And it doesn't mean telling somebody which way 
 toss, you made a record that's tied up with the coin, and resetting that record has to be counted with that tie. If the coin was handed to you heads up for certain, there
 was no uncertain toss to record. Those are different preparations.
 
-This is the general form of Landauer's principle, worked out by Owen Maroney in 2009, in a paper he wrote at the Perimeter Institute in Canada (he has been at Oxford since
-2011), and by Sagawa in 2014. And Landauer himself had the seed of it in 1961: for a row of bits all already ONE, he wrote, there's no need to carry out any operation, so no
+This is the general form of Landauer's principle, worked out by Owen Maroney in 2009, in a paper he wrote at the Perimeter Institute in Canada, and by Sagawa in 2014. And Landauer himself had the seed of it in 1961: for a row of bits all already ONE, he wrote, there's no need to carry out any operation, so no
 entropy changes and no heat is given off; and resetting a row all ZERO to ONE involves no entropy change either, because neither row carries any information.
 
 Notice that the toll still charges the known-state stamp one unit, because the toll is a rule about the move, and the move doesn't know what the watcher knows. That's the
@@ -288,7 +288,8 @@ worst-case gap from the start of the chapter, and it's the price of having a rul
 The physics of all this has a standard review, Juan Parrondo, Jordan Horowitz and Takahiro Sagawa's "Thermodynamics of information" from 2015, which puts Landauer's bound,
 its general form and the costs of measuring and acting on what you measured side by side. And the gap between a device and the spread it runs on has a physicist's number on
 it. Artemy Kolchinsky and David Wolpert showed in 2017 that a fixed process built to waste as little as possible on one spread over its states pays extra when it runs on
-another, and the extra is how much closer the process brings the two spreads together, measured in relative entropy. That extra was later named mismatch cost. Under their
+another, and the extra is how much closer the process brings the two spreads together, measured in relative entropy. They called it the dissipation due to an incorrect prior, and in 2018 Wolpert and
+Kolchinsky gave it the name it goes by now, mismatch cost. Under their
 conditions, their formula says which input pays: the one the device's own best spread gave the least chance. A device can make one input cheap only by making another dear.
 That's the worst-case gap again, priced for an actual spread, where the toll prices the move.
 
@@ -319,7 +320,8 @@ through.
 Charles Bennett's Brownian computer, from his 1982 review, is a walker on a line that's pushed forward a little. At each tick it steps forward with some chance p and back with
 the rest. Its speed, on average, is the difference between the two, 2p minus 1. Grant the standard assumption of this corner of physics, called local detailed balance, which
 Udo Seifert's 2012 review sets out: a forward step hands the surroundings kT times the log of p over 1 minus p in heat, and a backward step takes the same amount back. Then the
-average heat per tick, in units of kT, is the speed times that log. When p is more than a half, both are positive; when it's less, both are negative; either way the product is
+average heat per tick, in units of kT, is the speed times that log, which follows from Jürgen Schnakenberg's 1976 formula for the entropy
+produced by a system that jumps between states. When p is more than a half, both are positive; when it's less, both are negative; either way the product is
 positive. Only at exactly a half, no drift at all, is it zero. And no drift doesn't mean a walker standing still: it still jumps about, and it can reach a nearby spot on the
 first tick. It just doesn't get anywhere on average.
 
@@ -348,11 +350,11 @@ So keeping something costs, on top of going at a speed, either a merge, which on
 before. Taking a fresh state escapes the floor, and doesn't settle how much a real device wastes in finite time. And a finite set of states, where every state has a next one, forces the merge.
 
 
-A bead I ran myself
+A simulation in code
 
-I wanted to see the steps, so I built a numerical bead, a computer model of one, in a double well shaped like a quartic curve. It follows the experiment's sequence: lower the barrier for one
-second, ramp a tilt, take the tilt away, raise the barrier for one second. It's a potential I chose and a numerical approximation, not the measured trap. The bead starts from the thermal spread
-in that well, equally likely in either side.
+I wanted to see those steps, so I ran a simulation in code. It models a bead in a double well shaped like a quartic curve, and follows the experiment's sequence: lower the barrier for one
+second, ramp a tilt, take the tilt away, raise the barrier for one second. The well is a shape I chose and the motion is a numerical approximation; it isn't the measured trap, and nothing in it
+was measured. The modelled bead starts from the thermal spread in that well, equally likely on either side.
 
 Keep three accounts as it moves. Changing the trap while the bead holds still does work on it. The bead moving in a fixed trap hands heat to the water around it. Whatever's left changes the
 bead's stored energy.
@@ -374,10 +376,12 @@ comparison mixes sampling error with numerical error. Still, it's enough to
 stop me treating a fitted constant near ln 2 as a confirmation. The barrier ramps are still one second long, the tilt changes between settings, and the fit doesn't take the whole procedure to a slow
 limit.
 
-There's a theoretical comparison, and it's a comparison with work. For the continuous thermal model, starting in equilibrium and ending in the same symmetric trap, a relation due to Christopher
-Jarzynski, in the form that looks only at the successful paths, gives those paths an average-work bound of kT times the log of twice the success rate. Averaging successes and failures gives kT times
-ln 2, plus p ln p, plus (1 minus p) times ln (1 minus p). At nine successes in ten those are about 0.588 kT and 0.368 kT. Bérut, Artyom Petrosyan and Ciliberto worked through the success-only form in 2013. Neither
-is a heat bound for my simulation without also counting its change in stored energy.
+There's a theoretical comparison, and it's a comparison with work. For the continuous thermal model, starting in equilibrium and ending in the same symmetric trap, there are two bounds, both
+written in terms of the success rate p. Averaging over successes and failures, the work is at least kT times ln 2, plus p ln p, plus (1 minus p) times ln (1 minus p); that's
+the formula from Bérut and his coauthors' 2012 paper that drops to zero at half. Looking only at the successful paths, the work is at least kT times the log of 2p. Bérut,
+Artyom Petrosyan and Ciliberto worked that one out in 2013, from a version of Christopher Jarzynski's 1997 equality that sorts paths by how they end, due to Suriyanarayanan
+Vaikuntanathan and Jarzynski in 2009 and to Ryoichi Kawai, Juan Parrondo and Christian Van den Broeck in 2007. At nine successes in ten the two come to about 0.368 kT and
+0.588 kT. Neither is a heat bound for the simulation without also counting its change in stored energy.
 
 The script is in the repository as scripts/bead_erasure_sim.py. It reports heat, work, stored-energy change, sampling errors and the fits, and takes a smaller time step for checking them. What it shows
 is that the slower settings use less work and give off less heat on average. It doesn't find a universal floor, and it doesn't reproduce the laboratory's fitted constant.
@@ -390,8 +394,7 @@ Here's the laboratory side in one place, so you can see how near it has come to 
   [table: what has been measured]
 
 These experiments test particular memories and procedures, including the symmetric-memory floor and heat against time. They aren't a survey of all physical computation, and they aren't an experimental
-proof of the counting. Bekenstein's bound ties entropy to energy and size under its own physical assumptions; it doesn't hand you a finite list of a device's states. The counting in this book takes
-finitely many states as an assumption.
+proof of the counting.
 
 
 Why the rule sits on the raise
