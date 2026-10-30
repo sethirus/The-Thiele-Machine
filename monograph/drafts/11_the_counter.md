@@ -178,10 +178,11 @@ from start to finish, because the drop had to be paid for along the way. Robert 
 1985, crediting the potential view to Daniel Sleator. Tarjan used it the other way round, to show a run
 costs at most so much.
 
-Do his coin version. A stack of coins. PUSH adds one and costs one. POP-ALL removes them all and costs
-as many as it removed. Let the potential be the number of coins. PUSH costs one and adds one to the
-potential. POP-ALL of k coins costs k and drops the potential by k. So any run from an empty stack
-costs at most twice the number of pushes, however many expensive pops are in it.
+Do his stack example with coins. Every operation takes some coins off the top, maybe none, then puts
+one on, and costs one for each coin it moves. Let the potential be the number of coins. An operation
+that takes off k coins and puts one on costs k + 1 and changes the potential by 1 minus k, so its cost
+plus the change is exactly 2, every time. So any run from an empty stack costs at most twice the number
+of operations, which is twice the number of pushes, however many coins some of them take off.
 
 The decreasing number underneath it is Aleksandr Lyapunov's, from his 1892 doctoral thesis on whether a
 moving system settles down. It was in Russian. A French translation came out in 1907, made by a French
@@ -218,8 +219,9 @@ Niu, Jonathan Sterling, Harrison Grodin and Robert Harper in 2022, reason about 
 
 And there's one more neighbour, closer than any of those. A number the step keeps up to date and nothing
 else ever reads is what people who prove programs correct call ghost state. Susan Owicki and David Gries
-added it to programs in 1976, because some true facts about a program can't be proved without it, under
-the rule that it never steers the program. Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich
+used it in 1976, crediting the first use they'd found to Maurice Clint, because some true facts about a
+program can't be proved without it. Their rule lets it appear only where it's being updated itself, so
+it never steers the program. Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich
 worked out in 2014 when ghost code can be removed without changing what the program computes. By that
 test the counter is ghost whenever no step reads it. So what does putting it in the step buy? Two things.
 The number is there while the machine runs, where somebody looking through a window can see it, not only

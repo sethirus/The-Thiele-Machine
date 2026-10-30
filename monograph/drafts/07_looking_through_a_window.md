@@ -93,10 +93,10 @@ His full name was Edwin Abbott Abbott, two A's: his father, Edwin Abbott, had ma
 his own first cousin, Jane Abbott. Is the pen name a joke on that, A squared? People
 say so. The earliest I found is Rudy Rucker in 1984, who says it "seems possible" he
 was nicknamed that; Ian Stewart in 2002 says he "might have been"; and William
-Lindgren and Thomas Banchoff, in their 2010 edition, call it a pun on his initials
+Lindgren and Thomas Banchoff, in their 2009 edition, call it a pun on his initials
 outright, EAA, E A squared. None of them quotes Abbott saying so. So it's a reading of
 his name, not his word. The part I like best comes
-from a sketch of his life on the geometer Thomas Banchoff's pages: Flatland, by far
+from the sketch of his life in the MacTutor archive of mathematicians' lives: Flatland, by far
 the most read thing he wrote, isn't mentioned at all in his obituary in the London
 Times. The official record of the man was a window too. Through it you got the
 headmaster and the grammarian, and not the one book people still read.
@@ -189,7 +189,8 @@ Two more fields have it as a founding idea. In the logic of knowledge, what an
 agent knows is modelled by sorting the possible states into piles it can't tell
 apart, and it knows a fact exactly when the fact holds everywhere in its pile. The
 economist Robert Aumann used that in 1976 to prove that two people who start from
-the same beliefs, and whose estimates are known to each other, can't agree to
+the same beliefs, and whose estimates are common knowledge between them, each
+knowing the other's, knowing the other knows, and so on without end, can't agree to
 disagree, and Ronald Fagin, Joseph Halpern, Yoram Moses and Moshe Vardi built a
 whole logic on the same piles in 1995. And in computer security, Joseph Goguen and
 José Meseguer defined noninterference in 1982: one group of users doesn't interfere
@@ -449,8 +450,8 @@ of knowledge in 1988. My asking, in this chapter, is one round with one fixed
 question, and nothing in it handles a liar. It's a toy of the real thing, and I'm
 not going to let the real thing's reputation stand behind the toy.
 
-The real thing even has a cave in it. In a 1989 paper called "How to Explain
-Zero-Knowledge Protocols to Your Children," Jean-Jacques Quisquater and Louis
+The real thing even has a cave in it. In a paper presented in 1989 and printed in
+1990, "How to Explain Zero-Knowledge Protocols to Your Children," Jean-Jacques Quisquater and Louis
 Guillou, with their families and Tom Berson, told it as Ali Baba's cave: a ring of
 tunnel with a magic door at the back that opens only for a secret word. Peggy goes in
 down one side while Victor waits outside; then Victor walks to the fork and shouts
@@ -464,8 +465,8 @@ call, makes exactly the same video. The video is a window, and the real run and 
 fake one cast the same shadow.
 
 What would it take to make that promise-mark binding for real, against somebody
-who wants to cheat? Manuel Blum's 1981 paper "Coin Flipping by Telephone" is where
-I'd point. Alice and Bob have just divorced, they live in different cities, and they
+who wants to cheat? Manuel Blum's paper "Coin Flipping by Telephone," presented in 1981, is
+where I'd point. Alice and Bob have just divorced, they live in different cities, and they
 want to flip a coin over the phone for who gets the car, with nobody both trust to
 flip it. If Alice flips and announces, Bob has to take her word. If Bob calls first,
 Alice can lie about how it landed. Blum's way out is for one side to commit first,

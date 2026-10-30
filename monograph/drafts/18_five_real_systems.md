@@ -229,7 +229,7 @@ at all. But on the bit field it's chapter five's row of cups, which can only tur
 controllers go one floor further down, to fuses like Chow's in chapter fourteen: a version number kept as a row of fuses, one more blown
 at each security update, and startup code that refuses anything older. A 2021 guide by Rob Smart for PSA Certified, a security
 certification scheme for chips and devices, tells designers to make sure there are enough fuses to last the number of updates expected
-over the device's life. That's chapter five's count of cups, written as a design rule.
+over the supported life of the chip's root of trust, the part every later check starts from. That's chapter five's count of cups, written as a design rule.
 
 What it's all for is rollback. Memoir's example is a password checker put back to an old saved state to undo a user's password change.
 In 2017 a system called ROTE did the same job for Intel's enclaves by having several machines vouch for each other's counters, and its

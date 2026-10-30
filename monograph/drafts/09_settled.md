@@ -99,7 +99,7 @@ a mind makes evident, and from 1948 on he argued about an idealised mathematicia
 working in stages, the creating subject. The logician Georg Kreisel, in 1967, wrote
 it as a formula: the subject has evidence for a statement at stage n. That's a trace,
 something you can come back and ask about after the act is over. Anne Troelstra, a
-Dutch logician, added in 1969 that the subject never forgets what it has made evident,
+Dutch logician who studied under Brouwer's student Arend Heyting, added in 1969 that the subject never forgets what it has made evident,
 so the trace never fades. That's how Mark van Atten credits it in his 2018 history,
 down to the page of Troelstra's book where it was added, page 95, and he suggests
 calling the whole thing the Kreisel-Troelstra theory. The Stanford Encyclopedia's

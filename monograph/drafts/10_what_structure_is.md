@@ -148,8 +148,8 @@ faced one, and the cube), and the faces of those solids were built from exactly
 two kinds of right triangle. You can make one of each in a minute: cut a square
 from corner to corner for the first, and cut an equilateral triangle from a corner
 to the middle of the opposite side for the second. Everything else, in Plato's
-story, was a receptacle, a featureless medium that takes on shape the way wax
-takes a seal. Structure, for Plato, is shape laid into something that has no shape
+story, was a receptacle, a featureless medium that takes on shape the way soft stuff
+takes a stamp pressed into it. Structure, for Plato, is shape laid into something that has no shape
 of its own.
 
 Why did he care? He wanted a world made on purpose, by a craftsman working from a
@@ -300,8 +300,8 @@ later, in a place where I had to obey it or fall through the same hole, and I'll
 point at it when the book gets there.
 
 Frege's reply is worth hearing, because it's the best example I know of how to
-lose. He wrote back within days. He didn't hide it or argue around it. He said,
-more or less, that arithmetic was tottering, and in an appendix to the volume that
+lose. He wrote back within days. He didn't hide it or argue around it. He said
+that the basis he'd meant to build arithmetic on had been shaken, and in an appendix to the volume that
 was about to come out he wrote that hardly anything worse can happen to a
 scientific writer than having a foundation give way right after the work is
 finished. Then he tried to fix it. If I'm wrong about something in this book, and
@@ -413,8 +413,8 @@ this section goes next. And the philosopher of science James Ladyman (1998)
 carried the idea into physics: what a successful theory gets right about the world
 is its structure. This section's thesis, that structure is the relations and the
 things in them don't matter, is theirs. None of the formal results takes their
-arguments as a premise, and the bibliography lists them under the same heading as
-Bourbaki.
+arguments as a premise, and the sources at the back list them under this chapter,
+beside Bourbaki.
 
 A set with some named relations
 
@@ -489,9 +489,9 @@ of Eilenberg and Mac Lane's definition.
 Composing relations is older than the definition, too. Who put a name on that move
 first? I went looking. Augustus De Morgan, writing on the logic of relations
 around 1860, took the "is" out of the old syllogism, put a general relation in its
-place, and composed two relations to get the conclusion. The example that gets
-quoted from that tradition, Peirce's a decade later, is "$x$ is the lover of a
-servant of $y$," which is relational composition with better gossip. The paper,
+place, and composed two relations to get the conclusion. The examples I like
+best from that tradition are Peirce's, a decade later, with phrases like "every
+lover of a servant of all women," which is relational composition with better gossip. The paper,
 his fourth "On the Syllogism," has more dates than most. He signed it at University
 College London on 12 November 1859, added an appendix dated 15 March 1860, and read
 it to the Cambridge Philosophical Society on 23 April 1860; it was printed in the
@@ -545,7 +545,7 @@ minimum description length principle, and it says that the best model of some da
 is the one that makes the total description shortest, where the total is the
 length of the model plus the length of the data once the model has explained what
 it can. A model is paid for in bits, and it's worth stating only if it saves more
-than it costs. Peter Grünwald, a statistician who leads a machine learning group
+than it costs. Peter Grünwald, a statistician in the machine learning group
 at CWI, the Dutch national institute for mathematics and computer science in
 Amsterdam, in a tutorial you can find online, adds the footnote that keeps this
 honest: the price of a model depends on the code you chose to write it in, so the

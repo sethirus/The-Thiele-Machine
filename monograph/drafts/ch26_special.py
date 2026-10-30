@@ -1,0 +1,55 @@
+ROWS = [
+# (chapter, before me, what's mine)
+("1", "That every step of a machine with one next state lands somewhere new, makes two arrows meet, or goes round a loop is counting about functions, and the counting isn't mine. Turing's machine, Church's lambda calculus and the proofs that they match are theirs.",
+ "Pointing the count at a reading that stays."),
+("2", "The pigeonhole principle: Leurechon in 1622, Dirichlet in 1842. Recurrence: Poincar\\'e, and Zermelo against Boltzmann in 1896. Reversible automata that can't keep a done: Pin in 1992, Brodsky and Pippenger in 2002. The counting with a physical price on it: Ouldridge and Wolpert in 2023. Neighbours in constructor theory: Deutsch and Marletto, Marletto, Vedral and coauthors, Violaris and Marletto. Rogers on monoid actions.",
+ "Nothing in the counting. The chairs are a small, exact, classical relative of what they did."),
+("3", "Bennett's rule is Bennett's, in his words of 2003. The least work for a step that has to succeed on every input is Faist, Dupuis, Oppenheim and Renner's, 2015. Landauer's principle is Landauer's.",
+ "Writing the price on the move as a rule of the model; the three doors, with a machine walking through each; the halving rule as a choice of price."),
+("4", "Seals, witnesses, tallies and receipts are history, and the people who studied them are named in the chapter. Cook's certificates, 1971.",
+ "The smallest Thiele machine, and the coin covered."),
+("5", "A value that only climbs, asked only whether it's past a point: Kuper and Newton's LVars, 2013, and Timany and Birkedal, 2021.",
+ "A price on crossing a line."),
+("6", "Looking without merging: Bennett. Charging the look or the wipe as a choice of bookkeeping: Fahn, 1996; Sagawa and Ueda, 2009. A choice that sticks gives off heat: Rovelli, 2024.",
+ "The reading of Bennett and Rovelli as two sides of one line, with the four places it gives."),
+("7", "That two things that look the same through a window can't be told apart from it is a fact about functions far older than this book. Moore, 1956; Kalman, 1960; Codd, 1970; Sampath and coauthors, 1995; Saboori and Hadjicostis, 2007.",
+ "The price: a window with a clash can't price exactly, and the least it has to overcharge."),
+("8", "The commit: Gray, 1981, from contract law, and Austin's ``I do,'' 1955. The reference monitor: Anderson's study, 1972; Schneider, 2000; Azevedo de Amorim and coauthors, 2015. The gap between check and use: Bishop and Dilger, 1996.",
+ "The definition of an established record: paid for, permanent, and earned, together."),
+("9", "The creating subject: Brouwer; Kreisel, 1967; Troelstra, 1969; van Atten's history, 2018. A proof as an act: Martin-L\\\"of.",
+ "The reading: settled is a sorting with a door that only swings one way, and closed isn't the same as true."),
+("10", "Structure as relations: Bourbaki, the structuralists, Klein, Noether, and the rest named in the chapter. An order as a sorting with one-way doors is a textbook fact; the chapter cites Halmos.",
+ "The overlay of the sources, and the ruler under which a split with a one-way door is the smallest start. That nobody prices vouching for a grouping isn't claimed; I only didn't find anyone who does."),
+("11", "The tally stick. Lamport's clocks, 1978. Numbers that only go down: Turing and Floyd. The potential method: Tarjan, 1985, crediting Sleator; Lyapunov, 1892, in another form.",
+ "Which potential: the one that drops when something settles, and what happens to it through a window."),
+("12", "Gettier, 1963, and the history of the definition he broke. Proof-carrying code: Necula, 1996 and 1997. Changing your mind: Segerberg, G\\\"ardenfors, Katsuno and Mendelzon, Baltag, Renne and Smets, and the others named. Counting by possibilities: Hartley, 1928.",
+ "A checklist for leaning on a claim. It's true by packaging and discovers nothing about leaning."),
+("13", "K\\\"ohler's Sultan and the sticks, on Tenerife; Duncker's box, 1935; Metcalfe's ratings of how close people felt to a solution.",
+ "The meaning chosen: insight, as priced here, is a distinction made to stay."),
+("14", "History variables: Abadi and Lamport, 1991. The ``once'' operator: Lichtenstein, Pnueli and Zuck, 1985. Watchers that keep it in one bit: Havelund and Ro\\c{s}u, 2002. A toy world with a clean start: Ebtekar and Hutter, 2024.",
+ "The other direction: a box that answers only to the machine and never comes down can't be anything but a cup on one event, over any machine."),
+("15", "The fact about functions under the window, again.",
+ "The pricing form of it, and that a paid move crushes two states of one pile when the conditions hold."),
+("16", "Memo functions: Michie, 1968. Keeping one copy of each structure: Ershov, 1958; Goto, 1974. The ABA problem: IBM's System/370 manual, 1974 as revised in 1975; Treiber, 1986; Michael and Scott, 1995 and 1996. Caches, version counters and memo tables in general belong to the programmers who built them.",
+ "That the four are four ways of paying chapter two's bill, and that under the two conditions there's no fifth."),
+("17", "The diagonal: Cantor, 1891; Russell, 1903; G\\\"odel, 1931; Turing, 1936; Kleene's recursion theorem, 1938; Rice, 1953. Blum's speedup theorem, 1967.",
+ "Nothing new. Rice's trick one floor over, with its own conditions, pointed at a box."),
+("18", "The five systems belong to their designers, and the copies I read are named in the chapter.",
+ "The reading of five copies side by side, through one question."),
+("19", "Pointer states and quantum Darwinism: Zurek, from 1981, with Riedel and Zwolak; Brand\\~ao, Piani and Horodecki, 2015; Qi and Ranard, 2021.",
+ "The pointer thesis, stated as a thesis."),
+("20", "Landauer, 1961, and Bennett after him. The critics: Earman and Norton, Norton. The two meanings of reversible: Ladyman and coauthors, Sagawa. The walker: Bennett's Brownian computer, 1982; Schnakenberg, 1976; Seifert's review, 2012. Bounds of the same kind for other models: Schmiedl and Seifert, 2007; Aurell, Mej\\'ia-Monasterio and Muratore-Ginanneschi, 2011; Shiraishi, Funo and Saito, 2018.",
+ "The bit counts for a permanent raise from the even spread, and that every scale pays the same way; the walker's bound, worked on the page under local detailed balance. Every heat figure is given Landauer."),
+("21", "Reversible machines saving room: Bennett, 1989. Precise floors for a reset: Reeb and Wolf, 2014. Noisy and unitary steps are standard, and so is the collision weight.",
+ "The exact room counts: 1 + (T + 1)(N - 1), N + T(N - L), T + 3 and 2T + 2 for two levers, the grid's 1 + (t + 2)(t + 3)/2; receipts covering the merges a run shows."),
+("22", "Church and Turing's thesis. Principles for mechanisms: Gandy, 1980; Arrighi and Dowek, 2012. Prices on erasing: Ouldridge and Wolpert, 2023; Li and Vit\\'anyi, 1996; Demaine and coauthors, 2016.",
+ "Which readings of two machines side by side keep the toll; the run with branching steps; the blindfold; the ledger; the Thiele thesis, stated as a thesis."),
+]
+
+def _row(ch, before, mine):
+    return '%s & %s & %s \\\\' % (ch, before, mine)
+
+special = {
+"[table: prior work": "\\begingroup\\small\n\\begin{longtable}{@{}>{\\raggedright\\arraybackslash}p{0.07\\linewidth}>{\\raggedright\\arraybackslash}p{0.55\\linewidth}>{\\raggedright\\arraybackslash}p{0.32\\linewidth}@{}}\n\\toprule\n\\textbf{Ch.} & \\textbf{Who had it before me} & \\textbf{What's mine} \\\\\n\\midrule\n\\endhead\n\\bottomrule\n\\endlastfoot\n"
+    + "\n".join(_row(*r) for r in ROWS) + "\n\\end{longtable}\n\\endgroup",
+}

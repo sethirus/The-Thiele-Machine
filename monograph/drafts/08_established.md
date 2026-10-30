@@ -87,7 +87,7 @@ at a time, as the steps actually happen, so nothing a program does can add a lin
 that didn't happen or erase one that did. Airplanes do a version of this. Flight
 recorders go back to a prototype David Warren built in Melbourne in the 1950s; he
 was an Australian scientist at the Aeronautical Research Laboratories, working on
-jet fuel, and after a string of unexplained airliner crashes he wanted a box that
+fuels, and after a string of unexplained airliner crashes he wanted a box that
 would hold the instrument readings and the voices in the cockpit for whoever came
 looking afterwards. I know his story from museum and encyclopedia accounts, not his
 own report. What comes out of a recorder is evidence of what its channels carried,
@@ -115,7 +115,8 @@ the one that went in. It holds only because nobody knows how to find two traces 
 the same fingerprint, which is a bet on how hard a search is, not a law of nature.
 Moni Naor and Guy Rothblum proved a sharp version of that in 2005, and even called it
 a fingerprint: checking a big file somebody else stores, against an opponent with
-unlimited computing, costs on the order of the whole file, and doing even slightly
+unlimited computing, takes a fingerprint whose size times the number of bits you read
+is on the order of the whole file, and doing even slightly
 better against a weaker opponent needs exactly that kind of bet. And squeezing
 endlessly growing traces into a fixed number of bits has to land many traces on one
 fingerprint. That's two arrows meeting, hidden behind how hard it is to find which

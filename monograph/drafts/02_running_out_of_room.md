@@ -66,8 +66,8 @@ This is very old
 The piece of mathematics doing the work there is old, and it isn't mine. Put more
 things into boxes than there are boxes, and some box gets two. People call it
 the pigeonhole principle. The earliest use of it I could find is Jean Leurechon
-in 1622, arguing that somewhere two people must have exactly the same number of
-hairs on their heads. The first name for it I could find came from Dirichlet, who
+in 1622, stating in one sentence, with no argument, that somewhere two people must
+have exactly the same number of hairs on their heads. The first name for it I could find came from Dirichlet, who
 used it in 1842 and later called it the drawer principle. It's the kind of fact a
 child accepts and a mathematician spends a whole career finding new uses for.
 
@@ -112,8 +112,9 @@ The second time was computer science, and that's the one that stung. Picture a
 small machine that reads letters, one move per letter. If every letter just
 reshuffles its states, no two arrows meeting, people call it a permutation
 automaton, and the sets of inputs such machines can pick out are called group
-languages. Jean-Éric Pin's 1992 paper on reversible automata sorts out exactly
-what those machines can recognise, and in that world the chairs argument is
+languages. Jean-Éric Pin's 1992 paper on reversible automata takes a wider
+class, where a letter may also leave some states with no move at all, and sorts
+out what those machines can recognise. In that world the chairs argument is
 folklore: a machine like that can't recognise "has seen a b at some point,"
 because recognising it would mean a done that stays done. Going quantum doesn't
 get around it. Alex Brodsky and Nicholas Pippenger showed in 2002 that a quantum
@@ -191,9 +192,9 @@ shares. The one-to-one move leaves a gap. That's the strip.
 The part worth checking is that Hilbert never published it. The hotel got famous
 because George Gamow put it in a popular book in 1947, and for a long time it
 wasn't clear Hilbert had told it at all. The historian of science Helge Kragh
-first guessed that Gamow made it up. Then Tilman Sauer, who had helped edit a
-volume of Hilbert's lectures, pointed him to Hilbert's lecture notes, which had
-just been printed in 2013, and in 2014 Kragh took his guess back in a paper called
+first guessed that Gamow made it up. Then Tilman Sauer, who had helped edit the
+volume of Hilbert's lectures on physics, pointed him to Hilbert's lecture notes on
+the infinite, which had just been printed in another volume in 2013, and in 2014 Kragh took his guess back in a paper called
 "The True (?) Story of Hilbert's Infinite Hotel." Keep the question mark. Even
 Kragh's paper says January 1924 twice, in its summary and its text, and January
 1925 twice, in a heading and its conclusion. It can't be 1924: the course ran in

@@ -57,8 +57,8 @@ first two messages and then adds the first message back into the chain," and the
 list is changed." The fix in the note is a change number in the word next door, "incremented for each modification of the list," which
 brings the risk down "to a negligible level": it can go wrong only if the first program is held up while a whole multiple of 2 to the 32nd
 changes go by. That's the first door with a very big wheel. R. Kent Treiber, at IBM, drew the same accident in a 1986 report and fixed it
-with what he called an allocation counter. The name came later. The earliest I can find is Maged Michael and Michael Scott's, in reports
-dated December 1995 and their 1996 paper: "the ABA problem," a value that goes from A to B and back to A, so a check that only looks at the
+with a counter. The name came later. The earliest I can find is in Maged Michael and Michael Scott's reports, dated December 1995, and
+their 1996 paper, and one of the reports already puts it in quotation marks, so it may be older: "the ABA problem," a value that goes from A to B and back to A, so a check that only looks at the
 value is fooled.
 
 The second door: never reuse an edition. Each edition gets its own box, and a write moves to an edition that's never been

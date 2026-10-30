@@ -84,7 +84,7 @@ price under its conditions, and the whole-number charge on every merging move is
 way nothing here says a device does anything until somebody measures the device.
 
 Naming an assumption isn't the same as leaving it unplaced, though, and a hedge isn't a position, so I'll give mine.
-Earman and Norton's objection is a fork, set out in the first part of their paper, in 1998. Either an information-based answer to Maxwell's demon assumes the second law,
+Earman and Norton's objection is a fork, set out at the start of the second part of their paper, in 1999. Either an information-based answer to Maxwell's demon assumes the second law,
 which they call the sound horn, and then it adds nothing the second law didn't already give; or it rests on a new
 principle tying information to entropy, the profound horn, and nobody has given that principle grounds of its own. My
 named assumption is the sound horn, on purpose. That's where Bennett ended up in 2003, and Norton's "Too Good to Be

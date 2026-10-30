@@ -9,7 +9,8 @@ p = 'thiele_machine.tex'; s = open(p).read()
 bar = '%' + '=' * 75 + '\n'
 title = open(draft).read().strip().split('\n')[0].strip()
 i = s.index(bar + '\\section{%s}' % title)
-j = s.find(bar + '\\section{', i + 1)
-if j < 0: j = s.index('\\end{document}')
+ends = [s.find(bar + t, i + 1) for t in ('\\section{', '\\phantomsection', '\\appendix')]
+ends = [e for e in ends if e >= 0]
+j = min(ends) if ends else s.index('\\end{document}')
 s = s[:i] + tex + '\n' + s[j:]
 open(p, 'w').write(s)

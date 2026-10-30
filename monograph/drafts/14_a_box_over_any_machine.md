@@ -24,8 +24,8 @@ cup asks at each step is: is this entry a six? Nothing about the cup changes whi
 next.
 
 The cup is a latch, the same thing you built with two boxes in chapter four. Electrical
-engineers have had the circuit since 1918, when two British physicists teaching engineering in
-London, William Eccles and Frank Jordan, applied for a patent on a two-valve arrangement that
+engineers have had the circuit since 1918, when two British physicists working in London,
+William Eccles and Frank Jordan, applied for a patent on a two-valve arrangement that
 holds whichever state you last put it in. Their 1919 paper calls it a trigger relay. It became
 the flip-flop, and the memory inside the device you're reading this on comes from it. Cut its
 reset wire and what's left has one input, "set," and one rule: the new state is the old state, or
@@ -188,7 +188,7 @@ Physicists have built this cup on paper in quantum mechanics too, and it behaves
 says. The question that sorted them for me is where the cup puts what it forgets. Klaus Hepp, in 1972, wanted a
 measuring device inside quantum mechanics itself, and studied a particle that flips spins in a long chain as it
 passes, now called the Coleman-Hepp model. I haven't read Hepp's paper itself; I know it from John Bell's,
-which took it apart in 1975: the record is exactly definite only if the chain is endlessly long. That's the fresh-paper column, a history
+which took it apart in 1975: the record is exactly definite only in a limit that's never reached, an endlessly long chain and an endless time. That's the fresh-paper column, a history
 that never ends. Jonathan Halliwell, in 1999, used a two-state detector that flips once when a particle passes and is
 kept from flipping back by a large surrounding environment, and his summary calls it "effectively irreversible." I
 like that he puts the word "effectively" right there where you can see it. And Murray Gell-Mann, who named the quark,
@@ -265,7 +265,7 @@ answers by guessing and revising, where the answer is whatever the guesses final
 never sure you've got the right answer. What kind of answer can't you ever be sure you have? The way I read it: the cup's position at any
 moment is the current guess, the answer is where it ends up, and nobody watching can tell when it's done moving. Yuri Ershov, a logician in
 Novosibirsk, sorted those in 1968 by how many changes they're allowed. That's how Rod Downey, Carl Jockusch, Timothy McNicholl
-and Paul Schupp describe his ladder in 2014; I haven't read Ershov's paper.
+and Paul Schupp describe his ladder in a paper printed in 2015; I haven't read Ershov's paper.
 Allow one change, from no to yes, and you get exactly the sets a program can list, the bottom rung. That one you can check yourself. If a
 program lists the set, guess no for every number and switch to yes when the number shows up on the list. Going back, if every guess flips
 at most once, from no to yes, run all the guessing side by side and write a number down the moment its guess says yes.

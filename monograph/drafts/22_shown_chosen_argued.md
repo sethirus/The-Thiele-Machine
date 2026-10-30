@@ -118,10 +118,13 @@ did the last part and showed it only means the two don't contradict each other.
 No question about what computers can do in a given time follows. Whether P equals NP is one of the seven problems the Clay Mathematics Institute put a million
 dollars on, at a meeting in Paris in May 2000. One of the seven has been declared solved since: the Poincaré conjecture, by Grigori Perelman, who posted his proof in 2002
 and 2003. A second has a claim on it. On 8 September 2026 OpenAI announced that one of its models, run as about ten thousand agents for
-about eighty-eight hours, had produced a proof, written out for a proof checker, that a three-dimensional fluid flow with a smooth force
-pushing on it can break down in finite time. That's one of the four answers the official statement of the Navier-Stokes problem accepts.
-As of October 2026 other mathematicians haven't finished checking it, there's a dispute over credit with Tristan Buckmaster and Levent
-Alpöge, who were working on a closely related result, and the Clay Institute's own page lists the problem as active, not solved. P versus
+about eighty-eight hours, had produced a proof that a three-dimensional fluid flow with a smooth force pushing on it can break down in
+finite time, and that another model had then written it out for a proof checker in about seventeen more hours. The official statement
+of the Navier-Stokes problem accepts any one of four answers, and OpenAI's paper says it settles two of them: the breakdown in all of
+space, and the same breakdown in a box whose sides wrap around. As of October 2026 other mathematicians haven't finished checking it.
+On 6 October Alexander Bastounis, Fabian Circelli and Anders Hansen posted a paper arguing that the version written for the proof
+checker doesn't match the proof written in words. There's a dispute over credit with Tristan Buckmaster and Levent Alpöge, who were
+working on a closely related result, and the Clay Institute's own page lists the problem as active, not solved. P versus
 NP has no such claim. If a two-state clash on my machine settled it, I'd be owed a million dollars. Nobody owes me anything. A window that loses a box is a
 fact about that window. A question like P versus NP is about everything every possible program can do within a budget, and nothing in these clashes reaches that
 far.
@@ -164,7 +167,7 @@ the world and no argument can settle it. "Not claimed" means it looks like it fo
 
 Whose is what
 
-Here's the short form of who did what, with the long form in the appendix.
+Here's the short form of who did what. The long form is at the back of the book, in What's mine, and what isn't.
 
 The toll isn't only my preference: on a finite machine a reading nothing turns off can only be turned on by a step that makes two arrows meet, so if that's priced, raising it costs; and
 a raise where nothing meets needs endlessly many yes-states. The counting under it is the finite cousin of the recurrence Zermelo threw at Boltzmann in 1896, and the price on a merge comes
@@ -174,8 +177,8 @@ on a reading that stays.
 
 That a price worked out from a window can't tell apart two steps the window shows the same is a fact about functions far older than this book; what's here is the pricing form of it. That a box driven
 by the computation that never comes down is a cup on one event, over any machine, uses old pieces too: latches and history-keeping variables are old, and the result covers only boxes that never come
-down. And the move of guaranteeing something about every run, which an established record leans on, isn't mine at all. It's the reference monitor's: James Anderson's 1972 study for the US Air Force, which asked for a mechanism that is "tamper proof,"
-"always invoked," and "small enough to be subject to analysis and tests." Fred Schneider made the idea
+down. And the move of guaranteeing something about every run, which an established record leans on, isn't mine at all. It's the reference monitor's: James Anderson's 1972 study for the US Air Force, which said the mechanism "must be tamper proof,"
+"must always be invoked," and "must be small enough to be subject to analysis and tests." Fred Schneider made the idea
 precise for monitors that watch a run in 2000, and it was proved for monitors checked at every instruction by Arthur Azevedo de Amorim and his coauthors in 2015. What I put under it is a definition,
 and its idea isn't new either: a check tied to the claim it looked at, with the toll charged on top.
 
@@ -197,7 +200,7 @@ input ever turns off, on inputs accepted and rejected alike.
 No argument settles it, because "a physical process that computes" isn't something you can do mathematics on. A model of computation is, and for a model written down as states, a step and a reading that stays,
 what keeping takes needs no thesis: it's chapter two. The thesis is the tie between the two, and it's about what a physical computation pays for what it keeps.
 
-There's an established road to that kind of tie, with its conditions in the open. Robin Gandy in 1980 wrote down principles for mechanisms, and Pablo Arrighi and Gilles Dowek restated his argument in a simpler form in 2012: sameness
+There's an established road to that kind of tie, with its conditions in the open. Robin Gandy in 1980 wrote down principles for mechanisms, and Pablo Arrighi and Gilles Dowek went back over his argument in a short form in 2012, on the way to a quantum version of it: sameness
 across space and time, finitely many local states, a bound on how fast anything travels, and a start that differs from a quiet background only in a finite region. From those, the evolution is computable. Those
 are real assumptions about the world, and they don't pick an event or a price in joules. I'm not asserting them of every physical system.
 

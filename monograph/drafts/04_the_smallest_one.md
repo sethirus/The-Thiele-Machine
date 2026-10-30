@@ -124,9 +124,10 @@ Closer to now
 
 The rest of the lineage points the same way, so I'll go through it quickly.
 
-Regulators who made stockbrokers keep their records on media that can't be
-rewritten (the SEC required exactly that, write once and read many, from 1997
-until 2022, when it allowed an audit trail instead) were paying for the hardware.
+Regulators who made stockbrokers keep their electronic records on media that
+can't be rewritten (from 1997 the SEC allowed records kept electronically only on
+media written once and read many times, and in 2022 it allowed an audit trail as
+another way) were paying for the hardware.
 The rule put no charge on the act of writing.
 
 Stuart Haber and Scott Stornetta, in 1991, chained time-stamped records together
