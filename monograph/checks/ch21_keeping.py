@@ -282,4 +282,37 @@ def least_grid(t, nmax):
     return best
 if least_grid(1, 7) != 1 + (1 + 2) * (1 + 3) // 2: fails.append('grid lower bound at t=1')
 
+# ---------------- two levers that keep states apart everywhere, forever ----------------
+# Tabletop values 0, 1, 2; the first lever wipes 1 to 0, the second wipes 2 to 0. Boxes with endless
+# lines of states, built far enough out that nothing within T + 5 pulls reaches the edge.
+def reached(F, G, starts, t):
+    R = set(starts); fr = set(starts)
+    for _ in range(t):
+        fr = {F(x) for x in fr} | {G(x) for x in fr}; R |= fr
+    return R
+def one_to_one_on(H, S):
+    return len({H(x) for x in S}) == len(S)
+for T in range(1, 9):
+    # commuting: two separate arms; the first lever walks arm A and holds arm B, the second the other way;
+    # starts A0 (reads 1), B0 (reads 2), B1 (reads 0)
+    Fc = lambda x: ('A', x[1] + 1) if x[0] == 'A' else x
+    Gc = lambda x: ('B', x[1] + 1) if x[0] == 'B' else x
+    rdc = lambda x: 1 if x == ('A', 0) else 2 if x == ('B', 0) else 0
+    starts = [('A', 0), ('B', 0), ('B', 1)]
+    big = reached(Fc, Gc, starts, T + 5)
+    if not (one_to_one_on(Fc, big) and one_to_one_on(Gc, big)): fails.append('arms one-to-one %d' % T)
+    if any(Fc(Gc(x)) != Gc(Fc(x)) for x in big): fails.append('arms commute %d' % T)
+    if any(rdc(Fc(x)) != (0 if rdc(x) == 1 else rdc(x)) or rdc(Gc(x)) != (0 if rdc(x) == 2 else rdc(x)) for x in big):
+        fails.append('arms tabletop %d' % T)
+    if len(reached(Fc, Gc, starts, T)) != 2 * T + 3: fails.append('arms reach 2T+3 at %d' % T)
+    # without commuting: one line of zero states that both levers walk; each lever sends its own start onto
+    # the line's first state and holds the other start still; starts a (reads 1), b (reads 2), line 0
+    Fn = lambda x: ('L', 0) if x == 'a' else x if x == 'b' else ('L', x[1] + 1)
+    Gn = lambda x: ('L', 0) if x == 'b' else x if x == 'a' else ('L', x[1] + 1)
+    startsn = ['a', 'b', ('L', 0)]
+    bign = reached(Fn, Gn, startsn, T + 5)
+    if not (one_to_one_on(Fn, bign) and one_to_one_on(Gn, bign)): fails.append('line one-to-one %d' % T)
+    if all(Fn(Gn(x)) == Gn(Fn(x)) for x in bign): fails.append('line should not commute %d' % T)
+    if len(reached(Fn, Gn, startsn, T)) != T + 3: fails.append('line reaches T+3 at %d' % T)
+
 print('failures:', len(fails), fails[:10])

@@ -141,6 +141,7 @@ WAIVED_FILES = [
     "monograph/checks/ch20_walker.v",
     "monograph/checks/ch21_grid.v",
     "monograph/checks/ch21_levers.v",
+    "monograph/checks/ch21_levers_forever.v",
     "monograph/checks/ch21_receipts.v",
     "monograph/checks/ch21_room.v",
     "monograph/checks/ch22_shown.v",

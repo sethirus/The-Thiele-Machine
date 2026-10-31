@@ -256,13 +256,13 @@ What this is                                       13
      21.4 How much room keeping takes                           210
      21.5 Two levers                                            211
      21.6 Keeping every history                                 213
-     21.7 The counter and the heat                              213
-     21.8 What you’re entitled to                               214
-     21.9 The shape of the second law                           216
+     21.7 The counter and the heat                              214
+     21.8 What you’re entitled to                               215
+     21.9 The shape of the second law                           217
 12   CONTENTS
 
 
-                 21.10 At the bottom: what I suspect and can’t prove   217
+                 21.10 At the bottom: what I suspect and can’t prove   218
             22     What’s shown, what’s chosen, what’s argued          220
                  22.1 What it is, and what it’s for                    220
                  22.2 The objection a theorist makes in four seconds   221
@@ -8406,55 +8406,65 @@ falls into a loop. Switch levers there, and every pull spent getting into the lo
                search on the small horizons agrees.
                   There’s a box that reaches it. At horizon one it has four places, and you can write
                every arrow down:
-                        Place     Tabletop    Pull the first lever   Pull the second lever   A start?
-                          a0         1               end                       a0              yes
-                          b0         2                b0                       b1              yes
-                          b1         0                b1                      end              yes
-                         end         0               end                      end               no
+                        Place   Tabletop   Pull the first lever   Pull the second lever   A start?
+                          a0       1              end                       a0              yes
+                          b0       2               b0                       b1              yes
+                          b1       0               b1                      end              yes
+                         end       0              end                      end               no
                    On the three starts each column lands on three different places. On the whole
-              four-place box each column has a repeat. And both orders of the levers agree
-              on every row. So the promise that holds through a horizon and the promise that
-              holds everywhere really are different promises: ask each lever to keep states apart
-              everywhere, forever, and the count goes up once more, to 2T plus 3, which two
-              separate arms running on forever reach at every horizon.
+              four-place box each column has a repeat. And both orders of the levers agree on
+              every row. So the promise that holds through a horizon and the promise that holds
+              everywhere really are different promises. Ask two commuting levers to keep states
+              apart everywhere, forever, and the count goes up once more, to 2T plus 3. Take the
+              simple case again. Now neither chain can stop: a chain that stopped would have a
+              state landing on itself, with the state before it landing there too. So the first chain
+              walks on without ever repeating, and the second lever still holds every state on it
+              still, and the same with the levers swapped. Then the chains can’t share any state
+              at all, not even an end: the first lever moves you on along its own chain and holds
+              you still on the other one. That’s 2T zero states and the two starts above 1 and 2,
+              and the zero start makes one more. If it’s on neither chain, it’s one more state. If it’s
+              on a chain, T pulls from it walk past the last state of that chain counted so far. And
+              two separate arms running on forever reach 2T plus 3 at every horizon. Commuting
+              is what costs here. Without it the forever promise costs nothing extra: one line of
+              zero states that both levers walk, each lever sending its own start onto the line’s first
+              state and holding the other start still, keeps everything apart forever with T plus 3.
                    Change the tabletop and the room can fit differently. Give it two bits, with one
               lever clearing the first and the other clearing the second. Lay out a grid of points
               (i, j) with i and j whole numbers from zero up, plus one separate blank state. One
               lever adds one to i, the other to j, and both leave blank alone. Read a grid point as
               whether i is zero and whether j is zero. Start at blank and at the three grid points
               (0, 0), (1, 0) and (0, 1).
-                                    grid (0, 0)           first lever            grid (1, 0)
-                                reads both bits set                         reads first bit cleared
+                                                                          21.6 Keeping every history   213
 
 
-                                 second                                                 second
+                   grid (0, 0)          first lever          grid (1, 0)
+               reads both bits set                      reads first bit cleared
 
 
-                                  grid (0, 1)                first lever          grid (1, 1)
-                           reads second bit cleared                           reads both cleared
-                   Both orders reach the very same grid point, not just the same reading. Each pull
-               adds one to i plus j, so after t pulls you can reach exactly the triangle of points with
-               i plus j at most t plus 1. Its rows hold 1, 2, up to t plus 2 points. Add them and the
-               blank: 1 plus (t + 2)(t + 3) over 2. And that’s the least any box with this tabletop
-               can do. Here’s why. Each reading with exactly one bit cleared starts with one state,
-               and every pull its lever sends that reading’s own states, plus at least one state with
-               both bits set, into it, kept apart: so it gains at least one state per pull, and after
-               t pulls holds at least t plus 1. The reading with both bits cleared starts with one
-                                                                         21.6 Keeping every history   213
+                second                                              second
 
 
+                   grid (0, 1)            first lever         grid (1, 1)
+            reads second bit cleared                      reads both cleared
+    Both orders reach the very same grid point, not just the same reading. Each pull
+adds one to i plus j, so after t pulls you can reach exactly the triangle of points with
+i plus j at most t plus 1. Its rows hold 1, 2, up to t plus 2 points. Add them and the
+blank: 1 plus (t + 2)(t + 3) over 2. And that’s the least any box with this tabletop
+can do. Here’s why. Each reading with exactly one bit cleared starts with one state,
+and every pull its lever sends that reading’s own states, plus at least one state with
+both bits set, into it, kept apart: so it gains at least one state per pull, and after
+t pulls holds at least t plus 1. The reading with both bits cleared starts with one
 state too, and at the pull after depth j, one lever sends its own states and a whole
 one-cleared group of at least j plus 1 into it, kept apart: so it gains at least j plus 1.
 Add those gains from the first pull to the t-th and it holds at least 1 plus t(t + 1)
 over 2. Add the one state with both bits set and the two one-cleared groups, and
 the total is 1 plus (t + 2)(t + 3) over 2: the grid’s own count. The three-value box
 needed extra room to commute. This one fits its best count with commuting built in.
-   All of those counts are checked by exhaustive search on the small horizons, where
+    All of those counts are checked by exhaustive search on the small horizons, where
 a computer can try every box.
 
 
 21.6 Keeping every history
-
 There’s one way to make every step merge nothing, and it’s the first way out of
 chapter two, put inside a machine. Keep the previous state on a list: each step, push
 where you were onto the front of the list. The step you can see is the same as before,
@@ -8466,27 +8476,25 @@ then the merge is back.
     So “this step merged, so it gave off heat” can’t be said of the step you can see by
 itself. It’s a sentence about the whole state, including whatever history is kept, and
 a physical model has to say what’s kept.
-
-
-21.7 The counter and the heat
-Does a machine’s counter track heat? Here’s the one test I think is good discipline,
-and it’s a test of whether two assumptions can even hold together. Say you want
-both of these: every step you’ve chosen to count gives off at least one unit, and
-nothing gives off more than its charge. Can both be true at once? Exactly when
-every step you’ve chosen to count is charged at least one. If one is, take the heat to
-be the charge itself: both hold. If a counted step is charged zero, it would have to
-give off at least one and at most zero.
-    I should say how little that shows. The model that passes the test just takes
-the heat to be the charge, so it only shows the two assumptions don’t contradict
-each other. It doesn’t show the counter tracks anything real. Still, it bites. Point
-it at a machine that computes at no cost underneath and counts every step that
-collapses some yes-or-no question, and it fails: such a machine has free moves that
-merge, and no heat can be at least one and at most zero. A machine that prices the
-moves that raise its record and leaves its other merges free has both assumptions for
-the toll’s steps, and not for the rest. The hardware can give off heat on those free
 214   21 Keeping without the heat
 
 
+               21.7 The counter and the heat
+              Does a machine’s counter track heat? Here’s the one test I think is good discipline,
+              and it’s a test of whether two assumptions can even hold together. Say you want
+              both of these: every step you’ve chosen to count gives off at least one unit, and
+              nothing gives off more than its charge. Can both be true at once? Exactly when
+              every step you’ve chosen to count is charged at least one. If one is, take the heat to
+              be the charge itself: both hold. If a counted step is charged zero, it would have to
+              give off at least one and at most zero.
+                  I should say how little that shows. The model that passes the test just takes
+              the heat to be the charge, so it only shows the two assumptions don’t contradict
+              each other. It doesn’t show the counter tracks anything real. Still, it bites. Point
+              it at a machine that computes at no cost underneath and counts every step that
+              collapses some yes-or-no question, and it fails: such a machine has free moves that
+              merge, and no heat can be at least one and at most zero. A machine that prices the
+              moves that raise its record and leaves its other merges free has both assumptions for
+              the toll’s steps, and not for the rest. The hardware can give off heat on those free
               merges, off the ledger. The ledger counts the record and nothing else. A unit of cost
               is not a joule.
                   Three statements are in play here, and each points its own way. Energy at a scale,
@@ -8510,26 +8518,26 @@ the toll’s steps, and not for the rest. The hardware can give off heat on thos
               landing place that two different states in the run lead to, and count each mark once.
               Ask for one thing: whenever two different states the run leaves from land together,
               at least one of them pays. Then the marks never outnumber the receipts. Every
-              marked landing has a paid state behind it, and one paid state can’t stand behind
-              two marks, because it only goes one place.
-                  Try it with no going to yes and yes going to itself. Charge one at no and zero at
-              yes. Entry pays the one, and every idle step after pays nothing: the merge is covered
-              and the parked machine stays parked for free. Now ask that parked yes-state how
-              many merges you’ve watched. After one step you’ve seen only no leave: no merge
-              yet. After two you’ve seen no and yes both lead to yes: one merge. The state in
-              your hand is yes both times, and it can’t tell you which. Add a clock, and the two
-              endings become yes at 1 and yes at 2, so you can read off the count. But draw the
-              new machine, with the clock in it, and the clock keeps those states apart. Keep both
-              drawings on the table so you can see which arrows you’re counting.
-
-
-               21.8 What you’re entitled to
-
-               Let me total it up: what you’ve earned the right to conclude, and where there’s still
-               a way out.
                                                                       21.8 What you’re entitled to   215
 
 
+marked landing has a paid state behind it, and one paid state can’t stand behind
+two marks, because it only goes one place.
+   Try it with no going to yes and yes going to itself. Charge one at no and zero at
+yes. Entry pays the one, and every idle step after pays nothing: the merge is covered
+and the parked machine stays parked for free. Now ask that parked yes-state how
+many merges you’ve watched. After one step you’ve seen only no leave: no merge
+yet. After two you’ve seen no and yes both lead to yes: one merge. The state in
+your hand is yes both times, and it can’t tell you which. Add a clock, and the two
+endings become yes at 1 and yes at 2, so you can read off the count. But draw the
+new machine, with the clock in it, and the clock keeps those states apart. Keep both
+drawings on the table so you can see which arrows you’re counting.
+
+
+21.8 What you’re entitled to
+
+Let me total it up: what you’ve earned the right to conclude, and where there’s still
+a way out.
     You’ve earned this, with nothing but one next state for every state: on any
 machine run by one rule, finite or endless, a run that raises a reading and keeps it
 up either merges two of its own states or never repeats one. You’ve earned this: on
@@ -8554,25 +8562,25 @@ memory, either stops at its top, and then two different histories leave the same
 value, which is a merge, or rolls over to zero, and then it doesn’t only climb. So any
 running total a finite machine keeps for itself is honest up to its width and no further.
 And a machine whose price list charges the raise but lets some other step merge
-two states for free raises its box honestly and still doesn’t charge for forgetting in
-general. Either one puts a machine outside these arguments as they stand, though a
-finite piece of it can still sit inside.
-    The smallest finite piece I could build where every condition can be seen to hold
-is this. Four slots, each with a flag: eight states. Three kinds of move. Stamp sets the
-flag and goes to the next slot, cost one. Jump goes to a chosen slot, cost two. Next
-goes to the next slot, cost zero. Check it with me. It’s finite. The flag never comes
-down on any move. Next forgets nothing: every state lands somewhere different.
-Stamp lands at most two states together, a flag up and a flag down from the same
-slot, so one halving, and it costs one. Jump lands all four slots with the same flag
-together, two halvings, and it costs two. So every move’s price is exactly the number
-of halvings in its biggest pile.
-    And you haven’t earned anything about what the flag means. Chapter two’s
-chairs don’t know what they’re counting. The cost is for raising a flag that stays up.
-Whether raising it ever amounts to standing behind a real fact was the subject of
-chapters eight through twelve.
 216   21 Keeping without the heat
 
 
+              two states for free raises its box honestly and still doesn’t charge for forgetting in
+              general. Either one puts a machine outside these arguments as they stand, though a
+              finite piece of it can still sit inside.
+                  The smallest finite piece I could build where every condition can be seen to hold
+              is this. Four slots, each with a flag: eight states. Three kinds of move. Stamp sets the
+              flag and goes to the next slot, cost one. Jump goes to a chosen slot, cost two. Next
+              goes to the next slot, cost zero. Check it with me. It’s finite. The flag never comes
+              down on any move. Next forgets nothing: every state lands somewhere different.
+              Stamp lands at most two states together, a flag up and a flag down from the same
+              slot, so one halving, and it costs one. Jump lands all four slots with the same flag
+              together, two halvings, and it costs two. So every move’s price is exactly the number
+              of halvings in its biggest pile.
+                  And you haven’t earned anything about what the flag means. Chapter two’s
+              chairs don’t know what they’re counting. The cost is for raising a flag that stays up.
+              Whether raising it ever amounts to standing behind a real fact was the subject of
+              chapters eight through twelve.
                   One more thing, because it should nag at you. “Permanent” was chosen, by me.
               Why should a flag stay up? Merge or take back is the start of an answer: on a finite
               machine that charges for every merge, a flag that goes up for nothing is a flag the
@@ -8597,25 +8605,25 @@ chapters eight through twelve.
               permanence is used anywhere in that.
                   Runs that mix different moves split two ways. If the moves are picked from
               outside, in any order, the answer is no. Take two states, one reading no and one
-              reading yes. One move swaps them; the other does nothing. Run the swap once and
-              then the do-nothing move forever: the flag goes up at the first step and stays up for
-              good, and neither move merges anything anywhere. The swap would take the flag
-              down from yes if it ever ran there; on this run it never does. But if the machine is
-              closed, picking its next move from its own state, the run is one map repeated, and
-              the single-move argument applies as it stands. And if the moves come in a pattern
-              that repeats, one phrase played over and over, treat the whole phrase as one move at
-              the states where each playing of it begins, as long as the flag was down somewhere
-              after the repeating started. It merges two of those, and the first move where their
-              paths meet merges two states the run visits.
+                                                                 21.9 The shape of the second law   217
 
 
-               21.9 The shape of the second law
+reading yes. One move swaps them; the other does nothing. Run the swap once and
+then the do-nothing move forever: the flag goes up at the first step and stays up for
+good, and neither move merges anything anywhere. The swap would take the flag
+down from yes if it ever ran there; on this run it never does. But if the machine is
+closed, picking its next move from its own state, the run is one map repeated, and
+the single-move argument applies as it stands. And if the moves come in a pattern
+that repeats, one phrase played over and over, treat the whole phrase as one move at
+the states where each playing of it begins, as long as the flag was down somewhere
+after the repeating started. It merges two of those, and the first move where their
+paths meet merges two states the run visits.
 
-               Here’s a comparison that’s easy to read as more than it is, so I’ll say first what it
-               doesn’t do. It doesn’t give entropy’s numbers. It doesn’t derive Landauer. It makes
-                                                 21.10 At the bottom: what I suspect and can’t prove   217
 
+21.9 The shape of the second law
 
+Here’s a comparison that’s easy to read as more than it is, so I’ll say first what it
+doesn’t do. It doesn’t give entropy’s numbers. It doesn’t derive Landauer. It makes
 no physical claim. It puts two drawings side by side and points at the parts that line
 up, and every paragraph says which kind it is.
     Shown, and only about the model. A window groups states: every state gives one
@@ -8640,25 +8648,22 @@ I can’t prove that. The model has no temperature, no energy and no probability
 unless an argument puts one in, and the bridge from a unit of cost to a joule is an
 assumption with critics, named in the last chapter. If the match is real, somebody
 has to show it with physics, and that somebody isn’t this book.
-
-
-21.10 At the bottom: what I suspect and can’t prove
-
-This is underneath the arguments, so read it with the lights on. None of it is shown,
-and I’m not going to dress it up. It’s why I care, and it’s here, after the arguments
-and apart from them, so you can check that none of it got into them.
-   Physics has a word for the moment a question closes: measurement. And the
-people who thought hardest about it keep describing it in this book’s shape. They
-ran together for me until I put them on one picture. Flip a coin in a crowded room.
-Before it lands, it could go either way. After, it’s settled, somebody chalks it on a
-board, and the result gets copied out into the world, the light and the air, so many
-times that it can’t be taken back and everybody who looks agrees. Five pieces: the
-question, the landing, the chalk mark, the copies, the agreeing. Each person leans
-on a different one. Zurek, in chapter nineteen, leans on the copies. Rovelli’s coin, in
-chapter six, has to hit the ground, so his piece is the landing.
 218   21 Keeping without the heat
 
 
+               21.10 At the bottom: what I suspect and can’t prove
+              This is underneath the arguments, so read it with the lights on. None of it is shown,
+              and I’m not going to dress it up. It’s why I care, and it’s here, after the arguments
+              and apart from them, so you can check that none of it got into them.
+                  Physics has a word for the moment a question closes: measurement. And the
+              people who thought hardest about it keep describing it in this book’s shape. They
+              ran together for me until I put them on one picture. Flip a coin in a crowded room.
+              Before it lands, it could go either way. After, it’s settled, somebody chalks it on a
+              board, and the result gets copied out into the world, the light and the air, so many
+              times that it can’t be taken back and everybody who looks agrees. Five pieces: the
+              question, the landing, the chalk mark, the copies, the agreeing. Each person leans
+              on a different one. Zurek, in chapter nineteen, leans on the copies. Rovelli’s coin, in
+              chapter six, has to hit the ground, so his piece is the landing.
                   Niels Bohr, the Danish physicist whose institute in Copenhagen was where quan-
               tum mechanics got argued into shape, leans on the mark. In a talk at Columbia
               University’s bicentennial in October 1954, printed in his 1958 book Atomic Physics
@@ -8685,22 +8690,22 @@ chapter six, has to hit the ground, so his piece is the landing.
               this book prices on a machine is the same kind of event physics calls a measurement,
               turning up in a different place. The forgetting is my step: Bohr only says irreversible,
               and getting from a record that stays to a merge or to fresh states is chapter two’s
-              counting. Push on it and it gives at Zurek, for the reason chapter nineteen gave:
-              copying onto fresh light merges nothing and uses up fresh states, which is chapter
-              six’s look that owes no floor. So physics’ own word lands on both sides of the line:
-              the chalk on the paying side, the copies on the borrowing side. The landing I’d put
-              with the chalk, and when chapter six pushed on Rovelli’s paper it slid toward the
-              borrowing side, the side of finding out. So two pieces already stick out, and I’ll leave
-              them sticking out. That’s as far as I’ll take it: a suspicion.
-                  John Bell asks for precision in those words. He was the Northern Irish physicist
-              at CERN, and in 1990 he wrote a short, furious essay called “Against ‘measurement’,”
-              with a list of words he said have no place in a physics that wants to be precise. On the
-              list: system, apparatus, environment, irreversible, information, and measurement,
-              which he called the worst of all. I used half of them in the last few paragraphs. To
-              turn the suspicion into a physical claim, each of those words would need a stated
-                                              21.10 At the bottom: what I suspect and can’t prove   219
+                                                 21.10 At the bottom: what I suspect and can’t prove   219
 
 
+counting. Push on it and it gives at Zurek, for the reason chapter nineteen gave:
+copying onto fresh light merges nothing and uses up fresh states, which is chapter
+six’s look that owes no floor. So physics’ own word lands on both sides of the line:
+the chalk on the paying side, the copies on the borrowing side. The landing I’d put
+with the chalk, and when chapter six pushed on Rovelli’s paper it slid toward the
+borrowing side, the side of finding out. So two pieces already stick out, and I’ll leave
+them sticking out. That’s as far as I’ll take it: a suspicion.
+    John Bell asks for precision in those words. He was the Northern Irish physicist
+at CERN, and in 1990 he wrote a short, furious essay called “Against ‘measurement’,”
+with a list of words he said have no place in a physics that wants to be precise. On the
+list: system, apparatus, environment, irreversible, information, and measurement,
+which he called the worst of all. I used half of them in the last few paragraphs. To
+turn the suspicion into a physical claim, each of those words would need a stated
 meaning and a tie to the device. The arguments in this book work with the machines
 I’ve defined; anything physical says which further assumptions it uses.
     That’s the whole of it: what’s counted, what’s assumed, what’s chosen, and one
@@ -9004,101 +9009,103 @@ move that sends both to YES
                 A ticked box proves its claim true                      not claimed              12, 13
                 Insight, as priced here, is a distinction made to stay; chosen meaning; shown    13
                 the price doesn’t measure depth                         for the price
-                                                                                    22.6 The ledger   227
+                                                                                  22.6 The ledger   227
 
 
-Claim                                                 Kind                     Chapter
-Nothing in the bare definition makes the box wait     shown                    13
+Claim                                               Kind                     Chapter
+Nothing in the bare definition makes the box wait shown                      13
 for a check
-A box that answers only to the machine and never      shown                    14
+A box that answers only to the machine and never shown                       14
 comes down is a cup on one event, over any
 machine
-The event and the price list are free choices; the    shown                    14
+The event and the price list are free choices; the  shown                    14
 chances on a random box aren’t fixed by its prices
-When the machine is finite, its record only grows     shown                    15
+When the machine is finite, its record only grows   shown                    15
 and the uncovered machine forgets nothing, a paid
 move crushes two states of one pile
-A window can price exactly without showing the        shown                    15
+A window can price exactly without showing the      shown                    15
 cups, if it shows them move
-A machine that reads an established box to take a     shown                    16
+A machine that reads an established box to take a shown                      16
 shortcut never answers wrong from a clean start, as
 long as editions are never reused
-With editions that wrap around, four moves give a     shown                    16
+With editions that wrap around, four moves give a shown                      16
 wrong answer
-When a guard’s glance can’t tell a passing value      shown                    16
+When a guard’s glance can’t tell a passing value    shown                    16
 from a failing one and its memory is E boxes that
 only go up, it answers wrong or unlocks on at most
 (E + 1)/2 rounds; outside those two conditions are
 the other two doors
-Keeping k checked values unlocked at once takes 2     shown                    16
-to the k memory states
-A box that comes down on every write still makes      shown                    16
+Unlocking exactly the checked ones among k values, shown                     16
+whichever were checked, takes 2 to the k memory
+states
+A box that comes down on every write still makes shown                       16
 two arrows meet, at the wipe and at the check
-Reading the box computes something new                not claimed; it saves    16
-                                                      steps, the way a cache
-                                                      does
-No inside procedure decides whether a machine’s       shown                    17
+Reading the box computes something new              not claimed; it saves    16
+                                                    steps, the way a cache
+                                                    does
+No inside procedure decides whether a machine’s shown                        17
 own shortcuts are sound, under the conditions
 stated
-Undecidable means unknowable                          not claimed              17
-Of five real systems, read through my copies, one     shown on the copies      18
+Undecidable means unknowable                        not claimed              17
+Of five real systems, read through my copies, one   shown on the copies      18
 charges a fee at the write
-A copy of one piece is the running system             not claimed              18
-A toll is a better design than a wall                 not claimed              18, 22
-The pointer thesis: the established record is the     thesis                   19
+A copy of one piece is the running system           not claimed              18
+A toll is a better design than a wall               not claimed              18, 22
+The pointer thesis: the established record is the   thesis                   19
 event copied and relied on by parties who didn’t
 make it
 228   22 What’s shown, what’s chosen, what’s argued
 
 
-                Claim                                                Kind                        Chapter
-                Requirements that never name the reading don’t         shown                     19
-                pick out the toll; the ceiling that names it does
-                Landauer’s principle: lowering uncertainty by a bit assumed, critics named       20
-                hands at least kT ln 2 of heat to the surroundings,
-                on average
-                A permanent raise from the even spread removes at shown                          20
-                least log2((m + k)/m) and at least 2k/(m + k) bits;
-                in the worst case a full bit
-                Charging bits on every spread is the same rule as      shown                     20
-                the halving rule; Bennett’s rule is weaker
-                On a known state the assumption sets no heat floor shown                         20
-                A fixed device that merges K inputs produces at        shown, under the stated   20
-                least k ln K of entropy on one of them                 physics
-                Every scale pays the same way: a coarse merge          shown                     20
-                forces a fine merge, a step out, or fresh states
-                forever
-                Going faster costs more: heat times time is at least shown, under local          20
-                twice the distance squared, for the walker             detailed balance
-                A noisy step that keeps the even spread can’t raise a shown                      21
-                reading that stays; one that can makes the spread
-                lumpier
-                A unitary step on finitely many directions can’t raise shown                     21
-                a reading that stays
-                Holding off the merge through T repetitions takes shown                          21
-                exactly 1 + (T + 1)(N - 1) states
-                Two levers: T + 3 states, and 2T + 2 when the          shown; searched by        21
-                levers commute                                         machine on small
-                                                                       horizons
-                Keeping every history makes every step one-to-one, shown                         21
-                by taking fresh states
-                Writing on a write-once cell makes two arrows          shown                     21
-                meet; a remembering state only moves the meeting
-                along
-                With L of N starts already resting, holding off the    shown                     21
-                merge through T repetitions takes N + T(N - L)
-                states
-                The two-bit grid needs exactly 1 + (t + 2)(t + 3)/2 shown                        21
-                states after t pulls
-                                                                                      22.6 The ledger   229
+                Claim                                               Kind                        Chapter
+               Requirements that never name the reading don’t         shown                     19
+               pick out the toll; the ceiling that names it does
+               Landauer’s principle: lowering uncertainty by a bit assumed, critics named       20
+               hands at least kT ln 2 of heat to the surroundings,
+               on average
+               A permanent raise from the even spread removes at shown                          20
+               least log2((m + k)/m) and at least 2k/(m + k) bits;
+               in the worst case a full bit
+               Charging bits on every spread is the same rule as      shown                     20
+               the halving rule; Bennett’s rule is weaker
+               On a known state the assumption sets no heat floor shown                         20
+               A fixed device that merges K inputs produces at        shown, under the stated   20
+               least k ln K of entropy on one of them                 physics
+               Every scale pays the same way: a coarse merge          shown                     20
+               forces a fine merge, a step out, or fresh states
+               forever
+               Going faster costs more: heat times time is at least shown, under local          20
+               twice the distance squared, for the walker             detailed balance
+               A noisy step that keeps the even spread can’t raise a shown                      21
+               reading that stays; one that can makes the spread
+               lumpier
+               A unitary step on finitely many directions can’t raise shown                     21
+               a reading that stays
+               A reset on N starts, one already resting, held off     shown                     21
+               from merging through T repetitions takes exactly 1
+               + (T + 1)(N - 1) states
+               Two levers on three tabletop values that keep states shown; searched by          21
+               apart through T pulls: T + 3 states, and 2T + 2        machine on small
+               when the levers commute                                horizons
+               Keeping every history makes every step one-to-one, shown                         21
+               by taking fresh states
+               Writing on a write-once cell makes two arrows          shown                     21
+               meet; a remembering state only moves the meeting
+               along
+               With L of N starts already resting, holding off the    shown                     21
+               merge through T repetitions takes N + T(N - L)
+               states
+               Two levers on two bits that keep states apart          shown                     21
+               through t pulls need exactly 1 + (t + 2)(t + 3)/2
+               states
+                                                                                     22.6 The ledger   229
 
 
  Claim                                                  Kind                    Chapter
- Two levers that keep states apart everywhere,          stated, with the         21
- forever, need 2T + 3                                   machine that reaches it;
-                                                        the lower bound isn’t
-                                                        argued on the page
-Receipts cover the merges a run shows, when one         shown                    21
+Two levers that keep states apart everywhere,           shown                   21
+forever, need 2T + 3 if they commute, in the simple
+case, and T + 3 if they don’t
+Receipts cover the merges a run shows, when one         shown                   21
 of every colliding pair pays
 The eight-state machine meets every condition, and      shown                   21
 each move’s price is the halvings in its biggest pile
@@ -9177,16 +9184,18 @@ world that an argument leans on, named. “Cited” means it’s somebody else�
               blindfold: every bare machine that steps is a Thiele machine with its record covered
               and its price of settling set to zero. Fourth, the four doors and their theorem, for
               a machine that reads its box to skip work. Fifth, the exact room counts of chapter
-              twenty-one: 1 plus (T + 1)(N minus 1) states to hold off a merge, T plus 3 and
+              twenty-one: 1 plus (T + 1)(N minus 1) states to hold off a merge, T plus 3 and 2T
                                                                            22.8 The Thiele thesis   231
 
 
-2T plus 2 for two levers, and the grid’s 1 plus (t + 2)(t + 3) over 2. And sixth,
-the ledger itself, every claim sorted into shown, chosen, assumed, cited and thesis.
-Under all six is the bet: that the price belongs in the step.
+plus 2 for two levers, 2T plus 3 when they commute and keep states apart forever,
+and the grid’s 1 plus (t + 2)(t + 3) over 2. And sixth, the ledger itself, every claim
+sorted into shown, chosen, assumed, cited and thesis. Under all six is the bet: that
+the price belongs in the step.
 
 
 22.8 The Thiele thesis
+
 One more claim ties the counting to the world, the way Church and Turing’s ties
 computing to it, and I’ll state it as what it is, a thesis. I call it the Thiele thesis:
 every physical process that computes with final answers has an exact description as
@@ -10009,7 +10018,7 @@ people’s work, which is only ever as good as my reading.
                         and Roşu, 2002. A toy world with a clean start:      down can’t be anything but a
                         Ebtekar and Hutter, 2024.                             cup on one event, over any
                                                                               machine.
-                                                                           C.1 The prior-work map   253
+                                                                            C.1 The prior-work map   253
 
 
 Ch.   Who had it before me                                 What’s mine
@@ -10045,10 +10054,12 @@ Ch.   Who had it before me                                 What’s mine
 21    Reversible machines saving room: Bennett, 1989. The exact room counts: 1 +
       Precise floors for a reset: Reeb and Wolf, 2014.    (T + 1)(N - 1), N + T(N - L),
       Noisy and unitary steps are standard, and so is the T + 3 and 2T + 2 for two
-      collision weight.                                   levers, the grid’s 1 + (t +
-                                                          2)(t + 3)/2; receipts
-                                                          covering the merges a run
-                                                          shows.
+      collision weight.                                   levers, 2T + 3 for two
+                                                          commuting levers that keep
+                                                          states apart forever, the grid’s
+                                                          1 + (t + 2)(t + 3)/2;
+                                                          receipts covering the merges
+                                                          a run shows.
 254   C What’s mine, and what isn’t
 
 
@@ -10093,12 +10104,10 @@ Ch.   Who had it before me                                 What’s mine
                    Fifth, the exact room counts of chapter twenty-one. Bennett showed in 1989 that
                a reversible machine can trade time for room. The counts of how much room it
                takes to hold off a merge, through a promised number of repetitions, I haven’t seen
-               anywhere. One of them, two levers that keep states apart everywhere, forever, is
+               anywhere.
                                                                          C.2 What I’m claiming   255
 
 
-stated with the machine that reaches it and not argued on the page, and the ledger
-says so.
     Sixth, the ledger: every claim in the book sorted into shown, chosen, assumed,
 cited, thesis, or not claimed. That isn’t a result. It’s a promise about how the book
 was written, and every row is a place to check it.

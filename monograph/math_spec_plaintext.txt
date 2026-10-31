@@ -2511,24 +2511,47 @@ Argued in Chapter 21 of the book.
 Remark 23.8. Without the conditions G(a) = a and F (b) = b, the book argues more briefly,
 from the paths the idle lever traces and the loops they fall into, that commuting levers still need
 2T + 2 states. That argument is not restated here as a result.
-Remark 23.9. [stated; not argued] The book states that if each lever must be one-to-one on all
-states, forever, the count rises to 2T + 3, and gives a box that reaches it: the states A0 , A1 , . . .
+
+Proposition 23.9 (Two levers, forever). [shown] Let T ≥ 1 and let F and G in a two-lever box
+be one-to-one on all of S.
+
+  (a) If the levers commute, G(a) = a and F (b) = b, then |RT | ≥ 2T + 3, and some such box
+      has |RT | = 2T + 3 at every horizon.
+
+  (b) Without commuting, some such box has |RT | = T + 3, the least Theorem 23.7(a) allows.
+
+Proof. (a) If F i a = F j a with i < j, cancelling F i times gives a = F j−i a, which reads
+0: impossible. So a, F a, F 2 a, . . . are pairwise distinct, and likewise b, Gb, G2 b, . . . . As in
+Theorem 23.7(b), G fixes every F k a and F fixes every Gk b. If F i a = Gj b, then F i+1 a =
+F (Gj b) = Gj b = F i a, which distinctness forbids; so the chains share no state. The states
+a, b, F k a, Gk b for 1 ≤ k ≤ T are 2T + 2 distinct states of RT . If z is on neither chain it is one
+more. If z = F k a with 1 ≤ k ≤ T , then F T z = F T +k a ∈ RT lies on the first chain beyond F T a,
+
+
+                                                         46
+so it is new; likewise on the second chain. So |RT | ≥ 2T + 3. The box with states A0 , A1 , . . .
 and B0 , B1 , . . . , the first lever sending An 7→ An+1 and fixing every Bn , the second sending
-Bn 7→ Bn+1 and fixing every An , with r(A0 ) = 1, r(B0 ) = 2, r = 0 elsewhere, and starts A0 , B0 ,
-B1 . Within T pulls it reaches 2T + 3 states. The lower bound is not argued in the book.
+Bn 7→ Bn+1 and fixing every An , r(A0 ) = 1, r(B0 ) = 2, r = 0 elsewhere, and starts a = A0 ,
+b = B0 , z = B1 , commutes, is one-to-one, and has RT = {A0 , . . . , AT , B0 , . . . , BT +1 }, with
+2T + 3 states.
+(b) Take states a, b and L0 , L1 , . . . reading 1, 2 and 0, with z = L0 , F (a) = L0 , F (b) =
+b, G(b) = L0 , G(a) = a, and F (Ln ) = G(Ln ) = Ln+1 . Both levers are one-to-one, and
+RT = {a, b, L0 , . . . , LT } has T + 3 states. The levers do not commute: F (G(a)) = L0 and
+G(F (a)) = L1 .
+
+Argued in Chapter 21 of the book.
 
 Theorem 23.10 (The two-bit grid). [shown] Let r : S → {0, 1}2 (each bit set or cleared), F
 clear the first bit and keep the second (r(F x) = (0, r2 (x))), G clear the second and keep the first,
 with four starts, one for each reading. Let Rt be the states reached from the starts by at most t
 pulls, and suppose F and G are one-to-one on Rt for every t < T . Then
-                                                         (T + 2)(T + 3)
-                                         |RT | ≥ 1 +                    .
-                                                               2
+
+                                                   (T + 2)(T + 3)
+                                     |RT | ≥ 1 +                  .
+                                                         2
 The grid attains it for every t: the states blank and (i, j) ∈ N2 , with F (i, j) = (i + 1, j),
 G(i, j) = (i, j + 1), both fixing blank, the reading of (i, j) being whether i = 0 and whether
-
-                                                         46
-j = 0, blank reading (0, 0), and starts blank, (0, 0), (1, 0), (0, 1). Its levers commute and are
+j = 0, blank reading (0, 0), and starts blank, (0, 0), (1, 0), (0, 1). Its levers commute and are
 one-to-one everywhere, and it reaches exactly {blank} ∪ {(i, j) : i + j ≤ t + 1} in t pulls, which
 has 1 + (t+2)(t+3)
             2      states.
@@ -2563,7 +2586,10 @@ Proof. If so, take d = c. Conversely 1 ≤ d(i) ≤ c(i) for i ∈ E.
 
 Argued in Chapter 21 of the book.
 
-Theorem 23.13 (Receipts cover the merges a run shows). [shown] Let f : S → S, u ∈ S,
+
+
+                                                   47
+Theorem 23.13 (Receipts cover the merges a run shows). [shown] Let f : S → S, u ∈ S,
 L ∈ N, and κ : S → N. Let D = {f t (u) : 0 ≤ t < L} be the states the run leaves from, and
        PL−1
 bill = t=0   κ(f t (u)). Suppose that whenever x =   ̸ y in D have f (x) = f (y), κ(x) ≥ 1 or
@@ -2589,9 +2615,7 @@ stays within its width.
 
 Proof. At a state s where µ is largest, µ(s) + c(i) = µ(δ(s, i)) ≤ µ(s).
 
-
-                                                   47
-Argued in Chapter 21 of the book.
+Argued in Chapter 21 of the book.
 
 Proposition 23.16 (The eight-state machine). [shown] Let S = Z/4×{0, 1} (four slots, each with
 a flag), the box being the flag, with moves stamp(k, b) = (k + 1, 1) at price 1, next(k, b) = (k + 1, b)
@@ -2621,7 +2645,9 @@ Proposition 23.18 (Runs that mix moves). [shown] (a) On {no, yes} with moves swa
 idle, neither of which makes two arrows meet, the run swap idle idle · · · from no raises the box at
 its first step and keeps it up forever. (b) If the next move is a function of the state, i = ν(s), the
 run is one map s 7→ δ(s, ν(s)) repeated, and Theorem 23.17 applies. (c) Let S be finite and let a
-run apply a word w = i1 · · · iℓ over and over. If the box is down at some state of the run and up
+
+                                                  48
+run apply a word w = i1 · · · iℓ over and over. If the box is down at some state of the run and up
 at every state from some time on, then some move ic makes two arrows meet at two distinct
 states the run visits.
 
@@ -2632,7 +2658,6 @@ and end together, so at the first move where they meet, that move sends two dist
 states to one.
 
 Argued in Chapter 21 of the book.
-
 Proposition 23.19 (Two quantities that only climb). [shown] On a Thiele machine (Defini-
 tion 2.2) with a run s0 , s1 , . . . along moves i1 , i2 , . . . , let µn = k≤n c(ik ). Then r(sn ) ≤ r(sn+1 )
                                                                            P
@@ -2648,9 +2673,7 @@ the bits removed by a run are the sum of the bits removed by its steps, each on 
 receives, and each is at most log2 mδ(·,i) ≤ c(i) by Proposition 22.7.
 
 Argued in Chapter 21 of the book.
-
-                                                     48
-Thesis 23.20 (The second law as the toll). [thesis, not shown] The second law of thermodynamics,
+Thesis 23.20 (The second law as the toll). [thesis, not shown] The second law of thermodynamics,
 read as a statement about what a coarse description can keep, is the toll seen from the physics
 side.
 
@@ -2661,7 +2684,7 @@ Remark 23.22. [not claimed] The counter is not claimed to be heat in joules. Pro
 shows only that the two assumptions it names can hold together.
 
 
-24     What’s shown, what’s chosen, what’s argued
+24      What’s shown, what’s chosen, what’s argued
 
 Proposition 24.1 (A clock passes the floor and fails the ceiling). [shown] (a) On any machine,
 the price list c ≡ 1 obeys the toll for every reading. (b) Let a machine carry a box and a price
@@ -2677,9 +2700,12 @@ boxes rA , rB that never fall and price lists cA , cB that obey the toll. The pa
 moves IA ⊔ IB , each move acting on its own coordinate, and price cA or cB according to the
 move.
 
- (a) The readings rA ∨ rB (either box up) and rA ∧ rB (both up) never fall, and the pair’s price
+                                                     49
+ (a) The readings rA ∨ rB (either box up) and rA ∧ rB (both up) never fall, and the pair’s price
      list obeys the toll for each.
+
  (b) A run from a state with both boxes down to a state with both up costs at least 2.
+
  (c) The reading rA ∧ ¬rB (the first up and the second down) falls whenever the first box is
      up and the second machine raises its box. With such a step, it violates clause (i) of
      Definition 2.2.
@@ -2691,6 +2717,7 @@ some move of each machine raises its box, each costing at least 1. (c) At (s, t)
 a raising step of B at t takes the reading from yes to no.
 
 Argued in Chapter 22 of the book.
+
 Proposition 24.3 (Branching steps on a finite yes side). [shown] Let → be a relation on S (a
 state may have several next states). Let Y be the finite set of states where the box is up, with
 every y ∈ Y having at least one next state and every next state of y ∈ Y in Y , and let some
@@ -2699,8 +2726,7 @@ s∈/ Y have a next state in Y . Then two distinct states of Y ∪ {s} have a co
 Proof. Choose one next state in Y for each of the |Y | + 1 states of Y ∪ {s}; two choices
 coincide.
 
-                                                  49
-Argued in Chapter 22 of the book.
+Argued in Chapter 22 of the book.
 
 Theorem 24.4 (A branching run after the raise). [shown] Let x0 , x1 , . . . be a run of a relation
 → on any set S (xn → xn+1 for every n), and let k ≥ 1 with the box down at xk−1 and up at
@@ -2728,7 +2754,9 @@ down, on accepted and rejected inputs alike.
 
 Argued in Chapter 22 of the book.
 
-Proposition 24.8 (What a final answer accepts). [shown] Let f : S → S on a countable S coded
+
+                                                50
+Proposition 24.8 (What a final answer accepts). [shown] Let f : S → S on a countable S coded
 in N, ι : N → S, and a box r, all computable, with r(f n (ι(x))) = yes ⇒ r(f n+1 (ι(x))) = yes for
 every x, n. Let A = {x : ∃n r(f n (ι(x))) = yes}.
 
@@ -2753,10 +2781,7 @@ program whether it stops, which no program does.
 Argued in Chapter 22 of the book.
 
 
-
-
-                                                50
-The blindfold
+The blindfold
 
 Proposition 24.9 (Turing’s model makes no mark hold). [shown] For finite sets Q of states
 and Σ of symbols, a table is any map t : Q × Σ → Q × Σ × {L, R}. For every table t, every (q, a)
@@ -2785,7 +2810,9 @@ moves τ such that x = run(τ, s0 ) ̸= s0 . Let Ŝ = S × {no, yes}, δ̂((s, 
 β ′ = yes when β = yes or δ(s, i) = x and β ′ = no otherwise, ĉ ≡ 1, the box r̂(s, β) = β, and
 starts {(s, no) : s ∈ S}. Then:
 
- (a) (Ŝ, I, δ̂, r̂, ĉ) with those starts is a Thiele machine;
+
+                                                 51
+ (a) (Ŝ, I, δ̂, r̂, ĉ) with those starts is a Thiele machine;
 
  (b) through the window π(s, β) = s, every run of it is a run of (S, I, δ): π(run(τ ′ , (s, β))) =
      run(τ ′ , s) for every τ ′ , s, β;
@@ -2805,5 +2832,5 @@ Argued in Chapter 22 of the book.
 
 
 
-                                                   51
+                                                   52
 

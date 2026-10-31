@@ -2887,13 +2887,32 @@ traces and the loops they fall into, that commuting levers still need $2T+2$ sta
 restated here as a result.
 \end{remark}
 
-\begin{remark}\label{spec:levers-forever} \kind{stated; not argued}
-The book states that if each lever must be one-to-one on all states, forever, the count rises to $2T+3$, and
-gives a box that reaches it: the states $A_0,A_1,\dots$ and $B_0,B_1,\dots$, the first lever sending
+\begin{proposition}[Two levers, forever]\label{spec:levers-forever} \kind{shown}
+Let $T\ge1$ and let $F$ and $G$ in a two-lever box be one-to-one on all of $S$.
+\begin{enumerate}[label=(\alph*)]
+\item If the levers commute, $G(a)=a$ and $F(b)=b$, then $|R_T|\ge2T+3$, and some such box has
+$|R_T|=2T+3$ at every horizon.
+\item Without commuting, some such box has $|R_T|=T+3$, the least Theorem~\ref{spec:levers}(a) allows.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) If $F^ia=F^ja$ with $i<j$, cancelling $F$ $i$ times gives $a=F^{j-i}a$, which reads $0$: impossible. So
+$a,Fa,F^2a,\dots$ are pairwise distinct, and likewise $b,Gb,G^2b,\dots$. As in Theorem~\ref{spec:levers}(b),
+$G$ fixes every $F^ka$ and $F$ fixes every $G^kb$. If $F^ia=G^jb$, then $F^{i+1}a=F(G^jb)=G^jb=F^ia$, which
+distinctness forbids; so the chains share no state. The states $a,b,F^ka,G^kb$ for $1\le k\le T$ are $2T+2$
+distinct states of $R_T$. If $z$ is on neither chain it is one more. If $z=F^ka$ with $1\le k\le T$, then
+$F^T z=F^{T+k}a\in R_T$ lies on the first chain beyond $F^Ta$, so it is new; likewise on the second chain. So
+$|R_T|\ge2T+3$. The box with states $A_0,A_1,\dots$ and $B_0,B_1,\dots$, the first lever sending
 $A_n\mapsto A_{n+1}$ and fixing every $B_n$, the second sending $B_n\mapsto B_{n+1}$ and fixing every $A_n$,
-with $\rd(A_0)=1$, $\rd(B_0)=2$, $\rd=0$ elsewhere, and starts $A_0$, $B_0$, $B_1$. Within $T$ pulls it reaches
-$2T+3$ states. The lower bound is not argued in the book.
-\end{remark}
+$\rd(A_0)=1$, $\rd(B_0)=2$, $\rd=0$ elsewhere, and starts $a=A_0$, $b=B_0$, $z=B_1$, commutes, is one-to-one,
+and has $R_T=\{A_0,\dots,A_T,B_0,\dots,B_{T+1}\}$, with $2T+3$ states.
+
+(b) Take states $a$, $b$ and $L_0,L_1,\dots$ reading $1$, $2$ and $0$, with $z=L_0$, $F(a)=L_0$, $F(b)=b$,
+$G(b)=L_0$, $G(a)=a$, and $F(L_n)=G(L_n)=L_{n+1}$. Both levers are one-to-one, and
+$R_T=\{a,b,L_0,\dots,L_T\}$ has $T+3$ states. The levers do not commute: $F(G(a))=L_0$ and $G(F(a))=L_1$.
+\end{proof}
+\argued{sec:keeping}
 
 \begin{theorem}[The two-bit grid]\label{spec:grid} \kind{shown}
 Let $\rd:S\to\{0,1\}^2$ (each bit set or cleared), $F$ clear the first bit and keep the second
