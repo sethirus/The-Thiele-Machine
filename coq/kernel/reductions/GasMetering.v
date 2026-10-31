@@ -1,0 +1,286 @@
+(** GasMetering: gas-schedule exactness against the pricing-uniqueness kernel.
+
+    An execution-fee schedule (EVM-style gas) is a local pricing law: each
+    step is charged or it isn't, and the schedule is trusted to charge
+    exactly where it says it charges. This file instantiates
+    [LocalPredicatePricedSystem] with charge predicate "this instruction
+    commits state" (state-root finalization, in the reading, as the
+    certification event).
+
+    Formally it is a domain-inspired abstract wrapper around
+    [LocalPredicatePricedSystem]. It does not formalize EVM or KEVM state,
+    opcodes, gas tables, exceptional halting, refunds, transaction
+    execution, or consensus finality. The certification event is an
+    abstract Boolean false-to-true transition; the state root is the
+    reading.
+
+    Main theorem [gas_schedule_exactness]: any schedule satisfying the two
+    conditions an honest fee market wants,
+      floor:        no state-certifying step costs nothing, and
+      no-overcharge: nothing else is charged as a commitment,
+    is extensionally the cert-flip schedule with exact unit pricing. This is
+    [exact_commitment_pricing_characterization] wearing EVM vocabulary.
+
+    Corollaries: an undercharged committing opcode admits a zero-cost
+    certifying trace; charging a non-committing step breaks exactness in the
+    other direction. The 2016 underpriced-opcode DoS episodes are the kind
+    of mispricing the first corollary pictures. They were underpriced I/O,
+    not unpaid certification, and no correspondence to a deployed gas schedule
+    is established here.
+
+    The exactness boundary is the pair of stated schedule premises. A conforming
+    schedule with a different charge predicate on a reachable step would be a
+    counterexample to this characterization.
+
+    This file does not bound gate counts, model gas refunds, or price
+    anything except the commitment event itself. *)
+
+(* SCOPE NOTE: standalone proof scope. A domain-inspired abstract wrapper
+   around LocalPredicatePricedSystem; no machine is fixed. *)
+
+From Coq Require Import List Arith.PeanoNat Lia Bool.
+Import ListNotations.
+
+From Kernel Require Import CommitmentPredicateAdequacy.
+
+(** * Vocabulary
+
+    Three words of EVM jargon, glossed once so the rest reads plainly.
+    The glosses are the reading; they do not identify the record below
+    with an EVM execution semantics.
+
+    GAS.  The per-step execution fee. In the kernel's terms this is
+    [lps_cost]: a state-dependent nat charged when a step runs. "Out of
+    gas" and refund mechanics are out of scope; the schedule prices steps, not
+    budgets.
+
+    OPCODE.  One instruction of the execution layer: [lps_instr]. An
+    opcode's fee may depend on the state it executes in (EVM does this
+    too: SSTORE on a fresh slot vs. a warm one), which is why [lps_cost]
+    takes the state as an argument.
+
+    COMMITMENT.  The certification event: in the reading, the step after
+    which the state root is finalized, externally checkable, no longer
+    revisable. The kernel's [lps_cert] is the "is this state committed?"
+    flag, and [cert_flip_local] is the predicate "this step takes an
+    uncommitted state to a committed one." That flip is the A2 event
+    wearing a blockchain costume. Nothing in the record supplies a state
+    root or external finality beyond that Boolean predicate.
+
+    A gas schedule is then exactly a [LocalPredicatePricedSystem]: it
+    picks a charging predicate [lps_charge] ("which steps cost gas?")
+    and is trusted to charge where the predicate says and nowhere else
+    ([lps_charged_costs] / [lps_uncharged_free]). The alias below adds
+    no structure; it lets the theorems read in fee-market vocabulary. *)
+
+Definition GasSchedule := LocalPredicatePricedSystem.
+
+(** * Main 1: the exactness characterization, in gas vocabulary.
+
+    [gas_schedule_exactness]: a gas schedule satisfies the two
+    conditions an honest fee market wants:
+
+      floor:         total gas collected on any trace is at least the
+                     number of commitment events in it
+                     ([quantitative_certification_floor]), and
+      no-overcharge: total gas never exceeds that count
+                     ([no_overcharge_for_commitments])
+
+    It satisfies them exactly when its charging predicate is extensionally the
+    cert-flip predicate and every charged step costs exactly one unit
+    ([local_predicate_same] + [exact_unit_pricing]). Under equal trust
+    there is one exact schedule for pricing commitment, and it charges
+    on commitment.
+
+    HONESTY NOTE: since [GasSchedule] is definitionally
+    [LocalPredicatePricedSystem], this theorem IS the kernel's
+    [exact_commitment_pricing_characterization] carried over unchanged;
+    the proof is a one-line instantiation, and the contribution of this
+    statement is the reading, not new mathematics. The new mathematics
+    in this file is downstream: the failure modes (Mains 2 and 3) and
+    the concrete inhabitant ([toy_gas_schedule_is_exact]). *)
+(* SCOPE NOTE: alias for exact_commitment_pricing_characterization; deliberate vocabulary re-export; the file's new content is the failure modes and the concrete instance below. *)
+Theorem gas_schedule_exactness :
+  forall G : GasSchedule,
+    (quantitative_certification_floor G /\
+     no_overcharge_for_commitments G)
+    <->
+    (local_predicate_same G (cert_flip_local G) (lps_charge G) /\
+     exact_unit_pricing G).
+Proof.
+  exact exact_commitment_pricing_characterization.
+Qed.
+
+(** * Main 2: an undercharged opcode admits an unpaid commitment.
+
+    If some opcode [i], executed in some uncommitted state [s], commits
+    the state but the schedule does not charge it, then the one-step
+    trace [[i]] from [s] certifies at total gas zero. The proof is
+    nothing but [lps_uncharged_free]: a trusted schedule charges only
+    where its predicate says, so a predicate gap is an unpaid pass through
+    the commitment event.
+
+    The theorem is conditional on the [GasSchedule] record: an uncharged
+    committing step has zero total cost under that record's own cost rule.
+    It does not compare this abstract schedule with a deployed gas system or
+    claim that every underpricing problem has this exact form. *)
+Theorem undercharged_opcode_admits_free_commitment :
+  forall (G : GasSchedule) (s : lps_state G) (i : lps_instr G),
+    lps_cert G s = false ->
+    lps_cert G (lps_step G s i) = true ->
+    lps_charge G s i = false ->
+    lps_total_cost G [i] s = 0.
+Proof.
+  intros G s i _ _ Huncharged.
+  simpl.
+  rewrite (lps_uncharged_free G s i Huncharged).
+  reflexivity.
+Qed.
+
+(** Corollary: a schedule with even one undercharged committing opcode
+    fails the universal certification floor outright: some certifying
+    trace costs nothing. One missed flip is enough; the floor is not a
+    statistical property that survives small leaks.
+
+    Instantiation note: this is [floor_necessary_for_covers_cert_flips]
+    read in contrapositive at the witnessing step. *)
+Corollary undercharged_opcode_breaks_certification_floor :
+  forall (G : GasSchedule) (s : lps_state G) (i : lps_instr G),
+    lps_cert G s = false ->
+    lps_cert G (lps_step G s i) = true ->
+    lps_charge G s i = false ->
+    ~ universal_certification_floor G.
+Proof.
+  intros G s i Hstart Hfinal Huncharged Hfloor.
+  pose proof (floor_necessary_for_covers_cert_flips G Hfloor
+                s i Hstart Hfinal) as Hcharged.
+  rewrite Huncharged in Hcharged.
+  discriminate Hcharged.
+Qed.
+
+(** * Main 3: overcharging breaks exactness in the other direction.
+
+    If the schedule charges a step that is not a commitment (the step
+    does not flip cert false-to-true), then total gas on the one-step
+    trace through it exceeds its commitment count, so the schedule
+    overcharges relative to commitments. Undercharging kills the floor
+    (Main 2); overcharging kills the ceiling. Exactness pins the
+    predicate from both sides; that pincer is what makes the
+    characterization in Main 1 an "iff" rather than a one-way bound.
+
+    Instantiation note: this is the contrapositive of the kernel's
+    [no_overcharge_forces_charge_only_on_cert_flips] at the witnessing
+    step. *)
+Theorem overcharge_breaks_exactness :
+  forall (G : GasSchedule) (s : lps_state G) (i : lps_instr G),
+    lps_charge G s i = true ->
+    cert_flip_local G s i = false ->
+    ~ no_overcharge_for_commitments G.
+Proof.
+  intros G s i Hcharged Hnoflip Hno.
+  pose proof (no_overcharge_forces_charge_only_on_cert_flips G Hno
+                s i Hcharged) as Hflip.
+  rewrite Hnoflip in Hflip.
+  discriminate Hflip.
+Qed.
+
+(** * A concrete exact schedule: the characterized class is inhabited.
+
+    Mains 1-3 would be vacuously true of an empty class. So here is the
+    smallest gas-metered machine that earns the characterization:
+
+    State:  one bit: "has the state root been committed?" (in the reading)
+    Opcodes:
+      [OpCompute]:  pure computation; never touches the committed flag.
+      [OpCommit]:   finalizes; sets the committed flag.
+    Cert:   the flag itself.
+    Charge: the canonical predicate; charge exactly when the commit
+            flips the flag (committing an already-committed state is a
+            no-op and costs nothing here; the nearest EVM case, a warm SSTORE
+            writing the same value, is cheap there, not zero-cost).
+    Cost:   one unit per charged step, zero otherwise. *)
+
+Inductive toy_op : Type :=
+  | OpCompute
+  | OpCommit.
+
+Definition toy_step (s : bool) (i : toy_op) : bool :=
+  match i with
+  | OpCompute => s
+  | OpCommit  => true
+  end.
+
+(** Charge exactly when [OpCommit] flips the flag false-to-true. *)
+Definition toy_charge (s : bool) (i : toy_op) : bool :=
+  match i with
+  | OpCompute => false
+  | OpCommit  => negb s
+  end.
+
+Definition toy_cost (s : bool) (i : toy_op) : nat :=
+  if toy_charge s i then 1 else 0.
+
+Lemma toy_charged_costs :
+  forall (s : bool) (i : toy_op),
+    toy_charge s i = true -> toy_cost s i >= 1.
+Proof.
+  intros s i Hcharged.
+  unfold toy_cost.
+  rewrite Hcharged.
+  lia.
+Qed.
+
+Lemma toy_uncharged_free :
+  forall (s : bool) (i : toy_op),
+    toy_charge s i = false -> toy_cost s i = 0.
+Proof.
+  intros s i Huncharged.
+  unfold toy_cost.
+  rewrite Huncharged.
+  reflexivity.
+Qed.
+
+Definition toy_gas_schedule : GasSchedule :=
+  {| lps_state  := bool;
+     lps_instr  := toy_op;
+     lps_step   := toy_step;
+     lps_cost   := toy_cost;
+     lps_cert   := fun b => b;
+     lps_charge := toy_charge;
+     lps_charged_costs  := toy_charged_costs;
+     lps_uncharged_free := toy_uncharged_free |}.
+
+(** The toy's charging predicate is extensionally the cert-flip
+    predicate: four cases (two states, two opcodes), checked by
+    computation. *)
+Lemma toy_charge_is_cert_flip :
+  local_predicate_same toy_gas_schedule
+    (cert_flip_local toy_gas_schedule)
+    (lps_charge toy_gas_schedule).
+Proof.
+  split; intros s i H; destruct s, i;
+    cbv in H; cbv; congruence.
+Qed.
+
+(** Each charged step costs exactly one unit, true definitionally,
+    since [toy_cost] is written as the indicator of [toy_charge]. *)
+Lemma toy_exact_unit_pricing :
+  exact_unit_pricing toy_gas_schedule.
+Proof.
+  intros s i.
+  reflexivity.
+Qed.
+
+(** The toy schedule satisfies both honest-fee-market conditions, by
+    the right-to-left direction of Main 1. So the class Main 1
+    characterizes is inhabited, and the mains above are statements
+    about an inhabited class of schedules, not about an empty set. *)
+Theorem toy_gas_schedule_is_exact :
+  quantitative_certification_floor toy_gas_schedule /\
+  no_overcharge_for_commitments toy_gas_schedule.
+Proof.
+  apply (proj2 (gas_schedule_exactness toy_gas_schedule)).
+  split.
+  - exact toy_charge_is_cert_flip.
+  - exact toy_exact_unit_pricing.
+Qed.

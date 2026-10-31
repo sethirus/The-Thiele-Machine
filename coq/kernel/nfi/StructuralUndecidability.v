@@ -1,0 +1,222 @@
+(** StructuralUndecidability.v: the substrate-level limitative result.
+
+    The structural-axis analog of Turing's 1936 halting result. Every
+    A2-respecting computational substrate equipped with a non-trivial
+    "admits a sound structural shortcut" predicate has an undecidable
+    membership problem for that predicate.
+
+    The theorem and its proof live entirely at the substrate level
+    (Substrate typeclass). They are facts about A2-respecting substrates,
+    not about any one machine. When a machine's Substrate-typeclass
+    instance is supplied, the diagonalization fires for it as a
+    corollary.
+
+    Proof shape (Kleene 1938, transported):
+      1. Assume a decision procedure [decide] for [AdmitsShortcut].
+      2. Define a "flipping transformer" [f : Program -> Program] that
+         maps p to [no_program] if [decide p = true], else [yes_program].
+      3. By the substrate's recursion-theorem field, there is a program
+         [p] extensionally equivalent to [f p].
+      4. Case-split on [decide p]:
+         - true:  [semantics p] should be the "yes" behavior, but [f p] is
+                  [no_program], so [semantics p = no behavior]. Contradiction.
+         - false: [semantics p] should NOT be the "yes" behavior, but [f p]
+                  is [yes_program], so [semantics p = yes behavior].
+                  Contradiction.
+
+    The proof is short: five lines of Ltac. The machinery (Substrate
+    typeclass, recursion theorem, canonical inhabitants) is the work.
+    Nothing in the statement or proof references an instruction set: it
+    talks about programs, the AdmitsShortcut predicate, and the recursion
+    theorem. *)
+
+From Coq Require Import Setoid.
+From Kernel Require Import Substrate.
+
+(** ** The abstract shortcut-admittance predicate
+
+    A typeclass extension of Substrate. A WithShortcutPredicate substrate
+    is a substrate equipped with:
+      - a Prop-valued predicate AdmitsShortcut on programs (and their
+        initial states), capturing "this program's run admits a sound
+        structural narrowing";
+      - two canonical witness programs: yes_program with shortcut, and
+        no_program without;
+      - an extensionality axiom: equivalent programs admit the same
+        shortcuts (the predicate is a property of behavior, not syntax).
+
+    These are exactly the conditions the diagonalization needs. A
+    substrate that supplies them earns the limitative theorem. *)
+
+Class WithShortcutPredicate `{Sub : Substrate} : Type := {
+
+  (** [AdmitsShortcut p] holds iff the program [p] admits a sound
+      structural shortcut on the substrate's distinguished initial state.
+      Concrete substrates instantiate this with their concrete witness
+      class. *)
+  AdmitsShortcut : Program -> Prop;
+
+  (** A canonical "yes" program: one that demonstrably admits a shortcut. *)
+  yes_program : Program;
+  yes_program_admits : AdmitsShortcut yes_program;
+
+  (** A canonical "no" program: one that demonstrably does not. *)
+  no_program : Program;
+  no_program_refuses : ~ AdmitsShortcut no_program;
+
+  (** Extensionality: AdmitsShortcut depends only on extensional
+      behavior. If two programs have the same [run] behavior on every
+      input state, they admit shortcuts iff each other. This is the
+      semantic-property condition (cf. Rice's theorem). *)
+  admits_shortcut_extensional :
+    forall p1 p2,
+      prog_equiv p1 p2 ->
+      AdmitsShortcut p1 <-> AdmitsShortcut p2;
+
+}.
+
+(** ** The substrate-level limitative theorem *)
+
+(* SCOPE NOTE: ABSTRACT INTERFACE. This Section is parameterized
+   over a Substrate plus WithShortcutPredicate typeclass instance. The
+   Context bindings are SECTION PARAMETERS, not section-local axioms;
+   closing the section discharges them as EXPLICIT FORALL premises on
+   the contained theorems. NatSubstrateInstance.v supplies one instance. *)
+Section StructuralAxisUndecidability.
+  Context `{Sub : Substrate} `{Wsp : @WithShortcutPredicate Sub}.
+
+  (** No internally representable decision procedure correctly decides
+      [AdmitsShortcut]. The hypothesis [Hflip_rep] says the diagonal
+      flip transformer built from [decide] is realizable as a program
+      of the substrate; concrete substrates with internal if-then-else
+      and access to two distinguished constants will satisfy this for
+      every Coq function [decide] (the nat substrate of
+      NatSubstrateInstance.v does so by construction). The Coq-decider
+      whose "internal flip" is not representable is outside the scope
+      of this internal limitative result; it lives in the meta-theory,
+      not inside the substrate. The same scoping appears in Turing's
+      1936 result: the decider universe was Turing machines because that
+      was the substrate Turing was studying. *)
+  Theorem structural_shortcut_undecidable :
+    ~ exists (decide : Program -> bool),
+        Representable (fun p => if decide p then no_program else yes_program)
+        /\ forall p, decide p = true <-> AdmitsShortcut p.
+  Proof.
+    intros [decide [Hflip_rep Hdec]].
+    (* Step 1: define the flipping transformer.
+       If decide p says "yes admits shortcut," return no_program.
+       If decide p says "no shortcut," return yes_program.
+       Either case forces a self-contradiction. *)
+    pose (flip := fun p : Program =>
+                    if decide p then no_program else yes_program).
+    (* Step 2: by the substrate's recursion theorem, there is a program
+       p extensionally equivalent to flip p. The hypothesis [Hflip_rep]
+       discharges the [Representable flip] side condition. *)
+    destruct (recursion_theorem flip Hflip_rep) as [p Hp].
+    (* Step 3: case-split on what the decision procedure says about p. *)
+    destruct (decide p) eqn:Hdp.
+    - (* Case A: decide p = true.
+         Then by Hdec, p admits a shortcut.
+         But flip p = no_program, and Hp says p ≡ flip p = no_program.
+         By extensionality, p admits ↔ no_program admits.
+         no_program does not admit. Contradiction. *)
+      assert (Hadmits : AdmitsShortcut p) by (apply Hdec; exact Hdp).
+      assert (Heq : prog_equiv p no_program).
+      { unfold flip in Hp. rewrite Hdp in Hp. exact Hp. }
+      apply no_program_refuses.
+      apply (admits_shortcut_extensional p no_program Heq).
+      exact Hadmits.
+    - (* Case B: decide p = false.
+         Then by Hdec contrapositive, p does NOT admit a shortcut.
+         But flip p = yes_program, and Hp says p ≡ flip p = yes_program.
+         By extensionality, p admits ↔ yes_program admits.
+         yes_program admits. Contradiction. *)
+      assert (Hnot : ~ AdmitsShortcut p).
+      { intro Hadm. apply Hdec in Hadm. rewrite Hdp in Hadm. discriminate. }
+      assert (Heq : prog_equiv p yes_program).
+      { unfold flip in Hp. rewrite Hdp in Hp. exact Hp. }
+      apply Hnot.
+      apply (admits_shortcut_extensional p yes_program Heq).
+      exact yes_program_admits.
+  Qed.
+
+  (** ** Reading
+
+      The theorem above is the structural-axis analog of Turing's halting
+      undecidability. Turing showed: no Turing program decides whether an
+      arbitrary Turing program halts. The present theorem shows: no Coq-
+      definable program decides whether an arbitrary substrate program
+      admits a sound structural shortcut.
+
+      The two-axis picture this completes:
+
+        Time axis     | Structural axis
+        ------------- | ----------------
+        steps         | mu
+        HALT          | AdmitsShortcut
+        Turing 1936   | the present theorem
+
+      What the proof needs from the substrate:
+        - Nothing about mu: the Substrate class carries [mu_monotone], and
+          this argument does not use it
+        - A recursion theorem (Substrate.recursion_theorem field)
+        - A non-trivial AdmitsShortcut predicate, witnessed by yes_program
+          and no_program
+        - Extensional behavior of the predicate
+
+      What the proof does NOT need:
+        - Any reference to a particular instruction set
+        - Any reference to fuel, traces, or a concrete machine state
+        - Any reference to Turing-machine halting
+
+      Hence the result is substrate-level, not instruction-level. Any
+      substrate inherits the theorem the moment it supplies a Substrate +
+      WithShortcutPredicate instance; NatSubstrateInstance.v is one.
+
+      The structural-translation question asks for a uniform translation
+      from informal structural arguments into SoundStructuralShortcut
+      witnesses. The present theorem rules out a total uniform decision
+      procedure for shortcut admittance; it does not directly rule out a
+      translation that only produces witnesses for programs that admit one.
+
+      The boundary is explicit: the theorem rules out a total Boolean
+      decision procedure satisfying the stated equivalence under these
+      [Substrate] and [WithShortcutPredicate] premises. It does not rule out a
+      partial procedure, a restricted input class, or a procedure allowed to
+      decline. A counterexample would have to provide the excluded total
+      decision procedure or invalidate one of the named premises. *)
+
+End StructuralAxisUndecidability.
+
+(** ** Corollary: the predicate is not Decidable in the Coq sense *)
+
+(* SCOPE NOTE: ABSTRACT INTERFACE. Same pattern as
+   StructuralAxisUndecidability above. SECTION PARAMETER over
+   Substrate + WithShortcutPredicate; closing the section discharges
+   the Context as an EXPLICIT FORALL premise on the corollary. *)
+Section DecidabilityCorollary.
+  Context `{Sub : Substrate} `{Wsp : @WithShortcutPredicate Sub}.
+
+  (** A standard Decidable instance for AdmitsShortcut, with the
+      additional internal-representability side condition for the
+      diagonal flip transformer it induces, would yield a decision
+      procedure as in the theorem above. It cannot exist.
+      Stated as [T -> False] rather than [~ T] to avoid putting [Type]
+      into [Prop]'s universe. *)
+  Corollary admits_shortcut_not_decidable :
+    forall (Hdec : forall p, {AdmitsShortcut p} + {~ AdmitsShortcut p}),
+      Representable
+        (fun p =>
+           if (if Hdec p then true else false) then no_program else yes_program)
+      -> False.
+  Proof.
+    intros Hdec Hrep.
+    apply structural_shortcut_undecidable.
+    exists (fun p => if Hdec p then true else false). split.
+    - exact Hrep.
+    - intros p. split.
+      + intro Heq. destruct (Hdec p); [assumption | discriminate].
+      + intro Hadm. destruct (Hdec p); [reflexivity | contradiction].
+  Qed.
+
+End DecidabilityCorollary.

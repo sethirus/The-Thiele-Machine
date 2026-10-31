@@ -1,0 +1,28 @@
+The Thiele Machine — project axiom ledger
+=========================================
+
+State: zero project-local Coq `Axiom` declarations in the live proof tree.
+
+The live proof tree is mapped by `coq/_CoqProject`; this file records the
+current project-local axiom policy and points to the machine-checked receipt.
+
+The lexical sanity check over the live tree is:
+
+    $ grep -rnE '^[[:space:]]*Axiom[[:space:]]' coq --include='*.v'
+
+The check is interpreted together with Coq parsing: prose inside comments is
+not a declaration. There are zero project-local `Axiom` declarations in the
+live tree.
+
+"Zero axioms" here means zero project-local axioms. Proofs in the real-number
+and physics layers still
+lean on Coq standard-library axiom families (`functional_extensionality_dep`,
+`sig_forall_dec`, `sig_not_dec`, `classic`); the minimal core uses none of
+them. The authoritative, machine-checked ledger of every assumption behind
+every theorem is the committed receipt:
+
+    artifacts/print_assumptions_all_proofs.json
+
+Reproduce the minimal-core check with `make verify` and the full
+`Print Assumptions` sweep with `make assumption-receipt`. This text file is a
+human-readable pointer; the JSON receipt is the source of truth.

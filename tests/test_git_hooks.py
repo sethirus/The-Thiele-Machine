@@ -1,0 +1,370 @@
+"""Exercise the installed hook in disposable repos, with expensive tools stubbed.
+
+Git/index operations and the worktree guard are real. Compiler/test stubs let
+us inject failures and verify hook ordering without recursively running pytest.
+"""
+from __future__ import annotations
+
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+import pytest
+
+from scripts.coq_proof_scope import FULL_ASSUMPTION_PROBE
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def command(repo, *args, **kwargs):
+    env = os.environ.copy()
+    # Hook tests may themselves run from a git commit's inherited environment.
+    for key in tuple(env):
+        if key.startswith("GIT_"):
+            env.pop(key)
+    env.update(kwargs.pop("env", {}))
+    return subprocess.run(args, cwd=repo, env=env, text=True, capture_output=True,
+                          timeout=30, **kwargs)
+
+
+def git(repo, *args):
+    return command(repo, "git", *args, check=True).stdout
+
+
+@pytest.fixture
+def repo(tmp_path):
+    git(tmp_path, "init", "-q")
+    git(tmp_path, "config", "user.email", "hook-test@example.invalid")
+    git(tmp_path, "config", "user.name", "Hook test")
+    for name in (".githooks/pre-commit", "scripts/install-git-hooks.sh", "scripts/check_hook_worktree.py"):
+        destination = tmp_path / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes((ROOT / name).read_bytes())
+        destination.chmod((ROOT / name).stat().st_mode & 0o777)
+    (tmp_path / "source with spaces.v").write_text("original\n")
+    (tmp_path / ".gitignore").write_text(
+        "*.vo\n__pycache__/\nartifacts/print_assumptions_all_proofs.csv\n"
+    )
+    git(tmp_path, "add", ".")
+    git(tmp_path, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "fixture")
+    return tmp_path
+
+
+def test_installer_repairs_executable_bit_and_supports_worktrees(repo, tmp_path):
+    installer = "scripts/install-git-hooks.sh"
+    assert command(repo, "bash", installer).returncode == 0
+    hook = repo / ".githooks/pre-commit"
+    hook.chmod(0o644)
+    assert command(repo, "bash", installer).returncode == 0
+    assert os.access(hook, os.X_OK)
+    worktree = tmp_path / "linked"
+    git(repo, "worktree", "add", "-qb", "linked", str(worktree))
+    assert (worktree / ".git").is_file()
+    result = command(worktree, "bash", installer)
+    assert result.returncode == 0, result.stderr
+    assert git(worktree, "config", "--get", "core.hooksPath").strip() == ".githooks"
+
+
+@pytest.mark.parametrize("change", ["partial", "unstaged", "deleted", "untracked", "renamed"])
+def test_guard_rejects_worktree_only_inputs_without_staging(repo, change):
+    source = repo / "source with spaces.v"
+    if change == "partial":
+        source.write_text("staged\n")
+        git(repo, "add", str(source))
+        source.write_text("unstaged\n")
+    elif change == "unstaged":
+        source.write_text("unstaged\n")
+    elif change == "deleted":
+        source.unlink()
+    elif change == "renamed":
+        source.rename(repo / "renamed.v")
+    else:
+        (repo / "new\nsource.v").write_text("untracked\n")
+    before = git(repo, "write-tree")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py")
+    assert result.returncode == 1
+    assert "working tree differs" in result.stderr
+    assert git(repo, "write-tree") == before
+
+
+def test_guard_accepts_staged_changes_and_ignored_build_cache(repo):
+    (repo / "source with spaces.v").write_text("staged\n")
+    (repo / "cached.vo").write_text("compiled")
+    git(repo, "add", "source with spaces.v")
+    assert command(repo, sys.executable, "scripts/check_hook_worktree.py").returncode == 0
+
+
+def test_guard_never_stages_rebuilt_tracked_files(repo):
+    generated = repo / "coq/Generated.glob"
+    generated.parent.mkdir()
+    generated.write_text("original\n")
+    git(repo, "add", str(generated))
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "fixture")
+    generated.write_text("rebuilt\n")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py")
+    assert result.returncode == 1
+    assert git(repo, "show", ":coq/Generated.glob") == "original\n"
+
+
+@pytest.fixture
+def pipeline(repo, tmp_path):
+    outputs = [
+        "artifacts/proof_dependency_dag.json", "artifacts/proof_dependency_connectivity.json",
+        "artifacts/proof_dependency_file_graph.mmd", "artifacts/PROOF_FOUNDATION_AUDIT.md",
+        "INQUISITOR_REPORT.md",
+        "README.md",
+        "CITATION.cff", "THIELE_MACHINE.txt", "monograph/monograph.tex",
+        "monograph/monograph.pdf", "monograph/monograph.txt",
+        "monograph/thiele_machine_math_spec.pdf", "monograph/math_spec_plaintext.txt",
+        "monograph/COMPANION_CHECKS.txt",
+
+    ]
+    for name in outputs:
+        path = repo / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("original\n")
+    (repo / "coq").mkdir()
+    (repo / "scripts/coq_proof_scope.py").write_text("def validate_alignment(): return []\n")
+    (repo / "scripts/vacuity_targets.json").write_text('{"targets": []}')
+    (repo / "artifacts/vacuity_audit.json").write_text(json.dumps({
+        "summary": {"vacuous_true": 0, "vacuous_hyp": 0, "error": 0}
+    }))
+    git(repo, "add", ".")
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "pipeline fixture")
+    binaries = tmp_path / ".git" / "test-bin"
+    binaries.mkdir()
+    stub = binaries / "stub"
+    stub.write_text(f"#!{sys.executable}\n" + r'''
+import hashlib, json, os, pathlib, subprocess, sys
+name = pathlib.Path(sys.argv[0]).name
+args = sys.argv[1:]
+with open(pathlib.Path(__file__).resolve().parents[1] / "tool-log", "a") as log:
+    log.write(json.dumps([name, args, os.environ.get("CI")]) + "\n")
+failure = os.environ.get("HOOK_TEST_FAIL")
+if failure and any(failure in arg for arg in [name, *args]):
+    sys.stderr.write("injected failure: " + failure + "\n")
+    sys.exit(7)
+if name == "python3":
+    if args[0] == "-c" or args[0] == "scripts/check_hook_worktree.py":
+        sys.exit(subprocess.call([sys.executable, *args]))
+    # check_assumption_consistency.py is not present in this fixture repo; the
+    # hook's invocation of it must succeed here (the real check is exercised by
+    # tests/test_assumption_consistency.py). Failure injection above still fires.
+    if args and args[0] == "scripts/build_full_probe.py":
+        # The hook regenerates the probe before checking receipt/probe coherence.
+        for name in (os.environ["HOOK_TEST_ASSUMPTION_PROBE"],
+                     "artifacts/assumptions/probe_inventory.json"):
+            path = pathlib.Path(name)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("regenerated probe\n")
+    if args[:2] == ["-m", "pytest"]:
+        if os.environ.get("HOOK_TEST_MUTATE"):
+            pathlib.Path("source with spaces.v").write_text("changed during tests\n")
+    elif args[0] == "scripts/generate_proof_dependency_dag.py":
+        path = pathlib.Path("artifacts/proof_dependency_dag.json")
+        path.write_text(hashlib.sha256(pathlib.Path("source with spaces.v").read_bytes()).hexdigest())
+elif name == "bash" and args == ["scripts/generate_assumption_receipt.sh"]:
+    for name in (os.environ["HOOK_TEST_ASSUMPTION_PROBE"], "artifacts/print_assumptions_all_proofs.json",
+                 "artifacts/print_assumptions_all_proofs.txt", "artifacts/print_assumptions_all_proofs.csv",
+                 "artifacts/assumptions/probe_inventory.json",
+                 "artifacts/assumptions/probe_all_output.txt", "artifacts/assumptions/probe_all_err.txt",
+                 "artifacts/assumptions/probe_batches.json"):
+        path = pathlib.Path(name)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("fresh receipt\n")
+''')
+    stub.chmod(0o755)
+    for name in ("python3", "make", "bash", "coqc", "coqtop", "coq_makefile"):
+        (binaries / name).symlink_to(stub)
+    return repo, {"PATH": str(binaries) + os.pathsep + os.environ["PATH"],
+                  "HOOK_TEST_ASSUMPTION_PROBE": FULL_ASSUMPTION_PROBE}
+
+
+def run_hook(pipeline, **env):
+    repo, base_env = pipeline
+    return command(repo, "/bin/sh", ".githooks/pre-commit", env={**base_env, **env})
+
+
+def test_hook_refreshes_manifest_and_tests_in_ci_mode(pipeline):
+    repo, _ = pipeline
+    (repo / "source with spaces.v").write_text("staged update\n")
+    git(repo, "add", "source with spaces.v")
+    result = run_hook(pipeline)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert git(repo, "show", ":artifacts/proof_dependency_dag.json") == (
+        repo / "artifacts/proof_dependency_dag.json").read_text()
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    pytest_call = next(call for call in calls if call[1][:2] == ["-m", "pytest"])
+    assert "--strict-backends" in pytest_call[1]
+    assert pytest_call[2] == "true"
+    if "-n" in pytest_call[1]:
+        assert pytest_call[1][pytest_call[1].index("-n") + 1] == "0"
+    build = next(i for i, call in enumerate(calls) if call[0] == "coq_makefile")
+    dag = next(i for i, call in enumerate(calls)
+               if "scripts/generate_proof_dependency_dag.py" in call[1])
+    tests = next(i for i, call in enumerate(calls) if call[1][:2] == ["-m", "pytest"])
+    assert build < dag < tests
+
+
+@pytest.mark.parametrize("failure", ["make", "generate_proof_dependency_dag.py", "pytest"])
+def test_hook_blocks_tool_and_generator_failures(pipeline, failure):
+    result = run_hook(pipeline, HOOK_TEST_FAIL=failure)
+    assert result.returncode != 0
+    assert "injected failure: " + failure in result.stderr
+    assert "[pre-commit] PASS:" not in result.stdout
+
+
+def test_hook_runs_slow_gates_only_when_asked(pipeline):
+    run_hook(pipeline)
+    repo, _ = pipeline
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    assert not any("inquisitor.py" in " ".join(call[1]) for call in calls)
+    assert not any(call[0] == "bash" for call in calls)
+    pytest_call = next(call for call in calls if call[1][:2] == ["-m", "pytest"])
+    assert "tests/" not in pytest_call[1]
+    (repo / ".git/tool-log").unlink()
+    run_hook(pipeline, THIELE_HOOK_FULL="1")
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    assert any("inquisitor.py" in " ".join(call[1]) for call in calls)
+    pytest_call = next(call for call in calls if call[1][:2] == ["-m", "pytest"])
+    assert "tests/" in pytest_call[1]
+
+
+@pytest.mark.parametrize("verdict", ["error", "vacuous_true", "vacuous_hyp"])
+def test_hook_blocks_bad_vacuity_verdicts(pipeline, verdict):
+    repo, _ = pipeline
+    path = repo / "artifacts/vacuity_audit.json"
+    data = json.loads(path.read_text())
+    data["summary"][verdict] = 1
+    path.write_text(json.dumps(data))
+    git(repo, "add", str(path))
+    result = run_hook(pipeline)
+    assert result.returncode != 0
+    assert "FAIL: vacuity audit" in result.stderr
+
+
+def test_hook_detects_source_mutated_by_test_suite(pipeline):
+    result = run_hook(pipeline, HOOK_TEST_MUTATE="1")
+    assert result.returncode != 0
+    assert "[pre-commit] PASS:" not in result.stdout
+
+
+def test_hook_refuses_partial_staging_before_running_generators(pipeline):
+    repo, _ = pipeline
+    (repo / "source with spaces.v").write_text("unstaged update\n")
+    before = git(repo, "write-tree")
+    result = run_hook(pipeline)
+    assert result.returncode != 0
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    assert len(calls) == 1
+    assert git(repo, "write-tree") == before
+
+
+def test_hook_regenerates_and_stages_receipt_before_consistency_check(pipeline):
+    """A proof change refreshes the receipt before checking its coherence."""
+    repo, _ = pipeline
+    (repo / "coq/Proof.v").write_text("proof change\n")
+    git(repo, "add", "coq/Proof.v")
+    result = run_hook(pipeline, THIELE_HOOK_FULL="1")
+    assert result.returncode == 0, result.stdout + result.stderr
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    receipt = next(i for i, call in enumerate(calls)
+                   if "scripts/generate_assumption_receipt.sh" in call[1])
+    consistency = next(i for i, call in enumerate(calls)
+                       if "scripts/check_assumption_consistency.py" in call[1])
+    assert receipt < consistency
+    for name in (
+        "artifacts/print_assumptions_all_proofs.json",
+        "artifacts/print_assumptions_all_proofs.txt",
+        "artifacts/assumptions/probe_all_output.txt",
+        "artifacts/assumptions/probe_all_err.txt",
+        "artifacts/assumptions/probe_batches.json",
+    ):
+        assert git(repo, "show", f":{name}") == "fresh receipt\n"
+
+
+def test_hook_runs_assumption_consistency_check(pipeline):
+    """The full hook checks receipt/probe coherence, and fails when it is stale."""
+    repo, _ = pipeline
+    (repo / "coq/Proof.v").write_text("proof change\n")
+    git(repo, "add", "coq/Proof.v")
+    result = run_hook(pipeline, THIELE_HOOK_FULL="1")
+    assert result.returncode == 0, result.stdout + result.stderr
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    assert any("scripts/check_assumption_consistency.py" in call[1] for call in calls)
+
+
+def test_hook_blocks_stale_assumption_receipt(pipeline):
+    """A receipt that is not a coherent snapshot of the probe blocks the commit."""
+    repo, _ = pipeline
+    (repo / "coq/Proof.v").write_text("proof change\n")
+    git(repo, "add", "coq/Proof.v")
+    result = run_hook(pipeline, HOOK_TEST_FAIL="check_assumption_consistency.py",
+                      THIELE_HOOK_FULL="1")
+    assert result.returncode != 0
+    assert "injected failure" in result.stderr
+
+
+def test_hook_blocks_missing_backend(pipeline):
+    repo, base_env = pipeline
+    binaries = repo / ".git/test-bin"
+    (binaries / "coq_makefile").unlink()
+    (binaries / "git").symlink_to(shutil.which("git"))
+    result = command(repo, "/bin/sh", ".githooks/pre-commit", env={"PATH": str(binaries)})
+    assert result.returncode != 0
+    assert "required tool missing: coq_makefile" in result.stderr
+
+
+def test_guard_rejects_changes_inside_a_submodule(repo, tmp_path):
+    vendor = tmp_path / ".git/vendor-source"
+    vendor.mkdir()
+    git(vendor, "init", "-q")
+    git(vendor, "config", "user.email", "hook-test@example.invalid")
+    git(vendor, "config", "user.name", "Hook test")
+    (vendor / "Lib.v").write_text("Definition lib := 0.\n")
+    git(vendor, "add", ".")
+    git(vendor, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "vendor fixture")
+    git(repo, "-c", "protocol.file.allow=always", "submodule", "add", str(vendor), "vendor/lib")
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "pin vendor")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py",
+                     env={"GIT_INDEX_FILE": ".git/index"})
+    assert result.returncode == 0, result.stderr
+    path = repo / "vendor/lib/Lib.v"
+    path.write_text(path.read_text() + "unexpected change\n")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py")
+    assert result.returncode != 0
+    assert "vendor/lib/Lib.v" in result.stderr
+
+
+def _vacuity_calls(repo):
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    return [call[1] for call in calls if call[1][:1] == ["scripts/vacuity_gate.py"]]
+
+
+def test_hook_checks_only_added_vacuity_targets(pipeline):
+    repo, _ = pipeline
+    target = {"path": "coq/New.v", "logical": "Kernel.New"}
+    (repo / "scripts/vacuity_targets.json").write_text(json.dumps({"targets": [target]}))
+    git(repo, "add", "scripts/vacuity_targets.json")
+    result = run_hook(pipeline)
+    assert result.returncode == 0, result.stdout + result.stderr
+    (args,) = _vacuity_calls(repo)
+    assert "--manifest" not in args
+    assert args[args.index("--target") + 1] == "coq/New.v" and "--merge" in args
+
+
+def test_hook_sweeps_every_target_when_an_entry_changes(pipeline):
+    repo, _ = pipeline
+    manifest = repo / "scripts/vacuity_targets.json"
+    manifest.write_text(json.dumps({"targets": [{"path": "coq/Old.v", "logical": "Kernel.Old"}]}))
+    git(repo, "add", str(manifest))
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "one target")
+    manifest.write_text(json.dumps({"targets": [{"path": "coq/Old.v", "logical": "Kernel.Renamed"}]}))
+    git(repo, "add", str(manifest))
+    result = run_hook(pipeline)
+    assert result.returncode == 0, result.stdout + result.stderr
+    (args,) = _vacuity_calls(repo)
+    assert args[args.index("--manifest") + 1] == "scripts/vacuity_targets.json"

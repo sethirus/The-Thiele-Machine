@@ -1,0 +1,3234 @@
+% SPDX-FileCopyrightText: 2025-2026 Devon Thiele
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{xr-hyper}
+\externaldocument[B-]{monograph}
+\usepackage{hyperref}
+\hypersetup{pdftitle={The Thiele Machine: Exact Statements},pdfauthor={Devon Thiele},colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{array,longtable,booktabs}
+
+\geometry{margin=1in}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{thesis}[theorem]{Thesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Bool}{\{\mathrm{no},\mathrm{yes}\}}
+\newcommand{\step}{\delta}
+\newcommand{\cost}{c}
+\newcommand{\rd}{r}
+\newcommand{\run}{\mathrm{run}}
+\newcommand{\inv}{^{-1}}
+% Pointer to where the book argues a result.
+\newcommand{\argued}[1]{\par\noindent\textit{Argued in Chapter~\ref{B-#1} of the book.}\par}
+\newcommand{\kind}[1]{\textup{[#1]}}
+
+\title{The Thiele Machine\\[0.3em]\large Exact Statements}
+\author{Devon Thiele}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The book, \emph{The Thiele Machine: No Free Insight}, argues everything in plain words, with the reader, and
+leaves out theorem statements on purpose. This companion gives the exact statements: the definitions with
+every quantifier written out, and each result the book shows, with its hypotheses, in the book's order.
+Each result is tagged with its kind from the ledger of Chapter~\ref{B-sec:shown-chosen}: \kind{shown} for
+an argument, \kind{chosen} for a definition or a price, \kind{assumed} for a claim about the world that an
+argument leans on, \kind{cited} for somebody else's result, and \kind{thesis} for a claim no argument can
+settle. Where a proof is short it is printed; otherwise the pointer says where the book argues it. Nothing
+here goes beyond the book. A statement that looks stronger than the book's is a mistake in this document.
+\end{abstract}
+
+\tableofcontents
+
+%=============================================================================
+\section{Notation}\label{spec:notation}
+
+$\N=\{0,1,2,\dots\}$. For a finite set $X$, $|X|$ is its size. $\log_2$ is the logarithm base two and
+$\ln$ the natural logarithm.
+
+A \emph{machine} is a triple $(S,I,\step)$: a set $S$ of states, a set $I$ of moves, and a step
+$\step:S\times I\to S$. A machine with \emph{one next state} is the case $|I|=1$, written as a function
+$f:S\to S$. A \emph{run} from $s$ along a list of moves $\tau=i_1\cdots i_n$ is the list of states
+$s_0=s$, $s_{k}=\step(s_{k-1},i_k)$; $\run(\tau,s)=s_n$.
+
+Two arrows \emph{meet} at a move $i$ when there are $s\ne s'$ with $\step(s,i)=\step(s',i)$; the usual
+word is a \emph{merge}. For $f:S\to S$, two arrows meet when $f(s)=f(s')$ for some $s\ne s'$, that is,
+when $f$ is not one-to-one.
+
+A \emph{reading} is a function $\rd:S\to R$ into a preorder $(R,\le)$: a reflexive, transitive relation.
+The \emph{two-point} reading takes values in $\Bool$ with $\mathrm{no}<\mathrm{yes}$. A move $i$
+\emph{settles more} at $s$ when $\rd(\step(s,i))\not\le\rd(s)$. On the two-point reading that is exactly
+$\rd(s)=\mathrm{no}$ and $\rd(\step(s,i))=\mathrm{yes}$.
+
+A \emph{price list} is $\cost:I\to\N$. Where a result lets the price depend on the state a step starts
+from, it says so and writes $\cost:S\times I\to\N$. The price of a run is the sum of the prices of its
+moves.
+
+A \emph{window} is a function $\pi:S\to B$. The \emph{pile} behind a picture $b\in B$ is $\pi\inv(b)$.
+
+%=============================================================================
+\section{The definition}\label{spec:definition}
+
+\begin{definition}[The toll]\label{def:toll} \kind{chosen}
+A price list $\cost$ \emph{obeys the toll} for a reading $\rd$ on a machine $(S,I,\step)$ when
+\[
+\forall s\in S,\ \forall i\in I:\quad \rd(\step(s,i))\not\le\rd(s)\ \Longrightarrow\ \cost(i)\ge 1 .
+\]
+\end{definition}
+
+\begin{definition}[Thiele machine]\label{def:thiele} \kind{chosen}
+A \emph{Thiele machine} is a machine $(S,I,\step)$ with a reading $\rd:S\to(R,\le)$, a price list
+$\cost:I\to\N$, and a set $S_0\subseteq S$ of starts, such that
+\begin{enumerate}[label=(\roman*)]
+\item (settled never goes back) $\rd(s)\le\rd(\step(s,i))$ for every $s\in S$ and $i\in I$;
+\item (something settles) there are $s_0\in S_0$ and a list of moves $\tau$ with
+$\rd(\run(\tau,s_0))\not\le\rd(s_0)$;
+\item (the toll) $\cost$ obeys the toll for $\rd$.
+\end{enumerate}
+Prices are in $\N$: nothing or more, never a refund.
+\end{definition}
+
+\begin{remark}
+Clause (ii) rules out a machine that never settles anything, which would meet (i) and (iii) for free.
+Prices in $\N$ rule out a later move paying back an earlier charge. The smallest reading is the two-point
+one, and most results below are stated on it; a checklist of $k$ boxes whose ticks never come off is the
+reading into $\{\mathrm{no},\mathrm{yes}\}^k$ ordered coordinatewise.
+\end{remark}
+
+\argued{sec:what}
+
+\begin{definition}[Established record]\label{def:established} \kind{chosen}
+Let a machine carry a two-point reading $\rd$ (the box), a set of \emph{claims} $C$, for each claim
+$\kappa\in C$ a set of check moves and a relation saying which moves \emph{touch} what $\kappa$ is about,
+and a predicate saying whether a check of $\kappa$ \emph{passes} at a state. A start is \emph{clean} when
+its box is down. The box is \emph{established for $\kappa$} when, on every run from a clean start, every
+step that turns the box up is preceded in that run by a step that is a passing check of $\kappa$, with no
+move that touches what $\kappa$ is about between that check and the raise. The box is still a reading of
+a Thiele machine, so the step that turns it up pays the toll. That the check means what it says
+and could have failed is a fact about the checker, not a condition on the machine.
+\end{definition}
+
+\argued{sec:established}
+%=============================================================================
+\section{Any machine that steps}\label{spec:ch01}
+
+Throughout this section $f:S\to S$ is a machine with one next state and $x_0\in S$ is a start. The run
+from $x_0$ is $x_n=f^n(x_0)$ for $n\in\N$.
+
+\begin{definition}[Fresh steps, meeting on a run]\label{spec:fresh} \kind{chosen}
+The step from $x_n$ is \emph{fresh} when $x_{n+1}\notin\{x_0,\dots,x_n\}$. Two arrows \emph{meet on the
+run within $n$} when there are $i,j\le n$ with $x_i\ne x_j$ and $f(x_i)=f(x_j)$. Two arrows meet on the
+run when they meet on it within some $n$.
+\end{definition}
+
+\begin{definition}[Turing's machine]\label{spec:turing} \kind{cited}
+Turing's model, in the form used here: a finite alphabet $\Sigma$ with a blank $\sqcup\in\Sigma$, a
+finite set $Q$ of letters, and a \emph{table}, a partial function
+$\tau:Q\times\Sigma\rightharpoonup Q\times\Sigma\times\{-1,0,+1\}$. A \emph{configuration} is a triple
+$(q,h,w)$ with $q\in Q$, $h\in\Z$ the head, and $w:\Z\to\Sigma$ the tape, blank at all but finitely many
+cells. If $\tau(q,w(h))=(q',\sigma,d)$, the next configuration is $(q',h+d,w')$, where $w'(h)=\sigma$ and
+$w'(p)=w(p)$ for $p\ne h$. If $\tau(q,w(h))$ is undefined, the configuration has no next configuration
+and is \emph{stopped}.
+\end{definition}
+
+\begin{remark}
+A configuration is the whole state: the table does not change, and the next configuration is a
+function of the configuration alone. So a Turing machine is a machine with at most one next state,
+with the configurations as states. The claims that other models of computation compute the same
+functions as Turing's are \kind{cited}. The Church-Turing thesis, and the claim that every machine
+that can be built is covered, are claims about the world; no result in this document rests on them.
+\end{remark}
+
+\argued{sec:steps}
+
+\begin{proposition}[The step law]\label{spec:step-law} \kind{shown}
+Let $f:S\to S$ and $x_0\in S$, with no condition on $S$. For every $n\in\N$ the step from $x_n$ does
+one of the following, and (a) excludes (b) and (c):
+\begin{enumerate}[label=(\alph*)]
+\item it is fresh;
+\item $x_{n+1}=x_j$ for some $j\le n$ with $j=0$ or $x_{j-1}=x_n$ (it goes round a loop: back to the
+start, or along a step the run has taken before);
+\item $x_{n+1}=x_j$ for some $1\le j\le n$ with $x_{j-1}\ne x_n$ (two arrows meet:
+$f(x_{j-1})=f(x_n)$).
+\end{enumerate}
+If some step is not fresh, let the step from $x_n$ be the first, landing on $x_j$ with $j\le n$. Every
+earlier step is fresh; either $j=0$, or $j\ge 1$ and $x_{j-1}\ne x_n$, so two arrows meet; and from $x_j$
+on the run repeats with period $p=n+1-j$: $x_{k+p}=x_k$ for all $k\ge j$.
+\end{proposition}
+
+\begin{proof}
+If $x_{n+1}\notin\{x_0,\dots,x_n\}$, (a) holds. Otherwise $x_{n+1}=x_j$ for some $j\le n$; if $j=0$ or
+$x_{j-1}=x_n$ that is (b), and else (c). At the first revisit,
+$x_0,\dots,x_n$ are pairwise distinct, so for $j\ge1$ the states $x_{j-1}$ and $x_n$ are distinct
+($j-1<n$), and both step to $x_j$. Since $f$ is a function, $x_{n+1}=x_j$ gives $x_{n+1+m}=x_{j+m}$ for
+every $m$, which is the period.
+\end{proof}
+
+\argued{sec:steps}
+
+\begin{proposition}[Keeping on any number of states]\label{spec:keeping-run} \kind{shown}
+Let $f:S\to S$, and let $\rd:S\to\Bool$ be a two-point reading that never goes back under $f$:
+$\rd(s)=\mathrm{yes}$ implies $\rd(f(s))=\mathrm{yes}$. Let $\rd(x_0)=\mathrm{no}$ and
+$\rd(x_m)=\mathrm{yes}$ for some $m$. Then $x_k\ne x_0$ for every $k\ge1$, and either the states
+$x_0,x_1,x_2,\dots$ are pairwise distinct, or two arrows meet on the run. No condition on $S$ is used.
+\end{proposition}
+
+\begin{proof}
+If $x_k=x_0$ with $k\ge1$, then $x_{qk}=x_0$ for every $q\in\N$. Take $q$ with $qk\ge m$; since the
+reading never goes back, $\rd(x_{qk})=\mathrm{yes}\ne\rd(x_0)$, a contradiction. So no step goes round
+a loop through the start. If the states are not pairwise distinct, some step is not fresh, and by
+Proposition~\ref{spec:step-law} the first such step lands on $x_j$ with $j\ge1$ and makes two arrows
+meet.
+\end{proof}
+
+\argued{sec:steps}
+
+\begin{proposition}[A machine that stops slips past the merge]\label{spec:stop-slips} \kind{shown}
+Let $S=\{w,h\}$ with $w\ne h$, a partial step $f$ with $f(w)=h$ and no next state for $h$, and
+$\rd(w)=\mathrm{no}$, $\rd(h)=\mathrm{yes}$. The run from $w$ raises the reading, keeps it, visits two
+states, and no two arrows meet. Let $g:S'\to S'$ be any total step on a set $S'\supseteq S$ with
+$g(w)=h$, and $\rd$ extended to a two-point reading on $S'$ that never goes back under $g$. Then the
+run of $g$ from $w$ visits pairwise distinct states forever, or two arrows meet on it. In particular,
+$g(h)=h$ gives $g(w)=g(h)$; and $g(h)=p$, $g(p)=p$ with $p\notin S$ gives $g(h)=g(p)$.
+\end{proposition}
+
+\begin{proof}
+The partial step has one arrow, so no two arrows meet. The statement about $g$ is
+Proposition~\ref{spec:keeping-run} for $g$ from $w$. The two particular cases are direct.
+\end{proof}
+
+\argued{sec:steps}
+
+\begin{proposition}[A machine that stops, with a price on stopping, is a Thiele machine]\label{spec:stopped-reading}
+\kind{shown}
+Let $f:S\rightharpoonup S$ be a partial step and $H=S\setminus\mathrm{dom}(f)$ its stopped states.
+Let $\bar f(s)=f(s)$ for $s\notin H$ and $\bar f(s)=s$ for $s\in H$ (a stopped state stays where it
+is). Read it through whether it has stopped: $\rd(s)=\mathrm{yes}$ if and only if $s\in H$. Let
+$S_0\subseteq S$, and suppose some $s_0\in S_0\setminus H$ reaches $H$, that is, $\bar f^{\,n}(s_0)\in H$
+for some $n$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item with one move $t$ and $\cost(t)=1$, the tuple $(S,\{t\},\bar f,\rd,\cost,S_0)$ is a Thiele
+machine, and every price list that obeys the toll for $\rd$ has $\cost(t)\ge1$;
+\item every step that stops it, from $s\notin H$ to $f(s)\in H$, is a step where two arrows meet:
+$s\ne f(s)$ and $\bar f(s)=\bar f(f(s))$.
+\end{enumerate}
+This applies to a Turing machine, with its configurations as states, and to any machine with at most
+one next state. The only datum added to the machine is the price.
+\end{proposition}
+
+\begin{proof}
+(a) If $\rd(s)=\mathrm{yes}$ then $s\in H$ and $\bar f(s)=s\in H$, so clause (i) holds. The run of
+length $n$ from $s_0$ ends in $H$ while $s_0\notin H$, so clause (ii) holds. Clause (iii) holds since
+$\cost(t)=1$. Some step of that run goes from $\mathrm{no}$ to $\mathrm{yes}$, and it is a $t$-step, so
+the toll forces $\cost(t)\ge1$. (b) $s\notin H$ and $f(s)\in H$ give $s\ne f(s)$, and
+$\bar f(f(s))=f(s)=\bar f(s)$.
+\end{proof}
+
+\argued{sec:what}
+\argued{sec:steps}
+
+\begin{proposition}[Turing's model makes no mark hold]\label{spec:turing-marks} \kind{shown}
+In Turing's model (Definition~\ref{spec:turing}), let $\tau$ be a table, $(q,h,w)$ a configuration, and
+$\sigma\in\Sigma$ any symbol. The table $\tau'$ that agrees with $\tau$ everywhere except at the entry
+$(q,w(h))$, where $\tau'(q,w(h))=(q,\sigma,0)$, is a table of the model, and under $\tau'$ the next
+configuration carries $\sigma$ at cell $h$. So for every cell and every mark, the model contains a
+table that rubs the mark out ($\sigma=\sqcup$) and a table that prints it, whatever came before. No
+condition of the model makes a mark, once written, stay.
+\end{proposition}
+
+\begin{proof}
+Every partial function $Q\times\Sigma\rightharpoonup Q\times\Sigma\times\{-1,0,+1\}$ is a table, so
+$\tau'$ is one, and the step rule of Definition~\ref{spec:turing} writes $\sigma$ at $h$.
+\end{proof}
+
+\argued{sec:what}
+\argued{sec:shown-chosen}
+
+%=============================================================================
+\section{Running out of room}\label{spec:ch02}
+
+For a two-point reading $\rd$ write $Y=\rd\inv(\mathrm{yes})$, the \emph{done} states. For a move $i$
+write $\step_i=\step(\cdot,i)$. A move $i$ is \emph{one-to-one} when $\step_i$ is; otherwise two arrows
+meet at $i$. A move $i$ \emph{keeps done states done} when $\step_i(Y)\subseteq Y$. Clause (i) of
+Definition~\ref{def:thiele}, on a two-point reading, says that every move keeps done states done.
+
+\begin{proposition}[The chairs]\label{spec:chairs} \kind{shown}
+Let $(S,I,\step)$ be a machine with a two-point reading $\rd$, and $Y$ finite. Let $i$ be a move that
+keeps done states done, and $s\notin Y$ with $\step(s,i)\in Y$. Then two arrows meet at $i$: there are
+$t\ne t'$ in $Y\cup\{s\}$ with $\step(t,i)=\step(t',i)$.
+\end{proposition}
+
+\begin{proof}
+$\step_i$ maps the $|Y|+1$ states of $Y\cup\{s\}$ into $Y$, which has $|Y|$ states. By the pigeonhole
+principle two of them have the same image.
+\end{proof}
+
+\argued{sec:room}
+
+\begin{example}[The meeting need not be at the landing]\label{spec:5a5b}
+$S=\{3,4,5a,5b\}$, $f(3)=4$, $f(4)=5a$, $f(5a)=5b$, $f(5b)=5b$, $Y=\{5a,5b\}$. The step from $4$ settles
+the answer, and no other state lands on $5a$. Two arrows meet at $5b$, from $5a$ and $5b$, one tick
+later on the run. The move as a whole is not one-to-one, as Proposition~\ref{spec:chairs} requires.
+\end{example}
+
+\argued{sec:what}
+
+\begin{proposition}[Merge or fresh states, counted]\label{spec:run-fresh} \kind{shown}
+Let $f:S\to S$, $\rd$ a two-point reading that never goes back under $f$, $\rd(x_0)=\mathrm{no}$, and
+$\rd(x_m)=\mathrm{yes}$ for some $m$. If two arrows do not meet on the run within $n$, then
+$x_0,\dots,x_{n+1}$ are pairwise distinct. Consequently, if $S$ is finite, two arrows meet on the run
+within $|S|-1$.
+\end{proposition}
+
+\begin{proof}
+Suppose $x_i=x_j$ with $i<j\le n+1$, and take such a pair with $i$ least. If $i\ge1$, then
+$f(x_{i-1})=f(x_{j-1})$ with $i-1,j-1\le n$, so $x_{i-1}=x_{j-1}$ since no two arrows meet within $n$;
+this contradicts the choice of $i$. So $x_j=x_0$ with $j\ge1$, which Proposition~\ref{spec:keeping-run}
+excludes. For the consequence, take $n=|S|-1$: the $|S|+1$ states $x_0,\dots,x_{|S|}$ cannot be pairwise
+distinct.
+\end{proof}
+
+\argued{sec:room}
+
+\begin{proposition}[Endless room: Hilbert's hotel]\label{spec:hotel} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item On $S=\N$ let $f(n)=n+1$ and $\rd(n)=\mathrm{yes}$ if and only if $n\ge1$ (the strip: $n$ marks).
+Then $f$ is one-to-one, the reading never goes back, the step from $0$ raises it, and every step of
+every run is fresh.
+\item Conversely, let $f:S\to S$ be one-to-one, $\rd$ a two-point reading that never goes back under
+$f$, and $\rd(s)=\mathrm{no}$, $\rd(f(s))=\mathrm{yes}$. Then the states $f^t(s)$, $t\in\N$, are pairwise
+distinct, and $f$ maps $Y$ one-to-one into $Y\setminus\{f(s)\}$. So $Y$ is infinite.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) is direct. (b) The iterates are distinct by Proposition~\ref{spec:keeping-run}, since a one-to-one
+$f$ never makes two arrows meet. $f(Y)\subseteq Y$ because the reading never goes back, and
+$f(s)\notin f(Y)$ because $f$ is one-to-one and $s\notin Y$. A finite set has no one-to-one map onto a
+proper subset of itself.
+\end{proof}
+
+\argued{sec:room}
+
+\begin{proposition}[Nothing meets on finitely many states: back to the start]\label{spec:zermelo}
+\kind{shown}
+Let $S$ be finite and $f:S\to S$ one-to-one. Every run returns to its start: $x_p=x_0$ for some
+$1\le p\le|S|$. Consequently, if a two-point reading never goes back under $f$ and
+$\rd(x_0)=\mathrm{no}$, then $\rd(x_k)=\mathrm{no}$ for every $k$: the machine keeps nothing.
+\end{proposition}
+
+\begin{proof}
+Among $x_0,\dots,x_{|S|}$ two are equal, $x_i=x_j$ with $i<j\le|S|$. Cancelling $f$ $i$ times, which is
+allowed because $f$ is one-to-one, gives $x_0=x_{j-i}$. If $\rd(x_k)=\mathrm{yes}$ for some $k$, then the
+reading is $\mathrm{yes}$ at every multiple of $p=j-i$ that is at least $k$, where the run is at $x_0$, a
+contradiction.
+\end{proof}
+
+\argued{sec:room}
+
+\begin{corollary}[Several moves, none meeting]\label{spec:all-perm} \kind{shown}
+Let $(S,I,\step)$ have $S$ finite and every move one-to-one, and let a reading $\rd$ into a preorder
+satisfy clause (i) of Definition~\ref{def:thiele}. Then $\rd(\run(\tau,s))\le\rd(s)$ for every $s$ and
+every list $\tau$. So clause (ii) fails, and the machine is not a Thiele machine for any price list and
+any starts.
+\end{corollary}
+
+\begin{proof}
+Each $\step_i$ is a permutation of the finite set $S$, so $\step_i^{\,p_i}$ is the identity for some
+$p_i\ge1$, and $\step_i^{-1}=\step_i^{\,p_i-1}$. Hence for $t=\run(\tau,s)$ there is a list $\tau'$ with
+$\run(\tau',t)=s$. Clause (i) along $\tau'$ gives $\rd(t)\le\rd(s)$.
+\end{proof}
+
+\argued{sec:room}
+
+\begin{example}[The cut strip]\label{spec:cut-strip}
+Let $S=\{0,1,\dots,8\}$ (the number of marks on an eight-box strip), $f(n)=n+1$ for $n<8$, and
+$\rd(n)=\mathrm{yes}$ if and only if $n\ge1$. Leaving $f(8)$ undefined is a machine that stops. Every
+choice of $f(8)\in S$ either lowers the reading ($f(8)=0$) or makes two arrows meet: if $f(8)=k\ge1$
+then $f(k-1)=k=f(8)$ and $k-1\ne8$.
+\end{example}
+
+\argued{sec:room}
+
+\begin{proposition}[How long a finite machine can hold off]\label{spec:hold-off} \kind{shown}
+Let $f:S\to S$, $\rd$ a two-point reading that never goes back under $f$, $Y$ finite with $|Y|=K$,
+$x_0\notin Y$ and $x_1\in Y$. Then two arrows meet on the run within $K$. The bound is exact: for every
+$K\ge1$, the machine $S=\{u,h_1,\dots,h_K\}$ with $f(u)=h_1$, $f(h_j)=h_{j+1}$ for $j<K$, $f(h_K)=h_K$,
+$Y=\{h_1,\dots,h_K\}$, run from $u$, has no two arrows meeting within $K-1$, and two arrows meeting
+within $K$.
+\end{proposition}
+
+\begin{proof}
+If two arrows do not meet within $K$, Proposition~\ref{spec:run-fresh} makes $x_1,\dots,x_{K+1}$
+pairwise distinct, and all lie in $Y$ because the reading never goes back: $K+1$ states in a set of
+$K$. In the example, $x_0,\dots,x_{K-1}$ are $u,h_1,\dots,h_{K-1}$, with the distinct images
+$h_1,\dots,h_K$, and $f(h_{K-1})=f(h_K)$ (for $K=1$, $f(u)=f(h_1)$).
+\end{proof}
+
+\argued{sec:room}
+
+\begin{remark}
+Whether a move is one-to-one is a fact about the move on a stated set of states. Every merge in this
+document is counted on the whole state set the machine is given, and on nothing outside it.
+\end{remark}
+
+%=============================================================================
+\section{Why charge for it}\label{spec:ch03}
+
+The notation of Section~\ref{spec:ch02} is kept: $Y=\rd\inv(\mathrm{yes})$ and $\step_i=\step(\cdot,i)$.
+
+\begin{definition}[Bennett's rule]\label{spec:bennett} \kind{chosen}
+A price list $\cost:I\to\N$ \emph{follows Bennett's rule} on $(S,I,\step)$ when every move at which two
+arrows meet costs at least one:
+\[
+\forall i\in I:\quad \step_i \text{ not one-to-one}\ \Longrightarrow\ \cost(i)\ge1 .
+\]
+The rule is Bennett's: what has to cost is the merging of two computation paths.
+\end{definition}
+
+\argued{sec:why-charge}
+
+\begin{theorem}[The toll follows]\label{spec:toll-follows} \kind{shown}
+Let $(S,I,\step)$ carry a two-point reading $\rd$ with $Y$ finite, satisfying clause (i) of
+Definition~\ref{def:thiele} (done stays done), and let $\cost$ follow Bennett's rule. Then $\cost$ obeys
+the toll for $\rd$.
+\end{theorem}
+
+\begin{proof}
+If $\rd(s)=\mathrm{no}$ and $\rd(\step(s,i))=\mathrm{yes}$, Proposition~\ref{spec:chairs} applies, since
+every move keeps done states done. So two arrows meet at $i$, and Bennett's rule gives $\cost(i)\ge1$.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{proposition}[Merge or take back]\label{spec:merge-or-revoke} \kind{shown}
+Let $(S,I,\step)$ carry a two-point reading $\rd$ with $Y$ finite. No condition that done stays done is
+assumed. If $\rd(s)=\mathrm{no}$ and $\rd(\step(s,i))=\mathrm{yes}$, then two arrows meet at $i$, or there
+is $t\in Y$ with $\step(t,i)\notin Y$.
+\end{proposition}
+
+\begin{proof}
+If no such $t$ exists, $i$ keeps done states done, and Proposition~\ref{spec:chairs} applies.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{example}[Charged is not the same as kept]\label{spec:three-cards}
+$S=\{T_0,T_1,T_2\}$, $Y=\{T_1\}$, one move $f$ with $f(T_0)=T_1$, $f(T_1)=T_2$, $f(T_2)=T_1$. The move
+settles at $T_0$, takes back at $T_1$, and makes two arrows meet ($f(T_0)=f(T_2)$). Bennett's rule
+charges it, and it keeps nothing. The implication of Theorem~\ref{spec:toll-follows} has no converse.
+\end{example}
+
+\argued{sec:why-charge}
+
+\begin{proposition}[The moves Bennett's rule forces are the merges]\label{spec:forced} \kind{shown}
+Let $(S,I,\step)$ be any machine, finite or not, and $i\in I$. Then $\cost(i)\ge1$ for every price list
+$\cost$ that follows Bennett's rule if and only if two arrows meet at $i$.
+\end{proposition}
+
+\begin{proof}
+If two arrows meet at $i$, the rule itself charges $i$. If $\step_i$ is one-to-one, the price list with
+$\cost(i)=0$ and $\cost(j)=1$ for $j\ne i$ follows the rule and does not charge $i$.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{corollary}\label{spec:forced-kept} \kind{shown}
+Under the hypotheses of Theorem~\ref{spec:toll-follows}, every move that settles more somewhere is
+charged by every price list that follows Bennett's rule.
+\end{corollary}
+
+\argued{sec:why-charge}
+
+\begin{proposition}[Three doors]\label{spec:three-doors} \kind{shown}
+Each of the three conditions of Theorem~\ref{spec:toll-follows} (finitely many done states, done stays
+done, Bennett's rule) can fail while the other two hold and some move settles more, and then the toll
+can fail.
+\begin{enumerate}[label=(\alph*)]
+\item The strip: $S=\N$, one move $n\mapsto n+1$, $\rd(n)=\mathrm{yes}$ if and only if $n\ge1$,
+$\cost=0$. Done stays done, Bennett's rule holds (the move is one-to-one), the step from $0$ settles,
+the toll fails, and $Y$ is infinite.
+\item The coin: $S=\{\mathrm{tails},\mathrm{heads}\}$, one move that swaps them,
+$\rd(\mathrm{heads})=\mathrm{yes}$, $\cost=0$. $Y$ is finite, Bennett's rule holds, the step from tails
+settles, the toll fails, and done does not stay done.
+\item The stamp at zero: $S=\{\mathrm{blank},\mathrm{stamped}\}$, one move sending both to
+$\mathrm{stamped}$, $\rd(\mathrm{stamped})=\mathrm{yes}$, $\cost=0$. $Y$ is finite, done stays done, the
+step from blank settles, the toll fails, and Bennett's rule fails.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $n+1=n'+1$ gives $n=n'$; a state $n\ge1$ goes to $n+1\ge1$; the step from $0$ settles at price $0$;
+$Y=\{1,2,\dots\}$. (b) The swap is a bijection; it sends heads to tails. (c) Both states land on
+$\mathrm{stamped}$; the step from blank settles at price $0$.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{definition}[The halving rule]\label{spec:halving} \kind{chosen}
+For a move $i$ and $y\in S$, the \emph{pile} of $i$ at $y$ is $\step_i\inv(y)$. A price list $\cost$
+\emph{follows the halving rule} when each unit of cost pays for at most one halving:
+\[
+\forall i\in I,\ \forall D\subseteq S \text{ finite}:\quad |D|\le 2^{\cost(i)}\,|\step_i(D)| .
+\]
+\end{definition}
+
+\argued{sec:why-charge}
+
+\begin{lemma}[The worst pile-up]\label{spec:worst-pile} \kind{shown}
+$\cost$ follows the halving rule if and only if, for every move $i$, every pile of $i$ has at most
+$2^{\cost(i)}$ states. In particular a price list that follows the halving rule follows Bennett's rule,
+and a move with a pile of three states costs at least two.
+\end{lemma}
+
+\begin{proof}
+If every pile has at most $2^{\cost(i)}$ states, $D$ is covered by its $|\step_i(D)|$ piles, so
+$|D|\le2^{\cost(i)}|\step_i(D)|$. Conversely, a finite subset $D$ of one pile has $|\step_i(D)|=1$, so
+$|D|\le2^{\cost(i)}$; hence the pile is finite with at most $2^{\cost(i)}$ states. A pile of two forces
+$\cost(i)\ge1$; a pile of three forces $2^{\cost(i)}\ge3$.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{proposition}[What a squeeze costs]\label{spec:squeeze} \kind{shown}
+Let $\rd$ be a two-point reading with $Y$ finite, $|Y|=m$, and $i$ a move that keeps done states done.
+Let $F$ be a set of $k\ge1$ states outside $Y$ with $\step_i(F)\subseteq Y$, and let $\cost$ follow the
+halving rule. Then
+\[
+m+k\le 2^{\cost(i)}\,m,\qquad\text{that is,}\qquad \cost(i)\ge\log_2\frac{m+k}{m},
+\]
+and some state of $Y$ is the image of at least $\lceil (m+k)/m\rceil$ states of $F\cup Y$. For $k=1$ this gives
+$\cost(i)\ge1$. The bound is attained: on $S=\{A,B,C,\mathrm{DONE}\}$ with $Y=\{\mathrm{DONE}\}$ and one
+move sending every state to $\mathrm{DONE}$, $m=1$, $k=3$, every price list following the halving rule
+has $\cost\ge2$, and $\cost=2$ follows it.
+\end{proposition}
+
+\begin{proof}
+$m\ge1$ since $\step_i(F)\subseteq Y$ and $F\neq\emptyset$. The $m+k$ states of $F\cup Y$ land in $Y$, so
+$|\step_i(F\cup Y)|\le m$, and the halving rule gives $m+k\le2^{\cost(i)}m$. The $m+k$ states are spread
+over at most $m$ piles, so one pile has at least $(m+k)/m$ of them. In the example the single pile has
+four states, and Lemma~\ref{spec:worst-pile} gives exactly $\cost\ge2$.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{proposition}[Counting a whole run]\label{spec:run-count} \kind{shown}
+Let $D_0\subseteq S$ be finite, $i_1,\dots,i_n$ moves, and $D_t=\step_{i_t}(D_{t-1})$. Then
+\[
+|D_0|=\sum_{t=1}^{n}\bigl(|D_{t-1}|-|D_t|\bigr)+|D_n|,
+\]
+each term of the sum is at least $0$, and if $|D_n|<|D_0|$ then some $\step_{i_t}$ is not one-to-one on
+$D_{t-1}$: two arrows meet at $i_t$.
+\end{proposition}
+
+\begin{proof}
+The sum telescopes. $|D_t|\le|D_{t-1}|$ because $D_t$ is an image of $D_{t-1}$. If every $\step_{i_t}$ is
+one-to-one on $D_{t-1}$, every term is $0$ and $|D_n|=|D_0|$.
+\end{proof}
+
+\argued{sec:why-charge}
+
+\begin{remark}
+Three claims about the world sit beside these results and none of them is used here: Landauer's
+principle (stated in its own chapter as an assumption), that a real device tells apart only finitely
+many states in a bounded space, and that a machine starts clean. Which reading counts as settling, and
+what the price list charges, are chosen.
+\end{remark}
+
+%=============================================================================
+\section{The smallest one}\label{spec:ch04}
+
+\begin{definition}[The latch]\label{spec:latch} \kind{chosen}
+The \emph{latch} is the machine with $S=\Bool$, one move $\mathrm{stamp}$ with
+$\step(s,\mathrm{stamp})=\mathrm{yes}$ for both $s$, the reading $\rd(s)=s$, the price
+$\cost(\mathrm{stamp})=1$, and $S_0=\{\mathrm{no}\}$.
+\end{definition}
+
+\argued{sec:smallest}
+
+\begin{proposition}[The smallest Thiele machine]\label{spec:smallest} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item The latch is a Thiele machine, and two arrows meet at its move.
+\item Every Thiele machine has states $s,t$ with $\rd(t)\not\le\rd(s)$; so it has at least two states,
+and its reading is not constant.
+\item Let a Thiele machine have exactly two states. Let $s$ be a start from which some run settles more
+(clause (ii)) and $t$ the other state. Then $\rd(s)\le\rd(t)$, $\rd(t)\not\le\rd(s)$, and some move $i$
+has $\step(s,i)=\step(t,i)=t$. On the two-point reading $t$ is the yes state, and the move $i$ with its
+price is the latch.
+\item The toggle, two states and one move that swaps them, is not a Thiele machine for any reading, any
+price list, and any starts.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Clause (i): $\rd(\step(s,\mathrm{stamp}))=\mathrm{yes}$. Clause (ii): one stamp from $\mathrm{no}$.
+Clause (iii): $\cost=1$. Both states step to $\mathrm{yes}$. (b) Clause (ii) gives $s_0$ and $\tau$ with
+$\rd(\run(\tau,s_0))\not\le\rd(s_0)$; take $s=s_0$, $t=\run(\tau,s_0)$; $s\ne t$ by reflexivity.
+(c) The run from $s$ given by clause (ii) ends at a state whose reading is not at or below $\rd(s)$, so
+it ends at $t$, and $\rd(t)\not\le\rd(s)$. Some step of it goes from $s$ to $t$; call its move $i$.
+Clause (i) gives $\rd(s)\le\rd(t)$ and
+$\rd(t)\le\rd(\step(t,i))$; if $\step(t,i)=s$ then $\rd(t)\le\rd(s)$, a contradiction; so
+$\step(t,i)=t$. (d) For the states $a,b$ of the toggle, clause (i) at $a$ and at $b$ gives
+$\rd(a)\le\rd(b)$ and $\rd(b)\le\rd(a)$. Then every state's reading is at or below every other's, no run
+settles more, and clause (ii) fails.
+\end{proof}
+
+\argued{sec:smallest}
+
+\begin{proposition}[Any machine can wear a coin]\label{spec:coin-lift} \kind{shown}
+Let $(S,I,\step)$ be any machine and $x\in S$ a state that some move lands on: $\step(s_1,i_1)=x$ for
+some $s_1\in S$, $i_1\in I$. The \emph{lift at $x$} has states $S\times\Bool$, the same moves, the step
+\[
+\step'\bigl((s,b),i\bigr)=\bigl(\step(s,i),\ b\vee[\step(s,i)=x]\bigr),
+\]
+where $\mathrm{no}<\mathrm{yes}$, $\vee$ is the larger of the two, and $[\step(s,i)=x]$ is $\mathrm{yes}$
+exactly when $\step(s,i)=x$; the reading $\rd'(s,b)=b$; the price $\cost'(i)=1$ for every move; and the
+starts $S\times\{\mathrm{no}\}$. Let $\pi(s,b)=s$.
+\begin{enumerate}[label=(\alph*)]
+\item The lift is a Thiele machine.
+\item Covering the coin gives back the machine: $\pi(\run'(\tau,p))=\run(\tau,\pi(p))$ for every lifted
+state $p$ and every list $\tau$.
+\item The coin is not a function of what $\pi$ shows: $(x,\mathrm{no})$ is a start, $(x,\mathrm{yes})$ is
+reached from the start $(s_1,\mathrm{no})$, both have the picture $x$, and their readings differ. So no
+$g:S\to\Bool$ has $g(\pi(p))=\rd'(p)$ for every lifted state $p$ reached from a start.
+\end{enumerate}
+In particular, every machine with at least one state and one move is what is left of a Thiele machine
+once the coin is covered and the price list dropped. For $S=\{\ast\}$ and one move $\ast\mapsto\ast$, the
+lift is the latch.
+\end{proposition}
+
+\begin{proof}
+(a) $b\le b\vee[\cdot]$ gives clause (i). From $(s_1,\mathrm{no})$ the move $i_1$ lands on
+$(x,\mathrm{yes})$, which gives clause (ii). Every price is $1$, so clause (iii) holds. (b) The first
+coordinate of $\step'$ is $\step$; induction on $\tau$. (c) Direct from (a) and the definitions. For the
+one-state machine, the states are $(\ast,\mathrm{no})$ and $(\ast,\mathrm{yes})$, and the one move sends
+both to $(\ast,\mathrm{yes})$ at price $1$.
+\end{proof}
+
+\argued{sec:smallest}
+\argued{sec:what}
+\argued{sec:shown-chosen}
+
+\begin{remark}
+A Turing machine read through whether it has stopped needs no extra coin: by
+Proposition~\ref{spec:stopped-reading} it is a Thiele machine once a price is put on its move.
+\end{remark}
+
+\begin{proposition}[Which question gets charged]\label{spec:which-question} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item Let $i$ be a move and $s$ a state with $\step(s,i)\ne s$. For the two-point reading
+$q(t)=\mathrm{yes}$ if and only if $t=\step(s,i)$, every price list that obeys the toll for $q$ has
+$\cost(i)\ge1$. So a price list that obeys the toll for every two-point reading on $S$ charges at least
+one for every move that moves some state.
+\item In a Thiele machine, a move $i$ with $\cost(i)=0$ satisfies $\rd(\step(s,i))\le\rd(s)$ and
+$\rd(s)\le\rd(\step(s,i))$ for every $s$. On the two-point reading, $\rd(\step(s,i))=\rd(s)$: a free
+move leaves the reading where it was.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $q(s)=\mathrm{no}$ and $q(\step(s,i))=\mathrm{yes}$, so the toll applies. (b) The first inequality
+is the contrapositive of the toll, the second is clause (i).
+\end{proof}
+
+\argued{sec:smallest}
+
+\begin{proposition}[The cheapest price list]\label{spec:cheapest} \kind{shown}
+Let $(S,I,\step)$ carry a reading $\rd$. Let $\cost^*(i)=1$ if $\rd(\step(s,i))\not\le\rd(s)$ for some
+$s$, and $\cost^*(i)=0$ otherwise. Then $\cost^*$ obeys the toll, and $\cost^*\le\cost$ pointwise for
+every $\cost$ that obeys the toll; so $\cost^*$ is the unique least price list obeying the toll. For
+every $\cost$ that obeys the toll, the price of every run is at least the number of its steps that
+settle more. On a two-point reading that never goes back, a run has at most one such step.
+\end{proposition}
+
+\begin{proof}
+The first two claims are the definition of the toll read move by move. Each step that settles more
+costs at least $1$ and prices are in $\N$, so the sum is at least the count. On a two-point reading that
+never goes back, a step from $\mathrm{no}$ to $\mathrm{yes}$ is followed only by $\mathrm{yes}$ states.
+\end{proof}
+
+\argued{sec:smallest}
+
+\begin{remark}
+The toll is a floor on the price of a move, not a bill for what a step changes: under $\cost^*$ the
+stamp costs one even when applied to $\mathrm{yes}$.
+\end{remark}
+
+%=============================================================================
+\section{More settled}\label{spec:ch05}
+
+Let $(R,\le)$ be a preorder. A \emph{cup} on $R$ is a map $u:R\to\Bool$ with $x\le y\Rightarrow
+u(x)\le u(y)$: once up, climbing never turns it down. The \emph{cup at} $a\in R$ is
+$u_a(x)=\mathrm{yes}$ if and only if $a\le x$. A \emph{row} of $k$ cups $u_1,\dots,u_k$ sends $x$ to its
+\emph{arrangement} $(u_1(x),\dots,u_k(x))\in\Bool^k$, ordered coordinatewise. The row \emph{tells places
+apart} when the arrangement is one-to-one, and \emph{shows the order} when $x\le y$ holds exactly when the
+arrangement of $x$ is at or below that of $y$. For a reading $\rd:S\to R$, the cup at $a$ read on the
+machine is the two-point reading $u_a\circ\rd$.
+
+\begin{lemma}\label{spec:cup-latch} \kind{shown}
+Each $u_a$ is a cup. If $\rd$ satisfies clause (i) of Definition~\ref{def:thiele}, each $u_a\circ\rd$
+does too: each cup, read on the machine, is a two-point reading that never goes back.
+\end{lemma}
+
+\begin{proof}
+Transitivity of $\le$.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{proposition}[A row of cups on a straight line]\label{spec:row-cups} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item If $v_0\le v_1\le\dots\le v_n$ in $\Bool^k$ are pairwise distinct, then $n\le k$.
+\item For each $k$, the arrangements $c_j$ with the first $j$ cups up, $j=0,\dots,k$, are $k+1$ pairwise
+distinct, increasing arrangements, and the row of $k$ cups $u_j=u_{x_j}$, $j=1,\dots,k$, on the chain
+$x_0<x_1<\dots<x_k$ sends $x_j$ to $c_j$ and shows the order.
+\item So a chain of $n$ stages can be told apart by a row of $k$ cups if and only if $k\ge n-1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Each $v_{t+1}\ne v_t$ with $v_t\le v_{t+1}$ has at least one more coordinate up, and there are
+$k$ coordinates. (b) $x_j\ge x_l$ exactly when $j\ge l$. (c) The stages form a chain, so their
+arrangements under any row of cups are increasing; if they are pairwise distinct, (a) gives
+$n-1\le k$. (b) gives the converse.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{proposition}[Cups fix the place exactly when the order is partial]\label{spec:antisym}
+\kind{shown}
+For $x,y$ in a preorder, $u_a(x)=u_a(y)$ for every $a$ if and only if $x\le y$ and $y\le x$. So the cups
+at the points of $R$ tell places apart if and only if $\le$ is antisymmetric. Without antisymmetry: let
+$R=\{\ell,\rho\}$ with $\ell\le\rho$, $\rho\le\ell$, $\ell\ne\rho$, $S=R$, $\rd(s)=s$, and one move
+swapping $\ell$ and $\rho$. The reading never goes back, no cup ever changes, every price list obeys
+the toll, and clause (ii) fails, so this is not a Thiele machine.
+\end{proposition}
+
+\begin{proof}
+If all cups agree, $u_x(x)=\mathrm{yes}$ gives $u_x(y)=\mathrm{yes}$, that is $x\le y$, and symmetrically.
+Conversely $x\le y\le x$ and transitivity make every cup agree. In the example every pair of places is
+related both ways, so no step settles more.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{proposition}[When a step turns up a cup]\label{spec:turns-up} \kind{shown}
+For a reading $\rd:S\to R$, a state $s$ and a move $i$, some cup $u_a\circ\rd$ goes from $\mathrm{no}$
+at $s$ to $\mathrm{yes}$ at $\step(s,i)$ if and only if $\rd(\step(s,i))\not\le\rd(s)$; the cup at
+$a=\rd(\step(s,i))$ is one such cup. Clause (i) is not used.
+\end{proposition}
+
+\begin{proof}
+If $a\le\rd(\step(s,i))$ and $a\not\le\rd(s)$, then $\rd(\step(s,i))\le\rd(s)$ would give $a\le\rd(s)$ by
+transitivity. Conversely the cup at $\rd(\step(s,i))$ is up at $\step(s,i)$ by reflexivity and down at $s$
+by hypothesis.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{theorem}[The toll on the whole reading is the toll on each cup]\label{spec:toll-cups}
+\kind{shown}
+For any machine $(S,I,\step)$, reading $\rd:S\to R$ into a preorder, and price list $\cost$:
+\begin{enumerate}[label=(\alph*)]
+\item $\cost$ obeys the toll for $\rd$ if and only if, for every $a\in R$, $\cost$ obeys the toll for the
+two-point reading $u_a\circ\rd$.
+\item If $\cost$ obeys the toll, the price of every run is at least the number of its steps that turn up
+some cup; in particular a run at whose end some cup is up that was down at its start costs at least
+one.
+\end{enumerate}
+Neither part uses clause (i), the shape of $R$, or the number of cups.
+\end{theorem}
+
+\begin{proof}
+(a) By Proposition~\ref{spec:turns-up}, a step turns up some cup exactly when it settles more for
+$\rd$, and a step turns up the cup at $a$ exactly when it settles more for $u_a\circ\rd$. (b) Each such
+step settles more, so it costs at least one (Proposition~\ref{spec:cheapest}). If the cup at $a$ is down
+at the start of a run and up at its end, some step of the run turns it up.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{proposition}[One cup is not enough]\label{spec:one-cup} \kind{shown}
+Let $R$ be the chain $b<m<t$.
+\begin{enumerate}[label=(\alph*)]
+\item No single cup tells the three places apart.
+\item Let the record step by $g(b)=t$, $g(m)=m$, $g(t)=t$. No fixed $e\in R$ satisfies
+$g(x)=\sup\{x,e\}$ for all $x$: the rule ``new place is the least place at or above the old place and
+a fixed event's place'' does not carry this record.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Three places, two values. (b) $\sup\{b,e\}=e$, so $g(b)=t$ forces $e=t$, and then
+$\sup\{m,t\}=t\ne m=g(m)$.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{proposition}[How many cups a direction needs]\label{spec:how-many-cups} \kind{shown}
+Let $(R,\le)$ be a finite partial order.
+\begin{enumerate}[label=(\alph*)]
+\item A row of $k$ cups that tells places apart has $k\ge h$, where $h$ is the number of steps
+$x_0<x_1<\dots<x_h$ of a longest chain, and $2^k\ge|R|$. The cups at all points of $R$ show the order.
+\item The fan: $R=\{\bot,p_1,p_2,p_3\}$ with $\bot<p_j$ and the $p_j$ pairwise incomparable. Two cups tell
+places apart (the cups with up-sets $\{p_1,p_3\}$ and $\{p_2,p_3\}$), and no single cup does. A row that
+shows the order needs three cups, and the cups at $p_1,p_2,p_3$ do it.
+\item The crown: $R=\{a_1,a_2,b_1,b_2\}$ with $a_i<b_j$ for all $i,j$ and no other strict relations.
+Telling places apart needs three cups, and the cups with up-sets $\{a_1,b_1,b_2\}$, $\{a_2,b_1,b_2\}$,
+$\{b_2\}$ do it. Showing the order needs four, and the cups at the four points do it.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) A chain's arrangements are increasing and pairwise distinct, so Proposition~\ref{spec:row-cups}(a)
+gives $h\le k$; the arrangement is one-to-one into a set of $2^k$. For the cups at all points,
+$u_a(x)\le u_a(y)$ for every $a$ means that every $a\le x$ has $a\le y$, which by reflexivity and
+transitivity holds exactly when $x\le y$. (b) The arrangements are $00,10,01,11$, and each
+up-set is closed upward. Showing the order maps $p_1,p_2,p_3$ to three pairwise incomparable elements of
+$\Bool^k$; $\Bool^2$ has no three. (c) With two cups the four arrangements are all of $\Bool^2$. Nothing
+but $00$ lies at or below $00$, while each $b_j$ lies above two other places, so $00$ belongs to some
+$a_i$. Likewise $11$ belongs to some $b_j$. The other $a$ and the other $b$ take the two middle arrangements, which are incomparable, while
+$a<b$ requires the other $b$ to lie above the other $a$. The three given cups give the distinct
+arrangements $100,010,110,111$, and each up-set is closed upward. To show the order with three cups,
+$a_1,a_2$ must go to incomparable arrangements, so their least upper bound in $\Bool^3$ has at least two
+coordinates up, and $b_1,b_2$ must be incomparable arrangements above it. Above an arrangement with at
+least two coordinates up, the arrangements form a chain, a contradiction.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{theorem}[The toll on any direction follows from the chairs]\label{spec:toll-direction}
+\kind{shown}
+Let $(S,I,\step)$ carry a reading $\rd:S\to R$ into a preorder, and let $s$, $i$ satisfy
+$\rd(\step(s,i))\not\le\rd(s)$. Let $a=\rd(\step(s,i))$, and suppose the set
+$Y_a=\{t\in S: a\le\rd(t)\}$ of states with the cup at $a$ up is finite. Then two arrows meet at $i$, or
+some $t\in Y_a$ has $\step(t,i)\notin Y_a$. If moreover $\rd$ satisfies clause (i), two arrows meet at
+$i$. Hence, if clause (i) holds, every $Y_a$ is finite, and $\cost$ follows Bennett's rule, then $\cost$
+obeys the toll for $\rd$.
+\end{theorem}
+
+\begin{proof}
+The cup at $a$ is a two-point reading with done set $Y_a$, down at $s$ and up at $\step(s,i)$
+(Proposition~\ref{spec:turns-up}). Proposition~\ref{spec:merge-or-revoke} applies to it. Under clause (i)
+the cup never goes back (Lemma~\ref{spec:cup-latch}), so no $t\in Y_a$ leaves $Y_a$, and two arrows meet.
+Bennett's rule then charges $i$.
+\end{proof}
+
+\argued{sec:more-settled}
+
+\begin{remark}
+The three doors of Proposition~\ref{spec:three-doors} stay open on any direction: on $S=R=\N$ with its
+usual order, $\rd(n)=n$ and the free move $n\mapsto n+1$, nothing meets and every step turns up a new cup,
+with every $Y_a$ infinite; the coin and the stamp at zero are already two-point readings. No extra
+condition is needed for places that are not comparable: every cup has its own set of chairs.
+\end{remark}
+% SPDX-FileCopyrightText: 2025-2026 Devon Thiele
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Part B of the exact statements: chapters 6 to 11 of the book.
+
+%=============================================================================
+\section{Looking isn't keeping}\label{spec:ch06}
+
+For a move $i$ and a set $D\subseteq S$, write $\step(D,i)=\{\step(s,i): s\in D\}$, and for a list of moves
+$\tau$, $\run(\tau,D)=\{\run(\tau,s): s\in D\}$. The \emph{pile} of $i$ over $y\in S$ is
+$\{s\in S:\step(s,i)=y\}$. For a price list $\cost:I\to\N$ and $\tau=i_1\cdots i_n$,
+$\cost(\tau)=\sum_{k}\cost(i_k)$. The two rules on price lists used below are Bennett's rule (Definition~\ref{spec:bennett}) and the halving rule (Definition~\ref{spec:halving}).
+
+\begin{proposition}[The demon on four states]\label{spec:demon} \kind{shown}
+Let $S=\{0,1\}^2$, a state written $(x,d)$ with $x$ the hidden bit and $d$ the display. Let
+$\mathrm{MEASURE}(x,d)=(x,d\oplus x)$ and $\mathrm{WIPE}(x,d)=(x,0)$, where $\oplus$ is addition mod $2$, and
+let the window be $\pi(x,d)=d$.
+\begin{enumerate}[label=(\alph*)]
+\item $\mathrm{MEASURE}$ is one-to-one, $\mathrm{MEASURE}\circ\mathrm{MEASURE}$ is the identity, and on a blank
+display it copies the hidden bit: $\mathrm{MEASURE}(x,0)=(x,x)$.
+\item Two arrows meet at $\mathrm{WIPE}$: $\mathrm{WIPE}(x,0)=\mathrm{WIPE}(x,1)$ for each $x$. Every price list
+obeying Bennett's rule has $\cost(\mathrm{WIPE})\ge 1$.
+\item The price list $\cost(\mathrm{MEASURE})=0$, $\cost(\mathrm{WIPE})=1$ obeys the halving rule.
+\item Under that price list, one $\mathrm{MEASURE}$ from either start in $\{(0,0),(1,0)\}$ costs $0$. A
+watcher who sees $\pi$ at every state of the run and knows only that the start lies in $\{(0,0),(1,0)\}$
+sees display $0$ afterwards from $(0,0)$ and display $1$ from $(1,0)$, so after the run exactly one
+candidate start remains. The set of states the machine can be in after the run,
+$\mathrm{MEASURE}(\{(0,0),(1,0)\})=\{(0,0),(1,1)\}$, still has two elements.
+\item On the two states $(0,0),(1,1)$ reached in (d), $\mathrm{WIPE}$ is one-to-one; its images are $(0,0)$
+and $(1,0)$.
+\end{enumerate}
+So a price list that obeys the halving rule can price at zero a step that narrows a watcher's candidates;
+the move every such price list must charge is the wipe. A blank display returned to blank by a second
+$\mathrm{MEASURE}$ is the borrowed page handed back.
+\end{proposition}
+\begin{proof}
+(a) $\mathrm{MEASURE}$ sends $00\mapsto00$, $01\mapsto01$, $10\mapsto11$, $11\mapsto10$, a permutation, and
+$d\oplus x\oplus x=d$. (b) is read off the definition. (c) Every pile of $\mathrm{MEASURE}$ has one state and
+every pile of $\mathrm{WIPE}$ has at most two. (d) and (e) are read off the table.
+\end{proof}
+\argued{sec:looking}
+
+\begin{proposition}[The machine's own row]\label{spec:row-shrinks} \kind{shown}
+If $\cost$ obeys the halving rule, then for every finite $D\subseteq S$ and every list of moves $\tau$,
+\[
+|D|\ \le\ 2^{\cost(\tau)}\,|\run(\tau,D)|.
+\]
+\end{proposition}
+\begin{proof}
+By induction on $\tau$. For the empty list both sides are $|D|$. For $\tau=i\tau'$,
+$|D|\le 2^{\cost(i)}|\step(D,i)|\le 2^{\cost(i)}2^{\cost(\tau')}|\run(\tau',\step(D,i))|
+=2^{\cost(\tau)}|\run(\tau,D)|$.
+\end{proof}
+\argued{sec:looking}
+
+\begin{remark}\label{spec:watcher-not-bound}
+No bound of this form holds for a watcher's set of candidate starts: in Proposition~\ref{spec:demon}(d) a
+run of cost $0$ takes it from two elements to one, while the machine's set stays at two.
+\end{remark}
+
+\begin{proposition}[Learning after the first look]\label{spec:ring} \kind{shown}
+Let $f:S\to S$ and $\pi:S\to B$. Say $f$ \emph{separates after the first look} when there are $s\ne s'$
+with $\pi(s)=\pi(s')$ and some $n\ge 1$ with $\pi(f^n(s))\ne\pi(f^n(s'))$.
+\begin{enumerate}[label=(\alph*)]
+\item If $|S|\le 2$, no $f$ and no $\pi$ separate after the first look.
+\item On $S=\{U,V,W\}$ with $f(U)=V$, $f(V)=W$, $f(W)=U$ and $\pi(s)=\mathrm{yes}$ exactly when $s=W$, $f$
+separates after the first look, with $s=U$, $s'=V$, $n=1$. This $f$ is one-to-one, so the price list
+$\cost=0$ obeys the halving rule for it.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) If $s\ne s'$ and $|S|\le 2$, then $S=\{s,s'\}$, and $\pi(s)=\pi(s')$ makes $\pi$ constant on $S$, so
+$\pi(f^n(s))=\pi(f^n(s'))$ for every $n$. (b) $\pi(U)=\pi(V)=\mathrm{no}$, $\pi(f(U))=\pi(V)=\mathrm{no}$,
+$\pi(f(V))=\pi(W)=\mathrm{yes}$.
+\end{proof}
+\argued{sec:looking}
+
+\begin{proposition}[Finishing together]\label{spec:finish-together} \kind{shown}
+Let $f:S\to S$, let $H\subseteq S$ be the finished states, let $A\subseteq S$ be a set of $N$ starts and
+$T\in\N$. Suppose that for every $a\in A$, $f^t(a)\notin H$ for $t<T$ and $f^T(a)\in H$, and that for every
+$t<T$ and all $a,a'\in A$, $f^t(a)\ne f^t(a')$ implies $f^{t+1}(a)\ne f^{t+1}(a')$. Then the $N(T+1)$ states
+$f^t(a)$, $a\in A$, $0\le t\le T$, are pairwise distinct. In particular $|S|\ge N(T+1)$.
+\end{proposition}
+\begin{proof}
+Same column: for $a\ne a'$, $f^0(a)\ne f^0(a')$, and the hypothesis carries this up to $t=T$. Different
+columns: if $f^t(a)=f^{t'}(a')$ with $t<t'$, apply $f^{T-t'}$ to both sides: $f^{t+T-t'}(a)=f^T(a')\in H$
+with $t+T-t'<T$, which contradicts the first hypothesis for $a$.
+\end{proof}
+\argued{sec:looking}
+
+For a random variable $X$ with finitely many values, $\mathrm{H}(X)=-\sum_x \Pr[X=x]\log_2\Pr[X=x]$;
+$\mathrm{H}(X\mid Y)=\sum_y\Pr[Y=y]\,\mathrm{H}(X\mid Y=y)$; and $\mathrm{I}(X;Y)=\mathrm{H}(X)-\mathrm{H}(X\mid Y)$.
+
+\begin{proposition}[The certainty count]\label{spec:certainty} \kind{shown}
+Let $S$ be finite, let the start $X$ be a random state of $S$ with any distribution, let $\tau$ be a list of
+moves and $E=\run(\tau,X)$ the end state. Let $W=w(X)$ for a function $w$: what a watcher sees along the
+run, which depends only on the start.
+\begin{enumerate}[label=(\alph*)]
+\item $\mathrm{H}(X)=\mathrm{H}(X\mid E)+\mathrm{H}(E)$: what was not known about the start is split into the
+part the run destroyed and the part the end state holds.
+\item If $\cost$ obeys the halving rule, $\mathrm{H}(X\mid E)\le\cost(\tau)$.
+\item $\mathrm{I}(W;X)\le\mathrm{I}(W;E)+\mathrm{H}(X\mid E)$. Under the halving rule, a run with
+$\cost(\tau)=0$ has $\mathrm{I}(W;X)=\mathrm{I}(W;E)$: everything the watcher learned about the start is
+still held in the end state.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) $E$ is a function of $X$, so $\mathrm{H}(X)=\mathrm{H}(X,E)=\mathrm{H}(E)+\mathrm{H}(X\mid E)$.
+(b) Given $E=e$, $X$ lies in the pile of the run over $e$. By the halving rule each pile of a move $i$ has at
+most $2^{\cost(i)}$ states, so the pile of the run has at most $\prod_k 2^{\cost(i_k)}=2^{\cost(\tau)}$
+states, and the entropy of a distribution on a set of size $m$ is at most $\log_2 m$.
+(c) Since $E$ is a function of $X$, $\mathrm{I}(W;X)=\mathrm{I}(W;X,E)=\mathrm{I}(W;E)+\mathrm{I}(W;X\mid E)$ and
+$\mathrm{I}(W;X\mid E)\le\mathrm{H}(X\mid E)$. With $\cost(\tau)=0$, (b) gives $\mathrm{H}(X\mid E)=0$, so
+$\mathrm{I}(W;X)\le\mathrm{I}(W;E)$; the reverse inequality holds because $E$ is a function of $X$.
+\end{proof}
+\argued{sec:looking}
+
+\begin{remark}\label{spec:looking-scope}
+None of this sets a quantity of heat. The halving rule is a lower bound on prices: a price list may also
+charge $\mathrm{MEASURE}$, and which step a real device pays at is not settled here. The watcher's own
+notes need a blank page of their own. If the start is known for certain, $\mathrm{H}(X)=0$ and
+Proposition~\ref{spec:certainty} gives no floor.
+\end{remark}
+
+%=============================================================================
+\section{Looking through a window}\label{spec:ch07}
+
+Fix a window $\pi:S\to B$. A \emph{question} is a function $q:S\to A$. A \emph{reader} for $q$ through $\pi$
+is a function $g:B\to A$ with $g(\pi(s))=q(s)$ for every $s\in S$.
+
+\begin{proposition}[A reader exists exactly when the question is constant on piles]\label{spec:reader}
+\kind{shown}
+A reader for $q$ through $\pi$ exists if and only if $q(s)=q(s')$ whenever $\pi(s)=\pi(s')$.
+\end{proposition}
+\begin{proof}
+If $g$ is a reader and $\pi(s)=\pi(s')$, then $q(s)=g(\pi(s))=g(\pi(s'))=q(s')$. Conversely, for $b$ in the
+image of $\pi$ let $g(b)=q(s)$ for any $s$ with $\pi(s)=b$, which does not depend on the choice; let $g$ be
+arbitrary off the image.
+\end{proof}
+\argued{sec:window}
+
+\begin{remark}
+The reader exists; nothing is claimed about computing it. Evaluating $g(b)$ may need a state behind $b$,
+and finding one may be hard or impossible to carry out.
+\end{remark}
+
+\begin{example}[Four readers]\label{spec:four-readers} \kind{shown}
+Let a state be a pair (position, flag) with position in $\{0,1\}$ and flag in $\{\mathrm{down},\mathrm{up}\}$,
+and let $\pi$ give the position. From $(0,\mathrm{down})$ one move goes to $(1,\mathrm{up})$ and another to
+$(1,\mathrm{down})$. There are exactly four functions $\{0,1\}\to\{\mathrm{down},\mathrm{up}\}$, and none
+gives the flag on both results, since both show position $1$.
+\end{example}
+\argued{sec:window}
+
+\begin{proposition}[Same picture stays the same picture]\label{spec:album} \kind{shown}
+Let $J\subseteq I$ be a set of moves such that for each $j\in J$ there is $h_j:B\to B$ with
+$\pi(\step(s,j))=h_j(\pi(s))$ for all $s$. If $\pi(s)=\pi(s')$, then for every list $\tau$ of moves in $J$
+the two runs from $s$ and $s'$ along $\tau$ show the same picture at every step. Consequently no function
+of the whole sequence of pictures (the album) answers a question that differs on $s$ and $s'$.
+
+In particular, let $S=T\times K$ (tiles, stamp), $\pi(t,k)=t$, and let each tile move have the form
+$(t,k)\mapsto(h_j(t),k)$. Two boxes $(t,k)$ and $(t,k')$ with $k\ne k'$ keep equal tiles and keep stamps
+$k$ and $k'$ along every list of tile moves, and no reader of the album recovers the stamp.
+\end{proposition}
+\begin{proof}
+By induction on $\tau$: equal pictures before a move $j$ give equal pictures $h_j(\pi(s))$ after it. The
+album of each run is then the same, and Proposition~\ref{spec:reader} applies with the album as the window.
+\end{proof}
+\argued{sec:window}
+
+\begin{remark}
+The hypothesis is that both boxes receive the same list of moves. If a move is chosen by reading the stamp,
+the stamp can reach the tiles, and the proposition does not apply.
+\end{remark}
+
+\begin{proposition}[No checker of a shared transcript]\label{spec:transcript} \kind{shown}
+Let $\mathcal{T}$ be a set of transcripts, $\models\ \subseteq S\times\mathcal{T}$ a relation ($s\models t$:
+the state $s$ can stand behind $t$), and $P$ a claim on $S$. A checker $V:\mathcal{T}\to\Bool$ is
+\emph{sound} when $V(t)=\mathrm{yes}$ and $s\models t$ imply $P(s)$, and \emph{complete} when $P(s)$ and
+$s\models t$ imply $V(t)=\mathrm{yes}$. If some $t$ has $s_1\models t$ and $s_2\models t$ with $P(s_1)$ and
+not $P(s_2)$, then no checker is both sound and complete, and every sound checker answers no on $t$.
+\end{proposition}
+\begin{proof}
+Completeness at $s_1$ gives $V(t)=\mathrm{yes}$; soundness at $s_2$ then gives $P(s_2)$.
+\end{proof}
+\argued{sec:window}
+
+\begin{remark}
+In the chapter's instance, a run that presses the stamp and counts $1$ and a run that only moves tiles and
+counts $0$ go from the same start to the same picture; the transcript is the pair of pictures, and the claim
+is ``the count is $1$''. Adding parts to the transcript that are equal on both runs leaves the hypothesis in
+place.
+\end{remark}
+
+\begin{lemma}[The running bit]\label{spec:and-bit} \kind{shown}
+Let $p_1,p_2,\dots\in\Bool$ be the outcomes of successive checks, $b_0=\mathrm{yes}$ and
+$b_k=\mathrm{yes}$ exactly when $b_{k-1}=\mathrm{yes}$ and $p_k=\mathrm{yes}$. Then $b_k=\mathrm{yes}$ if and
+only if $p_1=\dots=p_k=\mathrm{yes}$, and once $b_k=\mathrm{no}$, $b_{k'}=\mathrm{no}$ for all $k'\ge k$.
+\end{lemma}
+\begin{proof}
+Induction on $k$.
+\end{proof}
+\argued{sec:window}
+
+Fix a reading $\rd:S\to(R,\le)$. A step $(s,i)$ \emph{settles} when $\rd(\step(s,i))\not\le\rd(s)$.
+
+\begin{definition}[Clerk prices]\label{spec:clerk-def} \kind{chosen}
+A \emph{clerk price} is a function $p:B\times B\to\N$, charged on a step as
+$\cost_p(s,i)=p(\pi(s),\pi(\step(s,i)))$. It \emph{meets the floor} when $\cost_p(s,i)\ge 1$ on every
+settling step, \emph{never overcharges} when $\cost_p(s,i)=0$ on every step that does not settle, and is
+\emph{exact} when it does both. The \emph{tray} of $(b,b')$ is the set of steps $(s,i)$ with $\pi(s)=b$ and
+$\pi(\step(s,i))=b'$. A \emph{collision} is a tray that holds a settling step and a step that does not
+settle. A step that does not settle is \emph{shadowed} when its tray holds a settling step.
+\end{definition}
+
+\begin{theorem}[A window with a clash cannot price exactly]\label{spec:clerk} \kind{shown}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item If there is a collision, every clerk price that meets the floor charges at least $1$ on some step that
+does not settle; so no clerk price is exact.
+\item If the window shows the reading, $\rd=\rho\circ\pi$ for some $\rho:B\to R$, then
+$p(b,b')=1$ if $\rho(b')\not\le\rho(b)$ and $0$ otherwise is exact, and there is no collision.
+\item An exact clerk price exists if and only if there is no collision.
+\item (Least overcharge.) For every clerk price $p$ that meets the floor and every run, the total that $p$
+charges along the run is at least the number of shadowed steps in the run.
+\item (A price that reaches it.) The clerk price $p_\exists(b,b')=1$ when the tray of $(b,b')$ holds a settling
+step, and $0$ otherwise, meets the floor and charges a step that does not settle $1$ if it is shadowed and
+$0$ if not. Along every run its overcharge equals the number of shadowed steps.
+\item The clerk price $p_\forall(b,b')=1$ when the tray of $(b,b')$ is nonempty and all its steps settle,
+and $0$ otherwise, never overcharges. $p_\exists$ and $p_\forall$ agree on every nonempty tray if and only if
+there is no collision.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(a) Let $(s_1,i_1)$ settle and $(s_2,i_2)$ not settle in one tray $(b,b')$. Then
+$\cost_p(s_2,i_2)=p(b,b')=\cost_p(s_1,i_1)\ge1$. (b) $\cost_p(s,i)=1$ exactly when
+$\rd(\step(s,i))\not\le\rd(s)$; a collision would put a settling and a non-settling step on the same pair
+$(\rho(b),\rho(b'))$. (c) One direction is (a). Without a collision every nonempty tray is all settling or
+all not settling, and $p_\exists$ is exact. (d) Each shadowed step lies in a tray with a settling step, so
+$p$ charges it at least $1$; sum along the run. (e) and (f) follow from the definitions of the trays.
+\end{proof}
+\argued{sec:window}
+
+\begin{remark}\label{spec:window-not-claimed}
+Seeing the whole state and the move prices exactly. A window with no collision prices exactly without
+showing the reading; a later chapter has one that shows when the record moves and not where it is. Three ways past a window are named in the chapter (the whole state, a promise mark, a question
+answered); each rests on trusting something, and none is shown here to resist a cheating party.
+\end{remark}
+
+%=============================================================================
+\section{Established}\label{spec:ch08}
+
+The condition of Definition~\ref{def:established} is used throughout.
+
+\begin{proposition}[Two computers, one answer]\label{spec:two-computers} \kind{shown}
+Let $S\ne\emptyset$, let $\mathrm{flag}:S\to\Bool$, and let $\mathrm{set}:S\times\Bool\to S$ satisfy
+$\mathrm{flag}(\mathrm{set}(s,b))=b$ and $\pi(\mathrm{set}(s,b))=\pi(s)$ for all $s,b$: the flag can be set on
+its own, and the window drops it. Then there is no reader $g:B\to\Bool$ with $g(\pi(s))=\mathrm{flag}(s)$ for
+all $s$. In particular two end states $\mathrm{set}(s_0,\mathrm{yes})$ and $\mathrm{set}(s_0,\mathrm{no})$
+show the same picture and differ only in the flag.
+\end{proposition}
+\begin{proof}
+For any $s_0$, $g(\pi(s_0))=g(\pi(\mathrm{set}(s_0,\mathrm{yes})))=\mathrm{yes}$ and likewise
+$g(\pi(s_0))=\mathrm{no}$.
+\end{proof}
+\argued{sec:established}
+
+\begin{proposition}[Room for the sheet]\label{spec:sheets} \kind{shown}
+Let $V$ be a finite set of values, $C$ a set of checks, and for $v\in V$ let $P(v)\subseteq C$ be the finite
+set of checks that pass on $v$, $m(v)=|P(v)|$. Suppose a machine has readings $\mathrm{val}:S\to V$ and
+$\mathrm{tick}_\kappa:S\to\Bool$ for $\kappa\in C$, and for every $v$ and every $X\subseteq P(v)$ a state $s$
+with $\mathrm{val}(s)=v$ and $\{\kappa:\mathrm{tick}_\kappa(s)=\mathrm{yes}\}=X$. Then
+\[
+|S|\ \ge\ \sum_{v\in V}2^{m(v)}.
+\]
+The machine whose states are the pairs $(v,X)$ with $X\subseteq P(v)$, with a move writing $w$ that goes to
+$(w,\emptyset)$ and a move checking $\kappa$ that goes from $(v,X)$ to $(v,X\cup\{\kappa\})$ when
+$\kappa\in P(v)$ and stays put otherwise, has exactly that many states.
+\end{proposition}
+\begin{proof}
+Two pairs $(v,X)\ne(v',X')$ differ in $\mathrm{val}$ or in some $\mathrm{tick}_\kappa$, so the states that
+realize them differ.
+\end{proof}
+\argued{sec:established}
+
+\begin{example}[The check is a merge]\label{spec:check-merge} \kind{shown}
+Take one claim and three states: $F$ (false), $TU$ (true, unchecked), $TC$ (true, checked). The check
+sends $F\mapsto F$, $TU\mapsto TC$, $TC\mapsto TC$. Two arrows meet at the check, above the same value
+``true'', so every price list obeying Bennett's rule charges the check at least $1$.
+\end{example}
+\argued{sec:established}
+
+\begin{proposition}[A file of answers needs endless room]\label{spec:editions} \kind{shown}
+Suppose that after $n$ rounds, for every history $h\in\{0,1\}^n$ (round $k$ checked or not), a machine has a
+run ending in a state $s_h$, all with the same list value, and readings $r_1,\dots,r_n:S\to\Bool$ with
+$r_k(s_h)=h_k$. Then the $2^n$ states $s_h$ are pairwise distinct. If this holds for every $n$, $S$ is
+infinite. A machine that files each round's answer and resets its page and marker meets this for every $n$,
+with $2^n$ distinct end states above one final list.
+\end{proposition}
+\begin{proof}
+Histories $h\ne h'$ differ at some $k$, so $r_k(s_h)\ne r_k(s_{h'})$.
+\end{proof}
+\argued{sec:established}
+
+\begin{remark}
+The question ``was anything ever checked'' is the disjunction of the file. As a reading it is a single box
+that only goes up, which is a reading of a Thiele machine.
+\end{remark}
+
+\begin{example}[The sorter and the copier]\label{spec:sorter-copier} \kind{shown}
+Let $L$ be a set of lists and $\mathrm{ok}:L\to\Bool$ the claim ``in order''. States are triples $(v,m,b)$
+with $v\in L$, a mark $m\in\{0,1\}$ and a box $b\in\Bool$; the reading is $b$; the starts are the states
+$(v,0,\mathrm{no})$. Moves and prices:
+$\mathrm{WRITE}_w$ sends $(v,m,b)$ to $(w,0,b)$ at price $0$ (ordinary work; it touches the list);
+$\mathrm{CHECK}$ sends $(v,m,b)$ to $(v,1,b)$ if $\mathrm{ok}(v)$ and leaves it otherwise, at price $1$, and
+passes at $(v,m,b)$ exactly when $\mathrm{ok}(v)$;
+$\mathrm{RAISE}$ sends $(v,1,b)$ to $(v,1,\mathrm{yes})$ and leaves $(v,0,b)$, at price $1$.
+Suppose some list is in order.
+\begin{enumerate}[label=(\alph*)]
+\item This is a Thiele machine, and the box is established for ``in order''.
+\item $\mathrm{CHECK}$ makes two arrows meet: $(v,0,b)$ and $(v,1,b)$ both go to $(v,1,b)$ when
+$\mathrm{ok}(v)$.
+\item Let $u\in L$ and $w\in L$ with $\mathrm{ok}(w)$. The sorter's run $\mathrm{WRITE}_w,\mathrm{CHECK},
+\mathrm{RAISE}$ from $(u,0,\mathrm{no})$ ends at $(w,1,\mathrm{yes})$ at total price $2$. The copier's run
+$\mathrm{WRITE}_w,\mathrm{RAISE}$ from $(u,0,\mathrm{no})$ ends at $(w,0,\mathrm{no})$ at total price $1$. The
+lists agree; the box and the count differ. A window that shows only the list gives the same picture for
+both ends.
+\end{enumerate}
+\end{example}
+\begin{proof}
+(a) The box never goes down; the sorter's run raises it; the only move that raises it is $\mathrm{RAISE}$,
+priced $1$. From a start the mark is $0$; it becomes $1$ only by a passing $\mathrm{CHECK}$ and returns to $0$
+at every $\mathrm{WRITE}$, so every raising $\mathrm{RAISE}$ is preceded by a passing check with no write
+between. (b) and (c) are read off the moves.
+\end{proof}
+\argued{sec:established}
+
+\begin{proposition}[The toll alone does not establish]\label{spec:bare-toll} \kind{shown}
+There is a Thiele machine whose box is not established for any claim: states $(v,b)$ with $v\in L$, reading
+$b$, starts $(v,\mathrm{no})$, and one move $\mathrm{RAISE}$ that sends $(v,b)$ to $(v,\mathrm{yes})$ at
+price $1$, besides price-$0$ writes of the list. From a clean start the run $\mathrm{RAISE}$ turns the box up
+with no check before it, and the toll is paid.
+\end{proposition}
+\begin{proof}
+Clauses (i) to (iii) of Definition~\ref{def:thiele} hold by inspection. The raise in the one-step run is
+preceded by no step at all.
+\end{proof}
+\argued{sec:established}
+
+\begin{proposition}[What a raised established box tells]\label{spec:raised-tells} \kind{shown}
+Let the box be established for $\kappa$. On every run from a clean start that reaches a state with the box
+up, some step earlier in the run is a passing check of $\kappa$, followed by no move that touches what
+$\kappa$ is about until a step that turns the box up. If moreover a passing check of $\kappa$ at a state
+implies a predicate $P$ there, and the check moves and every move that does not touch what $\kappa$ is about
+keep $P$ true, then $P$ holds at the state from which that step turns the box up. Nothing follows about $P$
+at later states.
+\end{proposition}
+\begin{proof}
+The box is down at the clean start and up later, so some step turns it up; the definition gives the check
+before it. $P$ holds after the check and is kept by every step up to the raise. In
+Example~\ref{spec:sorter-copier}, a $\mathrm{WRITE}$ of a list not in order after the raise leaves the box up
+and the claim false.
+\end{proof}
+\argued{sec:established}
+
+\begin{remark}\label{spec:established-scope}
+That a check means what it says and could have failed is a fact about the checker, not a condition on the
+machine (Definition~\ref{def:established}). The guarantee covers runs from a clean start along the
+machine's own step; a start that is not clean, or a change made outside the step, is outside it. A record
+and a count that no step reads, other than to update them, can be erased without changing what the machine
+computes.
+\end{remark}
+
+%=============================================================================
+\section{Settled}\label{spec:ch09}
+
+\begin{definition}[A settled question]\label{spec:settled-def} \kind{chosen}
+A \emph{question} on the states is a function $Q:S\to\Bool$. It \emph{sorts} $S$ when it is not constant:
+then $\{Q\inv(\mathrm{no}),Q\inv(\mathrm{yes})\}$ is a partition of $S$ into two nonempty blocks. It has a
+\emph{one-way door} when $Q(s)=\mathrm{yes}$ implies $Q(\step(s,i))=\mathrm{yes}$ for every $s\in S$ and
+$i\in I$. A \emph{settled question} is a sorting question with a one-way door.
+\end{definition}
+
+\begin{proposition}[Settling is a sorting with a one-way door; closed is not true]\label{spec:settled}
+\kind{shown; the reading is mine}
+\begin{enumerate}[label=(\alph*)]
+\item A question $Q$ has a one-way door if and only if $Q$, as a two-point reading, meets clause (i) of
+Definition~\ref{def:thiele}; the yes side is closed under every move.
+\item The door places no condition linking the yes side to any claim. In
+Example~\ref{spec:sorter-copier}, replace $\mathrm{CHECK}$ by a check that passes at every state and sets the
+mark. The result is a Thiele machine whose box is established, in the sense of
+Definition~\ref{def:established}, for the claim ``in order'', and the run
+$\mathrm{WRITE}_u,\mathrm{CHECK},\mathrm{RAISE}$ with $\mathrm{ok}(u)=\mathrm{no}$ ends with the box up and the
+claim false.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) On $\Bool$ with $\mathrm{no}<\mathrm{yes}$, $Q(s)\le Q(\step(s,i))$ fails exactly when $Q(s)=\mathrm{yes}$
+and $Q(\step(s,i))=\mathrm{no}$. (b) The argument of Example~\ref{spec:sorter-copier}(a) uses nothing about
+when the check passes.
+\end{proof}
+\argued{sec:settled}
+
+\begin{remark}
+Proposition~\ref{spec:raised-tells} says how far a closed question reaches toward truth: through a check
+that passes only when the claim holds, and no further. After a raise the record stays up about the version
+checked; a later change of the thing, or a second record of withdrawal, does not bring it down.
+\end{remark}
+
+\begin{example}[Three ballots]\label{spec:ballots} \kind{shown}
+A payment is owed exactly when a contract was signed and a deadline was missed. Three voters answer (signed,
+missed) as $(\mathrm{yes},\mathrm{yes})$, $(\mathrm{yes},\mathrm{no})$, $(\mathrm{no},\mathrm{yes})$, and each
+applies the rule. A majority says signed, a majority says missed, and a majority says not owed. The general
+impossibility for combining judgments on connected questions is List and Pettit's \kind{cited}.
+\end{example}
+\argued{sec:settled}
+
+\begin{proposition}[A chain of reasons]\label{spec:chain} \kind{shown}
+Let $n$ be a partial function from a set $X$ to itself (each reason has at most one next reason), and
+$x_0\in X$, $x_{k+1}=n(x_k)$ while defined. Exactly one of the following holds: the sequence stops; some term
+repeats an earlier one; the sequence is defined forever with all terms distinct. If $X$ is finite, the third
+does not occur.
+\end{proposition}
+\begin{proof}
+If the sequence does not stop and no term repeats, it is defined forever with distinct terms. A finite $X$
+has no infinite sequence of distinct elements.
+\end{proof}
+\argued{sec:settled}
+
+%=============================================================================
+\section{What structure is}\label{spec:ch10}
+
+\begin{proposition}[The diagonal]\label{spec:diagonal} \kind{shown}
+There are no positive integers $p,q$ with $p^2=2q^2$: the diagonal of a square is not a ratio of whole
+numbers to its side.
+\end{proposition}
+\begin{proof}
+Suppose there are, and take $p/q$ with no common factor. $p^2$ is even, and the square of an odd number is
+odd, so $p=2r$. Then $4r^2=2q^2$, so $q^2=2r^2$ is even and $q$ is even, against the choice of $p,q$.
+\end{proof}
+\argued{sec:structure}
+
+\begin{definition}[Structure, relative to a frame]\label{spec:structure-def}
+\kind{chosen (an overlay of the sources)}
+A \emph{pile} is a set $X$. A \emph{frame} on $X$ is a set $G$ of one-to-one maps of $X$ onto itself (the
+chosen changes) that contains the identity and is closed under composition and inverses. Relative to $G$,
+the relations that count are the relations $R\subseteq X^n$ with $g(R)=R$ for every $g\in G$, and $x,y\in X$
+are \emph{the same} when $g(x)=y$ for some $g\in G$. Two piles with named relations carry the same structure
+when a one-to-one map of one onto the other carries each named relation onto the relation of the same name.
+There is no structure of a pile without a frame.
+\end{definition}
+\argued{sec:structure}
+
+\begin{proposition}[Sameness under a frame sorts the pile]\label{spec:orbits} \kind{shown}
+For a frame $G$ on $X$, ``$g(x)=y$ for some $g\in G$'' is an equivalence relation on $X$.
+\end{proposition}
+\begin{proof}
+The identity gives reflexivity, inverses give symmetry, composition gives transitivity.
+\end{proof}
+\argued{sec:structure}
+
+\begin{proposition}[Sameness and sorting are one object]\label{spec:halmos} \kind{shown (a textbook fact)}
+On a set $X$, sending an equivalence relation $\sim$ to its classes $\{\{y:y\sim x\}:x\in X\}$ is a
+one-to-one correspondence between equivalence relations on $X$ and partitions of $X$ into nonempty blocks;
+the inverse sends a partition to the relation ``in the same block''.
+\end{proposition}
+\begin{proof}
+The classes are nonempty ($x\sim x$) and cover $X$. If $z$ lies in the classes of $x$ and of $y$, then
+$x\sim z\sim y$, so $x\sim y$ and the two classes are equal: blocks never half overlap. ``Same block'' is
+reflexive, symmetric and transitive because each thing lies in exactly one block. Going one way and back
+returns the relation, and returns the partition.
+\end{proof}
+\argued{sec:structure}
+
+\begin{proposition}[An order is a sorting with one-way doors]\label{spec:order-doors} \kind{shown (a textbook fact)}
+Let $\le$ be a preorder on $R$ (reflexive and transitive), and let $x\equiv y$ when $x\le y$ and $y\le x$.
+\begin{enumerate}[label=(\alph*)]
+\item $\equiv$ is an equivalence relation (the buckets).
+\item $\le$ respects buckets: $x\equiv x'$, $y\equiv y'$ and $x\le y$ imply $x'\le y'$.
+\item Between different buckets $\le$ goes one way: $x\le y$ and $x\not\equiv y$ imply $y\not\le x$. So the
+order induced on buckets is a partial order.
+\item Conversely, a partition of $R$ with a partial order on its blocks gives, by $x\le y$ when
+$\mathrm{block}(x)\le\mathrm{block}(y)$, a preorder whose buckets are the blocks.
+\end{enumerate}
+Removing the doors leaves the partition.
+\end{proposition}
+\begin{proof}
+(a) and (b) are reflexivity and transitivity. (c) If also $y\le x$, then $x\equiv y$. (d) Reflexivity and
+transitivity pass from the order on blocks; $x\le y$ and $y\le x$ give equal blocks by antisymmetry.
+\end{proof}
+\argued{sec:structure}
+
+\begin{definition}[Vocabulary and the ruler]\label{spec:ruler} \kind{chosen}
+A \emph{vocabulary} is a finite list of names, each with an arity $n\ge 0$ (how many things it looks at at
+once) and a nonempty set of answers. A \emph{structure} for it on a pile $X$ gives each name of arity $n$
+with answers $A$ a function $X^n\to A$. A name \emph{tells $x$ from $y$} when replacing $x$ by $y$ in some one
+position of some argument tuple changes its answer; a structure \emph{sorts} $X$ when some name tells two
+things of $X$ apart. The \emph{ruler} compares vocabularies first by the number of names, then by the largest
+arity, then by the largest number of answers.
+\end{definition}
+\argued{sec:structure}
+
+\begin{proposition}[The smallest structure that sorts]\label{spec:one-question} \kind{shown}
+Let $|X|\ge2$. Under the ruler, the least vocabulary that has a structure sorting $X$ is one name of arity
+one with two answers, that is, one yes-or-no question, interpreted as any question that is not constant on
+$X$.
+\end{proposition}
+\begin{proof}
+With no names nothing is told apart. A name of arity $0$ has no position to replace. A name of arity one with
+one answer is constant. A name of arity one with two answers tells $x$ from $y$ exactly when its answers on
+them differ, and any nonconstant question on $X$ does so.
+\end{proof}
+\argued{sec:structure}
+
+\begin{proposition}[A question is a split with a label]\label{spec:question-split} \kind{shown}
+Sending a nonconstant $Q:X\to\Bool$ to $\{Q\inv(\mathrm{no}),Q\inv(\mathrm{yes})\}$ maps the nonconstant
+questions onto the partitions of $X$ into two nonempty blocks, two to one: the two questions over a partition
+differ by which block is called yes.
+\end{proposition}
+\begin{proof}
+A partition $\{Y,Z\}$ comes from exactly the two questions with yes side $Y$ and with yes side $Z$.
+\end{proof}
+\argued{sec:structure}
+
+\begin{proposition}[The walking arrow]\label{spec:walking-arrow} \kind{chosen ruler; shown under it}
+Let $\to$ be any relation on $S$ (the machine's moves) and $\mathrm{side}:S\to\{\mathrm{NO},\mathrm{YES}\}$.
+Say $\mathrm{side}$ lays the moves onto a picture $P\subseteq\{\mathrm{NO},\mathrm{YES}\}^2$ when $s\to s'$
+implies $(\mathrm{side}(s),\mathrm{side}(s'))\in P$.
+\begin{enumerate}[label=(\alph*)]
+\item The moves lay onto the walking arrow
+$\{(\mathrm{NO},\mathrm{NO}),(\mathrm{NO},\mathrm{YES}),(\mathrm{YES},\mathrm{YES})\}$ if and only if no move goes
+from a YES state to a NO state: a split with a one-way door.
+\item The moves lay onto two dots with loops only, $\{(\mathrm{NO},\mathrm{NO}),(\mathrm{YES},\mathrm{YES})\}$,
+if and only if no move crosses the split.
+\item Measured by fewest dots, then fewest arrows between different dots, the smallest picture with a
+direction (an arrow between different dots) is the walking arrow: one dot has no such arrow, and two dots need
+at least one.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) The only pair missing from the walking arrow is $(\mathrm{YES},\mathrm{NO})$. (b) The missing pairs are
+the two crossings. (c) is counting.
+\end{proof}
+\argued{sec:structure}
+
+\begin{example}[Three descriptions of a row]\label{spec:mdl} \kind{shown}
+Rows have $32$ binary digits, a length both sides know. A description starts with one digit: $0$ for the row
+written out ($1+32=33$ bits); $1$ for a pattern, given as five digits for the block length minus one, the block
+itself, five digits for the number $e\le31$ of exceptions, and five digits for each exception's place in
+$\{0,\dots,31\}$, listed increasing; the block is repeated and cut at $32$ digits, and the digit at each listed
+place is flipped. A pattern with block length $\ell$ and $e$ exceptions costs $1+5+\ell+5+5e$ bits. For the
+row $(01)^{16}$:
+\begin{enumerate}[label=(\alph*)]
+\item ``repeat $01$'' costs $13$; with $e$ flipped digits it costs $13+5e$: $23$ for $e=2$, $33$ (a tie with
+writing out) for $e=4$, $38$ for $e=5$;
+\item flipping places $5,11,17,23,29$ gives the row $(010100)^{5}01$, described by ``repeat $010100$''
+with no exceptions at $1+5+6+5=17$;
+\item the whole row as its own block costs $1+5+32+5=43$;
+\item with seven digits per exception place, three flips cost $8+5+21=34>33$, where the five-digit code gives
+$28<33$.
+\end{enumerate}
+These numbers are lengths in this code only; they are not the price of a step.
+\end{example}
+\argued{sec:structure}
+
+\begin{proposition}[Few short descriptions]\label{spec:few-short} \kind{shown}
+In any code where each description prints one row, fewer than $2^{n-k}$ of the $2^n$ rows of length $n$ have
+a description shorter than $n-k$ bits, a fraction below $2^{-k}$.
+\end{proposition}
+\begin{proof}
+There are $\sum_{j<n-k}2^j=2^{n-k}-1$ binary strings shorter than $n-k$, and each prints at most one row.
+\end{proof}
+\argued{sec:structure}
+
+\begin{proposition}[Buckets with and without the blocks]\label{spec:buckets} \kind{shown}
+Let $\ell:X\to L$ assign each block a bucket. The step $x\mapsto(x,\ell(x))$, writing the label beside a kept
+block on a blank place, is one-to-one. The step $x\mapsto\ell(x)$, keeping only the label, makes two arrows
+meet if and only if two blocks share a bucket.
+\end{proposition}
+\begin{proof}
+The first coordinate recovers $x$. The second map is one-to-one exactly when $\ell$ is.
+\end{proof}
+\argued{sec:structure}
+
+\begin{remark}
+A box that already reads yes can stay there forever under the identity move, which is one-to-one and never
+settles more: no merge and no fresh state. The merge-or-fresh count of the first three chapters concerns a box that starts at no and is turned to yes and kept. A grouping by itself
+supplies neither that run nor a price.
+\end{remark}
+
+\begin{remark}[Not claimed]\label{spec:nobody-prices} \kind{not claimed}
+It is not claimed that nobody prices vouching for a grouping. The chapter reports only that its author found
+no source that does.
+\end{remark}
+
+%=============================================================================
+\section{The counter}\label{spec:ch11}
+
+\begin{definition}[A counter kept by a price list]\label{spec:counter-def} \kind{chosen}
+A \emph{counter machine} is a machine $(S,I,\step)$ with a start $s_0$, a price list $\cost:I\to\N$, and a
+counter $\mu:S\to\N$ in the state with $\mu(s_0)=0$ and $\mu(\step(s,i))=\mu(s)+\cost(i)$ for all $s$ and $i$.
+A state is \emph{reachable} when it is $\run(\tau,s_0)$ for some list $\tau$.
+\end{definition}
+
+\begin{proposition}[The total is the charges]\label{spec:conservation} \kind{shown}
+In a counter machine, $\mu(\run(\tau,s))=\mu(s)+\cost(\tau)$ for every state $s$ and list $\tau$; so $\mu$ never
+decreases along a run. For any $m:S\to\N$, $m(\run(\tau,s))=m(s)+\cost(\tau)$ for all $s,\tau$ holds if and only
+if $m(\step(s,i))=m(s)+\cost(i)$ for all $s,i$.
+\end{proposition}
+\begin{proof}
+Induction on $\tau$; the one-step rule is the case of a list of length one.
+\end{proof}
+\argued{sec:counter}
+
+\begin{proposition}[Only one honest count]\label{spec:one-count} \kind{shown}
+In a counter machine, let $B:S\to\N$ satisfy $B(s_0)=0$ and $B(\step(s,i))=B(s)+\cost(i)$ for every reachable
+$s$ and every $i$. Then $B(s)=\mu(s)$ for every reachable $s$. Both hypotheses are needed: $B=\mu+1$ follows the
+price list and agrees nowhere; and a state no run reaches can carry any value.
+\end{proposition}
+\begin{proof}
+Induction on the run reaching $s$: both start at $0$ and rise by $\cost(i)$ on each step.
+\end{proof}
+\argued{sec:counter}
+
+\begin{proposition}[A counter in the state takes fresh states]\label{spec:counter-fresh} \kind{shown}
+In a counter machine:
+\begin{enumerate}[label=(\alph*)]
+\item if a run visits the same state twice, the moves between the two visits cost $0$ in total;
+\item a step whose move costs at least $1$ lands on a state the run has not visited before;
+\item if $S$ is finite, $\cost(i)=0$ for every move $i$. So a counter machine with a move of price at least
+$1$ has infinitely many states.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) By Proposition~\ref{spec:conservation} the counter rises by the cost of the moves between, and returns
+to its value. (b) The counter after the step exceeds its value at every earlier state of the run.
+(c) Take $s$ with $\mu(s)$ largest; then $\mu(s)+\cost(i)=\mu(\step(s,i))\le\mu(s)$.
+\end{proof}
+\argued{sec:counter}
+
+\begin{proposition}[Walking one machine into another]\label{spec:realization} \kind{cited}
+This is the form of Goguen's realization result used in the chapter. Let $M_1$ and $M_2$ have the same moves,
+starts $s_1,s_2$, and runs $\run_1,\run_2$. A map $\varphi$ from the reachable states of $M_1$ to the states of
+$M_2$ with $\varphi(\run_1(w,s_1))=\run_2(w,s_2)$ for every list $w$ exists if and only if
+$\run_1(w,s_1)=\run_1(w',s_1)$ implies $\run_2(w,s_2)=\run_2(w',s_2)$. Such a $\varphi$ then commutes with
+every move.
+\end{proposition}
+\begin{proof}
+Set $\varphi(\run_1(w,s_1))=\run_2(w,s_2)$; the condition is exactly that this does not depend on $w$. Then
+$\varphi(\step_1(\run_1(w,s_1),i))=\run_2(wi,s_2)=\step_2(\varphi(\run_1(w,s_1)),i)$.
+\end{proof}
+\argued{sec:counter}
+
+\begin{example}[One switch against the whole list]\label{spec:switch-history} \kind{shown}
+Let $M_1$ have states $\{\mathrm{down},\mathrm{up}\}$ from $\mathrm{down}$, with $\mathrm{set}\mapsto\mathrm{up}$
+at price $1$ and $\mathrm{reset}\mapsto\mathrm{down}$ at price $0$; let $M_2$ keep the list of moves made. The
+lists $\mathrm{set}$ and $\mathrm{reset}\,\mathrm{set}$ both bring $M_1$ to $\mathrm{up}$ and bring $M_2$ to
+different states, so no map as in Proposition~\ref{spec:realization} exists; the map from lists into $M_2$
+exists and is unique. The toll is not used.
+\end{example}
+\argued{sec:counter}
+
+\begin{proposition}[The potential method]\label{spec:potential} \kind{cited}
+This is the potential method of Tarjan, crediting Sleator. Let $\cost:S\times I\to\N$, $\Phi:S\to\Z$, and write
+$\cost(\tau,s)$ for the total price of the run from $s$ along $\tau$. If
+$\cost(s,i)+\Phi(\step(s,i))-\Phi(s)\ge 0$ for all $s,i$, then $\cost(\tau,s)\ge\Phi(s)-\Phi(\run(\tau,s))$ for
+every $s$ and $\tau$; conversely the bound for every run implies the one-step condition. If
+$\cost(s,i)+\Phi(\step(s,i))-\Phi(s)\le a$ for all $s,i$, then $\cost(\tau,s)\le a|\tau|+\Phi(s)-\Phi(\run(\tau,s))$.
+\end{proposition}
+\begin{proof}
+Sum the one-step inequality along the run; the potentials telescope. The converse is the run of length one.
+\end{proof}
+\argued{sec:counter}
+
+\begin{example}[The stack of coins]\label{spec:stack} \kind{shown}
+States are $s\in\N$ (coins on the stack). The move $\mathrm{op}_k$ takes $\min(k,s)$ coins off and puts one
+on, at price $\min(k,s)+1$. With $\Phi(s)=s$, every step has $\cost+\Phi(\text{after})-\Phi(\text{before})=2$,
+so every run of $n$ moves from the empty stack costs $2n-\Phi(\text{end})\le 2n$.
+\end{example}
+\argued{sec:counter}
+
+\begin{theorem}[The toll as a potential; floor and ceiling]\label{spec:floor-ceiling} \kind{shown}
+Let $\rd$ be a two-point reading, $\Phi(s)=1$ when $\rd(s)=\mathrm{no}$ and $\Phi(s)=0$ when
+$\rd(s)=\mathrm{yes}$, and let $\cost:S\times I\to\N$ depend on the state a step starts from. A step $(s,i)$ is a
+\emph{raise} when $\rd(s)=\mathrm{no}$ and $\rd(\step(s,i))=\mathrm{yes}$.
+\begin{enumerate}[label=(\alph*)]
+\item (Floor.) $\cost(s,i)+\Phi(\step(s,i))\ge\Phi(s)$ for all $s,i$ if and only if $\cost(s,i)\ge 1$ on every
+raise. Then along every run the number of raises is at most the total price, and every run from a no state to
+a yes state costs at least $1$.
+\item (Floor and ceiling.) The floor together with $\Phi(s)\ge\cost(s,i)+\Phi(\step(s,i))$ for all $s,i$ holds if
+and only if $\cost(s,i)=1$ on every raise, $\cost(s,i)=0$ on every other step, and no step goes from yes to no.
+\item (Per move.) If some move raises at some state, no price list $\cost:I\to\N$, the same at every state,
+meets both floor and ceiling.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(a) $\Phi(s)-\Phi(\step(s,i))$ is $1$ on a raise, $-1$ on a step from yes to no, and $0$ otherwise; prices are
+at least $0$. Each raise then costs at least $1$; sum along the run. (b) Floor and ceiling together say
+$\cost(s,i)=\Phi(s)-\Phi(\step(s,i))$. A step from yes to no would need price $-1$; a raise gets $1$; every
+other step gets $0$. The converse is a check of the same three cases. (c) Let $i$ raise at $s$, and
+$s'=\step(s,i)$, a yes state. The ceiling at $(s',i)$ gives $\cost(i)\le 0-\Phi(\step(s',i))\le0$, and the
+floor at $(s,i)$ gives $\cost(i)\ge1$.
+\end{proof}
+\argued{sec:counter}
+
+\begin{corollary}[A window that leaves out the count]\label{spec:count-window} \kind{shown}
+If two states have different counters and the same picture through $\pi$, no reader recovers the counter
+through $\pi$.
+\end{corollary}
+\begin{proof}
+Proposition~\ref{spec:reader} with $q=\mu$.
+\end{proof}
+\argued{sec:counter}
+
+\begin{remark}\label{spec:counter-scope}
+Given its start and its price list, the counter is arithmetic. Nothing here says what the prices should be,
+or what a unit of spending was worth.
+\end{remark}
+%=============================================================================
+\section{What a ticked box lets you lean on}\label{spec:ch12}
+
+\begin{definition}[Entitlement]\label{spec:entitlement} \kind{chosen}
+A run is \emph{entitled to lean on} a claim $\kappa$ when three things are on hand:
+\begin{enumerate}[label=(\roman*)]
+\item an \emph{object}: a component of the states of the run;
+\item a \emph{checked relation}: a step of the run that is a check relating that object to $\kappa$, with
+its result kept in the state;
+\item a \emph{paid event}: a step of the run that put the object in place and whose price is at least $1$.
+\end{enumerate}
+Entitlement is a statement about the run, made by whoever examines it afterwards. Nothing in the machine
+requires a later step to read the object or the box.
+\end{definition}
+
+\argued{sec:lean-on}
+
+\begin{remark}\label{spec:not-proves-true} \kind{not claimed}
+It is not claimed that a ticked box proves its claim true. An established box (Definition~\ref{def:established})
+says that a check of the claim passed before the raise, with nothing the claim is about changed in between.
+That the check says no whenever the claim is false is a fact about the checker, not a condition on the
+machine, and a check that says yes to everything meets the definition.
+\end{remark}
+
+\argued{sec:lean-on}
+
+\subsection*{Narrowing and the strength of a test}
+
+Let $L$ be a set of candidates and $o:L\to O$ an observation. The \emph{test} of $L$ is the set
+$o(L)=\{o(x):x\in L\}$ of observations some candidate in $L$ would show; the test passes $v$ when
+$v\in o(L)$.
+
+\begin{lemma}[Narrower means a stronger test]\label{spec:narrower-test} \kind{shown}
+Let $L'\subseteq L$. Then $o(L')\subseteq o(L)$, and $o(L')\subsetneq o(L)$ if and only if some
+$x\in L\setminus L'$ has $o(x)\ne o(y)$ for every $y\in L'$.
+\end{lemma}
+
+\begin{proof}
+The inclusion is immediate. The test of $L$ passes an observation that the test of $L'$ does not exactly
+when some $x\in L$ shows a value that no $y\in L'$ shows; such an $x$ is not in $L'$.
+\end{proof}
+
+\begin{example}\label{spec:cards-test}
+Let $L$ be the six orders of the cards $1,2,3$ and $L'=\{123,132,312\}$, the orders with $1$ left of $2$.
+For the observation ``is $1$ left of $2$'', $o(L')=\{\mathrm{yes}\}\subsetneq\{\mathrm{yes},\mathrm{no}\}=o(L)$.
+For the observation ``is the first card a $3$'', $o(L')=o(L)=\{\mathrm{yes},\mathrm{no}\}$, although three
+orders were dropped.
+\end{example}
+
+\argued{sec:lean-on}
+
+\begin{lemma}[Halvings and question trees]\label{spec:question-tree} \kind{shown}
+Let $C$ be a finite set of $N\ge1$ candidates and let a binary tree of yes-or-no questions of depth $d$
+send each candidate to a leaf, with at most $M\ge1$ candidates at each leaf. Then $N\le 2^dM$, and
+\[
+d\ \ge\ \lceil\log_2 N\rceil-\lceil\log_2 M\rceil .
+\]
+If a run has at least $d$ steps each priced at least $1$, its price is at least
+$\lceil\log_2 N\rceil-\lceil\log_2 M\rceil$.
+\end{lemma}
+
+\begin{proof}
+A tree of depth $d$ has at most $2^d$ leaves, so $N\le 2^dM\le 2^{d+\lceil\log_2M\rceil}$, which gives
+$\lceil\log_2N\rceil\le d+\lceil\log_2M\rceil$. The last sentence follows because the price of a run is
+the sum of the prices of its steps.
+\end{proof}
+
+\begin{example}\label{spec:sorting-floor}
+Sorting three cards by comparisons separates $3!=6$ orders down to one, so $M=1$ and $d\ge\lceil\log_2 6\rceil=3$.
+For twelve cards the bound is $\lceil\log_2 12!\rceil=29$, and Wells's computer search found that $30$
+comparisons are needed \kind{cited}: the bound is a floor and need not be reached.
+\end{example}
+
+\begin{lemma}[Bounded share per test]\label{spec:share} \kind{shown}
+Let $k\ge0$ and let a run make $t$ tests that narrow a list of candidates through sizes
+$L_0\ge L_1\ge\dots\ge L_t\ge1$, where each test keeps at least a share $2^{-k}$ of the list:
+$L_{j-1}\le 2^kL_j$ for $1\le j\le t$. Then
+\[
+\lceil\log_2 L_0\rceil-\lceil\log_2 L_t\rceil\ \le\ kt .
+\]
+If each test is priced at least $1$, the halvings dropped are at most $k$ times the price of the run.
+\end{lemma}
+
+\begin{proof}
+From $L_{j-1}\le 2^kL_j$ follows $\lceil\log_2L_{j-1}\rceil\le k+\lceil\log_2L_j\rceil$. Sum over
+$j=1,\dots,t$.
+\end{proof}
+
+\begin{example}\label{spec:share-needed}
+On a list of $8$ candidates, the single test ``is it this one?'' can leave $1$ candidate: three halvings
+for one priced step. That test keeps a share of $1/8$, so it is excluded when $k=1$, and with it the bound
+for $k=1$ fails.
+\end{example}
+
+\argued{sec:lean-on}
+
+\subsection*{What standing behind a grouping gets you}
+
+Let $X$ be a finite set of items. A \emph{grouping} is a map $g:X\to\Lambda$ into a set of labels; two
+items share a group when they have the same label. A \emph{question} is a map $k:X\to K$. The grouping
+$g$ is \emph{sound} for $k$ when
+\[
+\forall x,y\in X:\quad g(x)=g(y)\ \Longrightarrow\ k(x)=k(y).
+\]
+A grouping $h$ \emph{cuts $g$ smaller} (refines $g$) when $h(x)=h(y)\Rightarrow g(x)=g(y)$ for all
+$x,y\in X$.
+
+\begin{theorem}[Soundness transfers exactly to cuttings]\label{spec:grouping} \kind{shown}
+Let $g,h$ be groupings of $X$.
+\begin{enumerate}[label=(\alph*)]
+\item Soundness depends on a grouping only through which items share a group: if
+$g(x)=g(y)\Leftrightarrow g'(x)=g'(y)$ for all $x,y$, then $g$ is sound for $k$ if and only if $g'$ is.
+\item $h$ is sound for every question for which $g$ is sound if and only if $h$ cuts $g$ smaller.
+\item If $h$ does not cut $g$ smaller, there is a question with two values for which $g$ is sound and $h$
+is not.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) The definition of soundness mentions $g$ only through the relation $g(x)=g(y)$.
+(b) If $h$ cuts $g$ smaller and $g$ is sound for $k$, then $h(x)=h(y)$ gives $g(x)=g(y)$ and so
+$k(x)=k(y)$. Conversely, $g$ is sound for the question $k=g$, so $h$ is sound for $g$, which says that $h$
+cuts $g$ smaller.
+(c) Take $x,y$ with $h(x)=h(y)$ and $g(x)\ne g(y)$, and let $k(z)=\mathrm{yes}$ when $g(z)=g(x)$ and
+$\mathrm{no}$ otherwise. Each group of $g$ has one value of $k$, so $g$ is sound for $k$; $h$ puts $x$
+and $y$ together with $k(x)\ne k(y)$.
+\end{proof}
+
+\begin{remark}
+A grouping that does not cut $g$ smaller can still be sound for a particular question; when $k$ is
+constant every grouping is sound. Theorem~\ref{spec:grouping} says what soundness of $g$ guarantees for
+every question. A box that records ``$g$ was found sound for $k$'' records it for the values of $k$ at the
+time of the check; a later change to $k$ is not covered.
+\end{remark}
+
+\argued{sec:lean-on}
+
+%=============================================================================
+\section{What insight is}\label{spec:ch13}
+
+\begin{definition}[Insight, as priced]\label{spec:insight} \kind{chosen}
+On a machine with a reading $\rd$, an \emph{insight}, in the sense the toll prices, is a step that settles
+more: a step from $s$ by $i$ with $\rd(\step(s,i))\not\le\rd(s)$. On the two-point reading it is a step
+from $\mathrm{no}$ to $\mathrm{yes}$. The definition says nothing about what the settled state shows.
+\end{definition}
+
+\argued{sec:insight}
+
+The \emph{board} is the machine with states $\{\mathrm{NO},\mathrm{YES}\}$, the two-point reading
+$\rd(\mathrm{NO})=\mathrm{no}$, $\rd(\mathrm{YES})=\mathrm{yes}$, and four moves: $\mathrm{STAY}$,
+$\mathrm{WORK}$ and $\mathrm{CHECK}$ leave the state where it is, and the stamp $\mathrm{STAMP}$ sends both
+states to $\mathrm{YES}$. Its price list charges $\cost(\mathrm{STAMP})=1$; the other prices are free
+choices, and $\cost(\mathrm{STAY})=\cost(\mathrm{WORK})=0$.
+
+\begin{proposition}[The price is flat]\label{spec:price-flat} \kind{shown}
+Let $\cost$ obey the toll for $\rd$ (Definition~\ref{def:toll}).
+\begin{enumerate}[label=(\alph*)]
+\item Whether the toll requires $\cost(i)\ge1$ at a step from $s$ depends only on the pair
+$(\rd(s),\rd(\step(s,i)))$. A move that settles more at no state may be priced $0$.
+\item On the two-point reading, every run from a state reading $\mathrm{no}$ to a state reading
+$\mathrm{yes}$ has price at least $1$.
+\item On the board, for every property $P$ of states that holds at
+$\mathrm{YES}$, some run from $\mathrm{NO}$ ends in a state with $P$ that reads $\mathrm{yes}$, at price
+exactly $1$. So no property of the end state beyond its reading raises the floor.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) is the form of the toll. (b) Some step of the run goes from a state reading $\mathrm{no}$ to one reading
+$\mathrm{yes}$; that step settles more and its move is priced at least $1$; prices are in $\N$.
+(c) The run $\mathrm{STAMP}$ from $\mathrm{NO}$ ends at $\mathrm{YES}$ at price $1$.
+\end{proof}
+
+\argued{sec:insight}
+
+\begin{proposition}[Nothing makes the box wait for a check]\label{spec:no-wait} \kind{shown}
+On the board with any price $\cost(\mathrm{CHECK})\in\N$, the run $\mathrm{STAMP}$ from $\mathrm{NO}$ ends at
+$\mathrm{YES}$ at price $1$ with no $\mathrm{CHECK}$ in it, and the run $\mathrm{CHECK}\,\mathrm{STAMP}$ from
+$\mathrm{NO}$ ends at the same state $\mathrm{YES}$ at price $1+\cost(\mathrm{CHECK})$. The two prices
+differ by $\cost(\mathrm{CHECK})$, and not at all when $\cost(\mathrm{CHECK})=0$.
+\end{proposition}
+
+\begin{proof}
+$\mathrm{CHECK}$ leaves the state where it is, and $\mathrm{STAMP}$ sends every state to $\mathrm{YES}$.
+\end{proof}
+
+\begin{remark}
+A board on which the stamp raises the box only after a passing check is built by adding to the state a
+mark that a passing $\mathrm{CHECK}$ sets and letting $\mathrm{STAMP}$ move $\mathrm{NO}$ to
+$\mathrm{YES}$ only when the mark is set. That is the established record of Definition~\ref{def:established}.
+It is a design choice; nothing in Definition~\ref{def:thiele} requires it. As in
+Remark~\ref{spec:not-proves-true}, a paid stamp does not show that its claim is true.
+\end{remark}
+
+\argued{sec:insight}
+
+%=============================================================================
+\section{A box over any machine}\label{spec:ch14}
+
+A \emph{base} is a machine $(B,I,\beta)$ with a set $B_0\subseteq B$ of starts and a set $H\subseteq B$ of
+stopped states. When $|I|=1$ the base has one next state; otherwise the event below may depend on the move
+as well as the state.
+
+\begin{definition}[A box over a base]\label{spec:box-over-base} \kind{chosen}
+A \emph{box machine over} the base is a machine $(X,I,\mu)$ with starts $X_0$, stopped states $H_X$, a
+\emph{box} $\rho:X\to\Bool$, a \emph{tally} $t:X\to\N$, and a map $p:X\to B$ that runs the base faithfully:
+$p(\mu(x,i))=\beta(p(x),i)$ for all $x,i$; $p(X_0)=B_0$; and $x\in H_X\Leftrightarrow p(x)\in H$. The price
+of a step is $t(\mu(x,i))-t(x)$. The \emph{five rules} are:
+\begin{enumerate}[label=(R\arabic*)]
+\item (answers only to the machine) there is $F:B\times I\times\Bool\to\Bool$ with
+$\rho(\mu(x,i))=F(p(x),i,\rho(x))$ for every $x\in X$ and $i\in I$;
+\item (the tally never goes down) $t(x)\le t(\mu(x,i))$;
+\item (the toll) $\rho(x)=\mathrm{no}$ and $\rho(\mu(x,i))=\mathrm{yes}$ imply $t(\mu(x,i))-t(x)\ge1$;
+\item (stays up) $\rho(x)=\mathrm{yes}$ implies $\rho(\mu(x,i))=\mathrm{yes}$;
+\item (something turns it up) some run from a start reaches a state $x$ with $\rho(x)=\mathrm{no}$ and
+$\rho(\mu(x,i))=\mathrm{yes}$ for some $i$.
+\end{enumerate}
+Rule (R1) quantifies over every state of $X$, reached or not. The extra components of $X$ beyond the base
+are arbitrary.
+\end{definition}
+
+For an \emph{event} $h:B\times I\to\Bool$, the \emph{cup on $h$} is the rule
+$(b,r)\mapsto(\beta(b,i),\ r\lor h(b,i))$: the cup turns up the first time the event holds and never
+turns back.
+
+\begin{theorem}[A box is a cup]\label{spec:box-is-cup} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item If a box machine satisfies (R1) and (R4), then with $h(b,i)=F(b,i,\mathrm{no})$,
+\[
+\bigl(p(\mu(x,i)),\ \rho(\mu(x,i))\bigr)=\bigl(\beta(p(x),i),\ \rho(x)\lor h(p(x),i)\bigr)
+\qquad\text{for all }x\in X,\ i\in I .
+\]
+Rules (R2), (R3) and (R5) are not used.
+\item Conversely, let $h:B\times I\to\Bool$ be an event that some run of the base from a start reaches:
+some $b$ on such a run and some $i$ have $h(b,i)=\mathrm{yes}$. On $X=B\times\Bool\times\N$ let
+\[
+\mu((b,r,n),i)=\bigl(\beta(b,i),\ r\lor h(b,i),\ n+[\,r=\mathrm{no}\wedge h(b,i)=\mathrm{yes}\,]\bigr),
+\]
+with $X_0=B_0\times\{\mathrm{no}\}\times\{0\}$, $\rho(b,r,n)=r$, $t(b,r,n)=n$, $p(b,r,n)=b$ and
+$H_X=p\inv(H)$. This machine satisfies (R1) to (R5).
+\end{enumerate}
+So the boxes over a base that satisfy the five rules are exactly the cups on events the base reaches,
+together with a tally and any extra components.
+\end{theorem}
+
+\begin{proof}
+(a) If $\rho(x)=\mathrm{yes}$, (R4) gives $\rho(\mu(x,i))=\mathrm{yes}=\rho(x)\lor h(p(x),i)$. If
+$\rho(x)=\mathrm{no}$, (R1) gives $\rho(\mu(x,i))=F(p(x),i,\mathrm{no})=h(p(x),i)$. The first component is
+faithfulness.
+(b) (R1) holds with $F(b,i,r)=r\lor h(b,i)$; the tally only adds; a step that turns the cup up has
+$r=\mathrm{no}$ and $h(b,i)=\mathrm{yes}$ and adds $1$; $r\lor h(b,i)=\mathrm{yes}$ when $r=\mathrm{yes}$.
+For (R5), follow a run of the base from a start to the first point where the event holds; the cup is down
+there and the next step turns it up.
+\end{proof}
+
+\argued{sec:any-machine}
+
+\begin{corollary}[A turned cup is news, from a clean start]\label{spec:clean-start} \kind{shown}
+Under (R1) and (R4), on a run $x_0,x_1,\dots,x_n$ with $\rho(x_0)=\mathrm{no}$ along moves
+$i_1,\dots,i_n$, $\rho(x_n)=\mathrm{yes}$ if and only if $h(p(x_{j-1}),i_j)=\mathrm{yes}$ for some
+$1\le j\le n$. Without $\rho(x_0)=\mathrm{no}$ the forward direction fails: a run that starts with the cup
+up has it up whatever the event does.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{spec:box-is-cup}(a), $\rho(x_n)=\rho(x_0)\lor\bigvee_{j}h(p(x_{j-1}),i_j)$.
+\end{proof}
+
+\argued{sec:any-machine}
+
+\begin{example}[Both rules do work]\label{spec:toggle-timestamp} \kind{shown}
+Let the base be $(\N,\{\ast\},n\mapsto n+1)$.
+\begin{enumerate}[label=(\alph*)]
+\item (The toggle) On $X=\N\times\Bool$ let $\mu(n,r)=(n+1,\neg r)$. Rule (R1) holds with $F(b,r)=\neg r$;
+(R4) fails; and the box is not the cup on any event, since a cup that is up stays up.
+\item (The timestamp) On $X=\N\times\N\times\Bool$, with a hidden clock $k$, let
+$\mu(n,k,r)=(n+1,k+1,r\lor[k=5])$. Rule (R4) holds. Rule (R1) fails: the states $(n,5,\mathrm{no})$ and
+$(n,0,\mathrm{no})$ have the same base state and the same box, and their next boxes differ.
+\item (The timestamp started in step) With the only start $(0,0,\mathrm{no})$, every reached state has
+$k=n$, and on reached states the box evolves as the cup on the event $[n=5]$. Rule (R1) still fails,
+because it quantifies over every state.
+\end{enumerate}
+\end{example}
+
+\argued{sec:any-machine}
+
+\begin{lemma}[Finite chairs]\label{spec:finite-chairs} \kind{shown}
+Let $S$ be finite, let $\rd:S\to(R,\le)$ satisfy $\rd(s)\le\rd(\step(s,i))$ for all $s,i$, and let the move
+$i$ settle more at some $s$. Then there are $x\ne y$ in $S$ with $\step(x,i)=\step(y,i)$.
+\end{lemma}
+
+\begin{proof}
+Let $T=\{t\in S:\rd(\step(s,i))\le\rd(t)\}$. Then $\step(s,i)\in T$, and $t\in T$ implies $\step(t,i)\in T$
+by transitivity, since $\rd(t)\le\rd(\step(t,i))$. Also $s\notin T$, because $s$ settles more. So the move
+$i$ maps the $|T|+1$ states of $T\cup\{s\}$ into the $|T|$ states of $T$, and two of them land together.
+\end{proof}
+
+\begin{proposition}[A base that never merges]\label{spec:history-cup} \kind{shown}
+Let the base have one next state $f:B\to B$ with $f$ one-to-one, and let $h:B\to\Bool$ be an event. On
+$X=B\times\Bool\times\Bool^{*}$, where $\Bool^{*}$ is the set of finite lists, let
+$\mu(b,r,\sigma)=(f(b),\ r\lor h(b),\ r\sigma)$: the strip $\sigma$ keeps every earlier position of the cup,
+newest first. Then $\mu$ is one-to-one, the box evolves as the cup on $h$, and the strip grows by one entry
+each step, so no run visits a state twice. If instead $X$ is finite and the box stays up, a move that turns
+the box up makes two arrows meet (Lemma~\ref{spec:finite-chairs}).
+\end{proposition}
+
+\begin{proof}
+If $\mu(b,r,\sigma)=\mu(b',r',\sigma')$, then $r\sigma=r'\sigma'$ gives $r=r'$ and $\sigma=\sigma'$, and
+$f(b)=f(b')$ gives $b=b'$. The length of the strip is the number of steps taken.
+\end{proof}
+
+\argued{sec:any-machine}
+
+\begin{proposition}[Two choices nobody forces]\label{spec:free-choices} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item (The price list) Let a box machine satisfy (R1) to (R5). On $X\times\N$ let
+$\mu'((x,m),i)=(\mu(x,i),\ m+t(\mu(x,i))-t(x)+1)$, with box $\rho(x)$, tally $m$, map $p(x)$, and starts
+$X_0\times\{0\}$. This machine satisfies (R1) to (R5), its box evolves exactly as before, and every one of its
+steps is priced one more than the same step of the original.
+\item (The event) Let $h_1,h_2$ be events each reached by some run of the base from a start. Both cups of
+Theorem~\ref{spec:box-is-cup}(b) satisfy (R1) to (R5). At any $b,i$ with $h_1(b,i)=\mathrm{yes}$ and
+$h_2(b,i)=\mathrm{no}$, from a down cup the first cup goes up and the second stays down.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) The box and $p$ are unchanged, so (R1), (R4) and (R5) carry over; the new increment is the old one plus
+$1$, which is at least $1$, giving (R2) and (R3). (b) Theorem~\ref{spec:box-is-cup}(b) and the formula for the
+cup.
+\end{proof}
+
+\begin{example}[A cup and a die]
+Over a list of die rolls read one entry per step, the cup on ``this entry is a six'' and the cup on ``this
+entry is a one'' both satisfy the five rules. If a one is rolled first, the two cups disagree until a six
+appears.
+\end{example}
+
+\argued{sec:any-machine}
+
+A \emph{random box} is the box alone, $\{\mathrm{no},\mathrm{yes}\}$, with a chance of each next position:
+from $\mathrm{yes}$ the next position is $\mathrm{yes}$ with chance $1$; from $\mathrm{no}$ it is
+$\mathrm{yes}$ with chance $q$ and $\mathrm{no}$ with chance $1-q$. The step from $\mathrm{no}$ to
+$\mathrm{yes}$ is priced $1$ and every other step $0$.
+
+\begin{proposition}[Prices do not fix chances]\label{spec:random-box} \kind{shown}
+The random boxes with $q=1/2$ and with $q=2/3$ have the same possible steps, the same prices, obey the toll,
+and keep the box up once up, and they differ in their chances. Neither is a cup on any event: from the one
+state $\mathrm{no}$ both next positions are possible, so the next position is not a function of the present
+state.
+\end{proposition}
+
+\argued{sec:any-machine}
+
+\begin{proposition}[One change from no to yes]\label{spec:one-change} \kind{cited}
+(The bottom rung of the hierarchy of guessing with a bounded number of changes, after Putnam, Gold and
+Ershov.) A set $A\subseteq\N$ is listed by some program if and only if there is a computable
+$g:\N\times\N\to\Bool$ with $g(x,0)=\mathrm{no}$, $g(x,s)\le g(x,s+1)$ for all $x,s$, and
+$x\in A\Leftrightarrow\exists s\ g(x,s)=\mathrm{yes}$.
+\end{proposition}
+
+\begin{proof}
+If a program lists $A$, let $g(x,s)=\mathrm{yes}$ when $x$ appears among the first $s$ outputs. Conversely,
+run $g(x,s)$ for all pairs $(x,s)$ in a fixed order and output $x$ the first time $g(x,s)=\mathrm{yes}$.
+\end{proof}
+
+\begin{remark}
+On this rung a guess $\mathrm{yes}$ is final when it appears and a guess $\mathrm{no}$ never is. A single
+cup can record that an event happened and cannot record that it did not.
+\end{remark}
+
+\argued{sec:any-machine}
+
+%=============================================================================
+\section{The machine with the record dropped}\label{spec:ch15}
+
+Let $(S,I,\step)$ carry a reading $\rd:S\to(R,\le)$ that never goes back: $\rd(s)\le\rd(\step(s,i))$. A
+step \emph{turns up a cup} when it settles more; for a reading into a chain or a checklist these are the
+steps that turn up some cup of the row. Let $\pi:S\to C$ be the \emph{covering map} onto the \emph{uncovered machine}
+$(C,I,\gamma)$, with
+\[
+\pi(\step(s,i))=\gamma(\pi(s),i)\qquad\text{for all }s\in S,\ i\in I .
+\]
+This equation is the condition that nothing in how the rest of the machine moves depends on the cups or the
+tally. The pile over $c\in C$ is $\pi\inv(c)$. The \emph{landing pile} of a move $i$ at $y\in S$ is
+$\{x\in S:\step(x,i)=y\}$. The uncovered machine \emph{forgets nothing} at $i$ when $\gamma(\cdot,i)$ is
+one-to-one.
+
+\begin{theorem}[What a paid move crushes]\label{spec:crush-pile} \kind{shown}
+\begin{enumerate}[label=(\alph*)]
+\item If the uncovered machine forgets nothing at $i$, every landing pile of $i$ lies inside one pile:
+$\step(x,i)=\step(y,i)$ implies $\pi(x)=\pi(y)$.
+\item If moreover $S$ is finite and $i$ settles more at some state, there are $x\ne y$ with
+$\pi(x)=\pi(y)$ and $\step(x,i)=\step(y,i)$: the move crushes two states of one pile into one.
+\item Without the condition in (a) the merge can join two piles: on the board of Section~\ref{spec:ch13}
+with $C=S$ and $\pi$ the identity, $\mathrm{STAMP}$ sends $\mathrm{NO}$ and $\mathrm{YES}$ to
+$\mathrm{YES}$, and $\mathrm{NO},\mathrm{YES}$ lie in different piles.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) $\gamma(\pi(x),i)=\pi(\step(x,i))=\pi(\step(y,i))=\gamma(\pi(y),i)$, and $\gamma(\cdot,i)$ is one-to-one.
+(b) Lemma~\ref{spec:finite-chairs} gives $x\ne y$ with $\step(x,i)=\step(y,i)$; apply (a). (c) is direct.
+\end{proof}
+
+\argued{sec:dropped}
+
+\begin{proposition}[The halving rule is a bound on landing piles]\label{spec:halving-piles} \kind{shown}
+For a move $i$ and $\cost(i)\in\N$, on a machine of any size, the following are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item for every finite $D\subseteq S$, $|D|\le 2^{\cost(i)}\cdot|\{\step(x,i):x\in D\}|$ (the halving rule at $i$);
+\item every landing pile of $i$ has at most $2^{\cost(i)}$ elements.
+\end{enumerate}
+Under (ii), $\cost(i)\ge\log_2$ of the size of every landing pile of $i$. With
+Theorem~\ref{spec:crush-pile}(a), the states a landing pile collects all lie in one pile, so $\cost(i)$ is at
+least $\log_2$ of the number of states of one pile that $i$ lands together.
+\end{proposition}
+
+\begin{proof}
+(i)$\Rightarrow$(ii): a finite subset $D$ of one landing pile has one image, so $|D|\le 2^{\cost(i)}$.
+(ii)$\Rightarrow$(i): split $D$ by its image; each part lies in one landing pile and has at most
+$2^{\cost(i)}$ elements.
+\end{proof}
+
+\argued{sec:dropped}
+
+A clerk prices each step from the window: a price of the form $\cost(s,i)=q(\pi(s),\pi(\step(s,i)))$. It
+\emph{never misses} when $\cost(s,i)\ge1$ at every step that turns up a cup, and it is \emph{exact} when it
+also has $\cost(s,i)=0$ at every step that turns up no cup. A \emph{clash} is a pair of steps from $s$ by $i$
+and from $s'$ by $i'$ with $\pi(s)=\pi(s')$ and $\pi(\step(s,i))=\pi(\step(s',i'))$, where the first turns
+up a cup and the second does not.
+
+\begin{proposition}[A clash forbids an exact price]\label{spec:clash-row} \kind{shown}
+If the window has a clash, no price from the window is exact.
+\end{proposition}
+
+\begin{proof}
+A price that never misses charges $q(\pi(s),\pi(\step(s,i)))\ge1$, and the same value is charged at the
+second step of the clash, which turns up no cup.
+\end{proof}
+
+\argued{sec:dropped}
+
+\begin{proposition}[Showing the cups move]\label{spec:show-move} \kind{shown}
+Let $S=\N$ with the usual order as the reading (the cup $j\ge1$ is ``at least $j$''), and two moves:
+$\mathrm{add}(n)=n+1$ and $\mathrm{stay}(n)=n$.
+\begin{enumerate}[label=(\alph*)]
+\item The window $\pi(n)=[n\ge1]$, which shows only the first cup, has a clash: from $n=1$, $\mathrm{add}$
+turns up a cup and $\mathrm{stay}$ does not, and both are seen as $(\mathrm{yes},\mathrm{yes})$.
+\item The window $\pi(n)=n\bmod 2$ has no clash. The price $q(a,b)=[a\ne b]$, one exactly when the parity
+changed, is exact. No constant price is exact, and no function of $n\bmod2$ returns $n$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) is direct. (b) $\mathrm{add}$ turns up a cup at every $n$ and changes the parity; $\mathrm{stay}$ turns
+up none and keeps it. A constant price $0$ misses $\mathrm{add}$ and a constant price $\ge1$ charges
+$\mathrm{stay}$. The states $0$ and $2$ have the same parity.
+\end{proof}
+
+\begin{remark}
+When the window has a clash, the least overcharge and a price that reaches it are as in
+Chapter~\ref{B-sec:window} of the book, with a row of cups in place of one box. If the window has no clash an
+exact price exists.
+\end{remark}
+
+\argued{sec:dropped}
+
+%=============================================================================
+\section{Reading the box}\label{spec:ch16}
+
+A \emph{shortcut} is a move that answers a question about the data by a glance at the state instead of
+working it out the long way. It is \emph{sound} when it gives the answer the long way gives.
+
+\begin{definition}[The edition machine]\label{spec:edition-machine} \kind{chosen}
+Fix a set $V$ of values and a property $P\subseteq V$ (the \emph{passing} values). A state is $(x,e,U)$ with
+$x\in V$ the data, $e\in\N$ the \emph{edition}, and $U\subseteq\N$ the editions whose box is up. The moves are
+\begin{gather*}
+\mathrm{write}_a(x,e,U)=(a,e+1,U),\qquad\mathrm{ask}(x,e,U)=(x,e,U),\\
+\mathrm{check}(x,e,U)=\begin{cases}(x,e,U\cup\{e\})&x\in P,\\(x,e,U)&x\notin P.\end{cases}
+\end{gather*}
+The shortcut \emph{fires} at $(x,e,U)$ when $e\in U$; it answers as if $x\in P$. The clean start is
+$(x_0,0,\varnothing)$. The boxes never come down, the box for $e$ goes up only at a passing check on edition
+$e$, and a write moves to an edition never used before: this is the second door.
+\end{definition}
+
+\begin{theorem}[Fresh editions are never wrong]\label{spec:fresh-editions} \kind{shown}
+For every list of moves $\tau$ and every $x_0\in V$, if the shortcut fires at
+$\run(\tau,(x_0,0,\varnothing))=(x,e,U)$, then $x\in P$.
+\end{theorem}
+
+\begin{proof}
+The property ``every $e'\in U$ has $e'\le e$, and $e\in U$ implies $x\in P$'' holds at the clean start and
+is kept by every move. A write sets $e$ to $e+1$, which exceeds every element of $U$, so $e+1\notin U$. A
+passing check adds $e$ and has $x\in P$; a failing check and $\mathrm{ask}$ change nothing.
+\end{proof}
+
+\argued{sec:reading-box}
+
+\begin{proposition}[Editions that wrap around]\label{spec:wrap} \kind{shown}
+(The first door.) Replace $e+1$ by $(e+1)\bmod2$ in $\mathrm{write}_a$, and let $V=\N$ and $P$ the even
+numbers. From $(0,0,\varnothing)$ the four moves $\mathrm{check}$, $\mathrm{write}_1$, $\mathrm{write}_3$,
+$\mathrm{ask}$ reach $(3,0,\{0\})$, where the shortcut fires and $3\notin P$: a wrong answer.
+\end{proposition}
+
+\begin{proof}
+$(0,0,\varnothing)\mapsto(0,0,\{0\})\mapsto(1,1,\{0\})\mapsto(3,0,\{0\})\mapsto(3,0,\{0\})$.
+\end{proof}
+
+\argued{sec:reading-box}
+
+\begin{proposition}[A box that comes down merges twice]\label{spec:toggle-merges} \kind{shown}
+(The third door.) Let $V=\{0,1\}$ with $P=\{1\}$, states $(x,b)\in V\times\Bool$, the passing check
+$\mathrm{check}(x,b)=(x,\mathrm{yes})$ if $x=1$ and $(x,b)$ otherwise, and the write that flips the data and
+knocks the box down, $\mathrm{write}(x,b)=(1-x,\mathrm{no})$. Then $x\mapsto1-x$ is one-to-one, and still
+\[
+\mathrm{write}(0,\mathrm{no})=\mathrm{write}(0,\mathrm{yes}),\qquad
+\mathrm{check}(1,\mathrm{no})=\mathrm{check}(1,\mathrm{yes}):
+\]
+two arrows meet at the wipe and at the check. The box comes down, so it is not a reading that never goes back.
+\end{proposition}
+
+\argued{sec:reading-box}
+
+\subsection*{The four doors}
+
+The four doors for keeping a shortcut honest after writes are: editions that wrap around (the first door);
+editions never reused, which on a finite machine is a budget (the second); one box knocked down by every write
+(the third); and a box tied to the value checked instead of the edition (the fourth). The \emph{guard} is the
+test that decides whether the shortcut may run; when it says yes the shortcut is \emph{unlocked}. The guard
+reads a \emph{memory} of $E$ boxes, $\{\mathrm{no},\mathrm{yes}\}^E$, ordered
+coordinatewise; $|m|$ is the number of boxes up in $m$. A \emph{round} is: write a passing value, check it,
+ask; then write a failing value, and ask again.
+
+\begin{theorem}[Four doors]\label{spec:four-doors} \kind{shown}
+Assume:
+\begin{enumerate}[label=(C\arabic*)]
+\item the guard's glance cannot tell a passing value from a failing one: whether the shortcut is unlocked
+is $g(m)$ for a fixed $g:\{\mathrm{no},\mathrm{yes}\}^E\to\Bool$ of the memory $m$ alone;
+\item the memory is made only of boxes that go up and never come down: each move takes the memory $m$ to
+some $m'\ge m$.
+\end{enumerate}
+Run $n$ rounds from a memory $b_0$. Let $a_j$ be the memory after the check of round $j$ and $b_j$ the
+memory after its failing write, so $b_0\le a_1\le b_1\le a_2\le\dots\le b_n$. Round $j$ \emph{unlocks} when
+$g(a_j)=\mathrm{yes}$, and \emph{answers wrong} when $g(b_j)=\mathrm{yes}$, since the shortcut then runs on a
+failing value. If no round answers wrong, the number $u$ of rounds that unlock satisfies
+\[
+2u\ \le\ E+1,\qquad\text{that is,}\qquad u\le\frac{E+1}{2}.
+\]
+So under (C1) and (C2), on any number of rounds, either the shortcut answers wrong (the first door), or it
+unlocks on at most $(E+1)/2$ rounds and takes the long way on every round after those (a budget: the second
+door).
+\end{theorem}
+
+\begin{proof}
+Suppose $g(b_j)=\mathrm{no}$ for $1\le j\le n$. If round $j$ unlocks, then $a_j\ne b_j$ and $a_j\le b_j$, so
+$|b_j|\ge|a_j|+1$. If also $g(b_{j-1})=\mathrm{no}$, then $b_{j-1}\ne a_j$ and $|a_j|\ge|b_{j-1}|+1$; this
+holds for every $j\ge2$, and for $j=1$ unless $g(b_0)=\mathrm{yes}$. The intervals from $b_{j-1}$ to $a_j$
+and from $a_j$ to $b_j$ for the unlocking rounds are disjoint pieces of the chain $b_0\le a_1\le\dots\le b_n$,
+along which $|\cdot|$ never decreases. So
+\[
+E\ \ge\ |b_n|-|b_0|\ \ge\ 2u-[\,g(b_0)=\mathrm{yes}\,]\ \ge\ 2u-1 .\qedhere
+\]
+\end{proof}
+
+\begin{remark}[Outside the two conditions are the other two doors]\label{spec:other-doors}
+If (C2) fails, a box that a write takes down unlocks every round with no wrong answer: with $E=1$, the check
+setting the box up, the failing write setting it down, and $g$ the identity, every round unlocks. That is the
+third door, and by Proposition~\ref{spec:toggle-merges} it merges at the wipe and at the check. If (C1) fails,
+the glance reads enough of the value to tell passing from failing; either it repeats the check, which is no
+shortcut, or it ties a box to the value, which is the fourth door, priced in room by
+Proposition~\ref{spec:value-room}.
+\end{remark}
+
+\argued{sec:reading-box}
+
+\begin{proposition}[Keeping $k$ values unlocked takes $2^k$ memory states]\label{spec:value-room} \kind{shown}
+Let $K$ be a set of $k$ passing values, $M$ a set of memory states, and $g:M\times V\to\Bool$ the guard.
+Suppose that for every set $T\subseteq K$ of checked values there is a memory state $m_T\in M$ that unlocks
+exactly the checked values: $g(m_T,v)=\mathrm{yes}\Leftrightarrow v\in T$ for all $v\in K$. Then $T\mapsto m_T$
+is one-to-one, so $|M|\ge2^k$. One box per value, $M=\{\mathrm{no},\mathrm{yes}\}^K$, meets this with
+$|M|=2^k$.
+\end{proposition}
+
+\begin{proof}
+If $T\ne T'$, some $v\in K$ lies in exactly one of them, and $g(m_T,v)\ne g(m_{T'},v)$, so $m_T\ne m_{T'}$.
+There are $2^k$ sets $T$.
+\end{proof}
+
+\argued{sec:reading-box}
+
+\begin{remark}\label{spec:no-new-computation} \kind{not claimed}
+It is not claimed that reading the box computes something new. Every answer a sound shortcut gives, the long
+way gives too. What reading the box saves is steps, the way a cache does.
+\end{remark}
+
+\argued{sec:reading-box}
+
+%=============================================================================
+\section{What a machine can't decide about itself}\label{spec:ch17}
+
+Let $\mathcal P$ be a set of programs with an equivalence $\approx$, ``behaves alike''. Let $\mathcal R$ be a
+set of maps $\mathcal P\to\mathcal P$, the transformations the machine can run. The machine has
+\emph{Kleene's trick} for $\mathcal R$ when for every $\phi\in\mathcal R$ there is $p\in\mathcal P$ with
+$p\approx\phi(p)$. A question $A\subseteq\mathcal P$ (``has a shortcut'') is \emph{about behaviour} when
+$p\approx q$ implies $p\in A\Leftrightarrow q\in A$, and it is \emph{not trivial} when there are
+$p_{\mathrm{yes}}\in A$ and $p_{\mathrm{no}}\notin A$. For $d:\mathcal P\to\Bool$, the \emph{flip} of $d$ is
+$\phi_d(p)=p_{\mathrm{no}}$ if $d(p)=\mathrm{yes}$ and $\phi_d(p)=p_{\mathrm{yes}}$ if $d(p)=\mathrm{no}$.
+
+\begin{theorem}[No inside autopilot]\label{spec:no-autopilot} \kind{shown}
+Let the machine have Kleene's trick for $\mathcal R$, and let $A$ be about behaviour and not trivial. There is
+no $d:\mathcal P\to\Bool$ with $\phi_d\in\mathcal R$ and
+\[
+\forall p\in\mathcal P:\quad d(p)=\mathrm{yes}\ \Longleftrightarrow\ p\in A .
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose $d$ is one. Kleene's trick gives $p$ with $p\approx\phi_d(p)$. If $d(p)=\mathrm{yes}$, then $p\in A$
+and $p\approx p_{\mathrm{no}}$, so $p_{\mathrm{no}}\in A$, which is false. If $d(p)=\mathrm{no}$, then
+$p\notin A$ and $p\approx p_{\mathrm{yes}}$, so $p_{\mathrm{yes}}\notin A$, which is false.
+\end{proof}
+
+\begin{remark}
+The argument uses only Kleene's trick, that the flip can be run, the two examples $p_{\mathrm{yes}}$ and
+$p_{\mathrm{no}}$, and that $A$ is about behaviour. It does not use a box, a tally or the toll, and it does
+not see soundness: whether a particular question about shortcuts is about behaviour and not trivial is a
+separate fact about that machine. It rules out an inside procedure, one whose flip the machine can run, that
+is right on every program. It says nothing against a procedure right on some programs, one allowed to decline,
+one that uses outside evidence, or a judge outside the machine. It is Rice's form of the diagonal, with its
+own conditions, and says nothing about how hard the question is compared with stopping.
+\end{remark}
+
+\argued{sec:diagonal}
+
+\begin{remark}\label{spec:not-unknowable} \kind{not claimed}
+It is not claimed that undecidable means unknowable. For each single program $p$, one of the two constant
+procedures ``say yes'' and ``say no'' is right on $p$. Theorem~\ref{spec:no-autopilot} rules out one inside
+procedure that is right on every program.
+\end{remark}
+
+\argued{sec:diagonal}
+
+\begin{proposition}[An established box does not rest on itself]\label{spec:grounded} \kind{shown}
+Let the box be established for a claim $\kappa$ (Definition~\ref{def:established}) and never come down. On any
+run from a clean start, the box goes up at most once, and the passing check of $\kappa$ that precedes the raise
+is made from a state where the box is down and lands in a state where the box is down. Hence if a check of
+$\kappa$ passes only at states where the box is up, no run from a clean start raises the box.
+\end{proposition}
+
+\begin{proof}
+Let the run be $s_0,s_1,\dots$ with the box down at $s_0$, and let the raise be the step from $s_j$ to
+$s_{j+1}$. Since the box never comes down, it is down at $s_0,\dots,s_j$ and up from $s_{j+1}$ on, so there is no
+second raise. The passing check is a step from $s_k$ to $s_{k+1}$ with $k<j$, and $k+1\le j$.
+\end{proof}
+
+\argued{sec:diagonal}
+
+\begin{remark}
+Two limits stay apart. Theorem~\ref{spec:no-autopilot} is about what no inside procedure can decide. The window
+of Chapter~\ref{B-sec:window} of the book is about what no outside watcher can see: two states with different
+boxes and the same view cannot be told apart through that view, on small finite machines with nothing to
+compute.
+\end{remark}
+
+\argued{sec:diagonal}
+%=============================================================================
+\section{Five real systems}\label{spec:ch18}
+
+Throughout Sections~\ref{spec:ch18} to~\ref{spec:ch22}, a two-point reading is called a \emph{box}. The box
+is \emph{up} at $s$ when $\rd(s)=\mathrm{yes}$ and \emph{down} when $\rd(s)=\mathrm{no}$. A step from $s$ by
+$i$ \emph{raises} the box when $\rd(s)=\mathrm{no}$ and $\rd(\step(s,i))=\mathrm{yes}$. For a list of moves
+$\tau=i_1\cdots i_n$ and a start $s$, $\mathrm{raises}(\tau,s)$ is the number of $k$ such that the step from
+$s_{k-1}$ by $i_k$ raises the box. A machine with one next state $f$ \emph{makes two arrows meet} on a set
+$D$ when $f(x)=f(y)$ for some $x\ne y$ in $D$.
+
+\begin{definition}[Fee, bond, budget]\label{spec:fee-bond-budget} \kind{chosen}
+A system \emph{prices} an event when it attaches to it one of three costs. A \emph{fee}: something taken at
+the event itself, whatever happens afterwards. A \emph{bond}: something put at risk by the event and lost only
+if some stated later event happens. A \emph{budget}: a limited allowance the event draws down, so that only
+finitely many such events can happen. A cost of undoing that rests only on a computation nobody knows how to
+reverse (a \emph{wall}) is not a price, and neither is work a system needs and never charges for.
+\end{definition}
+
+\argued{sec:five-systems}
+
+\subsection*{Proof-of-stake finality}
+
+\begin{definition}[Checkpoints, votes, finality]\label{spec:casper-def} \kind{chosen}
+Let $\mathcal T$ be a finite rooted tree of \emph{checkpoints} with root $g$ (the genesis block), and let
+$h(x)$ be the depth of $x$ (its \emph{round}). Write $x\preceq y$ when $x$ is an ancestor of $y$ or $x=y$.
+Two checkpoints \emph{conflict} when neither is $\preceq$ the other. Let $V$ be a finite set of validators
+with stakes $w:V\to(0,\infty)$, $W=\sum_{v\in V}w(v)$, and $w(U)=\sum_{v\in U}w(v)$. A \emph{vote} of a
+validator is a pair $(s,t)$ of checkpoints with $s\preceq t$, $s\ne t$; it is a \emph{link} from $s$ to $t$.
+A link is a \emph{supermajority link} when the validators who voted it have stake at least $2W/3$. The
+\emph{justified} checkpoints form the least set containing $g$ such that $t$ is justified whenever $s$ is
+justified and $s\to t$ is a supermajority link. A checkpoint $s$ is \emph{final} when it is justified and
+there is a supermajority link from $s$ to a child $c$ of $s$. A validator is \emph{slashable} when it cast two
+votes $(s_1,t_1)$, $(s_2,t_2)$ with either $t_1\ne t_2$ and $h(t_1)=h(t_2)$ (a double vote), or
+$h(s_1)<h(s_2)<h(t_2)<h(t_1)$ (a surround vote).
+\end{definition}
+
+\begin{theorem}[Accountable safety]\label{spec:casper} \kind{shown on the copy}
+In the setting of Definition~\ref{spec:casper-def}, if two conflicting checkpoints are both final, then the
+slashable validators have stake at least $W/3$.
+\end{theorem}
+
+\begin{proof}
+Two sets $U_1,U_2\subseteq V$ with $w(U_1),w(U_2)\ge 2W/3$ satisfy $w(U_1\cap U_2)\ge w(U_1)+w(U_2)-W\ge W/3$.
+Every justified $t\ne g$ has a supermajority link into it from a justified checkpoint, and $g\preceq x$ for
+every $x$, so neither final checkpoint is $g$. Let $f_1,f_2$ be the two, with $v=h(f_1)\le h(f_2)$, and let
+$f_1\to c$ be a finalizing link, $h(c)=v+1$.
+If $h(f_2)=v$, the links into $f_1$ and $f_2$ land in round $v$ on different checkpoints, and their voter sets
+share stake at least $W/3$, all of it double votes.
+If $h(f_2)>v$, take a chain of supermajority links $g=j_0\to j_1\to\cdots\to j_n=f_2$ with every $j_l$
+justified. Every $j_l\preceq f_2$, so no $j_l$ is $f_1$ or below $f_1$ (else $f_1\preceq f_2$). Rounds increase
+along the chain from $0\le v$ to $h(f_2)>v$, so some $l$ has $h(j_l)\le v<h(j_{l+1})$. Let $U$ vote
+$j_l\to j_{l+1}$ and $U'$ vote $f_1\to c$. If $h(j_{l+1})=v+1$, then $j_{l+1}\ne c$ because $f_1\preceq c$,
+and $U\cap U'$ made double votes. If $h(j_l)=v$, then $j_l\ne f_1$ are both justified in round $v\ge1$, and the
+voters shared by their two justifying links made double votes. Otherwise $h(j_l)<v$ and $h(j_{l+1})>v+1$, so
+$h(j_l)<h(f_1)<h(c)<h(j_{l+1})$ and $U\cap U'$ made surround votes. In each case the slashable stake is at
+least $W/3$.
+\end{proof}
+
+\argued{sec:five-systems}
+
+\begin{example}[Forks and the overlap]\label{spec:casper-examples} \kind{shown}
+(a) Three validators of stake $1$; $g$ in round $0$, two children $L_1,R_1$ in round $1$, a child $L_2$ of $L_1$
+and $R_2$ of $R_1$ in round $2$. Let $A,B$ vote $g\to L_1$ and $L_1\to L_2$, and $B,C$ vote $g\to R_1$ and
+$R_1\to R_2$. Then $L_1$ and $R_1$ are both final and conflict; $B$ is slashable (double vote in round $1$); $A$
+and $C$ are not. The slashable stake is $1=W/3$.
+(b) With one validator, the single vote $g\to c$ makes $g$ final and no validator is slashable.
+(c) Replace the threshold $2W/3$ by $W/2$, with two validators of stake $1$, $A$ voting the left links and $B$ the
+right links of (a). Then $L_1$ and $R_1$ are both final and no validator is slashable. The theorem rests on
+the overlap of two sets of stake $2W/3$.
+\end{example}
+
+\argued{sec:five-systems}
+
+\subsection*{Gas}
+
+\begin{definition}[One storage slot]\label{spec:slot} \kind{chosen}
+A slot holds a value in $\N$ and starts at $0$. A \emph{store} of $x$ into a slot holding $y$ costs
+$20000$ if $y=0\ne x$ and $100$ otherwise, and credits a refund of $19900$ if $y\ne0=x$. If the slot is
+\emph{cold}, the first store costs a further $2100$. The \emph{net} after a list of stores is the sum of
+the costs minus the sum of the refunds.
+\end{definition}
+
+\begin{proposition}[The floor on a write left standing]\label{spec:gas-floor} \kind{shown on the copy}
+After any list of stores, the net is at least $0$ if the slot holds $0$ and at least $20000$ if it does not.
+From a cold slot, the net when the slot ends nonzero is at least $22100$.
+\end{proposition}
+
+\begin{proof}
+Ignore the cold charge. The two bounds hold at the start (net $0$, slot $0$). A store from $0$ to $0$ adds
+$100$; from $0$ to $x\ne0$ adds $20000$; from $y\ne0$ to $x\ne0$ adds $100$; from $y\ne0$ to $0$ adds
+$100-19900=-19800$, taking a net of at least $20000$ to at least $200\ge0$. Each store preserves the bound
+that fits where it lands. The cold charge is added once and changes nothing else.
+\end{proof}
+
+\argued{sec:five-systems}
+
+\begin{example}[Set and clear]\label{spec:gas-arith} \kind{shown on the copy}
+From a cold slot, storing $1$ and then $0$ costs $22100+100=22200$ and credits $19900$: net $2300$. Under a
+cap that limits the refund to one fifth of the gas a transaction uses, a transaction made of a base charge of
+$21000$ and these two stores uses $43200$, receives $\min(19900,8640)=8640$ and pays $34560$, which is
+$13560$ above the base. Applied to the two stores alone, the cap gives $22200-\min(19900,4440)=17760$.
+\end{example}
+
+\argued{sec:five-systems}
+
+\begin{proposition}[An exact schedule]\label{spec:schedule} \kind{shown}
+Let $(S,I,\step)$ carry a box and a price $\cost:S\times I\to\N$ that may depend on the state a step starts
+from. For a run, let $\cost(\tau,s)$ be the sum of the prices of its steps. The following are equivalent.
+\begin{enumerate}[label=(\alph*)]
+\item (floor and ceiling) $\mathrm{raises}(\tau,s)\le\cost(\tau,s)\le\mathrm{raises}(\tau,s)$ for every
+$s\in S$ and every $\tau$;
+\item $\cost(s,i)\ge1$ whenever the step from $s$ by $i$ raises the box, and
+$\cost(\tau,s)\le\mathrm{raises}(\tau,s)$ for every $s$ and $\tau$;
+\item $\cost(s,i)=1$ when the step from $s$ by $i$ raises the box, and $\cost(s,i)=0$ otherwise.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(c) gives $\cost(\tau,s)=\mathrm{raises}(\tau,s)$ by summing, hence (a). (a) applied to one-step runs gives
+(c), and (c) gives (b). From (b), a one-step run gives $\cost(s,i)\le1$ at a raise and $\cost(s,i)\le0$
+elsewhere; with the floor at raises, (c) follows.
+\end{proof}
+
+\argued{sec:five-systems}
+
+\subsection*{Attestation}
+
+\begin{proposition}[What a quote cannot say]\label{spec:quote} \kind{shown}
+Let a machine's state be a pair $(\rho,\sigma)$ of register values $\rho$ and the rest $\sigma$, and let a
+quote be any function $Q(\rho,n)$ of the registers and a challenge $n$. If $\rho=\rho'$, then
+$R(Q(\rho,n))=R(Q(\rho',n))$ for every reader $R$ and every $n$. In particular, if $(\rho,\sigma)$ has a flag
+up and $(\rho,\sigma')$ has it down, no reader of the quote returns the flag on both. Separately, for any
+signing map $\mathrm{sign}$, the check $\mathrm{verify}\equiv\mathrm{yes}$ satisfies
+$\mathrm{verify}(pk,m,\mathrm{sign}(sk,m))=\mathrm{yes}$ for all $pk,sk,m$ and accepts every signature.
+\end{proposition}
+
+\begin{proof}
+Equal arguments give equal values. A reader returning the flag would give two values on one quote. The
+last claim holds by inspection.
+\end{proof}
+
+\argued{sec:five-systems}
+
+\subsection*{Certificate transparency}
+
+\begin{example}[Seven cards]\label{spec:merkle} \kind{shown on the copy}
+Work with brackets: a leaf is $\langle d\rangle$ and a node is $[x\,y]$, two terms being equal only when they
+are written the same. For a list $D$ of $n\ge1$ items, $\mathrm{MTH}(D)=\langle d_0\rangle$ if $n=1$, and
+otherwise $\mathrm{MTH}(D)=[\mathrm{MTH}(D_{<k})\ \mathrm{MTH}(D_{\ge k})]$ with $k$ the largest power of two
+below $n$. For $D=(d_0,\dots,d_6)$, with $a=[\langle d_0\rangle\langle d_1\rangle]$,
+$b=[\langle d_2\rangle\langle d_3\rangle]$, $c=[\langle d_4\rangle\langle d_5\rangle]$, $L=[a\,b]$ and
+$R=[c\,\langle d_6\rangle]$, the root is $\mathrm{MTH}(D)=[L\,R]$. Joining in order
+$\langle d_2\rangle$ on the left, $a$ on the left and $R$ on the right rebuilds the root from
+$\langle d_3\rangle$. The proofs for the other leaves are: $d_0$: $\langle d_1\rangle,b,R$, all on the right;
+$d_4$: $\langle d_5\rangle,\langle d_6\rangle$ on the right, then $L$ on the left; $d_6$: $c$, then $L$, both on
+the left. The tree of the first four cards has root $L=\mathrm{MTH}(d_0,\dots,d_3)$, and $[L\,R]$ is the root of
+seven: the old tree is the left half of the new one. Since $[\langle d_3\rangle\langle d_2\rangle]\ne b$, a proof
+must carry the side of each join. That distinct trees have distinct roots holds for brackets; for a real log
+it is a further assumption about the hash function.
+\end{example}
+
+\argued{sec:five-systems}
+
+\subsection*{The fourth currency}
+
+\begin{proposition}[A permanent write merges on its own yes side]\label{spec:yes-side} \kind{shown}
+Let $S$ be finite, $f:S\to S$, and $\rd$ a box with $\rd(s)=\mathrm{yes}\Rightarrow\rd(f(s))=\mathrm{yes}$.
+Let $Y$ be the set of states where the box is up and $s_0\notin Y$ with $f(s_0)\in Y$. Then there are
+$x\ne y$ in $Y\cup\{s_0\}$ with $f(x)=f(y)\in Y$.
+\end{proposition}
+
+\begin{proof}
+$f$ maps the $|Y|+1$ states of $Y\cup\{s_0\}$ into $Y$; two of them land together.
+\end{proof}
+
+\argued{sec:five-systems}
+
+\begin{proposition}[The count]\label{spec:five-count} \kind{shown on the copies}
+Classified by Definition~\ref{spec:fee-bond-budget}, on the pieces copied in the book: Casper attaches a
+bond to the write and takes it only on contradicting votes; gas attaches a fee to the write and a budget
+(the gas limit of each block); the quoted registers of the security chip, certificate transparency and
+proof-carrying code attach none of the three. Of the fifteen fee, bond and budget entries, three are
+filled, one of each kind, and exactly one system takes a fee at the moment of the write.
+\end{proposition}
+
+\argued{sec:five-systems}
+
+\begin{remark}\label{spec:copy-not-system} \kind{not claimed}
+A copy of one piece of a system is not claimed to be the running system. Each statement above is about the
+piece as stated.
+\end{remark}
+
+\begin{remark}\label{spec:toll-vs-wall} \kind{not claimed}
+It is not claimed that a toll is a better design than a wall.
+\end{remark}
+
+%=============================================================================
+\section{Which box is worth keeping}\label{spec:ch19}
+
+\begin{definition}[Pointer]\label{spec:pointer-def} \kind{chosen}
+Fix a machine, its set $\mathrm{Reach}$ of reachable states, and a set $\mathcal E$ of \emph{events}, each
+a set $E\subseteq S$ of states (the event holds at $s$ when $s\in E$). Fix a test
+$\mathcal P\subseteq\mathcal E$ (the events copied and relied on by parties who did not make them), chosen
+without reference to the established record. An event $E$ is a \emph{pointer} for $\mathcal P$ when
+$E\in\mathcal P$ and $E\cap\mathrm{Reach}\subseteq E'$ for every $E'\in\mathcal P$.
+\end{definition}
+
+\begin{proposition}[A pointer is unique on reachable states]\label{spec:pointer-unique} \kind{shown}
+If $E_1$ and $E_2$ are pointers for $\mathcal P$, then $E_1\cap\mathrm{Reach}=E_2\cap\mathrm{Reach}$.
+A pointer need not exist.
+\end{proposition}
+
+\begin{proof}
+$E_1\cap\mathrm{Reach}\subseteq E_2$ and $E_2\cap\mathrm{Reach}\subseteq E_1$. For non-existence, take
+$\mathcal P=\{E,E'\}$ with $E\cap\mathrm{Reach}$ and $E'\cap\mathrm{Reach}$ incomparable.
+\end{proof}
+
+\argued{sec:worth-keeping}
+
+\begin{definition}[Separate carriers]\label{spec:carriers} \kind{chosen}
+Readers $j\in J$ have \emph{separate carriers} when the world's state space is a product
+$\prod_{j\in J}W_j$ and the view of reader $j$ depends only on the coordinate $w_j$. The coordinates may be
+set independently; the states a machine reaches may still tie them together.
+\end{definition}
+
+\begin{thesis}[The pointer thesis]\label{spec:pointer-thesis} \kind{thesis}
+For record-keeping as people run it, modelled faithfully, with a test of reliance chosen for its own
+reasons and readers with separate carriers: (1) the established record (Definition~\ref{def:established})
+is the pointer, so every event that is copied and relied on by parties who did not make it holds wherever
+the established record does, on the reachable states; and (2) every record the system prices is copied and
+relied on by parties who did not make it.
+\end{thesis}
+
+\argued{sec:worth-keeping}
+
+\begin{example}[A rival event that is copied and relied on]\label{spec:base-fee} \kind{shown}
+Let a block's base fee be $b$, its target use $g^*$ (half the block limit) and its use $g$. The next base
+fee is $b+b(g-g^*)/(8g^*)$, rounded down. A full block ($g=2g^*$) takes $800$ to $900$; an empty block
+takes $800$ to $700$. Every copy of the chain reads the last block's use and acts on it.
+\end{example}
+
+\argued{sec:worth-keeping}
+
+\begin{definition}[Three states]\label{spec:three-states} \kind{chosen}
+$S=\{\mathsf{blank},\mathsf{once},\mathsf{twice}\}$, box up at $\mathsf{once}$ and $\mathsf{twice}$. Two moves:
+$\mathsf{flip}$ sends $\mathsf{blank}\mapsto\mathsf{once}$ and fixes $\mathsf{once}$, $\mathsf{twice}$;
+$\mathsf{smooth}$ sends $\mathsf{once}\mapsto\mathsf{twice}$ and fixes $\mathsf{blank}$, $\mathsf{twice}$.
+Prices $\cost:S\times I\to\N$ depend on the state a step starts from. The requirements that never name the
+reading are:
+(R1) $\step(s,i)=s\Rightarrow\cost(s,i)=0$;
+(R2) if $\step(\cdot,i)$ is one-to-one, then $\cost(s,i)=0$ for all $s$;
+(R3) $\cost(\varphi(s),i)=\cost(s,i)$ for every bijection $\varphi$ of $S$ with
+$\varphi(\step(s,i))=\step(\varphi(s),i)$ for all $s,i$;
+(R4) the price of a run is the sum of the prices of its steps;
+(R5) the price of a step is a function of the state it starts from and the move;
+(R6) $\cost(\mathsf{blank},\mathsf{flip})=1$.
+For $n\in\N$ let $\cost_n(\mathsf{blank},\mathsf{flip})=1$, $\cost_n(\mathsf{once},\mathsf{smooth})=n$, and
+$\cost_n=0$ on the other four steps.
+\end{definition}
+
+\begin{proposition}[The list does not choose]\label{spec:list-no-choice} \kind{shown}
+A price $\cost:S\times I\to\N$ on the three states meets (R1) to (R6) if and only if $\cost=\cost_n$ for some
+$n\in\N$. Both moves make two arrows meet. $\cost_0$ is the toll (one on the raise, nothing else), $\cost_1$ is
+a price on merging, and they differ at $(\mathsf{once},\mathsf{smooth})$.
+\end{proposition}
+
+\begin{proof}
+(R4) and (R5) hold of every such $\cost$. $\mathsf{flip}$ sends $\mathsf{blank},\mathsf{once}$ to
+$\mathsf{once}$ and $\mathsf{smooth}$ sends $\mathsf{once},\mathsf{twice}$ to $\mathsf{twice}$, so (R2) asks
+nothing. A bijection $\varphi$ commuting with both moves fixes their only common fixed point $\mathsf{twice}$,
+maps the fixed points $\{\mathsf{once},\mathsf{twice}\}$ of $\mathsf{flip}$ to themselves, so fixes
+$\mathsf{once}$, and then $\mathsf{blank}$; so (R3) asks nothing. (R1) sets the steps
+$(\mathsf{once},\mathsf{flip})$, $(\mathsf{twice},\mathsf{flip})$, $(\mathsf{blank},\mathsf{smooth})$,
+$(\mathsf{twice},\mathsf{smooth})$ to $0$, (R6) sets $(\mathsf{blank},\mathsf{flip})$ to $1$, and nothing
+constrains $(\mathsf{once},\mathsf{smooth})$.
+\end{proof}
+
+\argued{sec:worth-keeping}
+
+\begin{proposition}[The ceiling that names the reading chooses]\label{spec:ceiling-chooses} \kind{shown}
+On any machine with a box and $\cost:S\times I\to\N$, if $\cost(s,i)\ge1$ at every raise and
+$\cost(\tau,s)\le\mathrm{raises}(\tau,s)$ for every run, then $\cost(s,i)=1$ at raises and $0$ elsewhere.
+On the three states this leaves exactly $\cost_0$; $\cost_n$ with $n\ge1$ fails the ceiling on the
+one-step run of $\mathsf{smooth}$ from $\mathsf{once}$.
+\end{proposition}
+
+\begin{proof}
+The first claim is (b)$\Rightarrow$(c) of Proposition~\ref{spec:schedule}. The step
+$(\mathsf{once},\mathsf{smooth})$ raises nothing and costs $n$.
+\end{proof}
+
+\argued{sec:worth-keeping}
+
+%=============================================================================
+\section{Heat}\label{spec:ch20}
+
+Let $S$ be finite. A \emph{spread} is a function $p:S\to[0,1]$ with $\sum_s p(s)=1$. Its uncertainty is
+$H(p)=-\sum_s p(s)\log_2 p(s)$, with $0\log_2 0=0$. For $f:S\to S$, the spread after the step is
+$f_*p(y)=\sum_{f(x)=y}p(x)$, and the \emph{bits removed} are $\Delta_f(p)=H(p)-H(f_*p)$. The \emph{landing
+pile} of $f$ at $y$ is $f\inv(y)$, and $m_f=\max_y|f\inv(y)|$ is the size of the biggest one. A
+\emph{known state} is a spread with $p(s_0)=1$ for one $s_0$. $k_B$ is Boltzmann's constant and $T>0$ a
+temperature.
+
+\begin{assumption}[Landauer's principle]\label{spec:landauer} \kind{assumed; cited}
+For a chosen physical memory whose states are the states of $S$, symmetric (its states alike apart from
+their labels), prepared in a spread $p$, and in contact with surroundings at temperature $T$, a step $f$
+hands to the surroundings an average heat, over that preparation, of at least
+$k_BT\ln2\cdot\Delta_f(p)$. This is Landauer's principle in the general form used in the book; its general
+validity is disputed, and the book names the critics. It is not claimed of single runs.
+\end{assumption}
+
+\argued{sec:heat}
+
+\begin{lemma}[The even spread holds the most]\label{spec:log-line} \kind{shown}
+If a spread $q$ is supported on $m\ge1$ states, then $H(q)\le\log_2 m$, with equality exactly for the even
+spread on those states.
+\end{lemma}
+
+\begin{proof}
+$\ln y\le y-1$, with equality only at $y=1$. For each state with $q(x)>0$ put $y=1/(m\,q(x))$:
+$q(x)\ln\frac{1}{m q(x)}\le\frac1m-q(x)$. Summing, $\ln 2\,(H(q)-\log_2 m)\le\sum_x(\frac1m-q(x))\le0$,
+with equality only if every $q(x)=1/m$ on all $m$ states.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{lemma}[Bits removed, state by state]\label{spec:per-state} \kind{shown}
+For every $f$ and spread $p$,
+$\Delta_f(p)=\sum_{x:\,p(x)>0}p(x)\log_2\frac{f_*p(f(x))}{p(x)}$. Each term is at least $0$, and the term
+of $x$ is positive exactly when some $x'\ne x$ with $p(x')>0$ has $f(x')=f(x)$. In particular
+$\Delta_f(p)\ge0$, $\Delta_f(p)=0$ when $f$ is one-to-one, and the four equally likely cards sent
+$A,B\mapsto X$, $C\mapsto Y$, $D\mapsto Z$ lose $2-\frac32=\frac12$ bit.
+\end{lemma}
+
+\begin{proof}
+$H(f_*p)=-\sum_y f_*p(y)\log_2 f_*p(y)=-\sum_x p(x)\log_2 f_*p(f(x))$; subtract from $H(p)$. Since
+$f_*p(f(x))\ge p(x)$, with equality exactly when $x$ shares its landing place with no other state of
+positive chance, each term is nonnegative, and positive in the stated case.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{proposition}[A permanent raise from the even spread]\label{spec:raise-bits} \kind{shown}
+Let $f:S\to S$ keep the box up ($\rd(s)=\mathrm{yes}\Rightarrow\rd(f(s))=\mathrm{yes}$), let $Y$ be the
+$m\ge1$ states where the box is up, and let $K$ be $k\ge1$ states where it is down with $f(K)\subseteq Y$.
+For the even spread $p$ on $Y\cup K$:
+\begin{enumerate}[label=(\alph*)]
+\item $\Delta_f(p)\ge\log_2\frac{m+k}{m}$, with equality for some such $f$ whenever $m$ divides $k$;
+\item $\Delta_f(p)\ge\frac{2k}{m+k}$, with equality for some such $f$ whenever $k\le m$;
+\item (worst case) there are $x\ne x'$ in $Y\cup\{s\}$, for any $s\in K$, with $f(x)=f(x')$, and the even
+spread on $\{x,x'\}$ loses exactly one bit, whatever $m$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $H(p)=\log_2(m+k)$ and $f_*p$ is supported on $Y$, so $H(f_*p)\le\log_2m$ by
+Lemma~\ref{spec:log-line}. (b) If $s_y=|f\inv(y)\cap(Y\cup K)|$, then
+$\Delta_f(p)=\sum_y\frac{s_y\log_2 s_y}{m+k}$. For integers $s\ge1$, $s\log_2s\ge2(s-1)$ (equality at $1$ and
+$2$; for $s\ge2$ the left side grows with slope $\log_2s+1/\ln2>2$). At most $m$ piles are nonempty, so
+$\sum_y(s_y-1)\ge k$. Equality in (a): keep each $y\in Y$ in place and send $k/m$ states of $K$ to each; in
+(b): send the $k$ states of $K$ to $k$ different states of $Y$ and keep $Y$ in place. (c) Proposition
+\ref{spec:yes-side} gives the pair; the even spread on it has $H=1$ before and $0$ after.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{proposition}[Any spread on the raise loses something]\label{spec:any-spread} \kind{shown}
+In the setting of Proposition~\ref{spec:raise-bits}, let $s\in K$, and let $p$ be any spread with $p(s)>0$ and
+$p(y)>0$ for every $y\in Y$. Then $\Delta_f(p)>0$.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{spec:yes-side}, two states of $Y\cup\{s\}$, both of positive chance, land together.
+Apply Lemma~\ref{spec:per-state}.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{corollary}[Heat on a permanent raise]\label{spec:raise-heat} \kind{shown}
+Given Assumption~\ref{spec:landauer}: in the setting of Proposition~\ref{spec:raise-bits}, the average heat
+from the even spread on $Y\cup K$ is at least
+$k_BT\ln2\cdot\max\bigl(\log_2\frac{m+k}{m},\frac{2k}{m+k}\bigr)$; from the even spread on the colliding pair
+of (c) it is at least $k_BT\ln2$; and under the spread of Proposition~\ref{spec:any-spread} it is positive.
+For $m=k=1$ the first floor is $k_BT\ln 2$, about $2.87\times10^{-21}$\,J at $300$\,K. For $m=1000$, $k=1$ it
+is $\frac{2\ln2}{1001}k_BT$, about $k_BT/722$, about $500$ times less than for $m=1$.
+\end{corollary}
+
+\argued{sec:heat}
+
+\begin{proposition}[Three roads, two strengths]\label{spec:three-roads} \kind{shown}
+For $f:S\to S$ and $c\in\N$:
+\begin{enumerate}[label=(\alph*)]
+\item $\max_p\Delta_f(p)=\log_2 m_f$, attained by the even spread on a biggest landing pile;
+\item (entropy pricing equals the halving rule) $\Delta_f(p)\le c$ for every spread $p$ if and only if
+$m_f\le2^c$;
+\item (Bennett's rule) the condition ``if $f$ makes two arrows meet, then $c\ge1$'' holds if and only if
+$\Delta_f(p)\le c$ for every spread $p$ supported on two states;
+\item Bennett's rule is weaker: for $f$ sending eight states to one, $c=1$ satisfies (c) and fails (b),
+which asks for $c\ge3$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Write $q=f_*p$. Grouping the states of positive chance by landing place,
+$\Delta_f(p)=\sum_{y:\,q(y)>0}q(y)\,H(p_y)$, where $p_y$ is $p$ conditioned on $f\inv(y)$; by
+Lemma~\ref{spec:log-line} each $H(p_y)\le\log_2|f\inv(y)|\le\log_2m_f$. The even spread on a biggest pile
+loses $\log_2 m_f$. (b) follows from (a), as $c\in\N$. (c) A spread on two states loses $1$ bit if they merge
+with equal chances and at most $1$ in any case, and loses $0$ if they do not merge. (d) $m_f=8$.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{proposition}[No floor on a known state]\label{spec:known-state} \kind{shown}
+For every $f$ and every known state $p$, $\Delta_f(p)=0$. Given Assumption~\ref{spec:landauer}, the bound
+it gives for a step from a known state is that the average heat is at least $0$.
+\end{proposition}
+
+\begin{proof}
+$p$ and $f_*p$ are both known states, and a known state has $H=0$.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{assumption}[A fixed device and the second law]\label{spec:device-identity} \kind{assumed}
+Let a fixed physical device send each input $x$ of a finite set $X$ to one output. Write $\sigma(x)$ for the
+average entropy it produces on input $x$ known, and $\sigma(p)$ for that produced on a spread $p$ of inputs.
+Then $\sum_x p(x)\sigma(x)=\sigma(p)+k_B\sum_x p(x)\ln\frac1{p(x)}$, and $\sigma(p)\ge0$. When dissipated work
+is $T$ times entropy produced, the same holds for dissipated work divided by $T$.
+\end{assumption}
+
+\argued{sec:heat}
+
+\begin{proposition}[Some input pays]\label{spec:some-input} \kind{shown}
+Given Assumption~\ref{spec:device-identity}: if a fixed device sends $K$ inputs to the same output, then
+$\sigma(x)\ge k_B\ln K$ for some one of them, and, when dissipated work is $T$ times entropy produced, the
+dissipated work on that input is at least $k_BT\ln K$.
+\end{proposition}
+
+\begin{proof}
+For the even spread on the $K$ inputs, $\frac1K\sum_x\sigma(x)=\sigma(p)+k_B\ln K\ge k_B\ln K$, and the largest
+term is at least the average.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{example}[The newcomer need not collide]\label{spec:newcomer} \kind{shown}
+On states $1,2,3,4$ with the box down only at $1$, let $f(1)=2$, $f(2)=3$, $f(3)=3$, $f(4)=4$. Then $f$ keeps
+the box up, raises it at $1$, and makes two arrows meet only at $3$, from $2$ and $3$. A spread with all its
+chance on states where the box is down loses no bits under $f$.
+\end{example}
+
+\argued{sec:heat}
+
+\begin{theorem}[Every scale pays the same way]\label{spec:every-scale} \kind{shown}
+Let $F:X'\to X'$ be a fine step, $X\subseteq X'$ the fenced fine states, $\pi:X\to C$ onto (each coarse state is
+a fence with at least one fine state in it), and $g:C\to C$ a coarse step that follows the fine one:
+$\pi(F(x))=g(\pi(x))$ whenever $x\in X$ and $F(x)\in X$. If $g$ makes two arrows meet, then at least one of the
+following holds: (a) $F$ makes two arrows meet on $X$; (b) $F(x)\notin X$ for some $x\in X$; (c) some run of
+$F$ from a state of $X$ visits infinitely many distinct states.
+\end{theorem}
+
+\begin{proof}
+Suppose none holds. Then $F$ maps $X$ into $X$ one-to-one and every run from $x\in X$ visits finitely many
+states, so $F^i(x)=F^j(x)$ for some $i<j$; cancelling $F$ $i$ times gives $F^{j-i}(x)=x$. So every $x\in X$
+has a period $p_x\ge1$. Let $g(c)=g(c')$ with $c\ne c'$, and pick $a\in\pi\inv(c)$, $b\in\pi\inv(c')$. With
+$n=p_ap_b$, $F^n(a)=a$ and $F^n(b)=b$, so $c=\pi(F^n a)=g^n(c)=g^{n-1}(g(c))=g^{n-1}(g(c'))=g^n(c')=c'$,
+a contradiction.
+\end{proof}
+
+\argued{sec:heat}
+
+\begin{assumption}[Local detailed balance for the walker]\label{spec:ldb} \kind{assumed; cited}
+A walker on $\Z$ steps $+1$ with chance $p\in(0,1)$ and $-1$ with chance $1-p$ at each tick. A forward step
+hands the surroundings heat $k_BT\ln\frac{p}{1-p}$ and a backward step takes the same amount back.
+\end{assumption}
+
+\argued{sec:heat}
+
+\begin{proposition}[Going faster costs more]\label{spec:walker} \kind{shown}
+Given Assumption~\ref{spec:ldb}, with speed $v=2p-1$ and heat in units of $k_BT$:
+\begin{enumerate}[label=(\alph*)]
+\item the average heat per tick is $v\ln\frac{p}{1-p}\ge0$, with equality exactly when $p=\frac12$;
+\item for $0<v<1$, the average heat per unit of distance is $\ln\frac{1+v}{1-v}\ge2v$;
+\item covering an average distance $N\ge0$ at speed $0<v<1$ takes time $N/v$ and heat
+$N\ln\frac{1+v}{1-v}$, and heat times time is at least $2N^2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) The average heat per tick is $p\ln\frac p{1-p}-(1-p)\ln\frac p{1-p}=v\ln\frac p{1-p}$, and $v$ and
+$\ln\frac p{1-p}$ have the same sign, both zero only at $p=\frac12$. (b) Divide by $v$ and use
+$\frac p{1-p}=\frac{1+v}{1-v}$. The function $\ln\frac{1+v}{1-v}-2v$ is $0$ at $v=0$ and has derivative
+$\frac2{1-v^2}-2\ge0$. (c) Multiply: $N\ln\frac{1+v}{1-v}\cdot\frac Nv\ge2N^2$.
+\end{proof}
+
+\argued{sec:heat}
+
+%=============================================================================
+\section{Keeping without the heat}\label{spec:ch21}
+
+A run \emph{takes fresh states forever} when it visits infinitely many distinct states.
+
+\begin{proposition}[A cell written once]\label{spec:write-once} \kind{shown}
+(a) Let $S$ be finite, $W\subseteq S$ the written states, $\mathsf b\notin W$ a blank state, and let a write
+$w:S\to S$ satisfy $w(W)\subseteq W$ and $w(\mathsf b)\in W$. Then two distinct states of $W\cup\{\mathsf b\}$
+have the same image. This covers the three-state cell ($\mathsf b\mapsto0$, $0\mapsto0$) and every cell with
+added remembering states.
+(b) On $\Z$, the step $n\mapsto n+1$ with the box up exactly on $\{n\ge1\}$ is one-to-one and onto, raises
+the box at $0$ on the first step, keeps it up, and never returns to a state it has visited.
+\end{proposition}
+
+\begin{proof}
+(a) $|W|+1$ states land in $W$. (b) By inspection.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{remark}\label{spec:write-partial}
+A write defined only on $\mathsf b$, with no next step at a written state, makes no two arrows meet. The
+argument in (a) uses that the write is defined on every state.
+\end{remark}
+
+\begin{proposition}[Noisy steps]\label{spec:noisy} \kind{shown}
+Let $P:S\times S\to[0,1]$ with $\sum_yP(x,y)=1$ for every $x$ (sums over infinite sets are sums of
+nonnegative terms). A set $Y\subseteq S$ is \emph{closed} (a reading that stays) when $P(x,y)=0$ for
+$x\in Y$, $y\notin Y$. $P$ \emph{keeps the even spread} when $\sum_xP(x,y)=1$ for every $y$.
+\begin{enumerate}[label=(\alph*)]
+\item If $P$ keeps the even spread and $Y$ is finite and closed, then $P(x,y)=0$ for all $x\notin Y$,
+$y\in Y$.
+\item If $|S|=N$ is finite, and $q(y)=\frac1N\sum_xP(x,y)$ is one step from the even spread, then
+$\sum_yq(y)^2\ge\frac1N$, with equality exactly when $P$ keeps the even spread; otherwise also
+$H(q)<\log_2N$. In particular, if some closed $Y$ has $P(x,y)>0$ for some $x\notin Y$, $y\in Y$, the step
+makes the even spread lumpier.
+\item If $P$ keeps the even spread, then $\sum_yq(y)^2\le\sum_xp(x)^2$ for every spread $p$ on a countable
+$S$, where $q(y)=\sum_xp(x)P(x,y)$.
+\item If $\pi$ is a spread with $\sum_x\pi(x)P(x,y)=\pi(y)$ for every $y$ and $\pi(x)>0$ for every $x$, and
+$Y$ is closed, then $P(x,y)=0$ for all $x\notin Y$, $y\in Y$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $\sum_{y\in Y}\sum_xP(x,y)=|Y|$, while $\sum_{y\in Y}\sum_{x\in Y}P(x,y)=\sum_{x\in Y}1=|Y|$ by
+closedness. So $\sum_{x\notin Y}\sum_{y\in Y}P(x,y)=0$, and each term is $\ge0$.
+(b) Let $c_y=\sum_xP(x,y)$, so $\sum_yc_y=N$ and $\sum_y(c_y-1)^2=\sum_yc_y^2-N$. Then
+$\sum_yq(y)^2=\frac1{N^2}\sum_yc_y^2\ge\frac1N$, with equality exactly when every $c_y=1$. If not every
+$c_y=1$, $q$ is not even and Lemma~\ref{spec:log-line} gives $H(q)<\log_2N$. The last claim follows from (a).
+(c) $q(y)=\sum_xP(x,y)p(x)$ is an average of the $p(x)$ with weights $P(\cdot,y)$ summing to $1$, so
+$q(y)^2\le\sum_xP(x,y)p(x)^2$. Summing over $y$ and using $\sum_yP(x,y)=1$ gives $\sum_xp(x)^2$.
+(d) $\pi(Y)=\sum_{y\in Y}\sum_x\pi(x)P(x,y)=\sum_{x\in Y}\pi(x)+\sum_{x\notin Y}\pi(x)\sum_{y\in Y}P(x,y)$,
+and $\pi(Y)\le1$ is finite, so the last sum is $0$; with $\pi(x)>0$, every $P(x,y)=0$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{proposition}[Quantum steps]\label{spec:quantum} \kind{shown}
+Let $\mathcal H$ be a finite-dimensional complex inner product space, $Y\subseteq\mathcal H$ a subspace (the
+YES directions), and $Y^\perp$ the NO directions.
+\begin{enumerate}[label=(\alph*)]
+\item If $U$ is unitary and $UY\subseteq Y$, then $UY^\perp\subseteq Y^\perp$. A unitary step cannot raise a
+reading that stays.
+\item On $\ell^2(\Z)$ with basis $(e_n)$, the shift $Ue_n=e_{n+1}$ is unitary, maps
+$Y=\overline{\mathrm{span}}\{e_n:n\ge1\}$ into $Y$, and maps $e_0\in Y^\perp$ into $Y$.
+\item Let $\Phi$ be a positive, trace-preserving linear map on operators of $\mathcal H$ with
+$\Phi(\mathbf 1)=\mathbf 1$ (it keeps the even spread), and suppose $\Phi$ maps every density operator
+supported in $Y$ to one supported in $Y$. Then $\Phi$ maps every density operator supported in $Y^\perp$ to
+one supported in $Y^\perp$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $U$ is one-to-one and $\dim UY=\dim Y$, so $UY=Y$. For $v\in Y^\perp$ and $y\in Y$,
+$\langle Uv,Uy\rangle=\langle v,y\rangle=0$, so $Uv\perp UY=Y$.
+(b) By inspection.
+(c) Let $P_Y$ and $P_\perp$ be the projections. $\Phi(P_Y)$ is supported in $Y$ and has trace $\dim Y$, so
+$\mathrm{Tr}(P_Y\Phi(P_Y))=\dim Y=\mathrm{Tr}(P_Y\Phi(\mathbf 1))$, hence $\mathrm{Tr}(P_Y\Phi(P_\perp))=0$.
+A density operator $\rho$ supported in $Y^\perp$ has $0\le\rho\le P_\perp$, so
+$0\le P_Y\Phi(\rho)P_Y\le P_Y\Phi(P_\perp)P_Y$, which has trace $0$; so $P_Y\Phi(\rho)P_Y=0$, and since
+$\Phi(\rho)\ge0$, $\Phi(\rho)P_Y=0$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{theorem}[How much room keeping takes]\label{spec:room} \kind{shown}
+Let $F:S\to S$ and let $Z\subseteq S$ be the states holding the fixed value, with $F(x)\in Z$ for every $x$.
+Let $s_1,\dots,s_N$ be distinct starts, $L$ of them in $Z$, with $F(s)=s$ for each start $s\in Z$. Let
+$T\ge0$ and suppose the promise: for all starts $s,s'$ and $0\le i,j<T$,
+$F(F^i(s))=F(F^j(s'))\Rightarrow F^i(s)=F^j(s')$. Then
+\[
+|S|\ \ge\ N+T(N-L).
+\]
+The bound is attained: for every $N$, $L\le N$ and $T$ there are $S,F,Z$ and starts meeting every condition
+with $|S|=N+T(N-L)$. For $L=1$ the least number of states is $1+(T+1)(N-1)$, and a memory of $B$ bits needs
+$B\ge\log_2\bigl(1+(T+1)(N-1)\bigr)$.
+\end{theorem}
+
+\begin{proof}
+Walking back: if $F^i(s)=F^j(s')$ with $i\le j\le T$, then $s=F^{j-i}(s')$, by applying the promise $i$
+times. Consider the positions $(s,k)$ with $0\le k\le T$ for each start $s\notin Z$, and $(s,0)$ for each start
+$s\in Z$: there are $N+T(N-L)$ of them. Suppose $F^i(s)=F^j(s')$ for two positions, $i\le j$. If $s,s'\notin Z$,
+then $s=F^{j-i}(s')$, which lies in $Z$ if $j>i$; so $j=i$ and $s=s'$. If $s\in Z$, then $i=0$ and
+$F^j(s)=s=F^j(s')$, so walking back $j$ steps gives $s=s'$. If $s'\in Z$, then $j=0=i$ and $s=s'$. So the
+positions give distinct states. For attainment, give each start in $Z$ one state, fixed by $F$, and each other
+start a row of $T+1$ states, the first being the start and the others in $Z$, with $F$ walking the row and
+sending its last state to a start in $Z$ (or to itself if $L=0$). Steps from states reached in fewer than $T$
+repetitions land on distinct states.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{definition}[Two levers]\label{spec:levers-def} \kind{chosen}
+A \emph{two-lever box} is a set $S$ with a reading $\rd:S\to\{0,1,2\}$ and maps $F,G:S\to S$ with
+$\rd(F(x))=0$ if $\rd(x)=1$ and $\rd(F(x))=\rd(x)$ otherwise, and $\rd(G(x))=0$ if $\rd(x)=2$ and
+$\rd(G(x))=\rd(x)$ otherwise, with starts $z,a,b$ reading $0,1,2$. $R_t$ is the set of states reached from a
+start by at most $t$ pulls of $F$ or $G$. The box \emph{keeps states apart through horizon $T$} when $F$ and
+$G$ are each one-to-one on $R_{T-1}$. The levers \emph{commute} when $F(G(x))=G(F(x))$ for every $x\in S$.
+\end{definition}
+
+\begin{theorem}[Two levers]\label{spec:levers} \kind{shown}
+Let $T\ge1$ and let a two-lever box keep states apart through horizon $T$.
+\begin{enumerate}[label=(\alph*)]
+\item $|S|\ge T+3$, and some such box has exactly $T+3$ states.
+\item If the levers commute, $G(a)=a$ and $F(b)=b$, then $|S|\ge2T+2$, and some such box has exactly
+$2T+2$ states.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) Let $Z_t$ be the states of $R_t$ reading $0$. For $1\le t\le T$, $F$ maps $Z_{t-1}\cup\{a\}\subseteq R_{t-1}$
+one-to-one into $Z_t$, so $|Z_t|\ge|Z_{t-1}|+1$; with $z\in Z_0$, $|Z_T|\ge T+1$, and $a,b$ add two. A box with
+$T+3$ states: $a,b,c_1,\dots,c_{T+1}$ with $z=c_1$, $F(a)=G(b)=c_1$, $F(b)=b$, $G(a)=a$, and
+$F(c_k)=G(c_k)=c_{\min(k+1,T+1)}$.
+
+(b) Walking back as in Theorem~\ref{spec:room}, the states $F^k(a)$, $1\le k\le T$, are distinct and read $0$,
+and likewise $G^k(b)$. Commuting gives $G(F^k a)=F^k(Ga)=F^k a$ and $F(G^kb)=G^kb$. If $F^ia=G^jb$ with $i<T$,
+then $F$ moves this state to $F^{i+1}a\ne F^ia$ and also holds it still, which is impossible; so $i=T$, and
+likewise $j=T$. If $F^Ta\ne G^Tb$, the two chains give $2T$ zero states, and $a,b$ give $2T+2$. If
+$F^Ta=G^Tb=:e$, the chains give $2T-1$ states, and $F(e)=e$. Were $z=F^ia$ with $1\le i\le T$, then
+$e=F^{T-i}(z)\in R_{T-1}$ and $F(F^{T-1}a)=e=F(e)$ with $F^{T-1}a\in R_{T-1}$, so $F^{T-1}a=e$: for $T=1$ this
+makes $a$ read $0$, and for $T\ge2$ it contradicts distinctness. So $z$ is off the first chain, and likewise off
+the second, giving $2T-1+1+2=2T+2$. A box with $2T+2$ states: $a,b,c_1,\dots,c_T,d_1,\dots,d_T$ with $z=d_1$;
+$F(a)=c_1$, $F(c_k)=c_{\min(k+1,T)}$, $F$ fixes $b$ and every $d_k$; $G(b)=d_1$, $G(d_k)=d_{k+1}$ for $k<T$,
+$G(d_T)=c_T$, $G$ fixes $a$ and every $c_k$. A direct check gives the reading rules, commuting, and
+one-to-one levers on $R_{T-1}=\{a,b,c_1,\dots,c_{T-1},d_1,\dots,d_T\}$. For $T=1$ this is the book's
+four-place box.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{remark}\label{spec:levers-general}
+Without the conditions $G(a)=a$ and $F(b)=b$, the book argues more briefly, from the paths the idle lever
+traces and the loops they fall into, that commuting levers still need $2T+2$ states. That argument is not
+restated here as a result.
+\end{remark}
+
+\begin{remark}\label{spec:levers-forever} \kind{stated; not argued}
+The book states that if each lever must be one-to-one on all states, forever, the count rises to $2T+3$, and
+gives a box that reaches it: the states $A_0,A_1,\dots$ and $B_0,B_1,\dots$, the first lever sending
+$A_n\mapsto A_{n+1}$ and fixing every $B_n$, the second sending $B_n\mapsto B_{n+1}$ and fixing every $A_n$,
+with $\rd(A_0)=1$, $\rd(B_0)=2$, $\rd=0$ elsewhere, and starts $A_0$, $B_0$, $B_1$. Within $T$ pulls it reaches
+$2T+3$ states. The lower bound is not argued in the book.
+\end{remark}
+
+\begin{theorem}[The two-bit grid]\label{spec:grid} \kind{shown}
+Let $\rd:S\to\{0,1\}^2$ (each bit set or cleared), $F$ clear the first bit and keep the second
+($\rd(F x)=(0,\rd_2(x))$), $G$ clear the second and keep the first, with four starts, one for each reading.
+Let $R_t$ be the states reached from the starts by at most $t$ pulls, and suppose $F$ and $G$ are one-to-one
+on $R_{t}$ for every $t<T$. Then
+\[
+|R_T|\ \ge\ 1+\frac{(T+2)(T+3)}2 .
+\]
+The grid attains it for every $t$: the states $\mathsf{blank}$ and $(i,j)\in\N^2$, with $F(i,j)=(i+1,j)$,
+$G(i,j)=(i,j+1)$, both fixing $\mathsf{blank}$, the reading of $(i,j)$ being whether $i=0$ and whether $j=0$,
+$\mathsf{blank}$ reading $(0,0)$, and starts $\mathsf{blank},(0,0),(1,0),(0,1)$. Its levers commute and are
+one-to-one everywhere, and it reaches exactly $\{\mathsf{blank}\}\cup\{(i,j):i+j\le t+1\}$ in $t$ pulls, which
+has $1+\frac{(t+2)(t+3)}2$ states.
+\end{theorem}
+
+\begin{proof}
+Let $A_t,B_t,Z_t$ be the states of $R_t$ reading $(0,1)$, $(1,0)$, $(0,0)$. For $1\le t\le T$, $F$ maps
+$A_{t-1}$ together with the start reading $(1,1)$ one-to-one into $A_t$, so $|A_t|\ge|A_{t-1}|+1$ and
+$|A_t|\ge t+1$; likewise $|B_t|\ge t+1$. $G$ maps $Z_{t-1}\cup A_{t-1}$ one-to-one into $Z_t$, so
+$|Z_t|\ge|Z_{t-1}|+t$ and $|Z_T|\ge1+\frac{T(T+1)}2$. With the start reading $(1,1)$,
+$|R_T|\ge1+2(T+1)+1+\frac{T(T+1)}2=1+\frac{(T+2)(T+3)}2$. For the grid, each pull adds one to $i+j$, the
+starts have $i+j\le1$, and every point with $i+j\le t+1$ is reached; the triangle has
+$\sum_{r=0}^{t+1}(r+1)=\frac{(t+2)(t+3)}2$ points.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{proposition}[Keeping every history]\label{spec:history} \kind{shown}
+For a machine $(S,I,\step)$, let $\hat S$ be the pairs $(s,\eta)$ with $\eta$ a finite list of states, and
+$\hat\step((s,\eta),i)=(\step(s,i),\,s\eta)$. Each $\hat\step(\cdot,i)$ is one-to-one, the first coordinate of
+$\hat\step((s,\eta),i)$ is $\step(s,i)$, and no run of $\hat\step$ visits a state twice.
+\end{proposition}
+
+\begin{proof}
+From $(\step(s,i),s\eta)$ the pair $(s,\eta)$ is read off the list. The list grows by one at every step.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{proposition}[The counter and the heat can agree]\label{spec:calibrated} \kind{shown}
+Let $E\subseteq I$ be the counted moves and $\cost:I\to\N$. There is $d:I\to[0,\infty)$ with $d(i)\ge1$ for
+every $i\in E$ and $d(i)\le\cost(i)$ for every $i\in I$ if and only if $\cost(i)\ge1$ for every $i\in E$.
+\end{proposition}
+
+\begin{proof}
+If so, take $d=\cost$. Conversely $1\le d(i)\le\cost(i)$ for $i\in E$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{theorem}[Receipts cover the merges a run shows]\label{spec:receipts} \kind{shown}
+Let $f:S\to S$, $u\in S$, $L\in\N$, and $\kappa:S\to\N$. Let $D=\{f^t(u):0\le t<L\}$ be the states the run
+leaves from, and $\mathrm{bill}=\sum_{t=0}^{L-1}\kappa(f^t(u))$. Suppose that whenever $x\ne y$ in $D$ have
+$f(x)=f(y)$, $\kappa(x)\ge1$ or $\kappa(y)\ge1$. Let $M$ be the set of $y$ with $f(x)=f(x')=y$ for some $x\ne x'$
+in $D$. Then $|M|\le\mathrm{bill}$.
+\end{theorem}
+
+\begin{proof}
+For each $y\in M$ choose $x_y\in D$ with $f(x_y)=y$ and $\kappa(x_y)\ge1$. Distinct $y$ give distinct $x_y$. So
+$|M|\le\sum_{x\in D}\kappa(x)\le\mathrm{bill}$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{example}[A parked box]\label{spec:parked} \kind{shown}
+On $\{\mathrm{no},\mathrm{yes}\}$ with $f(\mathrm{no})=f(\mathrm{yes})=\mathrm{yes}$, $\kappa(\mathrm{no})=1$,
+$\kappa(\mathrm{yes})=0$, and $u=\mathrm{no}$: for every $L\ge1$ the bill is $1$, $|M|=0$ for $L=1$ and
+$|M|=1$ for $L\ge2$, and the run ends in $\mathrm{yes}$ in both cases.
+\end{example}
+
+\argued{sec:keeping}
+
+\begin{proposition}[A running total in finite memory]\label{spec:finite-counter} \kind{shown}
+Let $S$ be finite, $\cost:I\to\N$, and $\mu:S\to\N$ with $\mu(\step(s,i))=\mu(s)+\cost(i)$ for every $s\in S$
+and $i\in I$. Then $\cost(i)=0$ for every $i$. A total kept in the machine's own finite state is honest only on
+states where adding the charge stays within its width.
+\end{proposition}
+
+\begin{proof}
+At a state $s$ where $\mu$ is largest, $\mu(s)+\cost(i)=\mu(\step(s,i))\le\mu(s)$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{proposition}[The eight-state machine]\label{spec:eight-state} \kind{shown}
+Let $S=\Z/4\times\{0,1\}$ (four slots, each with a flag), the box being the flag, with moves
+$\mathsf{stamp}(k,b)=(k+1,1)$ at price $1$, $\mathsf{next}(k,b)=(k+1,b)$ at price $0$, and
+$\mathsf{jump}_j(k,b)=(j,b)$ at price $2$ for each $j$. Then $S$ is finite, no move lowers the flag,
+$\mathsf{next}$ is one-to-one, the biggest landing pile has size $2$ for $\mathsf{stamp}$ and $4$ for each
+$\mathsf{jump}_j$, and the price of each move is $\log_2$ of its biggest pile. With starts the states with
+flag $0$, it is a Thiele machine.
+\end{proposition}
+
+\begin{proof}
+$\mathsf{stamp}\inv(k+1,1)=\{(k,0),(k,1)\}$ and $\mathsf{jump}_j\inv(j,b)=\Z/4\times\{b\}$. Only
+$\mathsf{stamp}$ raises the flag, and it costs $1$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{theorem}[One move repeated]\label{spec:repeat} \kind{shown}
+Let $S$ be finite, $f:S\to S$, $s_0\in S$ with the box down, and suppose the box is up at $f^n(s_0)$ for every
+$n\ge N$. Then there are $m,n$ with $f^m(s_0)\ne f^n(s_0)$ and $f^{m+1}(s_0)=f^{n+1}(s_0)$. No assumption that
+the box stays up elsewhere is used.
+\end{theorem}
+
+\begin{proof}
+Let $O=\{f^n(s_0):n\ge0\}$, finite, with $f(O)\subseteq O$. If $f$ were one-to-one on $O$, it would permute $O$,
+so $f^p(s_0)=s_0$ for some $p\ge1$, and then $f^{kp}(s_0)=s_0$ with the box down for $kp\ge N$.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{proposition}[Runs that mix moves]\label{spec:mixed} \kind{shown}
+(a) On $\{\mathrm{no},\mathrm{yes}\}$ with moves $\mathsf{swap}$ and $\mathsf{idle}$, neither of which makes two
+arrows meet, the run $\mathsf{swap}\,\mathsf{idle}\,\mathsf{idle}\cdots$ from $\mathrm{no}$ raises the box at its
+first step and keeps it up forever.
+(b) If the next move is a function of the state, $i=\nu(s)$, the run is one map $s\mapsto\step(s,\nu(s))$
+repeated, and Theorem~\ref{spec:repeat} applies.
+(c) Let $S$ be finite and let a run apply a word $w=i_1\cdots i_\ell$ over and over. If the box is down at some
+state of the run and up at every state from some time on, then some move $i_c$ makes two arrows meet at two
+distinct states the run visits.
+\end{proposition}
+
+\begin{proof}
+(a) By inspection. (c) Rotate $w$ so that a playing of it begins at a state where the box is down, and let $g$
+be the map of one playing. Theorem~\ref{spec:repeat} applied to $g$ gives two distinct visited states $x\ne y$
+with $g(x)=g(y)$. Follow the two playings move by move: they start apart and end together, so at the first
+move where they meet, that move sends two distinct visited states to one.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{proposition}[Two quantities that only climb]\label{spec:two-climb} \kind{shown}
+On a Thiele machine (Definition~\ref{def:thiele}) with a run $s_0,s_1,\dots$ along moves $i_1,i_2,\dots$, let
+$\mu_n=\sum_{k\le n}\cost(i_k)$. Then $\rd(s_n)\le\rd(s_{n+1})$ and $\mu_n\le\mu_{n+1}$ for every $n$, and
+$\mu_{n+1}\ge\mu_n+1$ whenever $\rd(s_{n+1})\not\le\rd(s_n)$. If moreover $\cost$ follows the halving rule
+($m_{\step(\cdot,i)}\le2^{\cost(i)}$ for every $i$) on a finite $S$, then for every spread $p$ and every list
+of moves $\tau$, the bits removed by the run are at most its price:
+$H(p)-H(\run(\tau,\cdot)_*p)\le\sum_{i\in\tau}\cost(i)$.
+\end{proposition}
+
+\begin{proof}
+The first part is clauses (i) and (iii) of Definition~\ref{def:thiele} with prices in $\N$. For the second,
+the bits removed by a run are the sum of the bits removed by its steps, each on the spread it receives, and
+each is at most $\log_2m_{\step(\cdot,i)}\le\cost(i)$ by Proposition~\ref{spec:three-roads}.
+\end{proof}
+
+\argued{sec:keeping}
+
+\begin{thesis}[The second law as the toll]\label{spec:second-law} \kind{thesis, not shown}
+The second law of thermodynamics, read as a statement about what a coarse description can keep, is the toll
+seen from the physics side.
+\end{thesis}
+
+\argued{sec:keeping}
+
+\begin{remark}\label{spec:measurement} \kind{suspicion, kept apart}
+The book records a suspicion, not shown and used by no argument: that the event it prices on a machine is
+the kind of event physics calls a measurement.
+\end{remark}
+
+\begin{remark}\label{spec:counter-not-heat} \kind{not claimed}
+The counter is not claimed to be heat in joules. Proposition~\ref{spec:calibrated} shows only that the two
+assumptions it names can hold together.
+\end{remark}
+
+%=============================================================================
+\section{What's shown, what's chosen, what's argued}\label{spec:ch22}
+
+\begin{proposition}[A clock passes the floor and fails the ceiling]\label{spec:clock} \kind{shown}
+(a) On any machine, the price list $\cost\equiv1$ obeys the toll for every reading.
+(b) Let a machine carry a box and a price list $\cost:I\to\N$, and suppose some step from $s$ by $i$ raises
+the box. If $\cost$ obeys the toll, then the run $ii$ from $s$ costs at least $2$ and raises the box once, so
+$\cost(\tau,s)\le\mathrm{raises}(\tau,s)$ fails.
+\end{proposition}
+
+\begin{proof}
+(a) Every move costs $1$. (b) $\cost(i)\ge1$ by the toll; from $\step(s,i)$ the box is up, so the second step
+raises nothing and costs $\cost(i)$.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\begin{proposition}[Two machines side by side]\label{spec:pair} \kind{shown}
+Let $(S_A,I_A,\step_A)$ and $(S_B,I_B,\step_B)$ carry boxes $\rd_A,\rd_B$ that never fall and price lists
+$\cost_A,\cost_B$ that obey the toll. The pair has states $S_A\times S_B$, moves $I_A\sqcup I_B$, each move
+acting on its own coordinate, and price $\cost_A$ or $\cost_B$ according to the move.
+\begin{enumerate}[label=(\alph*)]
+\item The readings $\rd_A\vee\rd_B$ (either box up) and $\rd_A\wedge\rd_B$ (both up) never fall, and the
+pair's price list obeys the toll for each.
+\item A run from a state with both boxes down to a state with both up costs at least $2$.
+\item The reading $\rd_A\wedge\neg\rd_B$ (the first up and the second down) falls whenever the first box is up
+and the second machine raises its box. With such a step, it violates clause (i) of
+Definition~\ref{def:thiele}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) A move changes one coordinate, whose box never falls, so neither reading falls. If either reading is
+raised by a move, the box of the machine that move belongs to is raised, and that machine's toll charges at
+least $1$. (b) Each box goes from down to up along the run, so some move of each machine raises its box,
+each costing at least $1$. (c) At $(s,t)$ with $\rd_A(s)=\mathrm{yes}$, a raising step of $B$ at $t$ takes the
+reading from yes to no.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\begin{proposition}[Branching steps on a finite yes side]\label{spec:branch-choice} \kind{shown}
+Let $\to$ be a relation on $S$ (a state may have several next states). Let $Y$ be the finite set of states
+where the box is up, with every $y\in Y$ having at least one next state and every next state of $y\in Y$ in
+$Y$, and let some $s\notin Y$ have a next state in $Y$. Then two distinct states of $Y\cup\{s\}$ have a common
+next state.
+\end{proposition}
+
+\begin{proof}
+Choose one next state in $Y$ for each of the $|Y|+1$ states of $Y\cup\{s\}$; two choices coincide.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\begin{theorem}[A branching run after the raise]\label{spec:branch-run} \kind{shown}
+Let $x_0,x_1,\dots$ be a run of a relation $\to$ on any set $S$ ($x_n\to x_{n+1}$ for every $n$), and let
+$k\ge1$ with the box down at $x_{k-1}$ and up at every $x_n$, $n\ge k$. If $x_i=x_j$ for some $k\le i<j$, then
+there are $p,q$ with $x_p\ne x_q$ and $x_{p+1}=x_{q+1}$. So after the raise, the run makes two arrows meet among
+its own states or never repeats a state.
+\end{theorem}
+
+\begin{proof}
+Compare $x_{i-d}$ and $x_{j-d}$ for $d=0,1,\dots,i-k+1$. They are equal at $d=0$. At $d=i-k+1$, $x_{k-1}$ has
+the box down and $x_{j-i+k-1}$, with $j-i+k-1\ge k$, has it up, so they differ. At the least $d$ where they
+differ, $p=i-d$ and $q=j-d$ give $x_p\ne x_q$ and $x_{p+1}=x_{q+1}$.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\begin{remark}\label{spec:lambda}
+For branching steps Proposition~\ref{spec:branch-choice} says little: in the lambda calculus every term $N$ is
+one step from $(\lambda x.x)N$ and from $(\lambda y.N)M$, for any $M$ and $y$ not free in $N$. The single-run
+statement, Theorem~\ref{spec:branch-run}, applies to one run of any kind of step, including noisy and quantum
+steps with infinitely many yes states. Steps in continuous time are not covered.
+\end{remark}
+
+\begin{remark}\label{spec:p-np} \kind{not claimed}
+Nothing here is claimed to settle P versus NP, or any question about what computers can do in a given time.
+\end{remark}
+
+\begin{thesis}[The Thiele thesis]\label{spec:thiele-thesis} \kind{thesis}
+Every physical process that computes with final answers has an exact description as a machine with one next
+state for every state, given by a program-computable step on a countable set of states, with inputs placed
+by a computable map, on which the answer is a computable box that no run from any input ever turns from up
+to down, on accepted and rejected inputs alike.
+\end{thesis}
+
+\argued{sec:shown-chosen}
+
+\begin{proposition}[What a final answer accepts]\label{spec:listing} \kind{shown}
+Let $f:S\to S$ on a countable $S$ coded in $\N$, $\iota:\N\to S$, and a box $\rd$, all computable, with
+$\rd(f^n(\iota(x)))=\mathrm{yes}\Rightarrow\rd(f^{n+1}(\iota(x)))=\mathrm{yes}$ for every $x,n$. Let
+$A=\{x:\exists n\ \rd(f^n(\iota(x)))=\mathrm{yes}\}$.
+\begin{enumerate}[label=(\alph*)]
+\item $A$ is listable: some program lists exactly the elements of $A$.
+\item Every listable set is the set $A$ of such a description.
+\item Given Thesis~\ref{spec:thiele-thesis}, every set that a physical process accepts with final answers is
+listable.
+\item The condition on rejected inputs is needed: the reading that starts at no, is yes while program $x$ is
+running, and falls to no for good when it stops, is yes for good exactly on the programs that never stop,
+and that set is not listable.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) At round $m$, run each $x<m$ for $m$ steps and list $x$ if its box is up. If $x\in A$ with the box up at step
+$n$, it is up at every later step, so $x$ is listed at round $\max(n,x)+1$; only elements of $A$ are listed.
+(b) Given a listing program, let the state hold an input and a search of the list for it; on finding it the
+machine steps from its stopped state to itself forever, and the box reads whether it has stopped, which
+nothing turns off. (c) follows from (a). (d) If a program listed the programs that never stop, running it beside
+the search for a stop would decide for every program whether it stops, which no program does.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\subsection*{The blindfold}
+
+\begin{proposition}[Turing's model makes no mark hold]\label{spec:blind-turing} \kind{shown}
+For finite sets $Q$ of states and $\Sigma$ of symbols, a table is any map
+$t:Q\times\Sigma\to Q\times\Sigma\times\{\mathrm{L},\mathrm{R}\}$. For every table $t$, every $(q,a)$ and every
+$w\in\Sigma$, the map equal to $t$ except that at $(q,a)$ it writes $w$ is a table. So for every mark, the
+model contains tables that rub it out and tables that print it with no check before; no condition of the
+model makes a mark, once written, stay.
+\end{proposition}
+
+\begin{proof}
+Every map of that type is a table.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\begin{proposition}[A machine that stops, read through whether it has stopped]\label{spec:blind-stop}
+\kind{shown}
+Let $g:S\rightharpoonup S$ be a partial step, $H$ the states with no next step, $\bar g(s)=g(s)$ for $s\notin H$
+and $\bar g(s)=s$ for $s\in H$, and $\rd(s)=\mathrm{yes}$ exactly when $s\in H$. If some start $s_0\notin H$
+reaches $H$, then $\bar g$ with one move of price $1$, the box $\rd$ and that start is a Thiele machine. Every
+stopping step, from $s\notin H$ to $g(s)\in H$, makes two arrows meet: $\bar g(s)=\bar g(g(s))$.
+\end{proposition}
+
+\begin{proof}
+A stopped state stays stopped, so the box never falls; the run from $s_0$ raises it; the one move costs $1$.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\begin{theorem}[The blindfold]\label{spec:blindfold} \kind{shown}
+Let $(S,I,\step)$ be a machine with $s_0\in S$ and a list of moves $\tau$ such that $x=\run(\tau,s_0)\ne s_0$.
+Let $\hat S=S\times\Bool$, $\hat\step((s,\beta),i)=(\step(s,i),\beta')$ with $\beta'=\mathrm{yes}$ when
+$\beta=\mathrm{yes}$ or $\step(s,i)=x$ and $\beta'=\mathrm{no}$ otherwise, $\hat\cost\equiv1$,
+the box $\hat\rd(s,\beta)=\beta$, and starts $\{(s,\mathrm{no}):s\in S\}$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item $(\hat S,I,\hat\step,\hat\rd,\hat\cost)$ with those starts is a Thiele machine;
+\item through the window $\pi(s,\beta)=s$, every run of it is a run of $(S,I,\step)$:
+$\pi(\run(\tau',(s,\beta)))=\run(\tau',s)$ for every $\tau'$, $s$, $\beta$;
+\item $(s,\mathrm{no})$ and $(s,\mathrm{yes})$ have the same picture and different readings, so no function of
+the picture gives the reading.
+\end{enumerate}
+So $(S,I,\step)$ is what remains of a Thiele machine when its box is covered by the window $\pi$ and the
+price of every move, settling included, is set to $0$.
+\end{theorem}
+
+\begin{proof}
+(a) $\beta$ never goes from yes to no; from $(s_0,\mathrm{no})$ the run $\tau$ is nonempty and its last step
+lands on $x$, so the box is up at the end; every move costs $1$. (b) By induction on $\tau'$. (c) By
+inspection.
+\end{proof}
+
+\argued{sec:shown-chosen}
+
+\end{document}

@@ -1,0 +1,19 @@
+# Patent Non-Assertion Pledge
+
+**Devon Thiele, April 2026**
+
+I will not sue anyone for patent infringement based on their use, modification, manufacture, or distribution of the Thiele Machine software, hardware designs, or documentation, or of any system that implements or describes the Thiele Machine model.
+
+The Thiele Machine is an abstract model of computation, and this commitment covers the model as well as every build of it.
+
+This commitment covers all patent claims I hold or obtain in the future that read on any method, system, apparatus, or algorithm described in this repository, including the µ-ledger, No Free Insight theorem, partition graph machine state, CERTIFY opcode, LASSERT instruction, CHSH_TRIAL instruction, cross-layer refinement pipeline (Coq to OCaml to Verilog), and any other concept described in `TECHNICAL_DISCLOSURE.md`.
+
+**Defensive termination.** This commitment does not apply to anyone who sues me, or any contributor to this repository, for patent infringement.
+
+**Irrevocability.** This commitment is intended to be irrevocable and binding on any successor or assign. Anyone who relies on it in good faith has grounds to enforce it under promissory estoppel.
+
+The Apache 2.0 license covering the software in this repository already includes a patent grant (Section 3) and a patent retaliation clause. This pledge extends that protection to cover the broader concepts described in `TECHNICAL_DISCLOSURE.md`, regardless of whether those concepts are embodied in the licensed software.
+
+---
+
+The concepts described in this repository are publicly disclosed as prior art from their respective commit dates. `TECHNICAL_DISCLOSURE.md` documents them for patent examiners, so that no one can claim them as new.

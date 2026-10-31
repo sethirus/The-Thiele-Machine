@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thiele-machine"
+version = "5.0.0"
+description = "The Thiele Machine, an abstract model of computation with a price on keeping a record, with its proofs"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["thiele", "mu-cost", "coq", "certification"]
+
+[tool.setuptools]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*", "archive*"]

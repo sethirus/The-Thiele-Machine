@@ -1,0 +1,79 @@
+COMPANION CHECKING PROCEDURES
+The Thiele Machine — Devon Thiele
+
+The publication pairs the monograph PDF with the matching tagged repository
+snapshot. The arguments are in the monograph; the snapshot also carries a
+formal check of the same statements in Coq, a tool for catching mistakes.
+The commands below run that check from the repository root.
+
+BEGIN RELEASE RECORD
+Companion sources:
+  https://github.com/sethirus/The-Thiele-Machine
+  tag v5.0.0
+Companion source revision:
+  the commit named by v5.0.0; print its hash with
+  git rev-list -n 1 v5.0.0
+Dependency snapshot:
+  Coq 8.18.0 and its standard library
+Build command:
+  python3 scripts/reproduce_coq.py
+Audit report:
+  artifacts/print_assumptions_all_proofs.json
+  SHA-256 2822ed089642e6107ef15a48f04693e9
+          132ebbfb74055c74ca4a69a4ebcde823
+  corpus digest 8ca20d0f32f01fc6a90e33dd428ab7ec
+                b53a0df3a366d8cac1fa4961597884b7
+Receipt scope:
+  1,783 named declarations in 163 files; the report and raw
+  output state the assumptions used by those declarations.
+END RELEASE RECORD
+
+Prerequisites
+Python 3, GNU make, Coq 8.18 and its standard library, and CSDP. See the
+repository's dependency documentation.
+
+Clean reproduction
+Run from the repository root:
+
+  python3 scripts/reproduce_coq.py
+
+The script snapshots the sources, regenerates the build file, rebuilds the proofs, and runs the independent module checker. It
+reuses no compiled proof from the checkout. Its pass file is written only after all
+stages pass. Additional probe files may be supplied with --probe; none run by default.
+A failed run can resume from its snapshot:
+
+  python3 scripts/reproduce_coq.py --resume \
+    --output artifacts/reproduction/RUN_DIRECTORY
+
+A source change requires a new snapshot. Inspect the full statement, definitions and
+derivation of any result being compared with the book; compilation does not perform
+that comparison.
+
+Receipt interpretation
+The corpus digest fingerprints the listed proof files, their paths, the compiler version, the project manifest, and the five audit scripts.
+Comments and runs of whitespace in proof text are normalized, as are designated
+claim_not_imply audit-note strings. The Python scripts are tokenized without comments;
+version two uses token names instead of Python's numeric token IDs so 3.12 and 3.13
+agree. See scripts/assumption_receipt_fingerprint.py for the exact serialization.
+Regenerate the receipt after a substantive change to the proof corpus.
+
+Other reproduction commands
+Full assumption inventory (regenerate, then compare):
+  make assumption-receipt
+  make assumption-receipt-check
+The custom auditor (its warnings are heuristics):
+  python3 scripts/inquisitor.py \
+    --report INQUISITOR_REPORT.md
+Independent compilation of the small introductory files, the
+definition and the smallest machine (also included in the normal
+build and audit):
+  bash scripts/verify_core.sh
+The edition's numbers against the receipt:
+  python3 -m pytest tests/test_edition_numbers.py
+The book's own checks, one per chapter that counts something, and the
+short formal proofs beside them:
+  python3 -m pytest tests/test_book_checks.py
+
+Tests requiring the proof compiler skip without version 8.18 and a compiled tree.
+The custom auditor uses heuristics: a warning requires
+inspection and is not itself evidence that a theorem is false.
