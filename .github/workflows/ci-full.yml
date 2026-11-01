@@ -1,0 +1,162 @@
+name: CI (Full)
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Opt v4-era JS actions into Node.js 24. Removes the deprecation warning
+  # without bumping action major versions (which can introduce breaking
+  # behavior, e.g. upload-artifact@v5 makes artifacts immutable).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  # Import the primary CI checks first. The full vacuity sweep is an
+  # independent branch.
+  fast-verify:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  # Nightly FULL kernel-conversion vacuity sweep. The pre-commit hook only
+  # re-probes the staged files (a full sweep is too slow for a commit),
+  # which leaves one case open: a theorem going vacuous because a
+  # DEFINITION it uses changed in some *other* file. This job closes that
+  # case by re-probing the whole manifest against a fresh proof tree every
+  # night.
+  vacuity-audit:
+    name: Kernel-conversion vacuity audit (full sweep)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge local Coq compiler outputs
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
+          # An earlier build of any source tree is a starting point; the
+          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          restore-keys: |
+            coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Refresh Coq artefact mtimes
+        run: |
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          # A partial cache restore (an earlier build) rebuilds exactly the
+          # sources whose content changed and their dependents; otherwise
+          # build from clean outputs.
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+      - name: Run full vacuity sweep
+        run: make vacuity-audit
+
+      - name: Upload vacuity audit verdicts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vacuity-audit
+          path: artifacts/vacuity_audit.json
+          retention-days: 30
+
+      - name: Fail on any vacuous or errored verdict
+        # The gate fails on probe errors; this consumer also rejects findings.
+        # An 'error' verdict means a theorem was
+        # not actually probed, which is silent shrinkage — fail on it too.
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          s = json.load(open("artifacts/vacuity_audit.json"))["summary"]
+          print(s)
+          if s["vacuous_true"] or s["vacuous_hyp"] or s["error"]:
+              sys.exit(1)
+          EOF
+
+  # Final summary — waits for every parallel branch to finish so the rollup
+  # table reflects their actual outcomes.
+  verify-full:
+    name: Full Verification Summary
+    runs-on: ubuntu-24.04
+    needs: [fast-verify, vacuity-audit]
+    if: ${{ always() }}
+    steps:
+      - name: Generate summary
+        run: |
+          cat > /tmp/summary.md << EOF
+          ## Full Verification Summary
+
+          | Phase | Status |
+          |-------|--------|
+          | Fast verify | ${{ needs.fast-verify.result }} |
+          | Vacuity audit | ${{ needs.vacuity-audit.result }} |
+          EOF
+          cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
+          cat /tmp/summary.md
+
+      - name: Fail if any required job failed
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
+        run: |
+          failed=0
+
+          for result in \
+            "fast-verify=${{ needs.fast-verify.result }}" \
+            "vacuity-audit=${{ needs.vacuity-audit.result }}"
+          do
+            echo "$result"
+            case "$result" in
+              *"=failure"|*"=cancelled"|*"=skipped")
+                failed=1
+                ;;
+            esac
+          done
+
+          exit "$failed"

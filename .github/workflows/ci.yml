@@ -1,0 +1,447 @@
+name: CI
+
+# The proofs build with the Coq 8.18 toolchain from Ubuntu 24.04.
+
+on:
+  # Trigger on push to ANY branch — feature branches need the same gate as
+  # main, otherwise a "green locally + green PR" assumption gets to develop
+  # silently. workflow_dispatch allows manual re-runs, and
+  # workflow_call is used by ci-full.yml.
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  # Opt v4-era JS actions into Node.js 24. Removes the deprecation warning
+  # without bumping action major versions (which can introduce breaking
+  # behavior, e.g. upload-artifact@v5 makes artifacts immutable).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+# A newer commit on a working branch supersedes the run for an older one.
+# Every run on main completes. CI (Full) calls this workflow, and there
+# github.workflow names the caller, so the two never cancel each other.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  # Phase 0: build the Coq proof tree once (the abstract model and the
+  # small models), publish the cache, expose its keys as job outputs.
+  # proof-check builds on it.
+  # proof-repro-gate is its own parallel branch because it requires an
+  # intentional clean rebuild and can't share the cache.
+  build-coq:
+    name: Build Coq (shared cache primer)
+    runs-on: ubuntu-24.04
+    outputs:
+      coq-version: ${{ steps.toolchain.outputs.coq }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
+
+      - name: Capture toolchain version
+        # Coq updates from apt can silently produce .vo files incompatible
+        # with cached ones. Including the exact coqc version in
+        # all cache keys forces a clean rebuild whenever Coq changes.
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+          echo "Coq: ${coq_version}"
+
+      - name: Purge local Coq compiler outputs
+        # Remove any local compiler outputs before restoring the complete
+        # cache or building from source.
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
+          # An earlier build of any source tree is a starting point; the
+          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          restore-keys: |
+            coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          # A partial cache restore (an earlier build) rebuilds exactly the
+          # sources whose content changed and their dependents; otherwise
+          # build from clean outputs.
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          # The clean serial path is validated by the reproducibility
+          # gate; use parallelism here so the shared cache primer completes
+          # within the job budget.
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+  # Phase 1a: proof verification on top of the shared Coq build.
+  # No Coq rebuild here — restores the cache populated by build-coq.
+  proof-check:
+    name: Proof verification
+    runs-on: ubuntu-24.04
+    needs: build-coq
+    env:
+      OCAMLRUNPARAM: "l=64M"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Purge local Coq compiler outputs
+        run: make coq-clean
+
+      - name: Restore Coq build cache (built by build-coq)
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v6-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
+
+      - name: Refresh Coq artefact mtimes
+        # actions/cache restores .vo files with their original build-time
+        # mtimes, but actions/checkout sets every .v file to "now". make would
+        # then see .vo < .v for every file and rebuild the entire proof tree.
+        # Bumping .vo mtimes past .v mtimes lets make see the cache as fresh.
+        # The cache key already pins the source hashes, so this is
+        # mtime-cosmetic, not a correctness gap.
+        run: |
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq targets the cache did not cover
+        # Inquisitor compiles with make -j1 under a 30-minute stage limit.
+        # Building in parallel here first makes Inquisitor's make a no-op;
+        # any compilation error still fails this job.
+        run: make -C coq -j4
+
+      - name: Guard against cheat-axiom usage
+        run: |
+          if grep -r --include='*.v' -n -e 'apply cheat' -e 'exact cheat' coq/ minimal/ | grep .; then
+            echo "FATAL: cheat axiom used in Thiele proofs"
+            exit 1
+          fi
+          echo "OK: no cheat axiom usage found in Thiele proofs"
+
+      - name: Set up Python 3.13 for fingerprint portability
+        id: fingerprint-python313
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          update-environment: false
+
+      - name: Check fingerprint portability across Python versions
+        env:
+          PYTHON313: ${{ steps.fingerprint-python313.outputs.python-path }}
+        run: |
+          python scripts/assumption_receipt_fingerprint.py > /tmp/fingerprint-312
+          "$PYTHON313" scripts/assumption_receipt_fingerprint.py > /tmp/fingerprint-313
+          diff -u /tmp/fingerprint-312 /tmp/fingerprint-313
+
+      - name: Run Inquisitor proof audit
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          # Proof-scope drift gate runs first: it's the same invariant
+          # the pre-commit hook enforces locally, so any divergence
+          # between coq/_CoqProject, on-disk .v files, and the canonical
+          # NON_PROOF_BEARING_FILES list shows up here with a clear
+          # diagnostic before the heavier audits run.
+          python -m pytest tests/test_coq_proof_scope.py -v
+          python scripts/inquisitor.py --report INQUISITOR_REPORT.md
+
+      - name: Run bedrock assumption gate
+        run: python scripts/inquisitor_assumption_gate.py
+
+      - name: Validate the assumption receipt
+        # This is the check behind the "0 project-local axioms" badge. It
+        # reuses the exact committed receipt for an unchanged semantic corpus
+        # and executes every Print Assumptions query when proof inputs drift.
+        run: make assumption-receipt-check
+
+      - name: Upload regenerated assumption receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: assumption-receipt
+          path: |
+            artifacts/print_assumptions_all_proofs.json
+            artifacts/print_assumptions_all_proofs.csv
+            artifacts/print_assumptions_all_proofs.txt
+          retention-days: 7
+
+      - name: Upload Inquisitor report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inquisitor-report
+          path: INQUISITOR_REPORT.md
+          retention-days: 7
+
+  # Phase 1b: reproducibility gate — runs in PARALLEL with build-coq +
+  # proof-check. The repro gate (scripts/proof_gate_reproducible.sh) does
+  # its own clean rebuild to verify deterministic compilation, so it
+  # intentionally cannot share the cache build-coq produces.
+  proof-repro-gate:
+    name: Proof reproducibility gate (clean rebuild + coqchk)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
+
+      - name: Run reproducible proof gate
+        # Clean rebuild + zero-Admitted check + coqchk of every module in
+        # coq/_CoqProject. Uses a bounded parallel Coq rebuild;
+        # THIELE_PROOF_JOBS can tune the width when needed.
+        run: bash scripts/proof_gate_reproducible.sh
+
+      - name: Upload proof gate logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: proof-gate-logs
+          path: artifacts/proof_gate/
+          retention-days: 7
+
+  python-tests:
+    name: Python unit tests
+    runs-on: ubuntu-24.04
+    # A cold Coq build on this job takes about 36 minutes and the full suite
+    # about 16, so 40 cancelled every run that missed the build cache.
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Some tests read earlier commits with git show, so fetch full history.
+          fetch-depth: 0
+
+      - name: Install runtime toolchain for Python tests
+        # Coq + csdp so every coq-marked test
+        # pytest collects can run, with no toolchain-missing skips.
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
+
+      - name: Capture toolchain version
+        # Match the cache-key construction used by build-coq so both jobs
+        # share the same Coq build cache.
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+          echo "Coq: ${coq_version}"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Purge local Coq compiler outputs
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local') }}
+          restore-keys: |
+            coq-v6-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Refresh Coq artefact mtimes
+        # The cache key pins the source and toolchain.
+        run: |
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Run pytest (FULL suite — no marker filter, no skips)
+        # --strict-backends turns backend-missing skips into hard failures,
+        # so a silently broken toolchain install cannot shrink this job.
+        run: python -m pytest tests/ -q --tb=short --strict-backends
+
+  # The book and the mathematical specification must build. This compiles
+  # them from source; the committed PDF/plaintext copies are refreshed by the
+  # regen workflow.
+  book-build:
+    name: Book build (monograph + math spec)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LaTeX toolchain
+        uses: ./.github/actions/apt-install
+        with:
+          packages: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
+
+      - name: Build the book and the specification
+        run: bash monograph/build_monograph.sh
+
+      - name: Upload built PDFs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-build
+          path: |
+            monograph/monograph.pdf
+            monograph/monograph.txt
+            monograph/thiele_machine_math_spec.pdf
+            monograph/math_spec_plaintext.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+  # Dependency audit (independent)
+  dependencies:
+    name: Dependency security scan
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install pip-audit
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet pip-audit
+
+      - name: Run pip-audit
+        run: pip-audit -r requirements.txt --progress=off
+
+  # Summary
+  verify-summary:
+    name: Verification Summary
+    runs-on: ubuntu-24.04
+    needs: [build-coq, proof-check, proof-repro-gate, python-tests, book-build, dependencies]
+    if: always()
+    steps:
+      - name: Check job results
+        run: |
+          cat > /tmp/summary.md << EOF
+          ## Verification Summary
+
+          | Component | Result |
+          |-----------|--------|
+          | Build Coq (shared cache) | ${{ needs.build-coq.result }} |
+          | Proof verification (inquisitor + bedrock gate + assumption receipt) | ${{ needs.proof-check.result }} |
+          | Proof reproducibility gate (clean rebuild + coqchk) | ${{ needs.proof-repro-gate.result }} |
+          | Python Tests | ${{ needs.python-tests.result }} |
+          | Book build | ${{ needs.book-build.result }} |
+          | Dependency Scan | ${{ needs.dependencies.result }} |
+
+          Critical path: build-coq → proof-check, in parallel with
+          proof-repro-gate, python-tests, book-build, dependencies.
+
+          The nightly CI (Full) adds the full kernel-conversion vacuity sweep.
+          EOF
+          cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail if any check failed
+        # Every needed job must come back 'success'. Checking for explicit
+        # 'failure' on a hand-kept list has two holes: a job missing from
+        # the list, and the 'skipped' result a job gets when its `needs`
+        # failed upstream — neither matched '== failure', so this step
+        # stayed green.
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
+        run: exit 1

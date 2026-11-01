@@ -1,0 +1,53 @@
+% SPDX-FileCopyrightText: 2026 Devon Thiele
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\ProvidesPackage{thiele-geometry}[2026/10/25 Engraved openings and quiet headings]
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+
+% Literary illustrations, not additional mathematical diagrams. The complete
+% generation prompts and each plate's relation to the text live in artwork/.
+% Retain the old package name so existing publication build inputs stay valid.
+\newcommand{\BookCover}{%
+  \thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \clip (current page.south west) rectangle (current page.north east);
+    % Preserve the image ratio; crop only beyond the page boundary.
+    \node[inner sep=0pt] at (current page.center)
+      {\includegraphics[width=\paperwidth]{artwork/cover-window.png}};
+    \node[anchor=north west,inner sep=0pt,text=white,align=left]
+      at ($(current page.north west)+(19mm,-21mm)$)
+      {{\normalfont\fontsize{48}{51}\selectfont
+        \begin{tabular}{@{}l@{}}The Thiele\\Machine\end{tabular}}};
+    \node[anchor=north west,inner sep=0pt,text=white]
+      at ($(current page.north west)+(20mm,-63mm)$)
+      {{\normalfont\itshape\fontsize{16}{20}\selectfont No Free Insight}};
+    \node[anchor=south west,inner sep=0pt,text=white]
+      at ($(current page.south west)+(20mm,18mm)$)
+      {{\normalfont\fontsize{11}{14}\selectfont\textls[140]{DEVON THIELE}}};
+  \end{tikzpicture}%
+  \null}
+
+\newcommand{\PartPlate}{%
+  \ifcase\value{part}\relax
+  \or\includegraphics[width=\textwidth]{artwork/part-1-retention.png}%
+  \or\includegraphics[width=\textwidth]{artwork/part-2-perspective.png}%
+  \or\includegraphics[width=\textwidth]{artwork/part-3-established.png}%
+  \or\includegraphics[width=\textwidth]{artwork/part-4-scope.png}%
+  \fi}
+
+\newcommand{\PartPlateNote}{%
+  \ifcase\value{part}\relax
+  \or The cut remains.%
+  \or The sphere, seen from outside the plane.%
+  \or Checking comes before the record.%
+  \or Each opening leaves something out.%
+  \fi}
+
+% One quiet line replaces the repeated miniature perspective drawings.
+\newcommand{\PartOpeningArt}{%
+  \par\nobreak\vspace{28pt}\noindent\PartPlate
+  \par\nobreak\vspace{10pt}%
+  {\normalfont\itshape\fontsize{9}{12}\selectfont\PartPlateNote}}
+
+\newcommand{\ChapterRule}{\rule{28pt}{0.5pt}}

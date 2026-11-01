@@ -1,0 +1,158 @@
+(** HonestCostTracking: separating an unconstrained cost record from A2.
+
+    [CostBearingSystem] has state, instructions, a step function, a cost function,
+    and a certification predicate, but it has no A2 field.
+
+    [CertificationSystem] adds the premise that every false-to-true certification
+    transition costs at least one.
+
+    This file exhibits a one-step [CostBearingSystem] trace that certifies at total
+    cost zero and proves that the corresponding trace shape is excluded by A2.
+
+    The separation is between state-and-trace pairs admitted by the two records.
+
+    It is not a separation of computable functions, accepted-language classes, or
+    physical machines.
+
+    The result does not say that every conventional implementation lacks an A2-like
+    invariant; an implementation can impose such an invariant separately.
+*)
+
+From Kernel Require Import UniversalCertificationCost.
+
+Require Import Coq.Lists.List.
+Import ListNotations.
+Require Import Coq.Arith.PeanoNat.
+
+(** A cost-bearing system without A2.  Same fields as
+    [CertificationSystem], minus the [cs_cert_costs] honesty constraint.
+    This models a Turing machine where the programmer might or might not
+    honor cost-tracking; the instruction set imposes no discipline. *)
+Record CostBearingSystem := mk_cb_system {
+  cb_state : Type;
+  cb_instr : Type;
+  cb_step  : cb_state -> cb_instr -> cb_state;
+  cb_cost  : cb_instr -> nat;
+  cb_cert  : cb_state -> bool;
+}.
+
+Fixpoint cb_run (CB : CostBearingSystem)
+                (trace : list (cb_instr CB))
+                (s : cb_state CB) : cb_state CB :=
+  match trace with
+  | []        => s
+  | i :: rest => cb_run CB rest (cb_step CB s i)
+  end.
+
+Fixpoint cb_total_cost (CB : CostBearingSystem)
+                       (trace : list (cb_instr CB)) : nat :=
+  match trace with
+  | []        => 0
+  | i :: rest => cb_cost CB i + cb_total_cost CB rest
+  end.
+
+(** A concrete dishonest system.
+
+    State: a single bit, the certification flag.
+    Instr: unit (one instruction, "forge").
+    Step:  (fun _ _ => true), which flips the flag to true regardless of prior value.
+    Cost:  0; the forge instruction costs nothing.
+    Cert:  the identity on bool.
+
+    This is the smallest possible witness of unpaid certification. *)
+Definition dishonest_forge_system : CostBearingSystem :=
+  {| cb_state := bool;
+     cb_instr := unit;
+     cb_step  := fun _ _ => true;
+     cb_cost  := fun _   => 0;
+     cb_cert  := fun b   => b |}.
+
+(** A non-empty trace on the dishonest system that flips cert false→true
+    at total cost zero.  This is the "free forgery" witness. *)
+Definition dishonest_forge_trace : list (cb_instr dishonest_forge_system) := [tt].
+
+(** Unpaid certification is reachable in the unconstrained cost-bearing world. *)
+Lemma dishonest_free_certification :
+    cb_cert dishonest_forge_system false = false
+  /\ cb_cert dishonest_forge_system
+        (cb_run dishonest_forge_system dishonest_forge_trace false) = true
+  /\ cb_total_cost dishonest_forge_system dishonest_forge_trace = 0.
+Proof.
+  repeat split.
+Qed.
+
+(** [honest_cost_tracking_strict_restriction]: the well-formedness gap.
+
+    LEFT CONJUNCT (existence of free forgery): there is a CostBearingSystem
+    with a non-empty trace that flips cert false→true at total cost zero.
+
+    RIGHT CONJUNCT (no honest system can do this): every CertificationSystem,
+    on every uncert→cert trace, has total cost ≥ 1.
+
+    Together: the A2 constraint cuts free-forgery traces out of the
+    reachable trace-set.  That is a non-trivial restriction.
+
+    Note: the right conjunct is exactly [universal_nfi_any_substrate]. *)
+Theorem honest_cost_tracking_strict_restriction :
+  (** There exists a free-forgery trace in the unconstrained world. *)
+  (exists (CB : CostBearingSystem)
+          (s0 : cb_state CB)
+          (trace : list (cb_instr CB)),
+      cb_cert CB s0 = false
+      /\ cb_cert CB (cb_run CB trace s0) = true
+      /\ cb_total_cost CB trace = 0)
+  /\
+  (** No honest cost-tracking system admits a free-forgery trace. *)
+  (forall (CS : CertificationSystem)
+          (trace : list (cs_instr CS))
+          (s0 : cs_state CS),
+      cs_cert CS s0 = false ->
+      cs_cert CS (cs_run CS trace s0) = true ->
+      cs_total_cost CS trace >= 1).
+Proof.
+  split.
+  - exists dishonest_forge_system, false, dishonest_forge_trace.
+    exact dishonest_free_certification.
+  - exact universal_nfi_any_substrate.
+Qed.
+
+(** Corollary: any system that *can* free-forge fails to satisfy A2.
+
+    This is the contrapositive of A2: if there is a state s and instruction i
+    where cert flips false→true at cost 0, then no CertificationSystem record
+    can be built with this (cb_step, cb_cost, cb_cert), because A2 would fail
+    on (s, i).
+
+    Operationally: "honest cost-tracking" is exactly "A2 holds."  A system
+    that exhibits unpaid certification is, by definition, not honest. *)
+Theorem free_forgery_violates_A2 :
+  forall (CB : CostBearingSystem) (s : cb_state CB) (i : cb_instr CB),
+      cb_cert CB s = false
+   -> cb_cert CB (cb_step CB s i) = true
+   -> cb_cost CB i = 0
+   -> ~ (forall (s' : cb_state CB) (i' : cb_instr CB),
+            cb_cert CB s' = false ->
+            cb_cert CB (cb_step CB s' i') = true ->
+            cb_cost CB i' >= 1).
+Proof.
+  intros CB s i Hf Ht Hc Hhonest.
+  specialize (Hhonest s i Hf Ht).
+  rewrite Hc in Hhonest.
+  inversion Hhonest.
+Qed.
+
+(** Corollary: the dishonest forge system explicitly fails A2.
+
+    Direct demonstration that [dishonest_forge_system] is in the relative
+    complement of the honest class. *)
+Corollary dishonest_forge_system_violates_A2 :
+  ~ (forall (s : cb_state dishonest_forge_system)
+            (i : cb_instr dishonest_forge_system),
+        cb_cert dishonest_forge_system s = false ->
+        cb_cert dishonest_forge_system
+                (cb_step dishonest_forge_system s i) = true ->
+        cb_cost dishonest_forge_system i >= 1).
+Proof.
+  apply (free_forgery_violates_A2 dishonest_forge_system false tt);
+    reflexivity.
+Qed.

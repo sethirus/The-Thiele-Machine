@@ -1,0 +1,163 @@
+#!/bin/sh
+# Thiele Machine pre-commit hook (marker: thiele-machine-pre-commit)
+# Installed with make install-hooks. Validates the proposed commit, builds the
+# proofs, regenerates the cheap derived artifacts and runs a fast test subset.
+# The assumption receipt, the full pytest suite and the Inquisitor belong to CI,
+# as does the cross-file vacuity sweep in CI (Full). Set THIELE_HOOK_FULL=1 to
+# run them here too; the regeneration workflow does.
+set -eu
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+# Generators/tests read the working tree, while Git commits the index. Reject
+# partial staging before any generator can overwrite or stage unrelated work.
+python3 scripts/check_hook_worktree.py
+
+for tool in coqc coqtop coq_makefile; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        echo "[pre-commit] FAIL: required tool missing: $tool" >&2
+        exit 1
+    fi
+done
+
+# Freshness tests must check our generated artifacts, not auto-repair them.
+export CI=true
+
+# Log failures without swallowing their diagnostics or continuing to stage
+# partially generated output. Commands are argument lists, never eval strings.
+run() {
+    echo "[pre-commit] $*"
+    if "$@"; then
+        return 0
+    else
+        echo "[pre-commit] FAIL: $*" >&2
+        exit 1
+    fi
+}
+
+stage() {
+    # Missing expected outputs are also generator failures.
+    for file do
+        if [ ! -f "$file" ]; then
+            echo "[pre-commit] FAIL: missing generated file: $file" >&2
+            exit 1
+        fi
+    done
+    git add -- "$@"
+}
+
+run python3 -c '
+import sys
+sys.path.insert(0, "scripts")
+from coq_proof_scope import validate_alignment
+problems = validate_alignment()
+if problems:
+    sys.exit("[pre-commit] Coq proof-scope drift:\n" + "\n".join(problems))
+'
+
+# Every build error blocks the commit.
+run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j1'
+
+# Refresh the full receipt when a proof-relevant input changes. The batch
+# runner reuses unchanged module results, so this normally executes only the
+# affected queries. Refreshing before the coherence check avoids the
+# predictable fail-regenerate-retry cycle for every new theorem. The receipt
+# is still derived by Coq, checked for alignment and project-local axioms, and
+# re-derived independently by CI.
+if [ -n "${THIELE_HOOK_FULL:-}" ] && ! git diff --cached --quiet -- coq minimal \
+        scripts/coq_proof_scope.py scripts/build_full_probe.py; then
+    run bash scripts/generate_assumption_receipt.sh
+    stage coq/AssumptionsProbeAll.v \
+        artifacts/assumptions/probe_inventory.json \
+        artifacts/assumptions/probe_all_output.txt \
+        artifacts/assumptions/probe_all_err.txt \
+        artifacts/assumptions/probe_batches.json \
+        artifacts/print_assumptions_all_proofs.json \
+        artifacts/print_assumptions_all_proofs.txt
+    run python3 scripts/sync_release_receipt.py
+    stage monograph/COMPANION_CHECKS.txt
+fi
+
+# Receipt/probe coherence needs a fresh receipt, so it runs with the receipt.
+if [ -n "${THIELE_HOOK_FULL:-}" ]; then
+    run python3 scripts/check_assumption_consistency.py
+fi
+
+# Re-probe staged target files and targets added to the list. Changing the
+# gate, or changing or removing an existing entry, invalidates every verdict.
+# CI (Full) also checks cross-file changes with a full sweep.
+run python3 -c '
+import json, subprocess
+from pathlib import Path
+staged = set(subprocess.check_output([
+    "git", "diff", "--cached", "--name-only", "-z"
+]).decode().split("\0"))
+manifest = json.loads(Path("scripts/vacuity_targets.json").read_text())
+full = "scripts/vacuity_gate.py" in staged
+added = []
+if not full and "scripts/vacuity_targets.json" in staged:
+    try:
+        old = json.loads(subprocess.check_output(
+            ["git", "show", "HEAD:scripts/vacuity_targets.json"],
+            stderr=subprocess.DEVNULL))["targets"]
+    except (subprocess.CalledProcessError, ValueError, KeyError):
+        old = None
+    if old is None or any(target not in manifest["targets"] for target in old):
+        full = True
+    else:
+        added = [target for target in manifest["targets"] if target not in old]
+args = []
+if full:
+    args = ["--manifest", "scripts/vacuity_targets.json"]
+else:
+    for target in manifest["targets"]:
+        if target in added or target["path"] in staged:
+            args += ["--target", target["path"], "--logical", target["logical"]]
+    if args:
+        args.append("--merge")
+if args:
+    subprocess.run(["python3", "scripts/vacuity_gate.py", *args,
+                    "--jobs", "0", "--output", "artifacts/vacuity_audit.json"], check=True)
+summary = json.loads(Path("artifacts/vacuity_audit.json").read_text())["summary"]
+if any(summary[key] for key in ("vacuous_true", "vacuous_hyp", "error")):
+    raise SystemExit("[pre-commit] FAIL: vacuity audit: " + str(summary))
+'
+stage artifacts/vacuity_audit.json
+
+run python3 scripts/generate_proof_dependency_dag.py
+stage artifacts/proof_dependency_dag.json artifacts/proof_dependency_connectivity.json \
+    artifacts/proof_dependency_file_graph.mmd artifacts/PROOF_FOUNDATION_AUDIT.md
+
+# The hook runs a fast subset of the tests: the ones that guard the hook itself
+# and the proof-scope, hygiene and receipt-sync rules. CI runs the full suite
+# with `CI=true --strict-backends`; THIELE_HOOK_FULL=1 runs it here too. The
+# regeneration runner sets THIELE_HOOK_SKIP_PYTEST because the CI run it
+# dispatches runs the same suite.
+FAST_TESTS="tests/test_git_hooks.py tests/test_coq_proof_scope.py tests/test_archive_hygiene.py tests/test_scope_note_waivers.py tests/test_sync_release_receipt.py tests/test_claim_and_citation_audit.py tests/test_public_docs_scope.py"
+if [ -n "${THIELE_HOOK_SKIP_PYTEST:-}" ]; then
+    echo "[pre-commit] pytest skipped here: CI runs the full suite on the regenerated commit"
+else
+    if [ -n "${THIELE_HOOK_FULL:-}" ]; then
+        TESTS="tests/"
+    else
+        TESTS="$FAST_TESTS"
+    fi
+    if python3 -c 'import xdist' >/dev/null 2>&1; then
+        # shellcheck disable=SC2086
+        run python3 -m pytest $TESTS -q --tb=short --strict-backends -n 0
+    else
+        # shellcheck disable=SC2086
+        run python3 -m pytest $TESTS -q --tb=short --strict-backends
+    fi
+fi
+if [ -n "${THIELE_HOOK_FULL:-}" ]; then
+    run python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
+    stage INQUISITOR_REPORT.md
+fi
+
+# Compiler outputs are ignored. Reject any unexpected tracked or untracked
+# source change rather than adding generated binaries to the commit.
+run python3 scripts/check_hook_worktree.py
+
+echo "[pre-commit] PASS: commit artifacts and local verification agree."
