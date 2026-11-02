@@ -347,7 +347,7 @@ $\rd(x_0)=\mathrm{no}$, then $\rd(x_k)=\mathrm{no}$ for every $k$: the machine k
 \end{proposition}
 
 \begin{proof}
-Among $x_0,\dots,x_{|S|}$ two are equal, $x_i=x_j$ with $i<j\le|S|$. Cancelling $f$ $i$ times, which is
+Among $x_0,\dots,x_{|S|}$ two are equal, $x_i=x_j$ with $i<j\le|S|$. Canceling $f$ $i$ times, which is
 allowed because $f$ is one-to-one, gives $x_0=x_{j-i}$. If $\rd(x_k)=\mathrm{yes}$ for some $k$, then the
 reading is $\mathrm{yes}$ at every multiple of $p=j-i$ that is at least $k$, where the run is at $x_0$, a
 contradiction.
@@ -2171,13 +2171,13 @@ way gives too. What reading the box saves is steps, the way a cache does.
 Let $\mathcal P$ be a set of programs with an equivalence $\approx$, ``behaves alike''. Let $\mathcal R$ be a
 set of maps $\mathcal P\to\mathcal P$, the transformations the machine can run. The machine has
 \emph{Kleene's trick} for $\mathcal R$ when for every $\phi\in\mathcal R$ there is $p\in\mathcal P$ with
-$p\approx\phi(p)$. A question $A\subseteq\mathcal P$ (``has a shortcut'') is \emph{about behaviour} when
+$p\approx\phi(p)$. A question $A\subseteq\mathcal P$ (``has a shortcut'') is \emph{about behavior} when
 $p\approx q$ implies $p\in A\Leftrightarrow q\in A$, and it is \emph{not trivial} when there are
 $p_{\mathrm{yes}}\in A$ and $p_{\mathrm{no}}\notin A$. For $d:\mathcal P\to\Bool$, the \emph{flip} of $d$ is
 $\phi_d(p)=p_{\mathrm{no}}$ if $d(p)=\mathrm{yes}$ and $\phi_d(p)=p_{\mathrm{yes}}$ if $d(p)=\mathrm{no}$.
 
 \begin{theorem}[No inside autopilot]\label{spec:no-autopilot} \kind{shown}
-Let the machine have Kleene's trick for $\mathcal R$, and let $A$ be about behaviour and not trivial. There is
+Let the machine have Kleene's trick for $\mathcal R$, and let $A$ be about behavior and not trivial. There is
 no $d:\mathcal P\to\Bool$ with $\phi_d\in\mathcal R$ and
 \[
 \forall p\in\mathcal P:\quad d(p)=\mathrm{yes}\ \Longleftrightarrow\ p\in A .
@@ -2192,8 +2192,8 @@ $p\notin A$ and $p\approx p_{\mathrm{yes}}$, so $p_{\mathrm{yes}}\notin A$, whic
 
 \begin{remark}
 The argument uses only Kleene's trick, that the flip can be run, the two examples $p_{\mathrm{yes}}$ and
-$p_{\mathrm{no}}$, and that $A$ is about behaviour. It does not use a box, a tally or the toll, and it does
-not see soundness: whether a particular question about shortcuts is about behaviour and not trivial is a
+$p_{\mathrm{no}}$, and that $A$ is about behavior. It does not use a box, a tally or the toll, and it does
+not see soundness: whether a particular question about shortcuts is about behavior and not trivial is a
 separate fact about that machine. It rules out an inside procedure, one whose flip the machine can run, that
 is right on every program. It says nothing against a procedure right on some programs, one allowed to decline,
 one that uses outside evidence, or a judge outside the machine. It is Rice's form of the diagonal, with its
@@ -2459,7 +2459,7 @@ set independently; the states a machine reaches may still tie them together.
 \end{definition}
 
 \begin{thesis}[The pointer thesis]\label{spec:pointer-thesis} \kind{thesis}
-For record-keeping as people run it, modelled faithfully, with a test of reliance chosen for its own
+For record-keeping as people run it, modeled faithfully, with a test of reliance chosen for its own
 reasons and readers with separate carriers: (1) the established record (Definition~\ref{def:established})
 is the pointer, so every event that is copied and relied on by parties who did not make it holds wherever
 the established record does, on the reachable states; and (2) every record the system prices is copied and
@@ -2696,7 +2696,7 @@ $F$ from a state of $X$ visits infinitely many distinct states.
 
 \begin{proof}
 Suppose none holds. Then $F$ maps $X$ into $X$ one-to-one and every run from $x\in X$ visits finitely many
-states, so $F^i(x)=F^j(x)$ for some $i<j$; cancelling $F$ $i$ times gives $F^{j-i}(x)=x$. So every $x\in X$
+states, so $F^i(x)=F^j(x)$ for some $i<j$; canceling $F$ $i$ times gives $F^{j-i}(x)=x$. So every $x\in X$
 has a period $p_x\ge1$. Let $g(c)=g(c')$ with $c\ne c'$, and pick $a\in\pi\inv(c)$, $b\in\pi\inv(c')$. With
 $n=p_ap_b$, $F^n(a)=a$ and $F^n(b)=b$, so $c=\pi(F^n a)=g^n(c)=g^{n-1}(g(c))=g^{n-1}(g(c'))=g^n(c')=c'$,
 a contradiction.
@@ -2897,7 +2897,7 @@ $|R_T|=2T+3$ at every horizon.
 \end{proposition}
 
 \begin{proof}
-(a) If $F^ia=F^ja$ with $i<j$, cancelling $F$ $i$ times gives $a=F^{j-i}a$, which reads $0$: impossible. So
+(a) If $F^ia=F^ja$ with $i<j$, canceling $F$ $i$ times gives $a=F^{j-i}a$, which reads $0$: impossible. So
 $a,Fa,F^2a,\dots$ are pairwise distinct, and likewise $b,Gb,G^2b,\dots$. As in Theorem~\ref{spec:levers}(b),
 $G$ fixes every $F^ka$ and $F$ fixes every $G^kb$. If $F^ia=G^jb$, then $F^{i+1}a=F(G^jb)=G^jb=F^ia$, which
 distinctness forbids; so the chains share no state. The states $a,b,F^ka,G^kb$ for $1\le k\le T$ are $2T+2$

@@ -308,9 +308,9 @@ finite and f : S → S one-to-one. Every run returns to its start: xp = x0 for s
 Consequently, if a two-point reading never goes back under f and r(x0 ) = no, then r(xk ) = no
 for every k: the machine keeps nothing.
 
-Proof. Among x0 , . . . , x|S| two are equal, xi = xj with i < j ≤ |S|. Cancelling f i times, which
-is allowed because f is one-to-one, gives x0 = xj−i . If r(xk ) = yes for some k, then the reading
-is yes at every multiple of p = j − i that is at least k, where the run is at x0 , a contradiction.
+Proof. Among x0 , . . . , x|S| two are equal, xi = xj with i < j ≤ |S|. Canceling f i times, which is
+allowed because f is one-to-one, gives x0 = xj−i . If r(xk ) = yes for some k, then the reading is
+yes at every multiple of p = j − i that is at least k, where the run is at x0 , a contradiction.
 
 Argued in Chapter 2 of the book.
 
@@ -1861,12 +1861,12 @@ Argued in Chapter 16 of the book.
 Let P be a set of programs with an equivalence ≈, “behaves alike”. Let R be a set of maps
 P → P, the transformations the machine can run. The machine has Kleene’s trick for R when
 for every ϕ ∈ R there is p ∈ P with p ≈ ϕ(p). A question A ⊆ P (“has a shortcut”) is about
-behaviour when p ≈ q implies p ∈ A ⇔ q ∈ A, and it is not trivial when there are pyes ∈ A and
+behavior when p ≈ q implies p ∈ A ⇔ q ∈ A, and it is not trivial when there are pyes ∈ A and
 pno ∈/ A. For d : P → {no, yes}, the flip of d is ϕd (p) = pno if d(p) = yes and ϕd (p) = pyes if
 d(p) = no.
 
 Theorem 19.1 (No inside autopilot). [shown] Let the machine have Kleene’s trick for R, and
-let A be about behaviour and not trivial. There is no d : P → {no, yes} with ϕd ∈ R and
+let A be about behavior and not trivial. There is no d : P → {no, yes} with ϕd ∈ R and
 
                                 ∀p ∈ P :    d(p) = yes ⇐⇒ p ∈ A.
 
@@ -1880,11 +1880,11 @@ p ≈ pno , so pno ∈ A, which is false. If d(p) = no, then p ∈
 false.
 
 Remark 19.2. The argument uses only Kleene’s trick, that the flip can be run, the two examples
-pyes and pno , and that A is about behaviour. It does not use a box, a tally or the toll, and it
-does not see soundness: whether a particular question about shortcuts is about behaviour and
-not trivial is a separate fact about that machine. It rules out an inside procedure, one whose flip
-the machine can run, that is right on every program. It says nothing against a procedure right
-on some programs, one allowed to decline, one that uses outside evidence, or a judge outside the
+pyes and pno , and that A is about behavior. It does not use a box, a tally or the toll, and it does
+not see soundness: whether a particular question about shortcuts is about behavior and not
+trivial is a separate fact about that machine. It rules out an inside procedure, one whose flip the
+machine can run, that is right on every program. It says nothing against a procedure right on
+some programs, one allowed to decline, one that uses outside evidence, or a judge outside the
 machine. It is Rice’s form of the diagonal, with its own conditions, and says nothing about how
 hard the question is compared with stopping.
 
@@ -2107,7 +2107,7 @@ world’s state space is a product j∈J Wj and the view of reader j depends onl
 wj . The coordinates may be set independently; the states a machine reaches may still tie them
 together.
 
-Thesis 21.4 (The pointer thesis). [thesis] For record-keeping as people run it, modelled faithfully,
+Thesis 21.4 (The pointer thesis). [thesis] For record-keeping as people run it, modeled faithfully,
 with a test of reliance chosen for its own reasons and readers with separate carriers: (1) the
 established record (Definition 2.4) is the pointer, so every event that is copied and relied on by
 parties who did not make it holds wherever the established record does, on the reachable states;
@@ -2312,7 +2312,7 @@ F makes two arrows meet on X; (b) F (x) ∈    / X for some x ∈ X; (c) some ru
 of X visits infinitely many distinct states.
 
 Proof. Suppose none holds. Then F maps X into X one-to-one and every run from x ∈ X visits
-finitely many states, so F i (x) = F j (x) for some i < j; cancelling F i times gives F j−i (x) = x. So
+finitely many states, so F i (x) = F j (x) for some i < j; canceling F i times gives F j−i (x) = x. So
 every x ∈ X has a period px ≥ 1. Let g(c) = g(c′ ) with c ̸= c′ , and pick a ∈ π −1 (c), b ∈ π −1 (c′ ).
 With n = pa pb , F n (a) = a and F n (b) = b, so c = π(F n a) = g n (c) = g n−1 (g(c)) = g n−1 (g(c′ )) =
 g n (c′ ) = c′ , a contradiction.
@@ -2520,20 +2520,19 @@ be one-to-one on all of S.
 
   (b) Without commuting, some such box has |RT | = T + 3, the least Theorem 23.7(a) allows.
 
-Proof. (a) If F i a = F j a with i < j, cancelling F i times gives a = F j−i a, which reads
-0: impossible. So a, F a, F 2 a, . . . are pairwise distinct, and likewise b, Gb, G2 b, . . . . As in
-Theorem 23.7(b), G fixes every F k a and F fixes every Gk b. If F i a = Gj b, then F i+1 a =
-F (Gj b) = Gj b = F i a, which distinctness forbids; so the chains share no state. The states
-a, b, F k a, Gk b for 1 ≤ k ≤ T are 2T + 2 distinct states of RT . If z is on neither chain it is one
-more. If z = F k a with 1 ≤ k ≤ T , then F T z = F T +k a ∈ RT lies on the first chain beyond F T a,
+Proof. (a) If F i a = F j a with i < j, canceling F i times gives a = F j−i a, which reads 0: impossible.
+So a, F a, F 2 a, . . . are pairwise distinct, and likewise b, Gb, G2 b, . . . . As in Theorem 23.7(b), G
+fixes every F k a and F fixes every Gk b. If F i a = Gj b, then F i+1 a = F (Gj b) = Gj b = F i a, which
+distinctness forbids; so the chains share no state. The states a, b, F k a, Gk b for 1 ≤ k ≤ T are
+2T + 2 distinct states of RT . If z is on neither chain it is one more. If z = F k a with 1 ≤ k ≤ T ,
+then F T z = F T +k a ∈ RT lies on the first chain beyond F T a, so it is new; likewise on the second
 
 
                                                          46
-so it is new; likewise on the second chain. So |RT | ≥ 2T + 3. The box with states A0 , A1 , . . .
-and B0 , B1 , . . . , the first lever sending An 7→ An+1 and fixing every Bn , the second sending
-Bn 7→ Bn+1 and fixing every An , r(A0 ) = 1, r(B0 ) = 2, r = 0 elsewhere, and starts a = A0 ,
-b = B0 , z = B1 , commutes, is one-to-one, and has RT = {A0 , . . . , AT , B0 , . . . , BT +1 }, with
-2T + 3 states.
+chain. So |RT | ≥ 2T + 3. The box with states A0 , A1 , . . . and B0 , B1 , . . . , the first lever sending
+An 7→ An+1 and fixing every Bn , the second sending Bn 7→ Bn+1 and fixing every An , r(A0 ) = 1,
+r(B0 ) = 2, r = 0 elsewhere, and starts a = A0 , b = B0 , z = B1 , commutes, is one-to-one, and
+has RT = {A0 , . . . , AT , B0 , . . . , BT +1 }, with 2T + 3 states.
 (b) Take states a, b and L0 , L1 , . . . reading 1, 2 and 0, with z = L0 , F (a) = L0 , F (b) =
 b, G(b) = L0 , G(a) = a, and F (Ln ) = G(Ln ) = Ln+1 . Both levers are one-to-one, and
 RT = {a, b, L0 , . . . , LT } has T + 3 states. The levers do not commute: F (G(a)) = L0 and
@@ -2588,7 +2587,8 @@ Argued in Chapter 21 of the book.
 
 
 
-                                                   47
+
+                                                    47
 Theorem 23.13 (Receipts cover the merges a run shows). [shown] Let f : S → S, u ∈ S,
 L ∈ N, and κ : S → N. Let D = {f t (u) : 0 ≤ t < L} be the states the run leaves from, and
        PL−1
