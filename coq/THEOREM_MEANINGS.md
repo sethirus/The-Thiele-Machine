@@ -253,21 +253,21 @@ premises.
 - `ledger_copying_alone_does_not_separate`: In the replicated-header toy, on synced states both "finalized" and "gas used is at least one" are decided by every node's copy.
 - `ledger_finalized_is_pointer`: In the replicated-header toy, "finalized" is copied by every node, relied on by every non-producing node, and implies every other event copied and relied on in that sense on synced states.
 - `ledger_gas_not_relied_on`: In the replicated-header toy, "gas used is at least one" is not relied on by the non-producing nodes.
-- `PoS_model_unique_pointer`: In the synthetic PoS-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `Gas_model_unique_pointer`: In the synthetic gas-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `TEE_model_unique_pointer`: In the synthetic TEE-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `CT_model_unique_pointer`: In the synthetic transparency-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `PCC_model_unique_pointer`: In the synthetic PCC-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
-- `deniable_authentication_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the deniable-authentication-labelled model; no deniability or security property is formalized.
-- `mac_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the MAC-labelled model; no MAC security property is formalized.
-- `capability_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the capability-labelled model; no capability or memory-safety property is formalized.
-- `public_log_model_proliferating`: The selected flag proliferates under the stipulated Boolean observer maps of the public-log-labelled model; no log protocol is formalized.
-- `public_log_effort_not_proliferating`: In the same public-log-labelled model, the rival effort predicate does not proliferate, because no observer map reads the effort counter; this shows the control model discriminates between events.
+- `PoS_model_unique_pointer`: In the synthetic PoS-labeled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `Gas_model_unique_pointer`: In the synthetic gas-labeled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `TEE_model_unique_pointer`: In the synthetic TEE-labeled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `CT_model_unique_pointer`: In the synthetic transparency-labeled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `PCC_model_unique_pointer`: In the synthetic PCC-labeled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
+- `deniable_authentication_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the deniable-authentication-labeled model; no deniability or security property is formalized.
+- `mac_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the MAC-labeled model; no MAC security property is formalized.
+- `capability_model_not_proliferating`: The selected flag does not proliferate under the stipulated Boolean observer maps of the capability-labeled model; no capability or memory-safety property is formalized.
+- `public_log_model_proliferating`: The selected flag proliferates under the stipulated Boolean observer maps of the public-log-labeled model; no log protocol is formalized.
+- `public_log_effort_not_proliferating`: In the same public-log-labeled model, the rival effort predicate does not proliferate, because no observer map reads the effort counter; this shows the control model discriminates between events.
 - `twelve_candidate_measurements_checked`: The conjunction of twelve claims about named finite models: in each of the proof-of-stake, gas, TEE, certificate-transparency, and proof-carrying-certificate models the selected event is redundantly proliferating and the named rival event is not; the symmetric-MAC event is not redundantly proliferating; the digital-signature event is.
 - `swapped_event_is_pointer_checked`: In `swap_ecosystem` (states with two booleans, three observers each reading `swap_second`), `second_event` (`swap_second` is true) is redundantly proliferating and `first_event` (`swap_first` is true) is not.
 - `toy_work_not_proliferating`: In the replicated-ledger toy, the event "the work counter is at least one" is not recorded by every observer.
 - `blind_observer_blocks_proliferation`: If some observer below the observer count reports false at a state where the event holds, the event is not redundantly proliferating.
-- `labeled_model_verdicts`: In the stipulated labelled models, the deniable-authentication, MAC, and capability events are not redundantly proliferating, the public-log inclusion and digital-signature events are, and observer 0 of the deniable model records its event; no security property is formalized.
+- `labeled_model_verdicts`: In the stipulated labeled models, the deniable-authentication, MAC, and capability events are not redundantly proliferating, the public-log inclusion and digital-signature events are, and observer 0 of the deniable model records its event; no security property is formalized.
 
 ## What a window forgets
 
@@ -398,7 +398,7 @@ premises.
 - `driven_work_near_free_energy`: For `kT` positive and a gap schedule each of whose first `n` steps rises by between 0 and `h`, the driven reset's work over those `n` steps is at most the free-energy change plus `h` times the fall in equilibrium population from the first gap to the last.
 - `driven_reset_work_window`: For `k_B * T` positive, `D` at least 0 and `N` at least 1, the driven reset along `N` equal raises from gap 0 to `D` does work between `kT ln 2 - kT exp (- D / kT)` and `kT ln 2 + D / (2 N)`, with `kT = k_B * T`, and its final equilibrium population is at most `exp (- D / kT)`.
 
-- `five_labeled_models_have_selected_pointer`: In the five synthetic labelled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
+- `five_labeled_models_have_selected_pointer`: In the five synthetic labeled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
 
 - `mu_has_no_intrinsic_joule_value`: For every state type and natural-number ledger `mu` on it, two real-valued functions on states exist that give 1 and 2 on every state with `mu` equal to 1, so the counter by itself fixes no energy value.
 
@@ -451,7 +451,7 @@ premises.
 - `ct_local_view_insufficient`: In the two-field certificate-transparency client model, no function of the local signed tree head number returns the world-consistency bit for every state.
 - `tpm_selection_binding_is_necessary`: In the two-selection quote model, some input passes the check that inspects only the composite digest while its signed and supplied PCR selections differ.
 - `weak_subjective_suffix_insufficient`: In the two-field weak-subjectivity model, no function of the local suffix returns the trusted-anchor bit for every state.
-- `wal_ack_requires_durability`: In the two-bit write-ahead-log model, some state has the client acknowledgement set while crash recovery does not recover the commit.
+- `wal_ack_requires_durability`: In the two-bit write-ahead-log model, some state has the client acknowledgment set while crash recovery does not recover the commit.
 - `audit_local_snapshot_insufficient`: In the two-bit audit model, no Boolean function of the current local log bit returns whether the event occurred for every state.
 - `tpm_interface_authenticity_refuted`: Not every signature-scheme interface satisfies quote authenticity (every accepted signature is the signing of the message by some secret key); the interface alone does not provide it.
 - `pcc_checker_accepts_iff_vc`: In the memory-access fragment of proof-carrying code, the checker accepts a program exactly when every instruction obeys the memory-limit policy.

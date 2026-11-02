@@ -81,7 +81,7 @@ Each of these is argued on the page, with the reader, under the conditions its c
 - **Heat, given Landauer.** If Landauer's principle holds, a merge of states the machine could really have been in gives off at least a set amount of heat; on a state that's already known it sets no floor at all. The principle is an assumption with its critics named, never something the book proves. Chapter 20.
 - **How much room keeping takes.** Exact counts of the states a machine needs to hold off a merge. Chapter 21.
 
-The theses are labelled as theses, among them the pointer thesis (Chapter 19) and the Thiele thesis (Chapter 22).
+The theses are labeled as theses, among them the pointer thesis (Chapter 19) and the Thiele thesis (Chapter 22).
 
 ## Publication and license
 
