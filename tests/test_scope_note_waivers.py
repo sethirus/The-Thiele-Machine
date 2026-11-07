@@ -135,6 +135,7 @@ WAIVED_FILES = [
     "minimal/VerifierSmall.v",
     # The short checks beside the book state their machines as hypotheses on the
     # standard library alone; the book, not the foundation chain, is what they check.
+    "monograph/checks/ch00_the_point.v",
     "monograph/checks/ch10_walking_arrow.v",
     "monograph/checks/ch16_four_doors.v",
     "monograph/checks/ch20_every_scale.v",
